@@ -1,3 +1,3 @@
 # aurelia.github.io
 
-The web site for Aurelia.
+This repository contains the source code for Aurelia's official web site.
