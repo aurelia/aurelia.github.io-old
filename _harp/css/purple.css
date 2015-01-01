@@ -108,7 +108,7 @@ h2.subTitle:after, h1.noSubtitle:after{
   text-shadow: 0 0 10px rgba(0,0,0,.75);
 }
 
-.video-title h1, h2 {
+.video-title h1, .video-title h2 {
   color: white
 }
 
