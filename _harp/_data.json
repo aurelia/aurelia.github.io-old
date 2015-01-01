@@ -1,0 +1,13 @@
+{
+  "index": {
+    "title": "Home | Aurelia"
+  },
+  "get-started":{
+    "title":"Get Started | Aurelia",
+    "description":"Get up and running quickly with the Aurelia framework."
+  },
+  "docs":{
+    "title":"Docs | Aurelia",
+    "description":"Learn the ins and outs of all the Aurelia libraries in our docs section."
+  }
+}
