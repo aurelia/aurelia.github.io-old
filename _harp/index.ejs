@@ -1,16 +1,32 @@
 <%- partial("_header") %>
-<!-- content -->
-<section class="video-section">
-  <div class="video-overlay">&nbsp;</div>
-  <video autoplay="autoplay" width="100%" height="auto" id="bgVideo" loop="loop">
-    <source type="video/mp4" src="images/ScreenFlow.mp4">
-  </video>
-  <div class="video-title">
-    <h1>Next Generation JavaScript Apps</h1>
-    <h2>ES6, Web Components, Object.observe and more...</h2>
+
+<section id="home" data-stellar-background-ratio="0.5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-sm-6">
+        <div class="flexslider" id="flexHome">
+          <ul class="slides">
+            <li>
+              <h1>Modern</h1>
+              <h2>ES6, WebComponents, Object.observe and more...</h2>
+            </li>
+            <li>
+              <h1>Elegant</h1>
+              <h2>Modular, simple and testable.</h2>
+            </li>
+            <li>
+              <h1>Reliable</h1>
+              <h2>Backed by <a href="http://durandal.io">Durandal Inc.</a> and built to last.</h2>
+            </li>
+          </ul>
+        </div> 
+      </div>
+      <div class="col-lg-5 col-sm-6 hidden-xs">
+        <img src="images/logo.png" alt="Ashley, Bootstrap website template" class="img-responsive" />
+      </div>
+    </div>
   </div>
 </section>
-
 
 <section class="color4 slice" style="margin-top: -8px">  
   <div class="ctaBox ctaBoxFullwidth">
