@@ -83,53 +83,7 @@ h2.subTitle:after, h1.noSubtitle:after{
 	color:#fff;
 }
 
-.video-section{
-  position: relative;
-}
-
-.video-overlay {
-  background: rgba(0, 0, 0, 0) url(../images/video-overlay.png);
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 6px;
-}
-
-.video-title {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 100%;
-  margin-left: -50%;
-  height: 140px;
-  margin-top: -70px;
-  text-align: center;
-  text-shadow: 0 0 10px rgba(0,0,0,.75);
-}
-
-.video-title h1, .video-title h2 {
-  color: white
-}
-
-.video-title h1 {
-  font-weight: bold; 
-  font-size: 3em;
-}
-
-.video-title h2 { 
-  font-size: 2em;
-}
-
 @media(max-width:767px){
-  .video-title h1 {
-    font-size: 2em;
-  }
-
-  .video-title h2 { 
-    font-size: 1em;
-  }
-
   .navbar-header {
     min-height: 90px;
   }
