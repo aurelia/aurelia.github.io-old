@@ -121,6 +121,21 @@ h2.subTitle:after, h1.noSubtitle:after{
   font-size: 2em;
 }
 
+@media(max-width:767px){
+  .video-title h1 {
+    font-size: 2em;
+  }
+
+  .video-title h2 { 
+    font-size: 1em;
+  }
+
+  .navbar-brand img {
+    top: -12px;
+    position: relative;
+  }
+}
+
 /* END TYPOGRAPHY
 ================================================== */
 
