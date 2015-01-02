@@ -61,24 +61,23 @@ h2.subTitle:after, h1.noSubtitle:after{
 .paralaxText blockquote:before, .paralaxText blockquote:after {
 	color:#fff;
 }
+
 #home, #paralaxSlice1, #paralaxSlice2, #paralaxSlice3, #paralaxSlice4 {
 	background-color:#92278F;
 }
+
 #home {
-	background-image:url('../images/theme-pics/paralax-grey-3.jpg');
+	background-image:url('../images/paralax-grey-3.jpg');
 }
+
 #paralaxSlice1 {
-	background-image: url('../images/theme-pics/paralax-pink-2.jpg');
+	background-image: url('../images/paralax-pink-2.jpg');
 }
+
 #paralaxSlice2 {
-	background-image: url('../images/theme-pics/paralax-pink-2.jpg');
+	background-image: url('../images/paralax-pink-2.jpg');
 }
-#paralaxSlice3 {
-	background-image: url('../images/theme-pics/paralax-blue-3.jpg');
-}
-#paralaxSlice4 {
-	background-image: url('../images/theme-pics/paralax-4.jpg');
-}
+
 .paralaxText blockquote, .paralaxText h1, .paralaxText h2, .paralaxText h3, .paralaxText p, .paralaxText i{
 	color:#fff;
 }
