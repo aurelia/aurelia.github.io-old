@@ -462,6 +462,10 @@ hr {
 	text-transform:none;
 }
 
+.github{
+  position: relative; top: 8px;
+}
+
 /*** MEDIA QUERIES ***/
 
 @media(max-width:767px){
@@ -476,7 +480,9 @@ hr {
 }
 
 @media(min-width:992px){
-
+  .github{
+    position: relative; top: 8px; float: right; margin-right: 72px;
+  }
 	.ctaBox a {float:right; margin-top:0;} 
 }
 
