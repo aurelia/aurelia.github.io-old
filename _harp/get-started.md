@@ -1,6 +1,6 @@
 # Get Started
 
-_**Welcome to Aurelia!**_ This tutorial will take you through creating a simple application using Aurelia and briefly explain its main concepts. We assume you are familiar with JavaScript, HTML, and CSS. If you are reading this for the first time, we recommend you skip down to the section titled "Creating Your First Screen" so you can see how to use Aurelia straight away. Then, when you are ready to actually build something, come back and read about "Configuring Your Envirionment" and "Setting up the Project Structure and Build". To view the completed results of this tutorial, have a look at our [navigation skeleton project](https://github.com/aurelia/skeleton-navigation/releases). You may also wish to download it and simply delete the contents of the _src_ folder in order to follow this tutorial but incur less manual setup labor. That's what we would do...
+**Welcome to Aurelia!** This tutorial will take you through creating a simple application using Aurelia and briefly explain its main concepts. We assume you are familiar with JavaScript, HTML, and CSS. If you are reading this for the first time, we recommend you skip down to the section titled "Setting Up The HTML Page" so you can see how to use Aurelia straight away. Then, when you are ready to actually build something, come back and read about "Configuring Your Environment" and "Setting up the Project Structure and Build". To view the completed results of this tutorial, have a look at our [navigation skeleton project](https://github.com/aurelia/skeleton-navigation/releases). You may also wish to download it and simply delete the contents of the _src_ folder in order to follow this tutorial but incur less manual setup labor. That's what we would do anyway...
 
 ## Configuring Your Environment
 
@@ -22,7 +22,7 @@ Next, we need to intsall [jspm](http://jspm.io/). This will serve as our client-
 
 ## Setting up the Project Structure and Build
 
-With our tooling installed, we can now turn out attention to setting up a basic structure for our app. Begin by creating a folder for your project, we'll call it _navigation-app_. Inside this folder we'll create a subdirectory named _src_. This will hold the raw source code for our application. Let's also create a subdirectory called _styles_. Go ahead and [download our default css styles](https://raw.githubusercontent.com/aurelia/skeleton-navigation/master/styles/styles.css) and drop it into that folder.
+With our tooling installed, we can now turn out attention to setting up a basic structure for our app. Begin by creating a folder for your project, we'll call it _navigation-app_. Inside this folder we'll create a subdirectory named _src_. This will hold the raw source code for our application. Let's also create a subdirectory called _styles_. Go ahead and [download the default css styles](https://raw.githubusercontent.com/aurelia/skeleton-navigation/master/styles/styles.css) for this sample and drop them into that folder.
 
 Because we want to leverage Gulp for build automation, we'll need to create a configuration file for that and install the build-related packages. We've put together a really nice starter build file for you, so you should just [download that from here](https://raw.githubusercontent.com/aurelia/skeleton-navigation/master/gulpfile.js) and drop it inside _navigation-app_. You should also [download our default package manifest](https://raw.githubusercontent.com/aurelia/skeleton-navigation/master/package.json). This contains the list of modules we want to install. If you've used npm or Gulp before, this should be familar to you.
 
@@ -41,17 +41,17 @@ With these two files in place, let's run some commands.
   jspm install
   ```
 
-Everything we've done so far is standard Node.js build and package management procedures. It doesn't have anything specific to do with Aurelia itself. We're just walking you through some standard procedures for setting up a modern JavaScript project and build. You may be familiar with this already, but if not, welcome to this new and exciting world!
+Everything we've done so far is standard Node.js build and package management procedures. It doesn't have anything specific to do with Aurelia itself. We're just walking you through setting up a modern JavaScript project and build from scratch. You may be familiar with this already, but if not, welcome to this new and exciting world!
 
 > **Note:** Bootstrap and Font-Awesome are **not** dependencies of Aurelia. We simply leverage them as part of this tutorial in order to quickly achieve a decent look out-of-the-box.
 
-## Creating Your First Screen
+## Setting Up The HTML Page
 
-If you've followed along this far, you now have all the libraries, build configuration and tools you need to create amazing JavaScript apps with Aurelia. Now, let's get started building our first screen.
+If you've followed along this far, you now have all the libraries, build configuration and tools you need to create amazing JavaScript apps with Aurelia. Now, let's get started writing some HTML and JavaScript!
 
 ### index.html
 
-First, let's create our index.html file. Here's the code for that:
+First, let's create our _index.html_ file in the root of our project folder. Here's the code for that:
 
 ```markup
 <!doctype html>
@@ -71,5 +71,17 @@ First, let's create our index.html file. Here's the code for that:
 </html>
 ```
 
-Yes, that's it. This is the only HTML page in our application. The head of the document is pretty straight forward. We simply link in our boostrap, font-awesome and custom stylesheets. It's the body of the application that's interesting.
+Yes, that's it. This is the only HTML page in our application. The head of the document is pretty straight forward. We simply link in our bootstrap, font-awesome and custom stylesheets. It's the body that's interesting.
+
+Let's start with the script tags. First we have _system.js_. This is our module loader. It's what loads the Aurelia library as well as your own code. Next we have _config.js_. This contains configuration for the loader. It's generated automatically whenever you execute a jspm command. jspm is our recommended client-side package manager. It provides an amazing developer experience by integrating client-side package management with an ES6 compliant module loader.
+
+>**Note:** The Aurelia Framework isn't tied to jspm or SystemJS. You can implement your own loader and handle package management any way you want. However we do think jspm/SystemJS is the best ES6-oriented solution today and it's our recommended approach, so our default bootstrapper provides this behavior for you.
+
+Once we have our module loader and its configuration, we just load the `aurelia-bootstrapper` module with a call to `System.import`. When the bootstrapper loads it inspects the HTML document for _aurelia_ attributes. In this case it will find that the body has an `aurelia-app` attribute. This tells the bootstrapper to load our _app_ view-model and it's view and then compose them as an aurelia applicatoin in the DOM.
+
+Wait a minute....we don't have an _app_ view-model or view. Ummm...WHAT NOW!?
+
+## Creating Your First Screen
+
+
 
