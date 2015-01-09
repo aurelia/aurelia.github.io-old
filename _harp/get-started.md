@@ -4,7 +4,7 @@
 
 ## Configuring Your Environment
 
-Let's start by getting you set up with a great set of tools that you can use to build modern JavaScript applications. All our tooling is built on Node.js. If you have that installed aready, great! If not, you should go to [the official web site](http://nodejs.org/), download and install it. Everything else we need will be installed via Node's package manager (npm).
+Let's start by getting you set up with a great set of tools that you can use to build modern JavaScript applications. All our tooling is built on [Node.js](http://nodejs.org/). If you have that installed aready, great! If not, you should go to [the official web site](http://nodejs.org/), download and install it. Everything else we need will be installed via Node's package manager (npm).
 
 First, let's begin by installing [Gulp](http://gulpjs.com/) which we'll be using for build automation. If you don't have it already, you can use npm to set it up like this:
 
@@ -51,7 +51,7 @@ Everything we've done so far is standard Node.js build and package management pr
 
 If you've followed along this far, you now have all the libraries, build configuration and tools you need to create amazing JavaScript apps with Aurelia. The next thing we need to do is create our _index.html_ file in the root of our project folder. Create that now and use the markup below.
 
-#### index.html
+### index.html
 ```markup
 <!doctype html>
 <html>
@@ -88,7 +88,7 @@ Let's see how that works...
 
 In the _src_ folder create an _app.html_ file and an _app.js_ file. This is the app view and view-model that the bootstrapper was looking for. Let's start with the _view-model_ by creating a simple class to hold a _firstName_ and _lastName_. We'll also add a computed property for _fullName_ and a method to "welcome" the person. Here's what that would look like:
 
-#### app.js
+### app.js
 ```javascript
 export class Welcome{
   constructor(){
@@ -113,9 +113,9 @@ Yes. Yes it is. In fact it's ECMAScript 6 (ES6), the next version of JavaScript 
 
 > **Note:** You don't have to use 6to5 or even ES6 to write an Aurelia app. You can use AtScript, TypeScript, CoffeeScript...or today's browser language: ES5. Simply follow the language's standard pattern for creating classes and everything will work fine.
 
-Ok. Now that we have a _view-model_ with some basic data and behavior. Let's have a look at it's partner in crime...the _view_.
+Ok. Now that we have a _view-model_ with some basic data and behavior. Let's have a look at its partner in crime...the _view_.
 
-#### app.html
+### app.html
 ```markup
 <template>
   <section>
@@ -139,3 +139,108 @@ Ok. Now that we have a _view-model_ with some basic data and behavior. Let's hav
   </section>
 </template>
 ```
+
+This is a basic input form, styled using bootstrap classes. Look at the input controls. Did you see this `value.bind="firstName"`? That databinds the input's _value_ to the _firstName_ property in our view-model. Any time the view-model's property changes, the input will be updated with the new value. Any time you change the value in the input control, Aurelia will push the new value into your view-model. It's that easy.
+
+There's a couple more interesting things in this example. In the last form group you can see this syntax in the HTML content: `${fullName}`. That's a string interpolation. It's a one-way binding from the view-model into the view that is automatically converted to a string and interporlated into the document. Finally, have a look at the form element itself. You should notice this: `submit.delegate="welcome()"`. That's an event binding. This uses event delegation to execute the _welcome_ method any time the form is submitted.
+
+Let's run it and see this in action. On your console use the following command to build and launch the server.
+
+```shell
+gulp watch
+```
+
+You can now browse to [http://localhost:9000/](http://localhost:9000/) to see the app. Type in the form input controls and notice that the Full Name computed property updates with any change. Click the button and see that your method is invoked.
+
+> **Note:** Aurelia has a unique and powerful datainbing engine that uses adaptive techniques to pick the best way to observe changes in each property. For example, if you are using a browser with [Object.observe](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe) support, both _firstName_ and _lastName_ will be observed with that strategy. If not, we'll generate getters and setters that batch changes to the Micro Task Queue, correctly emulating Object.observe behavior. Since the computed property _fullName_ can't be observed with either of these techniques, we use dirty checking. We'll use the best technique depending on the situation and you can even plug in custom strategies as well in order to "teach" the framework how to observe special types of model patterns. We think it's pretty cool.
+> 
+The `.bind`  command uses the default binding behavior for any property. The default is one-way binding for everything except form controls, which default to two-way. You can always override this by using the explict binding commands `.one-way`, `.two-way` and `.one-time`. Similarly, you can use `.delegate` for event delegation but you can also use `.trigger` to attach directly the target element.
+
+## Adding Navigation
+
+Since this is a navigation app, we should probably add some more screens and set up a client-side router don't you think? Let's begin by renaming our _app.js_ and _app.html_ to _welcome.js_ and _welcome.html_ respectively. This will be the first page of our app. Now, lets create a new app.js and app.html which will serve as our "layout" or "master page". The view will contain our navigation UI and the content placeholder for the current page and the view-model with have a router instance, configured with our routes. We'll start with the view-model so you can see how to set up the router:
+
+### app.js
+
+```javascript
+import {Router} from 'aurelia-router';
+
+export class App {
+  static inject() { return [Router]; }
+  constructor(router) {
+    this.router = router;
+    this.router.configure(config => {
+      config.title = 'Aurelia';
+      config.map([
+        { route: ['','welcome'], moduleId: 'welcome', nav: true, title:'Welcome' }
+      ]);
+    });
+  }
+}
+```
+
+Ok, there's some really interesting new stuff here. We want to use the router, so we begin by importing it at the top of the file. This is the power of ES6 again. We then create our _App_ class to hold our data and behavior for the main application layout. Take a look at the contructor function. It's expecting something to pass in a _router_ instance when the App class is created. Where does that come from?
+
+Aurelia creates the UI components as needed to render your app. It does this by using a dependency injection container capable of providing constructor dependencies like this. How does the DI system know what to provide? All you have to do is add a static method named _inject_ that returns an array of constructors representing types to instantiate. You want a router, just ask for it and Aurelia will give it to you.
+
+> **Note:** If you happen to be using AtScript, you'll be pleased to know that Aurelia understand AtScript type annotations and can use those for dependency injection. As other main stream JavaScript transpilers adopt type or annotation metadata we'll continue to enhance our platform and teach it to understand your choice language's format.
+
+We need to set the router to a public property on the class named _router_. This is important. Don't get any fancy ideas here like naming it _taco_ or something like that ok? It's a router..so name it _router_ and everyone will be happy.
+
+Alrighty. Time to configure the router. It's easy. You can set a title to use when generating the document's title. Then you set up your routes. Each route has the following properties:
+
+* route: This is a pattern, which when matched will cause the router to navigate to this route. You can use static routes like above, but you can also use paramerters like this: `customer/:id`. There's also support for wildcard routes and query string parmaters.
+* moduleId: This is a path relative to the current view-model which specifies the view/view-model pair you want to render for this route.
+* title: You can optionally provide a title to be used in generating the document's title.
+* nav: If this route should be included in the _navigation model_ becuase you want to generate a UI with it, set this to true.
+
+### app.html
+
+```markup
+<template>
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        <i class="fa fa-home"></i>
+        <span>${router.title}</span>
+      </a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+          <a href.bind="row.href">${row.title}</a>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="loader" if.bind="router.isNavigating">
+          <i class="fa fa-spinner fa-spin fa-2x"></i>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-host">
+    <router-view></router-view>
+  </div>
+</template>
+```
+
+
+
+## Adding a Second Page
+
+## Bonus: Creating a Custom Element
+
+## Bonus: Leveraging Child Routers
+
+## Conclusion
+
+
