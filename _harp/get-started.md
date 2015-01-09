@@ -140,7 +140,7 @@ Ok. Now that we have a _view-model_ with some basic data and behavior. Let's hav
 </template>
 ```
 
-This is a basic input form, styled using bootstrap classes. Look at the input controls. Did you see this `value.bind="firstName"`? That databinds the input's _value_ to the _firstName_ property in our view-model. Any time the view-model's property changes, the input will be updated with the new value. Any time you change the value in the input control, Aurelia will push the new value into your view-model. It's that easy.
+All views are contained within a `template` tag. This view is just a basic input form, styled using bootstrap classes. Look at the input controls. Did you see this `value.bind="firstName"`? That databinds the input's _value_ to the _firstName_ property in our view-model. Any time the view-model's property changes, the input will be updated with the new value. Any time you change the value in the input control, Aurelia will push the new value into your view-model. It's that easy.
 
 There's a couple more interesting things in this example. In the last form group you can see this syntax in the HTML content: `${fullName}`. That's a string interpolation. It's a one-way binding from the view-model into the view that is automatically converted to a string and interporlated into the document. Finally, have a look at the form element itself. You should notice this: `submit.delegate="welcome()"`. That's an event binding. This uses event delegation to execute the _welcome_ method any time the form is submitted.
 
