@@ -190,6 +190,8 @@ body {
 	margin: 0;
 	padding: 0;
 	padding-top: 88px;
+  font-family: 'Open Sans', sans-serif;
+  line-height: 1.75;
 }
 h1, h2, h3, h4, h5, h6, legend {
 	margin:0;
@@ -463,7 +465,11 @@ hr {
 }
 
 .github{
-  position: relative; top: 8px;
+  position: relative; top: 16px;
+}
+
+.github iframe {
+  margin-right: 16px;
 }
 
 /*** MEDIA QUERIES ***/
@@ -480,9 +486,6 @@ hr {
 }
 
 @media(min-width:992px){
-  .github{
-    position: relative; top: 8px; float: right; margin-right: 72px;
-  }
 	.ctaBox a {float:right; margin-top:0;} 
 }
 
