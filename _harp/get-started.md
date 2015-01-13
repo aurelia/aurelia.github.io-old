@@ -76,7 +76,7 @@ Let's start with the script tags. First we have _system.js_. This is our module 
 
 >**Note:** The Aurelia Framework isn't tied to jspm or SystemJS. You can implement your own loader and handle package management any way you want. However we do think jspm/SystemJS is the best ES6-oriented solution today and it's our recommended approach, so our default bootstrapper provides this behavior for you. More options will be available soon.
 
-Once we have our module loader and its configuration, we just load the `aurelia-bootstrapper` module with a call to `System.import`. When the bootstrapper loads it inspects the HTML document for _aurelia_ attributes. In this case it will find that the body has an `aurelia-app` attribute. This tells the bootstrapper to load our _app_ view-model and it's view and then compose them as an Aurelia application in the DOM.
+Once we have our module loader and its configuration, we just load the `aurelia-bootstrapper` module with a call to `System.import`. When the bootstrapper loads it inspects the HTML document for _aurelia_ attributes. In this case it will find that the body has an `aurelia-app` attribute. This tells the bootstrapper to load our _app_ view-model and its view and then compose them as an Aurelia application in the DOM.
 
 Wait a minute....we don't have an _app_ view-model or view. Ummm...WHAT NOW!?
 
@@ -232,7 +232,7 @@ Following our simple app-building convention, the `App` class will be databound 
 
 > **Note:** The `navigation` property on the router is an array populated with all the routes you marked as `nav:true` in your route config.
 
-Also on the `li` you can see a demonstration of how to use string interpolation to dynamically add/remove classes. Further down in the view, there's a second `ul`. See the binding on its single child `li`? `if.bind="router.isNavigating"` This conditionally adds/removes the `li` based on the value of the bound expression. Conveniently, the router will update its `isNavigating` property whenever it's....navigating.
+Also on the `li` you can see a demonstration of how to use string interpolation to dynamically add/remove classes. Further down in the view, there's a second `ul`. See the binding on its single child `li`? `if.bind="router.isNavigating"` This conditionally adds/removes the `li` based on the value of the bound expression. Conveniently, the router will update its `isNavigating` property whenever it is....navigating.
 
 The last piece we want to look at is the `router-view` element near the bottom of the view. Any time you have a `Router` in your view-model, you need to have a `router-view` in your view. These two are comrades and will connect automatically such that whatever route the `Router` says is current will be displayed in the `router-view`.
 
@@ -418,7 +418,7 @@ In addition to creating custom elements, you can also create standalone attribut
 
 ## Bonus: Leveraging Child Routers
 
-Can't get enough can you? Well, I've got a treat for you. Let's add a third page to our app...with it's own router! We call this a child router. Child routers have their own route configuration and navigate relative to the parent router. Prepare thyself for insantity....
+Can't get enough can you? Well, I've got a treat for you. Let's add a third page to our app...with its own router! We call this a child router. Child routers have their own route configuration and navigate relative to the parent router. Prepare thyself for insantity....
 
 First, let's update our _app.js_ with the new configuration. Here's what it should looke like:
 
