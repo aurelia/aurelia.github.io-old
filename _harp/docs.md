@@ -269,15 +269,97 @@ You can also use the special `.view-model` binding in conjuction with `ref` to g
 
 ### Behaviors
 
+In addition to databinding, you also have the power of Aurelia behaviors to use in your views. There are three types of behaviors provided out of the box:
+
+* Custom Elements - Extend HTML with new tags! Your custom elements can have their own views (which use databinding and other behaviors) and optionally leverage [ShadowDOM](http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom/) (even if the browser doesn't support it).
+* Attached Behaviors - Extend HTML with new attributes which can be added to existing or custom elements. These attributes "attach" new behavior to the elements.
+* Template Controllers - Create new mechanisms for rendering templates. A template controller is a class that can dynamically create UI and inject it into the DOM.
+
+Naturally, all of this works seemlessly with databinding. Let's look at the behaviors that Aurelia provides for you and which are available globally in every view.
+
 #### show
+
+The `show` Attached Behavior allows you to conditionally display an HTML element. If the value of show is `true` the element will be displayed, otherwise it will be hidden. This behavior does not add/remove the element from the DOM, but only changes its visibility. Here's an example:
+
+```markup
+<div show.bind="isSaving" class="spinner"></div>
+```
+
+When the `isSaving` property is true, the `div` will be visible, otherwise it will be hidden.
 
 #### if
 
+The `if` Template Controller allows you to conditionally add/remove an HTML element. If the value is true, the element will also be present in the DOM, otherwise it will not.
+
+```markup
+<div if.bind="isSaving" class="spinner"></div>
+```
+
+This example looks similar to that of `show` above. The difference is that if the binding expression evaluates to false, the `div` will be removed from the DOM, rather than just hidden.
+
+If you need to conditionally add/remove a group of elements and you cannot place the `if` behavior on a parent element, then you can wrap those elements in a template tag which has the `if` behavior. Here's what that would look like:
+
+```markup
+<template if.bind="hasErrors">
+    <i class="icon error"></i>
+    ${errorMessage}
+</template>
+```
+
 #### repeat
+
+The `repeat` Template Controller allows you to render a template multiple times, once for each item in an array. Here's an example that renders out a list of customer names:
+
+```markup
+<ul>
+    <li repeat.for="customer of customers">${customer.fullName}</li>
+</ul>
+```
+
+An important note about the repeat behavior is that it works in conjuction with the `.for` binding command. This binding command interprets a special syntax in the form "item of array" where "item" is the local name you will use in the template and "array" is a normal binding expression that evaluates to an array.
+
+> **Note:**: Like the `if` behavior, you can also use a `template` tag to group a collection of elements that don't have a parent element. In fact this is true of all Template Controllers. When you place a Template Controller on an element, it transforms it into an HTMLTemplate during compilation, so you can always explicitly add the template in your markup if you want or need to.
 
 #### compose
 
+The `compose` Custom Element enables you to dynamically render UI into the DOM. Imagine you have a heterogeneous array of items, but each has a type property which tells you what it is. You can then do something like this:
+
+```markup
+<template repeat.for="item of items">
+    <compose
+      model.bind="item"
+      view-model="widgets/${item.type}">
+    </compose>
+</template>
+```
+
+Now, depending on the _type_ of the item, the `compose` element will load a different view-model (and view) and render it into the DOM. If the view-model has an `activate` method, the `compose` element will call it and pass in the `model` as a parameter. The `activate` method can even return a `Promise` to cause the composition process to wait until after some async work is done before actually databinding and rendering into the DOM.
+
+The `compose` element also has a `view` attribute which can be used in the same way as `view-model` if you don't wish to leverage the standard view/view-model convention.
+
+What if you want to determine the view dynamically based on data though? or runtime conditions? You can do that too by implementing a `getViewStrategy()` method on your view-model. It can return a relative path to the view or an instance of a `ViewStrategy` for custom view loading behavior. The nice part is that this method is executed after the `activate` callback, so you have access to the model data when determining the view.
+
 #### selected-item
+
+HTMLSelectElement is an interesting beast. Usually, you can databind these by combining a `repeat` for the options with a binding on the value, like this:
+
+```markup
+<select value.bind="favoriteNumber">
+    <option>Select A Number</option>
+    <option repeat.for="number of numbers" value.bind="number">${number}</option>
+</select>
+```
+
+But sometimes you want to work with selecting object instances rather than primitives. For that you can use the `selected-item` attached behavior. Here's how you would configure that for a theoretical list of employees:
+
+```markup
+<select selected-item.two-way="employeeOfTheMonth">
+  <option>Select An Employee</option>
+  <option repeat.for="employee of employees" value.bind="employee.id" model.bind="employee">${employee.fullName}</option>
+</select>
+```
+
+First, note that we must specify the `.two-way` binding command on `selected-item` since this isn't a standard form value. We then use a repeater as normal, being sure to bind `value` to some primitive. We also add a second property named `model` which the `selected-item` behavior will use to correlate selection with an object instance. In other words, when an option is selected the `employeeOfTheMonth` property will be set to the value of the `model` property on that option. When the `employeeOfTheMonth` property is set in the view-model, the option with the corresponding `model` value will be selected in the view.
 
 ## Routing
 
