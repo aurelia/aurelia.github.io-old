@@ -363,8 +363,6 @@ First, note that we must specify the `.two-way` binding command on `selected-ite
 
 ## Routing
 
-## Dynamic Composition
-
 ## Extending HTML
 
 ### Attached Behaviors
