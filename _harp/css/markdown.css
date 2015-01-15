@@ -12,3 +12,7 @@ blockquote:after, blockquote:before {
 .color1 a {
   color:#92278F;
 }
+
+h4 {
+  font-weight: bold;
+}

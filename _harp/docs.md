@@ -108,7 +108,7 @@ The `Lazy` resolver doesn't actually provide an instance of `HttpClient`. Instea
     * ex. `Lazy.of(HttpClient)`
 * `All` - Injects an array of all services registered with the provided key.
     * ex. `All.of(Plugin)`
-* `Optional` - Injects an instance of a class only if it already exists in the container.
+* `Optional` - Injects an instance of a class only if it already exists in the container; null otherwise.
     * ex. `Optional.of(LoggedInUser)`
 * `Parent` - Bypasses the current DI container and attempts to inject an instance stored in a parent container.
     * ex. `Parent.of(Router)`
@@ -134,17 +134,129 @@ Now, each time the DI container is asked for an instance of `CustomerDetail` the
 
 ## Templating
 
+Aurelia's templating engine is responsible for loading your views and their imported resources, compiling your HTML for optimal performance and rendering your UI to the screen. To create a view, all you need to do is author an HTML file with an `HTMLTemplate` inside. Here's a simple view:
 
+```markup
+<template>
+    <div>Hello World!</div>
+</template>
+```
+
+Everything inside the `template` tag will be managed by Aurelia. However, since Aurelia uses HTMLImport technology to load views, you can also include links, and they will be properly loaded, including relative resource resolution semantics. In other words, you can do this:
+
+```markup
+<link rel="stylesheet" type="text/css" href="./hello.css">
+
+<template>
+    <div class="hello">Hello World!</div>
+</template>
+```
+
+This enables you to dynamically load per-view style sheets and even Web Components on the fly. Any time you want to import an Aurelia-specific resource, such as an Aurelia _Custom Element_, _Attached Behavior_, _Template Controller_ or _Value Converter_, you should use an `import` element inside your view. Here's an example:
+
+```markup
+<template>
+  <import src='./nav-bar'></import>
+
+  <nav-bar router.bind="router"></nav-bar>
+
+  <div class="page-host">
+    <router-view></router-view>
+  </div>
+</template>
+```
+
+In this case `nav-bar` is an Aurelia _Custom Element_ which we've imported for use. Using Aurelia's `import` element causes the framework's resource pipeline to process the imported item, which has the following advantages:
+
+* Deduping - The resource is downloaded once in the app. Even if other views import the same element, it will not be downloaded again.
+* One-time Compilation - Templates for Custom Elements imported this way are compiled once for the entire application.
+* Local Scope - The imported resource is only visible inside the view that imports it, reducing the likelihood of name conflicts.
+* Renaming - Resources can be renamed upon import if two 3rd party resources with the same name need to be used in the same view.
+    - ex. `<import src='./nav-bar as foo-bar'></import>` - Now instead of using a `nav-bar` element you can use a `foo-bar` element. (This is based on ES6 where renaming is considered a replacement for using an Alias because it strictly renames the type.)
+* Packages - The import can point to a module with multiple resources which will all be imported into the same view.
+* Extensibility - You can define new types of resources which, when imported in this way, can execute custom loading (async one-time) and registration (once per-view).
+* ES6 - Code is loaded by the ES6 loader rather than the HTMLImport mechanism, enabling all the features and extensibility of your loader.
+
+In your view you will often leverage the different types of resources mentioned above as well as databinding.
+
+>**Note:** You may be concerned about the tediousness of having to import things into each view. Remember, during the bootstrapping phase you can configure Aurelia with global resources to be available in every view.
 
 ### Databinding
 
+Databinding allows you to link the state and behavior in a JavaScript object to an HTML view. When this link is established, any changes in linked properties can be synced in one or both directions. Changes in the JavaScript object can be reflected in the view and changes in the view can be reflected in the JavaScript object. To establish this link, you will leverage "binding commands" in your HTML. Binding commands are clearly identifiable via their use of the "." as a kind of binding operator. Whenever an HTML attribute contains a ".", the compiler will pass the attribute name and value off to the binding language for interpretation. The result is one or more binding expressions that are capable of establishing the linkage when the view is created.
+
+You can extend the system with your own binding commands, but Aurelia provides a collection to cover the most common use cases.
+
 #### bind, one-way, two-way & one-time
+
+The most common binding command is `.bind`. This will cause the property to be bound using a "one-way" binding for all attributes, except form element values, which are bound with a "two-way" binding.
+
+_What does this mean though?_
+
+One-way binding means that changes flow from your JavaScript view-models into the view, not from the view into the view-model. Two-way binding means that changes flow in both directions. `.bind` attempts to use a sensible default by assuming that if you are binding to a form element's value property then you probably wish the changes made in the form to flow into your view-model. For everything else it uses one-way binding, especially since, in many cases, two-way binding to non-form elements would be nonsensical. Here's a small binding example using `.bind`:
+
+```markup
+<input type="text" value.bind="firstName">
+<a href.bind="url">Aurelia</a>
+```
+
+In the above example, the `input` will have its `value` bound to the `firstName` property on the view-model. Changes in the `firstName` property will update the `input.value` and changes in the `input.value` will update the `firstName` property. On the other hand, the `a` tag will have its `href` bound to the `url` property on the view-model. Only changes in the `url` property will flow into the `href` of the `a` tag, not the other way.
+
+You can always be explicit and use `.one-way` or `.two-way` in place of `.bind`though. A common case where this is required is with Web Components that function as input-type controls. So, you can imagine doing something like this:
+
+```markup
+<markdown-editor value.two-way="markdown"></markdown-editor>
+```
+
+In order to optimize performance and minimize CPU and memory usage, you can alternatively leverage the `.one-time` binding command to flow data from the view-model into the view "one time". This will happen during the initial binding phase, after which no synchronization will occur.
 
 #### delegate, trigger & call
 
-#### ref
+Binding commands don't only connect properties and attributes, but can be used to trigger behavior. For example, if you want to invoke a method on the view-model when a button is clicked, you would use the `trigger` command like this:
+
+```markup
+<button click.trigger="sayHello()">Say Hello</button>
+```
+
+When the button is clicked, the `sayHello` method on the view-model will be invoked. That said, adding event handlers to every single element like this isn't very efficient, so often times you will want to use event delegation. To do that, use the `.delegate` command. Here's the same example but with event delegation instead:
+
+```markup
+<button click.delegate="sayHello()">Say Hello</button>
+```
+
+All of this works against DOM events in some way or another. Occasionally you may have a custom Aurelia behavior that wants a reference to your function directly so that it can invoke it manually at a later time. To pass a function reference, use the `.call` binding (since the behavior will _call_ it later):
+
+```markup
+<div touch.call="sayHello()">Say Hello</button>
+```
+
+Now the attached behavior will get a function that it can call to invoke your `sayHello()` code.
 
 #### string interpolation
+
+Sometimes you need to bind properties directly into the content of the document or interleave them within an attribute value. For this, you can use the string interpolation syntax `${expression}`. String interpolation is a one-way binding, the output of which is converted to a string. Here's an example:
+
+```markup
+<span>${fullName}</span>
+```
+
+The `fullName` property will be interpolated directly into the span's content. You can also use this to handle css class bindings like so:
+
+```markup
+<div class="dot ${color} ${isHappy ? 'green' : 'red'}"></div>
+```
+
+In this snippet "dot" is a statically present class and "green" is present only if `isHappy` is true, otherwise the "red" class is present. Additionally, whatever the value of `color` is...that is added as class.
+
+> **Note:** You can use simple expressions inside your bindings. Don't try to do anything too fancy. You don't want code in your view. You only want to establish the linkage between the view and its view-model.
+
+#### ref
+
+In addition to commands and interpolation, the binding language recognizes the use of a special attribute: `ref`. By using `ref` you can create a local name for an element which can then be referenced in another binding expression. It will also be set as a property on the view-model, so you can access it through code. Here's a neat example of using `ref`:
+
+```markup
+<input type="text" ref="name"> ${name.value}
+```
 
 ### Behaviors
 
