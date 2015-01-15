@@ -260,6 +260,13 @@ In addition to commands and interpolation, the binding language recognizes the u
 <input type="text" ref="name"> ${name.value}
 ```
 
+You can also use the special `.view-model` binding in conjuction with `ref` to get the view-model instance that backs an Aurelia Custom Element. By using this technique, you can connect different components to each other like so:
+
+```markup
+<i-produce-a-value ref.view-model="producer"></i-produce-a-value>
+<i-consume-a-value input.bind="producer.output"></i-consume-a-value>
+```
+
 ### Behaviors
 
 #### show
