@@ -353,13 +353,15 @@ HTMLSelectElement is an interesting beast. Usually, you can databind these by co
 But sometimes you want to work with selecting object instances rather than primitives. For that you can use the `selected-item` attached behavior. Here's how you would configure that for a theoretical list of employees:
 
 ```markup
-<select selected-item.two-way="employeeOfTheMonth">
+<select selected-item.bind="employeeOfTheMonth">
   <option>Select An Employee</option>
   <option repeat.for="employee of employees" value.bind="employee.id" model.bind="employee">${employee.fullName}</option>
 </select>
 ```
 
-First, note that we must specify the `.two-way` binding command on `selected-item` since this isn't a standard form value. We then use a repeater as normal, being sure to bind `value` to some primitive. We also add a second property named `model` which the `selected-item` behavior will use to correlate selection with an object instance. In other words, when an option is selected the `employeeOfTheMonth` property will be set to the value of the `model` property on that option. When the `employeeOfTheMonth` property is set in the view-model, the option with the corresponding `model` value will be selected in the view.
+First, note that we must specify the `.bind` binding command on `selected-item`. We then use a repeater as normal, being sure to bind `value` to some primitive. We also add a second property named `model` which the `selected-item` behavior will use to correlate selection with an object instance. In other words, when an option is selected the `employeeOfTheMonth` property will be set to the value of the `model` property on that option. When the `employeeOfTheMonth` property is set in the view-model, the option with the corresponding `model` value will be selected in the view.
+
+> **Note:** We said earlier that only form element values bind two-way by default, but in this case our custom attribute `selected-item` also bound with a two-way mode by default. How did that work? It turns out that when you define Aurelia behaviors, you can optionally specify the default binding mode on properties.
 
 ## Routing
 
