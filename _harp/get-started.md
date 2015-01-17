@@ -75,9 +75,11 @@ Yes, that's it. This is the only HTML page in our application. The head of the d
 
 Let's start with the script tags. First we have _system.js_. This is our module loader. It's what loads the Aurelia library as well as your own code. Next we have _config.js_. This contains configuration for the loader. It's generated automatically whenever you execute a jspm command. jspm is our recommended client-side package manager. It provides an amazing developer experience by integrating client-side package management with an ES6 compliant module loader.
 
->**Note:** The Aurelia Framework isn't tied to jspm or SystemJS. You can implement your own loader and handle package management any way you want. However we do think jspm/SystemJS is the best ES6-oriented solution today and it's our recommended approach, so our default bootstrapper provides this behavior for you. More options will be available soon.
+>**Note:** The Aurelia Framework isn't tied to jspm or SystemJS. We also support require-style APIs like RequireJS and Dojo Loader out of the box. Also, you can implement your own loader and handle package management any way you want. However we do think jspm/SystemJS is the best ES6-oriented solution today and it's our recommended approach.
 
-Once we have our module loader and its configuration, we set the `baseUrl` to point to the location of our compiled code. Then we just load the `aurelia-bootstrapper` module with a call to `System.import`. When the bootstrapper loads it inspects the HTML document for _aurelia_ attributes. In this case it will find that the body has an `aurelia-app` attribute. This tells the bootstrapper to load our _app_ view-model and its view and then compose them as an Aurelia application in the DOM.
+Once we have our module loader and its configuration, we set the `baseUrl` to point to the location of our compiled code. Then we just load the `aurelia-bootstrapper` module with a call to `System.import`, being sure to catch any errors that might happen at startup and bind those to the console.
+
+When the bootstrapper loads it inspects the HTML document for _aurelia_ attributes. In this case it will find that the body has an `aurelia-app` attribute. This tells the bootstrapper to load our _app_ view-model and its view, conventionally located in _app.js_ and _app.html_ and then compose them as an Aurelia application in the DOM.
 
 Wait a minute....we don't have an _app_ view-model or view. Ummm...WHAT NOW!?
 
