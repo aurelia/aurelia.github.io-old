@@ -114,7 +114,7 @@ What...is that JavaScript?
 
 Yes. Yes it is. In fact it's ECMAScript 6 (ES6), the next version of JavaScript which introduces many new features to the language. Fortunately the Gulp file you downloaded above has you set up with [6to5](https://6to5.org/), an amazing ES6 transpiler that allows you to write tomorrow's JavaScript and run it on today's browsers. Now you can use modules, classes, lambdas, string interpolation and more. Sweet! So, how do you create a _view-model_? You just create a plain class and _export_ it to the framework. Piece. Of. Cake.
 
-> **Note:** You don't have to use 6to5 or even ES6 to write an Aurelia app. You can use AtScript, TypeScript, CoffeeScript...or today's browser language: ES5. Simply follow the language's standard pattern for creating classes and everything will work fine.
+> **Note:** You don't have to use 6to5 or even ES6 to write an Aurelia app. You can use AtScript, TypeScript, CoffeeScript...or today's browser language: ES5. Simply follow the language's standard pattern for creating classes and everything will work fine. We think ES6 is awesome though and hope you will consider it first. To learn more about the newest version of JavaScript including features like like module exports and classes we recommend reading through [Luke Hoban's feature repo](https://github.com/lukehoban/es6features#readme).
 
 Ok. Now that we have a _view-model_ with some basic data and behavior. Let's have a look at its partner in crime...the _view_.
 
@@ -145,7 +145,9 @@ Ok. Now that we have a _view-model_ with some basic data and behavior. Let's hav
 
 All views are contained within a `template` tag. This view is just a basic input form, styled using bootstrap classes. Look at the input controls. Did you see `value.bind="firstName"`? That databinds the input's _value_ to the _firstName_ property in our view-model. Any time the view-model's property changes, the input will be updated with the new value. Any time you change the value in the input control, Aurelia will push the new value into your view-model. It's that easy.
 
-There's a couple more interesting things in this example. In the last form group you can see this syntax in the HTML content: `${fullName}`. That's a string interpolation. It's a one-way binding from the view-model into the view that is automatically converted to a string and interporlated into the document. Finally, have a look at the form element itself. You should notice this: `submit.delegate="welcome()"`. That's an event binding. This uses event delegation to execute the _welcome_ method any time the form is submitted.
+There's a couple more interesting things in this example. In the last form group you can see this syntax in the HTML content: `${fullName}`. That's a string interpolation. It's a one-way binding from the view-model into the view that is automatically converted to a string and interporlated into the document. Finally, have a look at the form element itself. You should notice this: `submit.delegate="welcome()"`. That's an event binding. This uses event delegation to bind the _submit_ event so that it executes the _welcome_ method any time the form is submitted.
+
+> **Note:** If you haven't heard of event delegation, it's a technique used to more efficiently handle events in browser by attaching a single event handler at the document level which handles all events of a type, rather than attaching event handlers to every node.
 
 Let's run it and see this in action. On your console use the following command to build and launch the server.
 
@@ -184,11 +186,11 @@ export class App {
 
 Ok, there's some really interesting new stuff here. We want to use the router, so we begin by importing it at the top of the file. This is the power of ES6 again. We then create our _App_ class to hold our data and behavior for the main application layout. Take a look at the constructor function. It's expecting something to pass in a _router_ instance when the App class is created. Where does that come from?
 
-Aurelia creates the UI components as needed to render your app. It does this by using a [Dependency Injection](http://www.youtube.com/watch?v=dQw4w9WgXcQ) container capable of providing constructor dependencies like this. How does the DI system know what to provide? All you have to do is add a static method named _inject_ that returns an array of keys representing types to instantiate. You want a router? Just ask for it by adding the constructor to the array and Aurelia will give it to you.
+Aurelia creates the UI components as needed to render your app. It does this by using a [Dependency Injection](http://en.wikipedia.org/wiki/Dependency_injection) container capable of providing constructor dependencies like this. How does the DI system know what to provide? All you have to do is add a static method named _inject_ that returns an array of keys representing types to instantiate. You want a router? Just ask for it by adding the constructor to the array and Aurelia will give it to you.
 
 > **Note:** If you happen to be using AtScript, you'll be pleased to know that Aurelia understands AtScript type annotations and can use those for dependency injection. As other main stream JavaScript transpilers adopt type or annotation metadata we'll continue to enhance our platform and teach it to understand your choice language's format.
 
-We need to set the router to a public property on the class. The property must be named _router_. This is important. Don't get any fancy ideas here like naming it _taco_ or something like that ok? It's a router..so name it _router_ and everyone will be happy.
+We need to set the router to a public property on the class. The property must be named _router_. This is important. Don't get any fancy ideas here like naming it _taco_ or something like that ok? It's a router..so name it _router_ and everyone will be happy. Did we mention you **must** name it _router_?
 
 Alrighty. Time to configure the router. It's easy. You can set a title to use when generating the document's title. Then you set up your routes. Each route has the following properties:
 
@@ -196,8 +198,6 @@ Alrighty. Time to configure the router. It's easy. You can set a title to use wh
 * moduleId: This is a path relative to the current view-model which specifies the view/view-model pair you want to render for this route.
 * title: You can optionally provide a title to be used in generating the document's title.
 * nav: If this route should be included in the _navigation model_ becuase you want to generate a UI with it, set this to true.
-
-> **Note:** The creators of Aurelia have no affiliation with Rick Astley.
 
 ### app.html
 
