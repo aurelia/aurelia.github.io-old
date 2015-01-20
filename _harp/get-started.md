@@ -338,9 +338,25 @@ Let's recap. To add a page to your app:
 
 ## Bonus: Creating a Custom Element
 
-Look at you, you overachiever! I see you're interested in the learning some extra awesome on this fine day. In that case, let's create a custom HTML element. I think a good candidate for this is our navbar. That's a lot of HTML in our _app.html_ file. Why not extract a custom `<nav-bar>` element to make things a bit more declarative?
+Look at you, you overachiever! I see you're interested in the learning some extra awesome on this fine day. In that case, let's create a custom HTML element. I think a good candidate for this is our navbar. That's a lot of HTML in our _app.html_ file. Why not extract a custom `<nav-bar>` element to make things a bit more declarative? Here's what we want to be able to write in the end:
 
-Our simple conventions still apply for custom elements. (In fact you've been creating what we call "anonymous" custom elements all along...you just didn't realize it.) Let's create a _nav-bar.js_ and a _nav-bar.html_. Here's the code for the view-model first:
+### app.html
+
+```markup
+<template>
+  <import src='./nav-bar'></import>
+
+  <nav-bar router.bind="router"></nav-bar>
+
+  <div class="page-host">
+    <router-view></router-view>
+  </div>
+</template>
+```
+
+This code imports a `nav-bar` element from "./nav-bar" and once it's available in the view, we can use it like any other element, including databinding to its custom properties. So, how do we get to this end product?
+
+Guess what? Our simple view-model/view conventions still apply for custom elements. (In fact you've been creating what we sometimes call "anonymous" custom elements all along...you just didn't realize it.) Let's create a _nav-bar.js_ and a _nav-bar.html_. Here's the code for the view-model first:
 
 ### nav-bar.js
 
@@ -354,7 +370,7 @@ export class NavBar {
 }
 ```
 
-To create a custom element, you create and export a class. Since this class is going to be used in HTML as an element, we need to tell the framework what properties on the class should appear as attributes on the element. To do that, we use _annotations_. Annotations are a way to provide metadata about your class to the framework. Aurelia is smart and can infer many things, but when it can't or when you want to do something different than the conventions, you use annotations. To leverage this capability, add a static annotations method on the class and return an array of annotation instances. In this case, we return a `Property` to tell the framework that we want our class's `router` property to be surfaced as an attribute in the HTML. Once it's surfaced as an attribute, we can databind to it in the view.
+To create a custom element, you create and export a class. Since this class is going to be used in HTML as an element, we need to tell the framework what properties on the class should appear as attributes on the element. To do that, we use the _annotations_ method. Like _inject_ annotations are a way to provide metadata about your class to the Aurelia framework. Aurelia is smart and can infer many things, but when it can't or when you want to do something different than the conventions, you use some form of metadata. To leverage this capability, add a static annotations method on the class and return an array of annotation instances (really just regular objects). In this case, we return a `Property` to tell the framework that we want our class's `router` property to be surfaced as an attribute in the HTML. Once it's surfaced as an attribute, we can databind to it in the view.
 
 ### nav-bar.html
 
@@ -393,7 +409,7 @@ To create a custom element, you create and export a class. Since this class is g
 
 This looks almost identical to the navbar HTML in our original _app.html_ file. We've basically just exracted that and put it into this template. Instead of binding to _app.js_ though, it's now binding to _nav-bar.js_.
 
-This is a very simple custom element with no real behavior, but it is complete and usable. How do we use it? Let's take a look at an updated _app.html_ file to see how that works:
+This is a very simple custom element with no real behavior, but it is complete and usable as shown above. We repeat that here for your convenience.
 
 ### app.html
 
@@ -409,11 +425,13 @@ This is a very simple custom element with no real behavior, but it is complete a
 </template>
 ```
 
-Two things probably jump out at you. First we have an `import` element. Aurelia uses this to load the custom element via the relative source. Anything imported into a view in this way is local to the view. So, you don't have to worry about name conflicts. The second point of interest is the actual use of the element. See how we databind the router property we specified? Sweet!
+Just to recap: First we have an `import` element. Aurelia uses this to load the custom element via the relative source. It's following our simple conventions so it knows to load our `nav-bar.js` and `nav-bar.html` files. Anything imported into a view in this way is local to the view. As a result, you don't have to worry about name conflicts. The second point is the actual use of the element which uses databinding against the `App`'s router. We are pipling the router instance on our `App` class through to the corresponding property on the `NavBar` element for internal rendering. Sweet!
 
-> **Note:** You can also load app-visible elements and other behaviors in for convenience so you don't have to import common resources in every view.
+> **Note:** You can also load app-wide elements and other behaviors for convenience so you don't have to import common resources into every view.
 
-You may wonder how Aurelia determines the name of the custom element. By convention, it will use the class name, lowered and hyphenated. However, you can always be explicit. To do so, simply add annother annotation to the array: `new CustomElement('nav-bar')`. What if your custom element doesn't have a view template because it's all implemented in code? No problem, just add `new NoView()` to the annotations. Want to use ShadowDOM for your custom element? Do it like a pro by adding `new UseShadowDOM()` to the annotations. Don't worry about whether or not the browser supports it. We have an efficient, full-fidelity ShadowDOM fallback implementation. Before using these annotations, be sure to import them from "aurelia-framework".
+You may wonder how Aurelia determines the name of the custom element. By convention, it will use the class name, lowered and hyphenated. However, you can always be explicit. To do so, simply add more metadata to the annotations array: `new CustomElement('nav-bar')`. What if your custom element doesn't have a view template because it's all implemented in code? No problem, just add `new NoView()` to the metadata. Want to use ShadowDOM for your custom element? Do it like a pro by adding `new UseShadowDOM()`. Don't worry about whether or not the browser supports it. We have an efficient, full-fidelity ShadowDOM fallback implementation.
+
+> **Note:** Before using the metadata classes, be sure to import them from "aurelia-framework".
 
 In addition to creating custom elements, you can also create standalone attributes which add new behavior to existing elements. We call these _Attached Behaviors_. On occassion you may need to create _Template Controllers_ for dynamically adding and removing DOM from the view, like the `repeat` and `for` we used above. That's not all you can do either. Aurelia's templating engine is both powerful and extensible.
 
