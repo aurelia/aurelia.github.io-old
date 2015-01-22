@@ -18,7 +18,7 @@ Next, we need to intsall [jspm](http://jspm.io/). This will serve as our client-
   npm install -g jspm
   ```
 
-> **Note:** jspm, like Bower and Yeoman, leverages [git](http://git-scm.com/) so you need to install that if you don't have it. Also, jspm queries GitHub to install semver packages, but GitHub has a rate limit on anonymous API requests. It is advised that you configure jspm with your GitHub credentials in order to avoid problems. You can do this by executing `jspm endpoint config github` and following the prompts.
+> **Note:** jspm, like Bower and Yeoman, leverages [git](http://git-scm.com/) so you need to install that if you don't have it. Also, jspm queries GitHub to install semver packages, but GitHub has a rate limit on anonymous API requests. It is advised that you configure jspm with your GitHub credentials in order to avoid problems. You can do this by executing `jspm endpoint config github` and following the prompts. Don't want to use jspm? No problem. All Aurelia packages are available via Bower as well.
 
 ## Setting up the Project Structure and Build
 
@@ -26,7 +26,7 @@ With our tooling installed, we can now turn out attention to setting up a basic 
 
 Because we want to leverage Gulp for build automation, we'll need to create a configuration file for that and install the build-related packages. We've put together a really nice starter build file for you, so you should just [download that from here](https://raw.githubusercontent.com/aurelia/skeleton-navigation/master/gulpfile.js) and drop it inside _navigation-app_. You should also [download our default package manifest](https://raw.githubusercontent.com/aurelia/skeleton-navigation/master/package.json). This contains the list of modules we want to install. If you've used npm or Gulp before, this should be familar to you.
 
-With these two files in place, let's run some commands.
+With these files in place, let's run some commands.
 
 1. Open a console and change your directory to _navigation-app_.
 
@@ -54,7 +54,7 @@ If you've followed along this far, you now have all the libraries, build configu
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="jspm_packages/github/twbs/bootstrap@3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="jspm_packages/github/twbs/bootstrap@3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="jspm_packages/npm/font-awesome@4.2.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
   </head>
@@ -73,7 +73,7 @@ Yes, that's it. This is the only HTML page in our application. The head of the d
 
 > **Note:** Be sure to confirm that the local folder names for bootstrap and font-awesome match the link href. It's possible that these libraries have updated their versions since the authoring of this document.
 
-Let's start with the script tags. First we have _system.js_. This is our module loader. It's what loads the Aurelia library as well as your own code. Next we have _config.js_. This contains configuration for the loader. It's generated automatically whenever you execute a jspm command. jspm is our recommended client-side package manager. It provides an amazing developer experience by integrating client-side package management with an ES6 compliant module loader.
+Let's start with the script tags. First we have _system.js_, our ES6 standards-based module loader. It's what loads the Aurelia library as well as your own code. Next we have _config.js_. This contains configuration for the loader. It's generated automatically whenever you execute a jspm command. jspm is our recommended client-side package manager. It provides an amazing developer experience by integrating client-side package management with an ES6 compliant module loader.
 
 >**Note:** The Aurelia Framework isn't tied to jspm or SystemJS. We also support require-style APIs like RequireJS and Dojo Loader out of the box. Also, you can implement your own loader and handle package management any way you want. However we do think jspm/SystemJS is the best ES6-oriented solution today and it's our recommended approach.
 
@@ -114,7 +114,7 @@ What...is that JavaScript?
 
 Yes. Yes it is. In fact it's ECMAScript 6 (ES6), the next version of JavaScript which introduces many new features to the language. Fortunately the Gulp file you downloaded above has you set up with [6to5](https://6to5.org/), an amazing ES6 transpiler that allows you to write tomorrow's JavaScript and run it on today's browsers. Now you can use modules, classes, lambdas, string interpolation and more. Sweet! So, how do you create a _view-model_? You just create a plain class and _export_ it to the framework. Piece. Of. Cake.
 
-> **Note:** You don't have to use 6to5 or even ES6 to write an Aurelia app. You can use AtScript, TypeScript, CoffeeScript...or today's browser language: ES5. Simply follow the language's standard pattern for creating classes and everything will work fine. We think ES6 is awesome though and hope you will consider it first. To learn more about the newest version of JavaScript including features like like module exports and classes we recommend reading through [Luke Hoban's feature repo](https://github.com/lukehoban/es6features#readme).
+> **Note:** You don't have to use 6to5 or even ES6 to write an Aurelia app. You can use AtScript, TypeScript, CoffeeScript...or today's browser language: ES5. Simply follow the language's standard pattern for creating classes and everything will work fine. We think ES6 is awesome though and hope you will consider it first. To learn more about the newest version of JavaScript including features like module exports and classes we recommend reading through [Luke Hoban's feature repo](https://github.com/lukehoban/es6features#readme).
 
 Ok. Now that we have a _view-model_ with some basic data and behavior. Let's have a look at its partner in crime...the _view_.
 
@@ -163,7 +163,7 @@ The `.bind`  command uses the default binding behavior for any property. The def
 
 ## Adding Navigation
 
-Since this is a navigation app, we should probably add some more screens and set up a client-side router don't you think? Let's begin by renaming our _app.js_ and _app.html_ to _welcome.js_ and _welcome.html_ respectively. This will be the first page of our app. Now, lets create a new _app.js_ and _app.html_ which will serve as our "layout" or "master page". The view will contain our navigation UI and the content placeholder for the current page and the view-model with have a router instance, configured with our routes. We'll start with the view-model so you can see how to set up the router:
+Since this is a navigation app, we should probably add some more screens and set up a client-side router don't you think? Let's begin by renaming our _app.js_ and _app.html_ to _welcome.js_ and _welcome.html_ respectively. This will be the first page of our app. Now, lets create a new _app.js_ and _app.html_ which will serve as our "layout" or "master page". The view will contain our navigation UI and the content placeholder for the current page and the view-model will have a router instance, configured with our routes. We'll start with the view-model so you can see how to set up the router:
 
 ### app.js
 
@@ -194,10 +194,10 @@ We need to set the router to a public property on the class. The property must b
 
 Alrighty. Time to configure the router. It's easy. You can set a title to use when generating the document's title. Then you set up your routes. Each route has the following properties:
 
-* route: This is a pattern, which when matched will cause the router to navigate to this route. You can use static routes like above, but you can also use paramerters like this: `customer/:id`. There's also support for wildcard routes and query string parmaters. The route can be a single string pattern or an array of patterns.
+* route: This is a pattern which, when matched, will cause the router to navigate to this route. You can use static routes like above, but you can also use paramerters like this: `customer/:id`. There's also support for wildcard routes and query string parmaters. The route can be a single string pattern or an array of patterns.
 * moduleId: This is a path relative to the current view-model which specifies the view/view-model pair you want to render for this route.
 * title: You can optionally provide a title to be used in generating the document's title.
-* nav: If this route should be included in the _navigation model_ becuase you want to generate a UI with it, set this to true.
+* nav: If this route should be included in the _navigation model_ becuase you want to generate a UI with it, set this to true (or a number indicating order).
 
 ### app.html
 
@@ -333,7 +333,7 @@ Let's recap. To add a page to your app:
 
 1. Add the route configuration to the _app.js_ router.
 2. Add a view-model.
-3. Add a view with the same name.
+3. Add a view with the same name (but with an .html extension).
 4. Celebrate.
 
 ## Bonus: Creating a Custom Element
@@ -344,7 +344,7 @@ Look at you, you overachiever! I see you're interested in the learning some extr
 
 ```markup
 <template>
-  <import src='./nav-bar'></import>
+  <import from='./nav-bar'></import>
 
   <nav-bar router.bind="router"></nav-bar>
 
@@ -354,23 +354,21 @@ Look at you, you overachiever! I see you're interested in the learning some extr
 </template>
 ```
 
-This code imports a `nav-bar` element from "./nav-bar" and once it's available in the view, we can use it like any other element, including databinding to its custom properties. So, how do we get to this end product?
+This code imports a `nav-bar` element from "./nav-bar" and once it's available in the view, we can use it like any other element, including databinding to its custom properties (like _router_). So, how do we get to this end product?
 
 Guess what? Our simple view-model/view conventions still apply for custom elements. (In fact you've been creating what we sometimes call "anonymous" custom elements all along...you just didn't realize it.) Let's create a _nav-bar.js_ and a _nav-bar.html_. Here's the code for the view-model first:
 
 ### nav-bar.js
 
 ```javascript
-import {Property} from 'aurelia-framework';
+import {Behavior} from 'aurelia-framework';
 
 export class NavBar {
-  static annotations(){
-    return [new Property('router')];
-  }
+  static metadata(){ return Behavior.withProperty('router'); }
 }
 ```
 
-To create a custom element, you create and export a class. Since this class is going to be used in HTML as an element, we need to tell the framework what properties on the class should appear as attributes on the element. To do that, we use the _annotations_ method. Like _inject_ annotations are a way to provide metadata about your class to the Aurelia framework. Aurelia is smart and can infer many things, but when it can't or when you want to do something different than the conventions, you use some form of metadata. To leverage this capability, add a static annotations method on the class and return an array of annotation instances (really just regular objects). In this case, we return a `Property` to tell the framework that we want our class's `router` property to be surfaced as an attribute in the HTML. Once it's surfaced as an attribute, we can databind to it in the view.
+To create a custom element, you create and export a class. Since this class is going to be used in HTML as an element, we need to tell the framework what properties on the class should appear as attributes on the element. To do that, we use the _metadata_ method. Like _inject_ metadata is a way to provide information about your class to the Aurelia framework. Aurelia is smart and can infer many things, but when it can't or when you want to do something different than the conventions, you use some form of metadata. To leverage this capability, add a static metadata method on the class and return an array of metadata instances (really just regular objects). In this case we are using Aurelia's `Behavior` metadata helper. The `withProperty` method adds a `BehaviorProperty` which tells the framework that we want our class's `router` property to be surfaced as an attribute in the HTML. Once it's surfaced as an attribute, we can databind to it in the view.
 
 ### nav-bar.html
 
@@ -409,13 +407,13 @@ To create a custom element, you create and export a class. Since this class is g
 
 This looks almost identical to the navbar HTML in our original _app.html_ file. We've basically just exracted that and put it into this template. Instead of binding to _app.js_ though, it's now binding to _nav-bar.js_.
 
-This is a very simple custom element with no real behavior, but it is complete and usable as shown above. We repeat that here for your convenience.
+This is a very simple custom element with no real behavior, but it is complete and usable as shown above. We repeat that markup here for your convenience.
 
 ### app.html
 
 ```markup
 <template>
-  <import src='./nav-bar'></import>
+  <import from='./nav-bar'></import>
 
   <nav-bar router.bind="router"></nav-bar>
 
@@ -429,13 +427,11 @@ Just to recap: First we have an `import` element. Aurelia uses this to load the 
 
 > **Note:** You can also load app-wide elements and other behaviors for convenience so you don't have to import common resources into every view.
 
-You may wonder how Aurelia determines the name of the custom element. By convention, it will use the class name, lowered and hyphenated. However, you can always be explicit. To do so, simply add more metadata to the annotations array: `new CustomElement('nav-bar')`. What if your custom element doesn't have a view template because it's all implemented in code? No problem, just add `new NoView()` to the metadata. Want to use ShadowDOM for your custom element? Do it like a pro by adding `new UseShadowDOM()`. Don't worry about whether or not the browser supports it. We have an efficient, full-fidelity ShadowDOM fallback implementation.
-
-> **Note:** Before using the metadata classes, be sure to import them from "aurelia-framework".
+You may wonder how Aurelia determines the name of the custom element. By convention, it will use the class name, lowered and hyphenated. However, you can always be explicit. To do so, simply add more metadata by chaining `.customElement('nav-bar')` on `Behavior`. What if your custom element doesn't have a view template because it's all implemented in code? No problem, just chain `.noView()`. Want to use ShadowDOM for your custom element? Do it like a pro by chaing `.useShadowDOM()`. Don't worry about whether or not the browser supports it. We have an efficient, full-fidelity ShadowDOM fallback implementation.
 
 In addition to creating custom elements, you can also create standalone attributes which add new behavior to existing elements. We call these _Attached Behaviors_. On occassion you may need to create _Template Controllers_ for dynamically adding and removing DOM from the view, like the `repeat` and `for` we used above. That's not all you can do either. Aurelia's templating engine is both powerful and extensible.
 
-> **Note:** AtScript users can leverage language annotations and Aurelia will pick those up. Users of languages that support static class properties, such as TypeScript, can use an _annotations_ property instead of a method, for convenience. This also applies to the `inject` designation used by the dependency injection container.
+> **Note:** AtScript users can leverage language annotations and Aurelia will pick those up. Users of languages that support static class properties, such as TypeScript, can use a _metadata_ property instead of a method, for convenience. This also applies to the `inject` designation used by the dependency injection container.
 
 ## Bonus: Leveraging Child Routers
 
