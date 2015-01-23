@@ -8,6 +8,8 @@ Most platforms have a "main" or entry point for code execution. Aurelia is no di
 
 The `aurelia-app` attribute is convenient for getting started, but often times you want to configure the framework or run some code prior to displaying anything to the user. So chances are, as your project progresses, you will migrate towards using `aurelia-main`.
 
+>**Note:** If you are using AtScript, add an `atscript` attribute to the DOM element for your app. If you are using ES5 instead of ES6, add an `es5` attribute. Doing so will "turn on" functionality with makes using these languages easier.
+
 **What is the difference?**
 
 `aurelia-app` instantiates an Aurelia app and pre-configures it with the default set of options for the framework, then loads your application view-model. `aurelia-main` loads your custom configuration module, _main.js_ by default, then invokes your `configure` function, passing it the Aurelia object which you can then use to configure the framework yourself and decide what, when and where to display your UI. Here's an example _main.js_ file:
@@ -20,18 +22,20 @@ LogManager.addAppender(new ConsoleAppender());
 LogManager.setLevel(LogManager.levels.debug);
 
 export function configure(aurelia) {
-  aurelia.plugins
-    .installBindingLanguage()
-    .installResources()
-    .installRouter()
-    .installEventAggregator()
-    .install('./path/to/plugin');
+  aurelia.use
+    .defaultBindingLanguage()
+    .defaultResources()
+    .router()
+    .eventAggregator()
+    .plugin('./path/to/plugin');
 
   aurelia.start().then(a => a.setRoot('app', document.body));
 }
 ```
 
 With the exception of the custom plugin, this code is essentially what `aurelia-app` normally does for you. When you switch to `aurelia-main` you need to configure these things yourself, but you can also install custom plugins, set up the depedency injection container with some services and install global resources to be used in view templates.
+
+>**Note:** To turn on AtScript when manually configuring, call `aurelia.use.atscript()` and to turn on ES5, call `aurelia.use.es5()`.
 
 ### Logging
 
@@ -41,7 +45,13 @@ You can easily create your own appenders. Simply implement a class that matches 
 
 ### Plugins
 
-A _plugin_ is simply a module with an exported `install` function. During startup Aurelia will load all plugin modules and call their `install` functions, passing to them the Aurelia instance so that they can configure the framework appropriately. Plugins can optionally return a `Promise` from their `install` function in order to perform asynchronous configuration tasks.
+A _plugin_ is simply a module with an exported `install` function. During startup Aurelia will load all plugin modules and call their `install` functions, passing to them the Aurelia instance so that they can configure the framework appropriately. Plugins can optionally return a `Promise` from their `install` function in order to perform asynchronous configuration tasks. When writing a plugin, be sure to follow these rules:
+
+1. Use a flat directory structure. Do not located behaviors or views in subdirectories.
+2. Your file name and your behavior name must match.
+3. Explicilty supply all metadata, including a View Strategy for Custom Elements.
+
+> **Note:** Regarding #2 and #3: Do not rely on naming conventions inside plugins. You do not know how the consumer of your plugin will change Aurelia's conventions. 3rd party plugins should be explicit in order to ensure that they function correctly in different contexts.
 
 ### The Aurelia Object
 
@@ -52,20 +62,20 @@ export class Aurelia {
   loader:Loader; //the module loader
   container:Container; //the app-level dependency injection container
   resources:ResourceRegistry; //the app level view resource registery
-  plugins:Plugins; //the plugins api
+  use:Plugins; //the plugins api
 
   withInstance(type, instance):Aurelia; //DI helper method (pass through to container)
   withSingleton(type, implementation):Aurelia; //DI helper method (pass through to container)
-  withResources(resources):Aurelia; //resource helper method (pass through to resources)
+  withResources(resources):Aurelia; //resource helper method
 
-  start():Promise; //starts the framework up causing plugins to be installed and resources to be loaded
+  start():Promise; //starts the framework, causing plugins to be installed and resources to be loaded
   setRoot(root, applicationHost):Promise; //set your "root" or "app" view-model and display it
 }
 ```
 
 ## Views and View Models
 
-In Aurelia, user interface elements are composed of _view_ and _view-model_ pairs. The _view_ is written with HTML and is rendered into the DOM. The _view-model_ is written with JavaScript and provides data and behavior to the _view_. The templating engine and/or DI are responsible for creating these pairs and enforcing a predictable lifecycle on the process. Once instantiated, Aurelia's powerful _databinding_ links the two pieces together allowing changes in your data to be reflected in the _view_ and vice versa.
+In Aurelia, user interface elements are composed of _view_ and _view-model_ pairs. The _view_ is written with HTML and is rendered into the DOM. The _view-model_ is written with JavaScript and provides data and behavior to the _view_. The templating engine and/or DI are responsible for creating these pairs and enforcing a predictable lifecycle for the process. Once instantiated, Aurelia's powerful _databinding_ links the two pieces together allowing changes in your data to be reflected in the _view_ and vice versa.
 
 ### Dependency Injection (DI)
 
@@ -86,7 +96,7 @@ export class CustomerDetail{
 
 Just provide a static method named `inject` that returns an array of things to inject.
 
-> **Note:** If writing in TypeScript or CofeeScript, you can use a static array property instead of a method. In ES5 you can add the property onto the constructor itself. You can also do this with ES6 but we enable the static method option since it can be located closer to the constructor in vanilla JS. If you are using AtScript, you can actually take advantage of type annotations by defining your constructor like this: `constructor(http:HttpClient)`.
+> **Note:** If writing in TypeScript or CofeeScript, you can use a static array property instead of a method. In ES5 you can add the property onto the constructor itself. You can also do this with ES6 but we enable the static method option since it can be located closer to the constructor in Vanilla JS. If you are using AtScript, you can actually take advantage of type annotations by defining your constructor like this: `constructor(http:HttpClient)`. (Before this will work you need to place the `atscript` attribute on your application host element or call `aurelia.use.atscript()` manually.)
 
 The dependencies in your inject array don't have to be just constructor types. They can also be instances of `resolvers`. For example, have a look at this:
 
@@ -116,11 +126,11 @@ The `Lazy` resolver doesn't actually provide an instance of `HttpClient`. Instea
 In addition to these resolvers, you can also use `Registration` annotations to specify the default registration or lifetime for an instance. By default, the DI container assumes that everything is a singleton instance; one instance per container. However, you can use a registration annotation to change this. Here's an example:
 
 ```javascript
-import {Transient} from 'aurelia-framework';
+import {Metadata} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-http-client';
 
 export class CustomerDetail{
-    static annotations(){ return [new Transient()]; }
+    static metadata(){ return Metadata.transient(); }
     static inject() { return [HttpClient]; }
     constructor(http){
         this.http = http;
@@ -128,9 +138,9 @@ export class CustomerDetail{
 }
 ```
 
-Now, each time the DI container is asked for an instance of `CustomerDetail` the container will return a new instance, rather than the singleton. `Singleton` and `Transient` registrations are provided out-of-the-box, but you can create your own by writing a class that inherits from `Registration`.
+Now, each time the DI container is asked for an instance of `CustomerDetail` the container will return a new instance, rather than a singleton. `Singleton` and `Transient` registrations are provided out-of-the-box, but you can create your own by writing a class that inherits from `Registration`.
 
-> **Note:** This last example introduces _annotations_. This is a known location where various parts of the framework search for metadata. You can actually use an `Inject` annotation here as well, but we've found that using the `inject` method or property is more convenient for most scenarios. You will see annotations again when we talk about custom element definitions.
+> **Note:** This last example introduces _metadata_ to provide contextual information to the framework. You will see metadata again when we talk about behaviors.
 
 ## Templating
 
@@ -152,11 +162,13 @@ Everything inside the `template` tag will be managed by Aurelia. However, since 
 </template>
 ```
 
-This enables you to dynamically load per-view style sheets and even Web Components on the fly. Any time you want to import an Aurelia-specific resource, such as an Aurelia _Custom Element_, _Attached Behavior_, _Template Controller_ or _Value Converter_, you should use an `import` element inside your view. Here's an example:
+This enables you to dynamically load per-view style sheets and even Web Components on the fly.
+
+Any time you want to import an Aurelia-specific resource, such as an Aurelia _Custom Element_, _Attached Behavior_, _Template Controller_ or _Value Converter_, you should use an `import` element inside your view instead. Here's an example:
 
 ```markup
 <template>
-  <import src='./nav-bar'></import>
+  <import from='./nav-bar'></import>
 
   <nav-bar router.bind="router"></nav-bar>
 
@@ -172,7 +184,7 @@ In this case `nav-bar` is an Aurelia _Custom Element_ which we've imported for u
 * One-time Compilation - Templates for Custom Elements imported this way are compiled once for the entire application.
 * Local Scope - The imported resource is only visible inside the view that imports it, reducing the likelihood of name conflicts.
 * Renaming - Resources can be renamed upon import if two 3rd party resources with the same name need to be used in the same view.
-    - ex. `<import src='./nav-bar as foo-bar'></import>` - Now instead of using a `nav-bar` element you can use a `foo-bar` element. (This is based on ES6 where renaming is considered a replacement for using an Alias because it strictly renames the type.)
+    - ex. `<import from="./nav-bar" as="foo-bar"></import>` - Now instead of using a `nav-bar` element you can use a `foo-bar` element. (This is based on ES6 where renaming is considered a replacement for using an Alias because it strictly renames the type.)
 * Packages - The import can point to a module with multiple resources which will all be imported into the same view.
 * Extensibility - You can define new types of resources which, when imported in this way, can execute custom loading (async one-time) and registration (once per-view).
 * ES6 - Code is loaded by the ES6 loader rather than the HTMLImport mechanism, enabling all the features and extensibility of your loader.
@@ -359,9 +371,27 @@ But sometimes you want to work with selecting object instances rather than primi
 </select>
 ```
 
-First, note that we must specify the `.bind` binding command on `selected-item`. We then use a repeater as normal, being sure to bind `value` to some primitive. We also add a second property named `model` which the `selected-item` behavior will use to correlate selection with an object instance. In other words, when an option is selected the `employeeOfTheMonth` property will be set to the value of the `model` property on that option. When the `employeeOfTheMonth` property is set in the view-model, the option with the corresponding `model` value will be selected in the view.
+First, we specify the `.bind` binding command on `selected-item`. We then use a repeater as normal, being sure to bind `value` to some primitive. We also add a second property named `model` which the `selected-item` behavior will use to correlate selection with an object instance. In other words, when an option is selected the `employeeOfTheMonth` property will be set to the value of the `model` property on that option. When the `employeeOfTheMonth` property is set in the view-model, the option with the corresponding `model` value will be selected in the view.
 
-> **Note:** We said earlier that only form element values bind two-way by default, but in this case our custom attribute `selected-item` also bound with a two-way mode by default. How did that work? It turns out that when you define Aurelia behaviors, you can optionally specify the default binding mode on properties.
+> **Note:** We said earlier that only form element values bind two-way by default, but in this case our custom attribute `selected-item` is also bound with a two-way mode by default. How did that work? It turns out that when you define Aurelia behaviors, you can optionally specify the default binding mode on properties.
+
+#### global-behavior
+
+This is not an Attached Behavior that you will use directly. Rather, it works in conjunction with a custom binding command to dynamically enable the use of jQuery plugins and similar APIs declaratively in HTML. Let's look at an example in order to help clarify the idea:
+
+```markup
+<div jquery.modal="show: true; keyboard.bind: allowKeyboard">...</div>
+```
+
+This sample is based on the [Bootstrap modal widget](http://getbootstrap.com/javascript/#modals). In this case, the `modal` jQuery widget will be attached to the `div` and it will be configured with its `show` option set to `true` and its `keyboard` option set to the value of the `allowKeyboard` property on the view-model. When the containing view is unbound, the jQuery widget will be destroyed.
+
+This capability combines the special `global-behavior` Attached Behavior with custom syntax to enable these dynamic capabilities. The syntax you see here is based on the syntax of the native `style` attribute which lists properties and values separated in the same fashion as above. Note that you can use binding commands such as `.bind` to pass data from your view-model directly to the plugin or `.call` to pass a callback function directly to the plugin.
+
+Here's how it works:
+
+When the binding system sees a binding command that it doesn't recognize, it dynamically interprets it. The attribute name is mapped to a global property and the binding command is mapped to the plugin. The values are then used to create an options object that is passed to the plugin. When the view is unbound, if the widget implements a `destroy` method, it will be invoked.
+
+> **Note:** We don't just go invoking globals. The `global-behavior` has a whitelist you must configure. It is only configured with jQuery by default. You can turn all of this off, if you desire, but it makes it easy to take advantage of basic jQuery plugins without any work on your part.
 
 ## Routing
 
