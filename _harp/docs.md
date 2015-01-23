@@ -47,7 +47,7 @@ You can easily create your own appenders. Simply implement a class that matches 
 
 A _plugin_ is simply a module with an exported `install` function. During startup Aurelia will load all plugin modules and call their `install` functions, passing to them the Aurelia instance so that they can configure the framework appropriately. Plugins can optionally return a `Promise` from their `install` function in order to perform asynchronous configuration tasks. When writing a plugin, be sure to follow these rules:
 
-1. Use a flat directory structure. Do not located behaviors or views in subdirectories.
+1. Use a flat directory structure. Do not locate behaviors or views in subdirectories.
 2. Your file name and your behavior name must match.
 3. Explicilty supply all metadata, including a View Strategy for Custom Elements.
 
@@ -394,6 +394,70 @@ When the binding system sees a binding command that it doesn't recognize, it dyn
 > **Note:** We don't just go invoking globals. The `global-behavior` has a whitelist you must configure. It is only configured with jQuery by default. You can turn all of this off, if you desire, but it makes it easy to take advantage of basic jQuery plugins without any work on your part.
 
 ## Routing
+
+There are many different application styles you could be called upon to create. From navigation apps, to dashboards, to MDI interfaces, Aurelia can handle them all. In many of these cases a key component of your architecture is a client-side router, capable of translating url changes into application state.
+
+If you've read the getting started guide, you know that there are two parts to routing. First, there's the `Router` which lives in your view-model. It's configured with route information and controls navigation. Then, there's the `router-view` which lives in the view and is responsible for displaying whatever the router identifies as the current state.
+
+Let's look at an example configuration.
+
+```javascript
+import {Router} from 'aurelia-router';
+
+export class App {
+  static inject() { return [Router]; }
+  constructor(router) {
+    this.router = router;
+    this.router.configure(config => {
+      config.title = 'Aurelia';
+      config.map([
+        { route: ['', 'home'],               moduleId: 'home/index' },
+        { route: 'users',                    moduleId: 'users/index',                      nav: true },
+        { route: 'users/:id/detail',         moduleId: 'users/detail' },
+        { route: 'files*path',               moduleId: 'files/index',     href:'#files',   nav: true }
+      ]);
+    });
+  }
+}
+```
+
+We begin by asking for a `Router` to be injected. We then set this instance to a `router` property on the view-model. _You must name the property **router**_. Then we call the `configure` api. We pass it a function and it passes us a configuration object.
+
+We can optionally set a `title` property to be used in constructing the document's title. But the most important part is setting up the routes. The router's `map` method takes a simple JSON data structure representing your route table. The two most important properties are `route` (a string or array of strings), which defines the route pattern, and `moduleId`, which has the relative module Id path to your view-model. You can also set a `title` property, to be used when generating the document's title, a `nav` property indicating whether or not the route should be included in the navigation model (it can also be a number indicating order) and an `href` property which you can use to bind to in the _navigation model_.
+
+>**Note:** Any properties that you leave off will be conventionally determined by the framework based on what you have provided.
+
+So, what options to you have for the route pattern?
+
+* static routes
+    - ie 'home' - Matches the string exactly.
+* parameterized routes
+    - ie  'users/:id/detail' - Matches the string and then parses an `id` parameter. Your view-model's `activate` callback will be called with an object that has an `id` parameter set to the value that was extracted from the url.
+* wildcard routes
+    - ie 'files*path' - Matches the string and then anything that follows it. Your view-model's `activate` callback will be called with an object that has a `path` parameter set to the wildcard's value.
+
+All routes with a truthy `nav` property are assembled into a `navigation` array. This makes it really easy to use databinding to generate a menu structure. Another important property for binding is the `isNavigating` property. Here's some simple markup that shows what you might pair with the view-model shown above:
+
+```markup
+<template>
+  <ul>
+    <li class="loader" if.bind="router.isNavigating">
+      <i class="fa fa-spinner fa-spin fa-2x"></i>
+    </li>
+    <li repeat.for="item of router.navigation">
+      <a href.bind="item.href">${item.title}</a>
+    </li>
+  </ul>
+
+  <router-view></router-view>
+</template>
+```
+
+### Lifecycle
+
+### Child Routers
+
+### Conventional Routing
 
 ## Extending HTML
 
