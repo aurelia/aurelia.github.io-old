@@ -482,12 +482,12 @@ As with everything in Aurelia, we have strong support for conventions. So, you c
 router.configure(config => {
   config.mapUnknownRoutes(instruction => {
     //check instruction.fragment
-    //set instruction.moduleId
+    //set instruction.config.moduleId
   });
 });
 ```
 
-All you have to do is set the `moduleId` property and you are good to go. You can also return a promise from `mapUnknownRoutes` in order to asynchronously determine the destination.
+All you have to do is set the `config.moduleId` property and you are good to go. You can also return a promise from `mapUnknownRoutes` in order to asynchronously determine the destination.
 
 >**Note:** Though not necessarily related to conventional routing, you may sometimes have a need to asynchronously configure your router. For example, you may need to call a web service to get user permissions before setting up routes. To do this, implement a callback on your router's view-model named `configureRouter`. In this callback you can configure your router and optionally return a Promise if necessary.
 
