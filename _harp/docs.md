@@ -389,9 +389,9 @@ This capability combines the special `global-behavior` Attached Behavior with cu
 
 Here's how it works:
 
-When the binding system sees a binding command that it doesn't recognize, it dynamically interprets it. The attribute name is mapped to a global property and the binding command is mapped to the plugin. The values are then used to create an options object that is passed to the plugin. When the view is unbound, if the widget implements a `destroy` method, it will be invoked.
+When the binding system sees a binding command that it doesn't recognize, it dynamically interprets it. The attribute name is mapped to a global binding handler which interprets the binding command. The handler can use the values to create an options object which it can pass to the plugin. When the view is unbound, the handler can also cleanup after itself. In this case the jQuery handler knows the pattern for instantiating plugins and using the `destroy` method to cleanup.
 
-> **Note:** We don't just go invoking globals. The `global-behavior` has a whitelist you must configure. It is only configured with jQuery by default. You can turn all of this off, if you desire, but it makes it easy to take advantage of basic jQuery plugins without any work on your part.
+> **Note:** The `global-behavior` has a handlers list you must configure. It is only configured with jQuery by default. You can turn all of this off, if you desire, but it makes it easy to take advantage of basic jQuery plugins without any work on your part.
 
 ## Routing
 
