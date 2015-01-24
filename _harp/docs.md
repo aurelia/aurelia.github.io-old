@@ -493,7 +493,99 @@ All you have to do is set the `config.moduleId` property and you are good to go.
 
 ## Extending HTML
 
+Aurelia has a powerful and extensible HTML template compiler. The compiler itself is just an algorithm for interacting with various _behavior types_ which contain the logic for manipulating HTML. Out of the box, Aurelia provides three core behavior type implementations, which we believe cover the bulk of scenarios you will encounter from day to day. The tree types are _Attached Behaviors_, _Custom Elements_ and _Template Controllers_.
+
+Behaviors are not visible to the compiler by default. There are three main ways to plug them in:
+
+* Use the `import` element to import a behavior into a view. The `from` attribute specifies the relative path to the behavior's module. The behavior will be locally defined.
+* Use the Aurelia object during your bootstrapping phase to call `.withResources(resources)` to register behaviors with global visibility in your application.
+* Install a plugin that registers behaviors with global visibility in your application.
+
+>**Note:** A reccommended practice for your own apps is to place all your app-specific behaviors, value converters, etc. into a _resources_ folder. Then create an _index.js_ file that turns them all into an internal plugin. Finally, install that plugin during your app's bootstrapping phase. This will keep your resources located in a known location, along with their registration code. It will also keep your _main.js_ file clean and simple.
+
 ### Attached Behaviors
+
+Attached behaviors "attach" new behavior or functionality to existing HTML elements by adding a custom attribute to your markup. Common uses for attached behaviors include:
+
+* Wrapping jQuery and similar plugins (when the `global-behavior` is insufficient).
+* Shortcuts for common style, class or attribute bindings.
+* Just about anything that needs to change an existing HTML element or even a Custom Element which you cannot directly alter.
+
+Attached Behaviors tend to represent cross-cutting concerns. For example you might create a custom tooltip behavior that you can then attach to any element. This is a better idea than building tooltip functionality directly into every custom element you create.
+
+Let's look at one of Aurelia's own Attached Behavior implementations: `show`. Here's how it is used:
+
+```markup
+<div show.bind="isSaving" class="spinner"></div>
+```
+
+The `show` behavior will conditionally apply a class to an element based on the falsiness of its value. (The class, when applied, hides the element.) Here's the implementation:
+
+```javascript
+import {Behavior} from 'aurelia-templating';
+
+export class Show {
+  static metadata(){
+    return Behavior
+      .attachedBehavior('show')
+      .withProperty('value', 'valueChanged', 'show');
+  }
+
+  static inject() { return [Element]; }
+  constructor(element) {
+    this.element = element;
+  }
+
+  valueChanged(newValue){
+    if (newValue) {
+      this.element.classList.remove('aurelia-hide');
+    } else {
+      this.element.classList.add('aurelia-hide');
+    }
+  }
+}
+```
+
+The first thing to note is that Attached Behaviors are classes and follow the same patterns we've already seen. Notice that the `metadata` plays an important role in defining a behavior. Here's what the metadata is doing:
+
+* `.attachedBehavior('show')` - Creates an `AttachedBehavior` metadata instance to tell the HTML compiler how this class "plugs in". The behavior will be recognized by the compiler any time it sees an attribute named "show". In Aurelia, Attached Behaviors always map to a single HTML Attribute. There's a one-to-one relationship.
+* `.withProperty('value', 'valueChanged', 'show')` - Creates a `BehaviorProperty` that tells the HTML compiler that there's a specific property on your class that maps to an attribute in HTML. The first parameter of this method is your class's property name. The last parameter is the attribute name, which is only required if it is different from the property name. The second parameter optionally indicates a callback on the class which will be invoked whenever the property changes.
+
+Ok. Let's talk about conventions.
+
+* If your callback function is named {propertyName}Changed, then you don't need to specify it. So, in the above case, we could omit the value of the second parameter.
+* If your property name and attribute name are the same, then you don't need to specify it. In the above case, they are different, so we need to specify it.
+* Attached behaviors always map to a single attribute. This allows us to optmize a simple usage pattern. If you name your property "value", then you don't need to include the property metadata at all. We will autommatically map an attribute with the same name as your behavior to the `value` property.
+* If you name your class {BehaviorName}AttachedProperty, then you don't need to indlude the attached behavior metadata at all. The attribute name will be inferred from the class name by stripping off "AttachedBehavior" and lowercasing and hyphenating the remaining part of the name. ie. behavior-name
+
+These conventions mean that we can actually define our `show` behavior like this:
+
+```javascript
+export class ShowAttachedBehavior {
+  static inject() { return [Element]; }
+  constructor(element) {
+    this.element = element;
+  }
+
+  valueChanged(newValue){
+    if (newValue) {
+      this.element.classList.remove('aurelia-hide');
+    } else {
+      this.element.classList.add('aurelia-hide');
+    }
+  }
+}
+```
+
+> **Note:** So, why doesn't Aurelia itself leverage these conventions internally? Any time you are creating a 3rd party library of behaviors, it's best to be explicit. You don't know whether or not developers consuming your library will have changed Aurelia's conventions, thus breaking your library. In order to prevent this, always explicitly state the metadata for behaviors intended to be used in other apps. Inside your own apps though, you can use the conventions all you want to simplify development.
+
+Next, let's look at the constructor.
+
+AttachedBehaviors can easily gain access to the HTML element they are attached to by specifying it in the `inject` array. The `show` behavior stores the reference so that it can update the `classList` at a later time.
+
+Finally, let's look at the `valueChanged` callback. We said previously that this is configured through the property metadata so that it is called whenever the value changes. The binding system will automatically update properties thus triggering the callback. So, all the implementation has to do is add/remove the appropriate class based on the value.
+
+> **Note:** You may be wondering what to do if you want to create an Attached Behavior with multiple properties...since Attached Behaviors always map to a single attribute. For this scenario, we use an `OptionsProperty` which enables your single attribute to work like the native `style` attribute, with multiple properties embedded within. Docs on that are forthcoming...
 
 ### Custom Elements
 

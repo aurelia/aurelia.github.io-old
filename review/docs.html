@@ -341,9 +341,9 @@ export class CustomerDetail{
 <p>This sample is based on the <a href="http://getbootstrap.com/javascript/#modals">Bootstrap modal widget</a>. In this case, the <code>modal</code> jQuery widget will be attached to the <code>div</code> and it will be configured with its <code>show</code> option set to <code>true</code> and its <code>keyboard</code> option set to the value of the <code>allowKeyboard</code> property on the view-model. When the containing view is unbound, the jQuery widget will be destroyed.</p>
 <p>This capability combines the special <code>global-behavior</code> Attached Behavior with custom syntax to enable these dynamic capabilities. The syntax you see here is based on the syntax of the native <code>style</code> attribute which lists properties and values separated in the same fashion as above. Note that you can use binding commands such as <code>.bind</code> to pass data from your view-model directly to the plugin or <code>.call</code> to pass a callback function directly to the plugin.</p>
 <p>Here&#39;s how it works:</p>
-<p>When the binding system sees a binding command that it doesn&#39;t recognize, it dynamically interprets it. The attribute name is mapped to a global property and the binding command is mapped to the plugin. The values are then used to create an options object that is passed to the plugin. When the view is unbound, if the widget implements a <code>destroy</code> method, it will be invoked.</p>
+<p>When the binding system sees a binding command that it doesn&#39;t recognize, it dynamically interprets it. The attribute name is mapped to a global binding handler which interprets the binding command. The handler can use the values to create an options object which it can pass to the plugin. When the view is unbound, the handler can also cleanup after itself. In this case the jQuery handler knows the pattern for instantiating plugins and using the <code>destroy</code> method to cleanup.</p>
 <blockquote>
-<p><strong>Note:</strong> We don&#39;t just go invoking globals. The <code>global-behavior</code> has a whitelist you must configure. It is only configured with jQuery by default. You can turn all of this off, if you desire, but it makes it easy to take advantage of basic jQuery plugins without any work on your part.</p>
+<p><strong>Note:</strong> The <code>global-behavior</code> has a handlers list you must configure. It is only configured with jQuery by default. You can turn all of this off, if you desire, but it makes it easy to take advantage of basic jQuery plugins without any work on your part.</p>
 </blockquote>
 <h2>Routing</h2>
 <p>There are many different application styles you could be called upon to create. From navigation apps, to dashboards, to MDI interfaces, Aurelia can handle them all. In many of these cases a key component of your architecture is a client-side router, capable of translating url changes into application state.</p>
@@ -420,15 +420,93 @@ export class App {
 <pre><code class="language-javascript">router.configure(config =&gt; {
   config.mapUnknownRoutes(instruction =&gt; {
     //check instruction.fragment
-    //set instruction.moduleId
+    //set instruction.config.moduleId
   });
 });</code></pre>
-<p>All you have to do is set the <code>moduleId</code> property and you are good to go. You can also return a promise from <code>mapUnknownRoutes</code> in order to asynchronously determine the destination.</p>
+<p>All you have to do is set the <code>config.moduleId</code> property and you are good to go. You can also return a promise from <code>mapUnknownRoutes</code> in order to asynchronously determine the destination.</p>
 <blockquote>
 <p><strong>Note:</strong> Though not necessarily related to conventional routing, you may sometimes have a need to asynchronously configure your router. For example, you may need to call a web service to get user permissions before setting up routes. To do this, implement a callback on your router&#39;s view-model named <code>configureRouter</code>. In this callback you can configure your router and optionally return a Promise if necessary.</p>
 </blockquote>
 <h2>Extending HTML</h2>
+<p>Aurelia has a powerful and extensible HTML template compiler. The compiler itself is just an algorithm for interacting with various <em>behavior types</em> which contain the logic for manipulating HTML. Out of the box, Aurelia provides three core behavior type implementations, which we believe cover the bulk of scenarios you will encounter from day to day. The tree types are <em>Attached Behaviors</em>, <em>Custom Elements</em> and <em>Template Controllers</em>.</p>
+<p>Behaviors are not visible to the compiler by default. There are three main ways to plug them in:</p>
+<ul>
+<li>Use the <code>import</code> element to import a behavior into a view. The <code>from</code> attribute specifies the relative path to the behavior&#39;s module. The behavior will be locally defined.</li>
+<li>Use the Aurelia object during your bootstrapping phase to call <code>.withResources(resources)</code> to register behaviors with global visibility in your application.</li>
+<li>Install a plugin that registers behaviors with global visibility in your application.</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> A reccommended practice for your own apps is to place all your app-specific behaviors, value converters, etc. into a <em>resources</em> folder. Then create an <em>index.js</em> file that turns them all into an internal plugin. Finally, install that plugin during your app&#39;s bootstrapping phase. This will keep your resources located in a known location, along with their registration code. It will also keep your <em>main.js</em> file clean and simple.</p>
+</blockquote>
 <h3>Attached Behaviors</h3>
+<p>Attached behaviors &quot;attach&quot; new behavior or functionality to existing HTML elements by adding a custom attribute to your markup. Common uses for attached behaviors include:</p>
+<ul>
+<li>Wrapping jQuery and similar plugins (when the <code>global-behavior</code> is insufficient).</li>
+<li>Shortcuts for common style, class or attribute bindings.</li>
+<li>Just about anything that needs to change an existing HTML element or even a Custom Element which you cannot directly alter.</li>
+</ul>
+<p>Attached Behaviors tend to represent cross-cutting concerns. For example you might create a custom tooltip behavior that you can then attach to any element. This is a better idea than building tooltip functionality directly into every custom element you create.</p>
+<p>Let&#39;s look at one of Aurelia&#39;s own Attached Behavior implementations: <code>show</code>. Here&#39;s how it is used:</p>
+<pre><code class="language-markup">&lt;div show.bind=&quot;isSaving&quot; class=&quot;spinner&quot;&gt;&lt;/div&gt;</code></pre>
+<p>The <code>show</code> behavior will conditionally apply a class to an element based on the falsiness of its value. (The class, when applied, hides the element.) Here&#39;s the implementation:</p>
+<pre><code class="language-javascript">import {Behavior} from &#39;aurelia-templating&#39;;
+
+export class Show {
+  static metadata(){
+    return Behavior
+      .attachedBehavior(&#39;show&#39;)
+      .withProperty(&#39;value&#39;, &#39;valueChanged&#39;, &#39;show&#39;);
+  }
+
+  static inject() { return [Element]; }
+  constructor(element) {
+    this.element = element;
+  }
+
+  valueChanged(newValue){
+    if (newValue) {
+      this.element.classList.remove(&#39;aurelia-hide&#39;);
+    } else {
+      this.element.classList.add(&#39;aurelia-hide&#39;);
+    }
+  }
+}</code></pre>
+<p>The first thing to note is that Attached Behaviors are classes and follow the same patterns we&#39;ve already seen. Notice that the <code>metadata</code> plays an important role in defining a behavior. Here&#39;s what the metadata is doing:</p>
+<ul>
+<li><code>.attachedBehavior(&#39;show&#39;)</code> - Creates an <code>AttachedBehavior</code> metadata instance to tell the HTML compiler how this class &quot;plugs in&quot;. The behavior will be recognized by the compiler any time it sees an attribute named &quot;show&quot;. In Aurelia, Attached Behaviors always map to a single HTML Attribute. There&#39;s a one-to-one relationship.</li>
+<li><code>.withProperty(&#39;value&#39;, &#39;valueChanged&#39;, &#39;show&#39;)</code> - Creates a <code>BehaviorProperty</code> that tells the HTML compiler that there&#39;s a specific property on your class that maps to an attribute in HTML. The first parameter of this method is your class&#39;s property name. The last parameter is the attribute name, which is only required if it is different from the property name. The second parameter optionally indicates a callback on the class which will be invoked whenever the property changes.</li>
+</ul>
+<p>Ok. Let&#39;s talk about conventions.</p>
+<ul>
+<li>If your callback function is named {propertyName}Changed, then you don&#39;t need to specify it. So, in the above case, we could omit the value of the second parameter.</li>
+<li>If your property name and attribute name are the same, then you don&#39;t need to specify it. In the above case, they are different, so we need to specify it.</li>
+<li>Attached behaviors always map to a single attribute. This allows us to optmize a simple usage pattern. If you name your property &quot;value&quot;, then you don&#39;t need to include the property metadata at all. We will autommatically map an attribute with the same name as your behavior to the <code>value</code> property.</li>
+<li>If you name your class {BehaviorName}AttachedProperty, then you don&#39;t need to indlude the attached behavior metadata at all. The attribute name will be inferred from the class name by stripping off &quot;AttachedBehavior&quot; and lowercasing and hyphenating the remaining part of the name. ie. behavior-name</li>
+</ul>
+<p>These conventions mean that we can actually define our <code>show</code> behavior like this:</p>
+<pre><code class="language-javascript">export class ShowAttachedBehavior {
+  static inject() { return [Element]; }
+  constructor(element) {
+    this.element = element;
+  }
+
+  valueChanged(newValue){
+    if (newValue) {
+      this.element.classList.remove(&#39;aurelia-hide&#39;);
+    } else {
+      this.element.classList.add(&#39;aurelia-hide&#39;);
+    }
+  }
+}</code></pre>
+<blockquote>
+<p><strong>Note:</strong> So, why doesn&#39;t Aurelia itself leverage these conventions internally? Any time you are creating a 3rd party library of behaviors, it&#39;s best to be explicit. You don&#39;t know whether or not developers consuming your library will have changed Aurelia&#39;s conventions, thus breaking your library. In order to prevent this, always explicitly state the metadata for behaviors intended to be used in other apps. Inside your own apps though, you can use the conventions all you want to simplify development.</p>
+</blockquote>
+<p>Next, let&#39;s look at the constructor.</p>
+<p>AttachedBehaviors can easily gain access to the HTML element they are attached to by specifying it in the <code>inject</code> array. The <code>show</code> behavior stores the reference so that it can update the <code>classList</code> at a later time.</p>
+<p>Finally, let&#39;s look at the <code>valueChanged</code> callback. We said previously that this is configured through the property metadata so that it is called whenever the value changes. The binding system will automatically update properties thus triggering the callback. So, all the implementation has to do is add/remove the appropriate class based on the value.</p>
+<blockquote>
+<p><strong>Note:</strong> You may be wondering what to do if you want to create an Attached Behavior with multiple properties...since Attached Behaviors always map to a single attribute. For this scenario, we use an <code>OptionsProperty</code> which enables your single attribute to work like the native <code>style</code> attribute, with multiple properties embedded within. Docs on that are forthcoming...</p>
+</blockquote>
 <h3>Custom Elements</h3>
 <h3>Template Controllers</h3>
 <h2>Eventing</h2>
