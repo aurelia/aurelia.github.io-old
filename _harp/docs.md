@@ -1,6 +1,6 @@
 # Docs
 
-We've got a very rich set of docs planned for Aurelia. Unfortunately, we haven't quite finished them yet. During this early preview period, we're providing you with a simple "cheat sheet" containing examples of the most common tasks you might want to perform. If you have questions, we hope that you will join us on our [gitter channel](https://gitter.im/aurelia/discuss).
+We've got a very rich set of docs planned for Aurelia. Unfortunately, we haven't quite finished them yet. However, for this early preview period, we've put together this document, containing examples of the most common tasks you might want to perform. If you have questions, we hope that you will join us on our [gitter channel](https://gitter.im/aurelia/discuss).
 
 ## Startup & Configuration
 
@@ -732,6 +732,8 @@ Take a close look at the `valueChanged` callback. Here you can see where the `if
 * After the View is initially created, the `if` behavior does not throw it away even when the value becomes false. It caches the instance. Aurelia can re-use Views and even re-target them at different binding contexts. Again, this is important for performance, since it eliminates needless re-creation of Views.
 
 ## Eventing
+
+
 
 ### DOM Events
 
