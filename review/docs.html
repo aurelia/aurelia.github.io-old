@@ -438,6 +438,13 @@ export class App {
 <blockquote>
 <p><strong>Note:</strong> A reccommended practice for your own apps is to place all your app-specific behaviors, value converters, etc. into a <em>resources</em> folder. Then create an <em>index.js</em> file that turns them all into an internal plugin. Finally, install that plugin during your app&#39;s bootstrapping phase. This will keep your resources located in a known location, along with their registration code. It will also keep your <em>main.js</em> file clean and simple.</p>
 </blockquote>
+<p>All behaviors can opt into the view lifecycle by implementing any of the followinging hooks:</p>
+<ul>
+<li><code>bind(bindingContext)</code> - Invoked when he databinding engine binds the view. The binding context is the instance that the view is databound to.</li>
+<li><code>unbind()</code> - Invoked when the databinding engine unbinds the view.</li>
+<li><code>attached()</code> - Invoked when the view that contains the behavior is attached to the DOM.</li>
+<li><code>detached()</code> - Invoked whtn the view that contains the behavior is detached from the DOM.</li>
+</ul>
 <h3>Attached Behaviors</h3>
 <p>Attached behaviors &quot;attach&quot; new behavior or functionality to existing HTML elements by adding a custom attribute to your markup. Common uses for attached behaviors include:</p>
 <ul>
@@ -508,6 +515,54 @@ export class Show {
 <p><strong>Note:</strong> You may be wondering what to do if you want to create an Attached Behavior with multiple properties...since Attached Behaviors always map to a single attribute. For this scenario, we use an <code>OptionsProperty</code> which enables your single attribute to work like the native <code>style</code> attribute, with multiple properties embedded within. Docs on that are forthcoming...</p>
 </blockquote>
 <h3>Custom Elements</h3>
+<p>Custom Elements add new tags to your HTML markup. Each Custom Element can have its own view template which can be rendered into the Light DOM or the Shadow DOM. Custom Elements can also have any number of properties which they surface as attributes in HTML for databinding support and which they can databind to inside their view template.</p>
+<p>Why don&#39;t we create a simple custom element so that we can see how that works? We&#39;ll make an element that says hello to someone, called <code>say-hello</code>. Here&#39;s how we want to be able to use it when we&#39;re done:</p>
+<pre><code class="language-markup">&lt;template&gt;
+    &lt;import from=&quot;./say-hello&quot;&gt;&lt;/import&gt;
+
+    &lt;input type=&quot;text&quot; ref=&quot;name&quot;&gt;
+    &lt;say-hello to.bind=&quot;name.value&quot;&gt;&lt;/say-hello&gt;
+&lt;/template&gt;</code></pre>
+<p>So, how do we build this? Well, we&#39;re going to start with a class, just like we did with the Attached Behavior. Here&#39;s what it looks like:</p>
+<h4>say-hello.js</h4>
+<pre><code class="language-javascript">import {Behavior} from &#39;aurelia-templating&#39;;
+
+export class SayHello {
+  static metadata(){
+    return Behavior
+      .customElement(&#39;say-hello&#39;)
+      .withProperty(&#39;to&#39;);
+  }
+
+  speak(){
+    alert(&#39;Hello ${to}!&#39;);
+  }
+}</code></pre>
+<p>If you read the section on AttachedBehaviors, then you know what this does. There&#39;s some conventions too, which means we can do this if we want:</p>
+<h4>say-hello.js (with conventions)</h4>
+<pre><code class="language-javascript">import {Behavior} from &#39;aurelia-templating&#39;;
+
+export class SayHelloCustomElement {
+  static metadata(){
+    return Behavior.withProperty(&#39;to&#39;);
+  }
+
+  speak(){
+    alert(&#39;Hello ${to}!&#39;);
+  }
+}</code></pre>
+<p>Be default, Custom Elements have a view. Here&#39;s the view for ours:</p>
+<h4>say-hello.html</h4>
+<pre><code class="language-markup">&lt;template&gt;
+    &lt;button click.delegate=&quot;speak()&quot;&gt;Say Hello To ${to}&lt;/button&gt;
+&lt;/template&gt;</code></pre>
+<p>As you can see, we&#39;ve got access to our class&#39;s properties and methods. It&#39;s important to note that you don&#39;t need to declare property metadata for every property you want to bind to in your template. You only need to declare it for properties you want to exist as attribute on your custom element.</p>
+<p>That&#39;s really all there is to it. You follow the same view-model/view naming conventions and all the same patterns for custom elements. There are a few unique metadata options for custom elements you should know about:</p>
+<ul>
+<li><code>.useShadowDOM()</code> - This causes your component&#39;s view to be rendered in the ShadowDOM rather than in the Light DOM. If you aren&#39;t familiar with these terms, have a read through of <a href="http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom/">this article</a>. When using Shadow DOM, you can use <em>content selectors</em> in your view template.</li>
+<li><code>.noView()</code> - If your custom element doesn&#39;t have a view, because all its behavior is implemented in code, then use this option.</li>
+<li><code>.useView(relativePath)</code> - If you want to use a different view than the one that would be conventionally used, you can use this metadata option to specify a relative path to the view you want to use.</li>
+</ul>
 <h3>Template Controllers</h3>
 <h2>Eventing</h2>
 <h3>DOM Events</h3>

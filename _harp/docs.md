@@ -503,6 +503,13 @@ Behaviors are not visible to the compiler by default. There are three main ways 
 
 >**Note:** A reccommended practice for your own apps is to place all your app-specific behaviors, value converters, etc. into a _resources_ folder. Then create an _index.js_ file that turns them all into an internal plugin. Finally, install that plugin during your app's bootstrapping phase. This will keep your resources located in a known location, along with their registration code. It will also keep your _main.js_ file clean and simple.
 
+All behaviors can opt into the view lifecycle by implementing any of the followinging hooks:
+
+* `bind(bindingContext)` - Invoked when he databinding engine binds the view. The binding context is the instance that the view is databound to.
+* `unbind()` - Invoked when the databinding engine unbinds the view.
+* `attached()` - Invoked when the view that contains the behavior is attached to the DOM.
+* `detached()` - Invoked whtn the view that contains the behavior is detached from the DOM.
+
 ### Attached Behaviors
 
 Attached behaviors "attach" new behavior or functionality to existing HTML elements by adding a custom attribute to your markup. Common uses for attached behaviors include:
@@ -588,6 +595,72 @@ Finally, let's look at the `valueChanged` callback. We said previously that this
 > **Note:** You may be wondering what to do if you want to create an Attached Behavior with multiple properties...since Attached Behaviors always map to a single attribute. For this scenario, we use an `OptionsProperty` which enables your single attribute to work like the native `style` attribute, with multiple properties embedded within. Docs on that are forthcoming...
 
 ### Custom Elements
+
+Custom Elements add new tags to your HTML markup. Each Custom Element can have its own view template which can be rendered into the Light DOM or the Shadow DOM. Custom Elements can also have any number of properties which they surface as attributes in HTML for databinding support and which they can databind to inside their view template.
+
+Why don't we create a simple custom element so that we can see how that works? We'll make an element that says hello to someone, called `say-hello`. Here's how we want to be able to use it when we're done:
+
+```markup
+<template>
+    <import from="./say-hello"></import>
+
+    <input type="text" ref="name">
+    <say-hello to.bind="name.value"></say-hello>
+</template>
+```
+
+So, how do we build this? Well, we're going to start with a class, just like we did with the Attached Behavior. Here's what it looks like:
+
+#### say-hello.js
+```javascript
+import {Behavior} from 'aurelia-templating';
+
+export class SayHello {
+  static metadata(){
+    return Behavior
+      .customElement('say-hello')
+      .withProperty('to');
+  }
+
+  speak(){
+    alert('Hello ${to}!');
+  }
+}
+```
+
+If you read the section on AttachedBehaviors, then you know what this does. There's some conventions too, which means we can do this if we want:
+
+#### say-hello.js (with conventions)
+```javascript
+import {Behavior} from 'aurelia-templating';
+
+export class SayHelloCustomElement {
+  static metadata(){
+    return Behavior.withProperty('to');
+  }
+
+  speak(){
+    alert('Hello ${to}!');
+  }
+}
+```
+
+Be default, Custom Elements have a view. Here's the view for ours:
+
+#### say-hello.html
+```markup
+<template>
+    <button click.delegate="speak()">Say Hello To ${to}</button>
+</template>
+```
+
+As you can see, we've got access to our class's properties and methods. It's important to note that you don't need to declare property metadata for every property you want to bind to in your template. You only need to declare it for properties you want to exist as attribute on your custom element.
+
+That's really all there is to it. You follow the same view-model/view naming conventions and all the same patterns for custom elements. There are a few unique metadata options for custom elements you should know about:
+
+* `.useShadowDOM()` - This causes your component's view to be rendered in the ShadowDOM rather than in the Light DOM. If you aren't familiar with these terms, have a read through of [this article](http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom/). When using Shadow DOM, you can use _content selectors_ in your view template.
+* `.noView()` - If your custom element doesn't have a view, because all its behavior is implemented in code, then use this option.
+* `.useView(relativePath)` - If you want to use a different view than the one that would be conventionally used, you can use this metadata option to specify a relative path to the view you want to use.
 
 ### Template Controllers
 
