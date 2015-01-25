@@ -505,10 +505,12 @@ Behaviors are not visible to the compiler by default. There are three main ways 
 
 All behaviors can opt into the view lifecycle by implementing any of the followinging hooks:
 
-* `bind(bindingContext)` - Invoked when he databinding engine binds the view. The binding context is the instance that the view is databound to.
+* `bind(bindingContext)` - Invoked when the databinding engine binds the view. The binding context is the instance that the view is databound to.
 * `unbind()` - Invoked when the databinding engine unbinds the view.
 * `attached()` - Invoked when the view that contains the behavior is attached to the DOM.
 * `detached()` - Invoked whtn the view that contains the behavior is detached from the DOM.
+
+>**Note:** If you choose to implement the `bind` callback, the initial binding of your behavior will flow a little differently. Usually, if you have callbacks for your Behavior Properties, these are each individually called during the bind phase. However, if you add the `bind` callback, they will not be called during initialization. Rather, the `bind` callback will be called once all properties have their initial bound values set. This is an important and useful characteristic, particularly for complex behaviors which may not want to "act" until they have all evaluated values available.
 
 ### Attached Behaviors
 
@@ -623,7 +625,7 @@ export class SayHello {
   }
 
   speak(){
-    alert('Hello ${to}!');
+    alert('Hello ${this.to}!');
   }
 }
 ```
@@ -640,7 +642,7 @@ export class SayHelloCustomElement {
   }
 
   speak(){
-    alert('Hello ${to}!');
+    alert('Hello ${this.to}!');
   }
 }
 ```
@@ -663,6 +665,71 @@ That's really all there is to it. You follow the same view-model/view naming con
 * `.useView(relativePath)` - If you want to use a different view than the one that would be conventionally used, you can use this metadata option to specify a relative path to the view you want to use.
 
 ### Template Controllers
+
+Template Controllers convert DOM into an inert HTML template. The controller can then decided when and where (or how many times) to instantiate the template in the DOM. Examples of this are the `if` and `repeat` behaviors. Simply place one of these behavior on a DOM node and it becomes a template, controlled by the behavior.
+
+Let's take a look at the implementation of the `if` behavior to see how one of these is put together. Here's the full source code:
+
+```javascript
+import {Behavior, BoundViewFactory, ViewSlot} from 'aurelia-templating';
+
+export class If {
+  static metadata(){
+    return Behavior
+      .templateController('if')
+      .withProperty('value', 'valueChanged', 'if');
+  }
+
+  static inject() { return [BoundViewFactory, ViewSlot]; }
+  constructor(viewFactory, viewSlot){
+    this.viewFactory = viewFactory;
+    this.viewSlot = viewSlot;
+    this.showing = false;
+  }
+
+  valueChanged(newValue){
+    if (!newValue) {
+      if(this.view){
+        this.viewSlot.remove(this.view);
+        this.view.unbind();
+      }
+
+      this.showing = false;
+      return;
+    }
+
+    if(!this.view){
+      this.view = this.viewFactory.create();
+    }
+
+    if (!this.showing) {
+      this.showing = true;
+
+      if(!this.view.bound){
+        this.view.bind();
+      }
+
+      this.viewSlot.add(this.view);
+    }
+  }
+}
+```
+
+Before we dig into the unique aspects of Template Controllers, let me remind you of what you see here that is simlar. First, we have a simple class with metadata. Our metadata is declared the same as in the two previous behavior types. The conventions work the same as well. So, you could name this class `IfTemplateController` and you wouldn't need to specify it in the metadata. Also, you can leave off the property metadata when you declare the `valueChanged` callback. It follows the same pattern as AttachedBehaviors.
+
+Ok, what's different? Take a look at the constructor. Our Template Controller has two unique items being injected: `BoundViewFactory` and `ViewSlot`.
+
+The `BoundViewFactory` is capable of generating instances of the the HTML template that the controller is attached to. No need to worry about compiling, etc. That's taken care of for you. Why is it called "Bound" View Factory though? Well, it's already referencing the parent binding context. It's "bound" in a sense. So, if you call its `create` method it will instantiate a new View from the template which will be bound to that context. This is what you want with an `if` behavior. It's not what you want with a `repeat` behavior. In that case, each time you call `create` you want a view bound to a particular array item. To achieve this, simply pass any object you want the view to be bound against into the `create` method.
+
+The `ViewSlot` represents the slot or location within the DOM that the template was extracted from. This is usually the location that you want to add View instances to.
+
+>**Note**: Unlike previous behaviors, the Template Controller works more directly with the _primitives_ of the framework. Views, ViewFactories and ViewSlots are all low level parts of the templating engine.
+
+Take a close look at the `valueChanged` callback. Here you can see where the `if` behavior is creating the view and adding it to the slot, based on the truthiness of the value. There are a few important details of this:
+
+* The behavior always calls `bind` on the View _before_ adding it to the ViewSlot. This ensures that all internal bindings are initially evaluated outside of the live DOM. This is important for performance. 
+* Similarly, always call `unbind` _after_ removing the View from the DOM.
+* After the View is initially created, the `if` behavior does not throw it away even when the value becomes false. It caches the instance. Aurelia can re-use Views and even re-target them at different binding contexts. Again, this is important for performance, since it eliminates needless re-creation of Views.
 
 ## Eventing
 
