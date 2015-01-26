@@ -1,6 +1,6 @@
 # Get Started
 
-**Welcome to Aurelia!** This tutorial will take you through creating a simple application using Aurelia and briefly explain its main concepts. We assume you are familiar with JavaScript, HTML, and CSS. To get a quick overview, we recommend you skip down to the section titled "Setting Up The HTML Page" so you can see how to use Aurelia straight away. Then, when you are ready to actually build something, come back and read about "Configuring Your Environment" and "Setting up the Project Structure and Build". To view the completed results of this tutorial, please have a look at our [navigation skeleton project](https://github.com/aurelia/skeleton-navigation/releases). You may also wish to download it and delete the contents of the _src_ folder in order to follow this tutorial since this would incur less manual setup labor on your part. That's what we would do anyway...
+**Welcome to Aurelia!** This tutorial will take you through creating a simple application using Aurelia and briefly explain its main concepts. We assume you are familiar with JavaScript, HTML, and CSS. To get a quick overview, we recommend you skip down to the section titled "Setting Up The HTML Page" so you can see how to use Aurelia straight away. Then, when you are ready to actually build something, come back and read about "Configuring Your Environment" and "Setting up the Project Structure and Build". To view the completed results of this tutorial, please have a look at our [navigation skeleton project](https://github.com/aurelia/skeleton-navigation/releases). You may also wish to download it and delete the contents of the _src_ folder in order to follow this tutorial since this would incur less manual setup on your part. That's what we would do anyway...
 
 ## Configuring Your Environment
 
@@ -18,7 +18,7 @@ Next, we need to install [jspm](http://jspm.io/). This will serve as our client-
   npm install -g jspm
   ```
 
-> **Note:** jspm, like Bower and Yeoman, leverages [git](http://git-scm.com/) so you need to install that if you don't have it. Also, jspm queries GitHub to install packages, but GitHub has a rate limit on anonymous API requests. It is advised that you configure jspm with your GitHub credentials in order to avoid problems. You can do this by executing `jspm endpoint config github` and following the prompts. Don't want to use jspm? No problem. All Aurelia packages are available via Bower as well.
+> **Note:** jspm, like Bower and Yeoman, leverages [git](http://git-scm.com/) so you need to install that if you don't have it. Also, jspm queries GitHub to install packages, but GitHub has a rate limit on anonymous API requests. It is advised that you configure jspm with your GitHub credentials in order to avoid problems. You can do this by executing `jspm endpoint config github` and following the prompts. Don't want to use jspm? No problem. All Aurelia packages are available via [Bower](http://bower.io/) as well.
 
 ## Setting up the Project Structure and Build
 
@@ -194,10 +194,10 @@ We need to set the router to a public property on the class. The property must b
 
 Alrighty. Time to configure the router. It's easy. You can set a title to use when generating the document's title. Then you set up your routes. Each route has the following properties:
 
-* route: This is a pattern which, when matched, will cause the router to navigate to this route. You can use static routes like above, but you can also use paramerters like this: `customer/:id`. There's also support for wildcard routes and query string parmaters. The route can be a single string pattern or an array of patterns.
-* moduleId: This is a path relative to the current view-model which specifies the view/view-model pair you want to render for this route.
-* title: You can optionally provide a title to be used in generating the document's title.
-* nav: If this route should be included in the _navigation model_ becuase you want to generate a UI with it, set this to true (or a number indicating order).
+* `route`: This is a pattern which, when matched, will cause the router to navigate to this route. You can use static routes like above, but you can also use paramerters like this: `customer/:id`. There's also support for wildcard routes and query string parmaters. The route can be a single string pattern or an array of patterns.
+* `moduleId`: This is a path relative to the current view-model which specifies the view/view-model pair you want to render for this route.
+* `title`: You can optionally provide a title to be used in generating the document's title.
+* `nav`: If this route should be included in the _navigation model_ becuase you want to generate a UI with it, set this to true (or a number indicating order).
 
 ### app.html
 
@@ -245,7 +245,9 @@ With this in place, go ahead and start the dev server with `gulp watch`. Open th
 
 ## Adding a Second Page
 
-Well, we've technically got a navigation application now...but it's not very interesting because there's only one page. Let's add a second page. Can you guess how to do it? It's really easy. Let's display some images from Flickr. To do that, let's first configure our router for the hypothetical page:
+Well, we've technically got a navigation application now...but it's not very interesting because there's only one page. Let's add a second page. Can you guess how to do it? I be you can...
+
+Let's display some images from Flickr. To do that, let's first configure our router for the hypothetical page:
 
 ### app.js (updated)
 
@@ -372,7 +374,7 @@ export class NavBar {
 }
 ```
 
-To create a custom element, you create and export a class. Since this class is going to be used in HTML as an element, we need to tell the framework what properties on the class should appear as attributes on the element. To do that, we use the _metadata_ method. Like _inject_ metadata is a way to provide information about your class to the Aurelia framework. Aurelia is smart and can infer many things, but when it can't or when you want to do something different than the conventions, you use some form of metadata. To leverage this capability, add a static metadata method on the class and return an array of metadata instances (really just regular objects). In this case we are using Aurelia's `Behavior` metadata helper. The `withProperty` method adds a `BehaviorProperty` which tells the framework that we want our class's `router` property to be surfaced as an attribute in the HTML. Once it's surfaced as an attribute, we can databind to it in the view.
+To create a custom element, you create and export a class. Since this class is going to be used in HTML as an element, we need to tell the framework what properties on the class should appear as attributes on the element. To do that, we use the _metadata_ method. Like _inject_ metadata is a way to provide information about your class to the Aurelia framework. Aurelia is smart and can infer many things, but when it can't or when you want to do something different than the conventions, you use some form of metadata. To leverage this capability, add a static `metadata` method on the class and return an array of metadata instances (really just regular objects). In this case we are using Aurelia's `Behavior` metadata helper. The `withProperty` method adds a `BehaviorProperty` which tells the framework that we want our class's `router` property to be surfaced as an attribute in the HTML. Once it's surfaced as an attribute, we can databind to it in the view.
 
 ### nav-bar.html
 
@@ -431,11 +433,11 @@ To recap: First we have an `import` element. Aurelia uses this to load the custo
 
 > **Note:** You can also load app-wide elements and other behaviors for convenience so you don't have to import common resources into every view.
 
-You may wonder how Aurelia determines the name of the custom element. By convention, it will use the class name, lowered and hyphenated. However, you can always be explicit. To do so, add more metadata by chaining `.customElement('nav-bar')` on `Behavior`. What if your custom element doesn't have a view template because it's all implemented in code? No problem, chain `.noView()`. Want to use ShadowDOM for your custom element? Do it like a pro by chaing `.useShadowDOM()`. Don't worry about whether or not the browser supports it. We have an efficient, full-fidelity ShadowDOM fallback implementation.
+You may wonder how Aurelia determines the name of the custom element. By convention, it will use the class name, lowered and hyphenated. However, you can always be explicit. To do so, add more metadata by chaining `.customElement('nav-bar')` on `Behavior`. What if your custom element doesn't have a view template because it's all implemented in code? No problem, chain `.noView()`. Want to use ShadowDOM for your custom element? Do it like a pro by chaining `.useShadowDOM()`. Don't worry about whether or not the browser supports it. We have an efficient, full-fidelity ShadowDOM fallback implementation.
 
 In addition to creating custom elements, you can also create standalone attributes which add new behavior to existing elements. We call these _Attached Behaviors_. On occassion you may need to create _Template Controllers_ for dynamically adding and removing DOM from the view, like the `repeat` and `for` we used above. That's not all you can do either. Aurelia's templating engine is both powerful and extensible.
 
-> **Note:** AtScript users can leverage language annotations and Aurelia will pick those up. Users of languages that support static class properties, such as TypeScript, can use a _metadata_ property instead of a method, for convenience. This also applies to the `inject` designation used by the dependency injection container.
+> **Note:** AtScript users can leverage language annotations and Aurelia will pick those up. Users of languages that support static class properties, such as TypeScript, can use a `metadata` property instead of a method, for convenience. This also applies to the `inject` designation used by the dependency injection container.
 
 ## Bonus: Leveraging Child Routers
 

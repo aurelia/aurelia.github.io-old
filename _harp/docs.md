@@ -453,7 +453,7 @@ All routes with a truthy `nav` property are assembled into a `navigation` array.
 </template>
 ```
 
-### Lifecycle
+### The Screen Activation Lifecycle
 
 Whenever the router processes a navigation, it enforces a strict lifecycle on the view-models that it is navigating to and from. There are four stages in the lifecycle. You can opt-in to any of them by implementing the appropriate method on your view-model's class. Here's a list of the lifecycle callbacks:
 
