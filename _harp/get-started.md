@@ -194,10 +194,10 @@ We need to set the router to a public property on the class. The property must b
 
 Alrighty. Time to configure the router. It's easy. You can set a title to use when generating the document's title. Then you set up your routes. Each route has the following properties:
 
-* `route`: This is a pattern which, when matched, will cause the router to navigate to this route. You can use static routes like above, but you can also use paramerters like this: `customer/:id`. There's also support for wildcard routes and query string parmaters. The route can be a single string pattern or an array of patterns.
+* `route`: This is a pattern which, when matched, will cause the router to navigate to this route. You can use static routes like above, but you can also use paramerters like this: `customer/:id`. There's also support for wildcard routes and query string parameters. The route can be a single string pattern or an array of patterns.
 * `moduleId`: This is a path relative to the current view-model which specifies the view/view-model pair you want to render for this route.
 * `title`: You can optionally provide a title to be used in generating the document's title.
-* `nav`: If this route should be included in the _navigation model_ becuase you want to generate a UI with it, set this to true (or a number indicating order).
+* `nav`: If this route should be included in the _navigation model_ because you want to generate a UI with it, set this to true (or a number indicating order).
 
 ### app.html
 
@@ -310,7 +310,7 @@ Like before, we're using dependency injection to have the `HttpClient` instance 
 
 Aurelia's router enforces a lifecycle on view-models whenever routes change. This is referred to as the "Screen Activation Lifecycle". View-models can optionally hook into various parts of the lifecycle to control flow into and out of the route. When your route is ready to activate the router will call the `activate` hook, if present. In the above code, we use this hook to call the Flickr api and get some images back. Notice that we return the result of the http request back from our `activate` method. All the `HttpClient` APIs return a `Promise`. The router will detect a `Promise` and wait to complete navigation until after it resolves. So, in this way, you can optionally force the router to delay displaying the page until it is populated with data.
 
-There's a second lifecycle hook demonstrated here as well: `canDeactivate`. The router calls this before navigation away from the route happens. It gives you the opportunity to allow or disallow the navigation to continue by returning a boolean. You can also return a `Promise` for that value. The full lifecyle includes `canActivate`, `activate`, `canDeactivate` and `deactivate` hooks.
+There's a second lifecycle hook demonstrated here as well: `canDeactivate`. The router calls this before navigation away from the route happens. It gives you the opportunity to allow or disallow the navigation to continue by returning a boolean. You can also return a `Promise` for that value. The full lifecycle includes `canActivate`, `activate`, `canDeactivate` and `deactivate` hooks.
 
 >**Note:** If you aren't familiar with [Promises](http://www.html5rocks.com/en/tutorials/es6/promises/), these are a new feature of ES6 designed to improve asynchronous programming. A `Promise` is an object that represents a future result. Essentially, it represents a "promise" to complete some work or to provide some data at some point in the future.
 

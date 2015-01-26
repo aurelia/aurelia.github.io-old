@@ -45,7 +45,7 @@ You can easily create your own appenders. Simply implement a class that matches 
 
 ### Plugins
 
-A _plugin_ is simply a module with an exported `install` function. During startup Aurelia will load all plugin modules and call their `install` functions, passing to them the Aurelia instance so that they can configure the framework appropriately. Plugins can optionally return a `Promise` from their `install` function in order to perform asynchronous configuration tasks. When writing a plugin, be sure to follow these rules:
+A _plugin_ is only a module with an exported `install` function. During startup Aurelia will load all plugin modules and call their `install` functions, passing to them the Aurelia instance so that they can configure the framework appropriately. Plugins can optionally return a `Promise` from their `install` function in order to perform asynchronous configuration tasks. When writing a plugin, be sure to follow these rules:
 
 1. Use a flat directory structure. Do not locate behaviors or views in subdirectories.
 2. Your file name and your behavior name must match.
@@ -61,7 +61,6 @@ Since both a custom _main_ module and plugins do their work by interacting with 
 export class Aurelia {
   loader:Loader; //the module loader
   container:Container; //the app-level dependency injection container
-  resources:ResourceRegistry; //the app level view resource registery
   use:Plugins; //the plugins api
 
   withInstance(type, instance):Aurelia; //DI helper method (pass through to container)
