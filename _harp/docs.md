@@ -733,10 +733,100 @@ Take a close look at the `valueChanged` callback. Here you can see where the `if
 
 ## Eventing
 
-
+Eventing is a powerful tool when you need decoupled components of your application to talk to one another. Aurelia supports both standard DOM events as well as more application-specific events via the `EventAggregator`.
 
 ### DOM Events
 
+DOM events should be used when UI-specific messages need to be sent. They should not be used for application-specific messages. Aurelia doesn't add any functionality beyond the DOM for UI events. Any behavior can have its associated `Element` injected into its constructor. You can then use the `Element` to trigger events. To learn more about creating and triggering custom DOM events, [please read this article](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events).
+
 ### The Event Aggregator
 
+If you need loosely coupled application-events, you want to use the `EventAggregator`. Its streamlined pub/sub interface makes it ideal for a wide range of messaging scenarios.
+
+The Event Aggregator can publish events to a message channel or it can publish strongly-typed messages. Let's look at publishing to channels first:
+
+```javascript
+import {EventAggregator} from 'aurelia-event-aggregator';
+
+export class APublisher{
+    static inject(){ return [EventAggregator]; }
+    constructor(eventAggregator){
+        this.eventAggregator = eventAggregator;
+    }
+
+    publish(){
+        var payload = {}; //any object
+        this.eventAggregator.publish('channel name here', payload);
+    }
+}
+```
+
+We begin by having the DI provide us with the singleton Event Aggregator. Next we call its `publish` method, passing it the message channel name and the data payload to send on that channel. Here's how a subscriber would set themselvs up to receive this:
+
+```javascript
+import {EventAggregator} from 'aurelia-event-aggregator';
+
+export class ASubscriber{
+    static inject(){ return [EventAggregator]; }
+    constructor(eventAggregator){
+        this.eventAggregator = eventAggregator;
+    }
+
+    subscribe(){
+        this.eventAggregator.subscribe('channel name here', payload => {
+            //do something with the payload here
+        });
+    }
+}
+```
+
+As you can see, they use the same channel name, but provide a callback, which will be invoked for every message sent on the channel.
+
+Alternatively, you can publish and subscribe to strongly-typed messages. Here's an example publisher:
+
+```javascript
+export class SomeMessage{ }
+```
+
+```javascript
+import {EventAggregator} from 'aurelia-event-aggregator';
+import {SomeMessage} from './some-message';
+
+export class APublisher{
+    static inject(){ return [EventAggregator]; }
+    constructor(eventAggregator){
+        this.eventAggregator = eventAggregator;
+    }
+
+    publish(){
+        this.eventAggregator.publish(new SomeMessage());
+    }
+}
+```
+
+In this case, we publish an instance of a particular message type. Here's a sample subscriber:
+
+```javascript
+import {EventAggregator} from 'aurelia-event-aggregator';
+import {SomeMessage} from './some-message';
+
+export class ASubscriber{
+    static inject(){ return [EventAggregator]; }
+    constructor(eventAggregator){
+        this.eventAggregator = eventAggregator;
+    }
+
+    subscribe(){
+        this.eventAggregator.subscribe(SomeMessage, message => {
+            //do something with the message here
+        });
+    }
+}
+```
+
+The subscriber will be called any time an instance of `SomeMessage` is published. Subscription is polymorphic, so if a subclass of SomeMessage is published, this subscriber will be notified as well.
+
+>**Note:** All forms of the `subscribe` method return a _dispose function_. You can call this function to dispose of the subscription and discontinue receiving messages. A good place to dispose is either in a view-model's `deactivate` callback, if it is managed by a router, or in its `detached` callback, if it is any other view-model.
+
 ## HTTP Client
+
