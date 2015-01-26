@@ -830,3 +830,86 @@ The subscriber will be called any time an instance of `SomeMessage` is published
 
 ## HTTP Client
 
+As a convenience, Aurelia includes a basic `HttpClient` to provide a comfortable interface to the browser's XMLHttpRequest object. `HttpClient` is not included in the modules that Aurelia's bootstrapper installs, since its completely optional and many apps may choose to use a different strategy for data retrieval. So, if you want to use it, first you must install it with the following command:
+
+```shell
+jspm install aurelia-http-client
+```
+
+Then you can use it like this:
+
+```javascript
+import {HttpClient} from 'aurelia-http-client';
+
+export class WebAPI {
+    static inject() { return [HttpClient]; }
+    constructor(http){
+        this.http = http;
+    }
+
+    return getAllContacts(){
+        return this.http.get('uri goes here');
+    }
+}
+
+```
+
+The `HttpClient` has the following implementation:
+
+```javascript
+export class HttpClient {
+  constructor(baseUrl = null, defaultRequestHeaders = new Headers()){
+    this.baseUrl = baseUrl;
+    this.defaultRequestHeaders = defaultRequestHeaders;
+  }
+
+  send(requestMessage, progressCallback){
+    return requestMessage.send(this, progressCallback);
+  }
+
+  get(uri){
+    return this.send(new HttpRequestMessage('GET', join(this.baseUrl, uri))
+        .withHeaders(this.defaultRequestHeaders));
+  }
+
+  put(uri, content, replacer){
+    return this.send(new HttpRequestMessage('PUT', join(this.baseUrl, uri), content, replacer || this.replacer)
+        .withHeaders(this.defaultRequestHeaders));
+  }
+
+  patch(uri, content, replacer){
+    return this.send(new HttpRequestMessage('PATCH', join(this.baseUrl, uri), content, replacer || this.replacer)
+        .withHeaders(this.defaultRequestHeaders));
+  }
+
+  post(uri, content, replacer){
+    return this.send(new HttpRequestMessage('POST', join(this.baseUrl, uri), content, replacer || this.replacer)
+        .withHeaders(this.defaultRequestHeaders));
+  }
+
+  delete(uri){
+    return this.send(new HttpRequestMessage('DELETE', join(this.baseUrl, uri))
+        .withHeaders(this.defaultRequestHeaders));
+  }
+
+  jsonp(uri, callbackParameterName='jsoncallback'){
+    return this.send(new JSONPRequestMessage(join(this.baseUrl, uri), callbackParameterName));
+  }
+}
+```
+
+As you can see, it provides convenience methods for `get`, `put`, `patch`, `post`, `delete` and `jsonp`. Each of these methods sends an `HttpRequestMessage` except `jsonp` which sends a `JSONPRequestMessage`. The result of sending a message is a `Promise` for an `HttpResponseMessage`.
+
+The `HttpResponseMessage` has the followingn properties:
+
+* `response` - Returns the raw conent sent from the server.
+* `responseType` - The expected response type.
+* `content` - Formats the raw `response` content based on the `responseType` and returns it.
+* `headers` - Returns a `Headers` object with the parsed header data.
+* `statusCode` - The server's response status code.
+* `statusText` - The server's textual status message.
+* `isSuccess` - Indicates whether or not the status code falls within the success range.
+* `reviver` - A function used to transform the raw `response` content.
+* `requestMessage` - A reference to the original request message.
+
+> **Note:** By default, the `HttpClient` assumes you are expecting a JSON responseType. 
