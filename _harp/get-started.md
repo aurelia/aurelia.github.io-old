@@ -38,7 +38,7 @@ With these files in place, let's run some commands.
 3. Next, execute the following command to install the Aurelia library, bootstrap and font-awesome, listed in the _jspm.dependencies_ section of the package manifest.
 
   ```shell
-  jspm install
+  jspm install -y
   ```
 
 Everything we've done so far is standard Node.js build and package management procedures. It doesn't have anything specific to do with Aurelia itself. We're just walking you through setting up a modern JavaScript project and build configuration from scratch. You may be familiar with this already, but if not then welcome to this new and exciting world!
@@ -63,7 +63,7 @@ If you've followed along this far, you now have all the libraries, build configu
     <script src="config.js"></script>
     <script>
       System.baseUrl = 'dist';
-      System.import('aurelia-bootstrapper').catch(console.error.bind(console));
+      System.import('aurelia-bootstrapper');
     </script>
   </body>
 </html>
@@ -77,7 +77,7 @@ Let's start with the script tags. First we have _system.js_, our ES6 standards-b
 
 >**Note:** The Aurelia Framework isn't tied to jspm or SystemJS. We also support require-style APIs like RequireJS and Dojo Loader out of the box. Also, you can implement your own loader and handle package management any way you want. However we do think jspm/SystemJS is the best ES6-oriented solution today and it's our recommended approach.
 
-Once we have our module loader and its configuration, we set the `baseUrl` to point to the location of our compiled code. Then we load the `aurelia-bootstrapper` module with a call to `System.import`, being sure to catch any errors that might happen at startup and bind those to the console.
+Once we have our module loader and its configuration, we set the `baseUrl` to point to the location of our compiled code. Then we load the `aurelia-bootstrapper` module with a call to `System.import`.
 
 When the bootstrapper loads it inspects the HTML document for _aurelia_ attributes. In this case it will find that the body has an `aurelia-app` attribute. This tells the bootstrapper to load our _app_ view-model and its view, conventionally located in _app.js_ and _app.html_ and then compose them as an Aurelia application in the DOM.
 
