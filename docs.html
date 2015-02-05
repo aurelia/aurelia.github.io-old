@@ -154,7 +154,7 @@ export class CustomerDetail{
 }</code></pre>
 <p>Just provide a static method named <code>inject</code> that returns an array of things to inject.</p>
 <blockquote>
-<p><strong>Note:</strong> If writing in TypeScript or CofeeScript, you can use a static array property instead of a method. In ES5 you can add the property onto the constructor itself. You can also do this with ES6 but we enable the static method option since it can be located closer to the constructor in Vanilla JS. If you are using AtScript, you can actually take advantage of type annotations by defining your constructor like this: <code>constructor(http:HttpClient)</code>. (Before this will work you need to place the <code>atscript</code> attribute on your application host element or call <code>aurelia.use.atscript()</code> manually.)</p>
+<p><strong>Note:</strong> If writing in TypeScript or CoffeeScript, you can use a static array property instead of a method. In ES5 you can add the property onto the constructor itself. You can also do this with ES6 but we enable the static method option since it can be located closer to the constructor in Vanilla JS. If you are using AtScript, you can actually take advantage of type annotations by defining your constructor like this: <code>constructor(http:HttpClient)</code>. (Before this will work you need to place the <code>atscript</code> attribute on your application host element or call <code>aurelia.use.atscript()</code> manually.)</p>
 </blockquote>
 <p>The dependencies in your inject array don&#39;t have to be just constructor types. They can also be instances of <code>resolvers</code>. For example, have a look at this:</p>
 <pre><code class="language-javascript">import {Lazy} from &#39;aurelia-framework&#39;;
