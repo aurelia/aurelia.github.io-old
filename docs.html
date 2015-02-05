@@ -125,6 +125,8 @@ export function configure(aurelia) {
 <blockquote>
 <p><strong>Note:</strong> Regarding #2 and #3: Do not rely on naming conventions inside plugins. You do not know how the consumer of your plugin will change Aurelia&#39;s conventions. 3rd party plugins should be explicit in order to ensure that they function correctly in different contexts.</p>
 </blockquote>
+<h4>Promises</h4>
+<p>By default, Aurelia uses ES6 native Promises or a polyfill. However, you can replace this with the excellent <a href="https://github.com/petkaantonov/bluebird">Bluebird</a> Promise library. Simply include it in your page before you reference the other scripts. It will provide its own standards-compliant Promise implementation which is currently faster than native and has better debugging support. Additionally, when used in combination with the 6to5 transpiler, you can use <a href="https://6to5.org/docs/usage/transformers/#bluebird-coroutines">coroutines</a> for improved async code.</p>
 <h3>The Aurelia Object</h3>
 <p>Since both a custom <em>main</em> module and plugins do their work by interacting with the Aurelia object, we provide a brief explanation of that API in code below:</p>
 <pre><code class="language-javascript">export class Aurelia {
@@ -619,7 +621,7 @@ export class If {
 </blockquote>
 <p>Take a close look at the <code>valueChanged</code> callback. Here you can see where the <code>if</code> behavior is creating the view and adding it to the slot, based on the truthiness of the value. There are a few important details of this:</p>
 <ul>
-<li>The behavior always calls <code>bind</code> on the View <em>before</em> adding it to the ViewSlot. This ensures that all internal bindings are initially evaluated outside of the live DOM. This is important for performance. </li>
+<li>The behavior always calls <code>bind</code> on the View <em>before</em> adding it to the ViewSlot. This ensures that all internal bindings are initially evaluated outside of the live DOM. This is important for performance.</li>
 <li>Similarly, always call <code>unbind</code> <em>after</em> removing the View from the DOM.</li>
 <li>After the View is initially created, the <code>if</code> behavior does not throw it away even when the value becomes false. It caches the instance. Aurelia can re-use Views and even re-target them at different binding contexts. Again, this is important for performance, since it eliminates needless re-creation of Views.</li>
 </ul>
@@ -764,7 +766,7 @@ export class WebAPI {
 <li><code>requestMessage</code> - A reference to the original request message.</li>
 </ul>
 <blockquote>
-<p><strong>Note:</strong> By default, the <code>HttpClient</code> assumes you are expecting a JSON responseType. </p>
+<p><strong>Note:</strong> By default, the <code>HttpClient</code> assumes you are expecting a JSON responseType.</p>
 </blockquote>
 
     </div>
