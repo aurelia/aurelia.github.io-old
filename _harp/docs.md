@@ -414,10 +414,10 @@ export class App {
     this.router.configure(config => {
       config.title = 'Aurelia';
       config.map([
-        { route: ['', 'home'],               moduleId: 'home/index' },
-        { route: 'users',                    moduleId: 'users/index',                      nav: true },
-        { route: 'users/:id/detail',         moduleId: 'users/detail' },
-        { route: 'files*path',               moduleId: 'files/index',     href:'#files',   nav: true }
+        { route: ['', 'home'],               moduleId: './home/index' },
+        { route: 'users',                    moduleId: './users/index',                      nav: true },
+        { route: 'users/:id/detail',         moduleId: './users/detail' },
+        { route: 'files*path',               moduleId: './files/index',     href:'#files',   nav: true }
       ]);
     });
   }
@@ -426,7 +426,7 @@ export class App {
 
 We begin by asking for a `Router` to be injected. We then set this instance to a `router` property on the view-model. _You must name the property **router**_. Then we call the `configure` api. We pass it a function and it passes us a configuration object.
 
-We can optionally set a `title` property to be used in constructing the document's title. But the most important part is setting up the routes. The router's `map` method takes a simple JSON data structure representing your route table. The two most important properties are `route` (a string or array of strings), which defines the route pattern, and `moduleId`, which has the relative module Id path to your view-model. You can also set a `title` property, to be used when generating the document's title, a `nav` property indicating whether or not the route should be included in the navigation model (it can also be a number indicating order) and an `href` property which you can use to bind to in the _navigation model_.
+We can optionally set a `title` property to be used in constructing the document's title. But the most important part is setting up the routes. The router's `map` method takes a simple JSON data structure representing your route table. The two most important properties are `route` (a string or array of strings), which defines the route pattern, and `moduleId`, which has the *relative* module Id path to your view-model. You can also set a `title` property, to be used when generating the document's title, a `nav` property indicating whether or not the route should be included in the navigation model (it can also be a number indicating order) and an `href` property which you can use to bind to in the _navigation model_.
 
 >**Note:** Any properties that you leave off will be conventionally determined by the framework based on what you have provided.
 
@@ -567,8 +567,8 @@ Ok. Let's talk about conventions.
 
 * If your callback function is named {propertyName}Changed, then you don't need to specify it. So, in the above case, we could omit the value of the second parameter.
 * If your property name and attribute name are the same, then you don't need to specify it. In the above case, they are different, so we need to specify it.
-* Attached behaviors always map to a single attribute. This allows us to optmize a simple usage pattern. If you name your property "value", then you don't need to include the property metadata at all. We will autommatically map an attribute with the same name as your behavior to the `value` property.
-* If you name your class {BehaviorName}AttachedProperty, then you don't need to indlude the attached behavior metadata at all. The attribute name will be inferred from the class name by stripping off "AttachedBehavior" and lowercasing and hyphenating the remaining part of the name. ie. behavior-name
+* Attached behaviors always map to a single attribute. This allows us to optimize a simple usage pattern. If you name your property "value", then you don't need to include the property metadata at all. We will automatically map an attribute with the same name as your behavior to the `value` property.
+* If you name your class {BehaviorName}AttachedProperty, then you don't need to include the attached behavior metadata at all. The attribute name will be inferred from the class name by stripping off "AttachedBehavior" and lowercasing and hyphenating the remaining part of the name. ie. behavior-name
 
 These conventions mean that we can actually define our `show` behavior like this:
 
@@ -597,7 +597,34 @@ AttachedBehaviors can easily gain access to the HTML element they are attached t
 
 Finally, let's look at the `valueChanged` callback. We said previously that this is configured through the property metadata so that it is called whenever the value changes. The binding system will automatically update properties thus triggering the callback. So, all the implementation has to do is add/remove the appropriate class based on the value.
 
-> **Note:** You may be wondering what to do if you want to create an Attached Behavior with multiple properties...since Attached Behaviors always map to a single attribute. For this scenario, we use an `OptionsProperty` which enables your single attribute to work like the native `style` attribute, with multiple properties embedded within. Docs on that are forthcoming...
+#### Options Properties
+
+You may be wondering what to do if you want to create an Attached Behavior with multiple properties, since Attached Behaviors always map to a single attribute. For this scenario, we use an `OptionsProperty` which enables your single attribute to work like the browser's native `style` attribute, with multiple properties embedded within. Here's an examlple of how that is used:
+
+```javascript
+import {Behavior} from 'aurelia-templating';
+
+export class Show {
+  static metadata(){
+    return Behavior
+      .attachedBehavior('my-behavior')
+      .withOptions().and(x => {
+        x.withProperty('foo');
+        x.withProperty('bar');
+      });
+  }
+}
+```
+
+This creates an Attached Behavior named `my-behavior` with two properties `foo` and `bar`. Each of these properties are available directly on the class, however they are configured in HTML a bit different. Here's how that would be done:
+
+```markup
+<div my-behavior="foo: some literal value; bar.bind: some.expression"></div>
+```
+
+Notice that we don't use a binding command on the behavior itself. Instead, we can use them on each individual property inside the attribute's value. You can use literals as well as the standard binding commands.
+
+> **Note:** You don't use `delegate` or `trigger` commands inside an options attribute. Those are always attached to the element itself, since they work directly with native DOM events. However, you can use `call`.
 
 ### Custom Elements
 
@@ -916,3 +943,21 @@ The `HttpResponseMessage` has the followingn properties:
 * `requestMessage` - A reference to the original request message.
 
 > **Note:** By default, the `HttpClient` assumes you are expecting a JSON responseType.
+
+## Customization
+
+### View and View-Model Conventions
+
+How are views and view-models linked? Our simple convention is based on module id. If you've got a view-model with id (essentially path) './foo/bar/baz' then that will map to `./foo/bar/baz.js` and `./foo/bar/baz.html` by default. Suppose you want to follow a different convention though. What if all your view-models live in a `view-models` folder and you want their views to live in a `views` folder? How would you do that? In order to do this, you want to change the behavior of the Conventional View Strategy. Here's how you do it:
+
+```javascript
+import {ConventionalView} from 'aurelia-framework';
+
+ConventionalView.convertModuleIdToViewUrl = function(moduleId){
+  return moduleId.replace('view-models', 'views') + '.html';
+}
+```
+
+You should execute this code as part of your bootstrapping logic so that it takes effect before any behaviors are loaded. This will affect *everything* including custom elements. So, if you need or want those to act differently, you will need to account for that in your implementation of `convertModuleIdToViewUrl`.
+
+> **Note:** This is an example of why 3rd party plugin authors should not rely on conventions. Developers may change these conventions in order to fit the needs of their own app.

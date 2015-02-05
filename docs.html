@@ -359,16 +359,16 @@ export class App {
     this.router.configure(config =&gt; {
       config.title = &#39;Aurelia&#39;;
       config.map([
-        { route: [&#39;&#39;, &#39;home&#39;],               moduleId: &#39;home/index&#39; },
-        { route: &#39;users&#39;,                    moduleId: &#39;users/index&#39;,                      nav: true },
-        { route: &#39;users/:id/detail&#39;,         moduleId: &#39;users/detail&#39; },
-        { route: &#39;files*path&#39;,               moduleId: &#39;files/index&#39;,     href:&#39;#files&#39;,   nav: true }
+        { route: [&#39;&#39;, &#39;home&#39;],               moduleId: &#39;./home/index&#39; },
+        { route: &#39;users&#39;,                    moduleId: &#39;./users/index&#39;,                      nav: true },
+        { route: &#39;users/:id/detail&#39;,         moduleId: &#39;./users/detail&#39; },
+        { route: &#39;files*path&#39;,               moduleId: &#39;./files/index&#39;,     href:&#39;#files&#39;,   nav: true }
       ]);
     });
   }
 }</code></pre>
 <p>We begin by asking for a <code>Router</code> to be injected. We then set this instance to a <code>router</code> property on the view-model. <em>You must name the property <strong>router</strong></em>. Then we call the <code>configure</code> api. We pass it a function and it passes us a configuration object.</p>
-<p>We can optionally set a <code>title</code> property to be used in constructing the document&#39;s title. But the most important part is setting up the routes. The router&#39;s <code>map</code> method takes a simple JSON data structure representing your route table. The two most important properties are <code>route</code> (a string or array of strings), which defines the route pattern, and <code>moduleId</code>, which has the relative module Id path to your view-model. You can also set a <code>title</code> property, to be used when generating the document&#39;s title, a <code>nav</code> property indicating whether or not the route should be included in the navigation model (it can also be a number indicating order) and an <code>href</code> property which you can use to bind to in the <em>navigation model</em>.</p>
+<p>We can optionally set a <code>title</code> property to be used in constructing the document&#39;s title. But the most important part is setting up the routes. The router&#39;s <code>map</code> method takes a simple JSON data structure representing your route table. The two most important properties are <code>route</code> (a string or array of strings), which defines the route pattern, and <code>moduleId</code>, which has the <em>relative</em> module Id path to your view-model. You can also set a <code>title</code> property, to be used when generating the document&#39;s title, a <code>nav</code> property indicating whether or not the route should be included in the navigation model (it can also be a number indicating order) and an <code>href</code> property which you can use to bind to in the <em>navigation model</em>.</p>
 <blockquote>
 <p><strong>Note:</strong> Any properties that you leave off will be conventionally determined by the framework based on what you have provided.</p>
 </blockquote>
@@ -491,8 +491,8 @@ export class Show {
 <ul>
 <li>If your callback function is named {propertyName}Changed, then you don&#39;t need to specify it. So, in the above case, we could omit the value of the second parameter.</li>
 <li>If your property name and attribute name are the same, then you don&#39;t need to specify it. In the above case, they are different, so we need to specify it.</li>
-<li>Attached behaviors always map to a single attribute. This allows us to optmize a simple usage pattern. If you name your property &quot;value&quot;, then you don&#39;t need to include the property metadata at all. We will autommatically map an attribute with the same name as your behavior to the <code>value</code> property.</li>
-<li>If you name your class {BehaviorName}AttachedProperty, then you don&#39;t need to indlude the attached behavior metadata at all. The attribute name will be inferred from the class name by stripping off &quot;AttachedBehavior&quot; and lowercasing and hyphenating the remaining part of the name. ie. behavior-name</li>
+<li>Attached behaviors always map to a single attribute. This allows us to optimize a simple usage pattern. If you name your property &quot;value&quot;, then you don&#39;t need to include the property metadata at all. We will automatically map an attribute with the same name as your behavior to the <code>value</code> property.</li>
+<li>If you name your class {BehaviorName}AttachedProperty, then you don&#39;t need to include the attached behavior metadata at all. The attribute name will be inferred from the class name by stripping off &quot;AttachedBehavior&quot; and lowercasing and hyphenating the remaining part of the name. ie. behavior-name</li>
 </ul>
 <p>These conventions mean that we can actually define our <code>show</code> behavior like this:</p>
 <pre><code class="language-javascript">export class ShowAttachedBehavior {
@@ -515,8 +515,25 @@ export class Show {
 <p>Next, let&#39;s look at the constructor.</p>
 <p>AttachedBehaviors can easily gain access to the HTML element they are attached to by specifying it in the <code>inject</code> array. The <code>show</code> behavior stores the reference so that it can update the <code>classList</code> at a later time.</p>
 <p>Finally, let&#39;s look at the <code>valueChanged</code> callback. We said previously that this is configured through the property metadata so that it is called whenever the value changes. The binding system will automatically update properties thus triggering the callback. So, all the implementation has to do is add/remove the appropriate class based on the value.</p>
+<h4>Options Properties</h4>
+<p>You may be wondering what to do if you want to create an Attached Behavior with multiple properties, since Attached Behaviors always map to a single attribute. For this scenario, we use an <code>OptionsProperty</code> which enables your single attribute to work like the browser&#39;s native <code>style</code> attribute, with multiple properties embedded within. Here&#39;s an examlple of how that is used:</p>
+<pre><code class="language-javascript">import {Behavior} from &#39;aurelia-templating&#39;;
+
+export class Show {
+  static metadata(){
+    return Behavior
+      .attachedBehavior(&#39;my-behavior&#39;)
+      .withOptions().and(x =&gt; {
+        x.withProperty(&#39;foo&#39;);
+        x.withProperty(&#39;bar&#39;);
+      });
+  }
+}</code></pre>
+<p>This creates an Attached Behavior named <code>my-behavior</code> with two properties <code>foo</code> and <code>bar</code>. Each of these properties are available directly on the class, however they are configured in HTML a bit different. Here&#39;s how that would be done:</p>
+<pre><code class="language-markup">&lt;div my-behavior=&quot;foo: some literal value; bar.bind: some.expression&quot;&gt;&lt;/div&gt;</code></pre>
+<p>Notice that we don&#39;t use a binding command on the behavior itself. Instead, we can use them on each individual property inside the attribute&#39;s value. You can use literals as well as the standard binding commands.</p>
 <blockquote>
-<p><strong>Note:</strong> You may be wondering what to do if you want to create an Attached Behavior with multiple properties...since Attached Behaviors always map to a single attribute. For this scenario, we use an <code>OptionsProperty</code> which enables your single attribute to work like the native <code>style</code> attribute, with multiple properties embedded within. Docs on that are forthcoming...</p>
+<p><strong>Note:</strong> You don&#39;t use <code>delegate</code> or <code>trigger</code> commands inside an options attribute. Those are always attached to the element itself, since they work directly with native DOM events. However, you can use <code>call</code>.</p>
 </blockquote>
 <h3>Custom Elements</h3>
 <p>Custom Elements add new tags to your HTML markup. Each Custom Element can have its own view template which can be rendered into the Light DOM or the Shadow DOM. Custom Elements can also have any number of properties which they surface as attributes in HTML for databinding support and which they can databind to inside their view template.</p>
@@ -767,6 +784,18 @@ export class WebAPI {
 </ul>
 <blockquote>
 <p><strong>Note:</strong> By default, the <code>HttpClient</code> assumes you are expecting a JSON responseType.</p>
+</blockquote>
+<h2>Customization</h2>
+<h3>View and View-Model Conventions</h3>
+<p>How are views and view-models linked? Our simple convention is based on module id. If you&#39;ve got a view-model with id (essentially path) &#39;./foo/bar/baz&#39; then that will map to <code>./foo/bar/baz.js</code> and <code>./foo/bar/baz.html</code> by default. Suppose you want to follow a different convention though. What if all your view-models live in a <code>view-models</code> folder and you want their views to live in a <code>views</code> folder? How would you do that? In order to do this, you want to change the behavior of the Conventional View Strategy. Here&#39;s how you do it:</p>
+<pre><code class="language-javascript">import {ConventionalView} from &#39;aurelia-framework&#39;;
+
+ConventionalView.convertModuleIdToViewUrl = function(moduleId){
+  return moduleId.replace(&#39;view-models&#39;, &#39;views&#39;) + &#39;.html&#39;;
+}</code></pre>
+<p>You should execute this code as part of your bootstrapping logic so that it takes effect before any behaviors are loaded. This will affect <em>everything</em> including custom elements. So, if you need or want those to act differently, you will need to account for that in your implementation of <code>convertModuleIdToViewUrl</code>.</p>
+<blockquote>
+<p><strong>Note:</strong> This is an example of why 3rd party plugin authors should not rely on conventions. Developers may change these conventions in order to fit the needs of their own app.</p>
 </blockquote>
 
     </div>
