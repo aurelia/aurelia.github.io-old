@@ -2,6 +2,12 @@
 
 We've got a very rich set of docs planned for Aurelia. Unfortunately, we haven't quite finished them yet. However, for this early preview period, we've put together this document, containing examples of the most common tasks you might want to perform. If you have questions, we hope that you will join us on our [gitter channel](https://gitter.im/aurelia/discuss).
 
+## Browser Support
+
+Aurelia is designed for Evergreen Browsers. This includes Chrome, Firefox, IE11 and Safari 8. Out-of-the-box it wont work with any version of IE below 11.
+
+If you need to make Aurelia work with a version of IE below 11 then there is a repository [Aurelia Skeleton Nav IE Polyfill Test](https://github.com/devmondo/skeleton-navigation-IE-Polyfill-Test) that serves as a proof of concept by utilizing ES6Shim. This experiment was submitted by the community and appears to have the framework working with IE10 and IE9 without any noticeable problems. In the future we hope to investigate this more thoroughly and see if we can work out an official solution. We invite you to experiment with it and assist us in the possibility of supporting older browsers.
+
 ## Startup & Configuration
 
 Most platforms have a "main" or entry point for code execution. Aurelia is no different. If you've read the [Get Started](/get-started.html) page, then you've seen the `aurelia-app` attribute. Simply place this on an HTML element and Aurelia's bootstrapper will load an _app.js_ and _app.html_, databind them together and inject them into the DOM element on which you placed that attribute. If you don't want to use that convention, simply provide a value to the attribute indicating which view-model to load. For example `<body aurelia-app="todo">` will result in a _todo.js_ and _todo.html_ being loaded instead.
