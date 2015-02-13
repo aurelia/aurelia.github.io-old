@@ -223,7 +223,7 @@ export class App {
 <p>Ok, there&#39;s some really interesting new stuff here. We want to use the router, so we begin by importing it at the top of the file. This is the power of ES6 again. We then create our <em>App</em> class to hold our data and behavior for the main application layout. Take a look at the constructor function. It&#39;s expecting something to pass in a <em>router</em> instance when the App class is created. Where does that come from?</p>
 <p>Aurelia creates the UI components as needed to render your app. It does this by using a <a href="http://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection</a> container capable of providing constructor dependencies like this. How does the DI system know what to provide? All you have to do is add a static method named <em>inject</em> that returns an array of types to provide instances of. There should be one entry in the array for each constructor parameter. In the above example, we needed a router instance, so we added the <code>Router</code> type to the inject array.</p>
 <blockquote>
-<p><strong>Note:</strong> If you happen to be using AtScript, you&#39;ll be pleased to know that Aurelia understands AtScript type annotations and can use those for dependency injection. As other main stream JavaScript transpilers adopt type or annotation metadata we&#39;ll continue to enhance our platform and teach it to understand your choice language&#39;s format.</p>
+<p><strong>Note:</strong> If you happen to be using AtScript, you&#39;ll be pleased to know that Aurelia understands AtScript type annotations and can use those for dependency injection. As other mainstream JavaScript transpilers adopt type or annotation metadata we&#39;ll continue to enhance our platform and teach it to understand your choice language&#39;s format.</p>
 </blockquote>
 <p>We need to set the router to a public property on the class. The property must be named <em>router</em>. This is important. Don&#39;t get any fancy ideas here like naming it <em>taco</em> or something like that ok? It&#39;s a router..so name it <em>router</em> and everyone will be happy. Did we mention you <strong>must</strong> name it <em>router</em>?</p>
 <p>Alrighty. Time to configure the router. It&#39;s easy. You can set a title to use when generating the document&#39;s title. Then you set up your routes. Each route has the following properties:</p>
@@ -273,7 +273,7 @@ export class App {
 <p><strong>Note:</strong> If you left your gulp watch task running during this time, you may have noticed your browser auto-refreshing whenever you made changes. That&#39;s thanks to <code>browser-sync</code>, which we&#39;ve conveniently configured for you as part of the default gulp configuration.</p>
 </blockquote>
 <h2>Adding a Second Page</h2>
-<p>Well, we&#39;ve technically got a navigation application now...but it&#39;s not very interesting because there&#39;s only one page. Let&#39;s add a second page. Can you guess how to do it? I be you can...</p>
+<p>Well, we&#39;ve technically got a navigation application now...but it&#39;s not very interesting because there&#39;s only one page. Let&#39;s add a second page. Can you guess how to do it? I bet you can...</p>
 <p>Let&#39;s display some images from Flickr. To do that, let&#39;s first configure our router for the hypothetical page:</p>
 <h3>app.js (updated)</h3>
 <pre><code class="language-javascript">import {Router} from &#39;aurelia-router&#39;;
@@ -347,7 +347,7 @@ export class Flickr{
 <li>Celebrate.</li>
 </ol>
 <h2>Bonus: Creating a Custom Element</h2>
-<p>Look at you, you overachiever! I see you&#39;re interested in the learning some extra awesome on this fine day. In that case, let&#39;s create a custom HTML element. I think a good candidate for this is our navbar. That&#39;s a lot of HTML in our <em>app.html</em> file. Why not extract a custom <code>&lt;nav-bar&gt;</code> element to make things a bit more declarative? Here&#39;s what we want to be able to write in the end:</p>
+<p>Look at you, you overachiever! I see you&#39;re interested in learning some extra awesome on this fine day. In that case, let&#39;s create a custom HTML element. I think a good candidate for this is our navbar. That&#39;s a lot of HTML in our <em>app.html</em> file. Why not extract a custom <code>&lt;nav-bar&gt;</code> element to make things a bit more declarative? Here&#39;s what we want to be able to write in the end:</p>
 <h3>app.html</h3>
 <pre><code class="language-markup">&lt;template&gt;
   &lt;import from=&#39;./nav-bar&#39;&gt;&lt;/import&gt;
@@ -366,7 +366,7 @@ export class Flickr{
 export class NavBar {
   static metadata(){ return Behavior.withProperty(&#39;router&#39;); }
 }</code></pre>
-<p>To create a custom element, you create and export a class. Since this class is going to be used in HTML as an element, we need to tell the framework what properties on the class should appear as attributes on the element. To do that, we use the <em>metadata</em> method. Like <em>inject</em> metadata is a way to provide information about your class to the Aurelia framework. Aurelia is smart and can infer many things, but when it can&#39;t or when you want to do something different than the conventions, you use some form of metadata. To leverage this capability, add a static <code>metadata</code> method on the class and return an array of metadata instances (really just regular objects). In this case we are using Aurelia&#39;s <code>Behavior</code> metadata helper. The <code>withProperty</code> method adds a <code>BehaviorProperty</code> which tells the framework that we want our class&#39;s <code>router</code> property to be surfaced as an attribute in the HTML. Once it&#39;s surfaced as an attribute, we can databind to it in the view.</p>
+<p>To create a custom element, you create and export a class. Since this class is going to be used in HTML as an element, we need to tell the framework what properties on the class should appear as attributes on the element. To do that, we use the <em>metadata</em> method. Like <em>inject</em>, metadata is a way to provide information about your class to the Aurelia framework. Aurelia is smart and can infer many things, but when it can&#39;t or when you want to do something different than the conventions, you use some form of metadata. To leverage this capability, add a static <code>metadata</code> method on the class and return an array of metadata instances (really just regular objects). In this case we are using Aurelia&#39;s <code>Behavior</code> metadata helper. The <code>withProperty</code> method adds a <code>BehaviorProperty</code> which tells the framework that we want our class&#39;s <code>router</code> property to be surfaced as an attribute in the HTML. Once it&#39;s surfaced as an attribute, we can databind to it in the view.</p>
 <h3>nav-bar.html</h3>
 <pre><code class="language-markup">&lt;template&gt;
   &lt;nav class=&quot;navbar navbar-default navbar-fixed-top&quot; role=&quot;navigation&quot;&gt;
@@ -410,7 +410,7 @@ export class NavBar {
     &lt;router-view&gt;&lt;/router-view&gt;
   &lt;/div&gt;
 &lt;/template&gt;</code></pre>
-<p>To recap: First we have an <code>import</code> element. Aurelia uses this to load the custom element via the relative source indicated in the <code>from</code> attribute. It&#39;s following our simple conventions so it will know how to load our <em>nav-bar.js</em> and <em>nav-bar.html</em> files. Anything imported into a view in this way is local to the view. As a result, you don&#39;t have to worry about name conflicts. The second point is the actual use of the element which uses databinding against the <code>App</code>&#39;s router. We are pipling the router instance on our <code>App</code> class through to the corresponding property on the <code>NavBar</code> element for internal rendering. Sweet!</p>
+<p>To recap: First we have an <code>import</code> element. Aurelia uses this to load the custom element via the relative source indicated in the <code>from</code> attribute. It&#39;s following our simple conventions so it will know how to load our <em>nav-bar.js</em> and <em>nav-bar.html</em> files. Anything imported into a view in this way is local to the view. As a result, you don&#39;t have to worry about name conflicts. The second point is the actual use of the element which uses databinding against the <code>App</code>&#39;s router. We are piping the router instance on our <code>App</code> class through to the corresponding property on the <code>NavBar</code> element for internal rendering. Sweet!</p>
 <blockquote>
 <p><strong>Note:</strong> You can also load app-wide elements and other behaviors for convenience so you don&#39;t have to import common resources into every view.</p>
 </blockquote>

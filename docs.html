@@ -84,6 +84,9 @@
     <div class="row">
       <h1>Docs</h1>
 <p>We&#39;ve got a very rich set of docs planned for Aurelia. Unfortunately, we haven&#39;t quite finished them yet. However, for this early preview period, we&#39;ve put together this document, containing examples of the most common tasks you might want to perform. If you have questions, we hope that you will join us on our <a href="https://gitter.im/aurelia/discuss">gitter channel</a>.</p>
+<blockquote>
+<p><strong>Note:</strong> Looking for this guide in another language? Have a look in our <a href="https://github.com/aurelia/documentation">documentation repo</a>.</p>
+</blockquote>
 <h2>Browser Support</h2>
 <p>Aurelia is designed for Evergreen Browsers. This includes Chrome, Firefox, IE11 and Safari 8. Out-of-the-box it wont work with any version of IE below 11.</p>
 <p>If you need to make Aurelia work with a version of IE below 11 then there is a repository <a href="https://github.com/devmondo/skeleton-navigation-IE-Polyfill-Test">Aurelia Skeleton Nav IE Polyfill Test</a> that serves as a proof of concept by utilizing ES6Shim. This experiment was submitted by the community and appears to have the framework working with IE10 and IE9 without any noticeable problems. In the future we hope to investigate this more thoroughly and see if we can work out an official solution. We invite you to experiment with it and assist us in the possibility of supporting older browsers.</p>
@@ -91,7 +94,7 @@
 <p>Most platforms have a &quot;main&quot; or entry point for code execution. Aurelia is no different. If you&#39;ve read the <a href="/get-started.html">Get Started</a> page, then you&#39;ve seen the <code>aurelia-app</code> attribute. Simply place this on an HTML element and Aurelia&#39;s bootstrapper will load an <em>app.js</em> and <em>app.html</em>, databind them together and inject them into the DOM element on which you placed that attribute. If you don&#39;t want to use that convention, simply provide a value to the attribute indicating which view-model to load. For example <code>&lt;body aurelia-app=&quot;todo&quot;&gt;</code> will result in a <em>todo.js</em> and <em>todo.html</em> being loaded instead.</p>
 <p>The <code>aurelia-app</code> attribute is convenient for getting started, but often times you want to configure the framework or run some code prior to displaying anything to the user. So chances are, as your project progresses, you will migrate towards using <code>aurelia-main</code>.</p>
 <blockquote>
-<p><strong>Note:</strong> If you are using AtScript, add an <code>atscript</code> attribute to the DOM element for your app. If you are using ES5 instead of ES6, add an <code>es5</code> attribute. Doing so will &quot;turn on&quot; functionality with makes using these languages easier.</p>
+<p><strong>Note:</strong> If you are using AtScript, add an <code>atscript</code> attribute to the DOM element for your app. If you are using ES5 instead of ES6, add an <code>es5</code> attribute. Doing so will &quot;turn on&quot; functionality, which makes using these languages easier.</p>
 </blockquote>
 <p><strong>What is the difference?</strong></p>
 <p><code>aurelia-app</code> instantiates an Aurelia app and pre-configures it with the default set of options for the framework, then loads your application view-model. <code>aurelia-main</code> loads your custom configuration module, <em>main.js</em> by default, then invokes your <code>configure</code> function, passing it the Aurelia object which you can then use to configure the framework yourself and decide what, when and where to display your UI. Here&#39;s an example <em>main.js</em> file:</p>
@@ -263,7 +266,7 @@ export class CustomerDetail{
 <p>When the button is clicked, the <code>sayHello</code> method on the view-model will be invoked. That said, adding event handlers to every single element like this isn&#39;t very efficient, so often times you will want to use event delegation. To do that, use the <code>.delegate</code> command. Here&#39;s the same example but with event delegation instead:</p>
 <pre><code class="language-markup">&lt;button click.delegate=&quot;sayHello()&quot;&gt;Say Hello&lt;/button&gt;</code></pre>
 <blockquote>
-<p><strong>Note:</strong> If you aren&#39;t familiar with event delegation, it&#39;s a technique that uses the bubbling nature of DOM events. When using <code>.delegete</code> a single event handler is attached to the document, rather than on each element. When the element&#39;s event is fired, it bubbles up the DOM until it reaches the document, where it is handled. This is a more memory efficient way of handling events and it&#39;s recommended to use this as your default mechanism.</p>
+<p><strong>Note:</strong> If you aren&#39;t familiar with event delegation, it&#39;s a technique that uses the bubbling nature of DOM events. When using <code>.delegate</code> a single event handler is attached to the document, rather than on each element. When the element&#39;s event is fired, it bubbles up the DOM until it reaches the document, where it is handled. This is a more memory efficient way of handling events and it&#39;s recommended to use this as your default mechanism.</p>
 </blockquote>
 <p>All of this works against DOM events in some way or another. Occasionally you may have a custom Aurelia behavior that wants a reference to your function directly so that it can invoke it manually at a later time. To pass a function reference, use the <code>.call</code> binding (since the behavior will <em>call</em> it later):</p>
 <pre><code class="language-markup">&lt;div touch.call=&quot;sayHello()&quot;&gt;Say Hello&lt;/button&gt;</code></pre>
@@ -431,6 +434,68 @@ export class App {
 <blockquote>
 <p><strong>Note:</strong> Though not necessarily related to conventional routing, you may sometimes have a need to asynchronously configure your router. For example, you may need to call a web service to get user permissions before setting up routes. To do this, implement a callback on your router&#39;s view-model named <code>configureRouter</code>. In this callback you can configure your router and optionally return a Promise if necessary.</p>
 </blockquote>
+<h3>Configuring PushState</h3>
+<p>If you&#39;d prefer to get rid of the <code>#</code> (hashes) in your URLs, then you&#39;re going to have to enable <code>pushState</code> in your app. Good thing Aurelia supports that! You will also have to do some work on the server side to ensure it works properly. Let&#39;s start with the Aurelia side of the equation.</p>
+<p>First you need to tell Aurelia in the <code>router</code> <code>config</code> that you want to use <code>pushState</code> like so:</p>
+<pre><code class="language-javascript">this.router.configure(config =&gt; {
+  config.title = &#39;First Impressions&#39;;
+  config.options.pushState = true; // &lt;-- this is all you need here
+  config.map([
+    { route: [&#39;&#39;,&#39;welcome&#39;],  moduleId: &#39;./welcome&#39;,      nav: true, title:&#39;Welcome&#39; },
+    { route: &#39;child-router&#39;,  moduleId: &#39;./child-router&#39;, nav: true, title:&#39;Child Router&#39; }
+  ]);
+});</code></pre>
+<p>Next, the server side needs to be configured to send back the same <code>index.html</code> file regardless of the request being made because all the routing is done client side. So, if you&#39;re using the <code>gulp watch</code> task with <code>browsersync</code> as per the navigation sample, then you can modify your setup like so:</p>
+<p>From the console in the root of your project, run the following:</p>
+<pre><code class="language-shell">npm install --save connect-history-api-fallback</code></pre>
+<p>This will download and install the middleware plugin you need for this. Then open up your <em>build/tasks</em> folder and locate the <em>serve</em> task. Open that and put this somewhere near the top with the other require statements:</p>
+<pre><code class="language-javascript">var historyApiFallback = require(&#39;connect-history-api-fallback&#39;)</code></pre>
+<p>Lower down you can modify the <code>serve</code> task to use the new <code>middleware</code>:</p>
+<pre><code class="language-javascript">gulp.task(&#39;serve&#39;, [&#39;build&#39;], function(done) {
+  browserSync({
+    open: false,
+    port: 9000,
+    server: {
+      baseDir: [&#39;.&#39;],
+      middleware: [historyApiFallback, function (req, res, next) { // it&#39;s the first one in the array
+        res.setHeader(&#39;Access-Control-Allow-Origin&#39;, &#39;*&#39;);
+        next();
+      }]
+    }
+  }, done);
+});</code></pre>
+<p>Now your node server should behave itself and let Aurelia deal with the routing.</p>
+<p>If you&#39;re using a .NET server side framework such as ASP.NET MVC then config is as follows:</p>
+<ul>
+<li>Create a Controller and call it ApplicationController or what ever you want to call it. It should look something like this:</li>
+</ul>
+<pre><code class="language-javascript">public class ApplicationController : Controller {
+  public ActionResult Index() {
+    return View();
+  }
+}</code></pre>
+<ul>
+<li><p>Create an &quot;index.cshtml&quot; view in your Views folder.</p>
+</li>
+<li><p>Setup your routing configuration like this:</p>
+</li>
+</ul>
+<pre><code class="language-javascript">context.MapRoute(
+  name: &quot;AureliaRouting&quot;,
+  url: &quot;{*.}&quot;,
+  defaults: new { controller = &quot;Application&quot;, action = &quot;Index&quot; }
+);</code></pre>
+<p>Note that with the above you will be forced to use a Razor view file. If you want to use a regular HTML file, there are different ways to do it. <a href="http://stackoverflow.com/questions/20871938/render-html-file-in-asp-net-mvc-view">This SO article might help you</a>.</p>
+<p>If you are using <a href="http://nancyfx.org">Nancy FX</a>, then the config is just as simple. Locate your <code>IndexModule.cs</code> or whatever you called it and make sure it looks something like this and all will be well:</p>
+<pre><code class="language-javascript">public class IndexModule : NancyModule {
+  public IndexModule()     {
+    this.Get[&quot;/robots.txt&quot;] = p =&gt; this.Response.AsFile(&quot;robots.txt&quot;);
+    this.Get[&quot;/sitemap.xml&quot;] = p =&gt; this.Response.AsFile(&quot;sitemap.xml&quot;);
+    this.Get[&quot;/&quot;] = x =&gt; this.View[&quot;index&quot;];
+    this.Get[&quot;/{path*}&quot;] = x =&gt; this.View[&quot;index&quot;];
+  }
+}</code></pre>
+<p>Similar techniques can be used in other server environments - you just need to make sure that whatever server you&#39;re using, it needs to send back the same <code>index.html</code> regardless of the request being made. All server side frameworks should be able to achieve this. Aurelia will figure out which page to load based on its own route data.</p>
 <h2>Extending HTML</h2>
 <p>Aurelia has a powerful and extensible HTML template compiler. The compiler itself is just an algorithm for interacting with various <em>behavior types</em> which contain the logic for manipulating HTML. Out of the box, Aurelia provides three core behavior type implementations, which we believe cover the bulk of scenarios you will encounter from day to day. The tree types are <em>Attached Behaviors</em>, <em>Custom Elements</em> and <em>Template Controllers</em>.</p>
 <p>Behaviors are not visible to the compiler by default. There are three main ways to plug them in:</p>
