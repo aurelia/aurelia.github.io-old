@@ -434,6 +434,56 @@ export class App {
 <blockquote>
 <p><strong>Note:</strong> Though not necessarily related to conventional routing, you may sometimes have a need to asynchronously configure your router. For example, you may need to call a web service to get user permissions before setting up routes. To do this, implement a callback on your router&#39;s view-model named <code>configureRouter</code>. In this callback you can configure your router and optionally return a Promise if necessary.</p>
 </blockquote>
+<h3>Adding steps to the pipeline</h3>
+<p>The router pipeline is composed out of separate steps that runs in succession. Each of these steps has the ability to modify what happens during routing, or stop the routing alltogether. The pipeline also contains a few extensibility points where you can add your own steps. These are <code>authorize</code> and <code>bindmodel</code>. <code>authorize</code> happens before <code>bindmodel</code>. These extensions are called route filters.</p>
+<p>The sample below shows how you can add authorization to your application:</p>
+<pre><code class="language-javascript">import {Router, Redirect} from &#39;aurelia-router&#39;;
+import {Container} from &#39;aurelia-dependency-injection&#39;;
+import bootstrap from &#39;bootstrap&#39;;
+
+export class App {
+  static inject() { return [Router]; }
+  constructor(router) {
+    this.router = router;
+    this.router.configure(config =&gt; {
+      config.title = &#39;Aurelia&#39;;
+      config.addPipelineStep(&#39;authorize&#39;, AuthorizeStep); // Add a route filter to the authorize extensibility point.
+      config.map([
+        { route: [&#39;welcome&#39;],     moduleId: &#39;welcome&#39;,      nav: true, title:&#39;Welcome&#39; },
+        { route: &#39;flickr&#39;,        moduleId: &#39;flickr&#39;,       nav: true, auth: true },
+        { route: &#39;child-router&#39;,  moduleId: &#39;child-router&#39;, nav: true, title:&#39;Child Router&#39; },
+        { route: &#39;&#39;,              redirect: &#39;welcome&#39; }
+      ]);
+    });
+  }
+}
+
+class AuthorizeStep {
+  static inject() { return []; }
+  constructor() {
+  }
+
+  run(routingContext, next) {
+    // Check if the route has an &quot;auth&quot; key
+    // The reason for using `nextInstructions` is because
+    // this includes child routes.
+    if (routingContext.nextInstructions.some(i =&gt; i.config.auth)) { 
+      var isLoggedIn = /* insert magic here */false;
+      if (!isLoggedIn) {
+        return next.cancel(new Redirect(&#39;login&#39;));
+      }
+
+      return next();
+    } else {
+      return next();
+    }
+  }
+}</code></pre>
+<p>These extensibility points are in and of themselves small pipelines, and multiple steps can be added to each of them. For instance, if in addition to the <code>AuthorizeStep</code> above (which would just check that a user is logged in), you could add a <code>IsAdminStep</code> to the <code>authorize</code> extensibility point. They would then run in succession.</p>
+<p>It&#39;s also possible to create your own named filters by simply passing a different name into <code>addPipelineStep</code>. This can be used like in the example below:</p>
+<pre><code class="language-javascript">config.addPipelineStep(&#39;myname&#39;, MyFirstStep); // Transparently creates the pipeline &quot;myname&quot; if it doesn&#39;t already exist.
+config.addPipelineStep(&#39;myname&#39;, MySecondStep); // Adds another step to it.
+config.addPipelineStep(&#39;modelbind&#39;, &#39;myname&#39;); // Makes the entire `myname` pipeline run as part of the `modelbind` pipeline.</code></pre>
 <h3>Configuring PushState</h3>
 <p>If you&#39;d prefer to get rid of the <code>#</code> (hashes) in your URLs, then you&#39;re going to have to enable <code>pushState</code> in your app. Good thing Aurelia supports that! You will also have to do some work on the server side to ensure it works properly. Let&#39;s start with the Aurelia side of the equation.</p>
 <p>First you need to tell Aurelia in the <code>router</code> <code>config</code> that you want to use <code>pushState</code> like so:</p>
@@ -469,7 +519,7 @@ export class App {
 <ul>
 <li>Create a Controller and call it ApplicationController or what ever you want to call it. It should look something like this:</li>
 </ul>
-<pre><code class="language-javascript">public class ApplicationController : Controller {
+<pre><code class="language-csharp">public class ApplicationController : Controller {
   public ActionResult Index() {
     return View();
   }
@@ -480,14 +530,14 @@ export class App {
 <li><p>Setup your routing configuration like this:</p>
 </li>
 </ul>
-<pre><code class="language-javascript">context.MapRoute(
+<pre><code class="language-csharp">context.MapRoute(
   name: &quot;AureliaRouting&quot;,
   url: &quot;{*.}&quot;,
   defaults: new { controller = &quot;Application&quot;, action = &quot;Index&quot; }
 );</code></pre>
 <p>Note that with the above you will be forced to use a Razor view file. If you want to use a regular HTML file, there are different ways to do it. <a href="http://stackoverflow.com/questions/20871938/render-html-file-in-asp-net-mvc-view">This SO article might help you</a>.</p>
 <p>If you are using <a href="http://nancyfx.org">Nancy FX</a>, then the config is just as simple. Locate your <code>IndexModule.cs</code> or whatever you called it and make sure it looks something like this and all will be well:</p>
-<pre><code class="language-javascript">public class IndexModule : NancyModule {
+<pre><code class="language-csharp">public class IndexModule : NancyModule {
   public IndexModule()     {
     this.Get[&quot;/robots.txt&quot;] = p =&gt; this.Response.AsFile(&quot;robots.txt&quot;);
     this.Get[&quot;/sitemap.xml&quot;] = p =&gt; this.Response.AsFile(&quot;sitemap.xml&quot;);
