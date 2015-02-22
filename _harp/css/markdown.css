@@ -13,6 +13,11 @@ blockquote:after, blockquote:before {
   color:#92278F;
 }
 
+h1 > a, h2 > a, h3 > a, h4 > a {
+  text-decoration: none !important;
+  color: #444 !important;
+}
+
 h2 {
   margin-top: 40px;
   font-weight: bold;
