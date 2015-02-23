@@ -16,3 +16,11 @@
   font-size: 12px;
   font-weight: normal;
 }
+
+h2:before, h3:before {
+  display: block;
+  content: " ";
+  margin-top: -150px;
+  height: 150px;
+  visibility: hidden;
+}
