@@ -1,0 +1,50 @@
+<%- partial("_header") %>
+
+<link href="css/prism.css" rel="stylesheet" />
+<link href="css/markdown.css" rel="stylesheet" />
+<link href="css/docs.css" rel="stylesheet" />
+
+<section class="slice color1">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <nav class="docs-nav"></nav>
+      </div>
+      <div class="col-md-9">
+        <%- yield %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="text/javascript" src="js-plugin/jquery/jquery.1.10.2.min.js"></script>
+<script src="js/prism.js"></script>
+
+<script type="text/javascript">
+  var docOutline = document.querySelectorAll('h2, h3'),
+      root = lastNav = createNav(),
+      ele, item;
+
+  for(var i = 0, ii = docOutline.length; i < ii; ++i){
+    ele = docOutline[i];
+    item = createItem(ele.id, ele.children[0].textContent);
+
+    if(ele.tagName.toLowerCase() === 'h2'){
+      root.append(item);
+      lastNav = createNav();
+      item.append(lastNav);
+    }else{
+      lastNav.append(item);
+    }
+  }
+
+  $('.docs-nav').append(root);
+
+  function createItem(id, name){
+    return $('<li><a href="#' + id + '">' + name + '</a></li>');
+  }
+
+  function createNav(){
+    return $('<ul class="nav"></ul>');
+  }
+</script>

@@ -18,10 +18,10 @@
 		================================================== -->
 		<!-- Bootstrap  -->
 		<link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-		
+
     <!-- web font  -->
 		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,800" rel="stylesheet" type="text/css">
-		
+
     <!-- plugin css  -->
 		<link rel="stylesheet" type="text/css" href="js-plugin/animation-framework/animate.css" />
 		<link rel="stylesheet" type="text/css" href="js-plugin/flexslider/flexslider.css" />
@@ -29,18 +29,18 @@
 
 		<!-- appear-->
 		<link rel="stylesheet" type="text/css" href="js-plugin/appear/nekoAnim.css">
-		
+
     <!-- icon fonts -->
 		<link type="text/css" rel="stylesheet" href="font-icons/custom-icons/css/custom-icons.css">
 		<link type="text/css" rel="stylesheet" href="font-icons/custom-icons/css/custom-icons-ie7.css">
-		
+
     <!-- Custom css -->
 		<link type="text/css" rel="stylesheet" href="css/layout.css">
 		<link type="text/css" id="colors" rel="stylesheet" href="css/purple.css">
-		
+
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
 		<script src="js/modernizr-2.6.1.min.js"></script>
-		
+
     <!-- Favicons
 		================================================== -->
 		<link rel="shortcut icon" href="images/favicon.ico">
@@ -50,12 +50,12 @@
 		<link rel="apple-touch-icon" sizes="144x144" href="images/apple-touch-icon-144x144.png">
 	</head>
 	<body data-spy="scroll" data-target="#scrollTarget" data-offset="150" class="activateAppearAnimation">
-		<!-- Primary Page Layout 
+		<!-- Primary Page Layout
 		================================================== -->
 		<!-- globalWrapper -->
 		<div id="globalWrapper" class="localscroll">
       
-        <header id="mainHeader" class="navbar-fixed-top" role="banner">
+					<header id="mainHeader" class="navbar-fixed-top" role="banner">
   <div class="container">
     <nav class="navbar navbar-default" role="navigation">
       <div class="navbar-header">
@@ -78,11 +78,16 @@
 
 <link href="css/prism.css" rel="stylesheet" />
 <link href="css/markdown.css" rel="stylesheet" />
+<link href="css/docs.css" rel="stylesheet" />
 
 <section class="slice color1">
   <div class="container">
     <div class="row">
-      <h1>Docs</h1>
+      <div class="col-md-3">
+        <nav class="docs-nav"></nav>
+      </div>
+      <div class="col-md-9">
+        <h1>Docs</h1>
 <p>We&#39;ve got a very rich set of docs planned for Aurelia. Unfortunately, we haven&#39;t quite finished them yet. However, for this early preview period, we&#39;ve put together this document, containing examples of the most common tasks you might want to perform. If you have questions, we hope that you will join us on our <a href="https://gitter.im/aurelia/discuss">gitter channel</a>.</p>
 <blockquote>
 <p><strong>Note:</strong> Looking for this guide in another language? Have a look in our <a href="https://github.com/aurelia/documentation">documentation repo</a>.</p>
@@ -941,7 +946,7 @@ export class WebAPI {
 </blockquote>
 <h2 id="customization"><a href="#customization">Customization</a></h2>
 
-<h2 id="view-and-view-model-conventions"><a href="#view-and-view-model-conventions">View and View-Model Conventions</a></h2>
+<h3 id="view-and-view-model-conventions"><a href="#view-and-view-model-conventions">View and View-Model Conventions</a></h3>
 
 <p>How are views and view-models linked? Our simple convention is based on module id. If you&#39;ve got a view-model with id (essentially path) &#39;./foo/bar/baz&#39; then that will map to <code>./foo/bar/baz.js</code> and <code>./foo/bar/baz.html</code> by default. Suppose you want to follow a different convention though. What if all your view-models live in a <code>view-models</code> folder and you want their views to live in a <code>views</code> folder? How would you do that? In order to do this, you want to change the behavior of the Conventional View Strategy. Here&#39;s how you do it:</p>
 <pre><code class="language-javascript">import {ConventionalView} from &#39;aurelia-framework&#39;;
@@ -954,11 +959,43 @@ ConventionalView.convertModuleIdToViewUrl = function(moduleId){
 <p><strong>Note:</strong> This is an example of why 3rd party plugin authors should not rely on conventions. Developers may change these conventions in order to fit the needs of their own app.</p>
 </blockquote>
 
+      </div>
     </div>
   </div>
 </section>
 
+<script type="text/javascript" src="js-plugin/jquery/jquery.1.10.2.min.js"></script>
 <script src="js/prism.js"></script>
+
+<script type="text/javascript">
+  var docOutline = document.querySelectorAll('h2, h3'),
+      root = lastNav = createNav(),
+      ele, item;
+
+  for(var i = 0, ii = docOutline.length; i < ii; ++i){
+    ele = docOutline[i];
+    item = createItem(ele.id, ele.children[0].textContent);
+
+    if(ele.tagName.toLowerCase() === 'h2'){
+      root.append(item);
+      lastNav = createNav();
+      item.append(lastNav);
+    }else{
+      lastNav.append(item);
+    }
+  }
+
+  $('.docs-nav').append(root);
+
+  function createItem(id, name){
+    return $('<li><a href="#' + id + '">' + name + '</a></li>');
+  }
+
+  function createNav(){
+    return $('<ul class="nav"></ul>');
+  }
+</script>
+
       
 
       <footer>
@@ -974,16 +1011,16 @@ ConventionalView.convertModuleIdToViewUrl = function(moduleId){
       </footer>
 		</div>
 
-		<!-- End Document 
+		<!-- End Document
 		================================================== -->
 		<script type="text/javascript" src="js-plugin/respond/respond.min.js"></script>
 		<script type="text/javascript" src="js-plugin/jquery/jquery.1.10.2.min.js"></script>
-		
+
     <!-- third party plugins  -->
 		<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 		<script type="text/javascript" src="js-plugin/easing/jquery.easing.1.3.js"></script>
 		<script type="text/javascript" src="js-plugin/flexslider/jquery.flexslider-min.js"></script>
-		
+
     <!-- appear -->
 		<script type="text/javascript" src="js-plugin/appear/jquery.appear.js"></script>
 		<script type="text/javascript" src="js-plugin/pageSlide/jquery.pageslide-custom.js"></script>
