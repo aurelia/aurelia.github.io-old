@@ -4,18 +4,12 @@
 <link href="css/markdown.css" rel="stylesheet" />
 <link href="css/docs.css" rel="stylesheet" />
 
-<section class="slice color1">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3">
-        <nav class="docs-nav"></nav>
-      </div>
-      <div class="col-md-9">
-        <%- yield %>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="column-nav">
+  <nav class="docs-nav"></nav>
+</div>
+<div class="column-content">
+  <%- yield %>
+</div>
 
 <script type="text/javascript" src="js-plugin/jquery/jquery.1.10.2.min.js"></script>
 <script src="js/prism.js"></script>

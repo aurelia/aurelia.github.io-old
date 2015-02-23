@@ -80,14 +80,11 @@
 <link href="css/markdown.css" rel="stylesheet" />
 <link href="css/docs.css" rel="stylesheet" />
 
-<section class="slice color1">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3">
-        <nav class="docs-nav"></nav>
-      </div>
-      <div class="col-md-9">
-        <h1>Docs</h1>
+<div class="column-nav">
+  <nav class="docs-nav"></nav>
+</div>
+<div class="column-content">
+  <h1>Docs</h1>
 <p>We&#39;ve got a very rich set of docs planned for Aurelia. Unfortunately, we haven&#39;t quite finished them yet. However, for this early preview period, we&#39;ve put together this document, containing examples of the most common tasks you might want to perform. If you have questions, we hope that you will join us on our <a href="https://gitter.im/aurelia/discuss">gitter channel</a>.</p>
 <blockquote>
 <p><strong>Note:</strong> Looking for this guide in another language? Have a look in our <a href="https://github.com/aurelia/documentation">documentation repo</a>.</p>
@@ -959,10 +956,7 @@ ConventionalView.convertModuleIdToViewUrl = function(moduleId){
 <p><strong>Note:</strong> This is an example of why 3rd party plugin authors should not rely on conventions. Developers may change these conventions in order to fit the needs of their own app.</p>
 </blockquote>
 
-      </div>
-    </div>
-  </div>
-</section>
+</div>
 
 <script type="text/javascript" src="js-plugin/jquery/jquery.1.10.2.min.js"></script>
 <script src="js/prism.js"></script>
@@ -998,17 +992,7 @@ ConventionalView.convertModuleIdToViewUrl = function(moduleId){
 
       
 
-      <footer>
-        <section id="mainFooter">
-          <div class="container" id="footer">
-            <div class="row">
-              <div class="col-sm-6">
-                <p>Copyright © 2015 <a href="http://durandal.io" target="blank">Durandal Inc.</a> / All rights reserved.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </footer>
+			
 		</div>
 
 		<!-- End Document
