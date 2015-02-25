@@ -258,7 +258,7 @@ export class CustomerDetail{
 <blockquote>
 <p><strong>Note:</strong> You may be concerned about the tediousness of having to import things into each view. Remember, during the bootstrapping phase you can configure Aurelia with global resources to be available in every view.</p>
 </blockquote>
-<h2 id="databinding"><a href="#databinding">Databinding</a></h2>
+<h3 id="databinding"><a href="#databinding">Databinding</a></h3>
 
 <p>Databinding allows you to link the state and behavior in a JavaScript object to an HTML view. When this link is established, any changes in linked properties can be synced in one or both directions. Changes in the JavaScript object can be reflected in the view and changes in the view can be reflected in the JavaScript object. To establish this link, you will leverage &quot;binding commands&quot; in your HTML. Binding commands are clearly identifiable via their use of the &quot;.&quot; as a kind of binding operator. Whenever an HTML attribute contains a &quot;.&quot;, the compiler will pass the attribute name and value off to the binding language for interpretation. The result is one or more binding expressions that are capable of establishing the linkage when the view is created.</p>
 <p>You can extend the system with your own binding commands, but Aurelia provides a collection to cover the most common use cases.</p>
@@ -926,7 +926,7 @@ export class WebAPI {
   }
 }</code></pre>
 <p>As you can see, it provides convenience methods for <code>get</code>, <code>put</code>, <code>patch</code>, <code>post</code>, <code>delete</code> and <code>jsonp</code>. Each of these methods sends an <code>HttpRequestMessage</code> except <code>jsonp</code> which sends a <code>JSONPRequestMessage</code>. The result of sending a message is a <code>Promise</code> for an <code>HttpResponseMessage</code>.</p>
-<p>The <code>HttpResponseMessage</code> has the followingn properties:</p>
+<p>The <code>HttpResponseMessage</code> has the following properties:</p>
 <ul>
 <li><code>response</code> - Returns the raw conent sent from the server.</li>
 <li><code>responseType</code> - The expected response type.</li>
