@@ -285,6 +285,8 @@ export class CustomerDetail{
 <p>All of this works against DOM events in some way or another. Occasionally you may have a custom Aurelia behavior that wants a reference to your function directly so that it can invoke it manually at a later time. To pass a function reference, use the <code>.call</code> binding (since the behavior will <em>call</em> it later):</p>
 <pre><code class="language-markup">&lt;div touch.call=&quot;sayHello()&quot;&gt;Say Hello&lt;/button&gt;</code></pre>
 <p>Now the attached behavior will get a function that it can call to invoke your <code>sayHello()</code> code.</p>
+<p>The <code>$event</code> property can be passed as an argument to a delegated function call if you need to access the event object.</p>
+<pre><code class="language-markup">&lt;button click.delegate=&quot;sayHello($event)&quot;&gt;Say Hello&lt;/button&gt;</code></pre>
 <h4 id="string-interpolation"><a href="#string-interpolation">string interpolation</a></h4>
 
 <p>Sometimes you need to bind properties directly into the content of the document or interleave them within an attribute value. For this, you can use the string interpolation syntax <code>${expression}</code>. String interpolation is a one-way binding, the output of which is converted to a string. Here&#39;s an example:</p>
@@ -434,7 +436,7 @@ export class App {
 
 <p>Whenever the router processes a navigation, it enforces a strict lifecycle on the view-models that it is navigating to and from. There are four stages in the lifecycle. You can opt-in to any of them by implementing the appropriate method on your view-model&#39;s class. Here&#39;s a list of the lifecycle callbacks:</p>
 <ul>
-<li><code>canActivate(params, queryString, routeConfig)</code> - Implement this hook if you want to control whether or not vour view-model <em>can be navigated to</em>. Return a boolean value, a promise for a boolean value, or a navigation command.</li>
+<li><code>canActivate(params, queryString, routeConfig)</code> - Implement this hook if you want to control whether or not your view-model <em>can be navigated to</em>. Return a boolean value, a promise for a boolean value, or a navigation command.</li>
 <li><code>activate(params, queryString, routeConfig)</code> - Implement this hook if you want to perform custom logic just before your view-model is displayed. You can optionally return a promise to tell the router to wait to bind and attach the view until after you finish your work.</li>
 <li><code>canDeactivate()</code> - Implement this hook if you want to control whether or not the router <em>can navigate away</em> from your view-model when moving to a new route. Return a boolean value, a promise for a boolean value, or a navigation command.</li>
 <li><code>deactivate()</code> - Implement this hook if you want to perform custom logic when your view-model is being navigated away from. You can optionally return a promise to tell the router to wait until after your finish your work.</li>
@@ -463,7 +465,7 @@ export class App {
 </blockquote>
 <h3 id="customizing-the-navigation-pipeline"><a href="#customizing-the-navigation-pipeline">Customizing the Navigation Pipeline</a></h3>
 
-<p>The router pipeline is composed out of separate steps that runs in succession. Each of these steps has the ability to modify what happens during routing, or stop the routing alltogether. The pipeline also contains a few extensibility points where you can add your own steps. These are <code>authorize</code> and <code>bindmodel</code>. <code>authorize</code> happens before <code>bindmodel</code>. These extensions are called route filters.</p>
+<p>The router pipeline is composed out of separate steps that run in succession. Each of these steps has the ability to modify what happens during routing, or stop the routing altogether. The pipeline also contains a few extensibility points where you can add your own steps. These are <code>authorize</code> and <code>bindmodel</code>. <code>authorize</code> happens before <code>bindmodel</code>. These extensions are called route filters.</p>
 <p>The sample below shows how you can add authorization to your application:</p>
 <pre><code class="language-javascript">import {Router, Redirect} from &#39;aurelia-router&#39;;
 import {Container} from &#39;aurelia-dependency-injection&#39;;

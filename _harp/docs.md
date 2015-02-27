@@ -257,6 +257,12 @@ All of this works against DOM events in some way or another. Occasionally you ma
 
 Now the attached behavior will get a function that it can call to invoke your `sayHello()` code.
 
+The `$event` property can be passed as an argument to a delegated function call if you need to access the event object.
+
+```markup
+<button click.delegate="sayHello($event)">Say Hello</button>
+```
+
 <h4 id="string-interpolation"><a href="#string-interpolation">string interpolation</a></h4>
 
 Sometimes you need to bind properties directly into the content of the document or interleave them within an attribute value. For this, you can use the string interpolation syntax `${expression}`. String interpolation is a one-way binding, the output of which is converted to a string. Here's an example:
@@ -468,7 +474,7 @@ All routes with a truthy `nav` property are assembled into a `navigation` array.
 
 Whenever the router processes a navigation, it enforces a strict lifecycle on the view-models that it is navigating to and from. There are four stages in the lifecycle. You can opt-in to any of them by implementing the appropriate method on your view-model's class. Here's a list of the lifecycle callbacks:
 
-* `canActivate(params, queryString, routeConfig)` - Implement this hook if you want to control whether or not vour view-model _can be navigated to_. Return a boolean value, a promise for a boolean value, or a navigation command.
+* `canActivate(params, queryString, routeConfig)` - Implement this hook if you want to control whether or not your view-model _can be navigated to_. Return a boolean value, a promise for a boolean value, or a navigation command.
 * `activate(params, queryString, routeConfig)` - Implement this hook if you want to perform custom logic just before your view-model is displayed. You can optionally return a promise to tell the router to wait to bind and attach the view until after you finish your work.
 * `canDeactivate()` - Implement this hook if you want to control whether or not the router _can navigate away_ from your view-model when moving to a new route. Return a boolean value, a promise for a boolean value, or a navigation command.
 * `deactivate()` - Implement this hook if you want to perform custom logic when your view-model is being navigated away from. You can optionally return a promise to tell the router to wait until after your finish your work.
@@ -504,7 +510,7 @@ All you have to do is set the `config.moduleId` property and you are good to go.
 
 <h3 id="customizing-the-navigation-pipeline"><a href="#customizing-the-navigation-pipeline">Customizing the Navigation Pipeline</a></h3>
 
-The router pipeline is composed out of separate steps that runs in succession. Each of these steps has the ability to modify what happens during routing, or stop the routing alltogether. The pipeline also contains a few extensibility points where you can add your own steps. These are `authorize` and `bindmodel`. `authorize` happens before `bindmodel`. These extensions are called route filters.
+The router pipeline is composed out of separate steps that run in succession. Each of these steps has the ability to modify what happens during routing, or stop the routing altogether. The pipeline also contains a few extensibility points where you can add your own steps. These are `authorize` and `bindmodel`. `authorize` happens before `bindmodel`. These extensions are called route filters.
 
 The sample below shows how you can add authorization to your application:
 
