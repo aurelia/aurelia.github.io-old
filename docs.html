@@ -342,6 +342,9 @@ export class MySanitizeHtmlValueConverter {
     return sanitizeHtml(untrustedHtml);
   }
 }</code></pre>
+<blockquote>
+<p>NOTE:  Binding using the <code>innerhtml</code> attribute simply sets the element&#39;s <code>innerHTML</code> property.  The markup does not pass through Aurelia&#39;s templating system.  Binding expressions and require elements will not be evaluated.  A solution for this scenario is being tracked in <a href="https://github.com/aurelia/templating/issues/35">aurelia/templating#35</a>.</p>
+</blockquote>
 <h4 id="textcontent"><a href="#textcontent">textContent</a></h4>
 
 <p>You can bind an element&#39;s <code>textContent</code> property using the <code>textcontent</code> attribute:</p>
