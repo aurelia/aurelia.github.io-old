@@ -98,7 +98,7 @@
 <blockquote>
 <p><strong>Note:</strong> If you are using ES5 instead of ES6, add an <code>es5</code> attribute. Doing so will &quot;turn on&quot; functionality, which makes using these languages easier.</p>
 </blockquote>
-<p>Often times you want to configure the framework or run some code prior to displaying anything to the user though. So chances are, as your project progresses, you will migrate towards needing some startup configuration. In order to do this, you can provide a value for the <code>aurelia-app</code> attribute that points to a configuration module. This module should export a single function names <code>configure</code>. Aurelia invokes your <code>configure</code> function, passing it the Aurelia object which you can then use to configure the framework yourself and decide what, when and where to display your UI. Here&#39;s an example configuration file:</p>
+<p>Often times you want to configure the framework or run some code prior to displaying anything to the user though. So chances are, as your project progresses, you will migrate towards needing some startup configuration. In order to do this, you can provide a value for the <code>aurelia-app</code> attribute that points to a configuration module. This module should export a single function named <code>configure</code>. Aurelia invokes your <code>configure</code> function, passing it the Aurelia object which you can then use to configure the framework yourself and decide what, when, and where to display your UI. Here&#39;s an example configuration file:</p>
 <pre><code class="language-javascript">import {LogManager} from &#39;aurelia-framework&#39;;
 import {ConsoleAppender} from &#39;aurelia-logging-console&#39;;
 
@@ -115,7 +115,7 @@ export function configure(aurelia) {
 
   aurelia.start().then(a =&gt; a.setRoot(&#39;app&#39;, document.body));
 }</code></pre>
-<p>With the exception of the custom plugin, this code is essentially what <code>aurelia-app</code> normally does for you. When you switch to the configuration file approach, you need to configure these things yourself, but you can also install custom plugins, set up the dependency injection container with some services and install global resources to be used in view templates.</p>
+<p>With the exception of the custom plugin, this code is essentially what <code>aurelia-app</code> normally does for you. When you switch to the configuration file approach, you need to configure these things yourself, but you can also install custom plugins, set up the dependency injection container with some services, and install global resources to be used in view templates.</p>
 <blockquote>
 <p><strong>Note:</strong> To turn on ES5, call <code>aurelia.use.es5()</code>.</p>
 </blockquote>
@@ -160,7 +160,7 @@ export function configure(aurelia) {
 }</code></pre>
 <h2 id="views-and-view-models"><a href="#views-and-view-models">Views and View Models</a></h2>
 
-<p>In Aurelia, user interface elements are composed of <em>view</em> and <em>view-model</em> pairs. The <em>view</em> is written with HTML and is rendered into the DOM. The <em>view-model</em> is written with JavaScript and provides data and behavior to the <em>view</em>. The templating engine and/or DI are responsible for creating these pairs and enforcing a predictable lifecycle for the process. Once instantiated, Aurelia&#39;s powerful <em>databinding</em> links the two pieces together allowing changes in your data to be reflected in the <em>view</em> and vice versa. This Separation of Concerns is great for developer/designer collaboration, maintainability, architectural flexibility and even source control.</p>
+<p>In Aurelia, user interface elements are composed of <em>view</em> and <em>view-model</em> pairs. The <em>view</em> is written with HTML and is rendered into the DOM. The <em>view-model</em> is written with JavaScript and provides data and behavior to the <em>view</em>. The templating engine and/or DI are responsible for creating these pairs and enforcing a predictable lifecycle for the process. Once instantiated, Aurelia&#39;s powerful <em>databinding</em> links the two pieces together allowing changes in your data to be reflected in the <em>view</em> and vice versa. This Separation of Concerns is great for developer/designer collaboration, maintainability, architectural flexibility, and even source control.</p>
 <h3 id="dependency-injection"><a href="#dependency-injection">Dependency Injection (DI)</a></h3>
 
 <p>View-models and other interface elements, such as Template Controllers and Attached Behaviors, are created as classes which are instantiated by the framework using a dependency injection container. Code written in this style is easy to modularize and test. Rather than creating large classes, you can break things down into small objects that collaborate to achieve a goal. The DI can then put the pieces together for you at runtime.</p>
@@ -475,11 +475,11 @@ export class App {
 </ul>
 </li>
 <li>parameterized routes<ul>
-<li>ie  &#39;users/:id/detail&#39; - Matches the string and then parses an <code>id</code> parameter. Your view-model&#39;s <code>activate</code> callback will be called with an object that has an <code>id</code> parameter set to the value that was extracted from the url.</li>
+<li>ie  &#39;users/:id/detail&#39; - Matches the string and then parses an <code>id</code> parameter. Your view-model&#39;s <code>activate</code> callback will be called with an object that has an <code>id</code> property set to the value that was extracted from the url.</li>
 </ul>
 </li>
 <li>wildcard routes<ul>
-<li>ie &#39;files*path&#39; - Matches the string and then anything that follows it. Your view-model&#39;s <code>activate</code> callback will be called with an object that has a <code>path</code> parameter set to the wildcard&#39;s value.</li>
+<li>ie &#39;files*path&#39; - Matches the string and then anything that follows it. Your view-model&#39;s <code>activate</code> callback will be called with an object that has a <code>path</code> property set to the wildcard&#39;s value.</li>
 </ul>
 </li>
 </ul>
@@ -714,7 +714,7 @@ export class YourViewModel {
 <p>Let&#39;s look at one of Aurelia&#39;s own Attached Behavior implementations: <code>show</code>. Here&#39;s how it is used:</p>
 <pre><code class="language-markup">&lt;div show.bind=&quot;isSaving&quot; class=&quot;spinner&quot;&gt;&lt;/div&gt;</code></pre>
 <p>The <code>show</code> behavior will conditionally apply a class to an element based on the falsiness of its value. (The class, when applied, hides the element.) Here&#39;s the implementation:</p>
-<pre><code class="language-javascript">import {Behavior} from &#39;aurelia-templating&#39;;
+<pre><code class="language-javascript">import {Behavior} from &#39;aurelia-framework&#39;;
 
 export class Show {
   static metadata(){
@@ -772,7 +772,7 @@ export class Show {
 <h4 id="options-properties"><a href="#options-properties">Options Properties</a></h4>
 
 <p>You may be wondering what to do if you want to create an Attached Behavior with multiple properties, since Attached Behaviors always map to a single attribute. For this scenario, we use an <code>OptionsProperty</code> which enables your single attribute to work like the browser&#39;s native <code>style</code> attribute, with multiple properties embedded within. Here&#39;s an example of how that is used:</p>
-<pre><code class="language-javascript">import {Behavior} from &#39;aurelia-templating&#39;;
+<pre><code class="language-javascript">import {Behavior} from &#39;aurelia-framework&#39;; // or 
 
 export class MyBehavior {
   static metadata(){
@@ -802,7 +802,7 @@ export class MyBehavior {
 &lt;/template&gt;</code></pre>
 <p>So, how do we build this? Well, we&#39;re going to start with a class, just like we did with the Attached Behavior. Here&#39;s what it looks like:</p>
 <h4>say-hello.js</h4>
-<pre><code class="language-javascript">import {Behavior} from &#39;aurelia-templating&#39;;
+<pre><code class="language-javascript">import {Behavior} from &#39;aurelia-framework&#39;;
 
 export class SayHello {
   static metadata(){
@@ -817,7 +817,7 @@ export class SayHello {
 }</code></pre>
 <p>If you read the section on AttachedBehaviors, then you know what this does. There&#39;s some conventions too, which means we can do this if we want:</p>
 <h4>say-hello.js (with conventions)</h4>
-<pre><code class="language-javascript">import {Behavior} from &#39;aurelia-templating&#39;;
+<pre><code class="language-javascript">import {Behavior} from &#39;aurelia-framework&#39;;
 
 export class SayHelloCustomElement {
   static metadata(){
@@ -844,7 +844,7 @@ export class SayHelloCustomElement {
 
 <p>Template Controllers convert DOM into an inert HTML template. The controller can then decide when and where (or how many times) to instantiate the template in the DOM. Examples of this are the <code>if</code> and <code>repeat</code> behaviors. Simply place one of these behavior on a DOM node and it becomes a template, controlled by the behavior.</p>
 <p>Let&#39;s take a look at the implementation of the <code>if</code> behavior to see how one of these is put together. Here&#39;s the full source code:</p>
-<pre><code class="language-javascript">import {Behavior, BoundViewFactory, ViewSlot} from &#39;aurelia-templating&#39;;
+<pre><code class="language-javascript">import {Behavior, BoundViewFactory, ViewSlot} from &#39;aurelia-framework&#39;;
 
 export class If {
   static metadata(){
@@ -971,11 +971,11 @@ export class ASubscriber{
 }</code></pre>
 <p>The subscriber will be called any time an instance of <code>SomeMessage</code> is published. Subscription is polymorphic, so if a subclass of SomeMessage is published, this subscriber will be notified as well.</p>
 <blockquote>
-<p><strong>Note:</strong> All forms of the <code>subscribe</code> method return a <em>dispose function</em>. You can call this function to dispose of the subscription and discontinue receiving messages. A good place to dispose is either in a view-model&#39;s <code>deactivate</code> callback, if it is managed by a router, or in its <code>detached</code> callback, if it is any other view-model.</p>
+<p><strong>Note:</strong> All forms of the <code>subscribe</code> method return a <em>dispose function</em>. You can call this function to dispose of the subscription and discontinue receiving messages. A good place to dispose is either in a view-model&#39;s <code>deactivate</code> callback if it is managed by a router, or in its <code>detached</code> callback if it is any other view-model.</p>
 </blockquote>
 <h2 id="http-client"><a href="#http-client">HTTP Client</a></h2>
 
-<p>As a convenience, Aurelia includes a basic <code>HttpClient</code> to provide a comfortable interface to the browser&#39;s XMLHttpRequest object. <code>HttpClient</code> is not included in the modules that Aurelia&#39;s bootstrapper installs, since its completely optional and many apps may choose to use a different strategy for data retrieval. So, if you want to use it, first you must install it with the following command:</p>
+<p>As a convenience, Aurelia includes a basic <code>HttpClient</code> to provide a comfortable interface to the browser&#39;s <code>XMLHttpRequest</code> object. <code>HttpClient</code> is not included in the modules that Aurelia&#39;s bootstrapper installs, since it&#39;s completely optional and many apps may choose to use a different strategy for data retrieval. So, if you want to use it, first you must install it with the following command:</p>
 <pre><code class="language-shell">jspm install aurelia-http-client</code></pre>
 <p>Then you can use it like this:</p>
 <pre><code class="language-javascript">import {HttpClient} from &#39;aurelia-http-client&#39;;
@@ -986,7 +986,7 @@ export class WebAPI {
         this.http = http;
     }
 
-    return getAllContacts(){
+    getAllContacts(){
         return this.http.get(&#39;uri goes here&#39;);
     }
 }</code></pre>
@@ -1044,7 +1044,7 @@ export class WebAPI {
 <p>As you can see, it provides convenience methods for all the standard verbs as well as <code>jsonp</code>. Each of these methods sends an <code>HttpRequestMessage</code> except <code>jsonp</code> which sends a <code>JSONPRequestMessage</code>. The result of sending a message is a <code>Promise</code> for an <code>HttpResponseMessage</code>.</p>
 <p>The <code>HttpResponseMessage</code> has the following properties:</p>
 <ul>
-<li><code>response</code> - Returns the raw conent sent from the server.</li>
+<li><code>response</code> - Returns the raw content sent from the server.</li>
 <li><code>responseType</code> - The expected response type.</li>
 <li><code>content</code> - Formats the raw <code>response</code> content based on the <code>responseType</code> and returns it.</li>
 <li><code>headers</code> - Returns a <code>Headers</code> object with the parsed header data.</li>
@@ -1065,7 +1065,7 @@ export class WebAPI {
   });
 
 client.get(&#39;some/cool/path&#39;);</code></pre>
-<p>In this case, all request from the client will have the baseUri of &#39;<a href="http://aurelia.io">http://aurelia.io</a>&#39; and will have the specified Authorizatoin header. The same API is available via the request builder. So, you can accomplish the same thing on an individual request like this:</p>
+<p>In this case, all requests from the client will have the baseUri of &#39;<a href="http://aurelia.io">http://aurelia.io</a>&#39; and will have the specified Authorizatoin header. The same API is available via the request builder. So, you can accomplish the same thing on an individual request like this:</p>
 <pre><code class="language-javascript">var client = new HttpClient();
 
 client.createRequest(&#39;some/cool/path&#39;)
@@ -1073,7 +1073,7 @@ client.createRequest(&#39;some/cool/path&#39;)
   .withBaseUri(&#39;http://aurelia.io&#39;)
   .withHeader(&#39;Authorization&#39;, &#39;bearer 123&#39;)
   .send();</code></pre>
-<p>The fluent API has the following chainable methods: asDelete(), asGet(), asHead(), asOptions(), asPatch(), asPost(), asPut(), asJsonp(), withUri(), withBaseUri(), withContent(), withParams(), withResponseType(), withTimeout(), withHeader(), withCredentials(), withReviver(), withReplacer(), withProgressCallback(), withCallbackParameterName().</p>
+<p>The fluent API has the following chainable methods: <code>asDelete()</code>, <code>asGet()</code>, <code>asHead()</code>, <code>asOptions()</code>, <code>asPatch()</code>, <code>asPost()</code>, <code>asPut()</code>, <code>asJsonp()</code>, <code>withUri()</code>, <code>withBaseUri()</code>, <code>withContent()</code>, <code>withParams()</code>, <code>withResponseType()</code>, <code>withTimeout()</code>, <code>withHeader()</code>, <code>withCredentials()</code>, <code>withReviver()</code>, <code>withReplacer()</code>, <code>withProgressCallback()</code>, and <code>withCallbackParameterName()</code>.</p>
 <h2 id="customization"><a href="#customization">Customization</a></h2>
 
 <h3 id="view-and-view-model-conventions"><a href="#view-and-view-model-conventions">View and View-Model Conventions</a></h3>
