@@ -88,7 +88,7 @@
 <p><strong>Note:</strong> Looking for this guide in another language? Have a look in our <a href="https://github.com/aurelia/documentation">documentation repo</a>.</p>
 </blockquote>
 <h2>Configuring Your Environment</h2>
-<p>Let&#39;s start by getting you set up with a great set of tools that you can use to build modern JavaScript applications. All our tooling is built on <a href="http://nodejs.org/">Node.js</a>. If you have that installed already, great! If not, you should go to <a href="http://nodejs.org/">the official web site</a>, download and install it. Everything else we need will be installed via Node&#39;s package manager (<a href="https://docs.npmjs.com/getting-started/what-is-npm">npm</a>).</p>
+<p>Let&#39;s start by getting you set up with a great set of tools that you can use to build modern JavaScript applications. All our tooling is built on <a href="http://nodejs.org/">Node.js</a>. If you have that installed already, great! If not, you should go to <a href="http://nodejs.org/">the official web site</a>, download and install it. Everything else we need will be installed via Node&#39;s package manager (<a href="https://docs.npmjs.com/getting-started/what-is-npm">npm</a>). If you already have npm installed, make sure you&#39;ve got the <a href="https://github.com/npm/npm/wiki/Troubleshooting#try-the-latest-stable-version-of-node">latest version</a> to avoid any issues with the other tools.</p>
 <p>First, let&#39;s begin by installing <a href="http://gulpjs.com/">Gulp</a> which we&#39;ll be using for build automation. If you don&#39;t have it already, you can use npm to set it up like this (you may need to use <code>sudo</code>):</p>
 <pre><code class="language-shell">  npm install -g gulp</code></pre>
 <p>Next, we need to install <a href="http://jspm.io/">jspm</a>. This will serve as our client-side package manager. You can do that like this:</p>
@@ -127,15 +127,22 @@
     &lt;script src=&quot;jspm_packages/system.js&quot;&gt;&lt;/script&gt;
     &lt;script src=&quot;config.js&quot;&gt;&lt;/script&gt;
     &lt;script&gt;
+     System.config({
+       &quot;paths&quot;: {
+         &quot;*&quot;: &quot;dist/*.js&quot;
+       }
+     });
+   &lt;/script&gt;
+    &lt;script&gt;
       System.import(&#39;aurelia-bootstrapper&#39;);
     &lt;/script&gt;
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-<p>Yes, that&#39;s it. This is the only HTML page in our application. The head of the document is pretty straight forward: we link in our bootstrap, font-awesome and custom stylesheets. It&#39;s the body that&#39;s interesting.</p>
+<p>Yes, that&#39;s it. This is the only HTML page in our application. The head of the document is pretty straight forward: we link in our font-awesome and custom stylesheets. It&#39;s the body that&#39;s interesting.</p>
 <blockquote>
 <p><strong>Note:</strong> Be sure to confirm that the local folder name for font-awesome matches the link href. It&#39;s possible that these libraries have updated their versions since the authoring of this document.</p>
 </blockquote>
-<p>Let&#39;s start with the script tags. First we have <em>system.js</em>, our ES6 standards-based module loader. It&#39;s what loads the Aurelia library as well as your own code. Next we have <em>config.js</em>. This contains configuration for the loader. It&#39;s generated automatically whenever you execute a jspm command. jspm is the client-side package manager we recommend because it provides an amazing developer experience by integrating client-side package management with an ES6 compliant module loader.</p>
+<p>Let&#39;s start with the script tags. First we have <em>system.js</em>, our ES6 standards-based module loader. It&#39;s what loads the Aurelia library as well as your own code. Next we have <em>config.js</em>. This contains configuration for the loader. It&#39;s generated automatically whenever you execute a jspm command. jspm is the client-side package manager we recommend because it provides an amazing developer experience by integrating client-side package management with an ES6 compliant module loader. Immediately under that we have a call to <code>System.config</code>. This sets up the output location of our compiled JavaScript code.</p>
 <blockquote>
 <p><strong>Note:</strong> The Aurelia Framework isn&#39;t tied to jspm or SystemJS. We also support require-style APIs like RequireJS and Dojo Loader out of the box. Also, you can implement your own loader and handle package management any way you want. However we do think jspm/SystemJS is the best ES6-oriented solution today and it&#39;s our recommended approach.</p>
 </blockquote>
@@ -148,11 +155,9 @@
 <p>In the <em>src</em> folder create an <em>app.html</em> file and an <em>app.js</em> file. This is the app view and view-model that the bootstrapper was looking for. Let&#39;s start with the <em>view-model</em> by creating a simple class to hold a <em>firstName</em> and <em>lastName</em>. We&#39;ll also add a computed property for <em>fullName</em> and a method to &quot;welcome&quot; the person. Here&#39;s what that would look like:</p>
 <h3>app.js</h3>
 <pre><code class="language-javascript">export class Welcome{
-  constructor(){
-    this.heading = &#39;Welcome to the Aurelia Navigation App!&#39;;
-    this.firstName = &#39;John&#39;;
-    this.lastName = &#39;Doe&#39;;
-  }
+  heading = &#39;Welcome to the Aurelia Navigation App!&#39;;
+  firstName = &#39;John&#39;;
+  lastName = &#39;Doe&#39;;
 
   get fullName(){
     return `${this.firstName} ${this.lastName}`;
@@ -163,9 +168,9 @@
   }
 }</code></pre>
 <p>What...is that JavaScript?</p>
-<p>Yes. Yes it is. In fact it&#39;s ECMAScript 6 (ES6), the next version of JavaScript which introduces many new features to the language. Fortunately the Gulp file you downloaded above has you set up with <a href="https://babeljs.io/">Babel</a>, an amazing ES6 transpiler that allows you to write tomorrow&#39;s JavaScript and run it on today&#39;s browsers. Now you can use modules, classes, lambdas, string interpolation and more. Sweet! So, how do you create a <em>view-model</em>? You create a plain class and <em>export</em> it to the framework. Piece. Of. Cake.</p>
+<p>Yes. Yes it is. In fact it&#39;s ECMAScript 7 (ES7), the next..next version of JavaScript which introduces many new features to the language. Fortunately the Gulp file you downloaded above has you set up with <a href="https://babeljs.io/">Babel</a>, an amazing transpiler that allows you to write tomorrow&#39;s JavaScript and run it on today&#39;s browsers. Now you can use modules, classes, lambdas, string interpolation and more. Sweet! So, how do you create a <em>view-model</em>? You create a plain class and <em>export</em> it to the framework. Piece. Of. Cake.</p>
 <blockquote>
-<p><strong>Note:</strong> You don&#39;t have to use Babel or even ES6 to write an Aurelia app. You can use languages like TypeScript and CoffeeScript...or today&#39;s browser language: ES5. All you have to do is follow the language&#39;s standard pattern for creating classes and everything will work fine. We think ES6 is awesome though and hope you will consider it first. To learn more about the newest version of JavaScript including features like module exports and classes we recommend reading through <a href="http://babeljs.io/docs/learn-es6/">The Babel Learning Guide</a>.</p>
+<p><strong>Note:</strong> You don&#39;t have to use Babel or even ES7 to write an Aurelia app. You can use languages like TypeScript and CoffeeScript...or today&#39;s browser language: ES5. All you have to do is follow the language&#39;s standard pattern for creating classes and everything will work fine. We think ES7 is awesome though and hope you will consider it first. To learn more about the newest version of JavaScript including features like module exports and classes we recommend reading through <a href="http://babeljs.io/docs/learn-es6/">The Babel Learning Guide</a>.</p>
 </blockquote>
 <p>Ok. Now that we have a <em>view-model</em> with some basic data and behavior, let&#39;s have a look at its partner in crime...the <em>view</em>.</p>
 <h3>app.html</h3>
@@ -199,31 +204,34 @@
 <pre><code class="language-shell">gulp watch</code></pre>
 <p>You can now browse to <a href="http://localhost:9000/"><a href="http://localhost:9000/">http://localhost:9000/</a></a> to see the app. Type in the form input controls and notice that the Full Name computed property updates with any change. Click the button and see that your method is invoked.</p>
 <blockquote>
+<p><strong>Note:</strong> If this isn&#39;t working, try <a href="https://github.com/npm/npm/wiki/Troubleshooting#try-the-latest-stable-version-of-node">updating</a> to the latest version of npm.</p>
 <p><strong>Note:</strong> Aurelia has a unique and powerful databinding engine that uses adaptive techniques to pick the best way to observe changes in each property. For example, if you are using a browser with <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe">Object.observe</a> support, both <em>firstName</em> and <em>lastName</em> will be observed with that strategy. If not, we&#39;ll generate getters and setters that batch changes to the Micro Task Queue, correctly emulating Object.observe behavior. Since the computed property <em>fullName</em> can&#39;t be observed with either of these techniques, we use dirty checking. But, you can optionally declare its dependencies in order to enable us to observe it properly. We&#39;ll use the best technique depending on the situation and you can even plug in custom strategies as well in order to &quot;teach&quot; the framework how to observe special types of model patterns. We think it&#39;s pretty cool.</p>
 <p><strong>Note:</strong> The <code>.bind</code> command uses the default binding behavior for any property. The default is one-way binding (model to view) for everything except form controls, which default to two-way. You can always override this by using the explicit binding commands <code>.one-way</code>, <code>.two-way</code> and <code>.one-time</code>. Similarly, you can use <code>.delegate</code> for event delegation but you can also use <code>.trigger</code> to attach directly to the target element.</p>
 </blockquote>
 <h2>Adding Navigation</h2>
 <p>Since this is a navigation app, we should probably add some more screens and set up a client-side router don&#39;t you think? Let&#39;s begin by renaming our <em>app.js</em> and <em>app.html</em> to <em>welcome.js</em> and <em>welcome.html</em> respectively. This will be the first page of our app. Now, lets create a new <em>app.js</em> and <em>app.html</em> which will serve as our &quot;layout&quot; or &quot;master page&quot;. The view will contain our navigation UI and the content placeholder for the current page and the view-model will have a router instance, configured with our routes. We&#39;ll start with the view-model so you can see how to set up the router:</p>
 <h3>app.js</h3>
-<pre><code class="language-javascript">import {Router} from &#39;aurelia-router&#39;;
-import bootstrap from &#39;bootstrap&#39;;
+<pre><code class="language-javascript">import {inject} from &#39;aurelia-framework&#39;;
+import {Router} from &#39;aurelia-router&#39;;
+import &#39;bootstrap&#39;;
+import &#39;bootstrap/css/bootstrap.css!&#39;;
 
+@inject(Router)
 export class App {
-  static inject() { return [Router]; }
   constructor(router) {
     this.router = router;
     this.router.configure(config =&gt; {
       config.title = &#39;Aurelia&#39;;
       config.map([
-        { route: [&#39;&#39;,&#39;welcome&#39;], moduleId: &#39;./welcome&#39;, nav: true, title:&#39;Welcome&#39; }
+        { route: [&#39;&#39;,&#39;welcome&#39;],  moduleId: &#39;./welcome&#39;,      nav: true, title:&#39;Welcome&#39; }
       ]);
     });
   }
 }</code></pre>
-<p>Ok, there&#39;s some really interesting new stuff here. We want to use the router, so we begin by importing it at the top of the file. This is the power of ES6 again. We then create our <em>App</em> class to hold our data and behavior for the main application layout. Take a look at the constructor function. It&#39;s expecting something to pass in a <em>router</em> instance when the App class is created. Where does that come from?</p>
-<p>Aurelia creates the UI components as needed to render your app. It does this by using a <a href="http://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection</a> container capable of providing constructor dependencies like this. How does the DI system know what to provide? All you have to do is add a static method named <em>inject</em> that returns an array of types to provide instances of. There should be one entry in the array for each constructor parameter. In the above example, we needed a router instance, so we added the <code>Router</code> type to the inject array.</p>
+<p>Ok, there&#39;s some really interesting new stuff here. We want to use the router, so we begin by importing it at the top of the file. This is the power of the ES6/ES7 again. We then create our <em>App</em> class to hold our data and behavior for the main application layout. Take a look at the constructor function. It&#39;s expecting something to pass in a <em>router</em> instance when the App class is created. Where does that come from?</p>
+<p>Aurelia creates the UI components as needed to render your app. It does this by using a <a href="http://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection</a> container capable of providing constructor dependencies like this. How does the DI system know what to provide? All you have to do is add an ES7 <code>inject</code> decorator to your class that passes a list of types to provide instances of. There should be one argument for each constructor parameter. In the above example, we needed a router instance, so we added the <code>Router</code> type.</p>
 <blockquote>
-<p><strong>Note:</strong> Aurelia will also be able to handle this with ES7 Decorators in the next update.</p>
+<p><strong>Note:</strong> If you don&#39;t like using a decorator in this case, you can also add a static <code>inject</code> method or property to the class that returns an array of types to inject.</p>
 </blockquote>
 <p>We need to set the router to a public property on the class. The property must be named <em>router</em>. This is important. Don&#39;t get any fancy ideas here like naming it <em>taco</em> or something like that ok? It&#39;s a router..so name it <em>router</em> and everyone will be happy. Did we mention you <strong>must</strong> name it <em>router</em>?</p>
 <blockquote>
@@ -236,6 +244,9 @@ export class App {
 <li><code>title</code>: You can optionally provide a title to be used in generating the document&#39;s title.</li>
 <li><code>nav</code>: If this route should be included in the <em>navigation model</em> because you want to generate a UI with it, set this to true (or a number indicating order).</li>
 </ul>
+<blockquote>
+<p><strong>Note:</strong> Did you notice how we used ES6 imports to load both bootstrap&#39;s JavaScript and CSS?</p>
+</blockquote>
 <h3>app.html</h3>
 <pre><code class="language-markup">&lt;template&gt;
   &lt;nav class=&quot;navbar navbar-default navbar-fixed-top&quot; role=&quot;navigation&quot;&gt;
@@ -279,10 +290,13 @@ export class App {
 <p>Well, we&#39;ve technically got a navigation application now...but it&#39;s not very interesting because there&#39;s only one page. Let&#39;s add a second page. Can you guess how to do it? I bet you can...</p>
 <p>Let&#39;s display some images from Flickr. To do that, let&#39;s first configure our router for the hypothetical page:</p>
 <h3>app.js (updated)</h3>
-<pre><code class="language-javascript">import {Router} from &#39;aurelia-router&#39;;
+<pre><code class="language-javascript">import {inject} from &#39;aurelia-framework&#39;;
+import {Router} from &#39;aurelia-router&#39;;
+import &#39;bootstrap&#39;;
+import &#39;bootstrap/css/bootstrap.css!&#39;;
 
+@inject(Router)
 export class App {
-  static inject() { return [Router]; }
   constructor(router) {
     this.router = router;
     this.router.configure(config =&gt; {
@@ -296,20 +310,21 @@ export class App {
 }</code></pre>
 <p>If you guessed that we need to create a <em>flickr.js</em> and <em>flickr.html</em> file, you are correct. Here&#39;s the source:</p>
 <h3>flickr.js</h3>
-<pre><code class="language-javascript">import {HttpClient} from &#39;aurelia-http-client&#39;;
+<pre><code class="language-javascript">import {inject} from &#39;aurelia-framework&#39;;
+import {HttpClient} from &#39;aurelia-http-client&#39;;
 
-var url = &#39;http://api.flickr.com/services/feeds/photos_public.gne?tags=rainier&amp;tagmode=any&amp;format=json&#39;;
-
+@inject(HttpClient)
 export class Flickr{
-  static inject() { return [HttpClient]; }
+  heading = &#39;Flickr&#39;;
+  images = [];
+  url = &#39;http://api.flickr.com/services/feeds/photos_public.gne?tags=rainier&amp;tagmode=any&amp;format=json&#39;;
+
   constructor(http){
-    this.heading = &#39;Flickr&#39;;
-    this.images = [];
     this.http = http;
   }
 
   activate(){
-    return this.http.jsonp(url).then(response =&gt; {
+    return this.http.jsonp(this.url).then(response =&gt; {
       this.images = response.content.items;
     });
   }
@@ -364,15 +379,12 @@ export class Flickr{
 <p>This code requires a <code>nav-bar</code> element from &quot;./nav-bar&quot; and once it&#39;s available in the view, we can use it like any other element, including databinding to its custom properties (like <em>router</em>). So, how do we get to this end product?</p>
 <p>Guess what? Our simple view-model/view conventions still apply for custom elements. (In fact you&#39;ve been creating what we sometimes call &quot;anonymous&quot; custom elements all along...you just didn&#39;t realize it.) Let&#39;s create a <em>nav-bar.js</em> and a <em>nav-bar.html</em>. Here&#39;s the code for the view-model first:</p>
 <h3>nav-bar.js</h3>
-<pre><code class="language-javascript">import {Behavior} from &#39;aurelia-framework&#39;;
+<pre><code class="language-javascript">import {bindable} from &#39;aurelia-framework&#39;;
 
 export class NavBar {
-  static metadata(){ return Behavior.withProperty(&#39;router&#39;); }
+  @bindable router = null;
 }</code></pre>
-<p>To create a custom element, you create and export a class. Since this class is going to be used in HTML as an element, we need to tell the framework what properties on the class should appear as attributes on the element. To do that, we use the <em>metadata</em> method. Like <em>inject</em>, metadata is a way to provide information about your class to the Aurelia framework. Aurelia is smart and can infer many things, but when it can&#39;t or when you want to do something different than the conventions, you use some form of metadata. To leverage this capability, add a static <code>metadata</code> method on the class and return an array of metadata instances (really just regular objects). In this case we are using Aurelia&#39;s <code>Behavior</code> metadata helper. The <code>withProperty</code> method adds a <code>BehaviorProperty</code> which tells the framework that we want our class&#39;s <code>router</code> property to be surfaced as an attribute in the HTML. Once it&#39;s surfaced as an attribute, we can databind to it in the view.</p>
-<blockquote>
-<p><strong>Note:</strong> Ultimately all metadata can be declared using ES7 Decorators with the same name. This isn&#39;t available yet, but is coming in the next update.</p>
-</blockquote>
+<p>To create a custom element, you create and export a class. Since this class is going to be used in HTML as an element, we need to tell the framework what properties on the class should appear as attributes on the element. To do that, we use the <em>bindable</em> decorator. Like <em>inject</em>, <em>bindable</em> is a way to provide information about your class to the Aurelia framework. Aurelia is smart and can infer many things, but when it can&#39;t or when you want to do something different than the conventions, you supply some additional information through decorators. The <code>bindable</code> decorator tells the framework that we want our class&#39;s <code>router</code> property to be surfaced as an attribute in the HTML. Once it&#39;s surfaced as an attribute, we can bind to it in the view.</p>
 <h3>nav-bar.html</h3>
 <pre><code class="language-markup">&lt;template&gt;
   &lt;nav class=&quot;navbar navbar-default navbar-fixed-top&quot; role=&quot;navigation&quot;&gt;
@@ -421,15 +433,18 @@ export class NavBar {
 <p><strong>Note:</strong> You can also load app-wide elements and other behaviors for convenience so you don&#39;t have to require common resources in every view.</p>
 </blockquote>
 <p>You may wonder how Aurelia determines the name of the custom element. By convention, it will use the export name, lowered and hyphenated. However, you can always be explicit. To do so, add more metadata by chaining <code>.customElement(&#39;nav-bar&#39;)</code> on <code>Behavior</code>. What if your custom element doesn&#39;t have a view template because it&#39;s all implemented in code? No problem, chain <code>.noView()</code>. Want to use ShadowDOM for your custom element? Do it like a pro by chaining <code>.useShadowDOM()</code>. Don&#39;t worry about whether or not the browser supports it. We have an efficient, full-fidelity ShadowDOM fallback implementation.</p>
-<p>In addition to creating custom elements, you can also create standalone attributes which add new behavior to existing elements. We call these <em>Attached Behaviors</em>. On occassion you may need to create <em>Template Controllers</em> for dynamically adding and removing DOM from the view, like the <code>repeat</code> and <code>if</code> we used above. That&#39;s not all you can do either. Aurelia&#39;s templating engine is both powerful and extensible.</p>
+<p>In addition to creating custom elements, you can also create standalone attributes which add new behavior to existing elements. We call these <em>Attached Behaviors</em>. On occasion you may need to create <em>Template Controllers</em> for dynamically adding and removing DOM from the view, like the <code>repeat</code> and <code>if</code> we used above. That&#39;s not all you can do either. Aurelia&#39;s templating engine is both powerful and extensible.</p>
 <h2>Bonus: Leveraging Child Routers</h2>
 <p>Can&#39;t get enough can you? Well, I&#39;ve got a treat for you. Let&#39;s add a third page to our app...with its own router! We call this a child router. Child routers have their own route configuration and navigate relative to the parent router. Prepare thyself for insanity....</p>
 <p>First, let&#39;s update our <em>app.js</em> with the new configuration. Here&#39;s what it should look like:</p>
 <h3>app.js (updated...again)</h3>
-<pre><code class="language-javascript">import {Router} from &#39;aurelia-router&#39;;
+<pre><code class="language-javascript">import {inject} from &#39;aurelia-framework&#39;;
+import {Router} from &#39;aurelia-router&#39;;
+import &#39;bootstrap&#39;;
+import &#39;bootstrap/css/bootstrap.css!&#39;;
 
+@inject(Router)
 export class App {
-  static inject() { return [Router]; }
   constructor(router) {
     this.router = router;
     this.router.configure(config =&gt; {
@@ -444,12 +459,14 @@ export class App {
 }</code></pre>
 <p>Nothing new there. The interesting part is what&#39;s inside <em>child-router.js</em>...</p>
 <h3>child-router.js</h3>
-<pre><code class="language-javascript">import {Router} from &#39;aurelia-router&#39;;
+<pre><code class="language-javascript">import {inject} from &#39;aurelia-framework&#39;;
+import {Router} from &#39;aurelia-router&#39;;
 
+@inject(Router)
 export class ChildRouter{
-  static inject() { return [Router]; }
+  heading = &#39;Child Router&#39;;
+
   constructor(router){
-    this.heading = &#39;Child Router&#39;;
     this.router = router;
     router.configure(config =&gt; {
       config.map([
@@ -461,7 +478,7 @@ export class ChildRouter{
   }
 }</code></pre>
 <p>What!? It&#39;s practically the same configuration as <code>App</code>? What? Why? Well...you should probably never do this in real life...but it&#39;s pretty cool what this does. This, my friends, is a recursive router, and we&#39;re doing it because we can.</p>
-<p>For completness, here&#39;s the view:</p>
+<p>For completeness, here&#39;s the view:</p>
 <h3>child-router.html</h3>
 <pre><code class="language-javascript">&lt;template&gt;
   &lt;section&gt;

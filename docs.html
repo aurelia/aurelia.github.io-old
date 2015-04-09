@@ -405,7 +405,7 @@ export class MySanitizeHtmlValueConverter {
 <pre><code class="language-markup">&lt;ul&gt;
     &lt;li repeat.for=&quot;customer of customers&quot;&gt;${customer.fullName}&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-<p>An important note about the repeat behavior is that it works in conjuction with the <code>.for</code> binding command. This binding command interprets a special syntax in the form &quot;item of array&quot; where &quot;item&quot; is the local name you will use in the template and &quot;array&quot; is a normal binding expression that evaluates to an array.</p>
+<p>An important note about the repeat behavior is that it works in conjunction with the <code>.for</code> binding command. This binding command interprets a special syntax in the form &quot;item of array&quot; where &quot;item&quot; is the local name you will use in the template and &quot;array&quot; is a normal binding expression that evaluates to an array.</p>
 <blockquote>
 <p><strong>Note:</strong>: Like the <code>if</code> behavior, you can also use a <code>template</code> tag to group a collection of elements that don&#39;t have a parent element. In fact this is true of all Template Controllers. When you place a Template Controller on an element, it transforms it into an HTMLTemplate during compilation, so you can always explicitly add the template in your markup if you want or need to.</p>
 </blockquote>
@@ -644,7 +644,7 @@ config.addPipelineStep(&#39;modelbind&#39;, &#39;myname&#39;); // Makes the enti
 <p>Similar techniques can be used in other server environments - you just need to make sure that whatever server you&#39;re using, it needs to send back the same <code>index.html</code> regardless of the request being made. All server side frameworks should be able to achieve this. Aurelia will figure out which page to load based on its own route data.</p>
 <h3 id="reusing-an-existing-vm"><a href="#reusing-an-existing-vm">Reusing an existing VM</a></h3>
 
-<p>Sometimes you might wan&#39;t to use the same VM for multiple routes. By default Aurelia will see those routes as aliases to the same VM and thus only perform the build and attach process as well as the complete life-cycle once. This might not be exactly what you are looking for. Take the following router example:</p>
+<p>Sometimes you might want to use the same VM for multiple routes. By default Aurelia will see those routes as aliases to the same VM and thus only perform the build and attach process as well as the complete life-cycle once. This might not be exactly what you are looking for. Take the following router example:</p>
 <pre><code class="language-javascript">import {Router} from &#39;aurelia-router&#39;;
 
 export class App {
@@ -686,7 +686,7 @@ export class YourViewModel {
 <p>Behaviors are not visible to the compiler by default. There are three main ways to plug them in:</p>
 <ul>
 <li>Use the <code>require</code> element to require a behavior in a view. The <code>from</code> attribute specifies the relative path to the behavior&#39;s module. The behavior will be locally defined.</li>
-<li>Use the Aurelia object during your bootstrapping phase to call <code>.globalizeResources(...resourePaths)</code> to register behaviors with global visibility in your application.</li>
+<li>Use the Aurelia object during your bootstrapping phase to call <code>.globalizeResources(...resourcePaths)</code> to register behaviors with global visibility in your application.</li>
 <li>Install a plugin that registers behaviors with global visibility in your application.</li>
 </ul>
 <blockquote>
@@ -713,7 +713,7 @@ export class YourViewModel {
 <p>Attached Behaviors tend to represent cross-cutting concerns. For example you might create a custom tooltip behavior that you can then attach to any element. This is a better idea than building tooltip functionality directly into every custom element you create.</p>
 <p>Let&#39;s look at one of Aurelia&#39;s own Attached Behavior implementations: <code>show</code>. Here&#39;s how it is used:</p>
 <pre><code class="language-markup">&lt;div show.bind=&quot;isSaving&quot; class=&quot;spinner&quot;&gt;&lt;/div&gt;</code></pre>
-<p>The <code>show</code> behavior will conditionally apply a class to an element based on the falsiness of its value. (The class, when applied, hides the element.) Here&#39;s the implementation:</p>
+<p>The <code>show</code> behavior will conditionally apply a class to an element based on the falseness of its value. (The class, when applied, hides the element.) Here&#39;s the implementation:</p>
 <pre><code class="language-javascript">import {Behavior} from &#39;aurelia-framework&#39;;
 
 export class Show {
@@ -746,7 +746,7 @@ export class Show {
 <li>If your callback function is named {propertyName}Changed, then you don&#39;t need to specify it. So, in the above case, we could omit the value of the second parameter.</li>
 <li>If your property name and attribute name are the same, then you don&#39;t need to specify it. In the above case, they are different, so we need to specify it.</li>
 <li>Attached behaviors always map to a single attribute. This allows us to optimize a simple usage pattern. If you name your property &quot;value&quot;, then you don&#39;t need to include the property metadata at all. We will automatically map an attribute with the same name as your behavior to the <code>value</code> property.</li>
-<li>If your class&#39;s export name matches the pattern {BehaviorName}AttachedProperty, then you don&#39;t need to include the attached behavior metadata at all. The attribute name will be inferred from the export name by stripping off &quot;AttachedBehavior&quot; and lowercasing and hyphenating the remaining part of the name. ie. behavior-name</li>
+<li>If your class&#39;s export name matches the pattern {BehaviorName}AttachedBehavior, then you don&#39;t need to include the attached behavior metadata at all. The attribute name will be inferred from the export name by stripping off &quot;AttachedBehavior&quot; and lowercasing and hyphenating the remaining part of the name. ie. behavior-name</li>
 </ul>
 <p>These conventions mean that we can actually define our <code>show</code> behavior like this:</p>
 <pre><code class="language-javascript">export class ShowAttachedBehavior {
@@ -1065,7 +1065,7 @@ export class WebAPI {
   });
 
 client.get(&#39;some/cool/path&#39;);</code></pre>
-<p>In this case, all requests from the client will have the baseUri of &#39;<a href="http://aurelia.io">http://aurelia.io</a>&#39; and will have the specified Authorizatoin header. The same API is available via the request builder. So, you can accomplish the same thing on an individual request like this:</p>
+<p>In this case, all requests from the client will have the baseUri of &#39;<a href="http://aurelia.io">http://aurelia.io</a>&#39; and will have the specified Authorization header. The same API is available via the request builder. So, you can accomplish the same thing on an individual request like this:</p>
 <pre><code class="language-javascript">var client = new HttpClient();
 
 client.createRequest(&#39;some/cool/path&#39;)
