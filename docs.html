@@ -387,7 +387,7 @@ export class MySanitizeHtmlValueConverter {
 
 &lt;!-- incompatible with Internet Explorer: --&gt;
 &lt;div style=&quot;width: ${width}px; height: ${height}px;&quot;&gt;&lt;/div&gt;</code></pre>
-<h3 id="enhanced-html"><a href="#enhanced-html">Enhanced HTML</a></h3>
+<h3 id="extended-html"><a href="#extended-html">Extended HTML</a></h3>
 
 <p>In addition to databinding, you also have the power of Aurelia&#39;s HTMLm enhancements. There are two types:</p>
 <ul>
@@ -787,11 +787,6 @@ export class MyAttribite {
 <blockquote>
 <p><strong>Note:</strong> You don&#39;t use <code>delegate</code> or <code>trigger</code> commands inside an options attribute. Those are always attached to the element itself, since they work directly with native DOM events. However, you can use <code>call</code>.</p>
 </blockquote>
-<p>There are also some special options for custom attributes you can &quot;turn on&quot; via decorators:</p>
-<ul>
-<li><code>@templateController</code> - Allows a custom attribute to turn the attributed HTML into an HTMLTemplate which it can then generate on the fly. This is how attributes like <code>if</code> and <code>repeat</code> can be created.</li>
-<li><code>@dynamicOptions</code> - This allows a custom attribute to have a dynamic set of properties which are all mapped from the options attribute syntax into the class at runtime. Don&#39;t declare <code>bindable</code> properties. Anything the consumer lists in the options attribute syntax will be mapped.</li>
-</ul>
 <p>If you aren&#39;t using ES7 property initializers, you can put the <code>@bindable</code> decorator directly on the class. Just be sure to provide the property name like this <code>@bindable(&#39;propertyName&#39;)</code>. To specify more details for a bindable property, you should pass an options object instead like this:</p>
 <pre><code class="language-javascript">@bindable({
   name:&#39;myProperty&#39;, //name of the property on the class
@@ -802,57 +797,11 @@ export class MyAttribite {
 })</code></pre>
 <p>The defaults and conventions are shown above. So, you would only need to specify these options if you need to deviate. R</p>
 <blockquote>
-<p><strong>Note:</strong> Rmember that all decorators are available on the <code>Decorators</code> helper and can be specified with a static <code>decorators</code> property or method if you prefer (or if you are using a language that doens&#39;t support decorators). See the CoffeeScript examples above for details.</p>
+<p><strong>Note:</strong> There is also a special <code>@dynamicOptions</code> decorator. This allows a custom attribute to have a dynamic set of properties which are all mapped from the options attribute syntax into the class at runtime. Don&#39;t declare <code>bindable</code> properties. Simply add a single <code>@dynamicOptions</code> decorator and anything the consumer lists in the options attribute syntax will be mapped.</p>
+<p><strong>Note:</strong> Remember that all decorators are available on the <code>Decorators</code> helper and can be specified with a static <code>decorators</code> property or method if you prefer (or if you are using a language that doesn&#39;t support decorators). See the CoffeeScript examples above for details.</p>
 </blockquote>
-<h3 id="custom-elements"><a href="#custom-elements">Custom Elements</a></h3>
-
-<p>Custom Elements add new tags to your HTML markup. Each Custom Element can have its own view template which can be rendered into the Light DOM or the Shadow DOM. Custom Elements can also have any number of properties which they surface as attributes in HTML for databinding support and which they can databind to inside their view template.</p>
-<p>Why don&#39;t we create a simple custom element so that we can see how that works? We&#39;ll make an element that says hello to someone, called <code>say-hello</code>. Here&#39;s how we want to be able to use it when we&#39;re done:</p>
-<pre><code class="language-markup">&lt;template&gt;
-    &lt;require from=&quot;./say-hello&quot;&gt;&lt;/require&gt;
-
-    &lt;input type=&quot;text&quot; ref=&quot;name&quot;&gt;
-    &lt;say-hello to.bind=&quot;name.value&quot;&gt;&lt;/say-hello&gt;
-&lt;/template&gt;</code></pre>
-<p>So, how do we build this? Well, we&#39;re going to start with a class, just like we did with the Custom Attribute. Here&#39;s what it looks like:</p>
-<h4>say-hello.js</h4>
-<pre><code class="language-javascript">import {customElement, bindable} from &#39;aurelia-framework&#39;;
-
-@customElement(&#39;say-hello&#39;)
-export class SayHello {
-  @bindable to;
-
-  speak(){
-    alert(&#39;Hello ${this.to}!&#39;);
-  }
-}</code></pre>
-<p>If you read the section on Custom Attributes, then you know what this does. There&#39;s some conventions too, which means we can do this if we want:</p>
-<h4>say-hello.js (with conventions)</h4>
-<pre><code class="language-javascript">import {bindable} from &#39;aurelia-framework&#39;;
-
-export class SayHelloCustomElement {
-  @bindable to;
-
-  speak(){
-    alert(&#39;Hello ${this.to}!&#39;);
-  }
-}</code></pre>
-<p>Be default, Custom Elements have a view. Here&#39;s the view for ours:</p>
-<h4>say-hello.html</h4>
-<pre><code class="language-markup">&lt;template&gt;
-    &lt;button click.trigger=&quot;speak()&quot;&gt;Say Hello To ${to}&lt;/button&gt;
-&lt;/template&gt;</code></pre>
-<p>As you can see, we&#39;ve got access to our class&#39;s properties and methods. It&#39;s important to note that you don&#39;t need to declare <code>@bindable</code> properties for every property you want to bind to in your template. You only need to declare it for properties you want to exist as attributes on your custom element.</p>
-<p>That&#39;s really all there is to it. You follow the same view-model/view naming conventions and all the same patterns for custom elements. There are a few unique decorators for custom elements you may also need:</p>
-<ul>
-<li><code>@syncChildren(property, changeHandler, selector)</code> - Creates an array property on your class that has its items automatically synchronized based on a query selector against its view.</li>
-<li><code>@skipContentProcessing</code> - Tells the compiler not to process the content of your custom element. It is expected that you will do custom processing yourself.</li>
-<li><code>@useView(path)</code> - Specifies a different view to use.</li>
-<li><code>@noView</code> - Indicates that this custom element does not have a view and that the author intends for the element to handle its own rendering internally.</li>
-</ul>
-<h3 id="template-controllers"><a href="#template-controllers">Template Controllers</a></h3>
-
-<p>Custom Attributes can indicate that they are a Template Controller with the <code>@templateController</code> decorators. This indicates that they convert DOM into an inert HTML template. The custom attribute class can then decide when and where (or how many times) to instantiate the template in the DOM. Examples of this are the <code>if</code> and <code>repeat</code> attributes. Simply place one of these on a DOM node and it becomes a template, controlled by the Custom Attribute class.</p>
+<p><h4 id="template-controllers"><a href="#template-controllers">Template Controllers</a></h3></p>
+<p>Custom Attributes can indicate that they are a Template Controller with the <code>@templateController</code> decorator. This indicates that they convert DOM into an inert HTML template. The custom attribute class can then decide when and where (or how many times) to instantiate the template in the DOM. Examples of this are the <code>if</code> and <code>repeat</code> attributes. Simply place one of these on a DOM node and it becomes a template, controlled by the Custom Attribute class.</p>
 <p>Let&#39;s take a look at the implementation of the <code>if</code> Custom Attribute to see how one of these is put together. Here&#39;s the full source code:</p>
 <pre><code class="language-javascript">import {BoundViewFactory, ViewSlot, customAttribute, templateController, inject} from &#39;aurelia-framework&#39;;
 
@@ -904,6 +853,52 @@ export class If {
 <li>The attribute always calls <code>bind</code> on the View <em>before</em> adding it to the ViewSlot. This ensures that all internal bindings are initially evaluated outside of the live DOM. This is important for performance.</li>
 <li>Similarly, always call <code>unbind</code> <em>after</em> removing the View from the DOM.</li>
 <li>After the View is initially created, the <code>if</code> attribute does not throw it away even when the value becomes false. It caches the instance. Aurelia can re-use Views and even re-target them at different binding contexts. Again, this is important for performance, since it eliminates needless re-creation of Views.</li>
+</ul>
+<h3 id="custom-elements"><a href="#custom-elements">Custom Elements</a></h3>
+
+<p>Custom Elements add new tags to your HTML markup. Each Custom Element can have its own view template which can be rendered into the Light DOM or the Shadow DOM. Custom Elements can also have any number of properties which they surface as attributes in HTML for databinding support and which they can databind to inside their view template.</p>
+<p>Why don&#39;t we create a simple custom element so that we can see how that works? We&#39;ll make an element that says hello to someone, called <code>say-hello</code>. Here&#39;s how we want to be able to use it when we&#39;re done:</p>
+<pre><code class="language-markup">&lt;template&gt;
+    &lt;require from=&quot;./say-hello&quot;&gt;&lt;/require&gt;
+
+    &lt;input type=&quot;text&quot; ref=&quot;name&quot;&gt;
+    &lt;say-hello to.bind=&quot;name.value&quot;&gt;&lt;/say-hello&gt;
+&lt;/template&gt;</code></pre>
+<p>So, how do we build this? Well, we&#39;re going to start with a class, just like we did with the Custom Attribute. Here&#39;s what it looks like:</p>
+<h4>say-hello.js</h4>
+<pre><code class="language-javascript">import {customElement, bindable} from &#39;aurelia-framework&#39;;
+
+@customElement(&#39;say-hello&#39;)
+export class SayHello {
+  @bindable to;
+
+  speak(){
+    alert(&#39;Hello ${this.to}!&#39;);
+  }
+}</code></pre>
+<p>If you read the section on Custom Attributes, then you know what this does. There&#39;s some conventions too, which means we can do this if we want:</p>
+<h4>say-hello.js (with conventions)</h4>
+<pre><code class="language-javascript">import {bindable} from &#39;aurelia-framework&#39;;
+
+export class SayHelloCustomElement {
+  @bindable to;
+
+  speak(){
+    alert(&#39;Hello ${this.to}!&#39;);
+  }
+}</code></pre>
+<p>Be default, Custom Elements have a view. Here&#39;s the view for ours:</p>
+<h4>say-hello.html</h4>
+<pre><code class="language-markup">&lt;template&gt;
+    &lt;button click.trigger=&quot;speak()&quot;&gt;Say Hello To ${to}&lt;/button&gt;
+&lt;/template&gt;</code></pre>
+<p>As you can see, we&#39;ve got access to our class&#39;s properties and methods. It&#39;s important to note that you don&#39;t need to declare <code>@bindable</code> properties for every property you want to bind to in your template. You only need to declare it for properties you want to exist as attributes on your custom element.</p>
+<p>That&#39;s really all there is to it. You follow the same view-model/view naming conventions and all the same patterns for custom elements. There are a few unique decorators for custom elements you may also need:</p>
+<ul>
+<li><code>@syncChildren(property, changeHandler, selector)</code> - Creates an array property on your class that has its items automatically synchronized based on a query selector against its view.</li>
+<li><code>@skipContentProcessing</code> - Tells the compiler not to process the content of your custom element. It is expected that you will do custom processing yourself.</li>
+<li><code>@useView(path)</code> - Specifies a different view to use.</li>
+<li><code>@noView</code> - Indicates that this custom element does not have a view and that the author intends for the element to handle its own rendering internally.</li>
 </ul>
 <h2 id="eventing"><a href="#eventing">Eventing</a></h2>
 
