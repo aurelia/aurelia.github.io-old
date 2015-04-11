@@ -91,13 +91,21 @@
 </blockquote>
 <h2 id="browser-support"><a href="#browser-support">Browser Support</a></h2>
 
-<p>Aurelia is originally designed for Evergreen Browsers. This includes Chrome, Firefox, IE11 and Safari 8. Out-of-the-box it wont work with any version of IE below 11...yet. However, we have identified how we can support IE9 in the near future. Look for an update with that announcement soon.</p>
+<p>Aurelia was originally designed for Evergreen Browsers. This includes Chrome, Firefox, IE11 and Safari 8. However, we have identified how to support IE9 and above. To make this work, you need to add two additional polyfills: MutationObservers and WeakMap. This can be achieved by a jspm install of <code>github:webreflection/es6-collections</code> and <code>github:polymer/mutationobservers</code>. Load these two scripts before system.js.</p>
+<p>Your index.html will look like this:</p>
+<pre><code class="language-markup">&lt;script src=&quot;jspm_packages/github/webreflection/es6-collections@master/es6-collections.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;jspm_packages/github/polymer/mutationobservers@0.4.2/MutationObserver.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;jspm_packages/system.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;config.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  System.import(&#39;aurelia-bootstrapper&#39;);
+&lt;/script&gt;</code></pre>
+<blockquote>
+<p><strong>Note:</strong> WeakMap is not required by Aurelia itself but it is used by the MutationObserver polyfill.</p>
+</blockquote>
 <h2 id="startup-and-configuration"><a href="#startup-and-configuration">Startup &amp; Configuration</a></h2>
 
 <p>Most platforms have a &quot;main&quot; or entry point for code execution. Aurelia is no different. If you&#39;ve read the <a href="/get-started.html">Get Started</a> page, then you&#39;ve seen the <code>aurelia-app</code> attribute. Simply place this on an HTML element and Aurelia&#39;s bootstrapper will load an <em>app.js</em> and <em>app.html</em>, databind them together and inject them into the DOM element on which you placed that attribute.</p>
-<blockquote>
-<p><strong>Note:</strong> If you are using ES5 instead of ES6, add an <code>es5</code> attribute. Doing so will &quot;turn on&quot; functionality, which makes using these languages easier.</p>
-</blockquote>
 <p>Often times you want to configure the framework or run some code prior to displaying anything to the user though. So chances are, as your project progresses, you will migrate towards needing some startup configuration. In order to do this, you can provide a value for the <code>aurelia-app</code> attribute that points to a configuration module. This module should export a single function named <code>configure</code>. Aurelia invokes your <code>configure</code> function, passing it the Aurelia object which you can then use to configure the framework yourself and decide what, when, and where to display your UI. Here&#39;s an example configuration file:</p>
 <pre><code class="language-javascript">import {LogManager} from &#39;aurelia-framework&#39;;
 import {ConsoleAppender} from &#39;aurelia-logging-console&#39;;
@@ -116,9 +124,6 @@ export function configure(aurelia) {
   aurelia.start().then(a =&gt; a.setRoot(&#39;app&#39;, document.body));
 }</code></pre>
 <p>With the exception of the custom plugin, this code is essentially what <code>aurelia-app</code> normally does for you. When you switch to the configuration file approach, you need to configure these things yourself, but you can also install custom plugins, set up the dependency injection container with some services, and install global resources to be used in view templates.</p>
-<blockquote>
-<p><strong>Note:</strong> To turn on ES5, call <code>aurelia.use.es5()</code>.</p>
-</blockquote>
 <p>If you want to switch to the configuration file approach for startup, you can actually write a simple file that sums up all the standard options which we spelled out above. Here&#39;s what that would look like:</p>
 <pre><code class="language-javascript">export function configure(aurelia) {
   aurelia.use
@@ -163,26 +168,29 @@ export function configure(aurelia) {
 <p>In Aurelia, user interface elements are composed of <em>view</em> and <em>view-model</em> pairs. The <em>view</em> is written with HTML and is rendered into the DOM. The <em>view-model</em> is written with JavaScript and provides data and behavior to the <em>view</em>. The templating engine and/or DI are responsible for creating these pairs and enforcing a predictable lifecycle for the process. Once instantiated, Aurelia&#39;s powerful <em>databinding</em> links the two pieces together allowing changes in your data to be reflected in the <em>view</em> and vice versa. This Separation of Concerns is great for developer/designer collaboration, maintainability, architectural flexibility, and even source control.</p>
 <h3 id="dependency-injection"><a href="#dependency-injection">Dependency Injection (DI)</a></h3>
 
-<p>View-models and other interface elements, such as Template Controllers and Attached Behaviors, are created as classes which are instantiated by the framework using a dependency injection container. Code written in this style is easy to modularize and test. Rather than creating large classes, you can break things down into small objects that collaborate to achieve a goal. The DI can then put the pieces together for you at runtime.</p>
-<p>In order to leverage DI you simply need to add a bit of metadata to your class to tell the framework what it should pass to its constructor. Here&#39;s an example of a view-model that depends on Aurelia&#39;s HttpClient.</p>
-<pre><code class="language-javascript">import {HttpClient} from &#39;aurelia-http-client&#39;;
+<p>View-models and other interface elements, such as Custom Elements and Custom Attributes, are created as classes which are instantiated by the framework using a dependency injection container. Code written in this style is easy to modularize and test. Rather than creating large classes, you can break things down into small objects that collaborate to achieve a goal. The DI can then put the pieces together for you at runtime.</p>
+<p>In order to leverage DI you, simply decorate your class to tell the framework what it should pass to its constructor. Here&#39;s an example of a view-model that depends on Aurelia&#39;s HttpClient.</p>
+<pre><code class="language-javascript">import {inject} from &#39;aurelia-framework&#39;;
+import {HttpClient} from &#39;aurelia-http-client&#39;;
 
+@inject(HttpClient)
 export class CustomerDetail{
-    static inject() { return [HttpClient]; }
     constructor(http){
         this.http = http;
     }
 }</code></pre>
-<p>Just provide a static method named <code>inject</code> that returns an array of things to inject.</p>
-<blockquote>
-<p><strong>Note:</strong> You will also be able to supply the inject data with an ES7/TypeScript Decorator soon.</p>
-</blockquote>
-<p>The dependencies in your inject array don&#39;t have to be just constructor types. They can also be instances of <code>resolvers</code>. For example, have a look at this:</p>
-<pre><code class="language-javascript">import {Lazy} from &#39;aurelia-framework&#39;;
+<p>With ES7 or TypeScript Decorators enabled, you just add the <code>inject</code> decorator, passing one argument per injected type. If you aren&#39;t using a language that supports Decorators, or just don&#39;t want to use them, you can also add a static property or method to your class named <code>inject</code>. This must return an array of injectable types. Here&#39;s the same example in CoffeeScript with CommonJS modules:</p>
+<pre><code class="language-coffeescript">HttpClient = require(&#39;aurelia-http-client&#39;).HttpClient;
+
+class Flickr
+  constructor: (@http) -&gt;
+  @inject:[HttpClient]</code></pre>
+<p>The dependencies in your inject array don&#39;t have to be just constructor types though. They can also be instances of <code>resolvers</code>. For example, have a look at this:</p>
+<pre><code class="language-javascript">import {Lazy, inject} from &#39;aurelia-framework&#39;;
 import {HttpClient} from &#39;aurelia-http-client&#39;;
 
+@inject(Lazy.of(HttpClient))
 export class CustomerDetail{
-    static inject() { return [Lazy.of(HttpClient)]; }
     constructor(getHTTP){
         this.getHTTP = getHTTP;
     }
@@ -202,21 +210,25 @@ export class CustomerDetail{
 </ul>
 </li>
 </ul>
-<p>In addition to these resolvers, you can also use <code>Registration</code> annotations to specify the default registration or lifetime for an instance. By default, the DI container assumes that everything is a singleton instance; one instance per container. However, you can use a registration annotation to change this. Here&#39;s an example:</p>
-<pre><code class="language-javascript">import {Metadata} from &#39;aurelia-framework&#39;;
+<p>In addition to these resolvers, you can also use <code>Registration</code> decorators to specify the default registration or lifetime for an instance. By default, the DI container assumes that everything is a singleton instance; one instance for the app. However, you can use a registration decorator to change this. Here&#39;s an example:</p>
+<pre><code class="language-javascript">import {transient, inject} from &#39;aurelia-framework&#39;;
 import {HttpClient} from &#39;aurelia-http-client&#39;;
 
+@transient()
+@inject(HttpClient)
 export class CustomerDetail{
-    static metadata(){ return Metadata.transient(); }
-    static inject() { return [HttpClient]; }
     constructor(http){
         this.http = http;
     }
 }</code></pre>
-<p>Now, each time the DI container is asked for an instance of <code>CustomerDetail</code> the container will return a new instance, rather than a singleton. <code>Singleton</code> and <code>Transient</code> registrations are provided out-of-the-box, but you can create your own by writing a class that inherits from <code>Registration</code>.</p>
-<blockquote>
-<p><strong>Note:</strong> This last example introduces <em>metadata</em> to provide contextual information to the framework. You will see metadata again when we talk about behaviors. It will also be usable via ES7/TypeScript Decorator soon.</p>
-</blockquote>
+<p>Now, each time the DI container is asked for an instance of <code>CustomerDetail</code> the container will return a new instance, rather than a singleton. <code>singleton</code> and <code>transient</code> registrations are provided out-of-the-box, but you can create your own by writing a class that inherits from <code>Registration</code>.</p>
+<p>If you can&#39;t or don&#39;t want to use decorators, don&#39;t worry. We have a fallback mechanism. Simply provide a static <code>decorators</code> property or method and then use our chainable <code>Decorators</code> helper. The helper has methods for all our decorators, so it&#39;s easy for you to use in any language. Here&#39;s how the above example could be written in CoffeeScript:</p>
+<pre><code class="language-coffeescript">HttpClient = require(&#39;aurelia-http-client&#39;).HttpClient;
+Decorators = require(&#39;aurelia-framework&#39;).Decorators;
+
+class CustomerDetail
+  constructor: (@http) -&gt;
+  @decorators:Decorators.transient().inject(HttpClient);</code></pre>
 <h2 id="templating"><a href="#templating">Templating</a></h2>
 
 <p>Aurelia&#39;s templating engine is responsible for loading your views and their required resources, compiling your HTML for optimal performance and rendering your UI to the screen. To create a view, all you need to do is author an HTML file with an <code>HTMLTemplate</code> inside. Here&#39;s a simple view:</p>
@@ -230,7 +242,7 @@ export class CustomerDetail{
     &lt;div class=&quot;hello&quot;&gt;Hello World!&lt;/div&gt;
 &lt;/template&gt;</code></pre>
 <p>This enables you to dynamically load per-view style sheets and even Web Components on the fly.</p>
-<p>Any time you require an Aurelia-specific resource, such as an Aurelia <em>Custom Element</em>, <em>Attached Behavior</em>, <em>Template Controller</em> or <em>Value Converter</em>, you should use a <code>require</code> element inside your view instead. Here&#39;s an example:</p>
+<p>Any time you require an Aurelia-specific resource, such as an Aurelia <em>Custom Element</em>, <em>Custom Attribute</em> or <em>Value Converter</em>, you should use a <code>require</code> element inside your view instead. Here&#39;s an example:</p>
 <pre><code class="language-markup">&lt;template&gt;
   &lt;require from=&#39;./nav-bar&#39;&gt;&lt;/require&gt;
 
@@ -244,18 +256,18 @@ export class CustomerDetail{
 <ul>
 <li>Deduping - The resource is downloaded once in the app. Even if other views require the same element, it will not be downloaded again.</li>
 <li>One-time Compilation - Templates for Custom Elements required this way are compiled once for the entire application.</li>
-<li>Local Scope - The required resource is only visible inside the view that requires it, reducing the likelihood of name conflicts.</li>
-<li>Renaming - Resources can be renamed during require if two 3rd party resources with the same name need to be used in the same view.<ul>
+<li>Local Scope - The required resource is only visible inside the view that requires it, reducing the likelihood of name conflicts and improving maintainability and understandability by eliminating globals.</li>
+<li>Renaming - Resources can be renamed during require if two 3rd party resources with the same or similar name need to be used in the same view.<ul>
 <li>ex. <code>&lt;require from=&quot;./nav-bar&quot; as=&quot;foo-bar&quot;&gt;&lt;/require&gt;</code> - Now instead of using a <code>nav-bar</code> element you can use a <code>foo-bar</code> element. (This is based on ES6 import syntax where renaming is considered a replacement for using an Alias because it strictly renames the type.)</li>
 </ul>
 </li>
 <li>Packages - The require can point to a module with multiple resources which will all be imported into the same view.</li>
-<li>Extensibility - You can define new types of resources which, when require in this way, can execute custom loading (async one-time) and registration (once per-view).</li>
+<li>Extensibility - You can define new types of resources which, when required in this way, can execute custom loading (async one-time) and registration (once per-view). This is a declarative, extensible resource loading pipeline.</li>
 <li>ES6 - Code is loaded by the ES6 loader rather than the HTMLImport mechanism, enabling all the features and extensibility of your loader.</li>
 </ul>
 <p>In your view you will often leverage the different types of resources mentioned above as well as databinding.</p>
 <blockquote>
-<p><strong>Note:</strong> You may be concerned about the tediousness of having to import things into each view. Remember, during the bootstrapping phase you can configure Aurelia with global resources to be available in every view.</p>
+<p><strong>Note:</strong> You may be concerned about the tediousness of having to import things into each view. Remember, during the bootstrapping phase you can configure Aurelia with global resources to be available in every view. Just use <code>aurelia.globalizeResources(...resourcePaths)</code>.</p>
 </blockquote>
 <h3 id="databinding"><a href="#databinding">Databinding</a></h3>
 
@@ -283,16 +295,16 @@ export class CustomerDetail{
 <blockquote>
 <p><strong>Note:</strong> If you aren&#39;t familiar with event delegation, it&#39;s a technique that uses the bubbling nature of DOM events. When using <code>.delegate</code> a single event handler is attached to the document, rather than on each element. When the element&#39;s event is fired, it bubbles up the DOM until it reaches the document, where it is handled. This is a more memory efficient way of handling events and it&#39;s recommended to use this as your default mechanism.</p>
 </blockquote>
-<p>All of this works against DOM events in some way or another. Occasionally you may have a custom Aurelia behavior that wants a reference to your function directly so that it can invoke it manually at a later time. To pass a function reference, use the <code>.call</code> binding (since the behavior will <em>call</em> it later):</p>
+<p>All of this works against DOM events in some way or another. Occasionally you may have an Aurelia Custom Attribute or Element that wants a reference to your function directly so that it can invoke it manually at a later time. To pass a function reference, use the <code>.call</code> binding (since the attribute will <em>call</em> it later):</p>
 <pre><code class="language-markup">&lt;div touch.call=&quot;sayHello()&quot;&gt;Say Hello&lt;/button&gt;</code></pre>
-<p>Now the attached behavior will get a function that it can call to invoke your <code>sayHello()</code> code.</p>
+<p>Now the Custom Attribute <code>touch</code> will get a function that it can call to invoke your <code>sayHello()</code> code.</p>
 <h4 id="string-interpolation"><a href="#string-interpolation">string interpolation</a></h4>
 
 <p>Sometimes you need to bind properties directly into the content of the document or interleave them within an attribute value. For this, you can use the string interpolation syntax <code>${expression}</code>. String interpolation is a one-way binding, the output of which is converted to a string. Here&#39;s an example:</p>
 <pre><code class="language-markup">&lt;span&gt;${fullName}&lt;/span&gt;</code></pre>
 <p>The <code>fullName</code> property will be interpolated directly into the span&#39;s content. You can also use this to handle css class bindings like so:</p>
 <pre><code class="language-markup">&lt;div class=&quot;dot ${color} ${isHappy ? &#39;green&#39; : &#39;red&#39;}&quot;&gt;&lt;/div&gt;</code></pre>
-<p>In this snippet &quot;dot&quot; is a statically present class and &quot;green&quot; is present only if <code>isHappy</code> is true, otherwise the &quot;red&quot; class is present. Additionally, whatever the value of <code>color</code> is...that is added as class.</p>
+<p>In this snippet &quot;dot&quot; is a statically present class and &quot;green&quot; is present only if <code>isHappy</code> is true, otherwise the &quot;red&quot; class is present. Additionally, whatever the value of <code>color</code> is...that is added as a class.</p>
 <blockquote>
 <p><strong>Note:</strong> You can use simple expressions inside your bindings. Don&#39;t try to do anything too fancy. You don&#39;t want code in your view. You only want to establish the linkage between the view and its view-model.</p>
 </blockquote>
@@ -375,41 +387,44 @@ export class MySanitizeHtmlValueConverter {
 
 &lt;!-- incompatible with Internet Explorer: --&gt;
 &lt;div style=&quot;width: ${width}px; height: ${height}px;&quot;&gt;&lt;/div&gt;</code></pre>
-<h3 id="behaviors"><a href="#behaviors">Behaviors</a></h3>
+<h3 id="enhanced-html"><a href="#enhanced-html">Enhanced HTML</a></h3>
 
-<p>In addition to databinding, you also have the power of Aurelia behaviors to use in your views. There are three types of behaviors provided out of the box:</p>
+<p>In addition to databinding, you also have the power of Aurelia&#39;s HTMLm enhancements. There are two types:</p>
 <ul>
-<li>Custom Elements - Extend HTML with new tags! Your custom elements can have their own views (which use databinding and other behaviors) and optionally leverage <a href="http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom/">ShadowDOM</a> (even if the browser doesn&#39;t support it).</li>
-<li>Attached Behaviors - Extend HTML with new attributes which can be added to existing or custom elements. These attributes &quot;attach&quot; new behavior to the elements.</li>
-<li>Template Controllers - Create new mechanisms for rendering templates. A template controller is a class that can dynamically create UI and inject it into the DOM.</li>
+<li>Custom Elements - Extend HTML with new tags! Your custom elements can have their own views (which use databinding and other html enhancements) and optionally leverage <a href="http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom/">ShadowDOM</a> (even if the browser doesn&#39;t support it).</li>
+<li>Custom Attributes - Extend HTML with new attributes which can be added to existing or custom elements. These attributes add new behavior to the elements.</li>
 </ul>
-<p>Naturally, all of this works seamlessly with databinding. Let&#39;s look at the behaviors that Aurelia provides for you and which are available globally in every view.</p>
+<p>Naturally, all of this works seamlessly with databinding. Let&#39;s look at the set of Custom Elements and Attributes that Aurelia provides for you and which are available globally in every view.</p>
 <h4 id="show"><a href="#show">show</a></h4>
 
-<p>The <code>show</code> Attached Behavior allows you to conditionally display an HTML element. If the value of show is <code>true</code> the element will be displayed, otherwise it will be hidden. This behavior does not add/remove the element from the DOM, but only changes its visibility. Here&#39;s an example:</p>
+<p>The <code>show</code> Custom Attribute allows you to conditionally display an HTML element. If the value of show is <code>true</code> the element will be displayed, otherwise it will be hidden. This attribute does not add/remove the element from the DOM, but only changes its visibility. Here&#39;s an example:</p>
 <pre><code class="language-markup">&lt;div show.bind=&quot;isSaving&quot; class=&quot;spinner&quot;&gt;&lt;/div&gt;</code></pre>
 <p>When the <code>isSaving</code> property is true, the <code>div</code> will be visible, otherwise it will be hidden.</p>
 <h4 id="if"><a href="#if">if</a></h4>
 
-<p>The <code>if</code> Template Controller allows you to conditionally add/remove an HTML element. If the value is true, the element will also be present in the DOM, otherwise it will not.</p>
+<p>The <code>if</code> Custom Attribute allows you to conditionally add/remove an HTML element. If the value is true, the element will also be present in the DOM, otherwise it will not.</p>
 <pre><code class="language-markup">&lt;div if.bind=&quot;isSaving&quot; class=&quot;spinner&quot;&gt;&lt;/div&gt;</code></pre>
 <p>This example looks similar to that of <code>show</code> above. The difference is that if the binding expression evaluates to false, the <code>div</code> will be removed from the DOM, rather than just hidden.</p>
-<p>If you need to conditionally add/remove a group of elements and you cannot place the <code>if</code> behavior on a parent element, then you can wrap those elements in a template tag which has the <code>if</code> behavior. Here&#39;s what that would look like:</p>
+<p>If you need to conditionally add/remove a group of elements and you cannot place the <code>if</code> attribute on a parent element, then you can wrap those elements in a template tag which has the <code>if</code> attribute. Here&#39;s what that would look like:</p>
 <pre><code class="language-markup">&lt;template if.bind=&quot;hasErrors&quot;&gt;
     &lt;i class=&quot;icon error&quot;&gt;&lt;/i&gt;
     ${errorMessage}
 &lt;/template&gt;</code></pre>
 <h4 id="repeat"><a href="#repeat">repeat</a></h4>
 
-<p>The <code>repeat</code> Template Controller allows you to render a template multiple times, once for each item in an array. Here&#39;s an example that renders out a list of customer names:</p>
+<p>The <code>repeat</code> Custom Attribute allows you to render a template multiple times, once for each item in an array. Here&#39;s an example that renders out a list of customer names:</p>
 <pre><code class="language-markup">&lt;ul&gt;
     &lt;li repeat.for=&quot;customer of customers&quot;&gt;${customer.fullName}&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-<p>An important note about the repeat behavior is that it works in conjunction with the <code>.for</code> binding command. This binding command interprets a special syntax in the form &quot;item of array&quot; where &quot;item&quot; is the local name you will use in the template and &quot;array&quot; is a normal binding expression that evaluates to an array.</p>
+<p>An important note about the repeat attribute is that it works in conjunction with the <code>.for</code> binding command. This binding command interprets a special syntax in the form &quot;item of collection&quot; where &quot;item&quot; is the local name you will use in the template and &quot;collection&quot; is a normal binding expression that evaluates to an array or map.</p>
+<p>Speaking of Maps, here&#39;s how you would bind to an ES6 Map:</p>
+<pre><code class="language-markup">&lt;ul&gt;
+  &lt;li repeat.for=&quot;[id, customer] of customers&quot;&gt;${id} ${customer.fullName}&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 <blockquote>
-<p><strong>Note:</strong>: Like the <code>if</code> behavior, you can also use a <code>template</code> tag to group a collection of elements that don&#39;t have a parent element. In fact this is true of all Template Controllers. When you place a Template Controller on an element, it transforms it into an HTMLTemplate during compilation, so you can always explicitly add the template in your markup if you want or need to.</p>
+<p><strong>Note:</strong>: Like the <code>if</code> attribute, you can also use a <code>template</code> tag to group a collection of elements that don&#39;t have a parent element.</p>
 </blockquote>
-<p>Each item that is being repeated by the <code>repeat</code> behavior has several special contextual values available for binding:</p>
+<p>Each item that is being repeated by the <code>repeat</code> attribute has several special contextual values available for binding:</p>
 <ul>
 <li><code>$parent</code> - At present, the main view model&#39;s properties and methods are not visible from within the repeated item. We hope to remedy this in an update soon. For the mean time, you can access that view-model with <code>$parent</code>.</li>
 <li><code>$index</code> - The index of the item in the array.</li>
@@ -432,10 +447,10 @@ export class MySanitizeHtmlValueConverter {
 <p>What if you want to determine the view dynamically based on data though? or runtime conditions? You can do that too by implementing a <code>getViewStrategy()</code> method on your view-model. It can return a relative path to the view or an instance of a <code>ViewStrategy</code> for custom view loading behavior. The nice part is that this method is executed after the <code>activate</code> callback, so you have access to the model data when determining the view.</p>
 <h4 id="global-behavior"><a href="#global-behavior">global-behavior</a></h4>
 
-<p>This is not an Attached Behavior that you will use directly. Rather, it works in conjunction with a custom binding command to dynamically enable the use of jQuery plugins and similar APIs declaratively in HTML. Let&#39;s look at an example in order to help clarify the idea:</p>
+<p>This is not an HTML enhancement that you will use directly. Rather, it works in conjunction with a custom binding command to dynamically enable the use of jQuery plugins and similar APIs declaratively in HTML. Let&#39;s look at an example in order to help clarify the idea:</p>
 <pre><code class="language-markup">&lt;div jquery.modal=&quot;show: true; keyboard.bind: allowKeyboard&quot;&gt;...&lt;/div&gt;</code></pre>
 <p>This sample is based on the <a href="http://getbootstrap.com/javascript/#modals">Bootstrap modal widget</a>. In this case, the <code>modal</code> jQuery widget will be attached to the <code>div</code> and it will be configured with its <code>show</code> option set to <code>true</code> and its <code>keyboard</code> option set to the value of the <code>allowKeyboard</code> property on the view-model. When the containing view is unbound, the jQuery widget will be destroyed.</p>
-<p>This capability combines the special <code>global-behavior</code> Attached Behavior with custom syntax to enable these dynamic capabilities. The syntax you see here is based on the syntax of the native <code>style</code> attribute which lists properties and values separated in the same fashion as above. Note that you can use binding commands such as <code>.bind</code> to pass data from your view-model directly to the plugin or <code>.call</code> to pass a callback function directly to the plugin.</p>
+<p>This capability combines the special <code>global-behavior</code> with custom syntax to enable these dynamic capabilities. The syntax you see here is based on the syntax of the native <code>style</code> attribute which lists properties and values separated in the same fashion as above. Note that you can use binding commands such as <code>.bind</code> to pass data from your view-model directly to the plugin or <code>.call</code> to pass a callback function directly to the plugin.</p>
 <p>Here&#39;s how it works:</p>
 <p>When the binding system sees a binding command that it doesn&#39;t recognize, it dynamically interprets it. The attribute name is mapped to a global binding handler which interprets the binding command. The handler can use the values to create an options object which it can pass to the plugin. When the view is unbound, the handler can also cleanup after itself. In this case the jQuery handler knows the pattern for instantiating plugins and using the <code>destroy</code> method to cleanup.</p>
 <blockquote>
@@ -446,10 +461,11 @@ export class MySanitizeHtmlValueConverter {
 <p>There are many different application styles you could be called upon to create. From navigation apps, to dashboards, to MDI interfaces, Aurelia can handle them all. In many of these cases a key component of your architecture is a client-side router, capable of translating url changes into application state.</p>
 <p>If you&#39;ve read the getting started guide, you know that there are two parts to routing. First, there&#39;s the <code>Router</code> which lives in your view-model. It&#39;s configured with route information and controls navigation. Then, there&#39;s the <code>router-view</code> which lives in the view and is responsible for displaying whatever the router identifies as the current state.</p>
 <p>Let&#39;s look at an example configuration.</p>
-<pre><code class="language-javascript">import {Router} from &#39;aurelia-router&#39;;
+<pre><code class="language-javascript">import {inject} from &#39;aurelia-framework&#39;;
+import {Router} from &#39;aurelia-router&#39;;
 
+@inject(Router)
 export class App {
-  static inject() { return [Router]; }
   constructor(router) {
     this.router = router;
     this.router.configure(config =&gt; {
@@ -532,11 +548,10 @@ export class App {
 <p>The router pipeline is composed out of separate steps that run in succession. Each of these steps has the ability to modify what happens during routing, or stop the routing altogether. The pipeline also contains a few extensibility points where you can add your own steps. These are <code>authorize</code> and <code>bindmodel</code>. <code>authorize</code> happens before <code>bindmodel</code>. These extensions are called route filters.</p>
 <p>The sample below shows how you can add authorization to your application:</p>
 <pre><code class="language-javascript">import {Router, Redirect} from &#39;aurelia-router&#39;;
-import {Container} from &#39;aurelia-dependency-injection&#39;;
-import bootstrap from &#39;bootstrap&#39;;
+import {inject} from &#39;aurelia-framework&#39;;
 
+@inject(Router)
 export class App {
-  static inject() { return [Router]; }
   constructor(router) {
     this.router = router;
     this.router.configure(config =&gt; {
@@ -553,10 +568,6 @@ export class App {
 }
 
 class AuthorizeStep {
-  static inject() { return []; }
-  constructor() {
-  }
-
   run(routingContext, next) {
     // Check if the route has an &quot;auth&quot; key
     // The reason for using `nextInstructions` is because
@@ -566,11 +577,9 @@ class AuthorizeStep {
       if (!isLoggedIn) {
         return next.cancel(new Redirect(&#39;login&#39;));
       }
-
-      return next();
-    } else {
-      return next();
     }
+
+    return next();
   }
 }</code></pre>
 <p>These extensibility points are in and of themselves small pipelines, and multiple steps can be added to each of them. For instance, if in addition to the <code>AuthorizeStep</code> above (which would just check that a user is logged in), you could add a <code>IsAdminStep</code> to the <code>authorize</code> extensibility point. They would then run in succession.</p>
@@ -645,10 +654,11 @@ config.addPipelineStep(&#39;modelbind&#39;, &#39;myname&#39;); // Makes the enti
 <h3 id="reusing-an-existing-vm"><a href="#reusing-an-existing-vm">Reusing an existing VM</a></h3>
 
 <p>Sometimes you might want to use the same VM for multiple routes. By default Aurelia will see those routes as aliases to the same VM and thus only perform the build and attach process as well as the complete life-cycle once. This might not be exactly what you are looking for. Take the following router example:</p>
-<pre><code class="language-javascript">import {Router} from &#39;aurelia-router&#39;;
+<pre><code class="language-javascript">import {inject} from &#39;aurelia-framework&#39;;
+import {Router} from &#39;aurelia-router&#39;;
 
+@inject(Router)
 export class App {
-  static inject() { return [Router]; }
   constructor(router) {
     this.router = router;
     this.router.configure(config =&gt; {
@@ -682,48 +692,43 @@ export class YourViewModel {
 </blockquote>
 <h2 id="extending-html"><a href="#extending-html">Extending HTML</a></h2>
 
-<p>Aurelia has a powerful and extensible HTML template compiler. The compiler itself is just an algorithm for interacting with various <em>behavior types</em> which contain the logic for manipulating HTML. Out of the box, Aurelia provides three core behavior type implementations, which we believe cover the bulk of scenarios you will encounter from day to day. The tree types are <em>Attached Behaviors</em>, <em>Custom Elements</em> and <em>Template Controllers</em>.</p>
-<p>Behaviors are not visible to the compiler by default. There are three main ways to plug them in:</p>
+<p>Aurelia has a powerful and extensible HTML template compiler. The compiler itself is just an algorithm for interacting with these extensions. Out of the box, Aurelia provides two extensions: <em>Custom Elements</em> and _Custom Attributes.</p>
+<p>These extensions are not visible to the compiler by default. There are three main ways to plug them in:</p>
 <ul>
-<li>Use the <code>require</code> element to require a behavior in a view. The <code>from</code> attribute specifies the relative path to the behavior&#39;s module. The behavior will be locally defined.</li>
-<li>Use the Aurelia object during your bootstrapping phase to call <code>.globalizeResources(...resourcePaths)</code> to register behaviors with global visibility in your application.</li>
-<li>Install a plugin that registers behaviors with global visibility in your application.</li>
+<li>Use the <code>require</code> element to require an extension in a view. The <code>from</code> attribute specifies the relative path to the extension&#39;s module. The extension will be locally defined.</li>
+<li>Use the Aurelia object during your bootstrapping phase to call <code>.globalizeResources(...resourcePaths)</code> to register extensions with global visibility in your application.</li>
+<li>Install a plugin that registers extensions with global visibility in your application.</li>
 </ul>
 <blockquote>
-<p><strong>Note:</strong> A recommended practice for your own apps is to place all your app-specific behaviors, value converters, etc. into a <em>resources</em> folder. Then create an <em>index.js</em> file that turns them all into an internal plugin. Finally, install that plugin during your app&#39;s bootstrapping phase. This will keep your resources located in a known location, along with their registration code. It will also keep your configuration file clean and simple.</p>
+<p><strong>Note:</strong> A recommended practice for your own apps is to place all your app-specific extensions, value converters, etc. into a <em>resources</em> folder. Then create an <em>index.js</em> file that turns them all into an internal plugin. Finally, install that plugin during your app&#39;s bootstrapping phase. This will keep your resources located in a known location, along with their registration code. It will also keep your configuration file clean and simple.</p>
 </blockquote>
-<p>All behaviors can opt into the view lifecycle by implementing any of the following hooks:</p>
+<p>All extensions can opt into the view lifecycle by implementing any of the following hooks:</p>
 <ul>
 <li><code>bind(bindingContext)</code> - Invoked when the databinding engine binds the view. The binding context is the instance that the view is databound to.</li>
 <li><code>unbind()</code> - Invoked when the databinding engine unbinds the view.</li>
-<li><code>attached()</code> - Invoked when the view that contains the behavior is attached to the DOM.</li>
-<li><code>detached()</code> - Invoked when the view that contains the behavior is detached from the DOM.</li>
+<li><code>attached()</code> - Invoked when the view that contains the extension is attached to the DOM.</li>
+<li><code>detached()</code> - Invoked when the view that contains the extension is detached from the DOM.</li>
 </ul>
 <blockquote>
-<p><strong>Note:</strong> If you choose to implement the <code>bind</code> callback, the initial binding of your behavior will flow a little differently. Usually, if you have callbacks for your Behavior Properties, these are each individually called during the bind phase. However, if you add the <code>bind</code> callback, they will not be called during initialization. Rather, the <code>bind</code> callback will be called once all properties have their initial bound values set. This is an important and useful characteristic, particularly for complex behaviors which may not want to &quot;act&quot; until they have all evaluated values available.</p>
+<p><strong>Note:</strong> If you choose to implement the <code>bind</code> callback, the initial binding of your extension will flow a little differently. Usually, if you have callbacks for your extension&#39;s bindable properties, these are each individually called during the bind phase. However, if you add the <code>bind</code> callback, they will not be called during initialization. Rather, the <code>bind</code> callback will be called once all properties have their initial bound values set. This is an important and useful characteristic, particularly for complex extensions which may not want to &quot;act&quot; until they have all evaluated values available.</p>
 </blockquote>
-<h3 id="attached-behaviors"><a href="#attached-behaviors">Attached Behaviors</a></h3>
+<h3 id="custom-attributes"><a href="#custom-attributes">Custom Attributes</a></h3>
 
-<p>Attached behaviors &quot;attach&quot; new behavior or functionality to existing HTML elements by adding a custom attribute to your markup. Common uses for attached behaviors include:</p>
+<p>Custom Attributes extend HTML with functionality by adding new behavior to existing HTML elements. Common uses for Custom Attributes include:</p>
 <ul>
 <li>Wrapping jQuery and similar plugins (when the <code>global-behavior</code> is insufficient).</li>
 <li>Shortcuts for common style, class or attribute bindings.</li>
 <li>Just about anything that needs to change an existing HTML element or even a Custom Element which you cannot directly alter.</li>
 </ul>
-<p>Attached Behaviors tend to represent cross-cutting concerns. For example you might create a custom tooltip behavior that you can then attach to any element. This is a better idea than building tooltip functionality directly into every custom element you create.</p>
-<p>Let&#39;s look at one of Aurelia&#39;s own Attached Behavior implementations: <code>show</code>. Here&#39;s how it is used:</p>
+<p>Custom Attributes tend to represent cross-cutting concerns. For example you might create a custom tooltip attribute that you can then attach to any element. This is a better idea than building tooltip functionality directly into every custom element you create.</p>
+<p>Let&#39;s look at one of Aurelia&#39;s own Custom Attribute implementations: <code>show</code>. Here&#39;s how it is used:</p>
 <pre><code class="language-markup">&lt;div show.bind=&quot;isSaving&quot; class=&quot;spinner&quot;&gt;&lt;/div&gt;</code></pre>
-<p>The <code>show</code> behavior will conditionally apply a class to an element based on the falseness of its value. (The class, when applied, hides the element.) Here&#39;s the implementation:</p>
-<pre><code class="language-javascript">import {Behavior} from &#39;aurelia-framework&#39;;
+<p>The <code>show</code> attribute will conditionally apply a css class to an element based on the falseness of its value. (The css class, when applied, hides the element.) Here&#39;s the implementation:</p>
+<pre><code class="language-javascript">import {inject, customAttribute} from &#39;aurelia-framework&#39;;
 
+@customAttribute(&#39;show&#39;)
+@inject(Element)
 export class Show {
-  static metadata(){
-    return Behavior
-      .attachedBehavior(&#39;show&#39;)
-      .withProperty(&#39;value&#39;, &#39;valueChanged&#39;, &#39;show&#39;);
-  }
-
-  static inject() { return [Element]; }
   constructor(element) {
     this.element = element;
   }
@@ -736,21 +741,21 @@ export class Show {
     }
   }
 }</code></pre>
-<p>The first thing to note is that Attached Behaviors are classes and follow the same patterns we&#39;ve already seen. Notice that the <code>metadata</code> plays an important role in defining a behavior. Here&#39;s what the metadata is doing:</p>
+<p>The first thing to note is that Custom Attributes are classes and follow the same patterns we&#39;ve already seen. Notice that the decorators play an important role in defining the attribute. Here&#39;s what they are doing:</p>
 <ul>
-<li><code>.attachedBehavior(&#39;show&#39;)</code> - Creates an <code>AttachedBehavior</code> metadata instance to tell the HTML compiler how this class &quot;plugs in&quot;. The behavior will be recognized by the compiler any time it sees an attribute named &quot;show&quot;. In Aurelia, Attached Behaviors always map to a single HTML Attribute. There&#39;s a one-to-one relationship.</li>
-<li><code>.withProperty(&#39;value&#39;, &#39;valueChanged&#39;, &#39;show&#39;)</code> - Creates a <code>BehaviorProperty</code> that tells the HTML compiler that there&#39;s a specific property on your class that maps to an attribute in HTML. The first parameter of this method is your class&#39;s property name. The last parameter is the attribute name, which is only required if it is different from the property name. The second parameter optionally indicates a callback on the class which will be invoked whenever the property changes.</li>
+<li><code>@customAttribute(&#39;show&#39;)</code> - Indicates that this class is a custom attribute so the HTML compiler knows how this class &quot;plugs in&quot;. It will be recognized by the compiler any time it sees an attribute named &quot;show&quot;.</li>
+<li><code>inject</code> - This is part of the dependency injection system; the same as you&#39;ve seen before. Custom Attributes can have the Element they are placed on injected into the constructor. That is what is happening here. All you have to do use use the browser&#39;s <code>Element</code> type to indicate that.</li>
 </ul>
-<p>Ok. Let&#39;s talk about conventions.</p>
+<p>There are a few other interesting things that happen too.</p>
 <ul>
-<li>If your callback function is named {propertyName}Changed, then you don&#39;t need to specify it. So, in the above case, we could omit the value of the second parameter.</li>
-<li>If your property name and attribute name are the same, then you don&#39;t need to specify it. In the above case, they are different, so we need to specify it.</li>
-<li>Attached behaviors always map to a single attribute. This allows us to optimize a simple usage pattern. If you name your property &quot;value&quot;, then you don&#39;t need to include the property metadata at all. We will automatically map an attribute with the same name as your behavior to the <code>value</code> property.</li>
-<li>If your class&#39;s export name matches the pattern {BehaviorName}AttachedBehavior, then you don&#39;t need to include the attached behavior metadata at all. The attribute name will be inferred from the export name by stripping off &quot;AttachedBehavior&quot; and lowercasing and hyphenating the remaining part of the name. ie. behavior-name</li>
+<li>Attributes in html have a value. So, your Custom Attribute class will have a <code>value</code> property that is kept in sync with the HTML. If you implement a <code>valueChanged</code> method, it will be invoked any time the attribute&#39;s value changes. The first argument will be the new value and the second will be the old value.</li>
 </ul>
-<p>These conventions mean that we can actually define our <code>show</code> behavior like this:</p>
-<pre><code class="language-javascript">export class ShowAttachedBehavior {
-  static inject() { return [Element]; }
+<p>What about conventions?</p>
+<p>If your class&#39;s export name matches the pattern {SomeName}CustomAttribute, then you don&#39;t need to include the <code>@customAttribute</code> decorator at all. The attribute name will be inferred from the export name by stripping off &quot;CustomAttribute&quot; and lowercasing and hyphenating the remaining part of the name. ie. some-name</p>
+<p>These conventions mean that we can actually define our <code>show</code> attribute like this:</p>
+<pre><code class="language-javascript">export class ShowCustomAttribute {
+  static inject = [Element]; //showing non-decorator method here for variety
+
   constructor(element) {
     this.element = element;
   }
@@ -764,31 +769,40 @@ export class Show {
   }
 }</code></pre>
 <blockquote>
-<p><strong>Note:</strong> So, why doesn&#39;t Aurelia itself leverage these conventions internally? Any time you are creating a 3rd party library of behaviors, it&#39;s best to be explicit. You don&#39;t know whether or not developers consuming your library will have changed Aurelia&#39;s conventions, thus breaking your library. In order to prevent this, always explicitly state the metadata for behaviors intended to be used in other apps. Inside your own apps though, you can use the conventions all you want to simplify development.</p>
+<p><strong>Note:</strong> So, why doesn&#39;t Aurelia itself leverage these conventions internally? Any time you are creating a 3rd party library, it&#39;s best to be explicit. You don&#39;t know whether or not developers consuming your library will have changed Aurelia&#39;s conventions, thus breaking your library. In order to prevent this, always be explicit by using decorators. Inside your own apps though, you can use the conventions all you want to simplify development.</p>
 </blockquote>
-<p>Next, let&#39;s look at the constructor.</p>
-<p>AttachedBehaviors can easily gain access to the HTML element they are attached to by specifying it in the <code>inject</code> array. The <code>show</code> behavior stores the reference so that it can update the <code>classList</code> at a later time.</p>
-<p>Finally, let&#39;s look at the <code>valueChanged</code> callback. We said previously that this is configured through the property metadata so that it is called whenever the value changes. The binding system will automatically update properties thus triggering the callback. So, all the implementation has to do is add/remove the appropriate class based on the value.</p>
-<h4 id="options-properties"><a href="#options-properties">Options Properties</a></h4>
+<h4 id="options-attributes"><a href="#options-properties">Options Attributes</a></h4>
 
-<p>You may be wondering what to do if you want to create an Attached Behavior with multiple properties, since Attached Behaviors always map to a single attribute. For this scenario, we use an <code>OptionsProperty</code> which enables your single attribute to work like the browser&#39;s native <code>style</code> attribute, with multiple properties embedded within. Here&#39;s an example of how that is used:</p>
-<pre><code class="language-javascript">import {Behavior} from &#39;aurelia-framework&#39;; // or 
+<p>You may be wondering what to do if you want to create a Custom Attribute with multiple properties, since attributes usually map to a single value. It&#39;s actually quite simple. Just create several <code>bindable</code> properties:</p>
+<pre><code class="language-javascript">import {customAttribute, bindable} from &#39;aurelia-framework&#39;;
 
-export class MyBehavior {
-  static metadata(){
-    return Behavior
-      .attachedBehavior(&#39;my-behavior&#39;)
-      .withOptions().and(x =&gt; {
-        x.withProperty(&#39;foo&#39;);
-        x.withProperty(&#39;bar&#39;);
-      });
-  }
+@customAttribute(&#39;my-attribute&#39;)
+export class MyAttribite {
+  @bindable foo;
+  @bindable bar;
 }</code></pre>
-<p>This creates an Attached Behavior named <code>my-behavior</code> with two properties <code>foo</code> and <code>bar</code>. Each of these properties are available directly on the class, however they are configured in HTML a bit different. Here&#39;s how that would be done:</p>
-<pre><code class="language-markup">&lt;div my-behavior=&quot;foo: some literal value; bar.bind: some.expression&quot;&gt;&lt;/div&gt;</code></pre>
-<p>Notice that we don&#39;t use a binding command on the behavior itself. Instead, we can use them on each individual property inside the attribute&#39;s value. You can use literals as well as the standard binding commands.</p>
+<p>This creates a Custom Attribute named <code>my-behavior</code> with two properties <code>foo</code> and <code>bar</code>. Each of these properties are available directly on the class. Each can have optional change callbacks, <code>fooChanged</code> and <code>barChanged</code> respectively. However, they are configured in HTML a bit different. Here&#39;s how that would be done:</p>
+<pre><code class="language-markup">&lt;div my-attribute=&quot;foo: some literal value; bar.bind: some.expression&quot;&gt;&lt;/div&gt;</code></pre>
+<p>Notice that we don&#39;t use a binding command on the attribute itself. Instead, we can use them on each individual property inside the attribute&#39;s value. You can use literals as well as the standard binding commands.</p>
 <blockquote>
 <p><strong>Note:</strong> You don&#39;t use <code>delegate</code> or <code>trigger</code> commands inside an options attribute. Those are always attached to the element itself, since they work directly with native DOM events. However, you can use <code>call</code>.</p>
+</blockquote>
+<p>There are also some special options for custom attributes you can &quot;turn on&quot; via decorators:</p>
+<ul>
+<li><code>@templateController</code> - Allows a custom attribute to turn the attributed HTML into an HTMLTemplate which it can then generate on the fly. This is how attributes like <code>if</code> and <code>repeat</code> can be created.</li>
+<li><code>@dynamicOptions</code> - This allows a custom attribute to have a dynamic set of properties which are all mapped from the options attribute syntax into the class at runtime. Don&#39;t declare <code>bindable</code> properties. Anything the consumer lists in the options attribute syntax will be mapped.</li>
+</ul>
+<p>If you aren&#39;t using ES7 property initializers, you can put the <code>@bindable</code> decorator directly on the class. Just be sure to provide the property name like this <code>@bindable(&#39;propertyName&#39;)</code>. To specify more details for a bindable property, you should pass an options object instead like this:</p>
+<pre><code class="language-javascript">@bindable({
+  name:&#39;myProperty&#39;, //name of the property on the class
+  attribute:&#39;my-property&#39;, //name of the attribute in HTML
+  changeHandler:&#39;myPropertyChanged&#39;, //name of the method to invoke when the property changes
+  defaultBindingMode: ONE_WAY, //default binding mode used with the .bind command
+  defaultValue: undefined //default value of the property, if not bound or set in HTML
+})</code></pre>
+<p>The defaults and conventions are shown above. So, you would only need to specify these options if you need to deviate. R</p>
+<blockquote>
+<p><strong>Note:</strong> Rmember that all decorators are available on the <code>Decorators</code> helper and can be specified with a static <code>decorators</code> property or method if you prefer (or if you are using a language that doens&#39;t support decorators). See the CoffeeScript examples above for details.</p>
 </blockquote>
 <h3 id="custom-elements"><a href="#custom-elements">Custom Elements</a></h3>
 
@@ -800,29 +814,24 @@ export class MyBehavior {
     &lt;input type=&quot;text&quot; ref=&quot;name&quot;&gt;
     &lt;say-hello to.bind=&quot;name.value&quot;&gt;&lt;/say-hello&gt;
 &lt;/template&gt;</code></pre>
-<p>So, how do we build this? Well, we&#39;re going to start with a class, just like we did with the Attached Behavior. Here&#39;s what it looks like:</p>
+<p>So, how do we build this? Well, we&#39;re going to start with a class, just like we did with the Custom Attribute. Here&#39;s what it looks like:</p>
 <h4>say-hello.js</h4>
-<pre><code class="language-javascript">import {Behavior} from &#39;aurelia-framework&#39;;
+<pre><code class="language-javascript">import {customElement, bindable} from &#39;aurelia-framework&#39;;
 
+@customElement(&#39;say-hello&#39;)
 export class SayHello {
-  static metadata(){
-    return Behavior
-      .customElement(&#39;say-hello&#39;)
-      .withProperty(&#39;to&#39;);
-  }
+  @bindable to;
 
   speak(){
     alert(&#39;Hello ${this.to}!&#39;);
   }
 }</code></pre>
-<p>If you read the section on AttachedBehaviors, then you know what this does. There&#39;s some conventions too, which means we can do this if we want:</p>
+<p>If you read the section on Custom Attributes, then you know what this does. There&#39;s some conventions too, which means we can do this if we want:</p>
 <h4>say-hello.js (with conventions)</h4>
-<pre><code class="language-javascript">import {Behavior} from &#39;aurelia-framework&#39;;
+<pre><code class="language-javascript">import {bindable} from &#39;aurelia-framework&#39;;
 
 export class SayHelloCustomElement {
-  static metadata(){
-    return Behavior.withProperty(&#39;to&#39;);
-  }
+  @bindable to;
 
   speak(){
     alert(&#39;Hello ${this.to}!&#39;);
@@ -831,29 +840,26 @@ export class SayHelloCustomElement {
 <p>Be default, Custom Elements have a view. Here&#39;s the view for ours:</p>
 <h4>say-hello.html</h4>
 <pre><code class="language-markup">&lt;template&gt;
-    &lt;button click.delegate=&quot;speak()&quot;&gt;Say Hello To ${to}&lt;/button&gt;
+    &lt;button click.trigger=&quot;speak()&quot;&gt;Say Hello To ${to}&lt;/button&gt;
 &lt;/template&gt;</code></pre>
-<p>As you can see, we&#39;ve got access to our class&#39;s properties and methods. It&#39;s important to note that you don&#39;t need to declare property metadata for every property you want to bind to in your template. You only need to declare it for properties you want to exist as attribute on your custom element.</p>
-<p>That&#39;s really all there is to it. You follow the same view-model/view naming conventions and all the same patterns for custom elements. There are a few unique metadata options for custom elements you should know about:</p>
+<p>As you can see, we&#39;ve got access to our class&#39;s properties and methods. It&#39;s important to note that you don&#39;t need to declare <code>@bindable</code> properties for every property you want to bind to in your template. You only need to declare it for properties you want to exist as attributes on your custom element.</p>
+<p>That&#39;s really all there is to it. You follow the same view-model/view naming conventions and all the same patterns for custom elements. There are a few unique decorators for custom elements you may also need:</p>
 <ul>
-<li><code>.useShadowDOM()</code> - This causes your component&#39;s view to be rendered in the ShadowDOM rather than in the Light DOM. If you aren&#39;t familiar with these terms, have a read through of <a href="http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom/">this article</a>. When using Shadow DOM, you can use <em>content selectors</em> in your view template.</li>
-<li><code>.noView()</code> - If your custom element doesn&#39;t have a view, because all its behavior is implemented in code, then use this option.</li>
-<li><code>.useView(relativePath)</code> - If you want to use a different view than the one that would be conventionally used, you can use this metadata option to specify a relative path to the view you want to use.</li>
+<li><code>@syncChildren(property, changeHandler, selector)</code> - Creates an array property on your class that has its items automatically synchronized based on a query selector against its view.</li>
+<li><code>@skipContentProcessing</code> - Tells the compiler not to process the content of your custom element. It is expected that you will do custom processing yourself.</li>
+<li><code>@useView(path)</code> - Specifies a different view to use.</li>
+<li><code>@noView</code> - Indicates that this custom element does not have a view and that the author intends for the element to handle its own rendering internally.</li>
 </ul>
 <h3 id="template-controllers"><a href="#template-controllers">Template Controllers</a></h3>
 
-<p>Template Controllers convert DOM into an inert HTML template. The controller can then decide when and where (or how many times) to instantiate the template in the DOM. Examples of this are the <code>if</code> and <code>repeat</code> behaviors. Simply place one of these behavior on a DOM node and it becomes a template, controlled by the behavior.</p>
-<p>Let&#39;s take a look at the implementation of the <code>if</code> behavior to see how one of these is put together. Here&#39;s the full source code:</p>
-<pre><code class="language-javascript">import {Behavior, BoundViewFactory, ViewSlot} from &#39;aurelia-framework&#39;;
+<p>Custom Attributes can indicate that they are a Template Controller with the <code>@templateController</code> decorators. This indicates that they convert DOM into an inert HTML template. The custom attribute class can then decide when and where (or how many times) to instantiate the template in the DOM. Examples of this are the <code>if</code> and <code>repeat</code> attributes. Simply place one of these on a DOM node and it becomes a template, controlled by the Custom Attribute class.</p>
+<p>Let&#39;s take a look at the implementation of the <code>if</code> Custom Attribute to see how one of these is put together. Here&#39;s the full source code:</p>
+<pre><code class="language-javascript">import {BoundViewFactory, ViewSlot, customAttribute, templateController, inject} from &#39;aurelia-framework&#39;;
 
+@customAttribute(&#39;if&#39;)
+@templateController
+@inject(BoundViewFactory, ViewSlot)
 export class If {
-  static metadata(){
-    return Behavior
-      .templateController(&#39;if&#39;)
-      .withProperty(&#39;value&#39;, &#39;valueChanged&#39;, &#39;if&#39;);
-  }
-
-  static inject() { return [BoundViewFactory, ViewSlot]; }
   constructor(viewFactory, viewSlot){
     this.viewFactory = viewFactory;
     this.viewSlot = viewSlot;
@@ -886,25 +892,25 @@ export class If {
     }
   }
 }</code></pre>
-<p>Before we dig into the unique aspects of Template Controllers, let me remind you of what you see here that is similar. First, we have a simple class with metadata. Our metadata is declared the same as in the two previous behavior types. The conventions work the same as well. So, you could name this class <code>IfTemplateController</code> and you wouldn&#39;t need to specify it in the metadata. Also, you can leave off the property metadata when you declare the <code>valueChanged</code> callback. It follows the same pattern as AttachedBehaviors.</p>
-<p>Ok, what&#39;s different? Take a look at the constructor. Our Template Controller has two unique items being injected: <code>BoundViewFactory</code> and <code>ViewSlot</code>.</p>
-<p>The <code>BoundViewFactory</code> is capable of generating instances of the the HTML template that the controller is attached to. No need to worry about compiling, etc. That&#39;s taken care of for you. Why is it called &quot;Bound&quot; View Factory though? Well, it&#39;s already referencing the parent binding context. It&#39;s &quot;bound&quot; in a sense. So, if you call its <code>create</code> method it will instantiate a new View from the template which will be bound to that context. This is what you want with an <code>if</code> behavior. It&#39;s not what you want with a <code>repeat</code> behavior. In that case, each time you call <code>create</code> you want a view bound to a particular array item. To achieve this, simply pass any object you want the view to be bound against into the <code>create</code> method.</p>
+<p>Before we dig into the unique aspects, let me remind you of what you see here that is similar. First, we have a simple class with decorators. It also has a single <code>value</code> property by default which can be observed by adding a <code>valueChanged</code> callback.</p>
+<p>Ok, what&#39;s different? Take a look at the constructor. We have two unique items being injected: <code>BoundViewFactory</code> and <code>ViewSlot</code>.</p>
+<p>The <code>BoundViewFactory</code> is capable of generating instances of the the HTML template that the attribute is attached to. No need to worry about compiling, etc. That&#39;s taken care of for you. Why is it called &quot;Bound&quot; View Factory though? Well, it&#39;s already referencing the parent binding context. It&#39;s &quot;bound&quot; in a sense. So, if you call its <code>create</code> method it will instantiate a new View from the template which will be bound to that context. This is what you want with an <code>if</code> attribute. It&#39;s not what you want with a <code>repeat</code> attribute. In that case, each time you call <code>create</code> you want a view bound to a particular array item. To achieve this, simply pass any object you want the view to be bound against into the <code>create</code> method.</p>
 <p>The <code>ViewSlot</code> represents the slot or location within the DOM that the template was extracted from. This is usually the location that you want to add View instances to.</p>
 <blockquote>
-<p><strong>Note</strong>: Unlike previous behaviors, the Template Controller works more directly with the <em>primitives</em> of the framework. Views, ViewFactories and ViewSlots are all low level parts of the templating engine.</p>
+<p><strong>Note</strong>: Unlike previous attributes, a template controller works more directly with the <em>primitives</em> of the framework. Views, ViewFactories and ViewSlots are all low level parts of the templating engine.</p>
 </blockquote>
-<p>Take a close look at the <code>valueChanged</code> callback. Here you can see where the <code>if</code> behavior is creating the view and adding it to the slot, based on the truthiness of the value. There are a few important details of this:</p>
+<p>Take a close look at the <code>valueChanged</code> callback. Here you can see where the <code>if</code> attribute is creating the view and adding it to the slot, based on the truthiness of the value. There are a few important details of this:</p>
 <ul>
-<li>The behavior always calls <code>bind</code> on the View <em>before</em> adding it to the ViewSlot. This ensures that all internal bindings are initially evaluated outside of the live DOM. This is important for performance.</li>
+<li>The attribute always calls <code>bind</code> on the View <em>before</em> adding it to the ViewSlot. This ensures that all internal bindings are initially evaluated outside of the live DOM. This is important for performance.</li>
 <li>Similarly, always call <code>unbind</code> <em>after</em> removing the View from the DOM.</li>
-<li>After the View is initially created, the <code>if</code> behavior does not throw it away even when the value becomes false. It caches the instance. Aurelia can re-use Views and even re-target them at different binding contexts. Again, this is important for performance, since it eliminates needless re-creation of Views.</li>
+<li>After the View is initially created, the <code>if</code> attribute does not throw it away even when the value becomes false. It caches the instance. Aurelia can re-use Views and even re-target them at different binding contexts. Again, this is important for performance, since it eliminates needless re-creation of Views.</li>
 </ul>
 <h2 id="eventing"><a href="#eventing">Eventing</a></h2>
 
 <p>Eventing is a powerful tool when you need decoupled components of your application to talk to one another. Aurelia supports both standard DOM events as well as more application-specific events via the <code>EventAggregator</code>.</p>
 <h3 id="dom-events"><a href="#dom-events">DOM Events</a></h3>
 
-<p>DOM events should be used when UI-specific messages need to be sent. They should not be used for application-specific messages. Aurelia doesn&#39;t add any functionality beyond the DOM for UI events (yet). Any behavior can have its associated <code>Element</code> injected into its constructor. You can then use the <code>Element</code> to trigger events. To learn more about creating and triggering custom DOM events, <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events">please read this article</a>.</p>
+<p>DOM events should be used when UI-specific messages need to be sent. They should not be used for application-specific messages. Aurelia doesn&#39;t add any functionality beyond the DOM for UI events (yet). Any Custom Attribute or Element can have its associated <code>Element</code> injected into its constructor. You can then use the <code>Element</code> to trigger events. To learn more about creating and triggering custom DOM events, <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events">please read this article</a>.</p>
 <h3 id="the-event-aggregator"><a href="#the-event-aggregator">The Event Aggregator</a></h3>
 
 <p>If you need loosely coupled application-events, you want to use the <code>EventAggregator</code>. Its streamlined pub/sub interface makes it ideal for a wide range of messaging scenarios.</p>
@@ -912,7 +918,7 @@ export class If {
 <pre><code class="language-javascript">import {EventAggregator} from &#39;aurelia-event-aggregator&#39;;
 
 export class APublisher{
-    static inject(){ return [EventAggregator]; }
+    static inject = [EventAggregator];
     constructor(eventAggregator){
         this.eventAggregator = eventAggregator;
     }
@@ -926,7 +932,7 @@ export class APublisher{
 <pre><code class="language-javascript">import {EventAggregator} from &#39;aurelia-event-aggregator&#39;;
 
 export class ASubscriber{
-    static inject(){ return [EventAggregator]; }
+    static inject = [EventAggregator];
     constructor(eventAggregator){
         this.eventAggregator = eventAggregator;
     }
@@ -944,7 +950,7 @@ export class ASubscriber{
 import {SomeMessage} from &#39;./some-message&#39;;
 
 export class APublisher{
-    static inject(){ return [EventAggregator]; }
+    static inject = [EventAggregator];
     constructor(eventAggregator){
         this.eventAggregator = eventAggregator;
     }
@@ -958,7 +964,7 @@ export class APublisher{
 import {SomeMessage} from &#39;./some-message&#39;;
 
 export class ASubscriber{
-    static inject(){ return [EventAggregator]; }
+    static inject = [EventAggregator];
     constructor(eventAggregator){
         this.eventAggregator = eventAggregator;
     }
@@ -981,7 +987,7 @@ export class ASubscriber{
 <pre><code class="language-javascript">import {HttpClient} from &#39;aurelia-http-client&#39;;
 
 export class WebAPI {
-    static inject() { return [HttpClient]; }
+    static inject = [HttpClient];
     constructor(http){
         this.http = http;
     }
@@ -1084,7 +1090,7 @@ client.createRequest(&#39;some/cool/path&#39;)
 ConventionalView.convertModuleIdToViewUrl = function(moduleId){
   return moduleId.replace(&#39;view-models&#39;, &#39;views&#39;) + &#39;.html&#39;;
 }</code></pre>
-<p>You should execute this code as part of your bootstrapping configuration logic so that it takes effect before any behaviors are loaded. This will affect <em>everything</em> including custom elements. So, if you need or want those to act differently, you will need to account for that in your implementation of <code>convertModuleIdToViewUrl</code>.</p>
+<p>You should execute this code as part of your bootstrapping configuration logic so that it takes effect before any Custom Elements are loaded. This will affect <em>everything</em> including custom elements. So, if you need or want those to act differently, you will need to account for that in your implementation of <code>convertModuleIdToViewUrl</code>.</p>
 <blockquote>
 <p><strong>Note:</strong> This is an example of why 3rd party plugin authors should not rely on conventions. Developers may change these conventions in order to fit the needs of their own app.</p>
 </blockquote>
