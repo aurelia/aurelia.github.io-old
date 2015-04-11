@@ -1,4 +1,4 @@
-/* 
+/*
     Document   : colors
     Author     : Little Neko
     Description: template colors
@@ -12,8 +12,8 @@
 #TYPOGRAPHY
 #LINKS AND BUTTONS
 #HEADER
-#MAIN MENU 
-#FOOTER 
+#MAIN MENU
+#FOOTER
 #SLIDERS
 #PORTFOLIO
 #MISCELANIOUS
@@ -25,9 +25,9 @@
 ================================================== */
 
 /** tabs **/
-.panel-default>.panel-heading {background:#92278F; }
+.panel-default>.panel-heading {background:#BA3A95; }
 .panel-default>.panel-heading:hover {background:#fff; }
-.panel-default>.panel-heading:hover a {color:#92278F; }
+.panel-default>.panel-heading:hover a {color:#BA3A95; }
 .panel-title>a {color:#fff;}
 .panel-title>a:hover {text-decoration: none;}
 
@@ -49,11 +49,11 @@ h1, h2, h3, h4, h5, h6 {
 	color:#222;
 }
 h2 {
- color:#888;	
+ color:#888;
 }
 h2 i {color:#999}
 h2.subTitle:after, h1.noSubtitle:after{
-	background-color:#92278F;
+	background-color:#BA3A95;
 }
 
 /*** parallax sections ***/
@@ -63,7 +63,7 @@ h2.subTitle:after, h1.noSubtitle:after{
 }
 
 #home, #paralaxSlice1, #paralaxSlice2, #paralaxSlice3, #paralaxSlice4 {
-	background-color:#92278F;
+	background-color:#BA3A95;
 }
 
 #home {
@@ -113,26 +113,26 @@ h2.subTitle:after, h1.noSubtitle:after{
 ================================================== */
 
 a {
-	color:#92278F;
+	color:#BA3A95;
 }
 a:hover, .scrollspyNav .active a {
-	color:#92278F;
+	color:#BA3A95;
 }
 ul.iconsList li a {
 	color:#555
 }
 ul.iconsList li a:hover, ul.iconsList i {
-	color:#92278F
+	color:#BA3A95
 }
 
 /*** buttons ***/
 .btn {
-	background:#92278F;
+	background:#BA3A95;
 	color:#fff;
 	border:2px solid #fff;
 }
 .btn:hover {
-	color:#92278F;
+	color:#BA3A95;
 	border-color:#eee;
 	text-shadow:none;
 	background:#fff
@@ -170,7 +170,7 @@ ul.iconsList li a:hover, ul.iconsList i {
 /* END LINKS AND BUTTONS
 ================================================== */
 
-/* MAIN MENU 
+/* MAIN MENU
 ================================================== */
 
 #mainHeader{
@@ -188,14 +188,14 @@ ul.iconsList li a:hover, ul.iconsList i {
 	color:#444;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-	background: #92278F;
+	background: #BA3A95;
 	color:#fff;
 }
 
-/* END MAIN MENU 
+/* END MAIN MENU
 ================================================== */
 
-/* FOOTER 
+/* FOOTER
 ================================================== */
 
 footer {
@@ -212,10 +212,10 @@ p.credits {
 	color:#555;
 }
 p.credits a {
-	color:#92278F;
+	color:#BA3A95;
 }
 
-/* END FOOTER 
+/* END FOOTER
 ================================================== */
 
 /* HOME
@@ -239,7 +239,7 @@ p.credits a {
 	color:#FFFFFF;
 }
 .flexslider .flex-direction-nav a {
-	background-color:#92278F;
+	background-color:#BA3A95;
 }
 
 .flexslider .flex-control-paging li a:hover, #sliderWrapper .flex-control-paging li a.flex-active{
@@ -255,7 +255,7 @@ p.credits a {
 }
 .flexslider h1 {
 	color:#fff;
-	background-color:#92278F;
+	background-color:#BA3A95;
 }
 .flexslider h2 {
 	color:#fff;
@@ -288,7 +288,7 @@ nav#filter a {
 	color:#555;
 }
 nav#filter a:hover, nav#filter a.current {
-	background-color: #92278F;
+	background-color: #BA3A95;
 	color:#fff;
 }
 li.filterTitle {
@@ -297,7 +297,7 @@ li.filterTitle {
 section#projectDescription {
 	background-color:#F8F8F8
 }
-.mask{background-color: #92278F;}
+.mask{background-color: #BA3A95;}
 /* END PORTFOLIO
 ================================================== */
 
@@ -342,7 +342,7 @@ section#projectDescription {
 	color:#fff!important;
 }
 .pricingBloc.focusPlan h3 {
-	background-color:#92278F;
+	background-color:#BA3A95;
 	padding:1.25em;
 	color:#fff!important;
 }
@@ -378,7 +378,7 @@ border:none}
 
 /*** Feature box **/
 
-.boxFeature i{color:#92278F;} 
+.boxFeature i{color:#BA3A95;}
 
 /*** slices ***/
 .slice{
@@ -403,11 +403,11 @@ border:none}
 	color:#444;
 }
 .color1 a.btn{color:#fff;}
-.color1 a.btn:hover{color:#92278F;}
+.color1 a.btn:hover{color:#BA3A95;}
 
 /*color4*/
 .color4, .slice.color4, .bulle.color4, .ctaBox.color4{
-	background-color:#92278F;
+	background-color:#BA3A95;
 	color:#fff;
 }
 
@@ -419,10 +419,10 @@ border:none}
 	background:#fff;
 }
 /*** icons ***/
-.iconRounded {border:2px solid #92278F;color:#92278F;background-color:#fff;}
-.iconRounded:hover, .color1 .iconRounded:hover{background-color:#92278F;color:#fff;}
-.color1 .iconRounded {color:#92278F;}
-.color4 .iconRounded {background-color:#FFF;color:#92278F;}
+.iconRounded {border:2px solid #BA3A95;color:#BA3A95;background-color:#fff;}
+.iconRounded:hover, .color1 .iconRounded:hover{background-color:#BA3A95;color:#fff;}
+.color1 .iconRounded {color:#BA3A95;}
+.color4 .iconRounded {background-color:#FFF;color:#BA3A95;}
 
 /* END NEKO CSS FRAMEWORK
 ================================================== */
