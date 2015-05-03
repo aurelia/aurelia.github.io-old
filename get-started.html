@@ -97,7 +97,14 @@
 <p><strong>Note:</strong> jspm, like Bower and Yeoman, leverages <a href="http://git-scm.com/">git</a> so you need to install that if you don&#39;t have it. Also, jspm queries GitHub to install packages, but GitHub has a rate limit on anonymous API requests. It is advised that you configure jspm with your GitHub credentials in order to avoid problems. You can do this by executing <code>jspm registry config github</code> and following the prompts. Don&#39;t want to use jspm? No problem. All Aurelia packages are available via <a href="http://bower.io/">Bower</a> as well.</p>
 </blockquote>
 <h2>Setting up the Project Structure and Build</h2>
-<p>With the tooling installed, we can now turn our attention to setting up a basic structure for your app. Begin by <a href="https://github.com/aurelia/skeleton-navigation/releases">downloading the navigation skeleton</a>. Unzip it and rename the folder to <em>navigation-app</em>. Inside this folder you will find everything you need including a basic build, package configuration, styles and more. Because we want to teach you how to build your own app, please delete the contents of the <em>src</em> folder as well as the <em>index.html</em> file. We&#39;ll learn about how to create these in a minute.</p>
+<p>With the tooling installed, we can now turn our attention to setting up a basic structure for your app. Begin by <a href="https://github.com/aurelia/skeleton-navigation/releases">downloading the navigation skeleton</a>. Unzip it and rename the folder to <em>navigation-app</em>.</p>
+<blockquote>
+<p><strong>Note:</strong> Alternatively use can use <a href="http://yeoman.io">Yeoman</a> to &quot;generate&quot; the skeleton project in the target folder, as follows:</p>
+<pre><code> npm install -g yo generator-aurelia
+ yo aurelia</code></pre>
+</blockquote>
+<p>Inside the folder you will now find everything you need including a basic build, package configuration, styles and more.</p>
+<p>You may examine the provided <em>index.html</em> file and the rest of the files in <em>src</em>, however we recommend deleting both before moving on with this tutorial. That way you can more effectively learn how to build an Aurelia app from scratch.</p>
 <p>With all this in place, let&#39;s run some commands.</p>
 <ol>
 <li><p>Open a console and change your directory to <em>navigation-app</em>.</p>
@@ -114,7 +121,7 @@
 <p><strong>Note:</strong> Bootstrap and Font-Awesome are <strong>not</strong> dependencies of Aurelia. We only leverage them as part of this tutorial in order to quickly achieve a decent look out-of-the-box.</p>
 </blockquote>
 <h2>Setting Up The HTML Page</h2>
-<p>If you&#39;ve followed along this far, you now have all the libraries, build configuration and tools you need to create amazing JavaScript apps with Aurelia. The next thing we need to do is create our <em>index.html</em> file in the root of our project folder. Create that now and use the markup below.</p>
+<p>If you&#39;ve followed along this far, you now have all the libraries, build configuration and tools you need to create amazing JavaScript apps with Aurelia. The next thing to do is create the <em>index.html</em> file in the root of your project folder. This example file provides a good template for new Aurelia-based apps.</p>
 <h3>index.html</h3>
 <pre><code class="language-markup">&lt;!doctype html&gt;
 &lt;html&gt;
@@ -211,33 +218,20 @@
 <h2>Adding Navigation</h2>
 <p>Since this is a navigation app, we should probably add some more screens and set up a client-side router don&#39;t you think? Let&#39;s begin by renaming our <em>app.js</em> and <em>app.html</em> to <em>welcome.js</em> and <em>welcome.html</em> respectively. This will be the first page of our app. Now, lets create a new <em>app.js</em> and <em>app.html</em> which will serve as our &quot;layout&quot; or &quot;master page&quot;. The view will contain our navigation UI and the content placeholder for the current page and the view-model will have a router instance, configured with our routes. We&#39;ll start with the view-model so you can see how to set up the router:</p>
 <h3>app.js</h3>
-<pre><code class="language-javascript">import {inject} from &#39;aurelia-framework&#39;;
-import {Router} from &#39;aurelia-router&#39;;
-import &#39;bootstrap&#39;;
+<pre><code class="language-javascript">import &#39;bootstrap&#39;;
 import &#39;bootstrap/css/bootstrap.css!&#39;;
 
-@inject(Router)
 export class App {
-  constructor(router) {
+  configureRouter(config, router){
+    config.title = &#39;Aurelia&#39;;
+    config.map([
+      { route: [&#39;&#39;,&#39;welcome&#39;],  moduleId: &#39;./welcome&#39;,      nav: true, title:&#39;Welcome&#39; }
+    ]);
+
     this.router = router;
-    this.router.configure(config =&gt; {
-      config.title = &#39;Aurelia&#39;;
-      config.map([
-        { route: [&#39;&#39;,&#39;welcome&#39;],  moduleId: &#39;./welcome&#39;,      nav: true, title:&#39;Welcome&#39; }
-      ]);
-    });
   }
 }</code></pre>
-<p>Ok, there&#39;s some really interesting new stuff here. We want to use the router, so we begin by importing it at the top of the file. This is the power of the ES6/ES7 again. We then create our <em>App</em> class to hold our data and behavior for the main application layout. Take a look at the constructor function. It&#39;s expecting something to pass in a <em>router</em> instance when the App class is created. Where does that come from?</p>
-<p>Aurelia creates the UI components as needed to render your app. It does this by using a <a href="http://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection</a> container capable of providing constructor dependencies like this. How does the DI system know what to provide? All you have to do is add an ES7 <code>inject</code> decorator to your class that passes a list of types to provide instances of. There should be one argument for each constructor parameter. In the above example, we needed a router instance, so we added the <code>Router</code> type.</p>
-<blockquote>
-<p><strong>Note:</strong> If you don&#39;t like using a decorator in this case, you can also add a static <code>inject</code> method or property to the class that returns an array of types to inject.</p>
-</blockquote>
-<p>We need to set the router to a public property on the class. The property must be named <em>router</em>. This is important. Don&#39;t get any fancy ideas here like naming it <em>taco</em> or something like that ok? It&#39;s a router..so name it <em>router</em> and everyone will be happy. Did we mention you <strong>must</strong> name it <em>router</em>?</p>
-<blockquote>
-<p><strong>Note:</strong> We hope to lift this silly restriction in an upcoming update.</p>
-</blockquote>
-<p>Alrighty. Time to configure the router. It&#39;s easy. You can set a title to use when generating the document&#39;s title. Then you set up your routes. Each route has the following properties:</p>
+<p>Ok, there&#39;s some really interesting new stuff here. We want to use the router, so we begin by creating our <em>App</em> class and having it implement the <code>configureRouter</code> callback. You can set a title to use when generating the document&#39;s title. Then you map your routes. Each route has the following properties:</p>
 <ul>
 <li><code>route</code>: This is a pattern which, when matched, will cause the router to navigate to this route. You can use static routes like above, but you can also use parameters like this: <code>customer/:id</code>. There&#39;s also support for wildcard routes and query string parameters. The route can be a single string pattern or an array of patterns.</li>
 <li><code>moduleId</code>: This is a path relative to the current view-model which specifies the view/view-model pair you want to render for this route.</li>
@@ -281,7 +275,7 @@ export class App {
 <p><strong>Note:</strong> The <code>navigation</code> property on the router is an array populated with all the routes you marked as <code>nav:true</code> in your route config. Aurelia models its <code>repeat.for</code> syntax after the new standard ES6 <code>for..of</code> loop. So, you can think of looping over the array of navigable routes and generating UI for each.</p>
 </blockquote>
 <p>Also on the <code>li</code> you can see a demonstration of how to use string interpolation to dynamically add/remove classes. Further down in the view, there&#39;s a second <code>ul</code>. See the binding on its single child <code>li</code>? <code>if.bind=&quot;router.isNavigating&quot;</code> This conditionally adds/removes the <code>li</code> based on the value of the bound expression. Conveniently, the router will update its <code>isNavigating</code> property whenever it is....navigating.</p>
-<p>The last piece we want to look at is the <code>router-view</code> element near the bottom of the view. Any time you have a <code>Router</code> in your view-model, you need to have a <code>router-view</code> in your view. These two are comrades and will connect automatically such that whatever route the <code>Router</code> says is current will be displayed in the <code>router-view</code>.</p>
+<p>The last piece we want to look at is the <code>router-view</code> element near the bottom of the view. This represents the location in the DOM where the current &quot;page&quot; will be rendered, based on the configured router&#39;s state.</p>
 <p>With this in place, go ahead and start the dev server with <code>gulp watch</code>. Open the browser and have a look. You should now see a main navigation with a single selected tab for our &quot;welcome&quot; route. The <em>welcome</em> view should display in the main content area and function as before. Open up the browser&#39;s debug tools and have a look at the live DOM. You will see that the <em>welcome</em> view content is displayed inside the <code>router-view</code>.</p>
 <blockquote>
 <p><strong>Note:</strong> If you left your gulp watch task running during this time, you may have noticed your browser auto-refreshing whenever you made changes. That&#39;s thanks to <code>browser-sync</code>, which we&#39;ve conveniently configured for you as part of the default gulp configuration.</p>
@@ -290,22 +284,18 @@ export class App {
 <p>Well, we&#39;ve technically got a navigation application now...but it&#39;s not very interesting because there&#39;s only one page. Let&#39;s add a second page. Can you guess how to do it? I bet you can...</p>
 <p>Let&#39;s display some images from Flickr. To do that, let&#39;s first configure our router for the hypothetical page:</p>
 <h3>app.js (updated)</h3>
-<pre><code class="language-javascript">import {inject} from &#39;aurelia-framework&#39;;
-import {Router} from &#39;aurelia-router&#39;;
-import &#39;bootstrap&#39;;
+<pre><code class="language-javascript">import &#39;bootstrap&#39;;
 import &#39;bootstrap/css/bootstrap.css!&#39;;
 
-@inject(Router)
 export class App {
-  constructor(router) {
+  configureRouter(config, router){
+    config.title = &#39;Aurelia&#39;;
+    config.map([
+      { route: [&#39;&#39;,&#39;welcome&#39;],  moduleId: &#39;./welcome&#39;,      nav: true, title:&#39;Welcome&#39; },
+      { route: &#39;flickr&#39;,        moduleId: &#39;./flickr&#39;,       nav: true }
+    ]);
+
     this.router = router;
-    this.router.configure(config =&gt; {
-      config.title = &#39;Aurelia&#39;;
-      config.map([
-        { route: [&#39;&#39;,&#39;welcome&#39;],  moduleId: &#39;./welcome&#39;,      nav: true, title:&#39;Welcome&#39; },
-        { route: &#39;flickr&#39;,        moduleId: &#39;./flickr&#39;,       nav: true }
-      ]);
-    });
   }
 }</code></pre>
 <p>If you guessed that we need to create a <em>flickr.js</em> and <em>flickr.html</em> file, you are correct. Here&#39;s the source:</p>
@@ -336,7 +326,22 @@ export class Flickr{
 <p>There&#39;s a lot of cool stuff here. Let&#39;s start at the beginning. We are importing <code>HttpClient</code> from Aurelia. This lets us make HTTP requests in a very simple way. It&#39;s not included with the default Aurelia configuration though, so you need to install the package. To do that, execute this command on the console:</p>
 <pre><code class="language-shell">jspm install aurelia-http-client</code></pre>
 <p>Now I hope you see the power of the integrated package manager and loader. You simply install a package with jspm and then you import it in your code using the same exact identifier. You can install anything from GitHub or NPM in this way.</p>
-<p>Like before, we&#39;re using dependency injection to have the <code>HttpClient</code> instance provided to the view-model. We don&#39;t use it, however, until the <em>activate</em> method. What&#39;s the significance of that you say? I was just getting to that...</p>
+<p>Now, take a look at that ES7 <code>inject</code> decorator? What does that do? Well, Aurelia creates the UI components as needed to render your app. It does this by using a <a href="http://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection</a> container capable of providing constructor dependencies like HttpClient. How does the DI system know what to provide? All you have to do is add that ES7 <code>inject</code> decorator to your class that passes a list of types to provide instances of. There should be one argument for each constructor parameter. In the above example, we needed an HttpClient instance, so we added the <code>HttpClient</code> type in the <code>inject</code> decorator and then added an corresponding parameter in the constructor.</p>
+<blockquote>
+<p><strong>Note:</strong> If you don&#39;t like using a decorator in this case, you can also add a static <code>inject</code> method or property to the class that returns an array of types to inject.</p>
+</blockquote>
+<p>If you are using TypeScript &gt;= 1.5, you can add the <code>autoinject()</code> decorator to your class and leave out the Types in the decorator call, but just use them on the constructor&#39;s signature. Here&#39;s what that would look like:</p>
+<pre><code class="language-javascript">import {autoinject} from &#39;aurelia-framework&#39;;
+import {HttpClient} from &#39;aurelia-http-client&#39;;
+
+@autoinject()
+export class Flickr{
+  ...
+
+  constructor(public http:Flickr){}
+
+  ...
+}</code></pre>
 <p>Aurelia&#39;s router enforces a lifecycle on view-models whenever routes change. This is referred to as the &quot;Screen Activation Lifecycle&quot;. View-models can optionally hook into various parts of the lifecycle to control flow into and out of the route. When your route is ready to activate the router will call the <code>activate</code> hook, if present. In the above code, we use this hook to call the Flickr api and get some images back. Notice that we return the result of the http request back from our <code>activate</code> method. All the <code>HttpClient</code> APIs return a <code>Promise</code>. The router will detect a <code>Promise</code> and wait to complete navigation until after it resolves. So, in this way, you can optionally force the router to delay displaying the page until it is populated with data.</p>
 <p>There&#39;s a second lifecycle hook demonstrated here as well: <code>canDeactivate</code>. The router calls this before navigation away from the route happens. It gives you the opportunity to allow or disallow the navigation to continue by returning a boolean. You can also return a <code>Promise</code> for that value. The full lifecycle includes <code>canActivate</code>, <code>activate</code>, <code>canDeactivate</code> and <code>deactivate</code> hooks.</p>
 <blockquote>
@@ -432,49 +437,40 @@ export class NavBar {
 <blockquote>
 <p><strong>Note:</strong> You can also load app-wide elements and other behaviors for convenience so you don&#39;t have to require common resources in every view.</p>
 </blockquote>
-<p>You may wonder how Aurelia determines the name of the custom element. By convention, it will use the export name, lowered and hyphenated. However, you can always be explicit. To do so, add more metadata by chaining <code>.customElement(&#39;nav-bar&#39;)</code> on <code>Behavior</code>. What if your custom element doesn&#39;t have a view template because it&#39;s all implemented in code? No problem, chain <code>.noView()</code>. Want to use ShadowDOM for your custom element? Do it like a pro by chaining <code>.useShadowDOM()</code>. Don&#39;t worry about whether or not the browser supports it. We have an efficient, full-fidelity ShadowDOM fallback implementation.</p>
-<p>In addition to creating custom elements, you can also create standalone attributes which add new behavior to existing elements. We call these <em>Attached Behaviors</em>. On occasion you may need to create <em>Template Controllers</em> for dynamically adding and removing DOM from the view, like the <code>repeat</code> and <code>if</code> we used above. That&#39;s not all you can do either. Aurelia&#39;s templating engine is both powerful and extensible.</p>
+<p>You may wonder how Aurelia determines the name of the custom element. By convention, it will use the export name, lowered and hyphenated. However, you can always be explicit. To do so, add <code>@customElement(&#39;nav-bar&#39;)</code> decorator. What if your custom element doesn&#39;t have a view template because it&#39;s all implemented in code? No problem, add <code>@noView()</code>. Want to use ShadowDOM for your custom element? Do it like a pro by using <code>@useShadowDOM()</code>. Don&#39;t worry about whether or not the browser supports it. We have an efficient, full-fidelity ShadowDOM fallback implementation.</p>
+<p>In addition to creating custom elements, you can also create custom attributes which add new behavior to existing elements. On occasion you may even need an attribute to dynamically control templates by adding and removing DOM from the view, like the <code>repeat</code> and <code>if</code> we used above. You can do all that and much more with Aurelia&#39;s powerful and extensible templating engine.</p>
 <h2>Bonus: Leveraging Child Routers</h2>
 <p>Can&#39;t get enough can you? Well, I&#39;ve got a treat for you. Let&#39;s add a third page to our app...with its own router! We call this a child router. Child routers have their own route configuration and navigate relative to the parent router. Prepare thyself for insanity....</p>
 <p>First, let&#39;s update our <em>app.js</em> with the new configuration. Here&#39;s what it should look like:</p>
 <h3>app.js (updated...again)</h3>
-<pre><code class="language-javascript">import {inject} from &#39;aurelia-framework&#39;;
-import {Router} from &#39;aurelia-router&#39;;
-import &#39;bootstrap&#39;;
+<pre><code class="language-javascript">import &#39;bootstrap&#39;;
 import &#39;bootstrap/css/bootstrap.css!&#39;;
 
-@inject(Router)
 export class App {
-  constructor(router) {
+  configureRouter(config, router){
+    config.title = &#39;Aurelia&#39;;
+    config.map([
+      { route: [&#39;&#39;,&#39;welcome&#39;],  moduleId: &#39;./welcome&#39;,      nav: true, title:&#39;Welcome&#39; },
+      { route: &#39;flickr&#39;,        moduleId: &#39;./flickr&#39;,       nav: true },
+      { route: &#39;child-router&#39;,  moduleId: &#39;./child-router&#39;, nav: true, title:&#39;Child Router&#39; }
+    ]);
+
     this.router = router;
-    this.router.configure(config =&gt; {
-      config.title = &#39;Aurelia&#39;;
-      config.map([
-        { route: [&#39;&#39;,&#39;welcome&#39;],  moduleId: &#39;./welcome&#39;,      nav: true, title:&#39;Welcome&#39; },
-        { route: &#39;flickr&#39;,        moduleId: &#39;./flickr&#39;,       nav: true },
-        { route: &#39;child-router&#39;,  moduleId: &#39;./child-router&#39;, nav: true, title:&#39;Child Router&#39; }
-      ]);
-    });
   }
 }</code></pre>
 <p>Nothing new there. The interesting part is what&#39;s inside <em>child-router.js</em>...</p>
 <h3>child-router.js</h3>
-<pre><code class="language-javascript">import {inject} from &#39;aurelia-framework&#39;;
-import {Router} from &#39;aurelia-router&#39;;
-
-@inject(Router)
-export class ChildRouter{
+<pre><code class="language-javascript">export class ChildRouter{
   heading = &#39;Child Router&#39;;
 
-  constructor(router){
+  configureRouter(config, router){
+    config.map([
+      { route: [&#39;&#39;,&#39;welcome&#39;],  moduleId: &#39;./welcome&#39;,      nav: true, title:&#39;Welcome&#39; },
+      { route: &#39;flickr&#39;,        moduleId: &#39;./flickr&#39;,       nav: true },
+      { route: &#39;child-router&#39;,  moduleId: &#39;./child-router&#39;, nav: true, title:&#39;Child Router&#39; }
+    ]);
+
     this.router = router;
-    router.configure(config =&gt; {
-      config.map([
-        { route: [&#39;&#39;,&#39;welcome&#39;],  moduleId: &#39;./welcome&#39;,      nav: true, title:&#39;Welcome&#39; },
-        { route: &#39;flickr&#39;,        moduleId: &#39;./flickr&#39;,       nav: true },
-        { route: &#39;child-router&#39;,  moduleId: &#39;./child-router&#39;, nav: true, title:&#39;Child Router&#39; }
-      ]);
-    });
   }
 }</code></pre>
 <p>What!? It&#39;s practically the same configuration as <code>App</code>? What? Why? Well...you should probably never do this in real life...but it&#39;s pretty cool what this does. This, my friends, is a recursive router, and we&#39;re doing it because we can.</p>

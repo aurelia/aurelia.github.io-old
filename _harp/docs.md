@@ -6,17 +6,21 @@ We've got a very rich set of docs planned for Aurelia. Unfortunately, we haven't
 
 <h2 id="browser-support"><a href="#browser-support">Browser Support</a></h2>
 
-Aurelia was originally designed for Evergreen Browsers. This includes Chrome, Firefox, IE11 and Safari 8. However, we have identified how to support IE9 and above. To make this work, you need to add two additional polyfills: MutationObservers and WeakMap. This can be achieved by a jspm install of `github:webreflection/es6-collections` and `github:polymer/mutationobservers`. Load these two scripts before system.js.
-
-Your index.html will look like this:
+Aurelia was originally designed for Evergreen Browsers. This includes Chrome, Firefox, IE11 and Safari 8. However, we have identified how to support IE9 and above. To make this work, you need to add an additional polyfill for MutationObservers. This can be achieved by a jspm install of `github:polymer/mutationobservers`. Then wrap the call to `aurelia-bootstrapper` as follows:
 
 ```markup
-<script src="jspm_packages/github/webreflection/es6-collections@master/es6-collections.js"></script>
 <script src="jspm_packages/github/polymer/mutationobservers@0.4.2/MutationObserver.js"></script>
 <script src="jspm_packages/system.js"></script>
 <script src="config.js"></script>
 <script>
-  System.import('aurelia-bootstrapper');
+  // Loads WeakMap polyfill needed by MutationObservers
+  System.import('core-js').then( function() {
+    // Imports MutationObserver polyfill
+    System.import('mutationobservers').then( function() {
+      // Ensures start of Aurelia when all required IE9 dependencies are loaded
+      System.import('aurelia-bootstrapper');
+    })
+  });
 </script>
 ```
 
@@ -34,7 +38,7 @@ import {LogManager} from 'aurelia-framework';
 import {ConsoleAppender} from 'aurelia-logging-console';
 
 LogManager.addAppender(new ConsoleAppender());
-LogManager.setLevel(LogManager.levels.debug);
+LogManager.setLevel(LogManager.logLevel.debug);
 
 export function configure(aurelia) {
   aurelia.use
@@ -64,15 +68,15 @@ export function configure(aurelia) {
 
 <h3 id="logging"><a href="#logging">Logging</a></h3>
 
-Aurelia has a simple logging abstraction that the framework itself uses. By default it is a no-op. The configuration above shows how to install an appender which will take the log data and output it the console. You can also see how to set the log level. Options for this setting include: `none`, `error`, `warn`, `info` and `debug`.
+Aurelia has a simple logging abstraction that the framework itself uses. By default it is a no-op. The configuration above shows how to install an appender which will take the log data and output it the console. You can also see how to set the log level. Values for the `logLevel` enumeration include: `none`, `error`, `warn`, `info` and `debug`.
 
 You can easily create your own appenders. Simply implement a class that matches the appender interface. The best way to see how to do this is to look at our own [console log appender's source](https://github.com/aurelia/logging-console/blob/master/src/index.js).
 
 <h3 id="plugins"><a href="#plugins">Plugins</a></h3>
 
-A _plugin_ is only a module with an exported `install` function. During startup Aurelia will load all plugin modules and call their `install` functions, passing to them the Aurelia instance so that they can configure the framework appropriately. Plugins can optionally return a `Promise` from their `install` function in order to perform asynchronous configuration tasks. When writing a plugin, be sure to explicitly supply all metadata, including a View Strategy for Custom Elements.
+A _plugin_ is only a module with an exported `configure` function. During startup Aurelia will load all plugin modules and call their `configure` functions, passing to them the Aurelia instance so that they can configure the framework appropriately. Plugins can optionally return a `Promise` from their `configure` function in order to perform asynchronous configuration tasks. When writing a plugin, be sure to explicitly supply all metadata, including a View Strategy for Custom Elements.
 
-In order to do configuration on your plugin from within the app you can specify a function as the second argument to the `install` function. Your plugin's install function can then execute that after your installation work is done. The consumer of your plugin would then write code like this:
+In order to do configuration on your plugin from within the app you can specify a function or object as the second argument to the `configure` function. Your plugin's install function can then use that after your installation work is done. The consumer of your plugin might write code like this:
 
 ```javascript
 aurelia.use.plugin('./path/to/plugin', config => { /* configuration work */ });
@@ -82,7 +86,7 @@ aurelia.use.plugin('./path/to/plugin', config => { /* configuration work */ });
 
 <h4 id="promises"><a href="#promises">Promises</a></h4>
 
-By default, Aurelia uses ES6 native Promises or a polyfill. However, you can replace this with the excellent [Bluebird](https://github.com/petkaantonov/bluebird) Promise library. Simply include it in your page before you reference the other scripts. It will provide its own standards-compliant Promise implementation which is currently faster than native and has better debugging support. Additionally, when used in combination with the Babel transpiler, you can use [coroutines](https://babeljs.io/docs/usage/transformers/#bluebird-coroutines) for improved async code.
+By default, Aurelia uses ES6 native Promises or a polyfill. However, you can replace this with the excellent [Bluebird](https://github.com/petkaantonov/bluebird) Promise library. Simply include it in your page before you reference the other scripts. It will provide its own standards-compliant Promise implementation which is currently faster than native and has better debugging support. Additionally, when used in combination with the Babel transpiler, you can use [coroutines](http://babeljs.io/docs/usage/transformers/other/bluebird-coroutines/) for improved async code.
 
 <h3 id="the-aurelia-object"><a href="#the-aurelia-object">The Aurelia Object</a></h3>
 
@@ -136,7 +140,23 @@ class Flickr
   @inject:[HttpClient]
 ```
 
-The dependencies in your inject array don't have to be just constructor types though. They can also be instances of `resolvers`. For example, have a look at this:
+If you are working with TypeScript, you can use the `--emitDecoratorMetadata` compiler flag along with Aurelia's `autoinject()` decorator to enable the framework to read the standard TS type information. As a result, there's no need to duplicate the types. Here's what that looks like:
+
+```javascript
+import {autoinject} from 'aurelia-framework';
+import {HttpClient} from 'aurelia-http-client';
+
+@autoinject()
+export class CustomerDetail{
+    constructor(http:HttpClient){
+        this.http = http;
+    }
+}
+```
+
+> **Note:** There's an interesting detail of the way that TypeScript implements this compilation option. It actually works with any decorator. So, if you've got other decorators on your TS class, there's no need to include the `autoinject` decorator. The Type information will still be discoverable by Aurelia's dependency injection framework.
+
+When explicitly declaring dependencies, it's important to know that they don't have to be just constructor types. They can also be instances of `resolvers`. For example, have a look at this:
 
 ```javascript
 import {Lazy, inject} from 'aurelia-framework';
@@ -174,7 +194,7 @@ export class CustomerDetail{
 }
 ```
 
-Now, each time the DI container is asked for an instance of `CustomerDetail` the container will return a new instance, rather than a singleton. `singleton` and `transient` registrations are provided out-of-the-box, but you can create your own by writing a class that inherits from `Registration`.
+Now, each time the DI container is asked for an instance of `CustomerDetail` the container will return a new instance, rather than a singleton. `singleton` and `transient` registrations are provided out-of-the-box, but you can create your own by writing a class that implements the following method `register(container, key, fn)`. Then, simply add an instance of it to a class with the `registration` decorator.
 
 If you can't or don't want to use decorators, don't worry. We have a fallback mechanism. Simply provide a static `decorators` property or method and then use our chainable `Decorators` helper. The helper has methods for all our decorators, so it's easy for you to use in any language. Here's how the above example could be written in CoffeeScript:
 
@@ -232,11 +252,33 @@ In this case `nav-bar` is an Aurelia _Custom Element_ which we've required for u
     - ex. `<require from="./nav-bar" as="foo-bar"></require>` - Now instead of using a `nav-bar` element you can use a `foo-bar` element. (This is based on ES6 import syntax where renaming is considered a replacement for using an Alias because it strictly renames the type.)
 * Packages - The require can point to a module with multiple resources which will all be imported into the same view.
 * Extensibility - You can define new types of resources which, when required in this way, can execute custom loading (async one-time) and registration (once per-view). This is a declarative, extensible resource loading pipeline.
-* ES6 - Code is loaded by the ES6 loader rather than the HTMLImport mechanism, enabling all the features and extensibility of your loader.
+* ES6 - Code is loaded by the ES6 loader rather than the HTMLImport mechanism, enabling all the features and extensibility of your loader. This design choice fully unifies all app resource loading, whether through JavaScript or HTML.
 
 In your view you will often leverage the different types of resources mentioned above as well as databinding.
 
 >**Note:** You may be concerned about the tediousness of having to import things into each view. Remember, during the bootstrapping phase you can configure Aurelia with global resources to be available in every view. Just use `aurelia.globalizeResources(...resourcePaths)`.
+
+Aurelia polyfills browsers that don't support templates. However, a few features of templates can't be polyfilled and require workarounds. In particular this occurs when adding `<tamplate>` elements inside `<select>` and `<table>` elements. The following can't be done in a browser that doesn't natively support templates:
+
+```markup
+  <table>
+    <template repeat.for="customer of customers">
+      <tr>
+        <td>${customer.fullName}</td>
+      </tr>
+    </template>
+  </table>
+```
+
+In order to repeat over the `<tr>` elements, simply add the `repeat` on the `<tr>` itself:
+
+```markup
+  <table>
+    <tr repeat.for="customer of customers">
+      <td>${customer.fullName}</td>
+    </tr>
+  </table>
+```
 
 <h3 id="databinding"><a href="#databinding">Databinding</a></h3>
 
@@ -265,7 +307,7 @@ You can always be explicit and use `.one-way` or `.two-way` in place of `.bind` 
 <markdown-editor value.two-way="markdown"></markdown-editor>
 ```
 
-In order to optimize performance and minimize CPU and memory usage, you can alternatively leverage the `.one-time` binding command to flow data from the view-model into the view "one time". This will happen during the initial binding phase, after which no synchronization will occur.
+In order to optimize performance and minimize CPU and memory usage, you can alternatively leverage the `.one-time` binding command to flow data from the view-model into the view "one time". This will happen during the initial binding phase, after which, no synchronization will occur.
 
 <h4 id="event-modes"><a href="#event-modes">delegate, trigger & call</a></h4>
 
@@ -287,7 +329,7 @@ The `$event` property can be passed as an argument to a delegate/trigger functio
 <button click.delegate="sayHello($event)">Say Hello</button>
 ```
 
-> **Note:** If you aren't familiar with event delegation, it's a technique that uses the bubbling nature of DOM events. When using `.delegate` a single event handler is attached to the document, rather than on each element. When the element's event is fired, it bubbles up the DOM until it reaches the document, where it is handled. This is a more memory efficient way of handling events and it's recommended to use this as your default mechanism.
+> **Note:** If you aren't familiar with event delegation, it's a technique that uses the bubbling nature of DOM events. When using `.delegate`, a single event handler is attached to the document, rather than on each element. When the element's event is fired, it bubbles up the DOM until it reaches the document, where it is handled. This is a more memory efficient way of handling events and it's recommended to use this as your default mechanism.
 
 All of this works against DOM events in some way or another. Occasionally you may have an Aurelia Custom Attribute or Element that wants a reference to your function directly so that it can invoke it manually at a later time. To pass a function reference, use the `.call` binding (since the attribute will _call_ it later):
 
@@ -295,7 +337,7 @@ All of this works against DOM events in some way or another. Occasionally you ma
 <div touch.call="sayHello()">Say Hello</button>
 ```
 
-Now the Custom Attribute `touch` will get a function that it can call to invoke your `sayHello()` code.
+Now the Custom Attribute `touch` will get a function that it can call to invoke your `sayHello()` code. Depending on the nature of the implementor, you may be able to receive data from the caller. This works the same as with trigger/delegate by providing an `$event` object.
 
 <h4 id="string-interpolation"><a href="#string-interpolation">string interpolation</a></h4>
 
@@ -370,6 +412,66 @@ This works with arrays of objects as well:
 <select value.bind="favoriteEmployees" multiple>
   <option repeat.for="employee of employees" model.bind="employee">${employee.fullName}</option>
 </select>
+```
+
+<h4 id="radios"><a href="#radios">radios</a></h4>
+
+`checked.bind` on an HTMLInputElement has special behavior to support binding non-boolean values such as strings and objects.
+
+A typical radio button group is rendered using a combination of `value.bind` and `repeat`, like this:
+
+```markup
+<label repeat.for="color of colors">
+  <input type="radio" name="clrs" value.bind="color" checked.bind="$parent.favoriteColor" />
+  ${color}
+</label>
+```
+
+Sometimes you want to work with object instances rather than strings.  Here's the markup for building a radio button group from a theoretical array of employee objects:
+
+```markup
+<label repeat.for="employee of employees">
+  <input type="radio" name="emps" model.bind="employee" checked.bind="$parent.employeeOfTheMonth" />
+  ${employee.fullName}
+</label>
+```
+
+The primary difference between this example and the previous example is we're storing the input values in a special property, `model`, instead of the input element's `value` property which only accepts strings.
+
+You can also bind a radio group to a boolean property like this:
+
+```markup
+<label><input type="radio" name="tacos" model.bind="null" checked.bind="likesTacos" />Unanswered</label>
+<label><input type="radio" name="tacos" model.bind="true" checked.bind="likesTacos" />Yes</label>
+<label><input type="radio" name="tacos" model.bind="false" checked.bind="likesTacos" />No</label>
+```
+
+<h4 id="checkboxes"><a href="#checkboxes">checkboxes</a></h4>
+
+To better support multi-select scenarios Aurelia enables binding an input element's checked property to an array.  Here's how you'd bind an array of strings, `favoriteColors`:
+
+```markup
+<label repeat.for="color of colors">
+  <input type="checkbox" value.bind="color" checked.bind="$parent.favoriteColors" />
+  ${color}
+</label>
+```
+
+This works with arrays of objects as well:
+
+```markup
+<label repeat.for="employee of employees">
+  <input type="checkbox" model.bind="employee" checked.bind="$parent.favoriteEmployees" />
+  ${employee.fullName}
+</label>
+```
+
+You can of course bind each checkboxes to it's boolean properties like this:
+
+```markup
+<li><label><input type="checkbox" checked.bind="wantsFudge" />Fudge</label></li>
+<li><label><input type="checkbox" checked.bind="wantsSprinkles" />Sprinkles</label></li>
+<li><label><input type="checkbox" checked.bind="wantsCherry" />Cherry</label></li>
 ```
 
 <h4 id="innerhtml"><a href="#innerhtml">innerHTML</a></h4>
@@ -453,6 +555,85 @@ Use the `style` attribute's alias, `css` when doing string interpolation to ensu
 <div style="width: ${width}px; height: ${height}px;"></div>
 ```
 
+<h4 id="adaptive-binding"><a href="#adaptive-binding">Adaptive Binding</a></h4>
+
+Aurelia has an adaptive binding system that chooses from a number of strategies when determining how to most efficiently observe changes.  For more info on how this works checkout [this post](http://blog.durandal.io/2015/04/03/aurelia-adaptive-binding/).  For the most part you don't need to think about these details however it does help to be aware of scenarios that lead to inefficient use of the binding system.
+
+**The #1 thing to be aware of is computed properties (properties with getter functions) are observed using dirty-checking.**  More efficient strategies such as Object.observe and property rewriting are not compatible with these types of properties.  
+
+In today's browser environment dirty-checking is a necessary evil.  Very few browsers support Object.observe at the time of this writing.  Aurelia's dirty-checking mechanism is similar to that used in [Polymer](https://www.polymer-project.org/).  It's very efficient and utilizes Aurelia's micro-task-queue to batch updates to the DOM.  
+
+A few bindings using dirty-checking will not cause performance problems in your application.  Extensive use of dirty-checking may.  Fortunately there's a way you can avoid dirty-checking simple computed properties.  Consider the 'fullName' property in the example below:
+
+```javascript
+export class Person {
+  firstName = 'John';
+  lastName = 'Doe';
+
+  @computedFrom('firstName', 'lastName')
+  get fullName(){
+    return `${this.firstName} ${this.lastName}`;
+  }
+}
+```
+
+We've used the `@computedFrom` decorator to provide a hint to the Aurelia binding system.  The binding system now knows to only check `fullName` for changes when `firstName` or `lastName` changes.
+
+It's also important to be mindful of how dirty-checking works.  When a property is "dirty-checked" the binding system periodically checks whether the property's current value matches the previously observed value for the property.  By default this check happens every 120 milliseconds.  This means your property's getter function has the potential to be called quite often which means it should be as efficient as possible.  You should also avoid unnecessarily returning new instances of objects or arrays.  Consider the following view:
+
+```markup
+<template>
+  <label for="search">Search Issues:</label>
+  <input id="search" type="text" value.bind="searchText" />
+  <ul>
+    <li repeat.for="issue of filteredIssues">${issue.abstract}</li>
+  </ul>
+</template>
+```
+
+Naive view model implementation:
+
+```javascript
+export class IssueSearch {
+  searchText = '';
+
+  constructor(allIssues) {
+    this.allIssues = allIssues;
+  }
+
+  // this returns a new array instance on every call which will in-turn result in a lot of DOM updates.
+  get filteredIssues() {
+    if (this.searchText === '')
+      return [];
+    return this.allIssues.filter(x => x.abstract.indexOf(this.searchText) !== -1);
+  }
+}
+```
+
+Improved view model implementation:
+
+```javascript
+export class IssueSearch {
+  filteredIssues = [];
+  _searchText = '';
+
+  constructor(allIssues) {
+    this.allIssues = allIssues;
+  }
+
+  get searchText() {
+    return this._searchText;
+  }
+  set searchText(newValue) {
+    this._searchText = newValue;
+    if (newValue === '') {
+      this.filteredIssues = [];
+    } else {
+      this.filteredIssues = this.allIssues.filter(x => x.abstract.indexOf(this.searchText) !== -1);
+    }
+  }
+}
+```
 
 <h3 id="html-extensions"><a href="#html-extensions">HTML Extensions</a></h3>
 
@@ -569,29 +750,22 @@ If you've read the getting started guide, you know that there are two parts to r
 Let's look at an example configuration.
 
 ```javascript
-import {inject} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-
-@inject(Router)
 export class App {
-  constructor(router) {
+  configureRouter(config, router){
     this.router = router;
-    this.router.configure(config => {
-      config.title = 'Aurelia';
-      config.map([
-        { route: ['', 'home'],               moduleId: './home/index' },
-        { route: 'users',                    moduleId: './users/index',                      nav: true },
-        { route: 'users/:id/detail',         moduleId: './users/detail' },
-        { route: 'files*path',               moduleId: './files/index',     href:'#files',   nav: true }
-      ]);
-    });
+
+    config.title = 'Aurelia';
+    config.map([
+      { route: ['', 'home'],               moduleId: './home/index' },
+      { route: 'users',                    moduleId: './users/index',                      nav: true },
+      { route: 'users/:id/detail',         moduleId: './users/detail' },
+      { route: 'files*path',               moduleId: './files/index',     href:'#files',   nav: true }
+    ]);
   }
 }
 ```
 
-We begin by asking for a `Router` to be injected. We then set this instance to a `router` property on the view-model. _You must name the property **router**_. Then we call the `configure` api. We pass it a function and it passes us a configuration object.
-
-We can optionally set a `title` property to be used in constructing the document's title. But the most important part is setting up the routes. The router's `map` method takes a simple JSON data structure representing your route table. The two most important properties are `route` (a string or array of strings), which defines the route pattern, and `moduleId`, which has the *relative* module Id path to your view-model. You can also set a `title` property, to be used when generating the document's title, a `nav` property indicating whether or not the route should be included in the navigation model (it can also be a number indicating order) and an `href` property which you can use to bind to in the _navigation model_.
+We begin by implementing the `configureRouter` method. We can optionally set a `title` property to be used in constructing the document's title, but the most important part is setting up the routes. The router's `map` method takes a simple JSON data structure representing your route table. The two most important properties are `route` (a string or array of strings), which defines the route pattern, and `moduleId`, which has the *relative* module Id path to your view-model. You can also set a `title` property, to be used when generating the document's title, a `nav` property indicating whether or not the route should be included in the navigation model (it can also be a number indicating order) and an `href` property which you can use to bind to in the _navigation model_.
 
 >**Note:** Any properties that you leave off will be conventionally determined by the framework based on what you have provided.
 
@@ -625,8 +799,8 @@ All routes with a truthy `nav` property are assembled into a `navigation` array.
 
 Whenever the router processes a navigation, it enforces a strict lifecycle on the view-models that it is navigating to and from. There are four stages in the lifecycle. You can opt-in to any of them by implementing the appropriate method on your view-model's class. Here's a list of the lifecycle callbacks:
 
-* `canActivate(params, queryString, routeConfig)` - Implement this hook if you want to control whether or not your view-model _can be navigated to_. Return a boolean value, a promise for a boolean value, or a navigation command.
-* `activate(params, queryString, routeConfig)` - Implement this hook if you want to perform custom logic just before your view-model is displayed. You can optionally return a promise to tell the router to wait to bind and attach the view until after you finish your work.
+* `canActivate(params, routeConfig)` - Implement this hook if you want to control whether or not your view-model _can be navigated to_. Return a boolean value, a promise for a boolean value, or a navigation command.
+* `activate(params, routeConfig)` - Implement this hook if you want to perform custom logic just before your view-model is displayed. You can optionally return a promise to tell the router to wait to bind and attach the view until after you finish your work.
 * `canDeactivate()` - Implement this hook if you want to control whether or not the router _can navigate away_ from your view-model when moving to a new route. Return a boolean value, a promise for a boolean value, or a navigation command.
 * `deactivate()` - Implement this hook if you want to perform custom logic when your view-model is being navigated away from. You can optionally return a promise to tell the router to wait until after your finish your work.
 
@@ -640,24 +814,26 @@ If you haven't read the "Get Started" guide, we recommend that you do that now a
 
 Whenever you set up a route to map to a view-model, that view-model can actually contain its own router...and when you set up routes with that...those view-models can have their own routers...and so on. The route patterns are relative to the parent router and the module and view ids are relative to the view-model itself. This allows you to easily encapsulate features or child applications as well as handle complex hierarchical state.
 
-A child router is just a router like any other. So, everything we've discussed above applies. To add a child router, just ask for a `Router` to be injected and configure it with your child routes. The screen activation lifecycle discussed above applies to child routers as well. Each phase of the lifecycle is run against the entire router hierarchy before moving on to the next phase. The activate hooks run from top to bottom and the deactivate hooks run from bottom to top.
+A child router is just a router like any other. So, everything we've discussed above applies. To add a child router, just implement the `configureRouter` method again. The screen activation lifecycle discussed above applies to child routers as well. Each phase of the lifecycle is run against the entire router hierarchy before moving on to the next phase. The activate hooks run from top to bottom and the deactivate hooks run from bottom to top.
 
 <h3 id="conventional-routing"><a href="#conventional-routing">Conventional Routing</a></h3>
 
 As with everything in Aurelia, we have strong support for conventions. So, you can actually choose to dynamically route rather than pre-configuring all your routes up front. Here's how you configure a router to do that:
 
 ```javascript
-router.configure(config => {
-  config.mapUnknownRoutes(instruction => {
-    //check instruction.fragment
-    //set instruction.config.moduleId
-  });
-});
+export class App {
+  configureRouter(config){
+    config.mapUnknownRoutes(instruction => {
+      //check instruction.fragment
+      //set instruction.config.moduleId
+    });
+  }
+}
 ```
 
 All you have to do is set the `config.moduleId` property and you are good to go. You can also return a promise from `mapUnknownRoutes` in order to asynchronously determine the destination.
 
->**Note:** Though not necessarily related to conventional routing, you may sometimes have a need to asynchronously configure your router. For example, you may need to call a web service to get user permissions before setting up routes. To do this, implement a callback on your router's view-model named `configureRouter`. In this callback you can configure your router and optionally return a Promise if necessary.
+>**Note:** Though not necessarily related to conventional routing, you may sometimes have a need to asynchronously configure your router. For example, you may need to call a web service to get user permissions before setting up routes. To do this, return a promise from `configureRouter`.
 
 <h3 id="customizing-the-navigation-pipeline"><a href="#customizing-the-navigation-pipeline">Customizing the Navigation Pipeline</a></h3>
 
@@ -666,23 +842,18 @@ The router pipeline is composed out of separate steps that run in succession. Ea
 The sample below shows how you can add authorization to your application:
 
 ```javascript
-import {Router, Redirect} from 'aurelia-router';
-import {inject} from 'aurelia-framework';
+import {Redirect} from 'aurelia-router';
 
-@inject(Router)
 export class App {
-  constructor(router) {
-    this.router = router;
-    this.router.configure(config => {
-      config.title = 'Aurelia';
-      config.addPipelineStep('authorize', AuthorizeStep); // Add a route filter to the authorize extensibility point.
-      config.map([
-        { route: ['welcome'],     moduleId: 'welcome',      nav: true, title:'Welcome' },
-        { route: 'flickr',        moduleId: 'flickr',       nav: true, auth: true },
-        { route: 'child-router',  moduleId: 'child-router', nav: true, title:'Child Router' },
-        { route: '',              redirect: 'welcome' }
-      ]);
-    });
+  configureRouter(config) {
+    config.title = 'Aurelia';
+    config.addPipelineStep('authorize', AuthorizeStep); // Add a route filter to the authorize extensibility point.
+    config.map([
+      { route: ['welcome'],     moduleId: 'welcome',      nav: true, title:'Welcome' },
+      { route: 'flickr',        moduleId: 'flickr',       nav: true, auth: true },
+      { route: 'child-router',  moduleId: 'child-router', nav: true, title:'Child Router' },
+      { route: '',              redirect: 'welcome' }
+    ]);
   }
 }
 
@@ -720,14 +891,18 @@ If you'd prefer to get rid of the `#` (hashes) in your URLs, then you're going t
 First you need to tell Aurelia in the `router` `config` that you want to use `pushState` like so:
 
 ``` javascript
-this.router.configure(config => {
-  config.title = 'First Impressions';
-  config.options.pushState = true; // <-- this is all you need here
-  config.map([
-    { route: ['','welcome'],  moduleId: './welcome',      nav: true, title:'Welcome' },
-    { route: 'child-router',  moduleId: './child-router', nav: true, title:'Child Router' }
-  ]);
-});
+export class App {
+  configureRouter(config) {
+    config.title = 'Aurelia';
+    config.options.pushState = true; // <-- this is all you need here
+    config.map([
+      { route: ['welcome'],     moduleId: 'welcome',      nav: true, title:'Welcome' },
+      { route: 'flickr',        moduleId: 'flickr',       nav: true, auth: true },
+      { route: 'child-router',  moduleId: 'child-router', nav: true, title:'Child Router' },
+      { route: '',              redirect: 'welcome' }
+    ]);
+  }
+}
 ```
 
 You will also want to add [a base tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base) to the head of your html document. This is important, so don't leave it off.
@@ -811,20 +986,13 @@ Similar techniques can be used in other server environments - you just need to m
 Sometimes you might want to use the same VM for multiple routes. By default Aurelia will see those routes as aliases to the same VM and thus only perform the build and attach process as well as the complete life-cycle once. This might not be exactly what you are looking for. Take the following router example:
 
 ```javascript
-import {inject} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-
-@inject(Router)
 export class App {
-  constructor(router) {
-    this.router = router;
-    this.router.configure(config => {
-      config.title = 'Aurelia';
-      config.map([
-        { route: 'product/a',         moduleId: './product'      nav: true },
-        { route: 'product/b',         moduleId: './product',     nav: true },
-      ]);
-    });
+  configureRouter(config) {
+    config.title = 'Aurelia';
+    config.map([
+      { route: 'product/a',         moduleId: './product'      nav: true },
+      { route: 'product/b',         moduleId: './product',     nav: true },
+    ]);
   }
 }
 ```
@@ -834,11 +1002,11 @@ Since the VM's life-cycle is called only once you may have problems to recognize
 To work around this issue implement the method `determineActivationStrategy` in your VM and return hints for the router about what you'd like to happen. E.g in order to force a rebuild of the VM implement it like this:
 
 ```javascript
-import {REPLACE} from 'aurelia-router';
+import {activationStrategy} from 'aurelia-router';
 
 export class YourViewModel {
   determineActivationStrategy(){
-    return REPLACE;
+    return activationStrategy.replace;
   }
 }
 ```
@@ -846,11 +1014,11 @@ export class YourViewModel {
 If you just want to force a refresh of the life-cycle (useful with `<compose>` bindings) you may do something like the following:
 
 ```javascript
-import {INVOKE_LIFECYCLE} from 'aurelia-router';
+import {activationStrategy} from 'aurelia-router';
 
 export class YourViewModel {
   determineActivationStrategy(){
-    return INVOKE_LIFECYCLE;
+    return activationStrategy.invokeLifecycle;
   }
 }
 ```
@@ -982,7 +1150,7 @@ If you aren't using ES7 property initializers, you can put the `@bindable` decor
   name:'myProperty', //name of the property on the class
   attribute:'my-property', //name of the attribute in HTML
   changeHandler:'myPropertyChanged', //name of the method to invoke when the property changes
-  defaultBindingMode: ONE_WAY, //default binding mode used with the .bind command
+  defaultBindingMode: bindingMode.oneWay, //default binding mode used with the .bind command
   defaultValue: undefined //default value of the property, if not bound or set in HTML
 })
 ```
@@ -1238,7 +1406,7 @@ export class WebAPI {
     }
 
     getAllContacts(){
-        return this.http.get('uri goes here');
+        return this.http.get('url goes here');
     }
 }
 
@@ -1255,46 +1423,46 @@ export class HttpClient {
     return this;
   }
 
-  createRequest(uri){
+  createRequest(url){
     let builder = new RequestBuilder(this);
 
-    if(uri) {
-      builder.withUri(uri);
+    if(url) {
+      builder.withUrl(url);
     }
 
     return builder;
   }
 
-  delete(uri){
-    return this.createRequest(uri).asDelete().send();
+  delete(url){
+    return this.createRequest(url).asDelete().send();
   }
 
-  get(uri){
-    return this.createRequest(uri).asGet().send();
+  get(url){
+    return this.createRequest(url).asGet().send();
   }
 
-  head(uri){
-    return this.createRequest(uri).asHead().send();
+  head(url){
+    return this.createRequest(url).asHead().send();
   }
 
-  jsonp(uri, callbackParameterName='jsoncallback'){
-    return this.createRequest(uri).asJsonp(callbackParameterName).send();
+  jsonp(url, callbackParameterName='jsoncallback'){
+    return this.createRequest(url).asJsonp(callbackParameterName).send();
   }
 
-  options(uri){
-    return this.createRequest(uri).asOptions().send();
+  options(url){
+    return this.createRequest(url).asOptions().send();
   }
 
-  put(uri, content){
-    return this.createRequest(uri).asPut().withContent(content).send();
+  put(url, content){
+    return this.createRequest(url).asPut().withContent(content).send();
   }
 
-  patch(uri, content){
-    return this.createRequest(uri).asPatch().withContent(content).send();
+  patch(url, content){
+    return this.createRequest(url).asPatch().withContent(content).send();
   }
 
-  post(uri, content){
-    return this.createRequest(uri).asPost().withContent(content).send();
+  post(url, content){
+    return this.createRequest(url).asPost().withContent(content).send();
   }
 }
 ```
@@ -1320,26 +1488,26 @@ There are two other apis that are worth noting. You can use `configure` to acces
 ```javascript
 var client = new HttpClient()
   .configure(x => {
-    x.withBaseUri('http://aurelia.io');
+    x.withBaseUrl('http://aurelia.io');
     x.withHeader('Authorization', 'bearer 123');
   });
 
 client.get('some/cool/path');
 ```
 
-In this case, all requests from the client will have the baseUri of 'http://aurelia.io' and will have the specified Authorization header. The same API is available via the request builder. So, you can accomplish the same thing on an individual request like this:
+In this case, all requests from the client will have the baseUrl of 'http://aurelia.io' and will have the specified Authorization header. The same API is available via the request builder. So, you can accomplish the same thing on an individual request like this:
 
 ```javascript
 var client = new HttpClient();
 
 client.createRequest('some/cool/path')
   .asGet()
-  .withBaseUri('http://aurelia.io')
+  .withBaseUrl('http://aurelia.io')
   .withHeader('Authorization', 'bearer 123')
   .send();
 ```
 
-The fluent API has the following chainable methods: `asDelete()`, `asGet()`, `asHead()`, `asOptions()`, `asPatch()`, `asPost()`, `asPut()`, `asJsonp()`, `withUri()`, `withBaseUri()`, `withContent()`, `withParams()`, `withResponseType()`, `withTimeout()`, `withHeader()`, `withCredentials()`, `withReviver()`, `withReplacer()`, `withProgressCallback()`, and `withCallbackParameterName()`.
+The fluent API has the following chainable methods: `asDelete()`, `asGet()`, `asHead()`, `asOptions()`, `asPatch()`, `asPost()`, `asPut()`, `asJsonp()`, `withUrl()`, `withBaseUrl()`, `withContent()`, `withParams()`, `withResponseType()`, `withTimeout()`, `withHeader()`, `withCredentials()`, `withReviver()`, `withReplacer()`, `withProgressCallback()`, and `withCallbackParameterName()`.
 
 <h2 id="customization"><a href="#customization">Customization</a></h2>
 
