@@ -247,6 +247,16 @@ Decorators = require(&#39;aurelia-framework&#39;).Decorators;
 class CustomerDetail
   constructor: (@http) -&gt;
   @decorators:Decorators.transient().inject(HttpClient);</code></pre>
+<h3 id="parent-vm-reference"><a href="#parent-vm-reference">Parent View Models</a></h3>
+
+<p>By default a View-model&#39;s access is limited to injected objects as well as children of the
+class. Sometimes it may be desirable to refer to objects and methods on a parent View-model,
+which can be achieved by storing the parent during the <em>bind</em> method of the view lifecycle:</p>
+<pre><code class="language-javascript">class ChildViewModel {
+  bind(bindingContext) {
+    this.$parent = bindingContext;
+  }
+}</code></pre>
 <h2 id="templating"><a href="#templating">Templating</a></h2>
 
 <p>Aurelia&#39;s templating engine is responsible for loading your views and their required resources, compiling your HTML for optimal performance and rendering your UI to the screen. To create a view, all you need to do is author an HTML file with an <code>HTMLTemplate</code> inside. Here&#39;s a simple view:</p>
@@ -287,7 +297,7 @@ class CustomerDetail
 <blockquote>
 <p><strong>Note:</strong> You may be concerned about the tediousness of having to import things into each view. Remember, during the bootstrapping phase you can configure Aurelia with global resources to be available in every view. Just use <code>aurelia.globalizeResources(...resourcePaths)</code>.</p>
 </blockquote>
-<p>Aurelia polyfills browsers that don&#39;t support templates. However, a few features of templates can&#39;t be polyfilled and require workarounds. In particular this occurs when adding <code>&lt;tamplate&gt;</code> elements inside <code>&lt;select&gt;</code> and <code>&lt;table&gt;</code> elements. The following can&#39;t be done in a browser that doesn&#39;t natively support templates:</p>
+<p>Aurelia polyfills browsers that don&#39;t support templates. However, a few features of templates can&#39;t be polyfilled and require workarounds. In particular this occurs when adding <code>&lt;template&gt;</code> elements inside <code>&lt;select&gt;</code> and <code>&lt;table&gt;</code> elements. The following can&#39;t be done in a browser that doesn&#39;t natively support templates:</p>
 <pre><code class="language-markup">  &lt;table&gt;
     &lt;template repeat.for=&quot;customer of customers&quot;&gt;
       &lt;tr&gt;
@@ -349,7 +359,7 @@ class CustomerDetail
 &lt;i-consume-a-value input.bind=&quot;producer.output&quot;&gt;&lt;/i-consume-a-value&gt;</code></pre>
 <h4 id="select-elements"><a href="#select-elements">select elements</a></h4>
 
-<p><code>value.bind</code> on an HTMLSelectElement has special behavior to support the element&#39;s single and multi-select modes as well as binding to objects.  </p>
+<p><code>value.bind</code> on an HTMLSelectElement has special behavior to support the element&#39;s single and multi-select modes as well as binding to objects.</p>
 <p>A typical select element is rendered using a combination of <code>value.bind</code> and <code>repeat</code>, like this:</p>
 <pre><code class="language-markup">&lt;select value.bind=&quot;favoriteColor&quot;&gt;
     &lt;option&gt;Select A Color&lt;/option&gt;
@@ -456,8 +466,8 @@ export class MySanitizeHtmlValueConverter {
 <h4 id="adaptive-binding"><a href="#adaptive-binding">Adaptive Binding</a></h4>
 
 <p>Aurelia has an adaptive binding system that chooses from a number of strategies when determining how to most efficiently observe changes.  For more info on how this works checkout <a href="http://blog.durandal.io/2015/04/03/aurelia-adaptive-binding/">this post</a>.  For the most part you don&#39;t need to think about these details however it does help to be aware of scenarios that lead to inefficient use of the binding system.</p>
-<p><strong>The #1 thing to be aware of is computed properties (properties with getter functions) are observed using dirty-checking.</strong>  More efficient strategies such as Object.observe and property rewriting are not compatible with these types of properties.  </p>
-<p>In today&#39;s browser environment dirty-checking is a necessary evil.  Very few browsers support Object.observe at the time of this writing.  Aurelia&#39;s dirty-checking mechanism is similar to that used in <a href="https://www.polymer-project.org/">Polymer</a>.  It&#39;s very efficient and utilizes Aurelia&#39;s micro-task-queue to batch updates to the DOM.  </p>
+<p><strong>The #1 thing to be aware of is computed properties (properties with getter functions) are observed using dirty-checking.</strong>  More efficient strategies such as Object.observe and property rewriting are not compatible with these types of properties.</p>
+<p>In today&#39;s browser environment dirty-checking is a necessary evil.  Very few browsers support Object.observe at the time of this writing.  Aurelia&#39;s dirty-checking mechanism is similar to that used in <a href="https://www.polymer-project.org/">Polymer</a>.  It&#39;s very efficient and utilizes Aurelia&#39;s micro-task-queue to batch updates to the DOM.</p>
 <p>A few bindings using dirty-checking will not cause performance problems in your application.  Extensive use of dirty-checking may.  Fortunately there&#39;s a way you can avoid dirty-checking simple computed properties.  Consider the &#39;fullName&#39; property in the example below:</p>
 <pre><code class="language-javascript">export class Person {
   firstName = &#39;John&#39;;
@@ -1194,9 +1204,9 @@ client.createRequest(&#39;some/cool/path&#39;)
 <h3 id="view-and-view-model-conventions"><a href="#view-and-view-model-conventions">View and View-Model Conventions</a></h3>
 
 <p>How are views and view-models linked? Our simple convention is based on module id. If you&#39;ve got a view-model with id (essentially path) &#39;./foo/bar/baz&#39; then that will map to <code>./foo/bar/baz.js</code> and <code>./foo/bar/baz.html</code> by default. Suppose you want to follow a different convention though. What if all your view-models live in a <code>view-models</code> folder and you want their views to live in a <code>views</code> folder? How would you do that? In order to do this, you want to change the behavior of the Conventional View Strategy. Here&#39;s how you do it:</p>
-<pre><code class="language-javascript">import {ConventionalView} from &#39;aurelia-framework&#39;;
+<pre><code class="language-javascript">import {ConventionalViewStrategy} from &#39;aurelia-framework&#39;;
 
-ConventionalView.convertModuleIdToViewUrl = function(moduleId){
+ConventionalViewStrategy.convertModuleIdToViewUrl = function(moduleId){
   return moduleId.replace(&#39;view-models&#39;, &#39;views&#39;) + &#39;.html&#39;;
 }</code></pre>
 <p>You should execute this code as part of your bootstrapping configuration logic so that it takes effect before any Custom Elements are loaded. This will affect <em>everything</em> including custom elements. So, if you need or want those to act differently, you will need to account for that in your implementation of <code>convertModuleIdToViewUrl</code>.</p>
