@@ -122,6 +122,7 @@ export function configure(aurelia) {
   aurelia.use
     .defaultBindingLanguage()
     .defaultResources()
+    .history()
     .router()
     .eventAggregator()
     .plugin(&#39;./path/to/plugin&#39;);
@@ -352,9 +353,16 @@ class CustomerDetail
 
 <p>In addition to commands and interpolation, the binding language recognizes the use of a special attribute: <code>ref</code>. By using <code>ref</code> you can create a local name for an element which can then be referenced in another binding expression. It will also be set as a property on the view-model, so you can access it through code. Here&#39;s a neat example of using <code>ref</code>:</p>
 <pre><code class="language-markup">&lt;input type=&quot;text&quot; ref=&quot;name&quot;&gt; ${name.value}</code></pre>
-<p>You can also use the special <code>.view-model</code> binding in conjunction with <code>ref</code> to get the view-model instance that backs an Aurelia Custom Element. By using this technique, you can connect different components to each other like so:</p>
-<pre><code class="language-markup">&lt;i-produce-a-value ref.view-model=&quot;producer&quot;&gt;&lt;/i-produce-a-value&gt;
+<p>You can also use <code>ref</code> as a binding command to get the view-model instance that backs an Aurelia Custom Element or Custom Attribute. By using this technique, you can connect different components to each other:</p>
+<pre><code class="language-markup">&lt;i-produce-a-value view-model.ref=&quot;producer&quot;&gt;&lt;/i-produce-a-value&gt;
 &lt;i-consume-a-value input.bind=&quot;producer.output&quot;&gt;&lt;/i-consume-a-value&gt;</code></pre>
+<p><code>view-model.ref=&quot;producer&quot;</code> creates an alias to the view-model for the <code>i-produce-a-value</code> custom element which you can then use elsewhere to pass to another custom element or use properties of the VM. Thus in the second line of the code above, <code>i-consume-a-value</code> has a property called <code>input</code> that has been bound to the <code>output</code> property of the VM of the <code>i-produce-a-value element</code>. There are four ways to use <code>ref</code> to reference elements and view-models:</p>
+<ul>
+<li><code>attribute-name.ref=&quot;someIdentifier&quot;</code>- create a reference to a custom attribute&#39;s class instance</li>
+<li><code>view-model.ref=&quot;someIdentifier&quot;</code> - create a reference to a custom element&#39;s class instance</li>
+<li><code>element.ref=&quot;someIdentifier&quot;</code> - create a reference to the current element itself</li>
+<li><code>ref=&quot;someIdentifier&quot;</code> - same as <code>element.ref</code></li>
+</ul>
 <h4 id="select-elements"><a href="#select-elements">select elements</a></h4>
 
 <p><code>value.bind</code> on an HTMLSelectElement has special behavior to support the element&#39;s single and multi-select modes as well as binding to objects.</p>
