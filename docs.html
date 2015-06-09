@@ -190,13 +190,13 @@ export class CustomerDetail{
 class Flickr
   constructor: (@http) -&gt;
   @inject:[HttpClient]</code></pre>
-<p>If you are working with TypeScript, you can use the <code>--emitDecoratorMetadata</code> compiler flag along with Aurelia&#39;s <code>autoinject()</code> decorator to enable the framework to read the standard TS type information. As a result, there&#39;s no need to duplicate the types. Here&#39;s what that looks like:</p>
+<p>If you are working with TypeScript, you can use the <code>--emitDecoratorMetadata</code> compiler flag along with Aurelia&#39;s <code>@autoinject</code> decorator to enable the framework to read the standard TS type information. As a result, there&#39;s no need to duplicate the types. Here&#39;s what that looks like:</p>
 <pre><code class="language-javascript">import {autoinject} from &#39;aurelia-framework&#39;;
 import {HttpClient} from &#39;aurelia-http-client&#39;;
 
-@autoinject()
-export class CustomerDetail{
-    constructor(http:HttpClient){
+@autoinject
+export class CustomerDetail {
+    constructor(public http:HttpClient) {
         this.http = http;
     }
 }</code></pre>
@@ -249,9 +249,7 @@ class CustomerDetail
   @decorators:Decorators.transient().inject(HttpClient);</code></pre>
 <h3 id="parent-vm-reference"><a href="#parent-vm-reference">Parent View Models</a></h3>
 
-<p>By default a View-model&#39;s access is limited to injected objects as well as children of the
-class. Sometimes it may be desirable to refer to objects and methods on a parent View-model,
-which can be achieved by storing the parent during the <em>bind</em> method of the view lifecycle:</p>
+<p>By default a View-model&#39;s access is limited to injected objects as well as children of the class. Sometimes it may be desirable to refer to objects and methods on a parent View-model, which can be achieved by storing the parent during the <em>bind</em> method of the view lifecycle:</p>
 <pre><code class="language-javascript">class ChildViewModel {
   bind(bindingContext) {
     this.$parent = bindingContext;
@@ -338,7 +336,7 @@ which can be achieved by storing the parent during the <em>bind</em> method of t
 <p><strong>Note:</strong> If you aren&#39;t familiar with event delegation, it&#39;s a technique that uses the bubbling nature of DOM events. When using <code>.delegate</code>, a single event handler is attached to the document, rather than on each element. When the element&#39;s event is fired, it bubbles up the DOM until it reaches the document, where it is handled. This is a more memory efficient way of handling events and it&#39;s recommended to use this as your default mechanism.</p>
 </blockquote>
 <p>All of this works against DOM events in some way or another. Occasionally you may have an Aurelia Custom Attribute or Element that wants a reference to your function directly so that it can invoke it manually at a later time. To pass a function reference, use the <code>.call</code> binding (since the attribute will <em>call</em> it later):</p>
-<pre><code class="language-markup">&lt;div touch.call=&quot;sayHello()&quot;&gt;Say Hello&lt;/button&gt;</code></pre>
+<pre><code class="language-markup">&lt;button touch.call=&quot;sayHello()&quot;&gt;Say Hello&lt;/button&gt;</code></pre>
 <p>Now the Custom Attribute <code>touch</code> will get a function that it can call to invoke your <code>sayHello()</code> code. Depending on the nature of the implementor, you may be able to receive data from the caller. This works the same as with trigger/delegate by providing an <code>$event</code> object.</p>
 <h4 id="string-interpolation"><a href="#string-interpolation">string interpolation</a></h4>
 
@@ -557,6 +555,10 @@ export class MySanitizeHtmlValueConverter {
 <pre><code class="language-markup">&lt;ul&gt;
   &lt;li repeat.for=&quot;[id, customer] of customers&quot;&gt;${id} ${customer.fullName}&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
+<p>If instead of iterating over a collection you would rather iterate a specified number of times, you can instead use the syntax &quot;i of count&quot; where &quot;i&quot; is the index of the iteration and &quot;count&quot; is a binding expression that evaluates to an integer.</p>
+<pre><code class="language-markup">&lt;ul&gt;
+  &lt;li repeat.for=&quot;i of rating&quot;&gt;*&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 <blockquote>
 <p><strong>Note:</strong>: Like the <code>if</code> attribute, you can also use a <code>template</code> tag to group a collection of elements that don&#39;t have a parent element.</p>
 </blockquote>
@@ -580,6 +582,15 @@ export class MySanitizeHtmlValueConverter {
 &lt;/template&gt;</code></pre>
 <p>Now, depending on the <em>type</em> of the item, the <code>compose</code> element will load a different view-model (and view) and render it into the DOM. If the view-model has an <code>activate</code> method, the <code>compose</code> element will call it and pass in the <code>model</code> as a parameter. The <code>activate</code> method can even return a <code>Promise</code> to cause the composition process to wait until after some async work is done before actually databinding and rendering into the DOM.</p>
 <p>The <code>compose</code> element also has a <code>view</code> attribute which can be used in the same way as <code>view-model</code> if you don&#39;t wish to leverage the standard view/view-model convention. If you specify a <code>view</code> but no <code>view-model</code> then the view will be databound to the surrounding context.</p>
+<pre><code class="language-markup">&lt;template repeat.for=&quot;item of items&quot;&gt;
+    &lt;compose view=&quot;my-view.html&quot;&gt;&lt;/compose&gt;
+&lt;/template&gt;</code></pre>
+<p>If you would like to databind a particular object when using only <code>view</code> rather than a full fledged view model (perhaps as part of a repeat), you may do so by binding the <code>view-model</code> directly. Now you will be able to use properties of that object directly in your <code>view</code>:</p>
+<pre><code class="language-markup">&lt;template&gt;
+    &lt;div repeat.for=&quot;item of items&quot;&gt;
+      &lt;compose view=&quot;my-view.html&quot; view-model.bind=&quot;item&quot;&gt;
+    &lt;/div&gt;
+&lt;/template&gt;</code></pre>
 <p>What if you want to determine the view dynamically based on data though? or runtime conditions? You can do that too by implementing a <code>getViewStrategy()</code> method on your view-model. It can return a relative path to the view or an instance of a <code>ViewStrategy</code> for custom view loading behavior. The nice part is that this method is executed after the <code>activate</code> callback, so you have access to the model data when determining the view.</p>
 <h4 id="global-behavior"><a href="#global-behavior">global-behavior</a></h4>
 
@@ -603,18 +614,18 @@ export class MySanitizeHtmlValueConverter {
 
     config.title = &#39;Aurelia&#39;;
     config.map([
-      { route: [&#39;&#39;, &#39;home&#39;],               moduleId: &#39;./home/index&#39; },
-      { route: &#39;users&#39;,                    moduleId: &#39;./users/index&#39;,                      nav: true },
-      { route: &#39;users/:id/detail&#39;,         moduleId: &#39;./users/detail&#39; },
-      { route: &#39;files*path&#39;,               moduleId: &#39;./files/index&#39;,     href:&#39;#files&#39;,   nav: true }
+      { route: [&#39;&#39;, &#39;home&#39;],       name: &#39;home&#39;,       moduleId: &#39;./home/index&#39; },
+      { route: &#39;users&#39;,            name: &#39;users&#39;,      moduleId: &#39;./users/index&#39;,                      nav: true },
+      { route: &#39;users/:id/detail&#39;, name: &#39;userDetail&#39;, moduleId: &#39;./users/detail&#39; },
+      { route: &#39;files*path&#39;,       name: &#39;files&#39;,      moduleId: &#39;./files/index&#39;,     href:&#39;#files&#39;,   nav: true }
     ]);
   }
 }</code></pre>
-<p>We begin by implementing the <code>configureRouter</code> method. We can optionally set a <code>title</code> property to be used in constructing the document&#39;s title, but the most important part is setting up the routes. The router&#39;s <code>map</code> method takes a simple JSON data structure representing your route table. The two most important properties are <code>route</code> (a string or array of strings), which defines the route pattern, and <code>moduleId</code>, which has the <em>relative</em> module Id path to your view-model. You can also set a <code>title</code> property, to be used when generating the document&#39;s title, a <code>nav</code> property indicating whether or not the route should be included in the navigation model (it can also be a number indicating order) and an <code>href</code> property which you can use to bind to in the <em>navigation model</em>.</p>
+<p>We begin by implementing the <code>configureRouter</code> method. We can optionally set a <code>title</code> property to be used in constructing the document&#39;s title, but the most important part is setting up the routes. The router&#39;s <code>map</code> method takes a simple JSON data structure representing your route table. The two most important properties are <code>route</code> (a string or array of strings), which defines the route pattern, and <code>moduleId</code>, which has the <em>relative</em> module Id path to your view-model. You can also set a <code>name</code> property, to be used to generate a link to the route later, a <code>title</code> property, to be used when generating the document&#39;s title, a <code>nav</code> property indicating whether or not the route should be included in the navigation model (it can also be a number indicating order) and an <code>href</code> property which you can use to bind to in the <em>navigation model</em>.</p>
 <blockquote>
 <p><strong>Note:</strong> Any properties that you leave off will be conventionally determined by the framework based on what you have provided.</p>
 </blockquote>
-<p>So, what options to you have for the route pattern?</p>
+<p>So, what options do you have for the route pattern?</p>
 <ul>
 <li>static routes<ul>
 <li>ie &#39;home&#39; - Matches the string exactly.</li>
@@ -646,12 +657,18 @@ export class MySanitizeHtmlValueConverter {
 
 <p>Whenever the router processes a navigation, it enforces a strict lifecycle on the view-models that it is navigating to and from. There are four stages in the lifecycle. You can opt-in to any of them by implementing the appropriate method on your view-model&#39;s class. Here&#39;s a list of the lifecycle callbacks:</p>
 <ul>
-<li><code>canActivate(params, routeConfig)</code> - Implement this hook if you want to control whether or not your view-model <em>can be navigated to</em>. Return a boolean value, a promise for a boolean value, or a navigation command.</li>
-<li><code>activate(params, routeConfig)</code> - Implement this hook if you want to perform custom logic just before your view-model is displayed. You can optionally return a promise to tell the router to wait to bind and attach the view until after you finish your work.</li>
+<li><code>canActivate(params, routeConfig, navigationInstruction)</code> - Implement this hook if you want to control whether or not your view-model <em>can be navigated to</em>. Return a boolean value, a promise for a boolean value, or a navigation command.</li>
+<li><code>activate(params, routeConfig, navigationInstruction)</code> - Implement this hook if you want to perform custom logic just before your view-model is displayed. You can optionally return a promise to tell the router to wait to bind and attach the view until after you finish your work.</li>
 <li><code>canDeactivate()</code> - Implement this hook if you want to control whether or not the router <em>can navigate away</em> from your view-model when moving to a new route. Return a boolean value, a promise for a boolean value, or a navigation command.</li>
 <li><code>deactivate()</code> - Implement this hook if you want to perform custom logic when your view-model is being navigated away from. You can optionally return a promise to tell the router to wait until after your finish your work.</li>
 </ul>
-<p>The <code>params</code> object will have a property for each parameter of the route that was parsed, <code>queryString</code> will have a property for each query string value and <code>routeConfig</code> will be the original route configuration object that you set up.</p>
+<p>The <code>params</code> object will have a property for each parameter of the route that was parsed, as well as a property for each query string value. <code>routeConfig</code> will be the original route configuration object that you set up. <code>routeConfig</code> will also have a new <code>navModel</code> property, which can be used to change the document title from data loaded by your view-model. For example:</p>
+<pre><code class="language-javascript">activate(params, routeConfig) {
+  this.userService.getUser(params.id)
+    .then(user =&gt; {
+      routeConfig.navModel.setTitle(user.name);
+    });
+}</code></pre>
 <blockquote>
 <p><strong>Note:</strong> A <em>Navigation Command</em> is any object with a <code>navigate(router)</code> method. When one is encountered, the navigation will be cancelled and control will be passed to the navigation command. One navigation command is provided out of the box: <code>Redirect</code>.</p>
 </blockquote>
@@ -677,7 +694,7 @@ export class MySanitizeHtmlValueConverter {
 </blockquote>
 <h3 id="customizing-the-navigation-pipeline"><a href="#customizing-the-navigation-pipeline">Customizing the Navigation Pipeline</a></h3>
 
-<p>The router pipeline is composed out of separate steps that run in succession. Each of these steps has the ability to modify what happens during routing, or stop the routing altogether. The pipeline also contains a few extensibility points where you can add your own steps. These are <code>authorize</code> and <code>bindmodel</code>. <code>authorize</code> happens before <code>bindmodel</code>. These extensions are called route filters.</p>
+<p>The router pipeline is composed out of separate steps that run in succession. Each of these steps has the ability to modify what happens during routing, or stop the routing altogether. The pipeline also contains a few extensibility points where you can add your own steps. These are <code>authorize</code> and <code>modelbind</code>. <code>authorize</code> happens before <code>modelbind</code>. These extensions are called route filters.</p>
 <p>The sample below shows how you can add authorization to your application:</p>
 <pre><code class="language-javascript">import {Redirect} from &#39;aurelia-router&#39;;
 
@@ -686,9 +703,9 @@ export class App {
     config.title = &#39;Aurelia&#39;;
     config.addPipelineStep(&#39;authorize&#39;, AuthorizeStep); // Add a route filter to the authorize extensibility point.
     config.map([
-      { route: [&#39;welcome&#39;],     moduleId: &#39;welcome&#39;,      nav: true, title:&#39;Welcome&#39; },
-      { route: &#39;flickr&#39;,        moduleId: &#39;flickr&#39;,       nav: true, auth: true },
-      { route: &#39;child-router&#39;,  moduleId: &#39;child-router&#39;, nav: true, title:&#39;Child Router&#39; },
+      { route: [&#39;welcome&#39;],    name: &#39;welcome&#39;,       moduleId: &#39;welcome&#39;,      nav: true, title:&#39;Welcome&#39; },
+      { route: &#39;flickr&#39;,       name: &#39;flickr&#39;,        moduleId: &#39;flickr&#39;,       nav: true, auth: true },
+      { route: &#39;child-router&#39;, name: &#39;childRouter&#39;,   moduleId: &#39;child-router&#39;,  nav: true, title:&#39;Child Router&#39; },
       { route: &#39;&#39;,              redirect: &#39;welcome&#39; }
     ]);
   }
@@ -709,7 +726,7 @@ class AuthorizeStep {
     return next();
   }
 }</code></pre>
-<p>These extensibility points are in and of themselves small pipelines, and multiple steps can be added to each of them. For instance, if in addition to the <code>AuthorizeStep</code> above (which would just check that a user is logged in), you could add a <code>IsAdminStep</code> to the <code>authorize</code> extensibility point. They would then run in succession.</p>
+<p>These extensibility points are in and of themselves small pipelines, and multiple steps can be added to each of them. For instance, if in addition to the <code>AuthorizeStep</code> above (which would just check that a user is logged in), you could add an <code>IsAdminStep</code> to the <code>authorize</code> extensibility point. They would then run in succession.</p>
 <p>It&#39;s also possible to create your own named filters by simply passing a different name into <code>addPipelineStep</code>. This can be used like in the example below:</p>
 <pre><code class="language-javascript">config.addPipelineStep(&#39;myname&#39;, MyFirstStep); // Transparently creates the pipeline &quot;myname&quot; if it doesn&#39;t already exist.
 config.addPipelineStep(&#39;myname&#39;, MySecondStep); // Adds another step to it.
@@ -723,10 +740,10 @@ config.addPipelineStep(&#39;modelbind&#39;, &#39;myname&#39;); // Makes the enti
     config.title = &#39;Aurelia&#39;;
     config.options.pushState = true; // &lt;-- this is all you need here
     config.map([
-      { route: [&#39;welcome&#39;],     moduleId: &#39;welcome&#39;,      nav: true, title:&#39;Welcome&#39; },
-      { route: &#39;flickr&#39;,        moduleId: &#39;flickr&#39;,       nav: true, auth: true },
-      { route: &#39;child-router&#39;,  moduleId: &#39;child-router&#39;, nav: true, title:&#39;Child Router&#39; },
-      { route: &#39;&#39;,              redirect: &#39;welcome&#39; }
+      { route: [&#39;welcome&#39;],    name: &#39;welcome&#39;,     moduleId: &#39;welcome&#39;,      nav: true, title:&#39;Welcome&#39; },
+      { route: &#39;flickr&#39;,       name: &#39;flickr&#39;,      moduleId: &#39;flickr&#39;,       nav: true, auth: true },
+      { route: &#39;child-router&#39;, name: &#39;childRouter&#39;, moduleId: &#39;child-router&#39;, nav: true, title:&#39;Child Router&#39; },
+      { route: &#39;&#39;,             redirect: &#39;welcome&#39; }
     ]);
   }
 }</code></pre>
@@ -789,8 +806,8 @@ config.addPipelineStep(&#39;modelbind&#39;, &#39;myname&#39;); // Makes the enti
   configureRouter(config) {
     config.title = &#39;Aurelia&#39;;
     config.map([
-      { route: &#39;product/a&#39;,         moduleId: &#39;./product&#39;      nav: true },
-      { route: &#39;product/b&#39;,         moduleId: &#39;./product&#39;,     nav: true },
+      { route: &#39;product/a&#39;,    moduleId: &#39;./product&#39;,     nav: true },
+      { route: &#39;product/b&#39;,    moduleId: &#39;./product&#39;,     nav: true },
     ]);
   }
 }</code></pre>
@@ -814,6 +831,46 @@ export class YourViewModel {
 <blockquote>
 <p><strong>Note:</strong> Keep in mind that by forcing refreshes, Aurelia has to rebuild the complete VM. As for performance reasons a simple observer on the <code>router.currentInstruction</code> might be sufficient for scenarios where you&#39;d simply like to exchange some data.</p>
 </blockquote>
+<h3 id="rendering-multiple-view-ports"><a href="#rendering-multiple-view-ports">Rendering multiple ViewPorts</a></h3>
+Sometimes you need to render content in more than one area of the page. Aurelia&#39;s router lets you specify multiple <code>router-view</code>s to be activated by a single route. First, add named <code>router-view</code> elements to your view:
+
+<code>markup
+&lt;template&gt;
+  &lt;div class=&quot;page-host&quot;&gt;
+    &lt;router-view name=&quot;left&quot;&gt;&lt;/router-view&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;page-host&quot;&gt;
+    &lt;router-view name=&quot;right&quot;&gt;&lt;/router-view&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code>
+
+Then in your route config, specify which modules should be activated for each named <code>router-view</code>.
+
+<code>javascript
+configureRouter(config){
+  config.map([{
+    route: &#39;edit&#39;,
+      viewPorts: {
+        left: {
+          moduleId: &#39;./editor&#39;
+        },
+        right: {
+          moduleId: &#39;./preview&#39;
+        }
+      }
+    }]);
+}</code>
+
+If you don&#39;t name a <code>router-view</code>, it will be available under the name <code>&#39;default&#39;</code>.
+
+<h3 id="generating-route-urls"><a href="#generating-route-urls">Generating route URLs</a></h3>
+
+<p>If you need a to create a URL that matches an existing route, the router can generate one for you.</p>
+<pre><code class="language-javascript">router.generate(&#39;userDetail&#39;, { id: 123 });</code></pre>
+<p>The first parameter is the route name, as specified in the route config. The second parameter is an object with route parameters to fill in to the route template. Any properties of the object that don&#39;t map to route parameters will be automatically appended to the query string.</p>
+<p>If you want to navigate to the generated URL, use <code>router.navigateToRoute(&#39;userDetail&#39;, { id: 123 })</code>.</p>
+<p>If you simply want to render an anchor in your view, you can use the <code>route-href</code> custom attribute.</p>
+<pre><code class="language-markup">&lt;a route-href=&quot;route: userDetail; params.bind: { id: user.id }&quot;&gt;${user.name}&lt;/a&gt;</code></pre>
 <h2 id="extending-html"><a href="#extending-html">Extending HTML</a></h2>
 
 <p>Aurelia has a powerful and extensible HTML template compiler. The compiler itself is just an algorithm for interacting with these extensions. Out of the box, Aurelia provides two extensions: <em>Custom Elements</em> and <em>Custom Attributes</em>.</p>
@@ -997,7 +1054,7 @@ export class SayHello {
   @bindable to;
 
   speak(){
-    alert(&#39;Hello ${this.to}!&#39;);
+    alert(`Hello ${this.to}!`);
   }
 }</code></pre>
 <p>If you read the section on Custom Attributes, then you know what this does. There&#39;s some conventions too, which means we can do this if we want:</p>
@@ -1008,7 +1065,7 @@ export class SayHelloCustomElement {
   @bindable to;
 
   speak(){
-    alert(&#39;Hello ${this.to}!&#39;);
+    alert(`Hello ${this.to}!`);
   }
 }</code></pre>
 <p>Be default, Custom Elements have a view. Here&#39;s the view for ours:</p>

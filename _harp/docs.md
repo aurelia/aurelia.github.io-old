@@ -140,15 +140,15 @@ class Flickr
   @inject:[HttpClient]
 ```
 
-If you are working with TypeScript, you can use the `--emitDecoratorMetadata` compiler flag along with Aurelia's `autoinject()` decorator to enable the framework to read the standard TS type information. As a result, there's no need to duplicate the types. Here's what that looks like:
+If you are working with TypeScript, you can use the `--emitDecoratorMetadata` compiler flag along with Aurelia's `@autoinject` decorator to enable the framework to read the standard TS type information. As a result, there's no need to duplicate the types. Here's what that looks like:
 
 ```javascript
 import {autoinject} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-http-client';
 
-@autoinject()
-export class CustomerDetail{
-    constructor(http:HttpClient){
+@autoinject
+export class CustomerDetail {
+    constructor(public http:HttpClient) {
         this.http = http;
     }
 }
@@ -209,9 +209,7 @@ class CustomerDetail
 
 <h3 id="parent-vm-reference"><a href="#parent-vm-reference">Parent View Models</a></h3>
 
-By default a View-model's access is limited to injected objects as well as children of the
-class. Sometimes it may be desirable to refer to objects and methods on a parent View-model,
-which can be achieved by storing the parent during the _bind_ method of the view lifecycle:
+By default a View-model's access is limited to injected objects as well as children of the class. Sometimes it may be desirable to refer to objects and methods on a parent View-model, which can be achieved by storing the parent during the _bind_ method of the view lifecycle:
 
 ```javascript
 class ChildViewModel {
@@ -348,7 +346,7 @@ The `$event` property can be passed as an argument to a delegate/trigger functio
 All of this works against DOM events in some way or another. Occasionally you may have an Aurelia Custom Attribute or Element that wants a reference to your function directly so that it can invoke it manually at a later time. To pass a function reference, use the `.call` binding (since the attribute will _call_ it later):
 
 ```markup
-<div touch.call="sayHello()">Say Hello</button>
+<button touch.call="sayHello()">Say Hello</button>
 ```
 
 Now the Custom Attribute `touch` will get a function that it can call to invoke your `sayHello()` code. Depending on the nature of the implementor, you may be able to receive data from the caller. This works the same as with trigger/delegate by providing an `$event` object.
@@ -707,6 +705,14 @@ Speaking of Maps, here's how you would bind to an ES6 Map:
 </ul>
 ```
 
+If instead of iterating over a collection you would rather iterate a specified number of times, you can instead use the syntax "i of count" where "i" is the index of the iteration and "count" is a binding expression that evaluates to an integer.
+
+```markup
+<ul>
+  <li repeat.for="i of rating">*</li>
+</ul>
+```
+
 > **Note:**: Like the `if` attribute, you can also use a `template` tag to group a collection of elements that don't have a parent element.
 
 Each item that is being repeated by the `repeat` attribute has several special contextual values available for binding:
@@ -734,6 +740,22 @@ The `compose` Custom Element enables you to dynamically render UI into the DOM. 
 Now, depending on the _type_ of the item, the `compose` element will load a different view-model (and view) and render it into the DOM. If the view-model has an `activate` method, the `compose` element will call it and pass in the `model` as a parameter. The `activate` method can even return a `Promise` to cause the composition process to wait until after some async work is done before actually databinding and rendering into the DOM.
 
 The `compose` element also has a `view` attribute which can be used in the same way as `view-model` if you don't wish to leverage the standard view/view-model convention. If you specify a `view` but no `view-model` then the view will be databound to the surrounding context.
+
+```markup
+<template repeat.for="item of items">
+    <compose view="my-view.html"></compose>
+</template>
+```
+
+If you would like to databind a particular object when using only `view` rather than a full fledged view model (perhaps as part of a repeat), you may do so by binding the `view-model` directly. Now you will be able to use properties of that object directly in your `view`:
+
+```markup
+<template>
+    <div repeat.for="item of items">
+      <compose view="my-view.html" view-model.bind="item">
+    </div>
+</template>
+```
 
 What if you want to determine the view dynamically based on data though? or runtime conditions? You can do that too by implementing a `getViewStrategy()` method on your view-model. It can return a relative path to the view or an instance of a `ViewStrategy` for custom view loading behavior. The nice part is that this method is executed after the `activate` callback, so you have access to the model data when determining the view.
 
@@ -770,20 +792,20 @@ export class App {
 
     config.title = 'Aurelia';
     config.map([
-      { route: ['', 'home'],               moduleId: './home/index' },
-      { route: 'users',                    moduleId: './users/index',                      nav: true },
-      { route: 'users/:id/detail',         moduleId: './users/detail' },
-      { route: 'files*path',               moduleId: './files/index',     href:'#files',   nav: true }
+      { route: ['', 'home'],       name: 'home',       moduleId: './home/index' },
+      { route: 'users',            name: 'users',      moduleId: './users/index',                      nav: true },
+      { route: 'users/:id/detail', name: 'userDetail', moduleId: './users/detail' },
+      { route: 'files*path',       name: 'files',      moduleId: './files/index',     href:'#files',   nav: true }
     ]);
   }
 }
 ```
 
-We begin by implementing the `configureRouter` method. We can optionally set a `title` property to be used in constructing the document's title, but the most important part is setting up the routes. The router's `map` method takes a simple JSON data structure representing your route table. The two most important properties are `route` (a string or array of strings), which defines the route pattern, and `moduleId`, which has the *relative* module Id path to your view-model. You can also set a `title` property, to be used when generating the document's title, a `nav` property indicating whether or not the route should be included in the navigation model (it can also be a number indicating order) and an `href` property which you can use to bind to in the _navigation model_.
+We begin by implementing the `configureRouter` method. We can optionally set a `title` property to be used in constructing the document's title, but the most important part is setting up the routes. The router's `map` method takes a simple JSON data structure representing your route table. The two most important properties are `route` (a string or array of strings), which defines the route pattern, and `moduleId`, which has the *relative* module Id path to your view-model. You can also set a `name` property, to be used to generate a link to the route later, a `title` property, to be used when generating the document's title, a `nav` property indicating whether or not the route should be included in the navigation model (it can also be a number indicating order) and an `href` property which you can use to bind to in the _navigation model_.
 
 >**Note:** Any properties that you leave off will be conventionally determined by the framework based on what you have provided.
 
-So, what options to you have for the route pattern?
+So, what options do you have for the route pattern?
 
 * static routes
     - ie 'home' - Matches the string exactly.
@@ -813,12 +835,21 @@ All routes with a truthy `nav` property are assembled into a `navigation` array.
 
 Whenever the router processes a navigation, it enforces a strict lifecycle on the view-models that it is navigating to and from. There are four stages in the lifecycle. You can opt-in to any of them by implementing the appropriate method on your view-model's class. Here's a list of the lifecycle callbacks:
 
-* `canActivate(params, routeConfig)` - Implement this hook if you want to control whether or not your view-model _can be navigated to_. Return a boolean value, a promise for a boolean value, or a navigation command.
-* `activate(params, routeConfig)` - Implement this hook if you want to perform custom logic just before your view-model is displayed. You can optionally return a promise to tell the router to wait to bind and attach the view until after you finish your work.
+* `canActivate(params, routeConfig, navigationInstruction)` - Implement this hook if you want to control whether or not your view-model _can be navigated to_. Return a boolean value, a promise for a boolean value, or a navigation command.
+* `activate(params, routeConfig, navigationInstruction)` - Implement this hook if you want to perform custom logic just before your view-model is displayed. You can optionally return a promise to tell the router to wait to bind and attach the view until after you finish your work.
 * `canDeactivate()` - Implement this hook if you want to control whether or not the router _can navigate away_ from your view-model when moving to a new route. Return a boolean value, a promise for a boolean value, or a navigation command.
 * `deactivate()` - Implement this hook if you want to perform custom logic when your view-model is being navigated away from. You can optionally return a promise to tell the router to wait until after your finish your work.
 
-The `params` object will have a property for each parameter of the route that was parsed, `queryString` will have a property for each query string value and `routeConfig` will be the original route configuration object that you set up.
+The `params` object will have a property for each parameter of the route that was parsed, as well as a property for each query string value. `routeConfig` will be the original route configuration object that you set up. `routeConfig` will also have a new `navModel` property, which can be used to change the document title from data loaded by your view-model. For example:
+
+```javascript
+activate(params, routeConfig) {
+  this.userService.getUser(params.id)
+    .then(user => {
+      routeConfig.navModel.setTitle(user.name);
+    });
+}
+```
 
 > **Note:** A _Navigation Command_ is any object with a `navigate(router)` method. When one is encountered, the navigation will be cancelled and control will be passed to the navigation command. One navigation command is provided out of the box: `Redirect`.
 
@@ -851,7 +882,7 @@ All you have to do is set the `config.moduleId` property and you are good to go.
 
 <h3 id="customizing-the-navigation-pipeline"><a href="#customizing-the-navigation-pipeline">Customizing the Navigation Pipeline</a></h3>
 
-The router pipeline is composed out of separate steps that run in succession. Each of these steps has the ability to modify what happens during routing, or stop the routing altogether. The pipeline also contains a few extensibility points where you can add your own steps. These are `authorize` and `bindmodel`. `authorize` happens before `bindmodel`. These extensions are called route filters.
+The router pipeline is composed out of separate steps that run in succession. Each of these steps has the ability to modify what happens during routing, or stop the routing altogether. The pipeline also contains a few extensibility points where you can add your own steps. These are `authorize` and `modelbind`. `authorize` happens before `modelbind`. These extensions are called route filters.
 
 The sample below shows how you can add authorization to your application:
 
@@ -863,9 +894,9 @@ export class App {
     config.title = 'Aurelia';
     config.addPipelineStep('authorize', AuthorizeStep); // Add a route filter to the authorize extensibility point.
     config.map([
-      { route: ['welcome'],     moduleId: 'welcome',      nav: true, title:'Welcome' },
-      { route: 'flickr',        moduleId: 'flickr',       nav: true, auth: true },
-      { route: 'child-router',  moduleId: 'child-router', nav: true, title:'Child Router' },
+      { route: ['welcome'],    name: 'welcome',       moduleId: 'welcome',      nav: true, title:'Welcome' },
+      { route: 'flickr',       name: 'flickr',        moduleId: 'flickr',       nav: true, auth: true },
+      { route: 'child-router', name: 'childRouter',   moduleId: 'child-router',  nav: true, title:'Child Router' },
       { route: '',              redirect: 'welcome' }
     ]);
   }
@@ -888,7 +919,7 @@ class AuthorizeStep {
 }
 ```
 
-These extensibility points are in and of themselves small pipelines, and multiple steps can be added to each of them. For instance, if in addition to the `AuthorizeStep` above (which would just check that a user is logged in), you could add a `IsAdminStep` to the `authorize` extensibility point. They would then run in succession.
+These extensibility points are in and of themselves small pipelines, and multiple steps can be added to each of them. For instance, if in addition to the `AuthorizeStep` above (which would just check that a user is logged in), you could add an `IsAdminStep` to the `authorize` extensibility point. They would then run in succession.
 
 It's also possible to create your own named filters by simply passing a different name into `addPipelineStep`. This can be used like in the example below:
 
@@ -910,10 +941,10 @@ export class App {
     config.title = 'Aurelia';
     config.options.pushState = true; // <-- this is all you need here
     config.map([
-      { route: ['welcome'],     moduleId: 'welcome',      nav: true, title:'Welcome' },
-      { route: 'flickr',        moduleId: 'flickr',       nav: true, auth: true },
-      { route: 'child-router',  moduleId: 'child-router', nav: true, title:'Child Router' },
-      { route: '',              redirect: 'welcome' }
+      { route: ['welcome'],    name: 'welcome',     moduleId: 'welcome',      nav: true, title:'Welcome' },
+      { route: 'flickr',       name: 'flickr',      moduleId: 'flickr',       nav: true, auth: true },
+      { route: 'child-router', name: 'childRouter', moduleId: 'child-router', nav: true, title:'Child Router' },
+      { route: '',             redirect: 'welcome' }
     ]);
   }
 }
@@ -1004,8 +1035,8 @@ export class App {
   configureRouter(config) {
     config.title = 'Aurelia';
     config.map([
-      { route: 'product/a',         moduleId: './product'      nav: true },
-      { route: 'product/b',         moduleId: './product',     nav: true },
+      { route: 'product/a',    moduleId: './product',     nav: true },
+      { route: 'product/b',    moduleId: './product',     nav: true },
     ]);
   }
 }
@@ -1038,6 +1069,58 @@ export class YourViewModel {
 ```
 
 > **Note:** Keep in mind that by forcing refreshes, Aurelia has to rebuild the complete VM. As for performance reasons a simple observer on the `router.currentInstruction` might be sufficient for scenarios where you'd simply like to exchange some data.
+
+<h3 id="rendering-multiple-view-ports"><a href="#rendering-multiple-view-ports">Rendering multiple ViewPorts</a></h3>
+Sometimes you need to render content in more than one area of the page. Aurelia's router lets you specify multiple `router-view`s to be activated by a single route. First, add named `router-view` elements to your view:
+
+```markup
+<template>
+  <div class="page-host">
+    <router-view name="left"></router-view>
+  </div>
+  <div class="page-host">
+    <router-view name="right"></router-view>
+  </div>
+</template>
+```
+
+Then in your route config, specify which modules should be activated for each named `router-view`.
+
+```javascript
+configureRouter(config){
+  config.map([{
+    route: 'edit',
+      viewPorts: {
+        left: {
+          moduleId: './editor'
+        },
+        right: {
+          moduleId: './preview'
+        }
+      }
+    }]);
+}
+```
+
+If you don't name a `router-view`, it will be available under the name `'default'`.
+
+<h3 id="generating-route-urls"><a href="#generating-route-urls">Generating route URLs</a></h3>
+
+If you need a to create a URL that matches an existing route, the router can generate one for you.
+
+```javascript
+router.generate('userDetail', { id: 123 });
+```
+
+The first parameter is the route name, as specified in the route config. The second parameter is an object with route parameters to fill in to the route template. Any properties of the object that don't map to route parameters will be automatically appended to the query string.
+
+If you want to navigate to the generated URL, use `router.navigateToRoute('userDetail', { id: 123 })`.
+
+If you simply want to render an anchor in your view, you can use the `route-href` custom attribute.
+
+```markup
+<a route-href="route: userDetail; params.bind: { id: user.id }">${user.name}</a>
+```
 
 <h2 id="extending-html"><a href="#extending-html">Extending HTML</a></h2>
 
@@ -1265,7 +1348,7 @@ export class SayHello {
   @bindable to;
 
   speak(){
-    alert('Hello ${this.to}!');
+    alert(`Hello ${this.to}!`);
   }
 }
 ```
@@ -1280,7 +1363,7 @@ export class SayHelloCustomElement {
   @bindable to;
 
   speak(){
-    alert('Hello ${this.to}!');
+    alert(`Hello ${this.to}!`);
   }
 }
 ```
