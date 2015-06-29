@@ -9,14 +9,13 @@ We've got a very rich set of docs planned for Aurelia. Unfortunately, we haven't
 Aurelia was originally designed for Evergreen Browsers. This includes Chrome, Firefox, IE11 and Safari 8. However, we have identified how to support IE9 and above. To make this work, you need to add an additional polyfill for MutationObservers. This can be achieved by a jspm install of `github:polymer/mutationobservers`. Then wrap the call to `aurelia-bootstrapper` as follows:
 
 ```markup
-<script src="jspm_packages/github/polymer/mutationobservers@0.4.2/MutationObserver.js"></script>
 <script src="jspm_packages/system.js"></script>
 <script src="config.js"></script>
 <script>
   // Loads WeakMap polyfill needed by MutationObservers
   System.import('core-js').then( function() {
     // Imports MutationObserver polyfill
-    System.import('mutationobservers').then( function() {
+    System.import('polymer/mutationobservers').then( function() {
       // Ensures start of Aurelia when all required IE9 dependencies are loaded
       System.import('aurelia-bootstrapper');
     })
@@ -1392,6 +1391,71 @@ That's really all there is to it. You follow the same view-model/view naming con
 *  `@skipContentProcessing` - Tells the compiler not to process the content of your custom element. It is expected that you will do custom processing yourself.
 *  `@useView(path)` - Specifies a different view to use.
 *  `@noView` - Indicates that this custom element does not have a view and that the author intends for the element to handle its own rendering internally.
+
+
+<h3 id="template-parts"><a href="#template-parts">Template Parts</a></h3>
+
+Template part replacement in custom elements allows a custom element to specify certain parts of its view which can be replaced with alternate markup at runtime on a per-instance basis.
+
+If you are using a custom element you can mark any part of it’s view as `replaceable`. Then the consumer of your element can specify a template in the element's content indicating the part they want it to replace in the element’s view.  Use `part="someName"` to identify a part of the template that is replaceable. If it’s not a template for a template controller (repeat or if) then you also need the `replaceable` attribute on the part. Finally, when the consumer wants to replace that part, they add `replace-part"someName"`` on a template inside the elements' content to provide the alternate version.
+
+Here's an example that shows how to make the template inside of a repeater replaceable without affecting the `li` container. It also shows how to create the custom element so that the runtime binding context where the custom element is used can be reached by the replaced template.
+
+#### example.js
+```javascript
+export class Example {
+  constructor(){
+    this.items = [1,2,3,4,5];
+  }
+
+  bind(context){
+    this.$parent = context;
+  }
+}
+```
+
+#### example.html
+```markup
+<template>
+  <ul>
+    <li class="foo" repeat.for="item of items">
+      <template replaceable part="item-template">
+        Original: ${item}
+      </template>
+    </li>
+  <ul>
+</template>
+```
+
+#### welcome.js
+```javascript
+export class Welcome{
+  heading = 'Welcome to the Aurelia Navigation App!';
+  firstName = 'John';
+  lastName = 'Doe';
+
+  get fullName(){
+    return `${this.firstName} ${this.lastName}`;
+  }
+
+  welcome(){
+    alert(`Welcome, ${this.fullName}!`);
+  }
+}
+```
+
+#### welcome.html
+```markup
+<template>
+  <require from="./demo"></require>
+
+  <demo>
+    <template replace-part="item-template">
+      Replacement: ${item} ${$parent.$parent.fullName} <button click.delegate="$parent.$parent.welcome()">Test</button>
+    </template>
+  </demo>
+</template>
+```
 
 <h2 id="eventing"><a href="#eventing">Eventing</a></h2>
 
