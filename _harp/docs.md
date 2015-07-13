@@ -981,7 +981,7 @@ gulp.task('serve', ['build'], function(done) {
     port: 9000,
     server: {
       baseDir: ['.'],
-      middleware: [historyApiFallback, function (req, res, next) { // it's the first one in the array
+      middleware: [historyApiFallback(), function (req, res, next) { // it's the first one in the array
         res.setHeader('Access-Control-Allow-Origin', '*');
         next();
       }]
@@ -1230,7 +1230,7 @@ You may be wondering what to do if you want to create a Custom Attribute with mu
 import {customAttribute, bindable} from 'aurelia-framework';
 
 @customAttribute('my-attribute')
-export class MyAttribite {
+export class MyAttribute {
   @bindable foo;
   @bindable bar;
 }
@@ -1397,7 +1397,7 @@ That's really all there is to it. You follow the same view-model/view naming con
 
 Template part replacement in custom elements allows a custom element to specify certain parts of its view which can be replaced with alternate markup at runtime on a per-instance basis.
 
-If you are using a custom element you can mark any part of it’s view as `replaceable`. Then the consumer of your element can specify a template in the element's content indicating the part they want it to replace in the element’s view.  Use `part="someName"` to identify a part of the template that is replaceable. If it’s not a template for a template controller (repeat or if) then you also need the `replaceable` attribute on the part. Finally, when the consumer wants to replace that part, they add `replace-part"someName"`` on a template inside the elements' content to provide the alternate version.
+If you are using a custom element you can mark any part of it’s view as `replaceable`. Then the consumer of your element can specify a template in the element's content indicating the part they want it to replace in the element’s view.  Use `part="someName"` to identify a part of the template that is replaceable. If it’s not a template for a template controller (repeat or if) then you also need the `replaceable` attribute on the part. Finally, when the consumer wants to replace that part, they add `replace-part="someName"` on a template inside the elements' content to provide the alternate version.
 
 Here's an example that shows how to make the template inside of a repeater replaceable without affecting the `li` container. It also shows how to create the custom element so that the runtime binding context where the custom element is used can be reached by the replaced template.
 
@@ -1650,6 +1650,43 @@ The `HttpResponseMessage` has the following properties:
 * `requestMessage` - A reference to the original request message.
 
 > **Note:** By default, the `HttpClient` assumes you are expecting a JSON responseType.
+
+<h3 id="interceptors"><a href="#interceptors">Interceptors</a></h3>
+
+It is possible to hook into requests and responses with interceptors.
+
+```javascript
+class RequestInterceptor {
+  request(message) {
+    // do something with the message
+    return message;
+  }
+  
+  requestError(error) {
+    throw error; // or return a (Http/Jsonp)RequestMessage to recover from the error
+  }
+}
+
+class ResponseInterceptor {
+  response(message) {
+    // do something with the message
+    return message;
+  }
+  
+  responseError(error) {
+    throw error; // or return an HttpResponseMessage to recover from the error
+  }
+}
+
+var client = new HttpClient();
+  .configure(x => {
+    x.withInterceptor(new RequestInterceptor());
+    x.withInterceptor(new ResponseInterceptor());
+  });i
+```
+
+> **Note:** It is important to realise that all interceptors used with a client form a chain. The return value of an intercept method is passed on as the arugment to the next. Interceptors are called in the order they were added.
+
 
 There are two other apis that are worth noting. You can use `configure` to access a fluent api for configuring all requests sent by the client. You can also use `createRequest` to custom configure individual requests. Here's an example of configuration:
 
