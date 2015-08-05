@@ -334,10 +334,11 @@ export class Users{
 </blockquote>
 <p>If you are using TypeScript &gt;= 1.5, you can add the <code>@autoinject</code> decorator to your class and leave out the Types in the decorator call, but just use them on the constructor&#39;s signature. Here&#39;s what that would look like:</p>
 <pre><code class="language-javascript">import {autoinject} from &#39;aurelia-framework&#39;;
-import {HttpClient} from &#39;aurelia-http-client&#39;;
+import {HttpClient} from &#39;aurelia-fetch-client&#39;;
+import &#39;fetch&#39;;
 
 @autoinject
-export class Flickr{
+export class Users{
   ...
 
   constructor(public http:HttpClient){}
