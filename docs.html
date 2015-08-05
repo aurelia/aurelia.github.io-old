@@ -152,7 +152,8 @@ export function configure(aurelia) {
 <blockquote>
 <p><strong>Note:</strong> Do not rely on naming conventions inside plugins. You do not know how the consumer of your plugin will change Aurelia&#39;s conventions. 3rd party plugins should be explicit in order to ensure that they function correctly in different contexts.</p>
 </blockquote>
-<p><hr id="features"><a href="features">Feature Plugins</a></p>
+<h4 id="features"><a href="#features">Feature Plugins</a></h4>
+
 <p>The above plugin API is designed to enable the installation of external, 3rd party plugins. However, you may wish to organize your own project as a series of plugins. To do this, simply create a folder for your internal &quot;feature&quot; plugin. In tha folder create an <code>index.js</code> file that exports a single <code>configure</code> function. This function works the same as 3rd party plugins. To register your feature for configuratoin as startup, you would use the following code:</p>
 <pre><code class="language-javascript">aurelia.use.feature(&#39;feature-folder-name-here&#39;);
 </code></pre>
