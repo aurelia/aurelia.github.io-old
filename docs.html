@@ -145,9 +145,9 @@ export function configure(aurelia) {
 <p>You can easily create your own appenders. Simply implement a class that matches the appender interface. The best way to see how to do this is to look at our own <a href="https://github.com/aurelia/logging-console/blob/master/src/index.js">console log appender&#39;s source</a>.</p>
 <h3 id="plugins"><a href="#plugins">Plugins</a></h3>
 
-<p>A <em>plugin</em> is only a module with an exported <code>configure</code> function. During startup Aurelia will load all plugin modules and call their <code>configure</code> functions, passing to them the Aurelia instance so that they can configure the framework appropriately. Plugins can optionally return a <code>Promise</code> from their <code>configure</code> function in order to perform asynchronous configuration tasks. When writing a plugin, be sure to explicitly supply all metadata, including a View Strategy for Custom Elements.</p>
-<p>In order to do configuration on your plugin from within the app you can specify a function or object as the second argument to the <code>configure</code> function. Your plugin&#39;s install function can then use that after your installation work is done. The consumer of your plugin might write code like this:</p>
-<pre><code class="language-javascript">aurelia.use.plugin(&#39;./path/to/plugin&#39;, config =&gt; { /* configuration work */ });
+<p>A <em>plugin</em> is only a module with an exported <code>configure</code> function. During startup Aurelia will load all plugin modules and call their <code>configure</code> functions, passing to them the FrameworkConfiguration instance so that they can configure the framework appropriately. Plugins can optionally return a <code>Promise</code> from their <code>configure</code> function in order to perform asynchronous configuration tasks. When writing a plugin, be sure to explicitly supply all metadata, including a View Strategy for Custom Elements.</p>
+<p>In order to do configuration on your plugin from within the app you can specify a function or object as the second argument to the <code>configure</code> function. Your plugin&#39;s configure function can then use that after your installation work is done. The consumer of your plugin might write code like this:</p>
+<pre><code class="language-javascript">aurelia.use.plugin(&#39;plugin-name&#39;, config =&gt; { /* configuration work */ });
 </code></pre>
 <blockquote>
 <p><strong>Note:</strong> Do not rely on naming conventions inside plugins. You do not know how the consumer of your plugin will change Aurelia&#39;s conventions. 3rd party plugins should be explicit in order to ensure that they function correctly in different contexts.</p>
@@ -162,24 +162,87 @@ export function configure(aurelia) {
 <p>By default, Aurelia uses ES6 native Promises or a polyfill. However, you can replace this with the excellent <a href="https://github.com/petkaantonov/bluebird">Bluebird</a> Promise library. Simply include it in your page before you reference the other scripts. It will provide its own standards-compliant Promise implementation which is currently faster than native and has better debugging support. Additionally, when used in combination with the Babel transpiler, you can use <a href="http://babeljs.io/docs/usage/transformers/other/bluebird-coroutines/">coroutines</a> for improved async code.</p>
 <h3 id="the-aurelia-object"><a href="#the-aurelia-object">The Aurelia Object</a></h3>
 
-<p>Since both a custom configuration module and plugins do their work by interacting with the Aurelia object, we provide a brief explanation of that API in code below:</p>
-<pre><code class="language-javascript">export class Aurelia {
-  loader:Loader; //the module loader
-  container:Container; //the app-level dependency injection container
-  use:Plugins; //the plugins api (see above)
+<p>Since both a custom configuration module (view use) and plugins do their work by interacting with the FrameworkConfiguration object, we provide a brief explanation of that API in code below:</p>
+<pre><code class="language-javascript">export class FrameworkConfiguration {
+  /**
+   * Adds an existing object to the framework&#39;s dependency injection container.
+   */
+  instance(type: any, instance: any): FrameworkConfiguration;
 
-  withInstance(type, instance):Aurelia; //DI helper method (pass through to container)
-  withSingleton(type, implementation):Aurelia; //DI helper method (pass through to container)
-  withTransient(type, implementation):Aurelia; //DI helper method (pass through to container)
+  /**
+   * Adds a singleton to the framework&#39;s dependency injection container.
+   */
+  singleton(type: any, implementation?: Function): FrameworkConfiguration;
 
-  globalizeResources(...resourcePaths):Aurelia; //module ids of resources relative to the configuration/plugin module
-  renameGlobalResource(resourcePath:string, newName:string); //renames a globally available resource to avoid naming conflicts
-  addPreStartTask(task:Function):Aurelia; //execute some code before the plugins are run
-  addPostStartTask(task:Function):Aurelia; //execute some code immediately after startup completes
+  /**
+   * Adds a transient to the framework&#39;s dependency injection container.
+   */
+  transient(type: any, implementation?: Function): FrameworkConfiguration;
 
-  start():Promise&lt;Aurelia&gt;; //starts the framework, causing plugins to be installed and resources to be loaded
-  setRoot(root:string=&#39;app&#39;, applicationHost=null):Promise&lt;Aurelia&gt;; //set your &quot;root&quot; or &quot;app&quot; view-model and display it
-  enhance(bindingContext:Object={}, applicationHost=null):Promise&lt;Aurelia&gt;; //progressively enhance the host element
+  /**
+   * Adds an async function that runs before the plugins are run.
+   */
+  preTask(task: Function): FrameworkConfiguration;
+
+  /**
+   * Adds an async function that runs after the plugins are run.
+   */
+  postTask(task: Function): FrameworkConfiguration;
+
+  /**
+   * Configures an internal feature plugin before Aurelia starts.
+  */
+  feature(plugin: string, config: any): FrameworkConfiguration;
+
+  /**
+   * Adds globally available view resources to be imported into the Aurelia framework.
+   */
+  globalResources(resources: string | string[]): FrameworkConfiguration;
+
+  /**
+   * Renames a global resource that was imported.
+   */
+  globalName(resourcePath: string, newName: string): FrameworkConfiguration;
+
+  /**
+   * Configures an external, 3rd party plugin before Aurelia starts.
+   */
+  plugin(plugin: string, config: any): FrameworkConfiguration;
+
+  /**
+   * Plugs in the default binding language from aurelia-templating-binding.
+   */
+  defaultBindingLanguage(): FrameworkConfiguration;
+
+  /**
+   * Plugs in the router from aurelia-templating-router.
+   */
+  router(): FrameworkConfiguration;
+
+  /**
+   * Plugs in the default history implementation from aurelia-history-browser.
+   */
+  history(): FrameworkConfiguration;
+
+  /**
+   * Plugs in the default templating resources (if, repeat, show, compose, etc.) from aurelia-templating-resources.
+   */
+  defaultResources(): FrameworkConfiguration;
+
+  /**
+   * Plugs in the event aggregator from aurelia-event-aggregator.
+   */
+  eventAggregator(): FrameworkConfiguration;
+
+  /**
+   * Sets up the Aurelia configuration. This is equivalent to calling `.defaultBindingLanguage().defaultResources().history().router().eventAggregator();`
+   */
+  standardConfiguration(): FrameworkConfiguration;
+
+  /**
+   * Plugs in the ConsoleAppender and sets the log level to debug.
+   */
+  developmentLogging(): FrameworkConfiguration;
 }
 </code></pre>
 <h2 id="views-and-view-models"><a href="#views-and-view-models">Views and View Models</a></h2>
@@ -915,6 +978,9 @@ export class YourViewModel {
   }
 }
 </code></pre>
+<blockquote>
+<p><strong>Note:</strong> Additionally, you can add an <code>activationStrategy</code> property to your route config if the strategy is always the same and you don&#39;t want that to be in your view-model code.</p>
+</blockquote>
 <p>If you just want to force a refresh of the life-cycle (useful with <code>&lt;compose&gt;</code> bindings) you may do something like the following:</p>
 <pre><code class="language-javascript">import {activationStrategy} from &#39;aurelia-router&#39;;
 
@@ -983,7 +1049,8 @@ If you don&#39;t name a <code>router-view</code>, it will be available under the
 </blockquote>
 <p>All extensions can opt into the view lifecycle by implementing any of the following hooks:</p>
 <ul>
-<li><code>bind(bindingContext)</code> - Invoked when the databinding engine binds the view. The binding context is the instance that the view is databound to.</li>
+<li><code>created(view:View)</code> - Invoked after both the view and view-model have been created. Allows your behavior to have direct access to the View instance.</li>
+<li><code>bind(bindingContext:any)</code> - Invoked when the databinding engine binds the view. The binding context is the instance that the view is databound to.</li>
 <li><code>unbind()</code> - Invoked when the databinding engine unbinds the view.</li>
 <li><code>attached()</code> - Invoked when the view that contains the extension is attached to the DOM.</li>
 <li><code>detached()</code> - Invoked when the view that contains the extension is detached from the DOM.</li>
@@ -1472,6 +1539,9 @@ client.createRequest(&#39;some/cool/path&#39;)
 <blockquote>
 <p><strong>Note:</strong> We are working on a more moden HttpClient located in the <code>aurelia-fetch-client</code> repo. That is the client that the getting started guide now uses. We recommend using it, since it is based on the upcoming Fetch standard. It is still a work in progress. Docs on it will be coming in the near future.</p>
 </blockquote>
+<h2 id="debugging"><a href="#debugging">Debugging</a></h2>
+
+<p>During debug mode Aurelia will output various information to the browser&#39;s console window. However, this is not always enough information if you are having an issue with a binding expression or a view. To help in these situations Aurelia provides two Custom Attributes: <code>compile-spy</code> and <code>view-spy</code>. <code>compile-spy</code> can be placed on any element to have it emit the View Compiler&#39;s <code>TargetInstruction</code> into the debug console, giving you insight into all the parsed bindings, behaviors and event handers for the targeted element. The <code>view-spy</code> can be placed on any HTML element in a view to emit the View instance to the debug console, giving you insight into the live View instance, including all child views, live bindings, behaviors and more.</p>
 <h2 id="customization"><a href="#customization">Customization</a></h2>
 
 <h3 id="view-and-view-model-conventions"><a href="#view-and-view-model-conventions">View and View-Model Conventions</a></h3>
