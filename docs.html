@@ -160,9 +160,9 @@ export function configure(aurelia) {
 <h4 id="promises"><a href="#promises">Promises</a></h4>
 
 <p>By default, Aurelia uses ES6 native Promises or a polyfill. However, you can replace this with the excellent <a href="https://github.com/petkaantonov/bluebird">Bluebird</a> Promise library. Simply include it in your page before you reference the other scripts. It will provide its own standards-compliant Promise implementation which is currently faster than native and has better debugging support. Additionally, when used in combination with the Babel transpiler, you can use <a href="http://babeljs.io/docs/usage/transformers/other/bluebird-coroutines/">coroutines</a> for improved async code.</p>
-<h3 id="the-aurelia-object"><a href="#the-aurelia-object">The Aurelia Object</a></h3>
+<h3 id="framework-configuration"><a href="#framework-configuration">Framework Configuration</a></h3>
 
-<p>Since both a custom configuration module (view use) and plugins do their work by interacting with the FrameworkConfiguration object, we provide a brief explanation of that API in code below:</p>
+<p>An instance of the <code>Aurelia</code> object is passed to your main <code>configure</code> function as shown in the examples above. The <code>use</code> property of this object is an instance of <code>FrameworkConfiguration</code> which can be used to prepare the framework with plugins, features, global resources, services and more. Also, plugin and feature <code>configure</code> methods receive an instance of <code>FrameworkConfiguration</code> so that they can configure themselves. Since this configuration API is very important, we provide a brief explanation of it in code below:</p>
 <pre><code class="language-javascript">export class FrameworkConfiguration {
   /**
    * Adds an existing object to the framework&#39;s dependency injection container.
