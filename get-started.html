@@ -91,18 +91,19 @@
 <pre><code class="language-shell">  npm install -g gulp
 </code></pre>
 <p>Next, we need to install <a href="http://jspm.io/">jspm</a>. This will serve as our client-side package manager. You can do that like this:</p>
-<pre><code class="language-shell">  npm install -g jspm@beta
+<pre><code class="language-shell">  npm install -g jspm
 </code></pre>
 <blockquote>
-<p><strong>Note:</strong> jspm, like Bower and Yeoman, leverages <a href="http://git-scm.com/">git</a> so you need to install that if you don&#39;t have it. Also, jspm queries GitHub to install packages, but GitHub has a rate limit on anonymous API requests. It is advised that you configure jspm with your GitHub credentials in order to avoid problems. You can do this by executing <code>jspm registry config github</code> and following the prompts. Don&#39;t want to use jspm? No problem. All Aurelia packages are available via <a href="http://bower.io/">Bower</a> as well.</p>
-<p><strong>Note:</strong> Once the jspm beta becomes the mainline release, you will no longer need the <code>@beta</code>.</p>
+<p><strong>Note:</strong> jspm, like Bower and Yeoman, leverages <a href="http://git-scm.com/">git</a> so you need to install that if you don&#39;t have it. Also, jspm queries GitHub to install packages, but GitHub has a rate limit on anonymous API requests. It is advised that you configure jspm with your GitHub credentials in order to avoid problems. You can do this by executing <code>jspm registry config github</code> and following the prompts. If you choose to authorize jspm by an access token instead of giving your password (see GitHub <code>Settings &gt; Personal Access Tokens</code>), <code>public_repo</code> access for the token is required.</p>
+<p><strong>Note:</strong> Don&#39;t want to use jspm? No problem. All Aurelia packages are available via <a href="http://bower.io/">Bower</a> as well.</p>
 </blockquote>
 <h2>Setting up the Project Structure and Build</h2><p>With the tooling installed, we can now turn our attention to setting up a basic structure for your app. Begin by <a href="https://github.com/aurelia/skeleton-navigation/releases">downloading the navigation skeleton</a>. Unzip it and rename the folder to <em>navigation-app</em>.</p>
 <blockquote>
 <p><strong>Note:</strong> Alternatively use can use <a href="http://yeoman.io">Yeoman</a> to &quot;generate&quot; the skeleton project in the target folder, as follows:</p>
 <pre><code> npm install -g yo generator-aurelia
  yo aurelia
-</code></pre></blockquote>
+</code></pre><p>This also runs the <code>npm</code> and <code>jspm</code> commands listed below.</p>
+</blockquote>
 <p>Inside the folder you will now find everything you need including a basic build, package configuration, styles and more.</p>
 <p>You may examine the provided <em>index.html</em> file and the rest of the files in <em>src</em>, however we recommend deleting both before moving on with this tutorial. That way you can more effectively learn how to build an Aurelia app from scratch.</p>
 <p>With all this in place, let&#39;s run some commands.</p>

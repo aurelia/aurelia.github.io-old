@@ -13,12 +13,12 @@ Aurelia was originally designed for Evergreen Browsers. This includes Chrome, Fi
 <script src="config.js"></script>
 <script>
   // Loads WeakMap polyfill needed by MutationObservers
-  System.import('core-js').then( function() {
+  System.import('core-js').then(function() {
     // Imports MutationObserver polyfill
-    System.import('polymer/mutationobservers').then( function() {
-      // Ensures start of Aurelia when all required IE9 dependencies are loaded
-      System.import('aurelia-bootstrapper');
-    })
+    return System.import('polymer/mutationobservers');
+  }).then(function() {
+    // Ensures start of Aurelia when all required IE9 dependencies are loaded
+    System.import('aurelia-bootstrapper');
   });
 </script>
 ```
@@ -344,7 +344,7 @@ In this case `nav-bar` is an Aurelia _Custom Element_ which we've required for u
 
 In your view you will often leverage the different types of resources mentioned above as well as databinding.
 
->**Note:** You may be concerned about the tediousness of having to import things into each view. Remember, during the bootstrapping phase you can configure Aurelia with global resources to be available in every view. Just use `aurelia.globalizeResources(...resourcePaths)`.
+>**Note:** You may be concerned about the tediousness of having to import things into each view. Remember, during the bootstrapping phase you can configure Aurelia with global resources to be available in every view. Just use `aurelia.use.globalResources(...resourcePaths)`.
 
 Aurelia polyfills browsers that don't support templates. However, a few features of templates can't be polyfilled and require workarounds. In particular this occurs when adding `<template>` elements inside `<select>` and `<table>` elements. The following can't be done in a browser that doesn't natively support templates:
 
@@ -769,7 +769,7 @@ If you need to conditionally add/remove a group of elements and you cannot place
 </template>
 ```
 
->**Note:** It's important to note that you should NOT add an `if` behavior around a `<content>` element. The ShadowDOM does not support dynamically adding these elements they way you might expect. Instead, use a `show` behavior on a parent element.
+>**Note:** It's important to note that you should NOT add an `if` behavior around a `<content>` element. The ShadowDOM does not support dynamically adding these elements the way you might expect. Instead, use a `show` behavior on a parent element.
 
 <h4 id="repeat"><a href="#repeat">repeat</a></h4>
 
@@ -783,13 +783,14 @@ The `repeat` Custom Attribute allows you to render a template multiple times, on
 
 An important note about the repeat attribute is that it works in conjunction with the `.for` binding command. This binding command interprets a special syntax in the form "item of collection" where "item" is the local name you will use in the template and "collection" is a normal binding expression that evaluates to an array or map.
 
-Speaking of Maps, here's how you would bind to an ES6 Map:
+Speaking of Maps, since they're key:value you can't simply bind to them as to an array. Instead you have to specify two variables in an array-like-syntax: the first one will be populated with key, the second one with value.
 
 ```markup
 <ul>
   <li repeat.for="[id, customer] of customers">${id} ${customer.fullName}</li>
 </ul>
 ```
+> **Note:**: You can also omit variable for key like this: `repeat.for="[, customer]`.
 
 If instead of iterating over a collection you would rather iterate a specified number of times, you can instead use the syntax "i of count" where "i" is the index of the iteration and "count" is a binding expression that evaluates to an integer.
 
@@ -1221,7 +1222,7 @@ Aurelia has a powerful and extensible HTML template compiler. The compiler itsel
 These extensions are not visible to the compiler by default. There are three main ways to plug them in:
 
 * Use the `require` element to require an extension in a view. The `from` attribute specifies the relative path to the extension's module. The extension will be locally defined.
-* Use the Aurelia object during your bootstrapping phase to call `.globalizeResources(...resourcePaths)` to register extensions with global visibility in your application.
+* Use the Aurelia object during your bootstrapping phase to call `aurelia.use.globalResources(...resourcePaths)` to register extensions with global visibility in your application.
 * Install a plugin that registers extensions with global visibility in your application.
 
 >**Note:** A recommended practice for your own apps is to place all your app-specific extensions, value converters, etc. into a _resources_ folder. Then create an _index.js_ file that turns them all into an internal feature plugin. Finally, install the feature during your app's bootstrapping phase using `aurelia.use.feature('resources')`. This will keep your resources located in a known location, along with their registration code. It will also keep your configuration file clean and simple.

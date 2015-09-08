@@ -95,12 +95,12 @@
 &lt;script src=&quot;config.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
   // Loads WeakMap polyfill needed by MutationObservers
-  System.import(&#39;core-js&#39;).then( function() {
+  System.import(&#39;core-js&#39;).then(function() {
     // Imports MutationObserver polyfill
-    System.import(&#39;polymer/mutationobservers&#39;).then( function() {
-      // Ensures start of Aurelia when all required IE9 dependencies are loaded
-      System.import(&#39;aurelia-bootstrapper&#39;);
-    })
+    return System.import(&#39;polymer/mutationobservers&#39;);
+  }).then(function() {
+    // Ensures start of Aurelia when all required IE9 dependencies are loaded
+    System.import(&#39;aurelia-bootstrapper&#39;);
   });
 &lt;/script&gt;
 </code></pre>
@@ -380,7 +380,7 @@ class CustomerDetail
 </ul>
 <p>In your view you will often leverage the different types of resources mentioned above as well as databinding.</p>
 <blockquote>
-<p><strong>Note:</strong> You may be concerned about the tediousness of having to import things into each view. Remember, during the bootstrapping phase you can configure Aurelia with global resources to be available in every view. Just use <code>aurelia.globalizeResources(...resourcePaths)</code>.</p>
+<p><strong>Note:</strong> You may be concerned about the tediousness of having to import things into each view. Remember, during the bootstrapping phase you can configure Aurelia with global resources to be available in every view. Just use <code>aurelia.use.globalResources(...resourcePaths)</code>.</p>
 </blockquote>
 <p>Aurelia polyfills browsers that don&#39;t support templates. However, a few features of templates can&#39;t be polyfilled and require workarounds. In particular this occurs when adding <code>&lt;template&gt;</code> elements inside <code>&lt;select&gt;</code> and <code>&lt;table&gt;</code> elements. The following can&#39;t be done in a browser that doesn&#39;t natively support templates:</p>
 <pre><code class="language-markup">  &lt;table&gt;
@@ -677,7 +677,7 @@ export class MySanitizeHtmlValueConverter {
 &lt;/template&gt;
 </code></pre>
 <blockquote>
-<p><strong>Note:</strong> It&#39;s important to note that you should NOT add an <code>if</code> behavior around a <code>&lt;content&gt;</code> element. The ShadowDOM does not support dynamically adding these elements they way you might expect. Instead, use a <code>show</code> behavior on a parent element.</p>
+<p><strong>Note:</strong> It&#39;s important to note that you should NOT add an <code>if</code> behavior around a <code>&lt;content&gt;</code> element. The ShadowDOM does not support dynamically adding these elements the way you might expect. Instead, use a <code>show</code> behavior on a parent element.</p>
 </blockquote>
 <h4 id="repeat"><a href="#repeat">repeat</a></h4>
 
@@ -687,11 +687,14 @@ export class MySanitizeHtmlValueConverter {
 &lt;/ul&gt;
 </code></pre>
 <p>An important note about the repeat attribute is that it works in conjunction with the <code>.for</code> binding command. This binding command interprets a special syntax in the form &quot;item of collection&quot; where &quot;item&quot; is the local name you will use in the template and &quot;collection&quot; is a normal binding expression that evaluates to an array or map.</p>
-<p>Speaking of Maps, here&#39;s how you would bind to an ES6 Map:</p>
+<p>Speaking of Maps, since they&#39;re key:value you can&#39;t simply bind to them as to an array. Instead you have to specify two variables in an array-like-syntax: the first one will be populated with key, the second one with value.</p>
 <pre><code class="language-markup">&lt;ul&gt;
   &lt;li repeat.for=&quot;[id, customer] of customers&quot;&gt;${id} ${customer.fullName}&lt;/li&gt;
 &lt;/ul&gt;
 </code></pre>
+<blockquote>
+<p><strong>Note:</strong>: You can also omit variable for key like this: <code>repeat.for=&quot;[, customer]</code>.</p>
+</blockquote>
 <p>If instead of iterating over a collection you would rather iterate a specified number of times, you can instead use the syntax &quot;i of count&quot; where &quot;i&quot; is the index of the iteration and &quot;count&quot; is a binding expression that evaluates to an integer.</p>
 <pre><code class="language-markup">&lt;ul&gt;
   &lt;li repeat.for=&quot;i of rating&quot;&gt;*&lt;/li&gt;
@@ -1041,7 +1044,7 @@ If you don&#39;t name a <code>router-view</code>, it will be available under the
 <p>These extensions are not visible to the compiler by default. There are three main ways to plug them in:</p>
 <ul>
 <li>Use the <code>require</code> element to require an extension in a view. The <code>from</code> attribute specifies the relative path to the extension&#39;s module. The extension will be locally defined.</li>
-<li>Use the Aurelia object during your bootstrapping phase to call <code>.globalizeResources(...resourcePaths)</code> to register extensions with global visibility in your application.</li>
+<li>Use the Aurelia object during your bootstrapping phase to call <code>aurelia.use.globalResources(...resourcePaths)</code> to register extensions with global visibility in your application.</li>
 <li>Install a plugin that registers extensions with global visibility in your application.</li>
 </ul>
 <blockquote>
