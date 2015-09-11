@@ -437,10 +437,11 @@ export class NavBar {
 <p>This is a very simple custom element with no real behavior, but it is complete and usable as shown above.</p>
 <p>Wait! I know what you are thinking. This custom element is so simple...it seems a bit silly to require a JavaScript class just to define the single <code>router</code> property. Couldn&#39;t we get rid of that somehow? Well, the answer is YES. For very simple elements which have no behavior but simply provide a view that can be bound to a set of properties, we can omit the JavaScript file altogether. Let&#39;s see how that works.</p>
 <p>First, delete the <em>nav-bar.js</em> file. Next, we need to make one change to the <em>nav-bar.html</em> file. On the template element, we can declare the bindable properties of our element like this:</p>
-<pre><code>&lt;template bindable=&quot;router&quot;&gt;
+<pre><code class="language-markup">&lt;template bindable=&quot;router&quot;&gt;
   ...
 &lt;/template&gt;
-</code></pre><p>We can have more than one property by separating them by commas. Finally, we need to update our <em>app.html</em> file so that the <code>require</code> element points to our html component. Here&#39;s what it should look like:</p>
+</code></pre>
+<p>We can have more than one property by separating them by commas. Finally, we need to update our <em>app.html</em> file so that the <code>require</code> element points to our html component. Here&#39;s what it should look like:</p>
 <h3>app.html</h3><pre><code class="language-markup">&lt;template&gt;
   &lt;require from=&quot;bootstrap/css/bootstrap.css&quot;&gt;&lt;/require&gt;
   &lt;require from=&quot;font-awesome/css/font-awesome.css&quot;&gt;&lt;/require&gt;
