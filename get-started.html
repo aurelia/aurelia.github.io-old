@@ -87,6 +87,9 @@
 <p><strong>Note:</strong> Looking for this guide in another language? Have a look in our <a href="https://github.com/aurelia/documentation">documentation repo</a>.</p>
 </blockquote>
 <h2>Configuring Your Environment</h2><p>Let&#39;s start by getting you set up with a great set of tools that you can use to build modern JavaScript applications. All our tooling is built on <a href="http://nodejs.org/">Node.js</a>. If you have that installed already, great! If not, you should go to <a href="http://nodejs.org/">the official web site</a>, download and install it. Everything else we need will be installed via Node&#39;s package manager (<a href="https://docs.npmjs.com/getting-started/what-is-npm">npm</a>). If you already have npm installed, make sure you&#39;ve got the <a href="https://github.com/npm/npm/wiki/Troubleshooting#try-the-latest-stable-version-of-node">latest version</a> to avoid any issues with the other tools.</p>
+<blockquote>
+<p><strong>Note:</strong> For command-line operations, Windows users recommended to use Git Bash or Git Shell.</p>
+</blockquote>
 <p>First, let&#39;s begin by installing <a href="http://gulpjs.com/">Gulp</a> which we&#39;ll be using for build automation. If you don&#39;t have it already, you can use npm to set it up like this (you may need to use <code>sudo</code>):</p>
 <pre><code class="language-shell">  npm install -g gulp
 </code></pre>
@@ -188,13 +191,13 @@
         &lt;label&gt;Full Name&lt;/label&gt;
         &lt;p&gt;${fullName}&lt;/p&gt;
       &lt;/div&gt;
-      &lt;button type=&quot;submit&gt;Submit&lt;/button&gt;
+      &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
     &lt;/form&gt;
   &lt;/section&gt;
 &lt;/template&gt;
 </code></pre>
 <p>The first thing to notice is that all views are contained within a <code>template</code> tag, part of the W3C spec for Web Components. This particular view is a basic input form. Look at the input controls. Did you notice <code>value.bind=&quot;firstName&quot;</code>? That databinds the input&#39;s <em>value</em> to the <em>firstName</em> property in our view-model. Any time the view-model&#39;s property changes, the input will be updated with the new value. Any time you change the value in the input control, Aurelia will push the new value into your view-model. It&#39;s that easy.</p>
-<p>There&#39;s a couple more interesting things in this example. In the last form group you can see this syntax in the HTML content: <code>${fullName}</code>. That&#39;s a string interpolation. It&#39;s a one-way binding from the view-model into the view that is automatically converted to a string and interpolated into the document. Finally, have a look at the form element itself. You should notice this: <code>submit.delegate=&quot;submit()</code>. That&#39;s an event binding. This uses event delegation to bind the <em>submit</em> event so that it executes the <em>submit</em> method any time the form is submitted.</p>
+<p>There&#39;s a couple more interesting things in this example. In the last form group you can see this syntax in the HTML content: <code>${fullName}</code>. That&#39;s a string interpolation. It&#39;s a one-way binding from the view-model into the view that is automatically converted to a string and interpolated into the document. Finally, have a look at the form element itself. You should notice this: <code>submit.delegate=&quot;submit()&quot;</code>. That&#39;s an event binding. This uses event delegation to bind the <em>submit</em> event so that it executes the <em>submit</em> method any time the form is submitted.</p>
 <blockquote>
 <p><strong>Note:</strong> If you haven&#39;t heard of event delegation, it&#39;s a technique used to more efficiently handle events in browser by attaching a single event handler at the document level which handles all events of a type, rather than attaching event handlers to every node.</p>
 </blockquote>
@@ -221,7 +224,7 @@ export class App {
   }
 }
 </code></pre>
-<p>Ok, there&#39;s some really interesting new stuff here. First, we&#39;re going to be using some bootstrap navigation components in a minute, so we use the ES6 module system to import bootstrap so that it&#39;s active and ready to go. Next, we want to use the router, so we begin by creating and exporting our <em>App</em> class and having it implement the <code>configureRouter</code> callback. This callback with be invoked with a configuration object. With it, you can set a title to use when generating the document&#39;s title, then you map your routes. Each route has the following properties:</p>
+<p>Ok, there&#39;s some really interesting new stuff here. First, we&#39;re going to be using some bootstrap navigation components in a minute, so we use the ES6 module system to import bootstrap so that it&#39;s active and ready to go. Next, we want to use the router, so we begin by creating and exporting our <em>App</em> class and having it implement the <code>configureRouter</code> callback. This callback will be invoked with a configuration object. With it, you can set a title to use when generating the document&#39;s title, then you map your routes. Each route has the following properties:</p>
 <ul>
 <li><code>route</code>: This is a pattern which, when matched, will cause the router to navigate to this route. You can use static routes like above, but you can also use parameters like this: <code>customer/:id</code>. There&#39;s also support for wildcard routes and query string parameters. The route can be a single string pattern or an array of patterns as above.</li>
 <li><code>name</code>: This is a name to use in code when generating URLs for the route.</li>
