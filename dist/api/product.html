@@ -1,0 +1,140 @@
+<template>
+  <require from="./product.css"></require>
+
+  <au-view class="content product">
+
+    <au-card title-card>
+      <header>
+        <h1>${product.productName}</h1>
+        <span class="card-control">
+          <!-- <au-tag class="card-control">${selectedProductVersion.version}</au-tag> -->
+          <select class="au-tag" value.bind="selectedVersion">
+            <option repeat.for="version of product.availableVersions" model.bind="version.version">${version.display}</option>
+          </select>
+        </span>
+      </header>
+
+      <article>
+        <blockquote border-bottom>
+          <h3 description if.bind="selectedProductVersion.description">${selectedProductVersion.description}</h3>
+        </blockquote>
+        <ul class="inline-list" if.bind="selectedProductVersion.keywords">
+          <li list-heading>Keywords</li>
+          <template repeat.for="keyword of selectedProductVersion.keywords">
+            <li list-item>${keyword}</li>
+          </template>
+        </ul>
+
+        <div class="spaced">
+          <a class="au-button" href.bind="selectedProductVersion.changeLogUrl" target="_blank">Changes</a>
+          <a class="au-button" href.bind="selectedProductVersion.bugsUrl" target="_blank">Issues</a>
+          <a class="au-button" href.bind="selectedProductVersion.licenseUrl" target="_blank">License</a>
+          <a class="au-button" href.bind="selectedProductVersion.repositoryUrl" target="_blank">Repository</a>
+        </div>
+      </article>
+    </au-card>
+
+    <au-card>
+
+      <template if.bind="isDeps">
+        <blockquote border-bottom>
+          <h2>Dependencies</h2>
+        </blockquote>
+        <article>
+          <ul class="stack-list" no-bullet gutter underline source-code>
+            <li repeat.for="dependency of selectedProductVersion.dependencies">
+              <a color="accent" href="#/${dependency.userName}/${dependency.productName}/${dependency.preferredVersion}/doc/api/overview">aurelia-${dependency.productName}</a>
+            </li>
+          </ul>
+        </article>
+      </template>
+
+      <blockquote border-bottom>
+        <h2>Exports</h2>
+      </blockquote>
+
+      <article>
+
+        <template if.bind="selectedProductVersion.classes.length">
+          <h3 half-gutter=left color="primary-dark">Classes</h3>
+          <ul class="stack-list" gutter="2x">
+            <li repeat.for="child of selectedProductVersion.classes">
+              <a trans="6" color="primary-dark" href="#/${$parent.product.userName}/${$parent.product.productName}/${$parent.product.preferredVersion}/doc/api/class/${child.name}">
+                ${child.name}
+              </a>
+            </li>
+          </ul>
+        </template>
+
+        <template if.bind="selectedProductVersion.interfaces.length">
+          <h3 half-gutter=left color="primary-dark">Interfaces</h3>
+          <ul class="stack-list" gutter="2x">
+            <li repeat.for="child of selectedProductVersion.interfaces">
+              <a trans="6" color="primary-dark" href="#/${$parent.product.userName}/${$parent.product.productName}/${$parent.product.preferredVersion}/doc/api/interface/${child.name}">
+                ${child.name}
+              </a>
+            </li>
+          </ul>
+        </template>
+
+        <template if.bind="selectedProductVersion.variables.length">
+          <h3 half-gutter=left color="primary-dark">Variables</h3>
+          <ul class="stack-list" gutter="2x">
+            <li repeat.for="child of selectedProductVersion.variables">
+              <a trans="6" color="primary-dark" click.trigger="scrollTo('variable', child.name)">
+                ${child.name}
+              </a>
+            </li>
+          </ul>
+        </template>
+
+        <template if.bind="selectedProductVersion.functions.length">
+          <h3 half-gutter=left color="primary-dark">Functions</h3>
+          <ul class="stack-list" gutter="2x">
+            <li repeat.for="child of selectedProductVersion.functions">
+              <a trans="6" color="primary-dark" click.trigger="scrollTo('function', child.name)">
+                ${child.name}
+              </a>
+            </li>
+          </ul>
+        </template>
+      </article>
+    </au-card>
+
+    <template if.bind="selectedProductVersion.variables.length">
+      <h1 gutter>Variables</h1>
+      <template repeat.for="variable of selectedProductVersion.variables">
+        <au-card variable-card>
+          <blockquote id="variable-${variable.name}">
+            <h2 border-bottom>${variable.name}: <span value-type>${variable.type.name}</span></h2>
+            <div description>${variable.comment.shortText || 'no description available'}</div>
+          </blockquote>
+        </au-card>
+      </template>
+    </template>
+
+    <template if.bind="selectedProductVersion.functions.length">
+      <h1 gutter>Functions</h1>
+      <template repeat.for="function of selectedProductVersion.functions">
+        <au-card function-card>
+          <blockquote id="function-${function.signature.name}">
+            <h2 border-bottom>${function.signature.name}(<i><span args repeat.for="param of function.signature.parameters">${param.name}: ${param.type.name || 'any'}</span></i>): <span value-type>${function.signature.type.name ||'any'}</span></h2>
+            <div description>${function.signature.comment.shortText || 'no description available'}</div>
+          </blockquote>
+
+          <article if.bind="function.signature.parameters.length > 0">
+            <br>
+            <h3 bold>Parameters: </h3>
+            <ul class="stack-list" gutter>
+              <li repeat.for="param of function.signature.parameters">
+                <strong>${param.name}: ${param.type.name || 'any'}</strong>
+                <p>${param.comment.text || 'no description available'}</p>
+              </li>
+            </ul>
+          </article>
+        </au-card>
+      </template>
+    </template>
+
+  </au-view>
+</template>
