@@ -54,15 +54,8 @@
 		================================================== -->
 		<!-- globalWrapper -->
 		<div id="globalWrapper" class="localscroll">
-      <% if(current.source === 'index') { %>
-        <%- yield %>
-			<% } else if(current.source === 'docs') { %>
-					<%- partial("_docs") %>
-      <% } else { %>
-        <%- partial("_markdown") %>
-      <% } %>
+      <%- yield %>
 
-			<% if(current.source !== 'docs') { %>
       <footer>
         <section id="mainFooter">
           <div class="container" id="footer">
@@ -74,7 +67,6 @@
           </div>
         </section>
       </footer>
-			<% } %>
 		</div>
 
 		<!-- End Document
