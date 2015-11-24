@@ -1,5 +1,5 @@
 /* */ 
-define(['exports'], function (exports) {
+define(['exports', 'aurelia-pal'], function (exports, _aureliaPal) {
   'use strict';
 
   Object.defineProperty(exports, '__esModule', {
@@ -106,7 +106,28 @@ define(['exports'], function (exports) {
   exports.browserVersion = browserVersion;
 
   function configure(framework, config) {
+
+    if (document && document.head) {
+      var viewportMeta = _aureliaPal.DOM.createElement('meta');
+      viewportMeta.setAttribute('name', 'viewport');
+
+      if (isIOS) {
+        var meta = _aureliaPal.DOM.createElement('meta');
+        meta.setAttribute('name', 'apple-mobile-web-app-capable');
+        meta.setAttribute('content', 'yesy');
+        document.head.appendChild(meta);
+      }
+
+      if (isAndroid) {
+        viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=no; minimal-ui');
+      } else {
+        viewportMeta.setAttribute('content', 'width=device-width, height=device-height, initial-scale=1, maximum-scale=1; minimal-ui');
+      }
+      document.head.appendChild(viewportMeta);
+    }
+
     return config && typeof config === 'function' && config({
+
       setClassList: function setClassList(element) {
         if (element instanceof Element) {
           element.classList.add('platform-' + platform, 'device-' + device, 'browser-' + browser, 'browser-' + browser + '-' + browserVersion);
