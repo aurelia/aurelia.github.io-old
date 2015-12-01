@@ -4,7 +4,7 @@
   </select> -->
 
   <select-container show.bind="active" ref="container">
-    <div class="select-option" repeat.for="o of _options" click.trigger="$parent.value = o.value">
+    <div class="select-option" repeat.for="o of _options" click.trigger="onSelect($event, o.value)">
       ${o.text}
       <au-icon show.bind="$parent.active && $parent.value === o.value" icon="checkmark"></au-icon>
     </div>

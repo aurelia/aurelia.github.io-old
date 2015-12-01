@@ -1,5 +1,6 @@
 <template>
   <require from="./class-or-interface.css"></require>
+  <require from="resources/function-heading"></require>
 
   <au-view class="content class">
 
@@ -12,9 +13,10 @@
           <h3 description>${target.comment.shortText || 'no description available'}</h3>
         </blockquote>
         <div if.bind="constructorSignature" class="text-sm">
-          <strong color="accent">
-            ${constructorSignature.name}(<i><span args repeat.for="param of constructorSignature.parameters">${param.name}: ${param.type.name}</span></i>)
-          </strong>
+          <function-heading function.bind="constructorSignature" small="true"></function-heading>
+          <!-- <strong color="accent">
+            ${constructorSignature.name}(<i><span args repeat.for="param of constructorSignature.parameters"><span key>${param.name}</span><span value>${param.type.name}</span></span></i>)
+          </strong> -->
         </div>
       </article>
     </au-card>
@@ -35,12 +37,7 @@
 
     <au-card function-card repeat.for="method of target.methods">
       <blockquote>
-        <h2 border-bottom>
-          <span if.bind="method.flags && method.flags.isStatic" class="au-tag">static</span>
-          <span>
-            ${method.signature.name}(<i><span args repeat.for="param of method.signature.parameters">${param.name}:${param.type.name || 'any'}</span></i>): <span value-type>${value.signature.type.name || 'any'}</span>
-          </span>
-        </h2>
+        <function-heading border-bottom function.bind="method"></function-heading>
         <div description>${method.signature.comment.shortText || 'no description available'}</div>
       </blockquote>
 

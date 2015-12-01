@@ -1,15 +1,11 @@
 <template>
-
-  <select ref="selectElement" show.bind="isMobile" class="au-select" value.bind="value">
-    <option repeat.for="item of options" value.bind="item">${item}</option>
-  </select>
-
-  <button ref="button" click.trigger="active = true">${value}</button>
-
-  <dropdown-container>
-    <div dropdown-item repeat.for="item of options" click.trigger="$parent.value = item">
-      ${item}
-      <au-icon show.bind="$parent.value === item" icon="checkmark"></au-icon>
-    </div>
+  <a ref="anchor" if.bind="title || value" click.trigger="onClick($event)">${title || value}</a>
+  <ai-icon if.bind="icon" icon.bind="icon"></ai-icon>
+  <dropdown-container ref="container">
+    <option-item repeat.for="item of items" value="${item.value}" mousedown.trigger="onSelect($event, item.value)">
+      <span>${item.text}</span>
+      <au-icon if.bind="value === item.value" icon="checkmark"></au-icon>
+    </option-item>
   </dropdown-container>
+  <content></content>
 </template>

@@ -30,8 +30,8 @@ System.config({
       "npm:aurelia-dependency-injection@1.0.0-beta.1/aurelia-dependency-injection",
       "npm:aurelia-event-aggregator@1.0.0-beta.1",
       "npm:aurelia-event-aggregator@1.0.0-beta.1/aurelia-event-aggregator",
-      "npm:aurelia-framework@1.0.0-beta.1.0.1",
-      "npm:aurelia-framework@1.0.0-beta.1.0.1/aurelia-framework",
+      "npm:aurelia-framework@1.0.0-beta.1.0.2",
+      "npm:aurelia-framework@1.0.0-beta.1.0.2/aurelia-framework",
       "npm:aurelia-history-browser@1.0.0-beta.1",
       "npm:aurelia-history-browser@1.0.0-beta.1/aurelia-history-browser",
       "npm:aurelia-history@1.0.0-beta.1",
@@ -136,6 +136,10 @@ System.config({
       "backend/server",
       "github:joelcoxokc/aurelia-interface-platforms@master",
       "github:joelcoxokc/aurelia-interface-platforms@master/aurelia-interface-platforms",
+      "github:joelcoxokc/aurelia-interface-platforms@master/browser",
+      "github:joelcoxokc/aurelia-interface-platforms@master/device",
+      "github:joelcoxokc/aurelia-interface-platforms@master/platform",
+      "github:joelcoxokc/aurelia-interface-platforms@master/support",
       "github:rstacruz/nprogress@0.2.0",
       "github:rstacruz/nprogress@0.2.0/nprogress",
       "github:rstacruz/nprogress@0.2.0/nprogress.css!github:systemjs/plugin-css@0.1.19",
@@ -145,8 +149,8 @@ System.config({
       "npm:aurelia-dependency-injection@1.0.0-beta.1/aurelia-dependency-injection",
       "npm:aurelia-event-aggregator@1.0.0-beta.1",
       "npm:aurelia-event-aggregator@1.0.0-beta.1/aurelia-event-aggregator",
-      "npm:aurelia-framework@1.0.0-beta.1.0.1",
-      "npm:aurelia-framework@1.0.0-beta.1.0.1/aurelia-framework",
+      "npm:aurelia-framework@1.0.0-beta.1.0.2",
+      "npm:aurelia-framework@1.0.0-beta.1.0.2/aurelia-framework",
       "npm:aurelia-history@1.0.0-beta.1",
       "npm:aurelia-history@1.0.0-beta.1/aurelia-history",
       "npm:aurelia-http-client@1.0.0-beta.1",
@@ -211,6 +215,8 @@ System.config({
       "resources/au-select-list.html!github:systemjs/plugin-text@0.0.3",
       "resources/au-settings-button",
       "resources/au-settings-button.html!github:systemjs/plugin-text@0.0.3",
+      "resources/function-heading",
+      "resources/function-heading.html!github:systemjs/plugin-text@0.0.3",
       "resources/loading-indicator",
       "resources/util",
       "services/analytics",
@@ -220,7 +226,8 @@ System.config({
       "services/index",
       "services/language",
       "services/local",
-      "services/profile"
+      "services/profile",
+      "services/screen-size"
     ]
   },
   buildCSS: false,
@@ -231,7 +238,7 @@ System.config({
     "aurelia-bootstrapper": "npm:aurelia-bootstrapper@1.0.0-beta.1",
     "aurelia-dependency-injection": "npm:aurelia-dependency-injection@1.0.0-beta.1",
     "aurelia-event-aggregator": "npm:aurelia-event-aggregator@1.0.0-beta.1",
-    "aurelia-framework": "npm:aurelia-framework@1.0.0-beta.1.0.1",
+    "aurelia-framework": "npm:aurelia-framework@1.0.0-beta.1.0.2",
     "aurelia-http-client": "npm:aurelia-http-client@1.0.0-beta.1",
     "aurelia-interface-grid": "github:joelcoxokc/aurelia-interface-grid@master",
     "aurelia-interface-platforms": "github:joelcoxokc/aurelia-interface-platforms@master",
@@ -284,7 +291,7 @@ System.config({
     },
     "npm:aurelia-bootstrapper@1.0.0-beta.1": {
       "aurelia-event-aggregator": "npm:aurelia-event-aggregator@1.0.0-beta.1",
-      "aurelia-framework": "npm:aurelia-framework@1.0.0-beta.1.0.1",
+      "aurelia-framework": "npm:aurelia-framework@1.0.0-beta.1.0.2",
       "aurelia-history": "npm:aurelia-history@1.0.0-beta.1",
       "aurelia-history-browser": "npm:aurelia-history-browser@1.0.0-beta.1",
       "aurelia-loader-default": "npm:aurelia-loader-default@1.0.0-beta.1.0.1",
@@ -307,7 +314,7 @@ System.config({
     "npm:aurelia-event-aggregator@1.0.0-beta.1": {
       "aurelia-logging": "npm:aurelia-logging@1.0.0-beta.1"
     },
-    "npm:aurelia-framework@1.0.0-beta.1.0.1": {
+    "npm:aurelia-framework@1.0.0-beta.1.0.2": {
       "aurelia-binding": "npm:aurelia-binding@1.0.0-beta.1.0.1",
       "aurelia-dependency-injection": "npm:aurelia-dependency-injection@1.0.0-beta.1",
       "aurelia-loader": "npm:aurelia-loader@1.0.0-beta.1",

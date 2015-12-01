@@ -1,5 +1,7 @@
 <template>
-  <h4>${title}</h4>
+  <h4 if.bind="heading">
+    ${heading}
+  </h4>
   <au-tag ref="tag" class="lang-tag">${selectedSource.lang}</au-tag>
 
   <pre>

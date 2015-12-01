@@ -1,4 +1,5 @@
 <template>
+  <require from="resources/function-heading"></require>
   <require from="./product.css"></require>
 
   <au-view class="content product">
@@ -30,6 +31,7 @@
           <a class="au-button" href.bind="selectedProductVersion.bugsUrl" target="_blank">Issues</a>
           <a class="au-button" href.bind="selectedProductVersion.licenseUrl" target="_blank">License</a>
           <a class="au-button" href.bind="selectedProductVersion.repositoryUrl" target="_blank">Repository</a>
+          <a class="au-button" href.bind="product.npmUrl" target="_blank">NPM</a>
         </div>
       </article>
     </au-card>
@@ -49,64 +51,64 @@
         </article>
       </template>
 
-      <blockquote border-bottom>
-        <h2>Exports</h2>
-      </blockquote>
-
       <article>
 
         <template if.bind="selectedProductVersion.classes.length">
-          <h3 half-gutter=left color="primary-dark">Classes</h3>
-          <ul class="stack-list" gutter="2x">
-            <li repeat.for="child of selectedProductVersion.classes">
-              <a trans="6" color="primary-dark" href="#/${$parent.product.userName}/${$parent.product.productName}/${$parent.product.preferredVersion}/doc/api/class/${child.name}">
+          <h3 color="primary-dark">Classes</h3>
+          <ul list-style class="grid-list" gutter="2x">
+            <li class-aucon repeat.for="child of selectedProductVersion.classes" color="primary-dark">
+              <a trans="6" href="#/${$parent.product.userName}/${$parent.product.productName}/${$parent.product.preferredVersion}/doc/api/class/${child.name}">
                 ${child.name}
               </a>
             </li>
+            <li></li>
           </ul>
         </template>
 
         <template if.bind="selectedProductVersion.interfaces.length">
-          <h3 half-gutter=left color="primary-dark">Interfaces</h3>
-          <ul class="stack-list" gutter="2x">
-            <li repeat.for="child of selectedProductVersion.interfaces">
-              <a trans="6" color="primary-dark" href="#/${$parent.product.userName}/${$parent.product.productName}/${$parent.product.preferredVersion}/doc/api/interface/${child.name}">
+          <h3 color="primary-dark">Interfaces</h3>
+          <ul list-style class="grid-list" gutter="2x">
+            <li interface-aucon repeat.for="child of selectedProductVersion.interfaces" color="primary-dark">
+              <a trans="6" href="#/${$parent.product.userName}/${$parent.product.productName}/${$parent.product.preferredVersion}/doc/api/interface/${child.name}">
                 ${child.name}
               </a>
             </li>
+            <li></li>
           </ul>
         </template>
 
         <template if.bind="selectedProductVersion.variables.length">
-          <h3 half-gutter=left color="primary-dark">Variables</h3>
-          <ul class="stack-list" gutter="2x">
-            <li repeat.for="child of selectedProductVersion.variables">
-              <a trans="6" color="primary-dark" click.trigger="scrollTo('variable', child.name)">
+          <h3 color="primary-dark">Constants</h3>
+          <ul list-style class="grid-list" gutter="2x">
+            <li constant-aucon repeat.for="child of selectedProductVersion.variables" color="primary-dark">
+              <a trans="6" click.trigger="scrollTo('variable', child.name)">
                 ${child.name}
               </a>
             </li>
+            <li></li>
           </ul>
         </template>
 
         <template if.bind="selectedProductVersion.functions.length">
-          <h3 half-gutter=left color="primary-dark">Functions</h3>
-          <ul class="stack-list" gutter="2x">
-            <li repeat.for="child of selectedProductVersion.functions">
-              <a trans="6" color="primary-dark" click.trigger="scrollTo('function', child.name)">
+          <h3 color="primary-dark">Functions</h3>
+          <ul list-style class="grid-list" gutter="2x">
+            <li function-aucon repeat.for="child of selectedProductVersion.functions" color="primary-dark">
+              <a trans="6" click.trigger="scrollTo('function', child.name)">
                 ${child.name}
               </a>
             </li>
+            <li></li>
           </ul>
         </template>
       </article>
     </au-card>
 
     <template if.bind="selectedProductVersion.variables.length">
-      <h1 gutter>Variables</h1>
+      <h1 gutter>Constants</h1>
       <template repeat.for="variable of selectedProductVersion.variables">
         <au-card variable-card>
           <blockquote id="variable-${variable.name}">
-            <h2 border-bottom>${variable.name}: <span value-type>${variable.type.name}</span></h2>
+            <h2 constant-heading border-bottom>${variable.name}: <span value-type>${variable.type.name}</span></h2>
             <div description>${variable.comment.shortText || 'no description available'}</div>
           </blockquote>
         </au-card>
@@ -118,7 +120,7 @@
       <template repeat.for="function of selectedProductVersion.functions">
         <au-card function-card>
           <blockquote id="function-${function.signature.name}">
-            <h2 border-bottom>${function.signature.name}(<i><span args repeat.for="param of function.signature.parameters">${param.name}: ${param.type.name || 'any'}</span></i>): <span value-type>${function.signature.type.name ||'any'}</span></h2>
+            <function-heading border-bottom function.bind="function"></function-heading>
             <div description>${function.signature.comment.shortText || 'no description available'}</div>
           </blockquote>
 
