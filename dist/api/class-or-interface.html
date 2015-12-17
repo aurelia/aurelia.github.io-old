@@ -1,0 +1,56 @@
+<template>
+  <require from="./class-or-interface.css"></require>
+  <require from="resources/function-heading"></require>
+
+  <au-view class="content class">
+
+    <au-card title-card>
+      <header>
+        <h1>${product.productName} :: ${target.name}</h1>
+      </header>
+      <article>
+        <blockquote border-bottom>
+          <h3 description>${target.comment.shortText || 'no description available'}</h3>
+        </blockquote>
+        <div if.bind="constructorSignature" class="text-sm">
+          <function-heading function.bind="constructorSignature" small="true"></function-heading>
+          <!-- <strong color="accent">
+            ${constructorSignature.name}(<i><span args repeat.for="param of constructorSignature.parameters"><span key>${param.name}</span><span value>${param.type.name}</span></span></i>)
+          </strong> -->
+        </div>
+      </article>
+    </au-card>
+
+    <h1 if.bind="target.properties.length > 0">Properties</h1>
+
+    <au-card variable-card repeat.for="prop of target.properties">
+      <blockquote>
+        <h2 border-bottom>
+          <span if.bind="prop.flags && prop.flags.isStatic" class="au-tag">static</span>
+          <span>${prop.name}: <span value-type>${prop.type.name}</span></span>
+        </h2>
+        <div description>${prop.comment.shortText || 'no description available'}</div>
+      </blockquote>
+    </au-card>
+
+    <h1 if.bind="target.methods.length > 0">Methods</h1>
+
+    <au-card function-card repeat.for="method of target.methods">
+      <blockquote>
+        <function-heading border-bottom function.bind="method"></function-heading>
+        <div description>${method.signature.comment.shortText || 'no description available'}</div>
+      </blockquote>
+
+      <article if.bind="method.signature.parameters.length > 0">
+        <br>
+        <h3 bold>Parameters: </h3>
+        <ul class="stack-list" gutter>
+          <li repeat.for="param of method.signature.parameters">
+            <strong>${param.name}: ${param.type.name || 'any'}</strong>
+            <p>${param.comment.text || 'no description available'}</p>
+          </li>
+        </ul>
+      </article>
+    </au-card>
+  </au-view>
+</template>

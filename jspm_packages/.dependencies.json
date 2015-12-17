@@ -283,18 +283,6 @@
   "npm:aurelia-task-queue@1.0.0-beta.1.0.1": {
     "aurelia-pal": "npm:aurelia-pal@^1.0.0-beta.1"
   },
-  "npm:aurelia-framework@1.0.0-beta.1.0.3": {
-    "aurelia-binding": "npm:aurelia-binding@^1.0.0-beta.1.0.1",
-    "aurelia-dependency-injection": "npm:aurelia-dependency-injection@^1.0.0-beta.1",
-    "aurelia-loader": "npm:aurelia-loader@^1.0.0-beta.1",
-    "aurelia-logging": "npm:aurelia-logging@^1.0.0-beta.1",
-    "aurelia-metadata": "npm:aurelia-metadata@^1.0.0-beta.1",
-    "aurelia-pal": "npm:aurelia-pal@^1.0.0-beta.1",
-    "aurelia-path": "npm:aurelia-path@^1.0.0-beta.1",
-    "aurelia-task-queue": "npm:aurelia-task-queue@^1.0.0-beta.1",
-    "aurelia-templating": "npm:aurelia-templating@^1.0.0-beta.1",
-    "core-js": "npm:core-js@^1.2.6"
-  },
   "github:daepark/JSOL@master": {},
   "npm:readable-stream@1.1.13": {
     "core-util-is": "npm:core-util-is@~1.0.0",
@@ -521,5 +509,17 @@
     "scss": "github:mobilexag/plugin-sass@^0.0.5",
     "showdownjs/showdown": "github:showdownjs/showdown@^1.0.2",
     "velocity-animate": "npm:velocity-animate@^1.2.3"
+  },
+  "npm:aurelia-framework@1.0.0-beta.1.0.5": {
+    "aurelia-binding": "npm:aurelia-binding@^1.0.0-beta.1.0.1",
+    "aurelia-dependency-injection": "npm:aurelia-dependency-injection@^1.0.0-beta.1",
+    "aurelia-loader": "npm:aurelia-loader@^1.0.0-beta.1",
+    "aurelia-logging": "npm:aurelia-logging@^1.0.0-beta.1",
+    "aurelia-metadata": "npm:aurelia-metadata@^1.0.0-beta.1",
+    "aurelia-pal": "npm:aurelia-pal@^1.0.0-beta.1",
+    "aurelia-path": "npm:aurelia-path@^1.0.0-beta.1",
+    "aurelia-task-queue": "npm:aurelia-task-queue@^1.0.0-beta.1",
+    "aurelia-templating": "npm:aurelia-templating@^1.0.0-beta.1",
+    "core-js": "npm:core-js@^1.2.6"
   }
 }
