@@ -1,8 +1,0 @@
-
-@mixin iOS-ModalComponent {
-  @include AIModalElement;
-}
-
-@include Component(ai-modal) {
-  @include iOS-ModalComponent;
-}

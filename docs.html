@@ -1,21 +1,21 @@
 <!doctype html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Aurelia Documentation</title>
     <link rel="stylesheet" type="text/css" href="dist/reset.css">
     <link rel="stylesheet" type="text/css" href="dist/styles.css">
     <link rel="stylesheet" type="text/css" href="lib/prism/prism.css">
     <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,900" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
   </head>
   <body aurelia-app="main">
     <div class="splash">
       <div class="au-navbar-logo">
         <a href="#/"><img src="images/Aurelia-logo.gif" width="300px"></a>
       </div>
-      <div class="spinner"><i class="fa fa-spinner fa-spin"></i></div>
+      <div class="loader"></div>
     </div>
+    <script src="lib/bluebird.min.js"></script>
     <script src="lib/prism/prism.js" data-manual></script>
     <script src="jspm_packages/system.js"></script>
     <script src="config.js"></script>

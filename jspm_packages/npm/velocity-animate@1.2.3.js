@@ -1,1 +1,0 @@
-module.exports = require("npm:velocity-animate@1.2.3/velocity");

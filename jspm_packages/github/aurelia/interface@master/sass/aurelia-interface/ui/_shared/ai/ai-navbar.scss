@@ -1,9 +1,0 @@
-ai-nav-bar {
-  @include AINavbarElement;
-}
-
-@include from-screen(md) {
-  ai-navbar {
-    @include AINavbarElement-md;
-  }
-}

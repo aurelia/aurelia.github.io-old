@@ -1,8 +1,0 @@
-
-$AI_FRAMEWORK_EXPORT: null !default;
-
-@if not $AI_FRAMEWORK_EXPORT {
-  @import 'framework';
-}
-
-@include include-fonts();

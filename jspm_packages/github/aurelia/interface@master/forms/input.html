@@ -1,9 +1,0 @@
-<template class="${iconClass} ${labelClass}">
-  <input if.bind="!resizable" ref="inputElement" value.two-way="value" model.bind="model" type="${type}" id="${id || name}" name="${name}" placeholder="${placeholder}" data-list="#${listId}"/>
-  <textarea if.bind="resizable" ref="textarea" value.bind="value" model.bind="model" id="${id || name}" name="${name}" placeholder="${placeholder}"></textarea>
-  <datalist if.bind="!isDataListElement" id="${listId}">
-    <option repeat.for="item of values">${item}</option>
-  </datalist>
-  <input-border></input-border>
-  <label for.bind="id || name" floating-label if.bind="control.isFloating" innerHTML.bind="control.label.innerHTML"></label for="name">
-</template>

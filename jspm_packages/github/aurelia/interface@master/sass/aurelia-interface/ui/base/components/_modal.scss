@@ -1,8 +1,0 @@
-
-@mixin Base-ModalComponent {
-  @include AIModalElement;
-}
-
-@include Component(ai-modal) {
-  @include Base-ModalComponent;
-}

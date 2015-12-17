@@ -1,7 +1,0 @@
-@mixin Base-ToolbarComponent {
-  @include AIToolbarElement
-}
-
-@include Component(ai-toolbar) {
-  @include Base-ToolbarComponent;
-}

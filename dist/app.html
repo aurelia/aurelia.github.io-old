@@ -33,11 +33,6 @@
         <au-dropdown options.bind="culture.options" value.bind="culture.current"></au-dropdown>
         <au-dropdown options.bind="language.options" value.bind="language.current"></au-dropdown>
       </nav-item>
-
-      <nav-item search style="display: none">
-        <a class="au-icon-button" href="#/doc/article/test"><i class="fa fa-search"></i></a>
-        <!-- <a class="au-icon-button" href="#"><i class="fa fa-search"></i></a> -->
-      </nav-item>
     </nav>
     <loading-indicator loading.bind="router.isNavigating"></loading-indicator>
   </header>
