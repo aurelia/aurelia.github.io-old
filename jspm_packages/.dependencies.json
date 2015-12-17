@@ -1,9 +1,4 @@
 {
-  "npm:mdurl@1.0.1": {},
-  "npm:entities@1.1.1": {
-    "systemjs-json": "github:systemjs/plugin-json@^0.1.0"
-  },
-  "npm:string.prototype.repeat@0.2.0": {},
   "npm:babel-runtime@5.8.34": {
     "process": "github:jspm/nodelibs-process@^0.1.0"
   },
@@ -114,13 +109,6 @@
     "aurelia-pal": "npm:aurelia-pal@^1.0.0-beta.1"
   },
   "github:systemjs/plugin-text@0.0.3": {},
-  "npm:commonmark@0.22.1": {
-    "entities": "npm:entities@~1.1.1",
-    "mdurl": "npm:mdurl@~1.0.1",
-    "string.prototype.repeat": "npm:string.prototype.repeat@^0.2.0",
-    "process": "github:jspm/nodelibs-process@^0.1.0",
-    "systemjs-json": "github:systemjs/plugin-json@^0.1.0"
-  },
   "npm:aurelia-pal@1.0.0-beta.1.0.1": {},
   "npm:aurelia-animator-css@1.0.0-beta.1.0.2": {
     "aurelia-metadata": "npm:aurelia-metadata@^1.0.0-beta.1",
@@ -195,5 +183,17 @@
     "aurelia-task-queue": "npm:aurelia-task-queue@^1.0.0-beta.1",
     "aurelia-templating": "npm:aurelia-templating@^1.0.0-beta.1",
     "core-js": "npm:core-js@^1.2.6"
+  },
+  "npm:commonmark@0.22.1": {
+    "entities": "npm:entities@~1.1.1",
+    "mdurl": "npm:mdurl@~1.0.1",
+    "string.prototype.repeat": "npm:string.prototype.repeat@^0.2.0",
+    "process": "github:jspm/nodelibs-process@^0.1.0",
+    "systemjs-json": "github:systemjs/plugin-json@^0.1.0"
+  },
+  "npm:mdurl@1.0.1": {},
+  "npm:string.prototype.repeat@0.2.0": {},
+  "npm:entities@1.1.1": {
+    "systemjs-json": "github:systemjs/plugin-json@^0.1.0"
   }
 }
