@@ -1,0 +1,1167 @@
+/*! SassyLists - v2.2.0 - 2014-07-03 */
+
+
+
+
+
+@function sl-missing-dependencies($functions...) {
+  $missing-dependencies: ();
+  
+  @each $function in $functions {
+    @if not function-exists($function) {
+      $missing-dependencies: append($missing-dependencies, $function, comma);
+    }
+  }
+  
+  @if length($missing-dependencies) > 0 {
+    @warn "Unmet dependencies! The following functions are required: #{$missing-dependencies}.";
+  }
+  
+  @return length($missing-dependencies) != 0;
+}
+
+
+
+
+
+
+
+@function sl-str-compare($a, $b, $order) {
+  @if type-of($a) == "number" and type-of($b) == "number" {
+    @return $a < $b;
+  }
+
+  $a: to-lower-case($a + unquote(""));
+  $b: to-lower-case($b + unquote(""));
+  
+  @for $i from 1 through min(str-length($a), str-length($b)) {
+    $char-a: str-slice($a, $i, $i);
+    $char-b: str-slice($b, $i, $i);
+    @if $char-a and $char-b and index($order, $char-a) != index($order, $char-b) {
+      @return index($order, $char-a) < index($order, $char-b);
+    }
+  }
+  
+  @return str-length($a) < str-length($b);
+}
+
+
+
+
+
+@function sl-is-true($value) {
+  @return if($value == null, false, $value and $value != null and $value != "" and $value != ());
+}
+
+
+
+
+
+@function sl-is-number($value) {
+  @return type-of($value) == "number";
+}
+
+
+
+
+
+
+
+
+@function sl-chunk($list, $size) {
+  @if sl-missing-dependencies(sl-to-list) == true { @return null; }
+
+  @if type-of($size) != "number" {
+    @warn "#{inspect($size)} is not a number for `sl-chunk`.";
+    @return null;
+  }
+
+  @if $size >= length($list) {
+    @return sl-to-list($list);
+  }
+
+  $index: 1;
+  $result: ();
+  $length: length($list);
+  $end: ceil($length / $size);
+
+  @for $i from 1 through $end {
+    $tmp: ();
+
+    @for $j from 1 through $size {
+      @if $index <= $length {
+        $is-orphan: $length % $size == 1 and $j == 1;
+        
+        @if $is-orphan {
+          $tmp: nth($list, $index);
+        }
+
+        @else {
+          $tmp: append($tmp, nth($list, $index), list-separator($list));
+        }
+      }
+
+      $index: $index + 1;
+    }
+
+    $result: append($result, $tmp);
+  }
+
+  @return $result;
+}
+
+
+
+
+@function sl-comma-list() {
+  @return zip((), ());
+}
+
+
+
+
+
+
+@function sl-contain($list, $value) {
+  @return not not index($list, $value);
+}
+
+
+
+
+@function sl-include($list, $value) {
+  @return sl-contain($list, $value);
+}
+
+
+
+
+
+@function sl-count-values($list) {
+  $map: ();
+
+  @each $item in $list {
+    $index: map-get($map, $item);
+    $value: if($index, $index + 1, 1);
+    $map: map-merge($map, ($item: $value));
+  }
+
+  @return $map;
+}
+
+
+
+
+
+
+
+
+
+
+@function sl-debug($list, $pre: false, $level: 1) {
+  @if sl-missing-dependencies(sl-is-empty, sl-is-single, sl-has-multiple-values) == true { @return null; }
+
+  @if sl-is-empty($list) {
+    @return "( )";
+  }
+
+  @if sl-is-single($list) {
+    @return if($pre,  "(" + type-of($list) + ") ", "") + $list;
+  }
+
+  $tab: "    ";
+  $indent: "";
+  $break: if($pre, "\A ", "");
+  $length: length($list);
+
+  @for $i from 1 to $level {
+    $indent: $indent + $tab;
+  }
+
+  $result: "[" + $break;
+
+  @for $i from 1 through $length {
+    $item: nth($list, $i);
+    $result: $result + if($pre, $indent + $tab, " ");
+
+    @if sl-has-multiple-values($item) {
+      $result: $result
+        + if($pre, "(list: " + length($item) + ") ", "")
+        + sl-debug($item, $pre, $level + 1);
+    }
+
+    @else {
+      @if $pre {
+        $result: $result + "(" + type-of($item) + ") ";
+      }
+
+      @if sl-is-empty($item) {
+        $result: $result + "( )";
+      }
+
+      @else if type-of($item) == "string" {
+        $result: $result + quote($item);
+      }
+
+      @else if $item == null {
+        $result: $result + "null";
+      }
+
+      @else {
+        $result: $result + $item;
+      }
+    }
+
+    @if $i != $length {
+      $result: $result + "," + $break;
+    }
+  }
+
+  $result: $result + $break + if($pre, if($level > 1, $indent, ""), " ") + "]";
+
+  @return quote($result);
+}
+
+
+
+
+
+@mixin sl-debug($list) {
+  body:before {
+    content: sl-debug($list, true)            !important;
+
+    display: block                            !important;
+    margin: 1em                               !important;
+    padding: .5em                             !important; 
+
+    background: #EFEFEF                       !important;
+    border: 1px solid #DDD                    !important;
+    border-radius: .2em                       !important;
+
+    color: #333                               !important;
+    font: .75em/1.5 "Courier New", monospace  !important;
+    text-shadow: 0 1px white                  !important;
+    white-space: pre-wrap                     !important;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+@function sl-explode($string, $delimiter: '', $separator: "space") {
+  @if type-of($string) != "string" {
+    @warn "`sl-explode` function expecting a string; #{type-of($string)} given.";
+    @return null;
+  }
+
+  @if type-of($delimiter) != "string" {
+    @warn "`sl-explode` function expecting a string; #{type-of($delimiter)} given.";
+    @return null;
+  }
+
+  $result: ();
+  $length: str-length($string);
+  
+  @if not index("space" "comma", $separator) {
+    $separator: "space";
+  }
+
+  @if str-length($delimiter) == 0 {
+    @for $i from 1 through $length {
+      $result: append($result, str-slice($string, $i, $i));
+    }
+    
+    @return $result;
+  }
+
+  $running: true;
+  $remaining: $string;
+
+  @while $running {
+    $index: str-index($remaining, $delimiter);
+    
+    @if not $index {
+      $running: false;
+    }
+
+    @else {
+      $slice: str-slice($remaining, 1, $index - 1);
+      $result: append($result, $slice, $separator);
+      $remaining: str-slice($remaining, $index + str-length($delimiter));
+    }
+  }
+
+  @return append($result, $remaining, $separator);
+}
+
+
+
+
+
+ 
+@function sl-every($list, $function, $args...) {
+  @each $item in $list {
+    @if not call($function, $item, $args...) {
+      @return false;
+    } 
+  }
+  
+  @return true;
+}
+
+
+
+
+
+
+
+
+@function sl-first($list) {
+  @if sl-missing-dependencies(sl-is-empty) == true { @return null; }
+
+  @if sl-is-empty($list) {
+    @warn "Cannot find first item of empty list.";
+    @return null;
+  }
+
+  @return nth($list, 1);
+}
+
+
+
+
+@function sl-head($list) {
+  @return sl-first($list);
+}
+
+
+
+
+
+
+@function sl-flatten($list) {
+  @if sl-missing-dependencies(sl-has-multiple-values) == true { @return null; }
+
+  $result: ();
+
+  @each $item in $list {
+    @if sl-has-multiple-values($item) {
+      $flatten: sl-flatten($item);
+      
+      @each $i in $flatten {
+        $result: append($result, $i, list-separator($list));
+      }
+    }
+
+    @else {
+      $result: append($result, $item, list-separator($list));
+    }
+  }
+
+  @return $result;
+}
+
+
+
+
+@function sl-unfold($list) {
+    @return sl-flatten($list);
+}
+
+
+
+
+
+@function sl-has-values($list) {
+  @return length($list) > 0;
+}
+
+
+
+
+
+@function sl-has-multiple-values($list) {
+  @return length($list) > 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+@function sl-insert-nth($list, $index, $value) {
+  @if sl-missing-dependencies(sl-is-true) == true { @return null; }
+
+  $length: length($list);
+
+  @if type-of($index) != "number" {
+    @warn "List index #{inspect($index)} is not a number for `sl-insert-nth`.";
+    @return null;
+  }
+
+  @if $index < 1 {
+    @warn "List index #{$index} must be a non-zero integer for `sl-insert-nth`.";
+    @return null;
+  }
+
+  @if $index > $length {
+    @return append($list, $value, list-separator($list));
+  }
+
+  $result: ();
+
+  @for $i from 1 through $length {
+    @if $i == $index {
+      @if sl-is-true($value) {
+        $result: append($result, $value, list-separator($list));
+      }
+    }
+
+    $result: append($result, nth($list, $i), list-separator($list));
+  }
+
+  @return $result;
+}
+
+
+
+
+
+
+
+
+
+@function sl-intersection($list, $lists...) {
+  @if sl-missing-dependencies(sl-remove-duplicates) == true { @return null; }
+
+  $result: $list;
+
+  @each $list in $lists {
+    $temp: ();
+
+    @each $item in $result {
+      @if not not index($list, $item) {
+        $temp: append($temp, $item, list-separator($list));
+      }
+    }
+
+    $result: $temp;
+  }
+
+  @return sl-remove-duplicates($result);
+}
+
+
+
+
+
+
+@function sl-is-empty($list) {
+  @return length($list) == 0;
+}
+
+
+
+
+@function sl-empty($list) {
+  @return sl-is-empty($list);
+}
+
+
+
+
+
+
+@function sl-is-single($list) {
+  @return length($list) == 1;
+}
+
+
+
+
+
+
+
+@function sl-is-symmetrical($list) {
+  @if sl-missing-dependencies(sl-reverse) == true { @return null; }
+  
+  @return $list == sl-reverse($list);
+}
+
+
+
+
+@function sl-is-mirror($list) {
+  @return sl-is-symmetrical($list);
+}
+
+
+
+
+
+
+@function sl-last-index($list, $value) {
+  @for $i from length($list) through 1 {
+    @if nth($list, $i) == $value {
+      @return $i;
+    }
+  }
+
+  @return null;
+}
+
+
+
+
+
+
+
+
+@function sl-last($list) {
+  @if sl-missing-dependencies(sl-is-empty) == true { @return null; }
+
+  @if sl-is-empty($list) {
+    @warn "Cannot find last item of empty list.";
+    @return null;
+  }
+
+  @return nth($list, -1);
+}
+
+
+
+
+
+
+
+
+
+@function sl-loop($list, $value: 1) {
+  @if sl-missing-dependencies(sl-has-multiple-values) == true { @return null; }
+
+  @if type-of($value) != "number" {
+    @warn "#{inspect($value)} is not a number for `sl-loop`.";
+    @return null;
+  }
+
+  @if not sl-has-multiple-values($list) {
+    @return $list;
+  }
+
+  $result: ();
+  $length: length($list);
+
+  @for $i from 0 to $length {
+    $result: append($result, nth($list, ($i - $value) % $length + 1), list-separator($list));
+  }
+
+  @return $result;
+}
+
+
+
+
+@function sl-shift-indexes($list, $value: 1) {
+  @return sl-loop($list, $value);
+}
+
+
+
+
+
+
+
+
+@function sl-prepend($list, $value) {
+  @if sl-missing-dependencies(sl-is-true, sl-to-list) == true { @return null; }
+  
+  @if sl-is-true($value) {
+  	$list: join($value, $list, list-separator($list));
+  }
+
+  @return sl-to-list($list);
+}
+
+
+
+
+
+
+
+
+@function sl-purge($list) {
+  @if sl-missing-dependencies(sl-is-true, sl-to-list) == true { @return null; }
+  
+  $result: ();
+
+  @each $item in $list {
+    @if sl-is-true($item) {
+      $result: append($result, $item, list-separator($list));
+    }
+  }
+
+  @return sl-to-list($result);
+}
+
+
+
+
+@function sl-clean($list) {
+  @return sl-purge($list);
+}
+
+
+
+
+
+
+
+
+@function sl-random-value($list) {
+  @if sl-missing-dependencies(sl-is-empty) == true { @return null; }
+
+  @if sl-is-empty($list) {
+    @warn "Cannot find a random value in an empty list.";
+    @return null;
+  }
+
+  @return nth($list, random(length($list) - 1) + 1);
+}
+
+
+
+
+@function sl-roll($list) {
+  @return sl-random-value($list);
+}
+
+
+
+
+@function sl-luck($list) {
+  @return sl-random-value($list);
+}
+
+
+
+
+
+
+
+
+@function sl-range($n) {
+  @if type-of($n) != "number" {
+    @warn "`#{inspect($n)}` is not a number for `sl-range`.";
+    @return null;
+  }
+
+  @if not unitless($n) {
+    @warn "`#{$n}` is not unitless for `sl-range`.";
+    @return null;
+  }
+
+  @if $n < 1 {
+    @warn "`#{$n}` is not greater than 0 for `sl-range`.";
+    @return null;
+  }
+
+  @if $n == 1 { 
+    @return $n;
+  }
+
+  $range: ();
+
+  @for $i from 1 through $n {
+    $range: append($range, $i);
+  }
+
+  @return $range;
+}
+
+
+
+
+
+
+@function sl-remove-duplicates($list) {
+  @if sl-missing-dependencies(sl-to-list) == true { @return null; }
+
+  $result: ();
+
+  @each $item in $list {
+    @if not index($result, $item) {
+      $result: append($result, $item, list-separator($list));
+    }
+  }
+
+  @return sl-to-list($result);
+}
+
+
+
+
+@function sl-unique($list) {
+  @return sl-remove-duplicates($list);
+}
+
+
+
+
+
+
+
+@function sl-remove-nth($list, $index) {
+  @if sl-missing-dependencies(sl-replace-nth) == true { @return null; }
+
+  @return sl-replace-nth($list, $index, "");
+}
+
+
+
+
+@function sl-without-nth($list, $index) {
+  @return sl-remove-nth($list, $index);
+}
+
+
+
+
+
+
+
+
+@function sl-remove($list, $value) {
+  @if sl-missing-dependencies(sl-replace) == true { @return null; }
+
+  @return sl-replace($list, $value, null);
+}
+
+
+
+
+@function sl-without($list, $value) {
+  @return sl-remove($list, $value);
+}
+
+
+
+
+
+
+
+
+
+
+
+@function sl-replace-nth($list, $index, $value) {
+  @if sl-missing-dependencies(sl-purge, sl-is-true, sl-to-list) == true { @return null; }
+
+  @if type-of($index) != "number" or $index == 0 or abs($index) > length($list) {
+    @warn "Invalid index (#{inspect($index)}) for `sl-replace-nth`.";
+    @return null;
+  }
+
+  $list: set-nth($list, $index, $value);
+  $list: if(sl-is-true($value), $list, sl-purge($list));
+  
+  @return sl-to-list($list);
+}
+
+
+
+
+
+
+
+
+
+
+
+@function sl-replace($list, $old, $value) {
+  @if sl-missing-dependencies(sl-is-true, sl-purge, sl-to-list) == true { @return null; }
+
+  $running: true;
+
+  @while $running {
+    $index: index($list, $old);
+
+    @if not $index {
+      $running: false;
+    }
+
+    @else {
+      $list: set-nth($list, $index, $value);
+    }
+
+  }
+
+  $list: if(sl-is-true($value), $list, sl-purge($list));
+  
+  @return sl-to-list($list);
+}
+
+
+
+
+
+
+@function sl-reverse($list) {
+  @if sl-missing-dependencies(sl-to-list) == true { @return null; }
+
+  $length: length($list);
+  $end: floor($length / 2);
+
+  @if $length < 2 {
+    @return $list;
+  }
+
+  @for $i from 1 through $end {
+    $tmp: nth($list, $i);
+    $list: set-nth($list, $i, nth($list, -$i));
+    $list: set-nth($list, -$i, $tmp);
+  }
+
+  @return sl-to-list($list);
+}
+
+
+
+
+@function sl-mirror($list) {
+  @return sl-reverse($list);
+}
+
+
+
+
+
+
+@function sl-shuffle($list) {
+  @if sl-missing-dependencies(sl-to-list) == true { @return null; }
+
+  $length: length($list);
+
+  @if $length < 2 {
+    @return $list;
+  }
+
+  @for $i from $length through 1 {
+    $j: random($length - 1) + 1;
+    $tmp: nth($list, $i);
+    $list: set-nth($list, $i, nth($list, $j));
+    $list: set-nth($list, $j, $tmp);
+  }
+  
+  @return sl-to-list($list);
+}
+
+
+
+
+@function sl-randomize($list) {
+  @return sl-shuffle($list);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@function sl-slice($list, $start: 1, $end: length($list)) {
+  @if type-of($start) != "number" or type-of($end) != "number" {
+    @warn "List indexes #{$start} and #{$end} must be numbers for `sl-slice`.";
+    @return null;
+  }
+
+  @if $start > $end {
+    @warn "Start index is #{$start} but has to be lesser than or equals to the end index (#{$end}) for `sl-slice`.";
+    @return null;
+  }
+
+  @if $start < 1 or $end < 1 {
+    @warn "List indexes must be non-zero integers for `sl-slice`.";
+    @return null;
+  }
+
+  @if $start > length($list) {
+    @warn "Start index is #{$start} but list is only #{length($list)} items long for `sl-slice`.";
+    @return null;
+  }
+
+  @if $end > length($list) {
+    @warn "End index is #{$end} but list is only #{length($list)} items long for `sl-slice`.";
+    @return null;
+  }
+
+  $result: ();
+  
+  @for $i from $start through $end {
+    $result: append($result, nth($list, $i), list-separator($list));
+  }
+
+  @return $result;
+}
+
+
+
+
+
+
+
+
+
+@function sl-sort($list, $order: "!" "#" "$" "%" "&" "'" "(" ")" "*" "+" "," "-" "." "/" "[" "\\" "]" "^" "_" "{" "|" "}" "~" "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t" "u" "v" "w" "x" "y" "z") {
+  @if sl-missing-dependencies(sl-str-compare, sl-has-multiple-values, sl-to-list) == true { @return null; }
+
+  $less:  ();
+  $equal: ();
+  $large: ();
+
+  @if sl-has-multiple-values($list) {
+    $seed: nth($list, ceil(length($list) / 2));
+    
+    @each $item in $list {
+      @if $item == $seed {
+        $equal: append($equal, $item, list-separator($list));
+      }
+
+      @else if sl-str-compare($item, $seed, $order) {
+        $less: append($less, $item, list-separator($list));
+      }
+      
+      @else if not sl-str-compare($item, $seed, $order) {
+        $large: append($large, $item, list-separator($list));
+      }
+    }
+
+    @return join(join(sl-sort($less, $order), $equal), sl-sort($large, $order));
+  }
+
+  @return sl-to-list($list);
+}
+
+
+
+
+@function sl-order($list) {
+  @return sl-sort($list);
+}
+
+
+
+
+
+
+ 
+@function sl-some($list, $function, $args...) {
+  @each $item in $list {
+    @if call($function, $item, $args...) {
+      @return true;
+    } 
+  }
+  
+  @return false;
+}
+
+
+
+
+
+
+
+
+
+
+@function sl-sum($list, $force: false) {
+  $result: 0;
+
+  @if not sl-every($list, sl-is-number) {
+    @warn "All items from list are not numbers for `sl-sum`.";
+    @return null;
+  }
+
+  @each $item in $list {
+    @if not unitless($item) and $force {
+      $item: $item / ($item * 0 + 1);
+    }
+
+    @if unitless($item) {
+      $result: $result + $item;
+    }
+  }
+
+  @return $result;
+}
+
+
+
+
+
+
+@function sl-tail($list) {
+  @if sl-missing-dependencies(sl-slice) == true { @return null; }
+
+  @return sl-slice($list, 2);
+}
+
+
+
+
+@function sl-rest($list) {
+  @return sl-tail($list);
+}
+
+
+
+
+
+
+@function sl-to-list($value, $separator: list-separator($value)) {
+  @if type-of($value) != "list" or list-separator($value) != $separator {
+    $new-list: if($separator == "comma", sl-comma-list(), ());
+
+    @each $item in $value {
+      $new-list: append($new-list, $item, $separator);
+    }
+
+    @return $new-list;
+  }
+
+  @return $value;
+}
+
+
+
+
+@function sl-listify($value) {
+  @return sl-to-list($value);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@function sl-to-map($list) {
+  @if sl-missing-dependencies(sl-range, sl-is-empty) == true { @return null; }
+
+  @if sl-is-empty($list) {
+    @warn "List cannot be empty for `sl-to-map`.";
+    @return null;
+  }
+
+  @return zip(sl-range(length($list)), $list);
+}
+
+
+
+
+@function sl-enumerate($list, $start: 1) {
+  @return sl-to-map($list, $start);
+}
+
+
+
+
+@function sl-mapify($list, $start: 1) {
+  @return sl-to-map($list, $start);
+}
+
+
+
+
+
+
+
+
+@function sl-to-string($list, $glue: '') {
+  @if sl-missing-dependencies(sl-has-multiple-values) == true { @return null; }
+
+  $result: '';
+
+  @each $item in $list {
+    $result: $result + if(sl-has-multiple-values($item), sl-to-string($item, $glue), $item);
+
+    @if $item != sl-last($list) {
+      $result: $result + $glue;
+    }
+  }
+
+  @return quote($result);
+}
+
+
+
+
+@function sl-stringify($list, $glue: '') {
+  @return sl-to-string($list, $glue);
+}
+
+
+
+
+
+
+
+@function sl-union($lists...) {
+  @if sl-missing-dependencies(sl-flatten, sl-remove-duplicates) == true { @return null; }
+
+  $result: sl-remove-duplicates(sl-flatten($lists));
+  
+  @return $result;
+}
+
+
+
+@function sl-merge($lists...) {
+  @return sl-union($lists...);
+}
+
+
+
+
+
+
+
+
+
+
+
+@function sl-walk($list, $function, $args...) {
+  @if sl-missing-dependencies(sl-to-map, sl-to-list) == true { @return null; }
+  
+  @if not function-exists($function) {
+    @warn "There is no `#{$function}` function for `sl-walk`.";
+    @return null;
+  }
+
+  @each $index, $value in sl-to-map($list) {
+  	$list: set-nth($list, $index, call($function, $value, $args...));
+  }
+  
+  @return sl-to-list($list);
+}

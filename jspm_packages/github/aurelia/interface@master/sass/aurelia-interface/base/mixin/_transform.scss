@@ -1,0 +1,79 @@
+
+
+@mixin translateX($val) {
+  @include transform(translateX($val));
+}
+@mixin translateY($val) {
+  @include transform(translateY($val));
+}
+@mixin translate($x, $y) {
+  @include transform(translate($x, $y));
+}
+
+@mixin translate3d($x, $y, $x) {
+  @include transform(translate($x, $y, $z));
+}
+
+
+
+@mixin scroll-element($direction:y) {
+  $hidden: if($direction == y, x, y);
+  overflow-#{$hidden}:hidden;
+  overflow-#{$direction}:scroll;
+  .platform-android & {
+    overflow-#{$hidden}: hidden;
+    overflow-#{$direction}: scroll;
+  }
+
+  .platform-ios & {
+    overflow-#{$hidden}: hidden;
+    overflow-#{$direction}: scroll;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+  }
+
+  .browser-firefox & {
+    overflow-#{$hidden}: hidden;
+    overflow-#{$direction}: scroll;
+  }
+  .browser-ie & {
+    overflow-#{$hidden}: hidden;
+    overflow-#{$direction}: scroll;
+  }
+}
+
+@mixin scrollbar() {
+  &::-webkit-scrollbar {
+    @content;
+  }
+}
+@mixin scrollbar-button() {
+  &::-webkit-scrollbar-button {
+    @content;
+  }
+}
+@mixin scrollbar-track() {
+  &::-webkit-scrollbar-track {
+    @content;
+  }
+}
+@mixin scrollbar-track-piece() {
+  &::-webkit-scrollbar-track-piece {
+    @content;
+  }
+}
+@mixin scrollbar-thumb() {
+  &::-webkit-scrollbar-thumb {
+    @content;
+  }
+}
+@mixin scrollbar-corner() {
+  &::-webkit-scrollbar-corner {
+    @content;
+  }
+}
+@mixin resizer() {
+  &::-webkit-resizer {
+    @content;
+  }
+}

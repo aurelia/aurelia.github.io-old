@@ -1,0 +1,38 @@
+
+
+@mixin iOS-SelectComponent {
+  @include AISelectElement;
+
+  select {
+    @include SelectElement;
+  }
+
+  .theme-light & {
+    @include AISelectElement-Light;
+  }
+
+  .theme-dark & {
+    @include AISelectElement-Dark;
+  }
+}
+
+@mixin iOS-SelectComponent-XS {
+  @include AISelectElement-xs;
+}
+
+@mixin iOS-SelectComponent-MD {
+  @include AISelectElement-md;
+}
+
+
+@include Component(ai-select) {
+  @include iOS-SelectComponent;
+}
+
+@include Component-xs(ai-select) {
+  @include iOS-SelectComponent-XS;
+}
+
+@include Component-md(ai-select) {
+  @include iOS-SelectComponent-MD;
+}

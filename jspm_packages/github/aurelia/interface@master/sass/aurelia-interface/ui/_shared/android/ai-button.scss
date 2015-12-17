@@ -1,0 +1,60 @@
+
+ai-button {
+  @include AIButtonElement($round:true, $raised:true, $flat:true, $light:true, $fill:true, $outline:true, $default:raised);
+  font-weight: 600;
+  border: none;
+  font-size: em(14);
+  line-height: 1.6;
+  border-radius: em(2);
+  font-family: 'Roboto';
+  text-transform: uppercase;
+  text-align: center;
+
+  button {
+    @include ButtonElement;
+  }
+
+  @include button-size--variant(medium);
+  &:hover {
+    @include shadow-6dp;
+  }
+  &:active {
+    @include shadow-2dp;
+  }
+}
+
+ai-button:not([round]):not([round-android]) {
+
+  &[size="small"] {
+    @include button-element(size, small);
+  }
+
+  &[size="medium"] {
+    @include button-element(size, medium);
+  }
+
+  &[size="large"] {
+    @include button-element(size, large);
+  }
+}
+
+
+
+ai-button[round-android] {
+  @include round-button-element;
+}
+ai-button[raised-android] {
+  @include raised-button-element;
+}
+ai-button[flat-android] {
+  @include flat-button-element;
+}
+ai-button[light-android] {
+  @include light-button-element;
+}
+ai-button[fill-android] {
+  @include fill-button-element;
+}
+ai-button[outline-android] {
+  @include outline-button-element;
+}

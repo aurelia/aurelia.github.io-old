@@ -1,0 +1,39 @@
+
+$themed-labels: base text secondary icon disable hint label divider default status-bar app-bar list paper paper-light;
+
+
+@mixin include-themes() {
+  @include select-theme(light) {
+    @each $label in $themed-labels {
+      [color=#{$label}] {
+        color: theme-light($label);
+      }
+      [color=x#{$label}] {
+        color: theme-dark($label);
+      }
+      [bg=#{$label}] {
+        background-color: theme-light($label);
+      }
+      [bg=x#{$label}] {
+        background-color: theme-dark($label);
+      }
+    }
+  }
+
+  @include select-theme(dark) {
+    @each $label in $themed-labels {
+      [color=#{$label}] {
+        color: theme-dark($label);
+      }
+      [color=x#{$label}] {
+        color: theme-light($label);
+      }
+      [bg=#{$label}] {
+        background-color: theme-dark($label);
+      }
+      [bg=x#{$label}] {
+        background-color: theme-light($label);
+      }
+    }
+  }
+}

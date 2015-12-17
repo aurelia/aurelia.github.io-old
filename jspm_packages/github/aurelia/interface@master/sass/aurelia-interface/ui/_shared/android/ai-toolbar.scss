@@ -1,0 +1,31 @@
+
+ai-toolbar {
+  @include AIToolbarElement
+}
+.viewbar-placeholder {
+
+
+
+
+}
+
+ai-toolbar {
+ 
+}
+
+@include from-screen(md) {
+  .viewbar-placeholder,
+  view-bar {
+    min-height: 4rem;
+    max-height: 4rem;
+  }
+
+  view-bar bar-left {
+    padding-left: $base-gutter-md;
+    max-width: em(80);
+  }
+
+  view-bar bar-right {
+    padding-right: $base-gutter-md;
+  }
+}

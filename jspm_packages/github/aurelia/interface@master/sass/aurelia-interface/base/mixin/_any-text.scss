@@ -1,0 +1,22 @@
+
+@mixin any-text($child:false, $headings:1 2 3 4 5 6, $p:false) {
+  @each $item in $headings {
+    @if $child {
+      & > h#{$item} {
+        @content;
+      }
+      @if $p {
+        & > p {
+          @content;
+        }
+      }
+    } @else {
+      h#{$item} {
+        @content;
+      }
+      @if $p {
+        p {@content}
+      }
+    }
+  }
+}

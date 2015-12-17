@@ -1,0 +1,85 @@
+
+
+@mixin breakpoint($breakpoint) {
+  @media (min-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+@mixin max-breakpoint($breakpoint) {
+  @media (max-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+@mixin media-xs { @include breakpoint(xs) {@content;} }
+@mixin media-sm { @include breakpoint(sm) {@content;} }
+@mixin media-md { @include breakpoint(md) {@content;} }
+@mixin media-lg { @include breakpoint(lg) {@content;} }
+@mixin media-xl { @include breakpoint(xl) {@content;} }
+
+@mixin max-media-xs { @include max-breakpoint(xs) {@content;} }
+@mixin max-media-sm { @include max-breakpoint(sm) {@content;} }
+@mixin max-media-md { @include max-breakpoint(md) {@content;} }
+@mixin max-media-lg { @include max-breakpoint(lg) {@content;} }
+
+
+
+@mixin to-screen($to) {
+  $breakpoint: map-get($grid-breakpoints, $to);
+  @if not $breakpoint {
+    @warn "Breakpoint [#{$breakpoint}] does not Exist";
+  } @else {
+    @media (max-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+@mixin from-screen($from) {
+  $breakpoint: map-get($grid-breakpoints, $from);
+  @if not $breakpoint {
+    @warn "Breakpoint [#{$breakpoint}] does not Exist";
+  } @else {
+    @media (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+@mixin from-to-screen($from, $to) {
+  $breakpoint-min: map-get($grid-breakpoints, $from);
+  $breakpoint-max: map-get($grid-breakpoints, $to);
+  @if not $breakpoint-min {
+    @warn "Breakpoint [#{$breakpoint-min}] does not Exist";
+  }
+  @else if not $breakpoint-max {
+    @warn "Breakpoint [#{$breakpoint-max}] does not Exist";
+  }
+  @else {
+    @media (min-width: $from) and (max-width: $to) {
+      @content;
+    }
+  }
+}
+
+
+@media only screen and (min-width:320px) {
+
+}
+@media only screen and (min-width:480px) {
+
+}
+@media only screen and (min-width:768px) {
+
+}
+@media only screen and (min-width:1024px) {
+
+}
+@media only screen and (min-width:1140px) {
+
+}
+@media only screen and (min-width:1280px) {
+
+}
+@media print, (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+
+}

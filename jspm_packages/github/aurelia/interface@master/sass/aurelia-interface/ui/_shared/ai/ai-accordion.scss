@@ -1,0 +1,106 @@
+
+ai-accordion {
+  @include AIListElement;
+  position: relative;
+
+  > ai-item {
+    position: relative;
+    display: flex;
+    min-width: 100%;
+    @include flex(0 1 auto);
+    @include flex-direction(column);
+    @include transition-default;
+
+    item-header {
+      display: flex;
+      position: relative;
+      font-size: em(16);
+      padding-left: $base-gutter-xs;
+      min-width: 100%;
+      max-height: em(48);
+      @include flex(1 0 auto);
+
+      > ai-icon {
+        font-size: em(24);
+        display: flex;
+        padding-right: $base-gutter-xs;
+        @include align-items(center);
+      }
+
+      > ai-avatar {
+        display: flex;
+        padding-right: $base-gutter-xs;
+        @include align-items(flex-start);
+      }
+
+      > ai-title {
+        font-weight: bold;
+      }
+
+      > ai-tile {
+        padding-top: em(8);
+        position: relative;
+        min-height: em(48);
+        padding-right: $base-gutter-xs;
+        @include flex-direction(column);
+        @include align-items(flex-start);
+        @include justify-content(center);
+
+        &[toggle-icon] {
+          padding-top: 0;
+          @include flex(0 1 auto);
+          ai-icon:before {
+            @include transition-default;
+          }
+        }
+      }
+    }
+
+    item-body {
+      display: flex;
+      min-width: 100%;
+      overflow: hidden;
+      transform-origin: top;
+      height: 0;
+      @include flex-direction(column);
+      @include transform(scaleY(0));
+      @include transition-default;
+    }
+
+    &.is-open {
+      item-header ai-tile[toggle-icon] ai-icon:before {
+        @include transform(rotate(90deg));
+      }
+      item-body {
+        height: 100%;
+        @include transform(scaleY(1));
+      }
+    }
+  }
+
+  &[border-accordion] {
+    ai-item > item-header {
+      @include bottom-line();
+    }
+  }
+}
+
+@include select-theme(light) {
+  ai-accordion > ai-item {
+    background-color: theme-light(paper);
+    color: theme-light(text);
+  }
+  ai-accordion[border-accordion] > ai-item > item-header {
+    @include bottom-line(theme-light(divider));
+  }
+}
+
+@include select-theme(dark) {
+  ai-accordion > ai-item {
+    background-color: theme-dark(paper);
+    color: theme-dark(text);
+  }
+  ai-accordion[border-accordion] > ai-item > item-header {
+    @include bottom-line(theme-dark(divider));
+  }
+}

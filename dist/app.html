@@ -6,6 +6,7 @@
   <require from="resources/au-settings-button"></require>
   <require from="resources/au-dropdown"></require>
   <require from="resources/au-aside"></require>
+  <require from="resources/au-menu"></require>
 
   <!-- Header Bar -->
   <header class="au-header" ref="header">
@@ -21,7 +22,7 @@
       </nav-item>
 
       <nav-item au-tabs>
-        <a tab-item href="#/" class="${router.currentInstruction.config.settings.isArticle ? 'au-active' : ''}">Step-by-Step</a>
+        <a tab-item href="#/" class="${router.currentInstruction.config.settings.isArticle ? 'au-active' : ''}">Articles</a>
         <a tab-item href="#/api/home" class="tab-item ${router.currentInstruction.config.settings.isApi ? 'au-active' : ''}">
           Libraries
           <span class="au-tag">API</span>
@@ -44,13 +45,14 @@
   <!-- Aside Bar -->
   <au-aside au-aside.ref="aside" class="au-animate">
     <nav ref="mobileTabs" class="au-tabs">
-      <a tab-item href="#/" class="${router.currentInstruction.config.settings.isArticle ? 'au-active' : ''}">Step-by-Step</a>
+      <a tab-item href="#/" class="${router.currentInstruction.config.settings.isArticle ? 'au-active' : ''}">Articles</a>
       <a tab-item href="#/api/home" class="tab-item ${router.currentInstruction.config.settings.isApi ? 'au-active' : ''}">
         Libraries
         <span class="au-tag">API</span>
       </a>
     </nav>
-    <router-view name="menu"></router-view>
+    <au-menu></au-menu>
+    <!-- <router-view name="menu"></router-view> -->
   </au-aside>
 
   <!-- Main content Area -->

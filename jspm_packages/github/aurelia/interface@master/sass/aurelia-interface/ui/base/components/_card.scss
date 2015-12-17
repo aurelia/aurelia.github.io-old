@@ -1,0 +1,106 @@
+
+@mixin Base-CardComponent {
+  @include flex-basis(auto);
+  @include flex-shrink(0);
+  @include flex-direction(column);
+  @include transform(translate3d(0,0,0));
+  @extend %shadow-2dp;
+  background-color: $white;
+  display: flex;
+  position: relative;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+
+  > ai-heading {
+    @extend %flexbox;
+    @include flex-direction(row);
+    @include align-items(center);
+    padding-left: $gutter-xs;
+    padding-right: $gutter-xs;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    > ai-avatar {
+      margin-right: $gutter-xs;
+    }
+  }
+
+  > ai-content {
+    @include flex(1 0 auto);
+    display: block;
+    padding-left: $gutter-xs;
+    padding-right: $gutter-xs;
+    margin-bottom: 1rem;
+  }
+
+  > ai-media {
+    @include flex(1 0 auto);
+    display: block;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 1em;
+  }
+
+  > ai-footer {
+    @include flex(1 0);
+    display: block;
+    padding-left: $gutter-xs;
+    padding-right: $gutter-xs;
+    margin-bottom: 1em;
+  }
+
+  > * {
+    margin-bottom: 1rem;
+  }
+
+  > ai-actions {
+    @extend %flexbox;
+    @include justify-content(flex-end);
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    margin-top: 0;
+    margin-bottom:0;
+  }
+}
+
+@mixin Base-CardComponent-XS {
+
+}
+
+@mixin Base-CardComponent-MD {
+  > ai-heading,
+  > ai-content,
+  > ai-footer {
+    padding-left: $gutter-md;
+    padding-right: $gutter-md;
+  }
+}
+
+@mixin Base-CardComponent-Light {
+
+}
+
+@mixin Base-CardComponent-Dark {
+
+}
+
+
+%AICardComponent {
+  @include Base-CardComponent;
+}
+
+%AICardComponent-MD {
+  @include Base-CardComponent-MD;
+}
+
+ai-card {
+  @extend %AICardComponent;
+
+}
+
+@include breakpoint(md) {
+  ai-card {
+    @extend %AICardComponent-MD;
+  }
+}

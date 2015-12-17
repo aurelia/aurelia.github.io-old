@@ -1,0 +1,7 @@
+ai-textarea {
+  @include AITextareaElement;
+
+  textarea {
+    @include TextareaElement;
+  }
+}

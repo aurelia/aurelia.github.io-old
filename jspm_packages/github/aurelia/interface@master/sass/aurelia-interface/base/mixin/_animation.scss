@@ -1,0 +1,40 @@
+
+@mixin transition-fast-out-slow-in($duration:0.2s) {
+  @include transition-duration($duration);
+  @include transition-timing-function($transition-curve-fast-out-slow-in);
+}
+
+@mixin transition-linear-out-slow-in($duration:0.2s) {
+  @include transition-duration($duration);
+  @include transition-timing-function($transition-curve-linear-out-slow-in);
+}
+
+@mixin transition-fast-out-linear-in($duration:0.2s) {
+  @include transition-duration($duration);
+  @include transition-timing-function($transition-curve-fast-out-linear-in);
+}
+
+@mixin transition-default($duration:0.2s) {
+  @include transition-duration($duration);
+  @include transition-timing-function($transition-curve-default);
+}
+
+@mixin animation-fast-out-slow-in($duration:0.2s) {
+  @include animation-duration($duration);
+  @include animation-timing-function($animation-curve-fast-out-slow-in);
+}
+
+@mixin animation-linear-out-slow-in($duration:0.2s) {
+  @include animation-duration($duration);
+  @include animation-timing-function($animation-curve-linear-out-slow-in);
+}
+
+@mixin animation-fast-out-linear-in($duration:0.2s) {
+  @include animation-duration($duration);
+  @include animation-timing-function($animation-curve-fast-out-linear-in);
+}
+
+@mixin animation-default($duration:0.2s) {
+  @include animation-duration($duration);
+  @include animation-timing-function($animation-curve-default);
+}

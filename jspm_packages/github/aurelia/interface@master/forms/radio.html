@@ -1,0 +1,43 @@
+<template>
+  <input if.bind="value" ref="inputElement" type="radio" name="${name}" value.bind="value" checked.two-way="checked" id="${label || id}">
+  <input if.bind="model" ref="inputElement" type="radio" name="${name}" model.bind="model" checked.two-way="checked" id="${label || id}">
+  <control-container>
+    <label if.bind="label" for="${label}">${label}</label>
+    <content></content>
+  </control-container>
+</template>
+
+
+
+<!--
+```javascript
+export class Thing {
+  activeColor = null;
+  color1 = 'red'
+  color2 = 'blue'
+}
+
+export class customRadio {
+  @bindable name = null;
+  @bindable value = null;
+  @bindable checked = null;
+}
+
+```
+
+custom-radio.html
+```html
+<template>
+  <input type="checkbox" name.bind="name" checked.bind="checked" value.bind="value">
+</template>
+```
+
+
+thing.html
+```html
+<template>
+  <custom-radio name="color" value.bind="color1" checked.bind="activeColor"></custom-radio>
+  <custom-radio name="color" value.bind="color2" checked.bind="activeColor"></custom-radio>
+</template>
+```
+ -->

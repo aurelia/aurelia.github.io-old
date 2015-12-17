@@ -1,0 +1,30 @@
+$toolbar-height: 3rem;
+
+@mixin AIToolbarElement {
+  @extend %flexbox;
+  @include flex(1 0 auto);
+  @include flex-direction(row);
+  @include bottom-line();
+  height: $toolbar-height;
+  max-height: $toolbar-height;
+  line-height: $toolbar-height;
+  position: relative;
+
+  > ai-tool {
+    @extend %flexbox;
+    max-width: 4rem;
+    line-height: inherit;
+    @include justify-content(center);
+
+    .ai-icon {
+      @include justify-content(center);
+    }
+
+    &[align-right] {
+      margin-left: auto;
+      & ~ * {
+        margin-left: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,144 @@
+
+$AI_FRAMEWORK_EXPORT: null !default;
+
+@if not $AI_FRAMEWORK_EXPORT {
+  @import 'framework';
+}
+
+
+
+md-icon,
+md-icon.ai-icon i {
+  font-family: 'MDIcons';
+  font-size: 24px;
+}
+
+ai-icon,
+ai-icon.ai-icon i,
+ai-icon.ai-icon i:before,
+ai-icon.ai-icon i:after {
+  font-family: $aicons-font-family;
+}
+
+md-icon i,
+md-icon.ai-icon i {
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  @extend %icon-style;
+}
+
+ai-icon.ai-icon i:before,
+ai-icon.ai-icon i:after,
+ai-icon i:before,
+ai-icon i:after {
+  @extend %icon-style;
+}
+
+md-icon.ai-icon {
+  &.md-18,&[md-18] { font-size: 18px; }
+  &.md-24,&[md-24] { font-size: 24px; }
+  &.md-36,&[md-36] { font-size: 36px; }
+  &.md-48,&[md-48] { font-size: 48px; }
+
+
+  &.md-dark,&[md-dark] { color: rgba(0, 0, 0, 0.54); }
+  &.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+  &[md-dark][md-inactive] { color: rgba(0, 0, 0, 0.26); }
+
+
+  &.md-light, &[md-light] { color: rgba(255, 255, 255, 1); }
+  &.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+  &[md-light][md-inactive] { color: rgba(255, 255, 255, 0.3); }
+
+  &.md-18,&[md-18] { font-size: 18px; }
+  &.md-24,&[md-24] { font-size: 24px; }
+  &.md-36,&[md-36] { font-size: 36px; }
+  &.md-48,&[md-48] { font-size: 48px; }
+}
+
+
+ai-icon.ai-icon {
+  display: flex;
+  font-size: 1.5em;
+  font-weight: normal;
+  height: 2em;
+  width: 2em;
+  position: relative;
+  @include align-items(center);
+
+
+  &[icon-auto] {@include size(auto)}
+  &[icon-2x] {@include size(2em)}
+  &[icon-3x] {@include size(3em)}
+  &[icon-4x] {@include size(4em)}
+
+  &[size-2x] {font-size: 2em}
+  &[size-3x] {font-size: 3em}
+  &[size-4x] {font-size: 4em}
+
+  &[fit] {@include size(100%)}
+  &[fit-x] {width:100%}
+  &[fit-y] {height:100%}
+
+  &[icon-base] {
+    width: sub-$gutter-xs;
+    min-width: sub-$gutter-xs;
+    max-width: sub-$gutter-xs;
+  }
+
+  &[align-left] {@include justify-content(flex-start)}
+  &[align-right] {@include justify-content(flex-end)}
+  &[align-center] {@include justify-content(center)}
+  &[align-top] {@include align-items(flex-start)}
+  &[align-middle] {@include align-items(center)}
+  &[align-bottom] {@include align-items(flex-end)}
+}
+@include breakpoint(xs) {
+  ai-icon {
+    &[icon-base] {
+      width: sub-gutter-px(xs);
+      min-width: sub-gutter-px(xs);
+      max-width: sub-gutter-px(xs);
+    }
+  }
+}
+
+@include breakpoint(md) {
+  ai-icon {
+    &[icon-base] {
+      width: sub-$gutter-md;
+      min-width: sub-$gutter-md;
+      max-width: sub-$gutter-md;
+    }
+  }
+}
+
+@each $name, $content in $ai-icons-var {
+  .#{$aicons-prefix}#{$name} > i:before {
+    @include use-aicon($name);
+  }
+}
+
+
+ai-tile {
+  &[align-left] {
+    @include justify-content(flex-start);
+  }
+  &[align-right] {
+    @include justify-content(flex-end);
+  }
+  &[align-center] {
+    @include justify-content(center);
+  }
+  &[align-top] {
+    @include align-items(flex-start);
+  }
+  &[align-middle] {
+    @include align-items(center);
+  }
+  &[align-bottom] {
+    @include align-items(flex-end);
+  }
+}
+

@@ -1,0 +1,69 @@
+
+
+$ios-checkbox-element-default: iOS-CheckboxElement;
+$ios-checkbox-element-light:   iOS-CheckboxElement-Light;
+$ios-checkbox-element-dark:    iOS-CheckboxElement-Dark;
+
+$ios-checkbox-meta: (
+  default: $ios-button-element-default,
+  light:   $ios-button-element-stack,
+  dark:    $ios-button-element-stack
+) !default;
+
+
+@mixin iOS-CheckboxElement {
+  @include AICheckboxElement;
+  display: flex;
+  padding-left: $gutter-xs;
+  background-color: $white;
+  @include flex(1 0 auto);
+  @include align-items(center);
+
+  input[type="checkbox"] {
+    @include CheckboxElement;
+    display: flex;
+    padding-right: $gutter-xs;
+    @include align-items(center);
+    @include justify-content(center);
+    &:before {
+      color: $dark-text;
+      @include use-aicon(ios-circle-outline);
+    }
+    &:checked:before {
+      color: $light-blue;
+      @include use-aicon(ios-checkmark);
+    }
+  }
+}
+@mixin iOS-CheckboxElement-Light {
+
+}
+@mixin iOS-CheckboxElement-Dark {
+
+}
+
+%#{$ios-button-element-default} {
+  @include iOS-CheckboxElement;
+}
+%#{$ios-button-element-stack} {
+  @include iOS-CheckboxElement-Light;
+}
+%#{$ios-button-element-stack} {
+  @include iOS-CheckboxElement-Dark;
+}
+
+@include Component(ai-checkbox) {
+  @include iOS-CheckboxElement;
+
+  .theme-light & {
+    ai-checkbox {
+      @include iOS-CheckboxElement-Light;
+    }
+  }
+
+  .theme-dark & {
+    ai-checkbox {
+      @include iOS-CheckboxElement-Dark;
+    }
+  }
+}

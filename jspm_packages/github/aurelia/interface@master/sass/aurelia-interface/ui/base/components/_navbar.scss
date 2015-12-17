@@ -1,0 +1,458 @@
+@mixin translate3d($x:0,$y:0,$z:0) {
+  @include transform(translate3d($x,$y,$z));
+}
+
+
+%navbar-size {
+  @extend %flexbox;
+  width: 100%;
+}
+
+@mixin Base-NavbarComponent {}
+@mixin Base-NavbarComponent-MD {}
+@mixin Base-NavbarComponent-Light {}
+@mixin Base-NavbarComponent-Dark {}
+
+@mixin Base-NavbarComponent-DarkOpaque {
+  @include bottom-line($black-4);
+  background-color: rgba(0,0,0,0.8);
+  color: $white;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+
+  .browser-safari &,
+  .platform-ios & {
+    -webkit-backdrop-filter: blur(3rem);
+            backdrop-filter: blur(3rem);
+  }
+}
+
+@mixin Base-NavbarComponent-LightOpaque {
+  @include bottom-line($black-4);
+  color: $black-2;
+  background-color: rgba(255,255,255,0.8);
+
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+
+  .browser-safari &,
+  .platform-ios & {
+    -webkit-backdrop-filter: blur(3rem);
+            backdrop-filter: blur(3rem);
+  }
+}
+
+@mixin create-navbar($navbar) {
+  @if type-of($navbar) == map {
+    $height: map-get($navbar, height);
+    $navbar-height: $height !global;
+
+    ai-navbar,
+    ai-navbar-slot {
+      height: $height;
+      max-height: $height;
+      line-height: $height;
+
+      & ~ ai-view {
+        top: $height;
+      }
+
+      ai-nav:not([dropdown]) {
+        max-height: $height;
+      }
+    }
+
+    ai-app-bar {
+      height: $height;
+      max-height: $height;
+      line-height: $height;
+
+      ai-navbar {
+        height: inherit;
+        max-height: inherit;
+      }
+    }
+
+    .statusbar-is-visible {
+      ai-navbar-slot,
+      ai-navbar {
+        padding-top: $statusbar-height;
+
+        & ~ ai-view {
+          top: calc(#{$height} + #{$statusbar-height});
+        }
+      }
+
+      ai-app-bar {
+        height: calc(#{$height} + #{$statusbar-height});
+        max-height: calc(#{$height} + #{$statusbar-height});
+      }
+    }
+  }
+}
+
+ai-navbar {
+  @include flex-wrap(wrap);
+  @extend %navbar-size;
+  background-color: $navbar-background;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+
+  ai-app-bar & {
+    background-color: transparent;
+  }
+
+  @if $enable-navbar-border {
+    border-bottom-width: $navbar-border-width;
+    border-bottom-color: $navbar-border-color;
+    border-bottom-style: $navbar-border-style;
+  }
+
+  ~ * {
+    z-index: 1;
+  }
+
+  nav-indicator {
+    display: none;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    background-color: $navbar-active-background;
+    @include transition-default;
+    @include transform(translate3d(0,0,0));
+  }
+}
+
+ai-navbar-slot {
+  @extend %flexbox;
+  position: relative;
+  min-width: 100%;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+ai-navbar ai-nav {
+  @extend %flexbox;
+  @include flex(0 1 auto);
+  @include user-select(none);
+
+  -webkit-tap-highlight-color : transparent;
+  -webkit-font-smoothing      : antialiased;
+  cursor: pointer;
+  line-height: inherit;
+  position: relative;
+  max-height: $navbar-height;
+  .ai-icon {
+    line-height: inherit;
+    height: inherit;
+  }
+
+  &[left] {
+    max-width: 33%;
+    padding-right: 0;
+    > * {
+      padding-right: 0;
+    }
+    @include order(-1);
+  }
+
+  &[brand] {
+    @include justify-content(center);
+  }
+
+  &[right] {
+    @include justify-content(flex-end);
+    @include order(3);
+  }
+
+  &[dropdown] {
+    @include order(4);
+  }
+
+  &[left] + &[brand] {
+    max-width: 33%;
+  }
+
+  ai-icon {
+    @include justify-content(center);
+  }
+
+  ai-nav,
+  ai-link,
+  ai-icon {
+    @include user-select(none);
+  }
+}
+
+ai-navbar ai-link {
+  cursor: pointer;
+  @extend %flexbox;
+  @include justify-content(center);
+  @include touch-action(tap);
+  text-align: center;
+  line-height: inherit;
+  margin: 0 8px;
+  padding: 0 8px;
+  cursor: pointer;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &[icon] {
+    margin:0;
+    padding:0;
+  }
+
+  &.is-active {
+   
+  }
+}
+
+ai-app-bar {
+  @extend %flexbox;
+  @include flex-direction(row);
+  @include transition-default();
+  width: 100%;
+  position: fixed;
+  z-index: 3;
+  overflow: hidden;
+  background-color: $navbar-background;
+
+  ai-navbar {
+    @extend %flexbox;
+    position: absolute;
+    min-width: 100%;
+    height: inherit;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+ai-app-bar {
+  &.black-opaque {
+    @include Base-NavbarComponent-DarkOpaque
+  }
+  &.light-opaque {
+    @include Base-NavbarComponent-DarkOpaque
+  }
+}
+
+ai-navbar.vertical-animations {
+  navbar-slot {
+    @extend %flexbox;
+    @include transform(translate3d(0, 100%, 0));
+    position: absolute;
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+    -webkit-animation-duration: 200ms;
+            animation-duration: 200ms;
+    -webkit-animation-timing-function: ease;
+            animation-timing-function: ease;
+    -webkit-animation-name: slideIn;
+            animation-name: slideIn;
+  }
+
+  navbar-slot.au-leave-active {
+    -webkit-animation-name: slideOut;
+            animation-name: slideOut;
+  }
+}
+
+ai-navbar {
+  ai-nav {
+    -webkit-animation-timing-function: ease;
+            animation-timing-function: ease;
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+    -webkit-animation-duration: 500ms;
+            animation-duration: 500ms;
+  }
+
+  &.au-leave {
+    ai-nav {
+      -webkit-animation-name: nav-fadeOut;
+              animation-name: nav-fadeOut;
+    }
+    ai-nav[brand] {
+      -webkit-animation-name: navbar-brand-leave-left;
+              animation-name: navbar-brand-leave-left;
+    }
+
+    & + ai-navbar {
+      ai-nav[brand] {
+        -webkit-animation-name: navbar-brand-enter-right;
+                animation-name: navbar-brand-enter-right;
+      }
+    }
+  }
+}
+
+.route-history {
+  ai-navbar.au-leave {
+    ai-nav[brand] {
+      -webkit-animation-name: navbar-brand-leave-right;
+              animation-name: navbar-brand-leave-right;
+    }
+    & + ai-navbar {
+      ai-nav[brand] {
+        -webkit-animation-name: navbar-brand-enter-left;
+                animation-name: navbar-brand-enter-left;
+      }
+    }
+  }
+}
+
+
+@-webkit-keyframes nav-fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes nav-fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes navbar-brand-enter-right {
+  0% {
+    opacity: 0;
+    @include transform(translate3d(200px, 0, 0));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translate3d(0, 0, 0));
+  }
+}
+
+@-webkit-keyframes navbar-brand-enter-left {
+  0% {
+    opacity: 0;
+    @include transform(translate3d(-200px, 0, 0));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translate3d(0, 0, 0));
+  }
+}
+
+
+@-webkit-keyframes navbar-brand-leave-right {
+  0% {
+    opacity: 1;
+    @include transform(translate3d(0, 0, 0));
+  }
+  100% {
+    opacity: 0;
+    @include transform(translate3d(200px, 0, 0));
+  }
+}
+
+
+@-webkit-keyframes navbar-brand-leave-left {
+  0% {
+    opacity: 1;
+    @include transform(translate3d(0, 0, 0));
+  }
+  100% {
+    opacity: 0;
+    @include transform(translate3d(-200px, 0, 0));
+  }
+}
+
+
+@include max-breakpoint(md) {
+
+  ai-navbar ai-nav {
+    &[dropdown] {
+      @include transition-default;
+      @include flex-direction(column);
+      @include flex(0 0 100%);
+      max-height: inherit;
+      min-width: 100%;
+      opacity: 0;
+
+      .is-dropdown-active & {
+        opacity: 1;
+      }
+    }
+  }
+
+  ai-app-bar {
+
+    &.is-dropdown-active {
+      max-height: 100% !important;
+      height: 100% !important;
+
+      .browser-chrome & {
+        ~ * {
+          opacity: 0.6;
+          -webkit-filter: blur(5px);
+                  filter: blur(5px);
+        }
+      }
+    }
+  }
+}
+
+@include platform(ios) {
+  ai-navbar {
+    ai-nav[left] {
+      @include flex(1 0 auto);
+      max-width: 33%;
+    }
+    ai-nav[center],
+    ai-nav[brand] {
+      @include justify-content(center);
+      @include flex(1 0 auto);
+      max-width: 33%;
+    }
+    ai-nav[right] {
+      @include flex(1 0 auto);
+      max-width: 33%;
+    }
+  }
+}
+
+@include breakpoint(md) {
+
+  ai-app-bar {
+    overflow: hidden;
+  }
+
+  ai-navbar {
+    line-height: $navbar-height;
+    max-height: $navbar-height;
+
+    ai-nav {
+      @include flex(0 1 auto);
+      padding: 0 em(12);
+      .ai-icon {
+        padding: 0 em(12);
+      }
+    }
+
+    navbar-slot {
+      @include flex-wrap(nowrap);
+    }
+
+    nav-indicator {
+      display: block;
+    }
+  }
+}

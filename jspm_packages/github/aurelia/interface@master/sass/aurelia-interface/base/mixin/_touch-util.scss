@@ -1,0 +1,12 @@
+@mixin no-tap-highlight {
+  @include user-select(none);
+  -webkit-tap-highlight-color : transparent;
+  -webkit-font-smoothing      : antialiased;
+}
+
+
+@mixin touch-action($type:tap) {
+  $action: map-get($touch-actions, $type);
+  -ms-touch-action: $action;
+      touch-action: $action;
+}

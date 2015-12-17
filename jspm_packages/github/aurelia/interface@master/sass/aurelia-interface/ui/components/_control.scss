@@ -1,0 +1,103 @@
+@mixin AIControlElement {
+  @extend %flexbox;
+  @include flex-row;
+  @include flex-wrap(wrap);
+  @include align-items(center);
+
+  &.ai-input-control {
+    margin-top: 8px;
+    padding-top: 8px;
+
+    line-height: 1;
+
+    ai-icon.ai-icon,
+    md-icon.ai-icon {
+     line-height: inherit;
+     position: absolute;
+     left: 0;
+     @include justify-content(center);
+     @include align-items(flex-end);
+     @include order(-1);
+    }
+
+    label {
+      @include flex(0 0 100%);
+      line-height: inherit;
+    }
+
+    label[float] {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+
+    label[inline] {
+      margin-right: 8px;
+      line-height: 20px;
+      @include align-self(flex-start);
+      & ~ ai-icon.ai-icon,
+      & ~ md-icon.ai-icon {
+        @include align-items(flex-start);
+      }
+
+      & ~ ai-input {
+        margin-top:0;
+      }
+    }
+
+    label[placeholder] ~ ai-icon.ai-icon,
+    label[placeholder] ~ md-icon.ai-icon {
+      @include align-items(center);
+    }
+
+    label[inline]:not([flex]) {
+      @include flex(0 1 auto);
+      @include flex-shrink(1);
+      @include flex-grow(0);
+      @include flex-basis(auto);
+      width: auto;
+    }
+
+    padding-left: $gutter-xs;
+
+    &.has-icon {
+      padding-left: 48px;
+    }
+
+    @include breakpoint(md) {
+      padding-left: $gutter-md;
+      &.has-icon {
+        padding-left: 48px;
+      }
+    }
+  }
+
+  &.ai-checkbox-control,
+  &.ai-switch-control {
+    > label {
+      @include flex(0 1 auto);
+      @include flex-shrink(1);
+      @include flex-grow(0);
+      @include flex-basis(auto);
+      width: auto;
+      margin-right: 8px;
+    }
+    ai-checkbox,
+    ai-switch {
+      @include flex(1);
+      label {
+        @include flex(1);
+        > span {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+
+  ai-list > & {
+    padding-left: $gutter-xs;
+    @include breakpoint(md) {
+      padding-left: $gutter-md;
+    }
+  }
+}

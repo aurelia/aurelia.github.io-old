@@ -1,0 +1,12 @@
+<template>
+  <label>
+    <span if.bind="autoLabel">${name || controller.name}</span>
+    <input ref="inputElement"
+           type="checkbox"
+           name.bind="name"
+           value.bind="value"
+           id="${id || name}"
+           checked.bind="checked"
+           model.bind="model">
+  </label>
+</template>

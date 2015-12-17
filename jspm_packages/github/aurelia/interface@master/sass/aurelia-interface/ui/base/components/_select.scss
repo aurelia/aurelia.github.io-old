@@ -1,0 +1,38 @@
+
+
+@mixin Base-SelectComponent {
+  @include AISelectElement;
+
+  select {
+    @include SelectElement;
+  }
+
+  .theme-light & {
+    @include AISelectElement-Light;
+  }
+
+  .theme-dark & {
+    @include AISelectElement-Dark;
+  }
+}
+
+@mixin Base-SelectComponent-XS {
+  @include AISelectElement-xs;
+}
+
+@mixin Base-SelectComponent-MD {
+  @include AISelectElement-md;
+}
+
+
+@include Component(ai-select) {
+  @include Base-SelectComponent;
+}
+
+@include Component-xs(ai-select) {
+  @include Base-SelectComponent-XS;
+}
+
+@include Component-md(ai-select) {
+  @include Base-SelectComponent-MD;
+}

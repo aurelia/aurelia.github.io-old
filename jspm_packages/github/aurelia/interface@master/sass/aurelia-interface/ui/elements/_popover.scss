@@ -1,0 +1,110 @@
+
+@include RootComponent(ai-popover) {
+  .ai-overlay-element.popover-overlay {
+    z-index: 4000;
+    min-width: 100vw;
+    min-height: 100vh;
+    display: block;
+    position: fixed;
+    outline: none;
+    top:0;
+    left:0;
+    transform-origin: center;
+    opacity: 0;
+    @include transform(scale(0));
+    @include transition-default;
+
+    background-color: rgba(0, 0, 0, 0.5);
+
+    @include browser(safari) {
+      background-color: transparent !important;
+      @include blur-backface(1rem);
+    }
+
+    &.is-closing {
+      opacity: 0;
+    }
+
+    &.is-active {
+      @include transform(scale(1));
+      opacity: 1;
+    }
+  }
+
+}
+
+@mixin PopoverElement {
+
+  min-width: popover-element(unit) * 5;
+  max-width: popover-element(unit) * 10;
+  margin: 0 auto;
+  height: 100vh;
+
+  &.is-mobile {
+    max-width: popover-element(unit) * 5;
+  }
+
+  display: flex;
+  @include flex-direction(column);
+
+  popover-container {
+    z-index: 4001;
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+
+    background-color: white;
+    @include flex-direction(column);
+    @include shadow-16dp;
+    @include transition-default;
+    @include transform(scale(1.5));
+    opacity: 0;
+  }
+
+  &.is-active popover-container {
+    @include transform(scale(1));
+    opacity: 1;
+  }
+
+  popover-content {
+    display: flex;
+    @include flex(1);
+    z-index: 10;
+    @include popover-element(content);
+    @include transition-default;
+    @include flex-direction(column);
+    compose {
+      @include transition-default;
+    }
+    & > * {
+      margin: 0 0 20px 0;
+      padding: 0;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  popover-actions {
+    z-index: 1;
+    display: flex;
+    @include transition-default;
+    @include flex-direction(row);
+    @include justify-content(flex-end);
+    compose {
+      @include transition-default;
+    }
+  }
+
+  popover-view {
+    z-index: 1;
+    display: flex;
+    @include flex-direction(column);
+    opacity: 1;
+    -webkit-animation: popover-fadeIn 200ms;
+    animation: popover-fadeIn 200ms;
+  }
+}
+
+@include EndComponent(ai-popover) {
+
+}

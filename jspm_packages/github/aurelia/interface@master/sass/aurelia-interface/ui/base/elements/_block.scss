@@ -1,0 +1,34 @@
+ai-block {
+  @extend %flexbox;
+  @include flex-direction(row);
+  @include flex-wrap(wrap);
+  background-color: $white;
+  margin: 0 0 1rem 0;
+  padding: 1rem $gutter-xs 0 $gutter-xs;
+
+  &[options~="column"] {
+    @include flex-direction(column);
+  }
+
+  &[options~="align-start"] {
+    @include align-items(flex-start);
+  }
+
+  &[no-bg] {
+    background-color: transparent;
+  }
+}
+
+ai-block ai-block {
+  margin:0;
+  padding:0;
+}
+@include breakpoint(md) {
+  ai-block {
+    padding: $gutter-md;
+  }
+  ai-block ai-block {
+    margin:0;
+    padding:0;
+  }
+}

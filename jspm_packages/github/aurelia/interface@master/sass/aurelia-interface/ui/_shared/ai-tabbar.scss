@@ -1,0 +1,19 @@
+.tabbar-placeholder {
+  @include AITabbarElement;
+  min-height: tabbar-element(height);
+  max-height: tabbar-element(height);
+  visibility: collapse;
+  position: relative;
+  @include order(3);
+}
+
+ai-tabbar {
+  @include top-line(rgba(0,0,0,1));
+  @include AITabbarElement;
+  z-index: 10;
+  background-color: rgba(255,255,255,0.5);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-backdrop-filter: blur(3rem);
+  backdrop-filter: blur(3rem);
+}

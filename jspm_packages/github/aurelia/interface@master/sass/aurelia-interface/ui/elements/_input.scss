@@ -1,0 +1,315 @@
+
+@mixin text-input--variant($type:false, $label-size:small, $no-placeholders:false) {
+  @if $no-placeholders {
+    @include no-placeholders;
+  }
+  @if $label-size == small {
+    label {
+      font-size: 12px;
+    }
+  }
+  @else if $label-size == large {
+    label {
+      font-size: 16px;
+    }
+  }
+  @if $type == float {
+    label {
+      @include floating-label;
+    }
+  }
+  @else if $type == stack {
+    label {
+      @include stack-label;
+    }
+  }
+  @else if $type == inline {
+    label {
+      @include inline-label();
+    }
+  }
+}
+
+
+
+@mixin ai-input-validity {
+ 
+  &:valid ~input-border:before {
+   
+  }
+
+  &:invalid {
+    @include placeholders-color(color(red));
+    color: color(red);
+  }
+
+  &:invalid ~ input-border:before {
+   
+    background-color: color(red);
+  }
+}
+
+
+@mixin no-placeholders () {
+  ::-webkit-input-placeholder {
+    display: none; opacity:0; visibility: hidden;
+  }
+  :-moz-placeholder {
+    display: none; opacity:0; visibility: hidden;
+  }
+  ::-moz-placeholder {
+    display: none; opacity:0; visibility: hidden;
+  }
+  :-ms-input-placeholder {
+    display: none; opacity:0; visibility: hidden;
+  }
+}
+
+@mixin placeholders-color ($color) {
+  &::-webkit-input-placeholder {
+    color: $color;
+  }
+  &:-moz-placeholder {
+    color: $color;
+  }
+  &::-moz-placeholder {
+    color: $color;
+  }
+  &:-ms-input-placeholder {
+    color: $color;
+  }
+}
+
+@include RootComponent(ai-input) {
+
+  form textarea::-webkit-validation-bubble-message,
+  form input::-webkit-validation-bubble-message,
+  form select::-webkit-validation-bubble-message,
+  form textarea::-webkit-validation-bubble-message {
+      display:none;
+  }
+}
+@mixin floating-label() {
+  label {
+    position: absolute;
+    display: flex;
+    left: 0;
+    top: 0;
+    @include transform(translate3d(0, 1.8em, 0));
+  }
+  @include no-placeholders();
+
+
+  &.has-value label,
+  input:focus ~ label {
+    @include transform(translate3d(0, 0, 0))
+  }
+}
+
+@mixin InputBorder {
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 1px;
+  max-height: 1px;
+  padding: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  @include flex(1);
+  @include transform(translateZ(0));
+
+  &:before {
+    content: " ";
+    position: absolute;
+    min-width: 100%;
+    min-height: 1px;
+    @include transform(translateZ(0));
+  }
+  &:after {
+    content: " ";
+    position: absolute;
+    min-width: 100%;
+    min-height: 1px;
+    background-color: color(accent);
+    @include transform(scaleX(0) translateZ(0));
+    @include transform-origin(center);
+    @include transition-default;
+  }
+}
+
+ai-input {
+  $top: (($text-input-margin + $text-input-height) * -1);
+  @extend %flexbox;
+  @include flex-column;
+  @include flex(1 0 auto);
+
+  position: relative;
+  line-height: $text-input-height;
+  padding-bottom: ($text-input-margin / 2);
+  margin-bottom: ($text-input-margin / 2);
+  margin-top: $text-input-margin;
+
+  textarea,
+  input {
+    border: none;
+    outline: none;
+    resize:none;
+    background-color: transparent;
+    background: transparent;
+    overflow: hidden;
+    line-height: 20px;
+  }
+
+  textarea {
+    min-height: 20px;
+    height: 40px;
+    padding: 0;
+    margin:0;
+  }
+
+  input-border {
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.2);
+    min-width: 100%;
+    min-height: 1px;
+    &:after {
+      @include transition-default;
+      @include transform(scaleX(0));
+      content: " ";
+      display: block;
+      height: 1px;
+      width: 100%;
+      background-color: $accent;
+    }
+  }
+
+  label[floating-label] {
+    @include transition-default;
+    @include user-select(none);
+    position: absolute;
+    top: 0;
+  }
+
+  &.has-value label[floating-label],
+  textarea:focus ~ label[floating-label],
+  input:focus ~ label[floating-label] {
+    @include transform(translate3d(0, $top, 0));
+  }
+
+  textarea:focus ~ input-border:after,
+  input:focus ~ input-border:after {
+    @include transform(scaleX(1));
+  }
+}
+
+@mixin AIInputElement {
+}
+
+@mixin AIInputElement2 {
+
+  &[readonly],
+  &.input--disable {
+    textarea,
+    input {
+      color: ai-theme(light, text);
+    }
+
+    input-border {
+      border: 1px dotted theme-color(light, divider);
+      &:after,
+      &:before {background-color: transparent}
+    }
+  }
+
+  validation-message {
+    display: flex;
+    font-size: em(12);
+    line-height: em(12);
+    position: absolute;
+    min-width: 100%;
+    left: 0;
+    bottom: 0;
+    color: color(red);
+    @include transform(translateY(-8px));
+  }
+
+  ai-hint {
+    display: flex;
+    font-size: em(12);
+    line-height: em(12);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    @include transform(translateY(-8px));
+  }
+}
+
+@mixin default-input-lightTheme {
+  ai-input {
+    background-color: theme-light(paper);
+    textarea,
+    input {
+      color: theme-light(text);
+      @include ai-input-validity;
+    }
+
+    input-border:before {
+      background-color: theme-light(divider);
+    }
+    textarea:disabled,
+    input:disabled,
+    &[readonly],
+    &.input--disable textarea,
+    &.input--disable input {
+      color: theme-light(text);
+    }
+
+    textarea:disabled ~ input-border,
+    input:disabled ~ input-border,
+    &[readonly]  input-border,
+    &.input--disable input-border {
+      border: 1px dotted theme-light(divider);
+      &:after,
+      &:before {background-color: transparent}
+    }
+
+    &[readonly] {background-color: theme-light(divider)}
+  }
+}
+
+
+@mixin default-input-darkTheme {
+  ai-input {
+    background-color: theme-dark(paper);
+    textarea,
+    input {
+      color: theme-dark(text);
+    }
+
+    input-border:before {
+      background-color: theme-dark(divider);
+    }
+
+    textarea:disabled,
+    input:disabled,
+    &[readonly]  textarea,
+    &[readonly]  input,
+    &.input--disable textarea,
+    &.input--disable input {
+      color: theme-dark(text);
+    }
+
+    textarea:disabled ~ input-border,
+    input:disabled ~ input-border,
+    &[readonly] input-border,
+    &.input--disable input-border {
+      border: 1px dotted theme-dark(divider);
+      &:after,
+      &:before {background-color: transparent}
+    }
+    &[readonly] {background-color: theme-dark(divider)}
+  }
+}
+
+

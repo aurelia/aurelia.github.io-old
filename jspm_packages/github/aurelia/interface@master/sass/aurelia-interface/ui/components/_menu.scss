@@ -1,0 +1,114 @@
+@mixin AIMenuComponent {
+  @extend %flexbox;
+  @include flex-direction(row);
+  @include flex(1);
+  line-height: inherit;
+  position: relative;
+  cursor: pointer;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  user-select    : none;
+  -webkit-tap-highlight-color : transparent;
+  -webkit-font-smoothing      : antialiased;
+  > a {
+    @extend %flexbox;
+    @include justify-content(center);
+    max-width: 160px;
+    min-width: 72px;
+    line-height: inherit;
+  }
+
+  &:not([open-right]) {
+    menu-container {
+      right:0;
+      option {
+        @include transform(translateX(100%));
+      }
+    }
+  }
+
+  &[open-left] {
+    menu-container {
+      right:0;
+      option {
+        @include transform(translateX(100%));
+      }
+    }
+  }
+
+  &[open-right] {
+    menu-container {
+      left:0;
+      option {
+        @include transform(translateX(-100%));
+      }
+    }
+  }
+
+  menu-container  {
+    @extend %flexbox;
+    @extend %shadow-2dp;
+    @include flex-column;
+    @include flex(1 0 auto);
+    @include animation-default;
+    animation-name: ai-menu-enter;
+    animation-fill-mode: forwards;
+
+    background-color: white;
+    position: absolute;
+    overflow: hidden;
+    height: auto;
+    top: 0;
+    z-index: 500;
+
+
+    option {
+      @include animation-default;
+      animation-name: ai-menu-option-enter;
+      animation-fill-mode: forwards;
+
+      padding-left: 16px;
+      padding-right: 16px;
+      line-height: 36px;
+      overflow: hidden;
+      cursor: pointer;
+      &:hover {
+        background-color: $black-4;
+      }
+    }
+  }
+
+  &.active {
+    menu-container {
+      option {
+        @include transform(translateX(0%));
+      }
+    }
+  }
+
+  menu-container.au-leave {
+    animation-direction: reverse;
+    option {
+      animation-direction: reverse;
+    }
+  }
+}
+
+@keyframes ai-menu-option-enter {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 36px;
+  }
+}
+
+@keyframes ai-menu-enter {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}

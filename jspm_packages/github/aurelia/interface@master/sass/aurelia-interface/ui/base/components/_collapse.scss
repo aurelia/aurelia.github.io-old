@@ -1,0 +1,41 @@
+$base-collapse-component: Base-CollapseComponent;
+
+@mixin Base-CollapseComponent {
+  @extend %flexbox;
+  @include flex(1 0 auto);
+  @include flex-direction(column);
+  @include transition-default;
+  @include transform(translate3d(0,0,0));
+
+  > collapse-container {
+    display: none;
+    position: relative;
+    min-width: 100%;
+    padding: 0;
+    min-width: 100%;
+
+    > *:first-child {
+      margin-top: $gutter-xs;
+    }
+    > *:last-child {
+      margin-bottom: $gutter-xs;
+    }
+  }
+}
+
+ai-collapse {
+  @include Base-CollapseComponent;
+
+  .theme-light & {}
+  .theme-dark & {}
+}
+
+
+@keyframes ai-collapse-enter {
+  0% {
+    height: 0%;
+  }
+  100% {
+    height: 100%;
+  }
+}

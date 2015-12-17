@@ -1,0 +1,87 @@
+[no-margin] {
+  margin:0;
+}
+
+[center] {
+  text-align: center;
+}
+
+[line-lg] {
+  line-height: $line-height-lg;
+}
+
+[line-md] {
+  line-height: $line-height-md;
+}
+
+[line-sm] {
+  line-height: $line-height-sm;
+}
+
+[swipe],
+[swipe-left],
+[swipe-right], {
+  @include touch-action(swipe);
+}
+
+@include max-breakpoint(sm) {
+  [hide-xs] {
+    display: none;
+  }
+}
+@include breakpoint(sm) {
+  [only-xs] {
+    display: none;
+  }
+}
+
+
+@include max-breakpoint(md) {
+  [hide-sm] {
+    display: none;
+  }
+}
+
+@include breakpoint(md) {
+  [only-sm] {
+    display: none;
+  }
+}
+
+
+@include max-breakpoint(lg) {
+  [hide-md] {
+    display: none;
+  }
+}
+
+@include breakpoint(lg) {
+  [only-md] {
+    display: none;
+  }
+}
+
+
+@include max-breakpoint(lg) {
+  [hide-md] {
+    display: none;
+  }
+}
+
+@include breakpoint(xl) {
+  [only-lg] {
+    display: none;
+  }
+}
+
+@include max-breakpoint(xl) {
+  [hide-lg] {
+    display: none;
+  }
+}
+
+@include breakpoint(xl) {
+  [hide-xl] {
+    display: none;
+  }
+}

@@ -1,0 +1,19 @@
+
+@mixin iOS-SidebarComponent {
+  @include AISidebarElement;
+}
+@include Component(ai-sidebar) {
+  @include iOS-SidebarComponent;
+}
+
+
+
+
+
+
+
+
+
+
+
+

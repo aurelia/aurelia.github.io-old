@@ -1,0 +1,21 @@
+ai-layout {
+  @include AILayoutElement();
+}
+
+@include from-screen(xs) {
+  ai-layout {
+    @include AILayoutElement-xs();
+  }
+}
+
+@include from-screen(md) {
+  ai-layout {
+    @include AILayoutElement-md();
+  }
+}
+
+@include from-screen(xl) {
+  ai-layout {
+    @include AILayoutElement-lg();
+  }
+}

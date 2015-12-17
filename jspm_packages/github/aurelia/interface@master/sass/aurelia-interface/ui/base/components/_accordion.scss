@@ -1,0 +1,187 @@
+@mixin Base-AccordionComponent {
+  position: relative;
+
+  > ai-item {
+    position: relative;
+    display: flex;
+    min-width: 100%;
+    @include flex(0 1 auto);
+    @include flex-direction(column);
+    @include transition-default;
+
+    ai-header {
+      display: flex;
+      font-size: em(16);
+      padding-left: $gutter-xs;
+      min-width: 100%;
+      max-height: em(48);
+      @include flex(1 0 auto);
+
+      > ai-icon {
+        font-size: em(24);
+        display: flex;
+        padding-right: $gutter-xs;
+        @include align-items(center);
+      }
+
+      > ai-avatar {
+        display: flex;
+        padding-right: $gutter-xs;
+        @include align-items(flex-start);
+      }
+
+      > ai-title {
+        font-weight: bold;
+      }
+
+      > ai-tile {
+        padding-top: em(8);
+        position: relative;
+        min-height: em(48);
+        padding-right: $gutter-xs;
+        @include flex-direction(column);
+        @include align-items(flex-start);
+        @include justify-content(center);
+
+        &[toggle-icon] {
+          padding-top: 0;
+          @include flex(0 1 auto);
+          ai-icon:before {
+            @include transition-default;
+          }
+        }
+      }
+    }
+
+    item-body {
+      display: flex;
+      min-width: 100%;
+      overflow: hidden;
+      transform-origin: top;
+      height: 0;
+      @include flex-direction(column);
+      @include transform(scaleY(0));
+      @include transition-default;
+    }
+
+    &.is-open {
+      ai-header ai-tile[toggle-icon] ai-icon:before {
+        @include transform(rotate(90deg));
+      }
+      ai-body {
+        height: 100%;
+        @include transform(scaleY(1));
+      }
+    }
+  }
+
+  &[border-accordion] {
+    ai-item > ai-header > ai-tile {
+      @include bottom-line($black-4);
+    }
+  }
+}
+
+@mixin Base-AccordionComponent-Light {
+  > ai-item {
+    background-color: $white;
+    color: $dark-text;
+  }
+  &[border-accordion] > ai-item ai-tile {
+    @include bottom-line($black-4);
+  }
+}
+
+@mixin Base-AccordionComponent-Dark {
+  > ai-item {
+    background-color: $white;
+    color: $light-text;
+  }
+  &[border-accordion] > ai-item ai-tile {
+    @include bottom-line($black-4);
+  }
+}
+
+
+%Base-AccordionComponent {
+  @include Base-AccordionComponent;
+}
+
+%Base-AccordionComponent-Light {
+  @include Base-AccordionComponent-Light;
+}
+
+%Base-AccordionComponent-Dark {
+  @include Base-AccordionComponent-Dark;
+}
+
+
+
+ai-accordion {
+  @extend %flexbox;
+  @include flex-direction(column);
+  @include flex(1, 0, auto);
+  @include transform(translate3d(0,0,0));
+  width: 100%;
+
+  ai-item {
+    @extend %flexbox;
+    @include flex-direction(column);
+    @include no-tap-highlight();
+    line-height: 48px;
+    min-height: 48px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    border-bottom: 1px solid $black-4;
+
+    > ai-heading {
+      @extend %flexbox;
+      @include flex-direction(row);
+      @include user-select(none);
+      margin-bottom: 0;
+      line-height: inherit;
+
+      > *:first-child {
+        padding-left: $gutter-xs;
+      }
+      > *:last-child {
+        padding-right: $gutter-xs;
+      }
+    }
+
+    > .ai-icon[caret] {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: auto;
+      width: auto;
+      line-height: inherit;
+      min-height: inherit;
+      padding-right: $gutter-xs;
+      color: $black-3;
+
+      i {
+        @include transition-default();
+      }
+    }
+
+    > ai-content {
+      display: none;
+      overflow: hidden;
+      padding-top: 1em;
+
+      > *:last-child {
+        margin-bottom: 1rem;
+      }
+    }
+
+    &.is-active {
+      .ai-icon[caret] {
+        i {
+          @include transform(rotate(90deg));
+        }
+      }
+    }
+  }
+}

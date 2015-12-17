@@ -1,0 +1,7 @@
+@mixin iOS-ToolbarComponent {
+  @include AIToolbarElement
+}
+
+@include Component(ai-toolbar) {
+  @include iOS-ToolbarComponent;
+}

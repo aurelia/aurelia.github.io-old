@@ -1,0 +1,18 @@
+<template>
+  <input-wrapper>
+    <input ref="inputElement"
+           type="checkbox"
+           name.bind="name"
+           id="${id || name}"
+           value.bind="value"
+           checked.bind="checked"
+           model.bind="model"
+           class="switch-input"
+           />
+  </input-wrapper>
+  <control-container>
+    <ai-icon ref="iconElement" if.bind="icon || rightIcon">${icon || rightIcon}</ai-icon>
+    <ai-icon ref="nextIconElement" if.bind="nextIcon">${nextIcon}</ai-icon>
+    <content></content>
+  </control-container>
+</template>

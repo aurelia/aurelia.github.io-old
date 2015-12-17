@@ -1,0 +1,7 @@
+@mixin iOS-AvatarElement {
+  @include AIAvatarElement;
+}
+
+@include Component(ai-avatar) {
+  @include iOS-AvatarElement;
+}

@@ -1,0 +1,37 @@
+@mixin AIViewBarElement {
+  position: absolute;
+  display: flex;
+  min-width: 100%;
+  @include flex(1);
+  @include flex-direction(row);
+
+  bar-left {
+    display: flex;
+    overflow: hidden;
+    padding-left: $base-gutter-xs;
+  }
+
+  bar-center {
+    display: flex;
+    padding: 0 $base-gutter-xs;
+  }
+
+  bar-right {
+    display: flex;
+    padding-right: $base-gutter-xs;
+  }
+  back-button {
+    position: relative;
+    @include flex(0 1 auto);
+    max-width: 100%;
+    display: flex;
+    ai-button, button {
+      margin: 0;
+      padding-left: 0;
+      .ai-icon {
+        width: auto;
+        height: auto;
+      }
+    }
+  }
+}

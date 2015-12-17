@@ -1,0 +1,8 @@
+@mixin iOS-MenuComponent {
+  @include AIMenuComponent;
+}
+
+
+@include Component(ai-menu) {
+  @include iOS-MenuComponent;
+}

@@ -1,0 +1,39 @@
+ai-overlay-container {
+  z-index: 1;
+  position: fixed;
+
+  ai-overlay {
+    width: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    background-color: $black-3;
+
+    @include animation-default(200ms);
+    @include animation-fill-mode(forwards);
+    animation-name: ai-overlay-enter;
+  }
+
+  ai-overlay.au-leave {
+    animation-name: ai-overlay-leave;
+  }
+}
+
+@keyframes ai-overlay-enter {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes ai-overlay-leave {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

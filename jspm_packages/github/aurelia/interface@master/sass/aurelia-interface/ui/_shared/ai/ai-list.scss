@@ -1,0 +1,32 @@
+
+ai-list {
+  @include AIListElement;
+
+  .ai-icon:not([caret]) {
+    padding-right: 0;
+    min-width: sub-$gutter-xs;
+    max-width: sub-$gutter-xs;
+  }
+
+  ai-list-header {
+    font-size: em(14);
+    text-transform: uppercase;
+  }
+}
+
+
+@include from-screen(xs) {
+  @include list-xs-defaults;
+}
+
+@include from-screen(md) {
+  @include list-md-defaults;
+}
+
+@include select-theme(light) {
+  @include list-light-defaults;
+}
+
+@include select-theme(dark) {
+  @include list-dark-defaults;
+}

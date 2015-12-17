@@ -1,0 +1,93 @@
+
+$ios-card-component-default:     iOS-CardComponent;
+$ios-card-component-screen-xs:   iOS-CardComponent-XS;
+$ios-card-component-screen-md:   iOS-CardComponent-MD;
+$ios-card-component-theme-light: iOS-CardComponent-Light;
+$ios-card-component-theme-dark:  iOS-CardComponent-Dark;
+
+
+$ios-card-meta-screens: (
+  xs: $ios-card-component-screen-xs,
+  md: $ios-card-component-screen-md,
+) !default;
+
+$ios-card-meta-themes: (
+  light: $ios-card-component-theme-light,
+  dark: $ios-card-component-theme-dark,
+) !default;
+
+$ios-card-meta: (
+  default: $ios-card-component-default,
+  screens: $ios-card-meta-screens,
+  themes: $ios-card-meta-themes,
+) !default;
+
+
+%#{$ios-card-component-default} {
+ 
+}
+
+%#{$ios-card-component-screen-xs} {
+ 
+}
+
+%#{$ios-card-component-screen-md} {
+ 
+}
+
+%#{$ios-card-component-theme-light} {
+ 
+}
+
+%#{$ios-card-component-theme-dark} {
+ 
+}
+
+
+@mixin iOS-CardComponent($label: $ios-card-component-default) {
+  @extend %#{$label};
+  @content;
+}
+
+@mixin iOS-CardComponent-XS($label: $ios-card-component-screen-xs) {
+  @extend %#{$label};
+  @content;
+}
+
+@mixin iOS-CardComponent-MD($label: $ios-card-component-screen-md) {
+  @extend %#{$label};
+  @content;
+}
+
+@mixin iOS-CardComponent-Light($label: $ios-card-component-theme-light) {
+  @extend %#{$label};
+  @content;
+}
+
+@mixin iOS-CardComponent-Dark($label: $ios-card-component-theme-dark) {
+  @extend %#{$label};
+  @content;
+}
+
+
+
+@include Component(ai-card) {
+
+  @include iOS-CardComponent;
+
+  .theme-light & {
+    @include iOS-CardComponent-Light;
+  }
+  .theme-dark & {
+    @include iOS-CardComponent-Dark;
+  }
+}
+
+
+@include Component-xs(ai-card) {
+  @include iOS-CardComponent-XS;
+}
+
+@include Component-md(ai-card) {
+  @include iOS-CardComponent-MD;
+}

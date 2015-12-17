@@ -273,7 +273,10 @@ define(['exports'], function (exports) {
     animationstart: 'webkitAnimationStart'
   };
 
-  var isTouch = 'ontouchstart' in window || window.DocumentTouch && document instanceof DocumentTouch;
+  var isTouch = (function is_touch_device() {
+    return 'ontouchstart' in window || window.navigator.MaxTouchPoints > 0 || window.navigator.msMaxTouchPoints > 0;
+  })();
+
   var EVENTS = {
     safari: WebkitEvents
   };
@@ -283,14 +286,18 @@ define(['exports'], function (exports) {
   };
 
   var Support = (function () {
-    function Support(browser, platfrom) {
+    function Support(browser, platfrom, device) {
       _classCallCheck(this, Support);
 
-      this.isTouch = isTouch;
-      this.clickEvent = isTouch ? 'touchstart' : 'click';
+      this.isTouch = false;
 
       this.styles = STYLES[browser.name];
       this.events = EVENTS[browser.name];
+      if (device.isHandHeld) {
+        this.isTouch = true;
+      }
+
+      this.clickEvent = this.isTouch ? 'touchstart' : 'click';
     }
 
     _createClass(Support, [{

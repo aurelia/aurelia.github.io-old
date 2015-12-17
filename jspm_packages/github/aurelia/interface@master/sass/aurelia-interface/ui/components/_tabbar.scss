@@ -1,0 +1,27 @@
+
+
+@mixin AITabbarElement {
+  max-height: tabbar-element(height);
+  min-height: tabbar-element(height);
+  min-width: 100vw;
+  max-width: 100vw;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  position: fixed;
+  @include flex(1);
+
+  ai-tab {
+    display: flex;
+
+    @include align-items(center);
+    @include justify-content(center);
+    @include flex(1);
+
+    .ai-icon {
+      height: auto;
+      @include align-items(flex-start);
+      @include justify-content(center);
+    }
+  }
+}

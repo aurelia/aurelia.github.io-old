@@ -1,0 +1,7 @@
+<template>
+  <collapse-container ref="container">
+    <compose if.bind="viewModel" view-model.bind="viewModel" view.bind="view"></compose>
+    <compose if.bind="model" model.bind="viewModel" view.bind="view"></compose>
+    <content></content>
+  </collapse-container>
+</template>

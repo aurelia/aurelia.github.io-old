@@ -10,7 +10,7 @@ define(['exports', 'aurelia-pal', './browser', './platform', './device', './supp
   var browser = new _browser.Browser();
   var platform = new _platform.Platform();
   var device = new _device.Device();
-  var support = new _support.Support(browser, platform);
+  var support = new _support.Support(browser, platform, device);
   var isTouch = support.isTouch;
   var clickEvent = support.clickEvent;
 

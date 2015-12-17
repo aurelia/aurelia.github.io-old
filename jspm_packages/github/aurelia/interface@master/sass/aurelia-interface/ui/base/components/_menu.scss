@@ -1,0 +1,8 @@
+@mixin Base-MenuComponent {
+  @include AIMenuComponent;
+}
+
+
+@include Component(ai-menu) {
+  @include Base-MenuComponent;
+}

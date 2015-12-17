@@ -1,0 +1,37 @@
+
+
+@mixin AICheckboxElement {
+  @extend %flexbox;
+  @include flex(1);
+  max-width: 100%;
+  outline: none;
+  cursor: pointer;
+
+  @include flex-wrap(wrap);
+  @include flex-direction(row);
+  @include transform(translateZ(0));
+  @include transition-default;
+
+
+  label {
+    @extend %flexbox;
+    @include flex(1);
+    cursor: pointer;
+  }
+
+}
+
+@mixin CheckboxElement {
+  cursor: pointer;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  outline: none;
+  @include flex(0 1 auto);
+  @include order(-1);
+  @include transform(translateZ(0));
+  font-size: em(22);
+  margin: 0;
+}

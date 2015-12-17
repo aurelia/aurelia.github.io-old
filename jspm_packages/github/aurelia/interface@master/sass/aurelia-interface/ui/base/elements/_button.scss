@@ -1,0 +1,236 @@
+
+@mixin Base-ButtonElement-Small {
+ 
+}
+
+@mixin Base-ButtonElement-Medium {
+ 
+}
+
+@mixin Base-ButtonElement-Large {
+ 
+}
+
+@mixin Base-ButtonElement-Round {
+ 
+}
+
+@mixin Base-ButtonElement-Raised {
+ 
+}
+
+@mixin Base-ButtonElement-Flat {
+  background-color: transparent;
+  outline-width: 0;
+  &:hover {
+    outline-width: 1px;
+  }
+ 
+}
+
+
+@mixin Base-ButtonElement-Light {
+ 
+}
+
+@mixin Base-ButtonElement-Fill {
+ 
+}
+
+@mixin Base-ButtonElement-Outline {
+ 
+}
+
+%HTMLButtonElement {
+  @extend %flexbox;
+  outline        : 0;
+  position       : relative;
+  cursor         : pointer;
+  text-align     : center;
+  white-space    : nowrap;
+  vertical-align : middle;
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+  @include touch-action();
+  @include no-tap-highlight();
+  @include transition-default(100ms);
+  @include align-items(center);
+  @include justify-content(center);
+  span[content] {
+    text-align: center;
+  }
+}
+
+%BaseButtonElement {
+  @extend %HTMLButtonElement;
+  > button {
+    @extend %HTMLButtonElement;
+  }
+}
+
+@mixin Base-ButtonElement {
+
+  @extend %BaseButtonElement;
+  @include button(root);
+  border: 1px solid $grey-400;
+  line-height: $button-height;
+  height: $button-height;
+  padding: 0 $gutter-xs;
+  margin-top: 0;
+  margin-right: 8px;
+  margin-bottom: 1rem;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  button {
+    line-height: inherit;
+    min-width: inherit;
+    min-height: inherit;
+    max-width: inherit;
+    background: inherit !important;
+    background-color: transparent !important;
+    color: inherit !important;
+    border-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  span[content] {
+    text-align: center;
+    @include flex(1);
+  }
+
+  &:hover {
+    @include button-state(hover);
+  }
+
+  [active],
+  &.is-active {
+    @include button-state(active);
+  }
+
+  [disabled],
+  &.is-diabled,
+  &:disabled {
+    @include button-state(disabled);
+  }
+}
+
+@mixin button-round($size:medium) {
+  $size: button-settings($size min-width);
+  $s: calc(#{$size} * 2);
+  padding: 0 !important;
+  width: $s;
+  height: $s;
+  min-width: $s;
+  max-width: $s;
+  min-height: $s;
+  max-height: $s;
+  border-radius: $s;
+  top: calc(#{$size} * -0.5);
+}
+
+@mixin button-raised() {
+  @extend %shadow-2dp;
+}
+
+@mixin button-flat($color:$button-color, $bg:$white) {
+  box-shadow: none;
+}
+
+@mixin button-light($color:$button-color, $bg:transparent) {
+  background-color: $bg;
+  border-color: transparent;
+  color: $color;
+}
+
+@mixin button-fill($color:$button-color, $bg:$button-bg) {
+  @if lightness($bg) < 60% {
+    $color: $white;
+  }
+
+  background-color: $bg;
+  border-color: $bg;
+  color: $color;
+  &:hover {
+    background-color: lighten($bg, 0.2);
+  }
+}
+
+@mixin button-outline($color:$button-color, $bg:$white) {
+  background-color: $bg;
+  border-color: $color;
+  color: $color;
+}
+
+@mixin button($type:null, $size:medium, $color:$button-color, $bg:$button-bg) {
+
+  @if $type == default {
+    @include Base-ButtonElement;
+  }
+  @else if $type == round {
+    @include button-round($size);
+  }
+
+  @else if $type == raised {
+    @include button-raised;
+  }
+
+  @else if $type == flat {
+    @include button-flat;
+  }
+
+  @else if $type == fill {
+    @include button-fill($color, $bg);
+  }
+
+  @else if $type == light {
+    @include button-fill($color, $bg:$white);
+  }
+
+  @else if $type == outline {
+    @include button-outline($color, $bg:transparent);
+  }
+}
+
+ai-button {
+  @include button(default);
+
+  &[size="sm"],
+  &[size="small"]  {
+    @include button($size:small);
+  }
+
+  &[size="md"],
+  &[size="medium"] {
+    @include button($size:medium);
+  }
+
+  &[size="lg"],
+  &[size="large"]  {
+    @include button($size:large);
+  }
+
+  &[round] {
+    @include button(round);
+  }
+
+  &[raised] {
+    @include button(raised);
+  }
+
+  &[flat] {
+    @include button(flat);
+  }
+
+  &[color]:not([color*="borders"]) {
+    border-color:transparent;
+  }
+}
+
+
+

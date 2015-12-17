@@ -1,0 +1,41 @@
+@mixin blur-backface($size: 3rem) {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-backdrop-filter: blur($size);
+  backdrop-filter: blur($size);
+}
+
+
+@mixin blur-effect($blur:10px,$bg:rgba(255,255,255,0.8), $height:120%, $width:120%, $z:-1) {
+  background-color: $bg;
+  overflow: hidden;
+  &:before {
+    @include filter(blur($blur));
+    filter:url(#blur-effect);
+    content: " ";
+    min-width: $width;
+    min-height: $height;
+    position: absolute;
+    top: 0;
+    background: inherit;
+    z-index: $z;
+    opacity: 0.6;
+    box-shadow: inset $blur $blur $blur $bg;
+  }
+
+  &:after {
+    @include filter(blur($blur));
+    content: " ";
+    min-width: $width;
+    min-height: $height;
+    position: absolute;
+    top: ($blur * -1);
+    left: -20%;
+    background: inherit;
+    z-index: $z;
+    opacity: 0.6;
+    box-shadow: inset $blur $blur $blur $bg;
+  }
+}
+
+

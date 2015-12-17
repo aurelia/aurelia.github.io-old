@@ -1,0 +1,120 @@
+ai-switch {
+  @include AISwitchElement;
+  input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -webkit-transition: 400ms all;
+    transition: 400ms all;
+    margin: 0 0 0 0;
+    display: inline-block;
+    border-radius: 50px;
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,.1);
+    width: 56px;
+    height: 36px;
+    outline: 0;
+    cursor: pointer;
+    position: relative;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    animation: input 4s;
+    @include transform(translateZ(0));
+    &:checked, &[type="checkbox"].checked {
+      box-shadow: inset 0 0 0 15px #53D669;
+      transition: 250ms all;
+      @include transform(translateZ(0));
+    }
+
+    &:before {
+      content:'';
+      transition: 300ms all;
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      display: block;
+      width: 32px;
+      height: 32px;
+      border-radius: 40px;
+      box-shadow: 0 0 12px 0 rgba(0,0,0,0.06), 0 0 0 0 rgba(0,0,0,0.06), 0 6px 10px 0 rgba(0,0,0,0.15), 0 0 2px 0 rgba(0,0,0,0.07), 0 4px 6px 0 rgba(0,0,0,0.06), 0 1px 1px 0 rgba(0,0,0,0.11);
+      animation: button 3s ease-out;
+      @include transform(translateZ(0));
+    }
+
+    &:checked:before, &.checked:before{
+      left: 22px;
+    }
+
+    &.red:checked { background: #FF4F2F; box-shadow: inset 0 0 0 15px #FF4F2F; }
+    &.orange:checked { background: #FFAC42; box-shadow: inset 0 0 0 15px #FFAC42; }
+    &.yellow:checked { background: #FFE842; box-shadow: inset 0 0 0 15px #FFE842; }
+    &.green:checked { background: #50DF3D; box-shadow: inset 0 0 0 15px #50DF3D; }
+    &.blue:checked { background: #40A7ED; box-shadow: inset 0 0 0 15px #40A7ED; }
+    &.purple:checked { background: #AF57EC; box-shadow: inset 0 0 0 15px #AF57EC; }
+  }
+}
+
+
+@include from-screen(md) {
+  ai-switch {
+    padding-left: $base-gutter-md;
+
+    input-wrapper,
+    ai-icon,
+    label {padding-right: $base-gutter-md}
+  }
+}
+
+@include select-theme(light) {
+  ai-switch {
+    background-color: theme-light(paper);
+    [border-list] > &:not(:last-child) label {
+      @include bottom-line(theme-light(divider));
+    }
+    [border-list] > &:last-child {
+      @include bottom-line(theme-light(divider));
+    }
+    ai-item & > {background-color: transparent}
+
+    input[type="checkbox"] {
+      background: white;
+      @include transform(translateZ(0));
+    }
+    input[type="checkbox"]:checked,
+    input[type="checkbox"].checked {
+      background: #53D669;
+    }
+
+    input[type="checkbox"]:before {
+      background: #FFFFFF;
+    }
+  }
+}
+
+
+@include select-theme(dark) {
+  ai-switch {
+    background-color: theme-dark(paper);
+    [border-list] > &:not(:last-child) label {
+      @include bottom-line(theme-dark(divider));
+    }
+    [border-list] > &:last-child {
+      @include bottom-line(theme-dark(divider));
+    }
+    ai-item & > {background-color: transparent}
+    input[type="checkbox"] {
+      background: color(dark);
+    }
+
+    input[type="checkbox"]:before {
+      background: color(medium);
+    }
+
+    input[type="checkbox"]:checked,
+    input[type="checkbox"].checked {
+      background: #53D669;
+      &:before {
+        background-color: color(dark);
+      }
+    }
+  }
+}

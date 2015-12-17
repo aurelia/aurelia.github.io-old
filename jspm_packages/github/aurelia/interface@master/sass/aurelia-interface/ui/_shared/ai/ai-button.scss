@@ -1,0 +1,47 @@
+
+ai-button {
+  @include AIButtonElement($round:true, $raised:true, $flat:true, $light:true, $fill:true, $outline:true, $default:fill);
+  button {
+    @include ButtonElement;
+    font-weight: 600;
+    border: none;
+    font-size: em(14);
+    line-height: 1.6;
+    border-radius: em(2);
+    font-family: 'San Francisco';
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  @include button-size--variant(medium);
+  button:hover {
+    @include shadow-3dp;
+  }
+  button:active {
+    @include shadow-1dp;
+  }
+}
+
+ai-button:not([round]):not([round-ai]) {
+
+  &[size="small"] {
+    max-height: button-element(size, small, min-height);
+    button {
+      @include button-element(size, small);
+    }
+  }
+
+  &[size="medium"] {
+    max-height: button-element(size, medium, min-height);
+    button {
+      @include button-element(size, medium);
+    }
+  }
+
+  &[size="large"] {
+    max-height: button-element(size, large, min-height);
+    button {
+      @include button-element(size, large);
+    }
+  }
+}

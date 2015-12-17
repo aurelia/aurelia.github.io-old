@@ -1,0 +1,45 @@
+@mixin create-avatar($size) {
+  max-width: em($size);
+  min-width: em($size);
+  max-height: em($size);
+  min-height: em($size);
+}
+
+@mixin Base-AvatarElement {
+  display: flex;
+  position: relative;
+  @include flex(0 1 auto);
+
+  .avatar-wrapper {
+    max-height: inherit;
+    max-width: inherit;
+    min-height: inherit;
+    min-width: inherit;
+    display: flex;
+    border-radius: 100%;
+    overflow: hidden;
+    position: relative;
+    img {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  @include create-avatar(32);
+  &[size="sm"] {
+    @include create-avatar(32);
+  }
+  &[size="md"] {
+    @include create-avatar(48);
+  }
+  &[size="lg"] {
+    @include create-avatar(56);
+  }
+}
+
+@include Component(ai-avatar) {
+  @include transform(translate3d(0,0,0));
+  @include user-select(none);
+  @include Base-AvatarElement;
+}

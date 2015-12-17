@@ -1,0 +1,72 @@
+$browser-context: 16;
+
+
+
+
+
+$base-font-size:        16px            !default;
+$base-font-weight:      400             !default;
+$base-line-height:      24px            !default;
+$base-text-color:       $black-1        !default;
+$base-background-color: $grey-200       !default;
+$base-round:            2px             !default;
+
+$base-gutter-xs:   16 !default;
+$base-gutter-md:   24 !default;
+$base-baseline-margin-xs: 72 !default;
+$base-baseline-margin-md: 80 !default;
+$base-baseline-xs: $base-baseline-margin-xs - $base-gutter-xs;
+$base-baseline-md: $base-baseline-margin-md - $base-gutter-md;
+
+$gutter-xs:       $base-gutter-xs + px;
+$gutter-md:       $base-gutter-md + px;
+$baseline-xs:     $base-baseline-xs + px;
+$baseline-md:     $base-baseline-md + px;
+
+
+$base-columns:               12 !default;
+$base-breakpoints: (
+  xs: 0,
+  sm: 34em,
+  md: 48em,
+  lg: 62em,
+  xl: 75em
+) !default;
+
+
+
+
+$base-spacing-unit:     8px;
+
+
+$base-transition-duration: 200ms !default;
+$base-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !default;
+
+
+$base-animation-duration: $base-transition-duration !default;
+$base-animation-timing-function: $base-transition-timing-function !default;
+
+
+
+$base-shadow-1dp: "0 1px 4px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -2px rgba(0, 0, 0, 0.2), 0 0px 3px 0 rgba(0, 0, 0, 0.12)";
+$base-shadow-2dp: "0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12)";
+$base-shadow-3dp: "0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 1px 8px 0 rgba(0, 0, 0, 0.12)";
+$base-shadow-4dp: "0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2)";
+$base-shadow-6dp: "0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2)";
+$base-shadow-8dp: "0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2)";
+$base-shadow-16dp: "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)";
+
+
+%shadow-1dp {box-shadow: #{$base-shadow-1dp}}
+%shadow-2dp {box-shadow: #{$base-shadow-2dp}}
+%shadow-3dp {box-shadow: #{$base-shadow-3dp}}
+%shadow-4dp {box-shadow: #{$base-shadow-4dp}}
+%shadow-6dp {box-shadow: #{$base-shadow-6dp}}
+%shadow-8dp {box-shadow: #{$base-shadow-8dp}}
+%shadow-16dp {box-shadow: #{$base-shadow-16dp}}
+
+
+@mixin process-settings() {
+  $colors: ('red': $red, 'pink': $pink, 'purple': $purple, 'deep-purple': $deep-purple, 'indigo': $indigo, 'blue': $blue, 'light-blue': $light-blue, 'cyan' : $cyan ,'teal': $teal, 'green': $green, 'light-green': $light-green, 'lime': $lime, 'yellow': $yellow, 'amber': $amber, 'orange': $orange, 'deep-orange': $deep-orange, 'brown': $brown, 'grey': $grey, 'blue-grey': $blue-grey, 'black': $black, 'white': $white, 'primary': $primary, 'primary-hue-1': $primary-hue-1, 'primary-hue-2': $primary-hue-2, 'accent': $accent, 'accent-hue-1': $accent-hue-1, 'accent-hue-2': $accent-hue-2) !global;
+  $sizes:                 ('xs': $size-xs, 's': $size-s, 'm': $size-m, 'l': $size-l, 'xl': $size-xl) !global;
+}

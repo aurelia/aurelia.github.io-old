@@ -1,0 +1,68 @@
+
+@mixin Base-HeadingElement {
+  @extend %flexbox;
+  @include flex-direction(column);
+  @include user-select(none);
+  @include no-tap-highlight();
+  font-size: 1em;
+  text-transform: uppercase;
+  line-height: 1em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  position: relative;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-left: $gutter-xs;
+  padding-right: $gutter-xs;
+
+}
+
+
+@mixin Base-HeadingElement-XS {
+  padding-left: $gutter-xs;
+  padding-right: $gutter-xs;
+
+  ai-view > &:first-child {
+    margin-top: $gutter-xs;
+  }
+
+  [gutter] > & {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@mixin Base-HeadingElement-MD {
+  padding-left: $gutter-md;
+  padding-right: $gutter-md;
+
+  ai-view > &:first-child {
+    margin-top: $gutter-md;
+  }
+
+  [gutter] > & {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+%AIHeadingElement {
+  @include Base-HeadingElement;
+}
+
+ai-heading {
+  @extend %AIHeadingElement;
+}
+
+@include breakpoint(xs) {
+  ai-heading {
+    @include Base-HeadingElement-XS;
+  }
+}
+
+@include breakpoint(md) {
+  ai-heading {
+    @include Base-HeadingElement-MD;
+  }
+}

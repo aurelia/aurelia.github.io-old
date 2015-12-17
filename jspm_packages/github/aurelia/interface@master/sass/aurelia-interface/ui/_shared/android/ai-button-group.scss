@@ -1,0 +1,38 @@
+
+ai-button-group {
+  display:flex;
+  @include flex-shrink(0);
+  @include flex-basis(auto);
+  &:not([stack]):not([justify]):not([stack-ios]):not([justify-ios]) {
+    @include InlineButtonGroup;
+  }
+}
+
+ai-button-group[inline],
+ai-button-group[inline-ios] {
+  @include InlineButtonGroup;
+}
+
+ai-button-group[stack],
+ai-button-group[stack-ios] {
+  @include StackButtonGroup;
+}
+
+ai-button-group[justify],
+ai-button-group[justify-ios] {
+  @include JustifyButtonGroup;
+}
+
+ai-button-group {
+  &[list-button-group] {
+    min-width: 100%;
+    ai-button {
+      min-width: 100%;
+      @include flex-shrink(0);
+      @include flex-basis(auto);
+      button  {
+        min-width: 100% !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+<template>
+  <ai-header>
+    ${message}
+  </ai-header>
+  <ai-actions>
+    <ai-button repeat.for="action of actions" click.delegate="onClick($event, action)">
+      ${action}
+    </ai-button>
+  </ai-actions>
+</template>

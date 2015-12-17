@@ -1,0 +1,55 @@
+$ios-dialog-component: iOS-DialogComponent;
+
+@mixin iOS-DialogComponent {
+  @include AIDialogElement;
+  border-radius: 8px;
+  border: 1px solid $black-4;
+
+  > * {
+    @include justify-content(center);
+    text-align: center;
+  }
+
+  [actions],
+  .actions {
+    padding:0 8px;
+    overflow: hidden;
+    border-top: 1px solid $black-4;
+
+    ai-button {
+      padding: 8px 0;
+      margin: 0 4px;
+      @include flex(1 0 auto);
+      min-width: 50%;
+      button {
+        @include flex(1 0 auto);
+      }
+    }
+
+    ai-button:first-child + ai-button {
+      border-left: 1px solid $black-4;
+    }
+  }
+}
+
+%#{$ios-dialog-component} {
+  @include iOS-DialogComponent;
+}
+
+@mixin include-dialog-component {
+  @include AIDialogOverlay;
+
+  .browser-safari & {
+    background-color: transparent !important;
+    @include blur-backface(1rem);
+  }
+}
+
+@include Component(ai-overlay) {
+  @include include-dialog-component;
+}
+
+@include Component(ai-dialog) {
+  @extend %#{$ios-dialog-component};
+}
+

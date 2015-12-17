@@ -1,0 +1,51 @@
+
+
+$ios-input-element-default: iOS-InputElement;
+$ios-input-element-light:   iOS-InputElement-Light;
+$ios-input-element-dark:    iOS-InputElement-Dark;
+
+
+
+$ios-input-element-themes: (
+  light: $ios-input-element-light,
+  dark: $ios-input-element-dark
+);
+
+$ios-input-meta: (
+  default: $ios-input-element-default,
+  themes: $ios-input-element-themes,
+) !default;
+
+@mixin iOS-InputElement {
+  @include AIInputElement;
+}
+
+@mixin iOS-InputElement-Light {
+  @include default-input-lightTheme();
+}
+@mixin iOS-InputElement-Dark {
+  @include default-input-darkTheme();
+}
+
+%#{$ios-input-element-light} {
+  @include iOS-InputElement-Light;
+}
+%#{$ios-input-element-dark} {
+  @include iOS-InputElement-Dark;
+}
+
+@include Component(ai-input) {
+  @extend %#{$ios-input-element-default};
+
+  .theme-light & {
+    ai-input {
+      @extend %#{$ios-input-element-light};
+    }
+  }
+
+  .theme-dark & {
+    ai-input {
+      @extend %#{$ios-input-element-dark};
+    }
+  }
+}

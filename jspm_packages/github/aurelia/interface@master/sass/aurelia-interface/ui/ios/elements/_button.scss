@@ -1,0 +1,147 @@
+
+$ios-button-element-default: iOS-ButtonElement;
+$ios-button-element-small:   iOS-ButtonElement-Small;
+$ios-button-element-medium:   iOS-ButtonElement-Medium;
+$ios-button-element-large:   iOS-ButtonElement-Large;
+$ios-button-element-stack:   iOS-ButtonElement-Stack;
+$ios-button-element-round:   iOS-ButtonElement-Round;
+$ios-button-element-raised:  iOS-ButtonElement-Raised;
+$ios-button-element-flat:    iOS-ButtonElement-Flat;
+$ios-button-element-light:   iOS-ButtonElement-Light;
+$ios-button-element-fill:    iOS-ButtonElement-Fill;
+$ios-button-element-outline: iOS-ButtonElement-Outline;
+
+$ios-button-meta: (
+  default: $ios-button-element-default,
+  small:   $ios-button-element-stack,
+  medium:  $ios-button-element-stack,
+  large:   $ios-button-element-stack,
+  round:   $ios-button-element-round,
+  raised:  $ios-button-element-raised,
+  flat:    $ios-button-element-flat,
+  light:   $ios-button-element-light,
+  fill:    $ios-button-element-fill,
+  outline: $ios-button-element-outline
+) !default;
+
+
+@mixin iOS-ButtonElement {
+  @include AIButtonElement($round:false, $raised:true, $flat:true, $light:true, $fill:true, $outline:true, $default:outline);
+  @include button-size--variant(medium);
+
+  button {
+    @include ButtonElement;
+    border-radius: em(8);
+  }
+
+  button:hover {
+    box-shadow: none;
+  }
+
+  button-content {
+    text-align: center;
+    @include flex(1);
+  }
+
+  &[round] button,
+  &[round-ios] button {
+    border-radius: em(27);
+  }
+}
+
+@mixin iOS-ButtonElement-Small {
+  @include button-size--variant(small);
+}
+
+@mixin iOS-ButtonElement-Medium {
+  @include button-size--variant(medium);
+}
+
+@mixin iOS-ButtonElement-Large {
+  @include button-size--variant(large);
+}
+
+@mixin iOS-ButtonElement-Round {
+  @include round-button-element;
+}
+
+@mixin iOS-ButtonElement-Raised {
+  @include raised-button-element;
+}
+
+@mixin iOS-ButtonElement-Flat {
+  @include flat-button-element;
+}
+
+@mixin iOS-ButtonElement-Light {
+  @include light-button-element;
+}
+
+@mixin iOS-ButtonElement-Fill {
+  @include fill-button-element;
+}
+
+@mixin iOS-ButtonElement-Outline {
+  @include outline-button-element;
+}
+
+%#{$ios-button-element-small} {
+  @include iOS-ButtonElement-Small;
+}
+
+%#{$ios-button-element-medium} {
+  @include iOS-ButtonElement-Medium;
+}
+
+%#{$ios-button-element-large} {
+  @include iOS-ButtonElement-Large;
+}
+
+%#{$ios-button-element-round} {
+  @include iOS-ButtonElement-Round;
+}
+
+%#{$ios-button-element-raised} {
+  @include iOS-ButtonElement-Raised;
+}
+
+%#{$ios-button-element-flat} {
+  @include iOS-ButtonElement-Flat;
+}
+
+%#{$ios-button-element-light} {
+  @include iOS-ButtonElement-Light;
+}
+
+%#{$ios-button-element-fill} {
+  @include iOS-ButtonElement-Fill;
+}
+
+%#{$ios-button-element-outline} {
+  @include iOS-ButtonElement-Outline;
+}
+
+
+
+@include Component(ai-button) {
+  @extend %#{$ios-button-element-default};
+  &[size="small"]  {@extend %#{$ios-button-element-stack};}
+  &[size="medium"] {@extend %#{$ios-button-element-stack};}
+  &[size="large"]  {@extend %#{$ios-button-element-stack};}
+
+  &[round]     {@extend %#{$ios-button-element-round};}
+  &[raised]    {@extend %#{$ios-button-element-raised};}
+  &[flat]      {@extend %#{$ios-button-element-flat};}
+  &[light]     {@extend %#{$ios-button-element-light};}
+  &[fill]      {@extend %#{$ios-button-element-fill};}
+  &[outline]   {@extend %#{$ios-button-element-outline};}
+
+  &[round-ios]     {@extend %#{$ios-button-element-round};}
+  &[raised-ios]    {@extend %#{$ios-button-element-raised};}
+  &[flat-ios]      {@extend %#{$ios-button-element-flat};}
+  &[light-ios]     {@extend %#{$ios-button-element-light};}
+  &[fill-ios]      {@extend %#{$ios-button-element-fill};}
+  &[outline-ios]   {@extend %#{$ios-button-element-outline};}
+}
+
+

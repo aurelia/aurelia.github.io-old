@@ -1,0 +1,27 @@
+<template>
+  <require from="./navbar"></require>
+  <require from="./overlay-container"></require>
+  <content select=".ai-navbar"></content>
+  <content select=".ai-tabbar"></content>
+  <content select=".ai-sidebar.off-screen"></content>
+
+  <ai-overlay-container></ai-overlay-container>
+
+  <ai-navbar if.bind="enableNavbar"></ai-navbar>
+
+  <content></content>
+
+  <!-- <template if.bind="config.dialogs.length">
+    <ai-dialog repeat.for="dialog of config.dialogs" model.bind="dialog.model" view-mode.bind="dialog.viewModel"></ai-dialog>
+  </template> -->
+</template>
+
+  <!-- <layout-content>
+    <layout-sidebar>
+      <content select=".ai-sidebar"></content>
+    </layout-sidebar>
+
+    <layout-view>
+    </layout-view>
+  </layout-content>
+ -->

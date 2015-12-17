@@ -1,0 +1,30 @@
+
+
+ai-select {
+  @include AISelectElement;
+
+  select {
+    @include SelectElement;
+  }
+}
+@include from-screen(xs) {
+  ai-select {
+    @include AISelectElement-xs;
+  }
+}
+@include from-screen(md) {
+  ai-select {
+    @include AISelectElement-md;
+  }
+}
+
+@include select-theme(light) {
+  ai-select {
+    @include AISelectElement-Light;
+  }
+}
+@include select-theme(dark) {
+  ai-select {
+    @include AISelectElement-Dark;
+  }
+}

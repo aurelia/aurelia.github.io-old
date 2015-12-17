@@ -1,0 +1,185 @@
+ai-list {
+  @extend %flexbox;
+  @include flex-direction(column);
+  height: auto;
+  width: auto;
+
+
+  ai-item {
+    @extend %flexbox;
+    @include flex-direction(row);
+    @include flex-wrap(nowrap);
+    @include no-tap-highlight();
+    @include touch-action(tap);
+
+    background-color: $white;
+    outline: none;
+    padding-top: 8px;
+    padding-right: $gutter-xs;
+    position: relative;
+    min-height: 48px;
+
+    > *:first-child:not(.ai-icon):not(ai-avatar) {
+      padding-left: $gutter-xs;
+    }
+
+    > a {
+      @extend %flexbox;
+      @include flex-wrap(nowrap);
+      @include flex(1);
+    }
+
+    &[href],
+    &.item-link {
+      cursor: pointer;
+    }
+
+    ai-icon {
+      @include flex(1 0 auto);
+      max-width: 48px;
+    }
+
+    ai-media {
+      width: 72px;
+      height: 72px;
+      margin: 0 8px 8px 8px;
+      img {
+        width: 72px;
+        height: 72px;
+      }
+    }
+
+    ai-avatar {
+      @include flex(1 0 auto);
+
+      &:first-child {
+        margin: auto 16px;
+      }
+    }
+
+    ai-heading {
+      line-height: 20px;
+      font-size: em(18);
+      font-weight: bold;
+      max-height: 48px;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      padding-left: $gutter-xs;
+      &:first-child {
+        margin-top: 0;
+      }
+
+      p {
+        margin:0;
+      }
+
+      small, [support], a {
+        line-height: 20px;
+        font-size: em(14);
+        font-weight: 400;
+        max-height: 20px;
+        color: $grey-500;
+      }
+    }
+
+    ai-content {
+      line-height: 20px;
+      font-size: em(16);
+      font-weight: 400;
+
+      > * {
+        max-height: (20px * 4);
+      }
+    }
+
+   
+    ai-media,
+    ai-avatar,
+    ai-icon,
+    md-icon {
+      & + ai-content,
+      & + ai-heading {
+        padding-left: 0;
+      }
+    }
+
+    .ai-icon[caret] {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: auto;
+      width: auto;
+      padding: inherit;
+      color: $black-4;
+    }
+  }
+}
+
+@include breakpoint(md) {
+  ai-list ai-item {
+    @include transition-default;
+    padding-right: $gutter-md;
+    > *:not(.ai-icon):first-child {
+      padding-left: $gutter-md;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+@mixin Base-ListComponent {
+ 
+
+ 
+ 
+ 
+ 
+ 
+}
+
+@mixin Base-ListComponent-XS {
+ 
+ 
+ 
+ 
+ 
+ 
+}
+
+@mixin Base-ListComponent-MD {
+  @include list-md-defaults;
+ 
+ 
+ 
+ 
+ 
+}
+
+@include Component(ai-list) {
+ 
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+}
+
+@include Component-xs(ai-list) {
+  @include Base-ListComponent-XS();
+}
+
+@include Component-md(ai-list) {
+  @include Base-ListComponent-MD();
+}
+

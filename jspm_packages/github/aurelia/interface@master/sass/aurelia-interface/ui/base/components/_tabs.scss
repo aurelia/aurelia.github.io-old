@@ -1,0 +1,75 @@
+$min-tab-width-xs: 72px;
+$max-tab-width-xs: 160px;
+$min-tab-width-md: 120px;
+$max-tab-width-md: 250px;
+
+ai-tabs {
+  @extend %flexbox;
+  @include flex-wrap(nowrap);
+  @include flex(1 0 auto);
+  @include scroll-element(x);
+  max-width: 100%;
+  line-height: inherit;
+  position: relative;
+
+  tab-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: $accent;
+    @include transition-default;
+  }
+
+  ai-tab {
+    @extend %flexbox;
+    @include flex-direction(column);
+    @include justify-content(center);
+    @include flex-items(center);
+    @include flex(1 0 auto);
+    @include no-tap-highlight();
+    @include touch-action();
+    cursor: pointer;
+    text-align: center;
+    line-height: inherit;
+    min-width: $min-tab-width-xs;
+    &:not(:last-child) {
+      max-width: $max-tab-width-xs;
+    }
+  }
+}
+
+
+ai-tab-content {
+  @extend %flexbox;
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  @include flex(1);
+
+  tab-view-container {
+    @extend %flexbox;
+    @include transition-default();
+    @include flex-items(flex-start);
+    width: 100%;
+    max-height: 100%;
+    position: relative;
+
+    ai-tab-view {
+      @extend %flexbox;
+      @include flex-direction(column);
+      @include flex(0 0 100%);
+    }
+  }
+}
+
+@include breakpoint(md) {
+  ai-tabs {
+    ai-tab {
+      min-width: $min-tab-width-md;
+      &:not(:last-child) {
+        max-width: $max-tab-width-md;
+      }
+    }
+  }
+}

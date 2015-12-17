@@ -1,0 +1,40 @@
+
+$default-borderLine--color: $black-4;
+
+@mixin border-line($position:bottom, $color:$default-borderLine--color) {
+  content: " ";
+  position: absolute;
+  #{$position}: 0;
+  left: 0;
+  max-height: 1px;
+  min-height: 1px;
+  min-width: 100%;
+  background-color: $color;
+}
+
+
+@mixin bottom-line($color:$default-borderLine--color) {
+  &:after {
+    @include border-line(bottom, $color);
+  }
+}
+
+@mixin right-line($color:$default-borderLine--color) {
+  &:after {
+    content: " ";
+    position: absolute;
+    right: 0;
+    top: 0;
+    max-height: 100%;
+    min-height: 100%;
+    min-width: 1px;
+    max-width: 1px;
+    background-color: $color;
+  }
+}
+
+@mixin top-line($color:$default-borderLine--color) {
+  &:before {
+    @include border-line(top, $color);
+  }
+}

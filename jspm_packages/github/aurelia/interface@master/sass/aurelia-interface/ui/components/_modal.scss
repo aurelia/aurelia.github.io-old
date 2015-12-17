@@ -1,0 +1,57 @@
+@include RootComponent(ai-modal) {
+  .ai-overlay-element.modal-overlay {
+    z-index: 4000;
+    min-width: 100vw;
+    min-height: 100vh;
+    display: block;
+    position: fixed;
+    outline: none;
+    top:0;
+    left:0;
+    transform-origin: bottom;
+    opacity: 0;
+    @include transform(scaleY(0));
+    @include transition-default;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    &.is-active {
+      @include transform(scaleY(1));
+      opacity: 1;
+    }
+  }
+}
+@mixin AIModalElement {
+  z-index: 4001;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left:0;
+  min-width: 100vw;
+  max-width: 100vw;
+  height: 100%;
+  width: 100%;
+  @include flex-direction(column);
+  @include transition-default;
+  modal-container {
+    z-index: 4002;
+    display: flex;
+    position: relative;
+    @include flex(1);
+    display: flex;
+    @include flex-direction(column);
+    @include justify-content(flex-end);
+  }
+
+  &[full-screen] {
+    modal-container {
+      min-width: 100vw;
+      min-height: 100vh;
+    }
+  }
+
+  @include transform(translateY(100%));
+
+  &.is-active {
+    @include transform(translateY(0%));
+  }
+}

@@ -1,0 +1,193 @@
+
+$enable-flex-box: true;
+$enable-outlines: false;
+
+
+$navbar-height:    4rem !default;
+$sidebar-width:    18rem !default;
+$statusbar-height: 22px !default;
+
+
+$grid-gutter-width:          1.875rem !default;
+$grid-columns:               $base-columns !default;
+$grid-breakpoints:           $base-breakpoints !default;
+$breakpoints:                $grid-breakpoints !default;
+
+
+$size-xs:               24px !default;
+$size-s:                30px !default;
+$size-m:                36px !default;
+$size-l:                40px !default;
+$size-xl:               56px !default;
+
+$line-height-lg:        4 !default;
+$line-height-md:        2 !default;
+$line-height-sm:        0.5 !default;
+
+
+$red:                   $red-500            !default;
+$pink:                  $pink-500           !default;
+$purple:                $purple-500         !default;
+$deep-purple:           $deep-purple-500    !default;
+$indigo:                $indigo-500         !default;
+$blue:                  $blue-500           !default;
+$light-blue:            $light-blue-500     !default;
+$cyan:                  $cyan-500           !default;
+$teal:                  $teal-500           !default;
+$green:                 $green-500          !default;
+$light-green:           $light-green-500    !default;
+$lime:                  $lime-500           !default;
+$yellow:                $yellow-500         !default;
+$amber:                 $amber-500          !default;
+$orange:                $orange-500         !default;
+$deep-orange:           $deep-orange-500    !default;
+$brown:                 $brown-500          !default;
+$grey:                  $grey-500           !default;
+$blue-grey:             $blue-grey-500      !default;
+
+$base-colors: (
+  red: $red, pink: $pink, purple: $purple, deep-purple: $deep-purple, indigo: $indigo, blue: $blue, light-blue: $light-blue, cyan: $cyan, teal: $teal, green: $green, light-green: $light-green, lime: $lime, yellow: $yellow, amber: $amber, orange: $orange, deep-orange: $deep-orange, brown: $brown, grey: $grey, blue-grey: $blue-grey
+);
+
+
+$primary:               $indigo-500 !default;
+$primary-hue-1:         $indigo-100 !default;
+$primary-hue-2:         $indigo-700 !default;
+$primary-accent:        $indigo-A200 !default;
+$accent:                $pink-A200  !default;
+$accent-hue-1:          $pink-A100  !default;
+$accent-hue-2:          $pink-A400  !default;
+
+$success: $green;
+$warning: $orange;
+$error: $red;
+$info: $light-blue;
+$link: $light-blue-300;
+
+
+$default-text:            $base-text-color !default;
+$light-text:              $grey-300;
+$dark-text:               $grey-700;
+
+
+$shadow-1dp:    #{$base-shadow-1dp}  !default;
+$shadow-2dp:    #{$base-shadow-2dp}  !default;
+$shadow-3dp:    #{$base-shadow-3dp}  !default;
+$shadow-4dp:    #{$base-shadow-4dp}  !default;
+$shadow-6dp:    #{$base-shadow-6dp}  !default;
+$shadow-8dp:    #{$base-shadow-8dp}  !default;
+$shadow-16dp:   #{$base-shadow-16dp} !default;
+
+
+$touch-press: auto;
+$touch-tap: auto;
+$touch-multitap: manipulation;
+$touch-vertical: pan-x;
+$touch-horizontal: pan-y;
+$touch-rotate: pan-x pan-y;
+$touch-pinch: pan-x pan-y;
+$touch-actions: (
+   press: $touch-press
+  ,tap: $touch-tap
+  ,multitap: $touch-multitap
+  ,horizontal: $touch-horizontal
+  ,vertical: $touch-vertical
+  ,rotate: $touch-rotate
+  ,pinch: $touch-pinch
+);
+
+$transition-curve-fast-out-slow-in   : cubic-bezier(0.4, 0, 0.2, 1) !default;
+$transition-curve-linear-out-slow-in : cubic-bezier(0, 0, 0.2, 1) !default;
+$transition-curve-fast-out-linear-in : cubic-bezier(0.4, 0, 1, 1) !default;
+$transition-curve-default: $transition-curve-fast-out-slow-in;
+
+$animation-curve-fast-out-slow-in   : $transition-curve-fast-out-slow-in !default;
+$animation-curve-linear-out-slow-in : $transition-curve-linear-out-slow-in !default;
+$animation-curve-fast-out-linear-in : $transition-curve-fast-out-linear-in !default;
+$animation-curve-default: $animation-curve-fast-out-slow-in;
+
+$roboto-font-path: "../assets/font/roboto/" !default;
+$icons-font-path: "../assets/font/material-design-icons/" !default;
+$noto-font-path: "../assets/font/noto/" !default;
+$arual-font-path: "../assets/font/arual/" !default;
+$mdicons-font-path: "../assets/font/mdicon/" !default;
+$aicons-font-path: "../assets/font/aicon/" !default;
+$aicons-font-family: "aIcons" !default;
+$aicons-version: "2.0.0" !default;
+
+$enable-navbar-border:     true !default;
+$navbar-background:        rgba(255,255,255,0.9) !default;
+$navbar-border-color:      $black-4 !default;
+$navbar-border-width:      1px !default;
+$navbar-border-style:      solid !default;
+$navbar-active-background: rgba(0,0,0,0.1) !default;
+
+$enable-sidebar-border:  true !default;
+$enable-sidebar-shadow:  false !default;
+$sidebar-background:     $white !default;
+$sidebar-border-width:   1px !default;
+$sidebar-border-style:   solid !default;
+$sidebar-border-color:   $black-4 !default;
+
+$button-height:          32px  !default;
+$button-min-width:       72px  !default;
+$button-max-width:       120px !default;
+
+$button-small-min-width: 56px  !default;
+$button-small-max-width: 100px !default;
+$button-small-height:    26px  !default;
+
+$button-medium-min-width: $button-height     !default;
+$button-medium-max-width: $button-min-width  !default;
+$button-medium-height:    $button-max-width  !default;
+
+$button-large-min-width: 88px  !default;
+$button-large-max-width: 160px !default;
+$button-large-height:    48px  !default;
+
+$button-bg: $grey-300;
+$button-color: $grey-800;
+$button-defaults: (
+  root: (
+    height: $button-height,
+    min-width: $button-min-width,
+    color: $button-color,
+    background-color: $button-bg
+  ),
+  hover:(
+    background-color: $grey-400,
+    color: $grey-900
+  ),
+  active: (
+    background-color: $grey-400
+  ),
+  disabled: (
+    background-color: $grey-200,
+    color: $grey-600
+  ),
+  small: (
+    min-width: $button-small-min-width,
+    max-width: $button-small-max-width,
+    height: $button-small-height
+  ),
+  medium: (
+    min-width: $button-medium-min-width,
+    max-width: $button-medium-max-width,
+    height: $button-medium-height
+  ),
+  large: (
+    min-width: $button-large-min-width,
+    max-width: $button-large-max-width,
+    height: $button-large-height
+  )
+) !default;
+
+
+@function button-settings($props...) {
+  @return _get($button-defaults, $props...);
+}
+
+@mixin button-state($props...) {
+  $button: button-settings($props...);
+  @include _declare($button);
+}

@@ -1,0 +1,397 @@
+$AI_FRAMEWORK_EXPORT: null !default;
+
+@if not $AI_FRAMEWORK_EXPORT {
+  @import 'framework';
+}
+
+
+/*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+
+html {
+  font-weight: normal;
+  font-family: "San Francisco" "Roboto";
+  -ms-text-size-adjust: 100%;   -webkit-text-size-adjust: 100%;   height: 100%;
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  position: relative;
+  color: $grey-800;
+}
+
+body {
+  margin: 0;
+  font-family: "San Francisco" "Roboto";
+  height: 100%;
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  position: relative;
+  font-size: 1em;
+}
+
+body,
+.platform-ios body {
+  font-family: "San Francisco" "Roboto";
+}
+
+.platform-android body {
+  font-family: "Roboto";
+}
+
+
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+
+ai-article,
+ai-aside,
+ai-details,
+ai-figcaption,
+ai-figure,
+ai-footer,
+ai-header,
+ai-hgroup,
+ai-main,
+ai-menu,
+ai-nav,
+ai-section,
+ai-card {
+  @extend %flexbox;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top:0;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
+h1 {
+  font-size: 2rem;
+}
+h2 {
+  font-size: 1.75rem;
+}
+h3 {
+  font-size: 1.5rem;
+}
+h4 {
+  font-size: 1.25rem;
+}
+h5 {
+  font-size: 1rem;
+}
+h5 {
+  font-size: 0.75rem;
+}
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;   vertical-align: baseline; }
+
+ai-audio,
+ai-canvas,
+ai-progress,
+ai-video {
+  display: inline-block;   vertical-align: baseline; }
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+[hidden],
+template {
+  display: none;
+}
+
+a {
+  background-color: transparent;
+  text-decoration: none;
+  color: $accent;
+}
+
+a:active,
+a:hover {
+  outline: 0;
+}
+
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+b,
+strong,
+ai-text[bold] {
+  font-weight: bold;
+}
+
+
+dfn {
+  font-style: italic;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+small {
+  font-size: 80%;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+img {
+  border: 0;
+}
+ai-avatar {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  img {
+    width: inherit;
+    height: inherit;
+    position: relative;
+  }
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+figure {
+  margin: 1em 40px;
+}
+
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+  width: 100%;
+}
+
+pre {
+  overflow: auto;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;   font: inherit;   margin: 0; }
+
+button {
+  overflow: visible;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+button,
+html input[type="button"], input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;   cursor: pointer; }
+
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+input {
+  line-height: normal;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;   padding: 0; }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+input[type="search"] {
+  -webkit-appearance: textfield;   -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;   box-sizing: content-box;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+
+legend {
+  border: 0;   padding: 0; }
+
+textarea {
+  overflow: auto;
+}
+
+optgroup {
+  font-weight: bold;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  caption {
+    color: #818a91;
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    caption-side: bottom;
+  }
+}
+
+td,
+th {
+  padding: 0;
+}
+
+dl,
+ol,
+ul {
+  margin-top:0;
+  margin-bottom: 1rem;
+  dl,
+  ol,
+  ul {
+    margin-bottom: 0;
+  }
+}
+
+dl {
+  dt {
+    font-weight: bold;
+  }
+  > dd {margin-left: 0}
+  dl {
+    margin-left: 1rem;
+  }
+}
+
+@if $enable-outlines {
+  button:focus,
+  input:focus,
+  li:focus,
+  ai-option:focus,
+  ai-select:focus {
+    outline: 1px dashed $dark-text;
+  }
+}
+
+[block] {
+  display: block !important;
+}
+
+.theme-light {
+  view-content {background-color: transparent}
+  label {color: $dark-text}
+}
+
+.theme-dark {
+  view-content {background-color: transparent}
+  label {color: $light-text}
+}
+
+[flex] {
+  margin:0;
+}
+
+[flexbox] [flex] {
+  margin: 8px;
+}
+
+
+[flexbox] {
+  margin-left: -1em;
+  margin-right: -1em;
+}
+
+[gutter] {
+  padding-left: $gutter-xs;
+  padding-right: $gutter-xs;
+
+  > [flexbox] {
+    margin-left: -1em;
+    margin-right: -1em;
+  }
+}
+
+@include breakpoint(md) {
+  body {
+    font-size: 120%;
+  }
+  [gutter] {
+    padding-left: $gutter-md;
+    padding-right: $gutter-md;
+    > [flexbox] {
+      margin-right: -1em;
+      margin-left: -1em;
+    }
+  }
+}
