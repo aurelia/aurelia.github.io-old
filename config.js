@@ -104,12 +104,10 @@ System.config({
     ],
     "app-build": [
       "api/class-or-interface",
-      "api/class-or-interface.css!github:systemjs/plugin-text@0.0.3",
       "api/class-or-interface.html!github:systemjs/plugin-text@0.0.3",
       "api/index",
       "api/index.html!github:systemjs/plugin-text@0.0.3",
       "api/product",
-      "api/product.css!github:systemjs/plugin-text@0.0.3",
       "api/product.html!github:systemjs/plugin-text@0.0.3",
       "article/article",
       "article/article.html!github:systemjs/plugin-text@0.0.3",
