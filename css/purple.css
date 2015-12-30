@@ -25,9 +25,9 @@
 ================================================== */
 
 /** tabs **/
-.panel-default>.panel-heading {background:#BA3A95; }
+.panel-default>.panel-heading {background:#E82887; }
 .panel-default>.panel-heading:hover {background:#fff; }
-.panel-default>.panel-heading:hover a {color:#BA3A95; }
+.panel-default>.panel-heading:hover a {color:#E82887; }
 .panel-title>a {color:#fff;}
 .panel-title>a:hover {text-decoration: none;}
 
@@ -53,7 +53,7 @@ h2 {
 }
 h2 i {color:#999}
 h2.subTitle:after, h1.noSubtitle:after{
-	background-color:#BA3A95;
+	background-color:#E82887;
 }
 
 /*** parallax sections ***/
@@ -62,20 +62,8 @@ h2.subTitle:after, h1.noSubtitle:after{
 	color:#fff;
 }
 
-#home, #paralaxSlice1, #paralaxSlice2, #paralaxSlice3, #paralaxSlice4 {
-	background-color:#BA3A95;
-}
-
-#home {
-	background-image:url('../images/paralax-grey-3.jpg');
-}
-
-#paralaxSlice1 {
-	background-image: url('../images/paralax-pink-2.jpg');
-}
-
-#paralaxSlice2 {
-	background-image: url('../images/paralax-pink-2.jpg');
+#home, .homeQuote {
+	background-color:#E82887;
 }
 
 .paralaxText blockquote, .paralaxText h1, .paralaxText h2, .paralaxText h3, .paralaxText p, .paralaxText i{
@@ -83,7 +71,7 @@ h2.subTitle:after, h1.noSubtitle:after{
 }
 
 .video {
-  box-shadow: 0 0 15px rgba(0,0,0,.5);
+  box-shadow: 0 20px 40px rgba(0,0,0,.1);
 }
 
 .videoWrapper {
@@ -113,26 +101,26 @@ h2.subTitle:after, h1.noSubtitle:after{
 ================================================== */
 
 a {
-	color:#BA3A95;
+	color:#E82887;
 }
 a:hover, .scrollspyNav .active a {
-	color:#BA3A95;
+	color:#E82887;
 }
 ul.iconsList li a {
 	color:#555
 }
 ul.iconsList li a:hover, ul.iconsList i {
-	color:#BA3A95
+	color:#E82887
 }
 
 /*** buttons ***/
 .btn {
-	background:#BA3A95;
+	background:#E82887;
 	color:#fff;
 	border:2px solid #fff;
 }
 .btn:hover {
-	color:#BA3A95;
+	color:#E82887;
 	border-color:#eee;
 	text-shadow:none;
 	background:#fff
@@ -188,7 +176,7 @@ ul.iconsList li a:hover, ul.iconsList i {
 	color:#444;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-	background: #BA3A95;
+	background: #E82887;
 	color:#fff;
 }
 
@@ -212,7 +200,7 @@ p.credits {
 	color:#555;
 }
 p.credits a {
-	color:#BA3A95;
+	color:#E82887;
 }
 
 /* END FOOTER
@@ -239,7 +227,7 @@ p.credits a {
 	color:#FFFFFF;
 }
 .flexslider .flex-direction-nav a {
-	background-color:#BA3A95;
+	background-color:#E82887;
 }
 
 .flexslider .flex-control-paging li a:hover, #sliderWrapper .flex-control-paging li a.flex-active{
@@ -255,7 +243,7 @@ p.credits a {
 }
 .flexslider h1 {
 	color:#fff;
-	background-color:#BA3A95;
+	background-color:#E82887;
 }
 .flexslider h2 {
 	color:#fff;
@@ -288,7 +276,7 @@ nav#filter a {
 	color:#555;
 }
 nav#filter a:hover, nav#filter a.current {
-	background-color: #BA3A95;
+	background-color: #E82887;
 	color:#fff;
 }
 li.filterTitle {
@@ -297,7 +285,7 @@ li.filterTitle {
 section#projectDescription {
 	background-color:#F8F8F8
 }
-.mask{background-color: #BA3A95;}
+.mask{background-color: #E82887;}
 /* END PORTFOLIO
 ================================================== */
 
@@ -342,7 +330,7 @@ section#projectDescription {
 	color:#fff!important;
 }
 .pricingBloc.focusPlan h3 {
-	background-color:#BA3A95;
+	background-color:#E82887;
 	padding:1.25em;
 	color:#fff!important;
 }
@@ -378,7 +366,7 @@ border:none}
 
 /*** Feature box **/
 
-.boxFeature i{color:#BA3A95;}
+.boxFeature i{color:#E82887;}
 
 /*** slices ***/
 .slice{
@@ -393,7 +381,7 @@ border:none}
 	color:#fff;
 }
 
-/*color1*/
+/*color1
 .color1, .slice.color1, .bulle.color1, .ctaBox.color1{
 	background-color:#F7F7F7;
 	color:#444;
@@ -403,26 +391,27 @@ border:none}
 	color:#444;
 }
 .color1 a.btn{color:#fff;}
-.color1 a.btn:hover{color:#BA3A95;}
+.color1 a.btn:hover{color:#E82887;}
+*/
 
-/*color4*/
-.color4, .slice.color4, .bulle.color4, .ctaBox.color4{
-	background-color:#BA3A95;
+/*get-started-banner*/
+.get-started-banner, .slice.get-started-banner, .bulle.get-started-banner, .ctaBox.get-started-banner{
+	background-color:#E82887;
 	color:#fff;
 }
 
-.color4 h1, .color4 h2, .color4 h3, .color4 h4, .color4 blockquote, .color4 a {
+.get-started-banner h1, .get-started-banner h2, .get-started-banner h3, .get-started-banner h4, .get-started-banner blockquote, .get-started-banner a {
 	color:#fff;
 }
 
-.color4 h2.subTitle:after, .color4 h1.noSubtitle:after {
+.get-started-banner h2.subTitle:after, .get-started-banner h1.noSubtitle:after {
 	background:#fff;
 }
 /*** icons ***/
-.iconRounded {border:2px solid #BA3A95;color:#BA3A95;background-color:#fff;}
-.iconRounded:hover, .color1 .iconRounded:hover{background-color:#BA3A95;color:#fff;}
-.color1 .iconRounded {color:#BA3A95;}
-.color4 .iconRounded {background-color:#FFF;color:#BA3A95;}
+.iconRounded {border:2px solid #E82887;color:#E82887;background-color:#fff;}
+.iconRounded:hover, .color1 .iconRounded:hover{background-color:#E82887;color:#fff;}
+.color1 .iconRounded {color:#E82887;}
+.get-started-banner .iconRounded {background-color:#FFF;color:#E82887;}
 
 /* END NEKO CSS FRAMEWORK
 ================================================== */
