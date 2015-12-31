@@ -189,6 +189,12 @@ ul.iconsList li a:hover, ul.iconsList i {
     color: #6E4DA7
 }
 
+.navGroup {
+    border-left: 1px solid #CCC;
+    margin-top: 4px;
+    margin-left: 4px;
+}
+
 /* END MAIN MENU
 ================================================== */
 
