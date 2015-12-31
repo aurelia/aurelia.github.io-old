@@ -29,16 +29,26 @@ h2.featureHeading {
 	background-color:#6E4D9B;
 }
 
+.videoSlice {
+    margin: 0;
+    padding: 0;
+      background-image: -webkit-gradient(linear, top, from(#6E4D9B), to(#E82887));
+  background-image: -webkit-linear-gradient(top, #6E4D9B, #E82887);
+  background-image: -moz-linear-gradient(top, #6E4D9B, #E82887);
+  background-image: linear-gradient(to top, #6E4D9B, #E82887);
+}
+
 .videoWrapper {
   position: relative;
   padding-bottom: 54;
   padding-top: 25px;
   height: 0;
-  background-image: -webkit-gradient(linear, right, from(#6E4DA7), to(#E82887));
-  background-image: -webkit-linear-gradient(right, #6E4DA7, #E82887);
-  background-image: -moz-linear-gradient(right, #6E4DA7, #E82887);
-  background-image: linear-gradient(to right, #6E4DA7, #E82887);
+
   box-shadow: 0 20px 40px rgba(0,0,0,.1);
+  margin: 0 auto;
+  text-align:center;
+  width: 100%;
+  height: 100%;
 }
 .videoWrapper iframe {
   position: absolute;
