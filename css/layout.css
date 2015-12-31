@@ -222,7 +222,7 @@ h1.noSubtitle{
 }
 
 
-.paralaxText h2 {
+.bigQuote h2 {
 	font-size: 3.21em;
 	font-weight: 800;
 	line-height:1.5em;
@@ -231,7 +231,7 @@ h1.noSubtitle{
 	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
 }
 
-.paralaxText blockquote {
+.bigQuote blockquote {
 	font-size: 33px;
 	line-height: 33px;
 	margin-bottom: 0;
@@ -384,7 +384,7 @@ hr {
 @media(max-width:767px){}
 
 @media(min-width:768px){
-	.paralaxText blockquote {
+	.bigQuote blockquote {
 	font-size: 44px;
 	line-height: 44px;
 	}
@@ -434,6 +434,19 @@ hr {
 }
 .btn i {
 	margin-right:0.5em;
+}
+
+ul.githubButtonNav {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+ul.githubButtonNav li {
+    list-style: none;
+    float: left;
+    margin-top: 32px;
+    margin-right: 10px;
 }
 
 /*** call to actioon ***/
@@ -486,27 +499,14 @@ hr {
 /* END GENERAL
 ================================================== */
 
-/* PARALLAX STUFF
-================================================== */
-#paralaxSlice1, #paralaxSlice2, #paralaxSlice3, #paralaxSlice4, #paralaxSlice5, #homeFullScreen {
-	width:100%;
-	background-repeat: no-repeat;
-	background-attachment:scroll;
-	background-size: cover;
-	background-position: top center;
-}
 
-
-
-.maskParent{position: relative; height:100%;width:100%}
-.paralaxText {
+.bigQuote {
 	padding-top:66px;
 	padding-bottom:66px;
 	text-align:center;
 	position: relative;
-
+    color: #FFF;
 }
-.paralaxMask {width:100%; height:100%;overflow:hidden;position:absolute;background:rgba(0,0,0,0.15);}
 
 /*** MEDIA QUERIES ***/
 
@@ -516,21 +516,8 @@ hr {
 
 @media(min-width:992px){}
 
-@media(min-width:1200px){
-
-	#paralaxSlice1, #paralaxSlice2, #paralaxSlice3, #paralaxSlice4, #paralaxSlice5, #homeFullScreen {
-		background-attachment: fixed;
-		background-position: 50% 0;
-		background-size: cover;
-	}
-
-
-}
 /*** END MEDIA QUERIES ***/
 
-
-/* END PARALLAX STUFF
-================================================== */
 
 /* HEADER
 ================================================== */
