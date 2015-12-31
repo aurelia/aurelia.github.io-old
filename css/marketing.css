@@ -1,0 +1,15 @@
+.marketingContent .slice {
+    margin-top: -60px;
+}
+
+.marketingContent .slice h1 {
+    margin-top: 40px;
+}
+
+.marketingContent .well {
+    background: #FFFFFF;
+    border: 1px solid #DADADA;
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.10);
+    border-radius: 4px;
+    padding: 40px;
+}

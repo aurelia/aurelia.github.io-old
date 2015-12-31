@@ -3,15 +3,15 @@
 
 body {
 	color:#777;
-	background: #fff;
-  font-family: 'Source Sans Pro', Helvetica, 'Open Sans', sans-serif;
+    background-color: #F7F7F7;
+    font-family: 'Source Sans Pro', Helvetica, 'Open Sans', sans-serif;
 }
 
 blockquote small {
 	color:inherit;
 }
 h1, h2, h3, h4, h5, h6 {
-	color:#222;
+	color:#3D3D3D;
 }
 h2 {
  color:#888;
