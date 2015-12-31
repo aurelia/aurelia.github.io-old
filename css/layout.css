@@ -328,6 +328,12 @@ ul.githubButtonNav li {
     margin-right: 10px;
 }
 
+@media(max-width:1020px){
+    ul.githubButtonNav {
+        display: none;
+    }
+}
+
 /*** call to actioon ***/
 
 .ctaBox{padding:15px 11px;}
