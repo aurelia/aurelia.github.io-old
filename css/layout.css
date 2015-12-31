@@ -258,9 +258,10 @@ h2.subTitle{
 	line-height: 24px;
 	font-weight: 300;
 	font-style: italic;
-	padding:0;
+	padding:0 0 40px 0;
 	margin-bottom:90px;
 	text-align:center;
+    border-bottom: 1px solid #DDD;
 }
 h2.subTitle:after, h1.noSubtitle:after {
 	display:block;

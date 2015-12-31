@@ -53,8 +53,11 @@ h2 {
  color:#888;
 }
 h2 i {color:#999}
-h2.subTitle:after, h1.noSubtitle:after{
-	background-color:#E82887;
+
+h2.featureHeading {
+    font-weight: 600;
+    color: #444;
+    font-size: 1.2em; 
 }
 
 /*** parallax sections ***/
@@ -381,7 +384,7 @@ border:none}
 
 /*** Feature box **/
 
-.boxFeature i{color:#E82887;}
+.boxFeature i{color: #444;}
 
 /*** slices ***/
 .slice{
