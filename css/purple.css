@@ -40,6 +40,7 @@
 body {
 	color:#777;
 	background: #fff;
+  font-family: 'Source Sans Pro', Helvetica, 'Open Sans', sans-serif;
 }
 
 blockquote small {
@@ -380,19 +381,6 @@ border:none}
 .ctaBox blockquote {
 	color:#fff;
 }
-
-/*color1
-.color1, .slice.color1, .bulle.color1, .ctaBox.color1{
-	background-color:#F7F7F7;
-	color:#444;
-}
-
-.color1 h1, .color1 h2, .color1 h3, .color1 h4, .color1 blockquote, .color1 a{
-	color:#444;
-}
-.color1 a.btn{color:#fff;}
-.color1 a.btn:hover{color:#E82887;}
-*/
 
 /*get-started-banner*/
 .get-started-banner, .slice.get-started-banner, .bulle.get-started-banner, .ctaBox.get-started-banner{
