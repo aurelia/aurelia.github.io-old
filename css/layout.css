@@ -665,10 +665,7 @@ body#fullScreen #mainHeader{display:none;}
 /* FOOTER 
 ================================================== */
 
-footer{padding:44px 0;}
-#footerLogo {margin-bottom: 22px;}
-#footerRights {padding:22px; font-size:12px;}
-
+footer{padding:17px 0 10px 0;}
 
 
 @media(min-width:768px){.footerWidget{float:right;}}
