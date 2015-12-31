@@ -401,7 +401,9 @@ border:none}
 .get-started-banner h1 {
 	color:#fff;
     padding-top: 10px;
+    font-size: 1.1em;
     font-weight: 300;
+    text-shadow: rgba(0, 0, 0, 0.2) 1px 1px 0px;
 }
 
 .get-started-banner h1 strong {
