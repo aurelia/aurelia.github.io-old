@@ -164,9 +164,9 @@ ul.iconsList li a:hover, ul.iconsList i {
 
 #mainHeader{
     background-color: white;
-	-webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
-	-moz-box-shadow: 0 1px 10px rgba(0,0,0,.1);
-	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 2px 4px rgba(0,0,0,.2);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 #mainHeader .navbar-inner {
@@ -177,8 +177,14 @@ ul.iconsList li a:hover, ul.iconsList i {
 	color:#444;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-	background: #E82887;
+	background: #6E4DA7;
 	color:#fff;
+    border-radius: 4px;  
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+    background-color: #EEE;
+    color: #6E4DA7
 }
 
 /* END MAIN MENU
@@ -383,23 +389,33 @@ border:none}
 }
 
 /*get-started-banner*/
-.get-started-banner, .slice.get-started-banner, .bulle.get-started-banner, .ctaBox.get-started-banner{
+.get-started-banner {
+    margin-top: -7px;
 	background-color:#E82887;
 	color:#fff;
 }
 
-.get-started-banner h1, .get-started-banner h2, .get-started-banner h3, .get-started-banner h4, .get-started-banner blockquote, .get-started-banner a {
+.get-started-banner h1 {
 	color:#fff;
+    padding-top: 10px;
+    font-weight: 300;
 }
 
-.get-started-banner h2.subTitle:after, .get-started-banner h1.noSubtitle:after {
-	background:#fff;
+.get-started-banner h1 strong {
+    font-weight: 700;
 }
+
 /*** icons ***/
 .iconRounded {border:2px solid #E82887;color:#E82887;background-color:#fff;}
-.iconRounded:hover, .color1 .iconRounded:hover{background-color:#E82887;color:#fff;}
+.iconRounded:hover, .color1 .iconRounded:hover {
+  background-color:#E82887;
+  color:#fff;
+ }
 .color1 .iconRounded {color:#E82887;}
-.get-started-banner .iconRounded {background-color:#FFF;color:#E82887;}
+.get-started-banner .iconRounded {
+  background-color:#FFF;
+  color:#E82887;
+ }
 
 /* END NEKO CSS FRAMEWORK
 ================================================== */
