@@ -199,8 +199,7 @@ p, ul {
 strong {
 	font-weight:bold
 }
-small, aside {
-}
+
 li {
 	line-height: inherit;
 }
@@ -455,7 +454,6 @@ ul.githubButtonNav li {
     margin: 0;
 	padding-top:8px;
 	padding-bottom:8px;
-	vertical-align:middle;
     text-decoration: none;
     color: #6E4D9B;
     margin-left: 4px;
