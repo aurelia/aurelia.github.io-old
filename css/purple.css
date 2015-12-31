@@ -29,15 +29,16 @@ h2.featureHeading {
 	background-color:#6E4D9B;
 }
 
-.video {
-  box-shadow: 0 20px 40px rgba(0,0,0,.1);
-}
-
 .videoWrapper {
   position: relative;
   padding-bottom: 54;
   padding-top: 25px;
   height: 0;
+  background-image: -webkit-gradient(linear, right, from(#6E4DA7), to(#E82887));
+  background-image: -webkit-linear-gradient(right, #6E4DA7, #E82887);
+  background-image: -moz-linear-gradient(right, #6E4DA7, #E82887);
+  background-image: linear-gradient(to right, #6E4DA7, #E82887);
+  box-shadow: 0 20px 40px rgba(0,0,0,.1);
 }
 .videoWrapper iframe {
   position: absolute;
@@ -114,6 +115,23 @@ ul.iconsList li a:hover, ul.iconsList i {
 }
 .btnWrapper {
 	border:1px solid #ccc;
+}
+
+.newsletterSignUp {
+    margin: -91px 0 60px 0;
+}
+
+.newsletterSignUp a {
+    background-color: #FFF;
+    border: 1px solid #777;
+    color: #777;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.newsletterSignUp a:hover {
+    background-color: rgba(245,245,245,.7);
+    border-color: #E82887;
 }
 
 /* END LINKS AND BUTTONS
