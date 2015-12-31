@@ -461,6 +461,12 @@ ul.githubButtonNav li {
     color: #777;
 }
 
+.navbar-default .navbar-nav > li > a.deepLink:hover {
+    color: #777;
+    background: none;
+    text-decoration: underline;
+}
+
 #mainHeader .pull-right{ float:none !important; }
 
 /*** MEDIA QUERIES ***/
