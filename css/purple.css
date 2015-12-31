@@ -117,8 +117,10 @@ ul.iconsList li a:hover, ul.iconsList i {
 /*** buttons ***/
 .btn {
 	background:#E82887;
-	color:#fff;
-	border:2px solid #fff;
+	/* Base Copy 2: */
+    background: rgba(255,255,255,0.20);
+	border:1px solid #fff;
+    color: #FFF;
 }
 .btn:hover {
 	color:#E82887;
@@ -390,6 +392,7 @@ border:none}
 
 /*get-started-banner*/
 .get-started-banner {
+    padding: 15px 0;
     margin-top: -7px;
 	background-color:#E82887;
 	color:#fff;

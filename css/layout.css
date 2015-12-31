@@ -395,13 +395,12 @@ hr {
 @media(min-width:1200px){}
 
 /*** END MEDIA QUERIES ***/
-#flexHome h1{font}
 
 /* END TYPOGRAPHY
 ================================================== */
 /* GENERAL
 ================================================== */
-.slice {padding:15px 0;}
+.slice {padding: 30px 0;}
 
 /*** buttons ***/
 .btn {
@@ -473,7 +472,7 @@ hr {
 }
 
 @media(min-width:768px){
-	.slice {padding:15px 0;}
+	.slice {padding:30px 0;}
 }
 
 @media(min-width:992px){
@@ -595,16 +594,13 @@ hr {
     margin-left: 4px;
 }
 
+.navbar-default .navbar-nav > li > a.deepLink {
+    color: #777;
+}
+
 #mainHeader .pull-right{ float:none !important; }
 
 /*** MEDIA QUERIES ***/
-
-@media(max-width:767px){
-	.navbar-nav > li > a i {
-		margin-right: 10px;
-		font-size: 18px;
-	}
-}
 
 @media(min-width:768px){
 	.navbar-nav > li > a {
@@ -612,7 +608,6 @@ hr {
 		padding-bottom:0;
 	}
 	#mainHeader .pull-right{ float:right !important; }
-}
 }
 
 @media(min-width:992px){}
@@ -631,8 +626,6 @@ body#fullScreen #mainHeader{display:none;}
 #mapWrapper{ height:350px; }
 
 #homeFullScreen {
-	background-image: url('../images/theme-pics/big-city.jpg');
-	/*background-image: url('../images/theme-pics/paralax-1.jpg');*/
 	height:100%;
 }
 
