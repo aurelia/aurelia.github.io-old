@@ -161,8 +161,11 @@ ul.iconsList li a:hover, ul.iconsList i {
 
 footer {
 	color:#777;
-	background:#eee;
-	border-top:1px solid #555s;
+	background: rgba(245,245,245,.9);
+	border-top:1px solid #555s
+    -webkit-box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.15);
 }
 
 #footerRights {

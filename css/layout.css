@@ -278,6 +278,10 @@ hr {
 ================================================== */
 .slice {padding: 50px 0 30px 0;}
 
+.lastSection {
+    margin-bottom: 100px !important;
+}
+
 /*** buttons ***/
 .btn {
 	text-transform:uppercase;
