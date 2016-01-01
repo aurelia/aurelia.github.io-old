@@ -1,89 +1,46 @@
-/*
-    Document   : colors
-    Author     : Little Neko
-    Description: template colors
-*/
-
-
-/* Table of Content
-==================================================
-
-#BOOSTRAP CUSTOMIZATION
-#TYPOGRAPHY
-#LINKS AND BUTTONS
-#HEADER
-#MAIN MENU
-#FOOTER
-#SLIDERS
-#PORTFOLIO
-#MISCELANIOUS
-#NEKO CSS FRAMEWORK
-
-*/
-
-/* BOOSTRAP CUSTOMIZATION
-================================================== */
-
-/** tabs **/
-.panel-default>.panel-heading {background:#BA3A95; }
-.panel-default>.panel-heading:hover {background:#fff; }
-.panel-default>.panel-heading:hover a {color:#BA3A95; }
-.panel-title>a {color:#fff;}
-.panel-title>a:hover {text-decoration: none;}
-
-/* END BOOSTRAP CUSTOMIZATION
-================================================== */
-
 /* TYPOGRAPHY
 ================================================== */
 
 body {
 	color:#777;
-	background: #fff;
+    background-color: #F7F7F7;
+    font-family: 'Source Sans Pro', Helvetica, 'Open Sans', sans-serif;
 }
 
 blockquote small {
 	color:inherit;
 }
 h1, h2, h3, h4, h5, h6 {
-	color:#222;
+	color:#3D3D3D;
 }
 h2 {
  color:#888;
 }
 h2 i {color:#999}
-h2.subTitle:after, h1.noSubtitle:after{
-	background-color:#BA3A95;
+
+h2.featureHeading {
+    font-weight: 600;
+    color: #444;
+    font-size: 1.2em; 
 }
 
-/*** parallax sections ***/
-
-.paralaxText blockquote:before, .paralaxText blockquote:after {
-	color:#fff;
+#features .container {
+    padding-bottom: 40px;
+    margin-bottom: -40px;
+    border-bottom: 1px dashed #DDD;
 }
 
-#home, #paralaxSlice1, #paralaxSlice2, #paralaxSlice3, #paralaxSlice4 {
-	background-color:#BA3A95;
+#home, .homeQuote {
+	background-color:#6E4D9B;
 }
 
-#home {
-	background-image:url('../images/paralax-grey-3.jpg');
-}
-
-#paralaxSlice1 {
-	background-image: url('../images/paralax-pink-2.jpg');
-}
-
-#paralaxSlice2 {
-	background-image: url('../images/paralax-pink-2.jpg');
-}
-
-.paralaxText blockquote, .paralaxText h1, .paralaxText h2, .paralaxText h3, .paralaxText p, .paralaxText i{
-	color:#fff;
-}
-
-.video {
-  box-shadow: 0 0 15px rgba(0,0,0,.5);
+.videoSlice {
+    margin: 0;
+    padding: 0;
+    background-image: -webkit-gradient(linear, top, from(#6E4D9B), to(#E82887));
+    background-image: -webkit-linear-gradient(top, #6E4D9B, #E82887);
+    background-image: -moz-linear-gradient(top, #6E4D9B, #E82887);
+    background-image: linear-gradient(to top, #6E4D9B, #E82887);
 }
 
 .videoWrapper {
@@ -91,6 +48,11 @@ h2.subTitle:after, h1.noSubtitle:after{
   padding-bottom: 54;
   padding-top: 25px;
   height: 0;
+  box-shadow: 0 40px 40px rgba(0,0,0,.2);
+  margin: 0 auto;
+  text-align:center;
+  width: 100%;
+  height: 100%;
 }
 .videoWrapper iframe {
   position: absolute;
@@ -113,29 +75,46 @@ h2.subTitle:after, h1.noSubtitle:after{
 ================================================== */
 
 a {
-	color:#BA3A95;
+	color: #6E4DA7;
 }
 a:hover, .scrollspyNav .active a {
-	color:#BA3A95;
+	color:#E82887;
 }
 ul.iconsList li a {
 	color:#555
 }
 ul.iconsList li a:hover, ul.iconsList i {
-	color:#BA3A95
+	color:#E82887
 }
 
 /*** buttons ***/
 .btn {
-	background:#BA3A95;
-	color:#fff;
-	border:2px solid #fff;
+	background:#FFF;
+	border:1px solid #6E4DA7;
+    color: #6E4DA7;
 }
-.btn:hover {
-	color:#BA3A95;
-	border-color:#eee;
+
+.get-started-banner .btn {
+    color:#E82887;
+	border-color:#E82887;
 	text-shadow:none;
-	background:#fff
+	background: #FFF;
+    box-shadow: 0 7px 10px rgba(0,0,0,.2);
+}
+
+.get-started-banner .btn:hover {
+    border-color: #FFF;
+    color: #FFF;
+    background: rgba(255,255,255,0.25);
+    text-shadow: 0 -1px 1px rgba(0,0,0,.4);
+    box-shadow: 0 3px 5px rgba(0,0,0,.4);
+}
+
+.btn:hover {
+	color:#E82887;
+	border-color:#E82887;
+	text-shadow:none;
+	background: #FFF;
 }
 .btn-primary {
 	background: #006dcc;
@@ -167,6 +146,24 @@ ul.iconsList li a:hover, ul.iconsList i {
 	border:1px solid #ccc;
 }
 
+.newsletterSignUp {
+    margin: 0 0 0 0;
+}
+
+.newsletterSignUp a {
+    color: #6E4DA7;
+    background: #FFFFFF;
+    border: 1px solid #DADADA;
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.10);
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 1.5em;
+}
+
+.newsletterSignUp a:hover {
+    border-color: #E82887;
+}
+
 /* END LINKS AND BUTTONS
 ================================================== */
 
@@ -175,9 +172,9 @@ ul.iconsList li a:hover, ul.iconsList i {
 
 #mainHeader{
     background-color: white;
-	-webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
-	-moz-box-shadow: 0 1px 10px rgba(0,0,0,.1);
-	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 2px 4px rgba(0,0,0,.2);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 #mainHeader .navbar-inner {
@@ -188,8 +185,34 @@ ul.iconsList li a:hover, ul.iconsList i {
 	color:#444;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-	background: #BA3A95;
+	background: #6E4DA7;
 	color:#fff;
+    border-radius: 4px;  
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+    background-color: #EEE;
+    color: #6E4DA7
+}
+
+.navGroup {
+    border-left: 1px solid #EEE;
+    margin-top: 4px;
+    margin-left: 8px;
+}
+@media(max-width:767px) {
+    li.navGroup {
+        border-left: none;
+        border-bottom: 1px dotted #CCC;
+        height: 1px;
+    }
+    .navbar-default .navbar-nav>li {
+        margin: 0 0 5px 0;
+    }
+    .navbar-default .navbar-nav>li>a.deepLink:hover {
+        background-color: rgb(238, 238, 238);
+        text-decoration: none;
+    }
 }
 
 /* END MAIN MENU
@@ -197,11 +220,28 @@ ul.iconsList li a:hover, ul.iconsList i {
 
 /* FOOTER
 ================================================== */
-
+@media(max-width:767px) {
+    footer.navbar-fixed-bottom {
+        position: relative;
+        margin: 0 20px;
+        -webkit-box-shadow: none;
+       -moz-box-shadow: none;
+        box-shadow: none;
+        border-top: 1px solid #EEE;
+    }
+    footer.navbar-fixed-bottom p {
+        margin-right: 20px;
+    }
+    section.lastSection {
+        padding-bottom: 0;
+    }
+}
 footer {
 	color:#777;
-	background:#eee;
-	border-top:1px solid #555s;
+	background: rgba(245,245,245,.9);
+    -webkit-box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.15);
 }
 
 #footerRights {
@@ -212,7 +252,7 @@ p.credits {
 	color:#555;
 }
 p.credits a {
-	color:#BA3A95;
+	color:#E82887;
 }
 
 /* END FOOTER
@@ -224,81 +264,6 @@ p.credits a {
 #home h1 {color:#FFFFFF;}
 
 /* END HOME
-================================================== */
-
-/* SLIDERS
-================================================== */
-
-/*** FLEX ***/
-
-.flexslider {
-	box-shadow:none;
-}
-.slides .txt div {
-	background:#444;
-	color:#FFFFFF;
-}
-.flexslider .flex-direction-nav a {
-	background-color:#BA3A95;
-}
-
-.flexslider .flex-control-paging li a:hover, #sliderWrapper .flex-control-paging li a.flex-active{
-	background: #fff;
-	border:2px solid #fff;
-}
-.flexslider .flex-control-paging li a {
-	background: transparent;
-	border:2px solid rgba(255,255,255,0.5);
-}
-.flexslider .flex-control-nav {
-	background:transparent;
-}
-.flexslider h1 {
-	color:#fff;
-	background-color:#BA3A95;
-}
-.flexslider h2 {
-	color:#fff;
-	background-color:#333;
-}
-.flexslider .caption p {
-	background-color:#fff;
-	color:#555
-}
-
-/*** flexHome ***/
-#flexHome  h1 {	color:#fff;
-	background:none;
-	}
-#flexHome  h2 {	color:#fff;
-	background:none;
-  margin-left: 6px;
-}
-
-/*** END FLEX SLIDER ***/
-
-/* END SLIDERS
-================================================== */
-
-/* PORTFOLIO
-================================================== */
-
-nav#filter a {
-	background-color: #EEE;
-	color:#555;
-}
-nav#filter a:hover, nav#filter a.current {
-	background-color: #BA3A95;
-	color:#fff;
-}
-li.filterTitle {
-	color:#4F6266;
-}
-section#projectDescription {
-	background-color:#F8F8F8
-}
-.mask{background-color: #BA3A95;}
-/* END PORTFOLIO
 ================================================== */
 
 /* MISCELANIOUS
@@ -342,7 +307,7 @@ section#projectDescription {
 	color:#fff!important;
 }
 .pricingBloc.focusPlan h3 {
-	background-color:#BA3A95;
+	background-color:#E82887;
 	padding:1.25em;
 	color:#fff!important;
 }
@@ -372,57 +337,40 @@ border:none}
 
 /* END MISCELANIOUS
 ================================================== */
-
-/* NEKO CSS FRAMEWORK
-================================================== */
-
-/*** Feature box **/
-
-.boxFeature i{color:#BA3A95;}
-
-/*** slices ***/
-.slice{
-	background-color:#fff;
+.footer-github-btns {
+    display: block;
+    float: left;
+    margin: 5px 20px 0 20px;
+}
+@media(max-width:767px) {
+    .footer-github-btns {
+        float: none;
+        margin-left: auto;
+        margin-right: auto; 
+    }
 }
 
-/*** call to action ***/
-.ctaBox {border:2px solid rgba(0,0,0,0.05);}
-.ctaBoxFullwidth{border:none}
-
-.ctaBox blockquote {
+/*get-started-banner*/
+.get-started-banner {
+    padding: 15px 0;
+    margin-top: -7px;
+	background-color:#E82887;
 	color:#fff;
 }
 
-/*color1*/
-.color1, .slice.color1, .bulle.color1, .ctaBox.color1{
-	background-color:#F7F7F7;
-	color:#444;
-}
-
-.color1 h1, .color1 h2, .color1 h3, .color1 h4, .color1 blockquote, .color1 a{
-	color:#444;
-}
-.color1 a.btn{color:#fff;}
-.color1 a.btn:hover{color:#BA3A95;}
-
-/*color4*/
-.color4, .slice.color4, .bulle.color4, .ctaBox.color4{
-	background-color:#BA3A95;
+.get-started-banner h1 {
 	color:#fff;
+    padding: 10px 0;
+    font-size: 1em;
+    font-weight: 400;
+    text-shadow: rgba(0, 0, 0, 0.2) 1px 1px 0px;
 }
 
-.color4 h1, .color4 h2, .color4 h3, .color4 h4, .color4 blockquote, .color4 a {
-	color:#fff;
+.get-started-banner h1 strong {
+    font-weight: 700;
 }
 
-.color4 h2.subTitle:after, .color4 h1.noSubtitle:after {
-	background:#fff;
+.get-started-banner a.btn-sm {
+    margin: 0 auto;
+    width: 100%;
 }
-/*** icons ***/
-.iconRounded {border:2px solid #BA3A95;color:#BA3A95;background-color:#fff;}
-.iconRounded:hover, .color1 .iconRounded:hover{background-color:#BA3A95;color:#fff;}
-.color1 .iconRounded {color:#BA3A95;}
-.color4 .iconRounded {background-color:#FFF;color:#BA3A95;}
-
-/* END NEKO CSS FRAMEWORK
-================================================== */
