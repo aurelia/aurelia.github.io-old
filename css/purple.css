@@ -95,18 +95,19 @@ ul.iconsList li a:hover, ul.iconsList i {
 }
 
 .get-started-banner .btn {
-    border-color: #FFF;
-    color: #FFF;
-    background: rgba(255,255,255,0.25);
-    text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    color:#E82887;
+	border-color:#E82887;
+	text-shadow:none;
+	background: #FFF;
     box-shadow: 0 7px 10px rgba(0,0,0,.2);
 }
 
 .btn:hover {
-	color:#E82887;
-	border-color:#E82887;
-	text-shadow:none;
-	background:#fff
+	border-color: #FFF;
+    color: #FFF;
+    background: rgba(255,255,255,0.25);
+    text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    box-shadow: 0 3px 5px rgba(0,0,0,.4);
 }
 .btn-primary {
 	background: #006dcc;
