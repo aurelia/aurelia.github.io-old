@@ -1,5 +1,5 @@
 .marketingContent .slice {
-    margin-top: -60px;
+    margin-top: -40px;
 }
 
 .marketingContent .well {
@@ -24,6 +24,22 @@
     font-weight: 700;
     text-align: center;
     margin: 40px 20px 0 40px;
+    border: none;
+}
+
+.marketingContent .slice h2.subTitle {
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.5em;
+    margin: -15px 0 -10px 0;
+    line-height: 1.8em;
+    color: #555555;
+}
+
+.marketingContent .slice h3 {
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 15px;
 }
 
 .marketingContent .slice h3.subTitle {
