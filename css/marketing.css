@@ -1,3 +1,6 @@
+body{
+    margin-bottom: 120px;
+}
 .marketingContent .slice {
     margin-top: -40px;
 }
@@ -18,6 +21,7 @@
     background-image: url("../images/well_devide.svg");
     background-position: center;
     background-repeat: repeat-y;
+    margin-bottom: 0;
 }
 
 .marketingContent .slice h1 {
