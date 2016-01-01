@@ -200,6 +200,17 @@ ul.iconsList li a:hover, ul.iconsList i {
     margin-top: 4px;
     margin-left: 8px;
 }
+@media(max-width:767px) {
+    .navGroup {
+        margin: 0 0 15px 0;
+        border-left: none;
+        border-bottom: 1px solid #CCC
+    }
+    .navbar-default .navbar-nav>li>a.deepLink:hover {
+        background-color: rgb(238, 238, 238);
+        text-decoration: none;
+    }
+}
 
 /* END MAIN MENU
 ================================================== */
