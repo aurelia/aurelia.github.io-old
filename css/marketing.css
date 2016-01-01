@@ -2,14 +2,58 @@
     margin-top: -60px;
 }
 
-.marketingContent .slice h1 {
-    margin-top: 40px;
-}
-
 .marketingContent .well {
     background: #FFFFFF;
     border: 1px solid #DADADA;
     box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.10);
     border-radius: 4px;
-    padding: 40px;
+    padding: 0 20px 40px 0;
+    background-image: url("../images/well_devide.svg");
+    background-position: center;
+    background-repeat: repeat-y;
+}
+
+.marketingContent .slice h1 {
+    margin-top: 40px;
+}
+
+.marketingContent .slice h2 {
+    font-size: 2em;
+    color: #EA2988;
+    line-height: 1.1em;
+    font-weight: 700;
+    text-align: center;
+    margin: 40px 20px 0 40px;
+}
+
+.marketingContent .slice h3.subTitle {
+    text-align: center;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.1em;
+    line-height: 1em;
+    color: #555555;
+    line-height: 23px;
+    margin: 5px 20px 0 40px;
+}
+
+.marketingContent .slice p {
+    font-weight: 400;
+    font-size: 1.1em;
+    line-height: 1.5em;
+    color: #555555;
+    margin: 20px 0 0 0;
+    padding: 0 20px 0 40px;
+}
+
+.marketingContent .slice p > i {
+   font-weight: 600; 
+}
+
+/*** MEDIA QUERIES ***/
+@media(max-width:767px){
+    .marketingContent .well {
+        background-image: none;
+        border-radius: 0;
+    }
 }

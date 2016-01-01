@@ -206,10 +206,19 @@ strong {
 li {
 	line-height: inherit;
 }
-a:link, a:visited {
+
+a {
+    -webkit-transition: all 0.2s ease-out;
+	-moz-transition: all 0.2s ease-out;
+	-o-transition: all 0.2s ease-out;
+	-ms-transition: all 0.2s ease-out;
+	transition: all 0.2s ease-out;
+}
+
+a:visited {
 	text-decoration:none;
 }
-a:hover, a:active {
+a, a:link, a:hover, a:active {
 	text-decoration:underline;
 }
 ul.iconsList li a:hover {
@@ -286,27 +295,29 @@ hr {
 
 /*** buttons ***/
 .btn {
-	text-transform:uppercase;
 	padding:15px 20px;
-	font-size:18px;
-	 -webkit-transition: all 0.2s ease-out;
-	-moz-transition: all 0.2s ease-out;
-	-o-transition: all 0.2s ease-out;
-	-ms-transition: all 0.2s ease-out;
-	transition: all 0.2s ease-out;
+	font-size:1em;
+	-webkit-transition: all 0.1s ease-out;
+	-moz-transition: all 0.1s ease-out;
+	-o-transition: all 0.1s ease-out;
+	-ms-transition: all 0.1s ease-out;
+	transition: all 0.1s ease-out;
 	}
+    
+a.btn {text-decoration: none;}
+
 .btn-lg {
 	padding:18px 23px;
-	font-size:22px;
+	font-size 1em;
 }
 .btn-sm {
 	padding:10px 13px;
-	font-size:12px;
+	font-size:1em;
 	border-radius:4px;
 }
 .btn-xs {
 	padding:4px 7px;
-	font-size:10px;
+	font-size: 1em;
 	border-radius:4px;
 }
 .btn-link {

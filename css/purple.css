@@ -32,10 +32,10 @@ h2.featureHeading {
 .videoSlice {
     margin: 0;
     padding: 0;
-      background-image: -webkit-gradient(linear, top, from(#6E4D9B), to(#E82887));
-  background-image: -webkit-linear-gradient(top, #6E4D9B, #E82887);
-  background-image: -moz-linear-gradient(top, #6E4D9B, #E82887);
-  background-image: linear-gradient(to top, #6E4D9B, #E82887);
+    background-image: -webkit-gradient(linear, top, from(#6E4D9B), to(#E82887));
+    background-image: -webkit-linear-gradient(top, #6E4D9B, #E82887);
+    background-image: -moz-linear-gradient(top, #6E4D9B, #E82887);
+    background-image: linear-gradient(to top, #6E4D9B, #E82887);
 }
 
 .videoWrapper {
@@ -43,7 +43,7 @@ h2.featureHeading {
   padding-bottom: 54;
   padding-top: 25px;
   height: 0;
-  box-shadow: 0 20px 40px rgba(0,0,0,.1);
+  box-shadow: 0 40px 40px rgba(0,0,0,.2);
   margin: 0 auto;
   text-align:center;
   width: 100%;
@@ -70,7 +70,7 @@ h2.featureHeading {
 ================================================== */
 
 a {
-	color:#E82887;
+	color: #6E4DA7;
 }
 a:hover, .scrollspyNav .active a {
 	color:#E82887;
@@ -85,11 +85,16 @@ ul.iconsList li a:hover, ul.iconsList i {
 /*** buttons ***/
 .btn {
 	background:#E82887;
-	/* Base Copy 2: */
-    background: rgba(255,255,255,0.20);
 	border:1px solid #fff;
     color: #FFF;
 }
+
+.get-started-banner .btn {
+    background: rgba(255,255,255,0.25);
+    text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    box-shadow: 0 7px 10px rgba(0,0,0,.2);
+}
+
 .btn:hover {
 	color:#E82887;
 	border-color:#eee;
@@ -327,5 +332,4 @@ border:none}
 .get-started-banner a.btn-sm {
     margin: 0 auto;
     width: 100%;
-    
 }
