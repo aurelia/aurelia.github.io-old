@@ -71,7 +71,9 @@ h1, h2, h3, h4, h5, h6, legend {
 	margin:0;
 	font-weight: 300;
 }
-h1 {
+h1,
+.marketingContent .slice .wellStrong h2,
+.marketingContent .slice .wellStrongNested h2 {
 	font-size: 2.1em;
 	line-height: 1.1em;
 	font-weight: 900;

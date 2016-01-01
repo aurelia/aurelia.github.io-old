@@ -24,6 +24,18 @@ body{
     margin-bottom: 0;
 }
 
+.marketingContent .wellStrong, .marketingContent .wellStrongNested {
+    background: #FDFDFA;
+    border: 1px solid #DBDBD6;
+    background-image: none;
+    box-shadow: 0px 2px 7px 0px #EDEDED, inset 0px 2px 0px 0px #FFFFFF, inset 0px 0px 20px 0px #F8F8F2;
+    margin-top: -20px;
+}
+
+.marketingContent .wellStrongNested {
+    margin: 0 20px 0 40px;    
+}
+
 .marketingContent .slice h1 {
     margin-top: 30px;
     margin-bottom: 40px;
@@ -39,6 +51,11 @@ body{
     margin: 40px 20px 0 40px;
     border: none;
     letter-spacing: -0.03em;
+}
+.marketingContent .slice .wellStrong h2,
+.marketingContent .slice .wellStrongNested h2 {
+    font-size: 2em;
+    font-weight: 700;
 }
 
 .marketingContent .slice h2.subTitle {
