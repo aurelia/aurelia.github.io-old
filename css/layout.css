@@ -72,7 +72,7 @@ h1, h2, h3, h4, h5, h6, legend {
 	font-weight: 300;
 }
 h1 {
-	font-size: 2.3em;
+	font-size: 2.1em;
 	line-height: 1.1em;
 	font-weight: 900;
 	font-style: normal;
@@ -82,6 +82,7 @@ h1 {
     margin-bottom: 17px;
     color: #3D3D3D;
     text-shadow: 0 2px #FFF;
+    letter-spacing: -0.03em;
     
 }
 
