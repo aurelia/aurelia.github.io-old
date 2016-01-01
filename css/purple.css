@@ -323,7 +323,11 @@ border:none}
 
 /* END MISCELANIOUS
 ================================================== */
-
+.footer-github-btns {
+    display: block;
+    float: left;
+    margin: 5px 20px 0 20px;
+}
 
 /*get-started-banner*/
 .get-started-banner {
