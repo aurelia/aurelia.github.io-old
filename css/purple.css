@@ -209,7 +209,7 @@ ul.iconsList li a:hover, ul.iconsList i {
 @media(max-width:767px) {
     footer.navbar-fixed-bottom {
         position: relative;
-        margin-top: -70px;
+        margin: 0 20px;
         -webkit-box-shadow: none;
        -moz-box-shadow: none;
         box-shadow: none;
@@ -327,6 +327,13 @@ border:none}
     display: block;
     float: left;
     margin: 5px 20px 0 20px;
+}
+@media(max-width:767px) {
+    .footer-github-btns {
+        float: none;
+        margin-left: auto;
+        margin-right: auto; 
+    }
 }
 
 /*get-started-banner*/
