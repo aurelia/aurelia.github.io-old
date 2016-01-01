@@ -2,6 +2,13 @@
     margin-top: -40px;
 }
 
+.marketingContent .pageHeadline {
+    margin: -60px 0 0 0; 
+}
+.marketingContent .pageHeadline + .slice {
+    margin-top: -90px;
+}
+
 .marketingContent .well {
     background: #FFFFFF;
     border: 1px solid #DADADA;
@@ -14,7 +21,8 @@
 }
 
 .marketingContent .slice h1 {
-    margin-top: 40px;
+    margin-top: 30px;
+    margin-bottom: 40px;
 }
 
 .marketingContent .slice h2 {
@@ -31,8 +39,8 @@
     font-style: italic;
     font-weight: 400;
     font-size: 1.5em;
-    margin: -15px 0 -10px 0;
-    line-height: 1.8em;
+    margin: -30px 0 0 0;
+    line-height: 1.2em;
     color: #555555;
 }
 
