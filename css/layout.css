@@ -15,6 +15,11 @@
 margin-bottom: 20px;
 display:block;
 }
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    margin-top: -9px;
+    background: white;
+}
 /*tabs*/
 
 /** expand the link to fill the whole tab **/
@@ -85,7 +90,7 @@ h1,
     color: #3D3D3D;
     text-shadow: 0 2px #FFF;
     letter-spacing: -0.03em;
-    
+
 }
 
 h1.noSubtitle{
@@ -307,7 +312,7 @@ hr {
 	-ms-transition: all 0.1s ease-out;
 	transition: all 0.1s ease-out;
 	}
-    
+
 a.btn {text-decoration: none;}
 
 .btn-lg {
@@ -357,7 +362,7 @@ ul.githubButtonNav li {
 .ctaBox{padding:15px 11px;}
 .ctaBoxFullwidth{padding:0;}
 
-.ctaBox a {margin-top:22px;} 
+.ctaBox a {margin-top:22px;}
 .ctaBox h1 {
 	font-size:16px;
 	line-height: 20px;
@@ -392,7 +397,7 @@ ul.githubButtonNav li {
 }
 
 @media(min-width:992px){
-	.ctaBox a {float:right; margin-top:0;} 
+	.ctaBox a {float:right; margin-top:0;}
 }
 
 @media(min-width:1200px){}
@@ -562,7 +567,7 @@ body#fullScreen #mainHeader{display:none;}
 ================================================== */
 
 
-/* FOOTER 
+/* FOOTER
 ================================================== */
 
 footer{
@@ -572,7 +577,7 @@ footer{
 
 
 @media(min-width:768px){.footerWidget{float:right;}}
-/* END FOOTER 
+/* END FOOTER
 ================================================== */
 
 /* MISCELANIOUS
@@ -596,7 +601,7 @@ footer{
 	position:absolute;
 	left:0; /* centers the loading animation horizontally one the screen */
 	top:50%; /* centers the loading animation vertically one the screen */
-	
+
 	margin-top:-100px; /* is width and height divided by two */
 	text-align: center;
 	padding-top:15px;
@@ -707,8 +712,8 @@ body#comingSoon{padding-top:0; background: #4B4A4A}
 @media(max-width:767px){}
 
 @media(min-width:768px){
-	
-	
+
+
 }
 
 @media(min-width:992px){ #defaultCountdown{margin-top: 70px;}}
