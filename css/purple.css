@@ -220,7 +220,7 @@ ul.iconsList li a:hover, ul.iconsList i {
 
 /* FOOTER
 ================================================== */
-@media(max-width:767px) {
+@media(max-width:1023px) {
     footer.navbar-fixed-bottom {
         position: relative;
         margin: 0 20px;
