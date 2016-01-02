@@ -220,7 +220,24 @@ ul.iconsList li a:hover, ul.iconsList i {
 
 /* FOOTER
 ================================================== */
-@media(max-width:767px) {
+@media(max-height:1023px) {
+    footer.navbar-fixed-bottom {
+        position: relative;
+        margin: 0 20px;
+        -webkit-box-shadow: none;
+       -moz-box-shadow: none;
+        box-shadow: none;
+        border-top: 1px solid #EEE;
+    }
+    footer.navbar-fixed-bottom p {
+        margin-right: 20px;
+    }
+    section.lastSection {
+        padding-bottom: 0;
+    }
+}
+
+@media(max-width:1023px) {
     footer.navbar-fixed-bottom {
         position: relative;
         margin: 0 20px;
