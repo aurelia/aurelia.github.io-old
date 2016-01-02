@@ -143,7 +143,7 @@ ul.iconsList li a:hover, ul.iconsList i {
 }
 
 .newsletterSignUp {
-    margin: 0 0 0 0;
+    margin: 0;
 }
 
 .newsletterSignUp a {
@@ -158,6 +158,13 @@ ul.iconsList li a:hover, ul.iconsList i {
 
 .newsletterSignUp a:hover {
     border-color: #E82887;
+}
+
+@media(max-width:767px) {
+    .newsletterSignUp a {
+        font-size: 1em;
+        border-radius: 0;
+    }
 }
 
 /* END LINKS AND BUTTONS
