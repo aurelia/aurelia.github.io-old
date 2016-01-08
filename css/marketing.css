@@ -113,10 +113,11 @@ body{
 
 .marketingContent .team .profile h3 {
     color: #ED2F89;
-    font-weight: 400;
+    font-weight: 300;
     font-size: 1.5em;
     text-align: left;
     line-height: .5em;
+    letter-spacing: -.025em;
 }
 
 .marketingContent .team .profile h4 {
@@ -128,12 +129,31 @@ body{
 }
 
 .marketingContent .team .founder {
+    height: 200px;
     margin-top: 20px;
+    margin-bottom: 60px;
 }
 
 .marketingContent .team .founder h4,
 .marketingContent .team .founder h3 {
     text-align: center;
+}
+
+.marketingContent .team .founder h3 {
+    margin-top: 180px;
+    font-size: 1.8em;
+}
+
+.marketingContent .team .founder_rob h3 {
+    color: #6E4D9B;
+}
+
+.marketingContent .team .founder_scott h3 {
+    color: #9D2676;
+}
+
+.marketingContent .team .founder_patrick h3 {
+    color: #CF1C85;
 }
 
 /*** MEDIA QUERIES ***/
