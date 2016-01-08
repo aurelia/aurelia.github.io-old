@@ -52,7 +52,7 @@ body{
     font-size: 2em;
     color: #EA2988;
     line-height: 1.1em;
-    font-weight: 700;
+    font-weight: 400;
     text-align: center;
     margin: 40px 20px 0 40px;
     border: none;
@@ -61,7 +61,7 @@ body{
 .marketingContent .slice .wellStrong h2,
 .marketingContent .slice .wellStrongNested h2 {
     font-size: 2em;
-    font-weight: 700;
+    font-weight: 400;
 }
 
 .marketingContent .slice h2.subTitle {
@@ -101,6 +101,39 @@ body{
 
 .marketingContent .slice p > i {
    font-weight: 600; 
+}
+
+.marketingContent .team {
+    background-image: none;
+}
+
+.marketingContent .team .profile {
+    padding: 10px 40px; 
+}
+
+.marketingContent .team .profile h3 {
+    color: #ED2F89;
+    font-weight: 400;
+    font-size: 1.5em;
+    text-align: left;
+    line-height: .5em;
+}
+
+.marketingContent .team .profile h4 {
+    color: #4D4D4D;
+    font-weight: 400;
+    font-size: 1.2em;
+    text-align: left;
+    line-height: .75em;
+}
+
+.marketingContent .team .founder {
+    margin-top: 20px;
+}
+
+.marketingContent .team .founder h4,
+.marketingContent .team .founder h3 {
+    text-align: center;
 }
 
 /*** MEDIA QUERIES ***/
