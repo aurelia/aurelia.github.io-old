@@ -116,22 +116,25 @@ body{
     font-weight: 300;
     font-size: 1.5em;
     text-align: left;
-    line-height: .5em;
+    line-height: 1em;
     letter-spacing: -.025em;
 }
 
 .marketingContent .team .profile h4 {
     color: #4D4D4D;
-    font-weight: 400;
     font-size: 1.2em;
     text-align: left;
-    line-height: .75em;
+    font-weight: 400;
+    line-height: 1em;
+    margin-top: -10px;
 }
 
 .marketingContent .team .founder {
-    height: 200px;
-    margin-top: 20px;
-    margin-bottom: 60px;
+    margin-top: 30px;
+    margin-bottom: 0;
+    background-repeat: no-repeat;
+    background-size: 200px 200px;
+    background-position: top center;
 }
 
 .marketingContent .team .founder h4,
@@ -140,18 +143,27 @@ body{
 }
 
 .marketingContent .team .founder h3 {
-    margin-top: 180px;
+    margin-top: 210px;
     font-size: 1.8em;
 }
 
+.marketingContent .team .founder_rob {
+    background-image: url('../images/founder_rob.png');
+}
 .marketingContent .team .founder_rob h3 {
     color: #6E4D9B;
 }
 
+.marketingContent .team .founder_scott {
+    background-image: url('../images/founder_scott.png');
+}
 .marketingContent .team .founder_scott h3 {
     color: #9D2676;
 }
 
+.marketingContent .team .founder_patrick {
+    background-image: url('../images/founder_patrick.png');
+}
 .marketingContent .team .founder_patrick h3 {
     color: #CF1C85;
 }
