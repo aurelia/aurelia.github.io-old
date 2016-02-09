@@ -18,14 +18,10 @@ System.config({
   },
   bundles: {
     "aurelia": [
+      "github:aurelia/platforms@master",
+      "github:aurelia/platforms@master/aurelia-platforms",
       "github:hammerjs/hammer.js@2.0.6",
       "github:hammerjs/hammer.js@2.0.6/hammer",
-      "github:joelcoxokc/aurelia-interface-platforms@master",
-      "github:joelcoxokc/aurelia-interface-platforms@master/aurelia-interface-platforms",
-      "github:joelcoxokc/aurelia-interface-platforms@master/browser",
-      "github:joelcoxokc/aurelia-interface-platforms@master/device",
-      "github:joelcoxokc/aurelia-interface-platforms@master/platform",
-      "github:joelcoxokc/aurelia-interface-platforms@master/support",
       "github:jspm/nodelibs-process@0.1.2",
       "github:jspm/nodelibs-process@0.1.2/index",
       "github:rstacruz/nprogress@0.2.0",
@@ -171,7 +167,6 @@ System.config({
       "aurelia-docs/resources/code-listing.html!github:systemjs/plugin-text@0.0.3",
       "aurelia-docs/resources/index",
       "aurelia-docs/resources/source-code",
-      "backend/database",
       "backend/server",
       "main",
       "model/api",
@@ -223,12 +218,12 @@ System.config({
     "aurelia-event-aggregator": "npm:aurelia-event-aggregator@1.0.0-beta.1",
     "aurelia-framework": "npm:aurelia-framework@1.0.0-beta.1.0.8",
     "aurelia-http-client": "npm:aurelia-http-client@1.0.0-beta.1.0.1",
-    "aurelia-interface-platforms": "github:joelcoxokc/aurelia-interface-platforms@master",
     "aurelia-loader": "npm:aurelia-loader@1.0.0-beta.1.0.1",
     "aurelia-logging": "npm:aurelia-logging@1.0.0-beta.1",
     "aurelia-logging-console": "npm:aurelia-logging-console@1.0.0-beta.1",
     "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.0.2",
     "aurelia-path": "npm:aurelia-path@1.0.0-beta.1",
+    "aurelia-platforms": "github:aurelia/platforms@master",
     "aurelia-router": "npm:aurelia-router@1.0.0-beta.1.0.1",
     "aurelia-templating": "npm:aurelia-templating@1.0.0-beta.1.0.3",
     "babel": "npm:babel-core@5.8.34",
@@ -242,7 +237,7 @@ System.config({
     "nprogress": "github:rstacruz/nprogress@0.2.0",
     "numeral": "npm:numeral@1.5.3",
     "text": "github:systemjs/plugin-text@0.0.3",
-    "github:joelcoxokc/aurelia-interface-platforms@master": {
+    "github:aurelia/platforms@master": {
       "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.0.2"
     },
     "github:jspm/nodelibs-assert@0.1.0": {
