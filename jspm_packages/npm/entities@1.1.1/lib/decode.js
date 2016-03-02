@@ -1,8 +1,8 @@
 /* */ 
-var entityMap = require("../maps/entities.json!systemjs-json"),
-    legacyMap = require("../maps/legacy.json!systemjs-json"),
-    xmlMap = require("../maps/xml.json!systemjs-json"),
-    decodeCodePoint = require("./decode_codepoint");
+var entityMap = require('../maps/entities.json!systemjs-json'),
+    legacyMap = require('../maps/legacy.json!systemjs-json'),
+    xmlMap = require('../maps/xml.json!systemjs-json'),
+    decodeCodePoint = require('./decode_codepoint');
 var decodeXMLStrict = getStrictDecoder(xmlMap),
     decodeHTMLStrict = getStrictDecoder(entityMap);
 function getStrictDecoder(map) {

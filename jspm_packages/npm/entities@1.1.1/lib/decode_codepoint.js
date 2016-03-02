@@ -1,5 +1,5 @@
 /* */ 
-var decodeMap = require("../maps/decode.json!systemjs-json");
+var decodeMap = require('../maps/decode.json!systemjs-json');
 module.exports = decodeCodePoint;
 function decodeCodePoint(codePoint) {
   if ((codePoint >= 0xD800 && codePoint <= 0xDFFF) || codePoint > 0x10FFFF) {

@@ -1,6 +1,6 @@
 /* */ 
-var encode = require("./lib/encode"),
-    decode = require("./lib/decode");
+var encode = require('./lib/encode'),
+    decode = require('./lib/decode');
 exports.decode = function(data, level) {
   return (!level || level <= 0 ? decode.XML : decode.HTML)(data);
 };

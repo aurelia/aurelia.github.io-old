@@ -1,7 +1,7 @@
 /* */ 
-var assert = require("assert"),
-    path = require("path"),
-    entities = require("../../entities@1.1.1");
+var assert = require('assert'),
+    path = require('path'),
+    entities = require('../index');
 describe("Encode->decode test", function() {
   var testcases = [{
     input: "asdf & ÿ ü '",
@@ -122,7 +122,7 @@ describe("Documents", function() {
       });
     });
   });
-  var legacy = require("../maps/legacy.json!systemjs-json");
+  var legacy = require('../maps/legacy.json!systemjs-json');
   describe("Legacy", function() {
     it("should decode", runLegacy);
   });

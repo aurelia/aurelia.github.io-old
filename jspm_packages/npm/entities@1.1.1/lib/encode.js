@@ -1,8 +1,8 @@
 /* */ 
-var inverseXML = getInverseObj(require("../maps/xml.json!systemjs-json")),
+var inverseXML = getInverseObj(require('../maps/xml.json!systemjs-json')),
     xmlReplacer = getInverseReplacer(inverseXML);
 exports.XML = getInverse(inverseXML, xmlReplacer);
-var inverseHTML = getInverseObj(require("../maps/entities.json!systemjs-json")),
+var inverseHTML = getInverseObj(require('../maps/entities.json!systemjs-json')),
     htmlReplacer = getInverseReplacer(inverseHTML);
 exports.HTML = getInverse(inverseHTML, htmlReplacer);
 function getInverseObj(obj) {

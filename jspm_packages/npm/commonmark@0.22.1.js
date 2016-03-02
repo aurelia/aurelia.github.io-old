@@ -1,1 +1,1 @@
-module.exports = require("npm:commonmark@0.22.1/lib/index");
+module.exports = require("npm:commonmark@0.22.1/lib/index.js");
