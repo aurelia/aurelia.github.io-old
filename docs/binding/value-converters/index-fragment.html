@@ -1,0 +1,646 @@
+<section class="article">
+  <header>
+    <h1>Binding: Value Converters</h1>
+    <h2>An overview of the Aurelia binding engine&#x27;s value converter functionality. Value converters are used to transform data during the data-binding process, both to and from the view.</h2>
+  </header>
+
+  <article class="markdown">
+    <section><h2 id="introduction">Introduction</h2><p>In Aurelia, user interface elements are composed of view and view-model pairs. The view is written with HTML and is rendered into the DOM. The view-model is written with JavaScript and provides data and behavior to the view. Aurelia's powerful data-binding links the two pieces together, allowing changes in your data to be reflected in the view and vice versa.</p>
+<p>Here's a simple data-binding example using the <strong>bind</strong> (<code>.bind=&quot;expression&quot;</code>) and <strong>interpolation</strong> (<code>\${expression}</code>) techniques:</p>
+<code-listing heading="simple-binding${context.language.fileExtension}">
+  <source-code lang="ES 2015"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+      <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">'Donald Draper'</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="ES 2016"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+      name <span class="token operator">=</span> <span class="token string">'Donald Draper'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+      name<span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token operator">=</span> <span class="token string">'Donald Draper'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="simple-binding.html">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Enter Name:<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Name is ${name}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<au-demo heading="Simple Binding Demo">
+  <source-code src="example/binding-value-converters/simple-binding/app.js"><pre class="language-markup"><code></code></pre></source-code>
+</au-demo>
+<p>Sometimes the raw data exposed by your view-model isn't in a format that's ideal for displaying in the UI. Rendering date and numeric values are common scenarios:</p>
+<code-listing heading="date-and-number${context.language.fileExtension}">
+  <source-code lang="ES 2015/2016"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">NetWorth</span> <span class="token punctuation">{</span>
+      <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>currentDate <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>netWorth <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">1000000000</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">NetWorth</span> <span class="token punctuation">{</span>
+      currentDate<span class="token punctuation">:</span> Date<span class="token punctuation">;</span>
+      netWorth<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>currentDate <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>netWorth <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">1000000000</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="date-and-number.html">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+      ${currentDate} <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+      ${netWorth}
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<au-demo heading="Date/Number Binding Demo">
+  <source-code src="example/binding-value-converters/date-and-number/app.js"><pre class="language-markup"><code></code></pre></source-code>
+</au-demo>
+<p>Ideally, the date would be in a more readable format and the amount would be formatted as currency. One solution to this problem would be to compute the formatted values and expose them as properties of the view-model. This is certainly a valid approach; however, defining extra properties and methods in your models can get messy, especially when you need to keep the formatted values in sync when the original property value change. Fortunately, Aurelia has a feature that makes solving this problem quite easy.</p>
+</section>
+<section><h2 id="value-converters">Value Converters</h2><blockquote>
+<p>A value converter is a class whose responsibility is to convert view-model values into values that are appropriate to display in the view <em>and vice versa</em>.</p>
+</blockquote>
+<p>Most commonly you'll be creating value converters that translate model data to a format suitable for the view; however, there are situations where you'll need to convert data from the view to a format expected by the view-model, typically when using two-way binding with input elements.</p>
+<p>If you've used value converters in other languages such as Xaml, you'll find Aurelia value converters are quite similar, although with a few notable improvements:</p>
+<ol>
+<li>The Aurelia ValueConverter interface uses <code>toView</code> and <code>fromView</code> methods, which make it quite clear which direction the data is flowing.  This is in contrast to Xaml's <code>IValueConverter</code>, which uses <code>Convert</code> and <code>ConvertBack</code>.</li>
+<li>In Aurelia, converter parameters can be data-bound.  This is something that was missing in Xaml and enables more advanced binding scenarios.</li>
+<li>Aurelia value converter methods can accept multiple parameters.</li>
+<li>Multiple value converters can be composed using pipes (<code>|</code>).</li>
+<li>Aurelia value converter can have a class field named <code>signals</code>, which accepts an array of string that will be used to manually trigger updating the view. This is to handle the situations where the value converter relies on variables that are defined outside of Aurelia application, such as language, locale etc.</li>
+</ol>
+</section>
+<section><h2 id="simple-converters">Simple Converters</h2><p>Before we get too far into the details, let's rework the previous example to use a couple of basic value converters.  Aurelia and the popular 
+<a href="http://momentjs.com/" target="_blank">Moment</a>
+ and 
+<a href="http://numeraljs.com/" target="_blank">Numeral</a>
+ libraries will take care of the heavy lifting, we just need to wire things up...</p>
+<code-listing heading="currency-format${context.language.fileExtension}">
+  <source-code lang="ES 2015/ES 2016/TypeScript"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> numeral <span class="token keyword">from</span> <span class="token string">'numeral'</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CurrencyFormatValueConverter</span> <span class="token punctuation">{</span>
+      <span class="token function">toView</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">numeral</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">'($0,0.00)'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="date-format${context.language.fileExtension}">
+  <source-code lang="ES 2015/ES 2016/TypeScript"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> moment <span class="token keyword">from</span> <span class="token string">'moment'</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">DateFormatValueConverter</span> <span class="token punctuation">{</span>
+      <span class="token function">toView</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">moment</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">'M/D/YYYY h:mm:ss a'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="simple-converter${context.language.fileExtension}">
+  <source-code lang="ES 2015/2016"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">NetWorth</span> <span class="token punctuation">{</span>
+      <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>currentDate <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>netWorth <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">1000000000</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">NetWorth</span> <span class="token punctuation">{</span>
+      currentDate<span class="token punctuation">:</span> Date<span class="token punctuation">;</span>
+      netWorth<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>currentDate <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>netWorth <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">1000000000</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="simple-converter.html">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./date-format<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./currency-format<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+
+      ${currentDate | dateFormat} <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+      ${netWorth | currencyFormat}
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<au-demo heading="Simple Converter Demo">
+  <source-code src="example/binding-value-converters/simple-converter/app.js"><pre class="language-markup"><code></code></pre></source-code>
+</au-demo>
+<p>OK, the result looks much better, but how did this all work?</p>
+<p>Well, first we created a couple of value converters:  <code>DateFormatValueConverter</code> and <code>CurrencyFormatValueConverter</code>.  Each has a <code>toView</code> method that the Aurelia framework will apply to model values before displaying them in the view. Our converters use the MomentJS and NumeralJS libraries to format the data.</p>
+<p>Next, we updated the view to <code>require</code> the converters so they can be used in the view.  When requiring a resource such as a value converter, you supply the path to the resource in the require element's <code>from</code> attribute.</p>
+<code-listing heading="Requiring Resources">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./date-format<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./currency-format<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<p>When Aurelia processes the resource, it examines the class's metadata to determine the resource type (custom element, custom attribute, value converter, etc). Metadata isn't required, and in fact our value converters didn't expose any. Instead, we relied on one of Aurelia's simple conventions:  export names ending with <em>ValueConverter</em> are assumed to be value converters.  <strong>The convention registers the converter using the export name, camel-cased, with the <em>ValueConverter</em> portion stripped from the end.</strong></p>
+<ul>
+<li><code>DateFormatValueConverter</code> registers as <code>dateFormat</code></li>
+<li><code>CurrencyFormatValueConverter</code> registers as <code>currencyFormat</code></li>
+</ul>
+<p>Finally, we applied the converter in the binding using the pipe <code>|</code> syntax:</p>
+<code-listing heading="Converter Syntax">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    ${currentDate | dateFormat} <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+    ${netWorth | currencyFormat}
+  </code></pre></source-code>
+</code-listing>
+<div class="info"><div class="icon"> <i></i> </div><h4>Conventional Names</h4><p>
+The name that a resource is referenced by in a view derives from its export name. For Value Converters and Binding Behaviors, the export name is converted to camel case (think of it as a variable name). For Custom Elements and Custom Attributes the export name is lower-cased and hyphenated (to comply with HTML element and attribute specifications).</p>
+</div>
+</section>
+<section><h2 id="converter-parameters">Converter Parameters</h2><p>The converters in the previous example worked great, but what if we needed to display dates and numbers in multiple formats?  It would be quite repetitive to define a converter for each format we needed to display.  A better approach would be to modify the converters to accept a <code>format</code> parameter.  Then we'd be able to specify the format in the binding and get maximum reuse out of our format converters.</p>
+<code-listing heading="number-format${context.language.fileExtension}">
+  <source-code lang="ES 2015/ES 2016/TypeScript"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> numeral <span class="token keyword">from</span> <span class="token string">'numeral'</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">NumberFormatValueConverter</span> <span class="token punctuation">{</span>
+      <span class="token function">toView</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> format<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">numeral</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>format<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="date-format${context.language.fileExtension}">
+  <source-code lang="ES 2015/ES 2016/TypeScript"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> moment <span class="token keyword">from</span> <span class="token string">'moment'</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">DateFormatValueConverter</span> <span class="token punctuation">{</span>
+      <span class="token function">toView</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> format<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">moment</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>format<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="converter-parameters${context.language.fileExtension}">
+  <source-code lang="ES 2015/2016"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">NetWorth</span> <span class="token punctuation">{</span>
+      <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>currentDate <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>netWorth <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">1000000000</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">NetWorth</span> <span class="token punctuation">{</span>
+      currentDate<span class="token punctuation">:</span> Date<span class="token punctuation">;</span>
+      netWorth<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>currentDate <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>netWorth <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">1000000000</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="converter-parameters.html">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./date-format<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./number-format<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+
+      ${currentDate | dateFormat:'M/D/YYYY h:mm:ss a'} <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+      ${currentDate | dateFormat:'MMMM Mo YYYY'} <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+      ${currentDate | dateFormat:'h:mm:ss a'} <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+      ${netWorth | numberFormat:'$0,0.00'} <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+      ${netWorth | numberFormat:'$0.0a'} <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+      ${netWorth | numberFormat:'0.00000)'}
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<au-demo heading="Converter Parameters Demo">
+  <source-code src="example/binding-value-converters/converter-parameters/app.js"><pre class="language-markup"><code></code></pre></source-code>
+</au-demo>
+<p>With the <code>format</code> parameter added to the <code>toView</code> methods, we are able to specify the format in the binding using the <code>[expression] | [converterName]:[parameterExpression]</code> syntax:</p>
+<code-listing heading="Converter Parameter Syntax">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    ${currentDate | dateFormat:'MMMM Mo YYYY'} <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+    ${netWorth | numberFormat:'$0.0a'} <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+  </code></pre></source-code>
+</code-listing>
+</section>
+<section><h2 id="binding-converter-parameters">Binding Converter Parameters</h2><p>Converter parameters needn't be literal values.  You can bind parameter values to achieve dynamic results:</p>
+<code-listing heading="number-format${context.language.fileExtension}">
+  <source-code lang="ES 2015/ES 2016/TypeScript"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> numeral <span class="token keyword">from</span> <span class="token string">'numeral'</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">NumberFormatValueConverter</span> <span class="token punctuation">{</span>
+      <span class="token function">toView</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> format<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">numeral</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>format<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="binding-converter-parameters${context.language.fileExtension}">
+  <source-code lang="ES 2015/2016"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">NetWorth</span> <span class="token punctuation">{</span>
+      <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>netWorth <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">1000000000</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">NetWorth</span> <span class="token punctuation">{</span>
+      netWorth<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>netWorth <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">1000000000</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="binding-converter-parameters.html">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./number-format<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>formatSelect<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Select Format:<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>formatSelect<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>formatSelect<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>$0,0.00<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>$0,0.00<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>$0.0a<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>$0.0a<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0.00000<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>0.00000<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
+
+      ${netWorth | numberFormat:formatSelect.value}
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<au-demo heading="Binding Converter Parameters Demo">
+  <source-code src="example/binding-value-converters/binding-converter-parameters/app.js"><pre class="language-markup"><code></code></pre></source-code>
+</au-demo>
+</section>
+<section><h2 id="multiple-parameters-composing-converters">Multiple Parameters / Composing Converters</h2><p>Value converters can accept multiple parameters and multiple converters can be composed in the same binding expression, providing a lot of flexibility and opportunity for reuse.</p>
+<p>In the following example, we have a view-model exposing an array of Aurelia repos. The view uses a repeat binding to list the repos in a table. A <code>SortValueConverter</code> is used to sort the array based on two arguments: <code>propertyName</code> and <code>direction</code>.  A second converter, <code>TakeValueConverter</code> accepting a <code>count</code> argument is applied to limit the number of repositories listed:</p>
+<code-listing heading="Multiple Parameters and Converters">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>repo of repos | sort:column.value:direction.value | take:10<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        ...
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<p>Here's the full example:</p>
+<code-listing heading="sort${context.language.fileExtension}">
+  <source-code lang="ES 2015/ES 2016/TypeScript"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SortValueConverter</span> <span class="token punctuation">{</span>
+      <span class="token function">toView</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span> propertyName<span class="token punctuation">,</span> direction<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> factor <span class="token operator">=</span> direction <span class="token operator">===</span> <span class="token string">'ascending'</span> <span class="token operator">?</span> <span class="token number">1</span> <span class="token punctuation">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> array<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>propertyName<span class="token punctuation">]</span> <span class="token operator">-</span> b<span class="token punctuation">[</span>propertyName<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">*</span> factor<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="take${context.language.fileExtension}">
+  <source-code lang="ES 2015/ES 2016/TypeScript"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">TakeValueConverter</span> <span class="token punctuation">{</span>
+      <span class="token function">toView</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span> count<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> array<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="multiple-parameters-and-converters${context.language.fileExtension}">
+  <source-code lang="ES 2015"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>HttpClient<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-http-client'</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AureliaRepositories</span> <span class="token punctuation">{</span>
+      <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>repos <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">activate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">HttpClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'https://api.github.com/orgs/aurelia/repos'</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>response <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span>repos <span class="token operator">=</span> response<span class="token punctuation">.</span>content<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="ES 2016/TypeScript"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>HttpClient<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-http-client'</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AureliaRepositories</span> <span class="token punctuation">{</span>
+      repos <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+      <span class="token function">activate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">HttpClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'https://api.github.com/orgs/aurelia/repos'</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>response <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span>repos <span class="token operator">=</span> response<span class="token punctuation">.</span>content<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="multiple-parameters-and-converters.html">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./sort<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./take<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>column<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Sort By:<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>column<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>column<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>stargazers_count<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Stars<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>forks_count<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Forks<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>open_issues<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Issues<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
+
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>direction<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>descending<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Descending<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ascending<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Ascending<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
+
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>table table-striped<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thead</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">></span></span>Name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">></span></span>Stars<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">></span></span>Forks<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">></span></span>Issues<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>thead</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tbody</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>repo of repos | sort:column.value:direction.value | take:10<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>${repo.name}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>${repo.stargazers_count}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>${repo.forks_count}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>${repo.open_issues}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tbody</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<au-demo heading="Multiple Parameters and Converters Demo">
+  <source-code src="example/binding-value-converters/multiple-parameters-and-converters/app.js"><pre class="language-markup"><code></code></pre></source-code>
+</au-demo>
+</section>
+<section><h2 id="object-parameters">Object Parameters</h2><p>Aurelia supports object converter parameters. An alternate implementation of the <code>SortValueConverter</code> using a single <code>config</code> parameter would look like this:</p>
+<code-listing heading="sort${context.language.fileExtension}">
+  <source-code lang="ES 2015/ES 2016/TypeScript"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SortValueConverter</span> <span class="token punctuation">{</span>
+      <span class="token function">toView</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span> config<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> factor <span class="token operator">=</span> <span class="token punctuation">(</span>config<span class="token punctuation">.</span>direction <span class="token operator">||</span> <span class="token string">'ascending'</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">'ascending'</span> <span class="token operator">?</span> <span class="token number">1</span> <span class="token punctuation">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> array<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>config<span class="token punctuation">.</span>propertyName<span class="token punctuation">]</span> <span class="token operator">-</span> b<span class="token punctuation">[</span>config<span class="token punctuation">.</span>propertyName<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">*</span> factor<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="object-parameters${context.language.fileExtension}">
+  <source-code lang="ES 2015"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>HttpClient<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-http-client'</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AureliaRepositories</span> <span class="token punctuation">{</span>
+      <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>repos <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">activate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">HttpClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'https://api.github.com/orgs/aurelia/repos'</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>response <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span>repos <span class="token operator">=</span> response<span class="token punctuation">.</span>content<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="ES 2016/TypeScript"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>HttpClient<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-http-client'</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AureliaRepositories</span> <span class="token punctuation">{</span>
+      repos <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+      <span class="token function">activate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">HttpClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'https://api.github.com/orgs/aurelia/repos'</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>response <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span>repos <span class="token operator">=</span> response<span class="token punctuation">.</span>content<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="object-parameters.html">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./sort<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>row<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>col-sm-3<span class="token punctuation">"</span></span>
+             <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>repo of repos | sort: { propertyName: <span class="token punctuation">'</span>open_issues<span class="token punctuation">'</span>, direction: <span class="token punctuation">'</span>descending<span class="token punctuation">'</span> }<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>${repo.html_url}/issues<span class="token punctuation">"</span></span> <span class="token attr-name">target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>_blank<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            ${repo.name} (${repo.open_issues})
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<au-demo heading="Object Parameters Demo">
+  <source-code src="example/binding-value-converters/object-parameters/app.js"><pre class="language-markup"><code></code></pre></source-code>
+</au-demo>
+<p>There are a couple of advantages to this approach: you don't need to remember the order of the converter parameter arguments, and anyone reading the markup can easily tell what each converter parameter represents.</p>
+</section>
+<section><h2 id="bi-directional-value-converters">Bi-directional Value Converters</h2><p>So far we've been using converters with to-view bindings. The data flows in a single direction, from the model to the view.  When using a converter in an input element's <code>value</code> binding, we need a way to convert the user's data entry to the format expected by the view-model. This is where the value converter's <code>fromView</code> method comes into play, taking the element's value and converting it to the format expected by the view-model.</p>
+<p>In the example below, we have a view-model that exposes colors in an object format, with properties for the red, green and blue components. In the view, we want to bind this color object to an HTML5 color input. The color input expects hex format text, so we'll use an <code>RgbToHexValueConverter</code> to facilitate the binding.</p>
+<code-listing heading="rgb-to-hex${context.language.fileExtension}">
+  <source-code lang="ES 2015/ES 2016/TypeScript"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">RgbToHexValueConverter</span> <span class="token punctuation">{</span>
+      <span class="token function">toView</span><span class="token punctuation">(</span>rgb<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"#"</span> <span class="token operator">+</span> <span class="token punctuation">(</span>
+          <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;</span><span class="token operator">&lt;</span> <span class="token number">24</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span>rgb<span class="token punctuation">.</span>r <span class="token operator">&lt;</span><span class="token operator">&lt;</span> <span class="token number">16</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span>rgb<span class="token punctuation">.</span>g <span class="token operator">&lt;</span><span class="token operator">&lt;</span> <span class="token number">8</span><span class="token punctuation">)</span> <span class="token operator">+</span> rgb<span class="token punctuation">.</span>b
+        <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">fromView</span><span class="token punctuation">(</span>hex<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> exp <span class="token operator">=</span> <span class="token regex">/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i</span><span class="token punctuation">,</span>
+            result <span class="token operator">=</span> exp<span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span>hex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span>
+          r<span class="token punctuation">:</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>result<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          g<span class="token punctuation">:</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>result<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          b<span class="token punctuation">:</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>result<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="bi-directional-value-converters${context.language.fileExtension}">
+  <source-code lang="ES 2015"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Color</span> <span class="token punctuation">{</span>
+      <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>rgb <span class="token operator">=</span> <span class="token punctuation">{</span> r<span class="token punctuation">:</span> <span class="token number">146</span><span class="token punctuation">,</span> g<span class="token punctuation">:</span> <span class="token number">39</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token number">143</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="ES 2016/TypeScript"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Color</span> <span class="token punctuation">{</span>
+      rgb <span class="token operator">=</span> <span class="token punctuation">{</span> r<span class="token punctuation">:</span> <span class="token number">146</span><span class="token punctuation">,</span> g<span class="token punctuation">:</span> <span class="token number">39</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token number">143</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="object-parameters.html">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./rgb-to-hex<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>color<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Select Color:<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>color<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>color<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>rgb | rgbToHex<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span> r: ${rgb.r}, g:${rgb.g}, b:${rgb.b}
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<au-demo heading="Bi-directional Value Converters Demo">
+  <source-code src="example/binding-value-converters/bi-directional-value-converters/app.js"><pre class="language-markup"><code></code></pre></source-code>
+</au-demo>
+</section>
+<section><h2 id="globally-accessible-value-converters">Globally Accessible Value Converters</h2><p>In all of our examples, we've been using the <code>require</code> element to import converters we need into our view.  There's an easier way.  If you have some commonly used value converters that you'd like to make globally available, use Aurelia's <code>globalResources</code> function to register them.  This will eliminate the need for <code>require</code> elements at the top of every view.</p>
+</section>
+<section><h2 id="signalable-value-converters">Signalable Value Converters</h2><p>In some scenarios, a global parameter that is unobservable by Aurelia is used inside a value converter, such as timezone, or a new USB was connected to the device etc. In some other scenarios, we need to update all bindings that use a certain value converter at once, for example: language translation value converters when application language has changed. Aurelia value converters have an API to trigger the bindings, with value converters that have signals property declared on it, to update.</p>
+<p>In the example below, we have a view-model that exposes a list of flights with information of each flight. In the view, we want to bind display each of those flights, as a <code>clock</code>, with correct date format based on global variable name <code>currentLocale</code>. We can trigger all of the flight display to change based on <code>signals</code> of the value converter. We do this via export <code>signalBindings</code> of the framework.</p>
+<code-listing heading="How To Signal Bindings">
+  <source-code lang="ES 2015/ES 2016/TypeScript"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>signalBindings<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+
+    <span class="token function">signalBindings</span><span class="token punctuation">(</span><span class="token string">'locale-changed'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+</code-listing>
+<p>Following is the example code</p>
+<code-listing heading="flight-time-value-converter${context.language.fileExtension}">
+  <source-code lang="ES 2015/ES 2016/TypeScript"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">FlightTimeValueConverter</span> <span class="token punctuation">{</span>
+      signals <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'locale-changed'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+      <span class="token function">toView</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> date<span class="token punctuation">.</span><span class="token function">toLocaleString</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span>currentLocale<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="flight-dashboard${context.language.fileExtension}">
+  <source-code lang="ES 2015"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">FlightDashboard</span> <span class="token punctuation">{</span>
+      <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>flights <span class="token operator">=</span> <span class="token punctuation">[</span>
+          <span class="token punctuation">{</span> <span class="token keyword">from</span><span class="token punctuation">:</span> <span class="token string">'Los Angeles'</span><span class="token punctuation">,</span> to<span class="token punctuation">:</span> <span class="token string">'San Fran'</span><span class="token punctuation">,</span> depart<span class="token punctuation">:</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token string">'2017-10-09'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> arrive<span class="token punctuation">:</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token string">'2017-10-10'</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> <span class="token keyword">from</span><span class="token punctuation">:</span> <span class="token string">'Melbourne'</span><span class="token punctuation">,</span> to<span class="token punctuation">:</span> <span class="token string">'Sydney'</span><span class="token punctuation">,</span> depart<span class="token punctuation">:</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token string">'2017-10-11'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> arrive<span class="token punctuation">:</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token string">'2017-10-12'</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> <span class="token keyword">from</span><span class="token punctuation">:</span> <span class="token string">'Hawaii'</span><span class="token punctuation">,</span> to<span class="token punctuation">:</span> <span class="token string">'Crescent'</span><span class="token punctuation">,</span> depart<span class="token punctuation">:</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token string">'2017-10-13'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> arrive<span class="token punctuation">:</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token string">'2017-10-14'</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="clock.html">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">bindable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>time<span class="token punctuation">'</span></span>
+      <span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>display: inline-block;
+      width: 200px;
+      padding: 4px 6px;
+      border-radius: 10px;
+      border: 2px solid #1e1e1e;
+      font-size: 16px;
+      text-align: center;<span class="token punctuation">'</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>./flight-time-value-converter<span class="token punctuation">'</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+      ${time | flightTime}
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="flight-dashboard.html">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./clock.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span><span class="token punctuation">></span></span>Flights<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>flight of flights<span class="token punctuation">'</span></span> <span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>margin-bottom: 15px<span class="token punctuation">'</span></span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">></span></span>
+            From ${flight.from}
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span> <span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>width: 10px<span class="token punctuation">'</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">></span></span>
+              To ${flight.to}
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>clock</span> <span class="token attr-name">time.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>flight.depart<span class="token punctuation">'</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>clock</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span> <span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>width: 10px<span class="token punctuation">'</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>clock</span> <span class="token attr-name">time.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>flight.arrive<span class="token punctuation">'</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>clock</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<au-demo heading="Flight Dashboard with Signalable Value Converter Demo">
+  <source-code src="example/binding-value-converters/flight-dashboard/app.js"><pre class="language-markup"><code></code></pre></source-code>
+</au-demo>
+</section>
+
+  </article>
+</section>

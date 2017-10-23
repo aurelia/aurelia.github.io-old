@@ -1,0 +1,257 @@
+<section class="article">
+  <header>
+    <h1>Integrating with Polymer</h1>
+    <h2>Polymer is a library for creating reusable web components declaratively with extra features like data binding and property observation. In many ways, it is similar to Aurelia&#x27;s component support. However, Polymer also includes an extensive catalog of custom elements for everything from material design to credit card forms to embedding Google services like Google Maps and YouTube. With a bit of work, these components can be incorporated into Aurelia applications as well.</h2>
+  </header>
+
+  <article class="markdown">
+    <section><h2 id="setup">Setup</h2><p>The first step is obtaining Polymer, which is generally done with the 
+<a href="http://bower.io/" target="_blank">Bower</a>
+ package manager. The following <code>bower.json</code> will install Polymer's base and material design elements.</p>
+<code-listing heading="Bower Config">
+  <source-code lang="JSON"><pre class="language-javascript"><code>
+    <span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"my-aurelia-polymer-project"</span><span class="token punctuation">,</span>
+      <span class="token string">"private"</span><span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token string">"dependencies"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"polymer"</span><span class="token punctuation">:</span> <span class="token string">"Polymer/polymer#^1.2.0"</span><span class="token punctuation">,</span>
+        <span class="token string">"paper-elements"</span><span class="token punctuation">:</span> <span class="token string">"PolymerElements/paper-elements#^1.0.6"</span><span class="token punctuation">,</span>
+        <span class="token string">"iron-elements"</span><span class="token punctuation">:</span> <span class="token string">"PolymerElements/iron-elements#^1.0.4"</span><span class="token punctuation">,</span>
+        <span class="token string">"webcomponentsjs"</span><span class="token punctuation">:</span> <span class="token string">"webcomponents/webcomponentsjs#^0.7.20"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<p>Make sure Bower is installed and then use Bower to install the packages for each of the Polymer elements.</p>
+<code-listing heading="Bower Package Installation">
+  <source-code lang="Shell"><pre class="language-powershell"><code>
+    $ npm install <span class="token operator">-</span>g bower
+    $ bower install
+  </code></pre></source-code>
+</code-listing>
+<p>Aurelia must also be configured to use the HTML Imports template loader and the <code>aurelia-polymer</code> plugin, both of which can be installed with JSPM.</p>
+<code-listing heading="Plugin Installation">
+  <source-code lang="Shell"><pre class="language-powershell"><code>
+    $ jspm install aurelia<span class="token operator">-</span>html<span class="token operator">-</span>import<span class="token operator">-</span>template<span class="token operator">-</span>loader
+    $ jspm install aurelia<span class="token operator">-</span>polymer@^1<span class="token punctuation">.</span>0<span class="token punctuation">.</span>0<span class="token operator">-</span>beta
+  </code></pre></source-code>
+</code-listing>
+<p>In <code>index.html</code>, Polymer and the webcomponents.js polyfills need to be loaded before Aurelia is, so that the <code>aurelia-polymer</code> plugin can hook into Polymer's element registration system.</p>
+<code-listing heading="Loading Web Components and Polymer">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token doctype">&lt;!DOCTYPE html></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+         ... 
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bower_components/webcomponentsjs/webcomponents-lite.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>import<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bower_components/polymer/polymer.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+       ... 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<p>It's also a good idea to wait until the web components polyfill has loaded Polymer to bootstrap Aurelia. Instead of directly importing <code>aurelia-bootstrapper</code>, wait until the <code>WebComponentsReady</code> event fires in <code>index.html</code>.</p>
+<code-listing heading="Bootstrapping Aurelia">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token doctype">&lt;!DOCTYPE html></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
+      document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'WebComponentsReady'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span><span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'aurelia-bootstrapper'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<p>In <code>main.js</code>, the two Aurelia plugins installed before need to be loaded as well.</p>
+<code-listing heading="Configuring Aurelia">
+  <source-code lang="ES 2015/2016"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      aurelia<span class="token punctuation">.</span>use
+        <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-polymer'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-html-import-template-loader'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>a <span class="token operator">=</span><span class="token operator">></span> a<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>Aurelia<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">:</span> Aurelia<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+      aurelia<span class="token punctuation">.</span>use
+        <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-polymer'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-html-import-template-loader'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>a <span class="token operator">=</span><span class="token operator">></span> a<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<p>At this point, Aurelia and Polymer are ready to go. The examples below incorporate various Polymer elements into the Aurelia skeleton navigation starter.</p>
+</section>
+<section><h2 id="importing-elements">Importing Elements</h2><p>With the normal Aurelia template loader, nothing is allowed outside the root <code>&lt;template&gt;</code> element. When using HTML imports, however, the import statements must be before the <code>&lt;template&gt;</code>.</p>
+<code-listing heading="Using HTML Imports">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>import<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/bower_components/paper-drawer-panel/paper-drawer-panel.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>import<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/bower_components/paper-toolbar/paper-toolbar.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>import<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/bower_components/paper-menu/paper-menu.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>import<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/bower_components/paper-item/paper-item.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>import<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>import<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/bower_components/paper-icon-button/paper-icon-button.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>import<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/bower_components/iron-icons/iron-icons.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+       ... 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+</section>
+<section><h2 id="data-binding">Data Binding</h2><p>Given the imports above, this shows how to implement a basic layout in <code>app.html</code> with Polymer components.</p>
+<code-listing heading="Using Polymer Elements">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>paper-drawer-panel</span> <span class="token attr-name">force-narrow</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">drawer</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>paper-toolbar</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>paper-header<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>Menu<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>paper-toolbar</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>paper-menu</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>paper-item</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>row of router.navigation<span class="token punctuation">"</span></span> <span class="token attr-name">active.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>row.isActive<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>row.href<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${row.title}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>paper-item</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>paper-menu</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">main</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>paper-toolbar</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>paper-header<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>paper-icon-button</span> <span class="token attr-name">icon</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>menu<span class="token punctuation">"</span></span> <span class="token attr-name">tabindex</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span> <span class="token attr-name">paper-drawer-toggle</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>paper-icon-button</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>title<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${router.title}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">if.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>router.isNavigating<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iron-icon</span> <span class="token attr-name">icon</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>autorenew<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>paper-toolbar</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-view</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-view</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>paper-drawer-panel</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<p>Notice that Poylmer elements such as <code>&lt;paper-drawer-panel&gt;</code> or <code>&lt;paper-menu&gt;</code>, once imported, can be used just like
+normal HTML elements.</p>
+<p>All of the standard Aurelia binding syntax continues to work as well. For example,
+<code>repeat.for</code> is used to populate menu items from the Aurelia router. The <code>active.bind</code>
+binding on the <code>&lt;paper-item&gt;</code> elements in the navigation menu shows that attributes
+defined by Polymer are also supported by Aurelia.</p>
+</section>
+<section><h2 id="forms-and-two-way-binding">Forms and Two-Way Binding</h2><p>The updated <code>welcome.html</code> uses Polymer input elements to enhance its form.</p>
+<code-listing heading="Using Polymer in a Form">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>import<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../bower_components/paper-input/paper-input.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>import<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../bower_components/iron-form/iron-form.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>section</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>au-animate<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span><span class="token punctuation">></span></span>${heading}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">is</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>iron-form<span class="token punctuation">"</span></span> <span class="token attr-name">role</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form<span class="token punctuation">"</span></span> <span class="token attr-name">submit.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form-group<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fn<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>First Name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>paper-input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fn<span class="token punctuation">"</span></span> <span class="token attr-name">value.two-way</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>firstName<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>first name<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>paper-input</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form-group<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ln<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Last Name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>paper-input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fn<span class="token punctuation">"</span></span> <span class="token attr-name">value.two-way</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>lastName<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>last name<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>paper-input</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form-group<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span><span class="token punctuation">></span></span>Full Name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>help-block<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${fullName | upper}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn btn-default<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Submit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>section</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<p>While not strictly necessary in this case, making the form an <code>&lt;iron-form&gt;</code> ensures
+that Polymer input elements are submitted along with native HTML elements.</p>
+<p>Note that the <code>&lt;paper-input&gt;</code> elements have <code>.two-way</code> bindings, not just <code>.bind</code>.
+With the exception of native HTML form elements, Aurelia defaults to one-way bindings,
+so two-way data binding must be specified explicitly.</p>
+<p>A normal <code>&lt;button&gt;</code> element is used with Aurelia's <code>submit.delegate</code> binding, since
+Polymer elements cannot submit forms.</p>
+<p>If form submission semantics were not needed, another option would be to
+use a <code>click.delegate</code> on a Polymer button instead.</p>
+<code-listing heading="Polymer Element with Event Delegation">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>paper-button</span> <span class="token attr-name">raised</span> <span class="token attr-name">click.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Submit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>paper-button</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+</section>
+<section><h2 id="how-the-plugin-works">How the Plugin Works</h2><p>The <code>aurelia-polymer</code> plugin is fairly simple. For each Polymer element, it
+registers the element's properties and what events they support with the
+<code>EventManager</code> in Aurelia's binding component. The core of the plugin, the
+<a href="https://github.com/roguePanda/aurelia-polymer/blob/1.0.0-beta.1.0.1/src/index.js#L7" target="_blank">registerElement</a>
+
+function, loops over all properties of the element and any behavior it implements
+so that the Aurelia binding engine will register event listeners properly.</p>
+<code-listing heading="Element Registration">
+  <source-code lang="ES 2015/2016"><pre class="language-javascript"><code>
+    <span class="token keyword">var</span> propertyConfig <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'bind-value'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'change'</span><span class="token punctuation">,</span> <span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Not explicitly listed for all elements that use it</span>
+
+    <span class="token keyword">function</span> <span class="token function">handleProp</span><span class="token punctuation">(</span>propName<span class="token punctuation">,</span> prop<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>prop<span class="token punctuation">.</span>notify<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        propertyConfig<span class="token punctuation">[</span>propName<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'change'</span><span class="token punctuation">,</span> <span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>prototype<span class="token punctuation">.</span>properties<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>propName <span class="token operator">=</span><span class="token operator">></span> <span class="token function">handleProp</span><span class="token punctuation">(</span>propName<span class="token punctuation">,</span> prototype<span class="token punctuation">.</span>properties<span class="token punctuation">[</span>propName<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    prototype<span class="token punctuation">.</span>behaviors<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>behavior <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> behavior<span class="token punctuation">.</span>properties <span class="token operator">!=</span> <span class="token string">'undefined'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>behavior<span class="token punctuation">.</span>properties<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>propName <span class="token operator">=</span><span class="token operator">></span> <span class="token function">handleProp</span><span class="token punctuation">(</span>propName<span class="token punctuation">,</span> behavior<span class="token punctuation">.</span>properties<span class="token punctuation">[</span>propName<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    eventManager<span class="token punctuation">.</span><span class="token function">registerElementConfig</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      tagName<span class="token punctuation">:</span> prototype<span class="token punctuation">.</span>is<span class="token punctuation">,</span>
+      properties<span class="token punctuation">:</span> propertyConfig
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+    <span class="token keyword">var</span> propertyConfig <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'bind-value'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'change'</span><span class="token punctuation">,</span> <span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Not explicitly listed for all elements that use it</span>
+
+    <span class="token keyword">function</span> <span class="token function">handleProp</span><span class="token punctuation">(</span>propName<span class="token punctuation">,</span> prop<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>prop<span class="token punctuation">.</span>notify<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        propertyConfig<span class="token punctuation">[</span>propName<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'change'</span><span class="token punctuation">,</span> <span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>prototype<span class="token punctuation">.</span>properties<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>propName <span class="token operator">=</span><span class="token operator">></span> <span class="token function">handleProp</span><span class="token punctuation">(</span>propName<span class="token punctuation">,</span> prototype<span class="token punctuation">.</span>properties<span class="token punctuation">[</span>propName<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    prototype<span class="token punctuation">.</span>behaviors<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>behavior <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> behavior<span class="token punctuation">.</span>properties <span class="token operator">!=</span> <span class="token string">'undefined'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>behavior<span class="token punctuation">.</span>properties<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>propName <span class="token operator">=</span><span class="token operator">></span> <span class="token function">handleProp</span><span class="token punctuation">(</span>propName<span class="token punctuation">,</span> behavior<span class="token punctuation">.</span>properties<span class="token punctuation">[</span>propName<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    eventManager<span class="token punctuation">.</span><span class="token function">registerElementConfig</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      tagName<span class="token punctuation">:</span> prototype<span class="token punctuation">.</span>is<span class="token punctuation">,</span>
+      properties<span class="token punctuation">:</span> propertyConfig
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+</code-listing>
+<p>Element properties marked with <code>notify</code> are eligible for Polymer's two-way data
+binding system and also trigger a <code>{property-name}-changed</code> event. This corresponds
+to the <code>input</code> and <code>change</code> events in Aurelia.</p>
+<p>Whenever a Polymer element is imported, it triggers a call to <code>Polymer.telemetry._registrate</code>,
+which adds the element prototype to a list of registered Polymer elements. The
+<code>aurelia-polymer</code> plugin replaces this registration function with one that also
+calls <code>registerElement</code> on the prototype so that it is configured with Aurelia
+as well. The need to override this function is why Polymer must be loaded before
+the plugin is.
+</button></paper-input></iron-form></paper-item></paper-menu></paper-drawer-panel></template></template></p>
+</section>
+
+  </article>
+</section>

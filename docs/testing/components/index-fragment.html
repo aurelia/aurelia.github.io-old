@@ -1,0 +1,380 @@
+<section class="article">
+  <header>
+    <h1>Testing Components</h1>
+    <h2>An overview of how to unit test Custom Elements and Custom Attributes.</h2>
+  </header>
+
+  <article class="markdown">
+    <section><h2 id="introduction">Introduction</h2><p>With the Component Tester you can easily stage a custom element or custom attribute in isolation inside a mini Aurelia application, assert how it responds to data-binding and assert its behavior throughout the component's lifecycle (bind, attached etc).</p>
+</section>
+<section><h2 id="getting-started">Getting Started</h2><p>If you are using JSPM:</p>
+<pre><code class="language-shell">jspm install aurelia-testing
+</code></pre>
+<p>If you are using NPM:</p>
+<pre><code class="language-shell">npm install aurelia-testing
+</code></pre>
+<p>Once you've got the library installed, you can use it in a unit test. In the following examples we will be using Jasmine, but any testing framework would work.</p>
+</section>
+<section><h2 id="testing-a-custom-element">Testing a Custom Element</h2><p>Let's start with a simple custom element that we want to test:</p>
+<code-listing heading="A Custom Element's View">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>firstName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${firstName}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="A Custom Element's View-Model">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyComponent</span> <span class="token punctuation">{</span>
+      @bindable firstName<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<p>In order to test that the component renders expected HTML, based on what the view is bound to, we can write following test:</p>
+<code-listing heading="A Custom Element Test">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>StageComponent<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-testing'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>bootstrap<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-bootstrapper'</span><span class="token punctuation">;</span>
+
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'MyComponent'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> component<span class="token punctuation">;</span>
+
+      <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        component <span class="token operator">=</span> StageComponent
+          <span class="token punctuation">.</span><span class="token function">withResources</span><span class="token punctuation">(</span><span class="token string">'my-component'</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">inView</span><span class="token punctuation">(</span><span class="token string">'&lt;my-component first-name.bind="firstName">&lt;/my-component>'</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">boundTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span> firstName<span class="token punctuation">:</span> <span class="token string">'Bob'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should render first name'</span><span class="token punctuation">,</span> done <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        component<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>bootstrap<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+          <span class="token keyword">const</span> nameElement <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'.firstName'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token function">expect</span><span class="token punctuation">(</span>nameElement<span class="token punctuation">.</span>innerHTML<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token function">done</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span>e <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token function">afterEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        component<span class="token punctuation">.</span><span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+</code-listing>
+<p>Running the test should result in the following html should be rendered <code>&lt;div class=&quot;firstName&quot;&gt;Bob&lt;/div&gt;</code> and the test should pass. But let's take a step back and see what is going on here. First, we import <code>StageComponent</code> from <code>aurelia-testing</code>:</p>
+<code-listing heading="Importing StageComponent">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>StageComponent<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-testing'</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+</code-listing>
+<p><code>StageComponent</code> is just a convenience factory that creates a new instance of the <code>ComponentTester</code> class. <code>ComponentTester</code> is the actual class doing all the work. Next we use the <code>StageComponent</code> factory to stage our component:</p>
+<code-listing heading="Staging The Element">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+    component <span class="token operator">=</span> StageComponent
+      <span class="token punctuation">.</span><span class="token function">withResources</span><span class="token punctuation">(</span><span class="token string">'src/my-component'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">inView</span><span class="token punctuation">(</span><span class="token string">'&lt;my-component first-name.bind="firstName">&lt;/my-component>'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">boundTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span> firstName<span class="token punctuation">:</span> <span class="token string">'Bob'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+</code-listing>
+<p><code>StageComponent</code> comes with one property, <code>withResources</code>, that lets you start off the staging with a fluent API. <code>withResources</code> lets you specify which resource or resources for Aurelia to register.  It takes either a string for registering one single resource or an Array of strings for registering multiple resources. <code>inView</code> lets you provide the html markup to be run. This is just a standard Aurelia view where you can do all the data binding you are used to in a full-blown Aurelia application. <code>boundTo</code> lets you provide a test <code>viewModel</code> with the data that the view will get bound to. In this example, the staging of the component is done in Jasmine's <code>beforeEach</code> method in order to reuse the same setup for multiple tests.</p>
+<blockquote>
+<p>Note: If you are using <code>karma</code> and your configuration already has a path for <code>'*': 'src/*'</code> set you may not need to use <code>src/</code>, and just <code>my-component</code>.</p>
+</blockquote>
+<p>Next, we come to the actual test where we call <code>create</code> on the <code>ComponentTester</code>. Create will kick everything off and bootstrap the mini Aurelia application, configure it with <code>standardConfiguration</code> (we will take a look later at how you can run with your own configuration), register provided resources as global resources, start the application and finally render your component so you can assert the expected behavior. In this case, we want to make sure our <code>firstName</code> property gets rendered correctly in the HTML by selecting the <code>div</code> tag via it's class name. We use <code>document.querySelector('.firstName');</code> to grab that and then check that its innerHTML is <code>Bob</code>. Next we call Jasmine's <code>done</code> function to tell Jasmine that the test is complete. Calling <code>done</code> is needed since the <code>create</code> method is asynchronous and returns a Promise.</p>
+<p>Finally, we call <code>dispose</code> on our <code>ComponentTester</code> instance. This will clean up the DOM so our next test will start out with a clean document. That's pretty much all there is to it. Easy right? Imagine doing the same assert with stand alone unit tests that run outside of Aurelia. It would be pretty difficult, especially for a more complex component.</p>
+</section>
+<section><h2 id="manually-handling-lifecycle">Manually handling lifecycle</h2><p>When testing a component sometimes you want to have tests run at certain points of the lifecycle.  To do this we can tell the component we created that we will manually handle the lifecycle methods -</p>
+<code-listing heading="Manually handling lifecycle">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>StageComponent<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-testing'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>bootstrap<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-bootstrapper'</span><span class="token punctuation">;</span>
+
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'MyComponent'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> component<span class="token punctuation">;</span>
+
+      <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        component <span class="token operator">=</span> StageComponent
+          <span class="token punctuation">.</span><span class="token function">withResources</span><span class="token punctuation">(</span><span class="token string">'src/my-component'</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">inView</span><span class="token punctuation">(</span><span class="token string">'&lt;my-component first-name.bind="firstName">&lt;/my-component>'</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">boundTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span> firstName<span class="token punctuation">:</span> <span class="token string">'Bob'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'can manually handle lifecycle'</span><span class="token punctuation">,</span> done <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> nameElement<span class="token punctuation">;</span>
+
+        component<span class="token punctuation">.</span><span class="token function">manuallyHandleLifecycle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            nameElement <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'.name'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>nameElement<span class="token punctuation">.</span>innerHTML<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token string">' '</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> component<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>nameElement<span class="token punctuation">.</span>innerHTML<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token string">'Foo bind'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> component<span class="token punctuation">.</span><span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>nameElement<span class="token punctuation">.</span>innerHTML<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token string">'Foo attached'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> component<span class="token punctuation">.</span><span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> component<span class="token punctuation">.</span><span class="token function">unbind</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>component<span class="token punctuation">.</span>viewModel<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> component<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">{</span> name<span class="token punctuation">:</span> <span class="token string">'Bar'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>nameElement<span class="token punctuation">.</span>innerHTML<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token string">'Bar bind'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> component<span class="token punctuation">.</span><span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>nameElement<span class="token punctuation">.</span>innerHTML<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token string">'Bar attached'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>done<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token function">afterEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        component<span class="token punctuation">.</span><span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+</code-listing>
+<p>As you see, the test helper lets you easily push components through their lifecycle, testing various aspects of it at each point along the way.</p>
+</section>
+<section><h2 id="testing-a-custom-attribute">Testing a Custom Attribute</h2><p>Testing a Custom Attribute is not much different than testing a Custom Element. Let's look at how it's done by starting with a simple example custom attribute that lets you change the background color of the element it is placed on:</p>
+<code-listing heading="A Custom Attribute">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyAttributeCustomAttribute</span> <span class="token punctuation">{</span>
+      <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span>Element<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token function">constructor</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>element <span class="token operator">=</span> element<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">valueChanged</span><span class="token punctuation">(</span>newValue<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>backgroundColor <span class="token operator">=</span> newValue<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<p>Now, let's assert that the element actually gets the background color it is bound to:</p>
+<code-listing heading="A Custom Attribute Test">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>StageComponent<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-testing'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>bootstrap<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-bootstrapper'</span><span class="token punctuation">;</span>
+
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'MyAttribute'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> component<span class="token punctuation">;</span>
+
+      <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        component <span class="token operator">=</span> StageComponent
+            <span class="token punctuation">.</span><span class="token function">withResources</span><span class="token punctuation">(</span><span class="token string">'src/my-attribute'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">inView</span><span class="token punctuation">(</span><span class="token string">'&lt;div my-attribute.bind="color">Bob&lt;/div>'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">boundTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span> color<span class="token punctuation">:</span> <span class="token string">'blue'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should set the background color to provided color'</span><span class="token punctuation">,</span> done <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+         component<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>bootstrap<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+           <span class="token function">expect</span><span class="token punctuation">(</span>component<span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>backgroundColor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token string">'blue'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token function">done</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span>e <span class="token operator">=</span><span class="token operator">></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token function">afterEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        component<span class="token punctuation">.</span><span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+</code-listing>
+<p>As you can see, everything follows the same pattern we had for our custom element test. One exception is that we take advantage of the <code>element</code> property which gets provided by the <code>ComponentTester</code> instance. The <code>element</code> property is the actual HTML element that gets rendered. This can also be used when testing custom elements.</p>
+</section>
+<section><h2 id="testing-custom-component-with-a-real-view-model">Testing custom component with a real view-model</h2><p>If you want to test a custom component with a real view-model, mocking
+out all dependencies, you can do this as well.  A common scenario is
+to test the view/view-model, mocking out service calls to the backend.</p>
+<p>If the view model has a dependency on a class called Service for all backend communication:</p>
+<code-listing heading="A Custom Component with a Real View-model">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MockService</span> <span class="token punctuation">{</span>
+      firstName<span class="token punctuation">;</span>
+
+      <span class="token function">getFirstName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>firstName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'MyComponent'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> component<span class="token punctuation">;</span>
+      <span class="token keyword">let</span> service <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MockService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+      <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        service<span class="token punctuation">.</span>firstName <span class="token operator">=</span> undefined<span class="token punctuation">;</span>
+    
+        component <span class="token operator">=</span> StageComponent
+          <span class="token punctuation">.</span><span class="token function">withResources</span><span class="token punctuation">(</span><span class="token string">'src/component'</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">inView</span><span class="token punctuation">(</span><span class="token string">'&lt;component>&lt;/component>'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+        component<span class="token punctuation">.</span><span class="token function">bootstrap</span><span class="token punctuation">(</span>aurelia <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+          aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          
+          aurelia<span class="token punctuation">.</span>container<span class="token punctuation">.</span><span class="token function">registerInstance</span><span class="token punctuation">(</span>Service<span class="token punctuation">,</span> service<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+      <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should render first name'</span><span class="token punctuation">,</span> done <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        service<span class="token punctuation">.</span>firstName <span class="token operator">=</span> <span class="token string">'Bob'</span><span class="token punctuation">;</span>
+    
+        component<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>bootstrap<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+          <span class="token keyword">const</span> nameElement <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'.first-name'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token function">expect</span><span class="token punctuation">(</span>nameElement<span class="token punctuation">.</span>innerHTML<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          
+          <span class="token function">done</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token function">afterEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        component<span class="token punctuation">.</span><span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+</code-listing>
+</section>
+<section><h2 id="using-a-real-parent-view-model">Using a Real Parent View-model</h2><p>If you want to test using a custom element inside of a real parent view-model this can be done just as easily.  This can be really helpful when needing to test the state of a parent that is affected by the child custom element or attribute -</p>
+<code-listing heading="A Custom Attribute Test with Real Parent View-model">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>StageComponent<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-testing'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>bootstrap<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-bootstrapper'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>MyComponent<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'src/my-component'</span><span class="token punctuation">;</span>
+
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'MyAttribute'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> component<span class="token punctuation">;</span>
+      <span class="token keyword">let</span> viewModel<span class="token punctuation">;</span>
+
+      <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        viewModel <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        component <span class="token operator">=</span> StageComponent
+            <span class="token punctuation">.</span><span class="token function">withResources</span><span class="token punctuation">(</span><span class="token string">'src/my-attribute'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">inView</span><span class="token punctuation">(</span><span class="token string">'&lt;div my-attribute.bind="color">Bob&lt;/div>'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">boundTo</span><span class="token punctuation">(</span>viewModel<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">//...</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+</code-listing>
+<p>Using this you can also use the <code>ref</code> custom attribute to get access to things and check their state in the view-model.</p>
+<p>Or if your view-model has dependencies to load through DI -</p>
+<code-listing heading="A Custom Attribute Test with Real Parent View-model with DI dependencies">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>StageComponent<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-testing'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>bootstrap<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-bootstrapper'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>MyComponent<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'src/my-component'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>Container<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-dependency-injection'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>MyService<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'src/my-service'</span><span class="token punctuation">;</span>
+
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'MyAttribute'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> component<span class="token punctuation">;</span>
+      <span class="token keyword">let</span> container<span class="token punctuation">;</span>
+      <span class="token keyword">let</span> viewModel<span class="token punctuation">;</span>
+      <span class="token keyword">let</span> myService<span class="token punctuation">;</span>
+
+      <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        container <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Container</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        myService <span class="token operator">=</span> container<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span>MyService<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        viewModel <span class="token operator">=</span> container<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span>MyComponent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        component <span class="token operator">=</span> StageComponent
+            <span class="token punctuation">.</span><span class="token function">withResources</span><span class="token punctuation">(</span><span class="token string">'src/my-attribute'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">inView</span><span class="token punctuation">(</span><span class="token string">'&lt;div my-attribute.bind="color">Bob&lt;/div>'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">boundTo</span><span class="token punctuation">(</span>viewModel<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">//...</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+</code-listing>
+<p>Now the service dependency for <code>MyComponent</code> will be resolved through DI automatically.</p>
+</section>
+<section><h2 id="improving-readability-with-multi-line-strings">Improving Readability with Multi-line Strings</h2><p>You can improve the readability of your complex views by using template literals in your tests -</p>
+<code-listing heading="Multi-line Strings for Views">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>StageComponent<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-testing'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>bootstrap<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-bootstrapper'</span><span class="token punctuation">;</span>
+
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'MyAttribute'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> component<span class="token punctuation">;</span>
+
+      <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> view <span class="token operator">=</span> <span class="token template-string"><span class="token string">`
+          &lt;div class="row">
+            &lt;div class="col-xs-12">
+              &lt;div my-attribute.bind="color">Bob&lt;/div>
+            &lt;/div>
+          &lt;/div>
+        `</span></span><span class="token punctuation">;</span>
+        component <span class="token operator">=</span> StageComponent
+            <span class="token punctuation">.</span><span class="token function">withResources</span><span class="token punctuation">(</span><span class="token string">'src/my-attribute'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">inView</span><span class="token punctuation">(</span>view<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">boundTo</span><span class="token punctuation">(</span>viewModel<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">//...</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+</code-listing>
+</section>
+<section><h2 id="helpful-properties-and-functions">Helpful Properties and Functions</h2><p>The <code>ComponentTester</code> exposes a set of properties that can be handy when doing asserts or to stage a component in a specific way. Here's a list of what is available:</p>
+<ul>
+<li><code>element</code> - The HTML element that gets rendered.</li>
+<li><code>viewModel</code> - The view-model for the component.</li>
+<li><code>configure</code> - The <code>ComponentTester</code>'s configure method can be overwritten in order to set it up with custom configuration or get a reference to the <code>container</code> instance.</li>
+<li><code>dispose</code> - Cleans up the DOM after a test has run.</li>
+<li><code>bind</code> - Manually handles <code>bind</code>.</li>
+<li><code>unbind</code> - Manually handles <code>unbind</code>.</li>
+<li><code>attached</code> - Manually handles <code>attached</code>.</li>
+<li><code>detached</code> - Manually handles <code>detached</code>.</li>
+<li><code>waitForElement</code> and <code>waitForElements</code> - Waits until one or several elements are present / absent. See below.</li>
+</ul>
+</section>
+<section><h2 id="testing-complex-components">Testing complex components</h2><p>In some cases, the tested element is not rendered yet when the <code>component.create()</code> promise is resolved, and therefore when the actual test starts. For these situations, <code>aurelia-testing</code> and <code>ComponentTester</code> expose helper methods and functions to wait for tested elements to be present in the page.</p>
+<h3>Waiting for element(s)</h3>
+<p>If you want to wait for elements that can be looked up in the DOM using a query passed to <code>querySelector</code> or <code>querySelectorAll</code>, you can use one of the following:</p>
+<ul>
+<li><code>ComponentTester.waitForElement</code> or <code>ComponentTester.waitForElements</code>: to wait for one or several HTML element(s) within the tested component. The query is carried out using <code>querySelector</code> and <code>querySelectorAll</code>, respectively.</li>
+<li><code>waitForDocumentElement</code> or <code>waitForDocumentElements</code> (imported from <code>aurelia-testing</code>): to wait for one or several HTML element(s) within the document, not restricted to the descendants of the tested component. This is especially useful if you want to wait for elements created by third-party libraries such as context menus, date pickers, etc.</li>
+</ul>
+<p>All these methods and functions take 2 arguments:</p>
+<ul>
+<li><code>selector</code> (mandatory): is a selector string to look up the wanted element(s). It must be compatible with <code>querySelector</code> and <code>querySelectorAll</code></li>
+<li><code>options</code> is an object that can have the following properties:
+<ul>
+<li><code>present</code>: <code>true</code> to test for presence, <code>false</code> for absence (defaults to <code>true</code>)</li>
+<li><code>interval</code>: the polling interval (defaults to 50ms)</li>
+<li><code>timeout</code>: the timeout (defaults to 5s)</li>
+</ul>
+</li>
+</ul>
+<p>They all return a <code>Promise</code> that resolves to an <code>Element</code> (<code>waitForElement</code>) or a <code>NodeList</code> (<code>waitForElements</code>). The <code>Promise</code> is rejected in the event of a timeout. The returned <code>Promise</code> can be used to execute some testing code only once a given element has been detected to be present or absent, either because the component was slow to be fully rendered or because the test relies on asynchronous actions such as events or animations.</p>
+<h3>Waiting for matches to complex queries ... or anything else</h3>
+<p>If your query is complex (with non-trivial jQuery lookups for example), or you want to wait for the result of a callback to be something else than <code>null</code>, you can use the higher-level <code>waitFor</code> function imported from <code>aurelia-testing</code>.</p>
+<p><code>waitFor(getter, options)</code> works exactly the same way as the previously described methods and functions, but takes a callback (<code>getter</code>) as the first argument instead of a selector string. <code>waitFor</code> internally calls <code>getter</code> with no arguments at regular intervals times until the returned value is anything else than <code>null</code>, an empty <code>NodeList</code> or jQuery set. The returned <code>Promise</code> will resolve to the result of <code>getter()</code>.</p>
+<h3>Examples</h3>
+<code-listing heading="Here is how to wait for the `firstName` input control from the example above:">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+    component<span class="token punctuation">.</span><span class="token function">waitForElement</span><span class="token punctuation">(</span><span class="token string">'.firstName'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>nameElement<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token function">expect</span><span class="token punctuation">(</span>nameElement<span class="token punctuation">.</span>innerHTML<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">done</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="... and here is the same using jQuery:">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>waitFor<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-testing'</span><span class="token punctuation">;</span>
+    
+    <span class="token function">waitFor</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'.firstName'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>nameElement<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token function">expect</span><span class="token punctuation">(</span>nameElement<span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">done</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="Waiting for the same element to be absent but timeout after 2s is as easy as:">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+    component<span class="token punctuation">.</span><span class="token function">waitForElement</span><span class="token punctuation">(</span><span class="token string">'.firstName'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>present<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> timeout<span class="token punctuation">:</span> <span class="token number">2000</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>done<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+</code-listing>
+</section>
+
+  </article>
+</section>

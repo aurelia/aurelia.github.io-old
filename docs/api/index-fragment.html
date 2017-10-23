@@ -1,0 +1,15 @@
+<section class="article">
+  <header>
+    <h1>APIs</h1>
+    <h2>Type any class, method, function or constant name to search across all Aurelia APIs.</h2>
+  </header>
+
+  <article class="api-search-area">
+    <search-box placeholder="Search APIs" search.trigger="search($event)"></search-box>
+
+    <section class="search-results">
+      <api-search-results if.bind="searchResults.length" results.bind="searchResults"></api-search-results>
+      <no-search-results if.bind="searchResults && !searchResults.length" query.bind="query" tip="Try searching for a different related API."></no-search-results>
+    </section>
+  </article>
+</section>
