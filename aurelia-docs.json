@@ -1,6 +1,7 @@
 {
   "outDir": "./",
   "baseUrl": "/",
+  "trackingID": "UA-38441871-6",
   "home": {
     "dest": "home"
   },
