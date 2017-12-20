@@ -469,11 +469,7 @@
       {
         "name": "Fetch",
         "package": "../fetch-client/package.json",
-        "src": [
-          "../fetch-client/dist/aurelia-fetch-client.d.ts",
-          "../fetch-client/doc/whatwg-fetch.d.ts",
-          "../fetch-client/doc/url.d.ts"
-        ],
+        "src": "../fetch-client/dist/aurelia-fetch-client.d.ts",
         "dest": "docs/api/fetch-client"
       },
       {
@@ -587,7 +583,7 @@
       {
         "name": "Testing",
         "package": "../testing/package.json",
-        "src": "../testing/dist/aurelia-testing.d.ts",
+        "src": "../testing/dist/commonjs/aurelia-testing.d.ts",
         "dest": "docs/api/testing"
       }
     ]
