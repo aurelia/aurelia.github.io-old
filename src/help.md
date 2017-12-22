@@ -1,19 +1,9 @@
 ---
-{
-  "name": "Help",
-  "culture": "en-US",
-  "description": "Information about official support, training and consulting services.",
-  "engines" : { "aurelia-doc" : "^1.0.0" },
-  "author": {
-  	"name": "Rob Eisenberg",
-  	"url": "http://robeisenberg.com"
-  },
-  "contributors": [],
-  "translators": [],
-  "keywords": ["Help"]
-}
+name: Help
+description: Information about official support, training and consulting services.
+author: Rob Eisenberg (http://robeisenberg.com)
 ---
-## [Books](aurelia-doc://section/1/version/1.0.0)
+## Books
 
 There are a number of books available to help you get started learning Modern JavaScript and Aurelia:
 
@@ -22,7 +12,7 @@ There are a number of books available to help you get started learning Modern Ja
 * [Learning Aurelia](https://www.packtpub.com/web-development/learning-aurelia) by Manuel Guilbault
 * [Aurelia Succinctly](https://www.syncfusion.com/resources/techportal/details/ebooks/aurelia_succinctly) (Free) by Matthew Duffield
 
-## [Videos](aurelia-doc://section/2/version/1.0.0)
+## Videos
 
 If you are looking for online video courses to help you get started learning Modern JavaScript and Aurelia, there are several great options to choose from:
 
@@ -34,11 +24,11 @@ If you are looking for online video courses to help you get started learning Mod
 * [Aurelia Fundamentals](https://www.pluralsight.com/courses/aurelia-fundamentals) by Bryan Noyes via Pluralsight
 * [Building Applications with Aurelia](https://app.pluralsight.com/library/courses/building-applications-aurelia/table-of-contents) by K. Scott Allen via Pluralsight
 
-## [Training](aurelia-doc://section/3/version/1.0.0)
+## Training
 
 We've got an international web of certified trainers, core team members and official partners. If you need custom training, we can connect you with someone who can help put together on-site or virtual training to meet your needs. For more information, please email <a href="mailto://training@bluespire.com?subject=Aurelia Training">training@bluespire.com</a> and we will do our best to accommodate you.
 
-## [Consulting](aurelia-doc://section/4/version/1.0.0)
+## Consulting
 
 **We can help with a wide variety of tasks.** Code reviews to make sure that you’re on the right track? Can do. Advice on the best way to proceed with your architecture? Yep. Design and UX expertise to really make it special? We’ve got you covered.
 
@@ -46,7 +36,7 @@ Our core team and partners are able to offer expert consulting on both large and
 
 Have questions? Email <a href="mailto://consulting@bluespire.com?subject=Aurelia Development Team Request">consulting@bluespire.com</a> with what you need. We would love to help you connect with talent who can make your project a success!
 
-## [Support](aurelia-doc://section/5/version/1.0.0)
+## Support
 
 We offer enterprise service agreements that will give you and your team great peace of mind. You can know that when you need support, there will be a dedicated expert ready to help you. We believe in our customers and our community and we deeply desire to help ensure your success. For more information email <a href="mailto:support@bluespire.com?subject=Aurelia Enterprise Support">support@bluespire.com</a>.
 
