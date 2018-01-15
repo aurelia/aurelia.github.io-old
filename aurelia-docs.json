@@ -1,12 +1,22 @@
 {
-  "outDir": "./",
+  "name": "Aurelia",
+  "siteUrl": "http://aurelia.io",
   "baseUrl": "/",
+  "outDir": "./",
   "trackingID": "UA-38441871-6",
   "home": {
     "dest": "home"
   },
   "blog": {
-    "dest": "blog"
+    "name": "The Aurelia Blog",
+    "description": "The official blog of the Aurelia project and Core Team.",
+    "dest": "blog",
+    "src": "../blog",
+    "postsPerPage": 7,
+    "author": "AureliaEffect",
+    "migration": {
+      "src": "../blog/aurelia.ghost.2018-01-15.json"
+    }
   },
   "help": {
     "name": "Help",
@@ -28,33 +38,17 @@
             "name": "What is Aurelia?",
             "src": "../framework/doc/article/en-US/what-is-aurelia.md",
             "dest": "docs/overview/what-is-aurelia",
-            "featured": true,
-            "personas": [
-              "developer",
-              "new-developer",
-              "architect",
-              "manager"
-            ]
+            "featured": true
           },
           {
             "name": "Technical Benefits",
             "src": "../framework/doc/article/en-US/technical-benefits.md",
-            "dest": "docs/overview/technical-benefits",
-            "personas": [
-              "developer",
-              "architect",
-              "manager"
-            ]
+            "dest": "docs/overview/technical-benefits"
           },
           {
             "name": "Business Advantages",
             "src": "../framework/doc/article/en-US/business-advantages.md",
-            "dest": "docs/overview/business-advantages",
-            "personas": [
-              "developer",
-              "architect",
-              "manager"
-            ]
+            "dest": "docs/overview/business-advantages"
           }
         ]
       },
@@ -67,21 +61,13 @@
             "name": "Creating a Todo App",
             "src": "../framework/doc/article/en-US/quick-start.md",
             "dest": "docs/tutorials/creating-a-todo-app",
-            "featured": true,
-            "personas": [
-              "developer",
-              "new-developer"
-            ]
+            "featured": true
           },
           {
             "name": "Creating a Contact Manager",
             "src": "../framework/doc/article/en-US/contact-manager-tutorial.md",
             "dest": "docs/tutorials/creating-a-contact-manager",
-            "featured": true,
-            "personas": [
-              "developer",
-              "new-developer"
-            ]
+            "featured": true
           }
         ]
       },
@@ -93,43 +79,27 @@
           {
             "name": "App Config and Startup",
             "src": "../framework/doc/article/en-US/app-configuration-and-startup.md",
-            "dest": "docs/fundamentals/app-configuration-and-startup",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/fundamentals/app-configuration-and-startup"
           },
           {
             "name": "Creating Components",
             "src": "../framework/doc/article/en-US/creating-components.md",
-            "dest": "docs/fundamentals/components",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/fundamentals/components"
           },
           {
             "name": "Dependency Injection",
             "src": "../dependency-injection/doc/article/en-US/dependency-injection-basics.md",
-            "dest": "docs/fundamentals/dependency-injection",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/fundamentals/dependency-injection"
           },
           {
             "name": "Securing Your App",
             "src": "../framework/doc/article/en-US/securing-your-app.md",
-            "dest": "docs/fundamentals/security",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/fundamentals/security"
           },
           {
             "name": "Cheat Sheet",
             "src": "../framework/doc/article/en-US/cheat-sheet.md",
-            "dest": "docs/fundamentals/cheat-sheet",
-            "personas": [
-              "developer",
-              "new-developer"
-            ]
+            "dest": "docs/fundamentals/cheat-sheet"
           }
         ]
       },
@@ -141,90 +111,57 @@
           {
             "name": "Binding Basics",
             "src": "../binding/doc/article/en-US/binding-basics.md",
-            "dest": "docs/binding/basics",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/binding/basics"
           },
           {
             "name": "Class and Style",
             "src": "../binding/doc/article/en-US/binding-class-and-style.md",
-            "dest": "docs/binding/class-and-style",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/binding/class-and-style"
           },
           {
             "name": "Binding Checkboxes",
             "src": "../binding/doc/article/en-US/binding-checkboxes.md",
-            "dest": "docs/binding/checkboxes",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/binding/checkboxes"
           },
           {
             "name": "Binding Radios",
             "src": "../binding/doc/article/en-US/binding-radios.md",
-            "dest": "docs/binding/radios",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/binding/radios"
           },
           {
             "name": "Binding Selects",
             "src": "../binding/doc/article/en-US/binding-selects.md",
-            "dest": "docs/binding/selects",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/binding/selects"
           },
           {
             "name": "Delegate vs. Trigger",
             "src": "../binding/doc/article/en-US/binding-delegate-vs-trigger.md",
-            "dest": "docs/binding/delegate-vs-trigger",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/binding/delegate-vs-trigger"
           },
           {
             "name": "Computed Properties",
             "src": "../binding/doc/article/en-US/binding-computed-properties.md",
-            "dest": "docs/binding/computed-properties",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/binding/computed-properties"
           },
           {
             "name": "Value Converters",
             "src": "../binding/doc/article/en-US/binding-value-converters.md",
-            "dest": "docs/binding/value-converters",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/binding/value-converters"
           },
           {
             "name": "Binding Behaviors",
             "src": "../binding/doc/article/en-US/binding-binding-behaviors.md",
-            "dest": "docs/binding/binding-behaviors",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/binding/binding-behaviors"
           },
           {
             "name": "Observable Properties",
             "src": "../binding/doc/article/en-US/binding-observable-properties.md",
-            "dest": "docs/binding/binding-observable-properties",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/binding/binding-observable-properties"
           },
           {
             "name": "How it Works",
             "src": "../binding/doc/article/en-US/binding-how-it-works.md",
-            "dest": "docs/binding/how-it-works",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/binding/how-it-works"
           }
         ]
       },
@@ -236,50 +173,32 @@
           {
             "name": "Templating Basics",
             "src": "../templating/doc/article/en-US/templating-basics.md",
-            "dest": "docs/templating/basics",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/templating/basics"
           },
           {
             "name": "HTML Behaviors",
             "src": "../templating/doc/article/en-US/templating-html-behaviors-introduction.md",
-            "dest": "docs/templating/html-behaviors-introduction",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/templating/html-behaviors-introduction"
           },
           {
             "name": "Custom Attributes",
             "src": "../templating/doc/article/en-US/templating-custom-attributes.md",
-            "dest": "docs/templating/custom-attributes",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/templating/custom-attributes"
           },
           {
             "name": "Custom Elements",
             "src": "../templating/doc/article/en-US/templating-custom-elements.md",
-            "dest": "docs/templating/custom-elements",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/templating/custom-elements"
           },
           {
             "name": "Content Projection",
             "src": "../templating/doc/article/en-US/templating-content-projection.md",
-            "dest": "docs/templating/content-projection",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/templating/content-projection"
           },
           {
             "name": "Dynamic UI Composition",
             "src": "../templating/doc/article/en-US/templating-dynamic-ui-composition.md",
-            "dest": "docs/templating/dynamic-ui-composition",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/templating/dynamic-ui-composition"
           }
         ]
       },
@@ -291,10 +210,7 @@
           {
             "name": "Router Configuration",
             "src": "../router/doc/article/en-US/router-configuration.md",
-            "dest": "docs/routing/configuration",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/routing/configuration"
           }
         ]
       },
@@ -306,34 +222,22 @@
           {
             "name": "HTTP",
             "src": "../fetch-client/doc/article/en-US/http-services.md",
-            "dest": "docs/plugins/http-services",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/plugins/http-services"
           },
           {
             "name": "Validation",
             "src": "../validation/doc/article/en-US/validation-basics.md",
-            "dest": "docs/plugins/validation",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/plugins/validation"
           },
           {
             "name": "I18N",
             "src": "../i18n/doc/article/en-US/i18n-with-aurelia.md",
-            "dest": "docs/plugins/i18n",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/plugins/i18n"
           },
           {
             "name": "Dialog",
             "src": "../dialog/doc/article/en-US/dialog-basics.md",
-            "dest": "docs/plugins/dialog",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/plugins/dialog"
           }
         ]
       },
@@ -345,10 +249,7 @@
           {
             "name": "Integrating with Polymer",
             "src": "../framework/doc/article/en-US/integrating-with-polymer.md",
-            "dest": "docs/integration/polymer",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/integration/polymer"
           }
         ]
       },
@@ -360,18 +261,12 @@
           {
             "name": "Testing Components",
             "src": "../testing/doc/article/en-US/testing-components.md",
-            "dest": "docs/testing/components",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/testing/components"
           },
           {
             "name": "End-to-End Testing",
             "src": "../testing/doc/article/en-US/end-to-end-testing.md",
-            "dest": "docs/testing/end-to-end",
-            "personas": [
-              "developer"
-            ]
+            "dest": "docs/testing/end-to-end"
           }
         ]
       },
@@ -383,11 +278,7 @@
           {
             "name": "The Aurelia CLI",
             "src": "../framework/doc/article/en-US/the-aurelia-cli.md",
-            "dest": "docs/build-systems/aurelia-cli",
-            "personas": [
-              "developer",
-              "new-developer"
-            ]
+            "dest": "docs/build-systems/aurelia-cli"
           },
           {
             "name": "Webpack",
@@ -397,19 +288,12 @@
               {
                 "name": "Webpack Setup",
                 "src": "../framework/doc/article/en-US/setup-webpack.md",
-                "dest": "docs/build-systems/webpack/setup",
-                "personas": [
-                  "developer"
-                ]
+                "dest": "docs/build-systems/webpack/setup"
               },
               {
                 "name": "Webpack Bundling",
                 "src": "../framework/doc/article/en-US/bundling-webpack.md",
-                "dest": "docs/build-systems/webpack/bundling",
-                "personas": [
-                  "developer",
-                  "new-developer"
-                ]
+                "dest": "docs/build-systems/webpack/bundling"
               }
             ]
           },
@@ -421,18 +305,12 @@
               {
                 "name": "JSPM Setup",
                 "src": "../framework/doc/article/en-US/setup-jspm.md",
-                "dest": "docs/build-systems/jspm/setup",
-                "personas": [
-                  "developer"
-                ]
+                "dest": "docs/build-systems/jspm/setup"
               },
               {
                 "name": "JSPM Bundling",
                 "src": "../framework/doc/article/en-US/bundling-jspm.md",
-                "dest": "docs/build-systems/jspm/bundling",
-                "personas": [
-                  "developer"
-                ]
+                "dest": "docs/build-systems/jspm/bundling"
               }
             ]
           }
