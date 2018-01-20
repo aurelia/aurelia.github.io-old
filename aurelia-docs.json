@@ -1,10 +1,14 @@
 {
   "name": "Aurelia",
   "siteUrl": "http://aurelia.io",
+  "logoSrc": "./src/logo.svg",
   "baseUrl": "/",
   "outDir": "./",
   "trackingID": "UA-38441871-6",
   "home": {
+    "name": "Home",
+    "description": "Aurelia is a JavaScript client framework for web, mobile and desktop that leverages simple conventions to empower your creativity.",
+    "src": "./src/home.html",
     "dest": "home"
   },
   "blog": {
@@ -18,6 +22,10 @@
       "src": "../blog/aurelia.ghost.2018-01-15.json"
     }
   },
+  "forum": {
+    "url": "https://discourse.aurelia.io",
+    "name": "Discourse"
+  },
   "help": {
     "name": "Help",
     "src": "./src/help.md",
@@ -25,7 +33,25 @@
   },
   "notFound":{
     "name": "404",
-    "description": "Not Found"
+    "description": "Not Found",
+    "links": [
+      {
+        "href": "/docs/tutorials/creating-a-todo-app",
+        "text": "Getting Started with Aurelia"
+      },
+      {
+        "href": "/docs",
+        "text": "Aurelia Guides"
+      },
+      {
+        "href": "/docs/api",
+        "text": "Aurelia APIs"
+      },
+      {
+        "href": "/help",
+        "text": "Help"
+      }
+    ]
   },
   "docs": {
     "article": [
@@ -463,6 +489,63 @@
         "package": "../testing/package.json",
         "src": "../testing/dist/commonjs/aurelia-testing.d.ts",
         "dest": "docs/api/testing"
+      }
+    ]
+  },
+  "search": true,
+  "footer": {
+    "copyright": "Copyright © 2010 - 2018 <a href=\"http://www.bluespire.com\">Blue Spire Inc.</a> Code licensed under the MIT License. Content licensed under CC0.",
+    "columns": [
+      {
+        "name":"Resources",
+        "links": [
+          {
+            "href": "docs/overview/what-is-aurelia",
+            "text": "About"
+          },
+          {
+            "href": "blog",
+            "text": "Blog"
+          },
+          {
+            "href": "http://eepurl.com/ces50j",
+            "text": "Newsletter"
+          }
+        ]
+      },
+      {
+        "name":"Help",
+        "links": [
+          {
+            "href": "https://discourse.aurelia.io/",
+            "text": "Discourse"
+          },
+          {
+            "href": "https://gitter.im/aurelia/Discuss",
+            "text": "Gitter"
+          },
+          {
+            "href": "https://stackoverflow.com/search?q=aurelia",
+            "text": "Stack Overflow"
+          }
+        ]
+      },
+      {
+        "name":"Community",
+        "links": [
+          {
+            "href": "https://github.com/aurelia",
+            "text": "GitHub"
+          },
+          {
+            "href": "https://twitter.com/aureliaeffect",
+            "text": "Twitter"
+          },
+          {
+            "href": "https://github.com/orgs/aurelia/people",
+            "text": "Team"
+          }
+        ]
       }
     ]
   }
