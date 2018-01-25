@@ -2,10 +2,16 @@
 <rss version="2.0">
   <channel>
     <title><![CDATA[The Aurelia Blog]]></title>
-    <link>http:/aurelia.io/blog</link>
+    <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Mon Jan 15 2018 10:49:21 GMT-0800 (PST)</lastBuildDate>
+    <lastBuildDate>Wed Jan 24 2018 21:10:18 GMT-0800 (PST)</lastBuildDate>
+    <item>
+      <title><![CDATA[Big Changes in the Aurelia Router 1.5.0 Release]]></title>
+      <link>http://aurelia.io/blog/2018/01/22/big-changes-in-the-aurelia-router-150-release</link>
+      <description><![CDATA[Thanks to the new features in the latest update to the Aurelia router, building a beautiful and functional master-detail page in Aurelia is quick and easy.]]></description>
+      <pubDate>Mon Jan 22 2018 01:19:46 GMT-0800 (PST)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia 2018 Roadmap]]></title>
       <link>http://aurelia.io/blog/2018/01/03/aurelia-2018-roadmap</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2017/04/04/case-study-netrostation</link>
       <description><![CDATA[One of the exciting things we get to do on the Aurelia blog is share various customer stories and case studies. Sometimes, it's for large, well-known companies like The Nordic Cinema Group [http://blog.aurelia.io/2017/01/18/case-study-nordic-cinema-group/] but at other times we get to tell the equally-exciting story of a developer who launched their first tech startup.]]></description>
       <pubDate>Tue Apr 04 2017 10:13:56 GMT-0700 (PDT)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Release Update - Late March Edition]]></title>
-      <link>http://aurelia.io/blog/2017/03/27/aurelia-release-update-late-march-edition</link>
-      <description><![CDATA[As always, we're constantly working to improve Aurelia. Read on for the full list of minor and patch release update notes for our end-of-March releases.]]></description>
-      <pubDate>Mon Mar 27 2017 10:20:01 GMT-0700 (PDT)</pubDate>
     </item>
   </channel>
 </rss>

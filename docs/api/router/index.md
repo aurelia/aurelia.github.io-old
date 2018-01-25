@@ -30,11 +30,17 @@ The main application router.
 * `baseUrl: string` - The [[Router]]&#x27;s current base URL, typically based on the [[Router.currentInstruction]].
 * `container: Container` - No description available.
 * `currentInstruction: NavigationInstruction` - The currently active navigation instruction.
+* `currentNavigationTracker: number` - The currently active navigation tracker.
 * `history: History` - No description available.
 * `isConfigured: boolean` - True if the [[Router]] has been configured.
 * `isExplicitNavigation: boolean` - True if the [[Router]] is navigating due to explicit call to navigate function(s).
 * `isExplicitNavigationBack: boolean` - True if the [[Router]] is navigating due to explicit call to navigateBack function.
 * `isNavigating: boolean` - True if the [[Router]] is currently processing a navigation.
+* `isNavigatingBack: boolean` - True if the [[Router]] is navigating back in the browser session history.
+* `isNavigatingFirst: boolean` - True if the [[Router]] is navigating into the app for the first time in the browser session.
+* `isNavigatingForward: boolean` - True if the [[Router]] is navigating forward in the browser session history.
+* `isNavigatingNew: boolean` - True if the [[Router]] is navigating to a page instance not in the browser session history.
+* `isNavigatingRefresh: boolean` - True if the [[Router]] is navigating due to a browser refresh.
 * `isRoot: boolean` - Gets a value indicating whether or not this [[Router]] is the root in the router tree. I.e., it has no parent.
 * `navigation: ` - The navigation models for routes that specified [[RouteConfig.nav]].
 * `options: any` - No description available.
@@ -43,6 +49,7 @@ The main application router.
 * `transformTitle: ` - Extension point to transform the document title before it is built and displayed.
 By default, child routers delegate to the parent router, and the app router
 returns the title unchanged.
+* `viewPortDefaults: any` - The defaults used when a viewport lacks specified content
 * `viewPorts: Object` - No description available.
 
 #### Methods
@@ -81,7 +88,7 @@ returns the title unchanged.
 * `generate(name: string, params?: any, options?: any): string` - Generates a URL fragment matching the specified route pattern.
   * `name: string` - The name of the route whose pattern should be used to generate the fragment.
   * `params?: any` - The route params to be used to populate the route pattern.
-  * `options?: any` - No description available
+  * `options?: any` - If options.absolute &#x3D; true, then absolute url will be generated; otherwise, it will be relative url.
 
 
 * `handleUnknownRoutes(config?: ): void` - Register a handler to use when the incoming URL fragment doesn&#x27;t match any registered routes.
@@ -106,7 +113,7 @@ returns the title unchanged.
 
 * `navigate(fragment: string, options?: any): boolean` - Navigates to a new location.
   * `fragment: string` - The URL fragment to use as the navigation destination.
-  * `options?: any` - The navigation options.
+  * `options?: any` - The navigation options. See [[History.NavigationOptions]] for all available options.
 
 
 
@@ -117,7 +124,7 @@ returns the title unchanged.
 by [[Router.navigate]].
   * `route: string` - The name of the route to use when generating the navigation location.
   * `params?: any` - The route parameters to be used when populating the route pattern.
-  * `options?: any` - The navigation options.
+  * `options?: any` - The navigation options. See [[History.NavigationOptions]] for all available options.
 
 
 
@@ -136,6 +143,12 @@ Use with caution (actually, avoid using this). Do not use this to simply change 
 
 
 * `updateTitle(): void` - Updates the document title using the current navigation instruction.
+
+
+* `useViewPortDefaults(viewPortDefaults: any): any` - Sets the default configuration for the view ports. This specifies how to
+ populate a view port for which no module is specified. The default is
+ an empty view/view-model pair.
+  * `viewPortDefaults: any` - No description available
 
 
 * `static inject(): any` - 
@@ -251,7 +264,7 @@ Class for storing and interacting with a route&#x27;s navigation settings.
 * `href: string` - This nav item&#x27;s absolute href.
 * `isActive: boolean` - True if this nav item is currently active.
 * `relativeHref: string` - This nav item&#x27;s relative href.
-* `router: Router` - The router associated with this navitation model.
+* `router: Router` - The router associated with this navigation model.
 * `settings: any` - Data attached to the route at configuration time.
 * `title: string` - The title.
 
@@ -432,11 +445,17 @@ The primary class responsible for handling routing and navigation.
 * `baseUrl: string` - The [[Router]]&#x27;s current base URL, typically based on the [[Router.currentInstruction]].
 * `container: Container` - No description available.
 * `currentInstruction: NavigationInstruction` - The currently active navigation instruction.
+* `currentNavigationTracker: number` - The currently active navigation tracker.
 * `history: History` - No description available.
 * `isConfigured: boolean` - True if the [[Router]] has been configured.
 * `isExplicitNavigation: boolean` - True if the [[Router]] is navigating due to explicit call to navigate function(s).
 * `isExplicitNavigationBack: boolean` - True if the [[Router]] is navigating due to explicit call to navigateBack function.
 * `isNavigating: boolean` - True if the [[Router]] is currently processing a navigation.
+* `isNavigatingBack: boolean` - True if the [[Router]] is navigating back in the browser session history.
+* `isNavigatingFirst: boolean` - True if the [[Router]] is navigating into the app for the first time in the browser session.
+* `isNavigatingForward: boolean` - True if the [[Router]] is navigating forward in the browser session history.
+* `isNavigatingNew: boolean` - True if the [[Router]] is navigating to a page instance not in the browser session history.
+* `isNavigatingRefresh: boolean` - True if the [[Router]] is navigating due to a browser refresh.
 * `isRoot: boolean` - Gets a value indicating whether or not this [[Router]] is the root in the router tree. I.e., it has no parent.
 * `navigation: ` - The navigation models for routes that specified [[RouteConfig.nav]].
 * `options: any` - No description available.
@@ -445,6 +464,7 @@ The primary class responsible for handling routing and navigation.
 * `transformTitle: ` - Extension point to transform the document title before it is built and displayed.
 By default, child routers delegate to the parent router, and the app router
 returns the title unchanged.
+* `viewPortDefaults: any` - The defaults used when a viewport lacks specified content
 * `viewPorts: Object` - No description available.
 
 #### Methods
@@ -476,7 +496,7 @@ returns the title unchanged.
 * `generate(name: string, params?: any, options?: any): string` - Generates a URL fragment matching the specified route pattern.
   * `name: string` - The name of the route whose pattern should be used to generate the fragment.
   * `params?: any` - The route params to be used to populate the route pattern.
-  * `options?: any` - No description available
+  * `options?: any` - If options.absolute &#x3D; true, then absolute url will be generated; otherwise, it will be relative url.
 
 
 * `handleUnknownRoutes(config?: ): void` - Register a handler to use when the incoming URL fragment doesn&#x27;t match any registered routes.
@@ -496,7 +516,7 @@ returns the title unchanged.
 
 * `navigate(fragment: string, options?: any): boolean` - Navigates to a new location.
   * `fragment: string` - The URL fragment to use as the navigation destination.
-  * `options?: any` - The navigation options.
+  * `options?: any` - The navigation options. See [[History.NavigationOptions]] for all available options.
 
 
 
@@ -507,7 +527,7 @@ returns the title unchanged.
 by [[Router.navigate]].
   * `route: string` - The name of the route to use when generating the navigation location.
   * `params?: any` - The route parameters to be used when populating the route pattern.
-  * `options?: any` - The navigation options.
+  * `options?: any` - The navigation options. See [[History.NavigationOptions]] for all available options.
 
 
 
@@ -528,6 +548,12 @@ Use with caution (actually, avoid using this). Do not use this to simply change 
 * `updateTitle(): void` - Updates the document title using the current navigation instruction.
 
 
+* `useViewPortDefaults(viewPortDefaults: any): any` - Sets the default configuration for the view ports. This specifies how to
+ populate a view port for which no module is specified. The default is
+ an empty view/view-model pair.
+  * `viewPortDefaults: any` - No description available
+
+
 
 ### RouterConfiguration
 
@@ -540,6 +566,7 @@ Class used to configure a [[Router]] instance.
 * `pipelineSteps: Array` - No description available.
 * `title: string` - No description available.
 * `unknownRouteConfig: any` - No description available.
+* `viewPortDefaults: any` - No description available.
 
 #### Methods
 
@@ -585,6 +612,11 @@ Class used to configure a [[Router]] instance.
 * `mapUnknownRoutes(config: ): RouterConfiguration` - Registers an unknown route handler to be run when the URL fragment doesn&#x27;t match any registered routes.
   * `config: ` - A string containing a moduleId to load, or a [[RouteConfig]], or a function that takes the
  [[NavigationInstruction]] and selects a moduleId to load.
+
+
+* `useViewPortDefaults(viewPortConfig: any): any` - Configures defaults to use for any view ports.
+  * `viewPortConfig: any` - a view port configuration object to use as a
+ default, of the form { viewPortName: { moduleId } }.
 
 
 
@@ -842,7 +874,7 @@ to be in your view-model code. Available values are &#x27;replace&#x27; and &#x2
 * `generationUsesHref: boolean` - Indicates that when route generation is done for this route, it should just take the literal value of the href property.
 * `href: string` - The URL fragment to use in nav models. If unspecified, the [[RouteConfig.route]] will be used.
 However, if the [[RouteConfig.route]] contains dynamic segments, this property must be specified.
-* `layoutModel: string` - specifies the model parameter to pass to the layout view model&#x27;s &#x60;activate&#x60; function.
+* `layoutModel: any` - specifies the model parameter to pass to the layout view model&#x27;s &#x60;activate&#x60; function.
 * `layoutView: string` - specifies the file name of a layout view to use.
 * `layoutViewModel: string` - specifies the moduleId of the view model to use with the layout view.
 * `moduleId: string` - The moduleId of the view model that should be activated for this route.
