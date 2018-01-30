@@ -88,10 +88,11 @@ Represents the core APIs of the DOM.
   * `id: string` - The id to search the document for.
 
 
-* `injectStyles(styles: string, destination?: Element, prepend?: boolean): Node` - Injects styles into the destination element, or the document.head if no destination is provided.
+* `injectStyles(styles: string, destination?: Element, prepend?: boolean, id?: string): Node` - Injects styles into the destination element, or the document.head if no destination is provided.
   * `styles: string` - The css text to injext.
   * `destination?: Element` - The destination element to inject the css text into. If not specified it will default to the document.head.
   * `prepend?: boolean` - Indicates whether or not the styles should be prepended to the destination. By default they are appended.
+  * `id?: string` - No description available.
 
 
 * `nextElementSibling(element: Node): Element` - Gets the element that is the next sibling of the provided element.

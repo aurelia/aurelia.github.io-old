@@ -136,8 +136,7 @@ See https://developer.mozilla.org/en-US/docs/Web/API/Request/Request
 ## Functions
 
 
-* `json(body: any, replacer?: any): Blob` - Create a Blob containing JSON-serialized data.
-Useful for easily creating JSON fetch request bodies.
+* `json(body: any, replacer?: any): string` - Serialize an object to JSON. Useful for easily creating JSON fetch request bodies.
   * `body: any` - The object to be serialized to JSON.
   * `replacer?: any` - The JSON.stringify replacer used when serializing.
 

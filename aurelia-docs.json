@@ -1,10 +1,12 @@
 {
   "name": "Aurelia",
   "siteUrl": "http://aurelia.io",
-  "logoSrc": "./src/logo.svg",
   "baseUrl": "/",
   "outDir": "./",
   "trackingID": "UA-38441871-6",
+  "appearance": {
+    "logoSrc": "./src/logo.svg"
+  },
   "home": {
     "name": "Home",
     "description": "Aurelia is a JavaScript client framework for web, mobile and desktop that leverages simple conventions to empower your creativity.",
@@ -18,6 +20,13 @@
     "src": "../blog",
     "postsPerPage": 7,
     "author": "AureliaEffect",
+    "social": {
+      "name": "Aurelia Channels",
+      "twitter": "https://twitter.com/aureliaeffect",
+      "github": "https://github.com/aurelia/framework",
+      "vimeo": "https://vimeo.com/channels/867847",
+      "gitter": "https://gitter.im/aurelia/Discuss"
+    },
     "migration": {
       "src": "../blog/aurelia.ghost.2018-01-15.json"
     }
