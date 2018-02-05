@@ -10,13 +10,13 @@
   </script>
 
   <meta charset="utf-8">
-  <title>The Aurelia Blog - Page 16 | Aurelia</title>
+  <title>Aurelia Release Notes - Early February 2018 | Aurelia</title>
   <base href="/">
   <meta name="msapplication-tap-highlight" content="no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   
-  <meta name="description" content="The official blog of the Aurelia project and Core Team."/>
+  <meta name="description" content="Continuing into 2018, we&#x27;ve got a number of fixes and improvements to core Aurelia libraries and plugins. The details are available below."/>
   <meta name="robots" content="index,follow"/>
   
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:200,400,700" rel="stylesheet">
@@ -32,70 +32,110 @@
 
   <main ref="main">
     <div screen-activator.bind="activeScreen" screen-activated.trigger="onScreenActivated()" class="screen-activator">
-      <section class="article-group blog">
+      <section class="article blog">
   <header>
-    <h1>The Aurelia Blog - Page 16</h1>
+    <h1>Aurelia Release Notes - Early February 2018</h1>
+    <h2>Posted by <span class="author">Rob Eisenberg</span> on <span class="date">February 5, 2018</span></h2>
   </header>
 
-  <section>
-    <ul class="article-list">
-      <li>
-        <a href="blog/2015/09/22/aurelia-klondike-solitaire-and-dragula">
-          <h3>Aurelia, Klondike Solitaire and Dragula</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">September 22, 2015</span>
-          <p>This week core team member Jeremy Danyow shares his adventure building Klondike Solitaire, leveraging the power of Aurelia and using the Dragula drag-and-drop library.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2015/09/11/bundling-aurelia-apps">
-          <h3>Bundling Aurelia Apps</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">September 11, 2015</span>
-          <p>Our latest Aurelia release has made significant advances, with more on the horizon. Today, Core Team Member Ahmed Shuhel will share how our bundling strategy is evolving to support the framework and our community.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2015/09/04/aurelia-early-september-release-notes">
-          <h3>Aurelia Early September Release Notes</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">September 4, 2015</span>
-          <p>We&#x27;ve got new releases for you today! This update brings significant new capabilities to the view engine as well as making Aurelia smaller and faster. Read on for the details and how to update.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2015/08/24/jwt-authentication-in-aurelia">
-          <h3>JWT Authentication in Aurelia</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">August 24, 2015</span>
-          <p>This week community member Ryan Chenkie [https://twitter.com/ryanchenkie] shows us how to implement JWT Authentication in Aurelia. Ryan is a full-stack developer from Canada who works for Auth0 [https://auth0.com] as a Tech Writer where he provides in-depth tutorials and seed projects for the newest frameworks such as Angular 2, React, and Aurelia as well as other modern web technologies.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2015/08/14/aurelia-mid-august-release-notes">
-          <h3>Aurelia Mid-August Release Notes</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">August 14, 2015</span>
-          <p>Today we&#x27;ve got a host of updates to Aurelia, many of which involve opening up additional extensibility and power in the platform. Read on for the details...</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2015/08/07/creating-reactive-loosely-coupled-apps-with-aurelia-and-flux-episode-2">
-          <h3>Creating Reactive, Loosely Coupled Apps with Aurelia and Flux - Episode 2</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">August 7, 2015</span>
-          <p>Recently we featured Tomasz Frydrychewicz, the Aurelia community member who authored the aurelia-flux plugin. Today, we&#x27;re happy to bring you the second article in his series where he&#x27;ll take you on a reactive, application-building adventure. Read on to dive into the details.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2015/08/04/aurelia-release-for-jspm-beta">
-          <h3>Aurelia Release for JSPM Beta</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">August 4, 2015</span>
-          <p>The spec for the standard JS module loader has recently been changing. The JSPM and SystemJS teams have been working hard to align with the new specs. And as of this release, Aurelia is now aligned with the new JSPM and SystemJS Beta.</p>
-        </a>
-      </li>
-    </ul>
-  </section>
+  <article class="markdown">
+    <div class="content">
+      <p>Continuing into 2018, we've got a number of fixes and improvements to core Aurelia libraries and plugins. The details are available below.</p>
+<section><h2 id="minor-releases">Minor Releases</h2><p>Minor updates include new features, updates to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/router/compare/1.4.0...1.5.0" target="_blank">aurelia-router 1.5.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>navigation-instruction:</strong> Wait to swap child routes (
+<a href="https://github.com/aurelia/router/commit/1432234" target="_blank">1432234</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>router:</strong> Enhance optional view port feature (
+<a href="https://github.com/aurelia/router/commit/bcf4e33" target="_blank">bcf4e33</a>
+)</li>
+<li><strong>router:</strong> optional viewports (
+<a href="https://github.com/aurelia/router/commit/8878b45" target="_blank">8878b45</a>
+)</li>
+<li><strong>router:</strong> viewport defaults (
+<a href="https://github.com/aurelia/router/commit/0bfc4bc" target="_blank">0bfc4bc</a>
+), closes 
+<a href="https://github.com/aurelia/router/issues/482" target="_blank">aurelia/router#482</a>
+</li>
+<li><strong>router config:</strong> ignoreUnknownRoutes option (
+<a href="https://github.com/aurelia/router/commit/811959b" target="_blank">811959b</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/templating-router/compare/1.2.0...1.3.0" target="_blank">aurelia-templating-router 1.3.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>templating-router:</strong> optional viewports (
+<a href="https://github.com/aurelia/templating-router/commit/24532ff" target="_blank">24532ff</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/fetch-client/compare/1.3.0...v1.3.1" target="_blank">aurelia-fetch-client 1.3.1</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>http-client:</strong> Rework application/json header (
+<a href="https://github.com/aurelia/fetch-client/commit/946273a" target="_blank">946273a</a>
+), closes 
+<a href="https://github.com/aurelia/fetch-client/issues/90" target="_blank">#90</a>
+</li>
+<li><strong>util:</strong> Discontinue using Blob for JSON (
+<a href="https://github.com/aurelia/fetch-client/commit/03ae35f" target="_blank">03ae35f</a>
+), closes 
+<a href="https://github.com/aurelia/fetch-client/issues/90" target="_blank">#90</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/polyfills/compare/1.2.2...v1.3.0" target="_blank">aurelia-polyfills 1.3.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>Object:</strong> add Object.is() (
+<a href="https://github.com/aurelia/polyfills/issues/58" target="_blank">#58</a>
+) (
+<a href="https://github.com/aurelia/polyfills/commit/3cf3410" target="_blank">3cf3410</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/pal/compare/1.4.0...v1.5.0" target="_blank">aurelia-pal 1.5.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>dom</strong>: Enable injectStyles to replace the contents of an existing style element by id.</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/pal-browser/compare/1.3.1...v1.4.0" target="_blank">aurelia-pal-browser 1.4.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>dom</strong>: Enable injectStyles to replace the contents of an existing style element by id.</li>
+</ul>
+</section>
+<section><h2 id="patch-releases">Patch Releases</h2><p>Patch updates include only fixes to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/i18n/compare/2.1.0...2.1.1" target="_blank">aurelia-i18n 2.1.1</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>t-attribute:</strong> convert to string (
+<a href="https://github.com/aurelia/i18n/commit/6d962d3" target="_blank">6d962d3</a>
+)</li>
+</ul>
+</section>
 
-  <div class="button-bar">
-    <a class="prev" href="blog/page/15">Newer Posts</a>
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
 
-    <a class="next" href="blog/page/17">Older Posts</a>
-  </div>
+  <blog-footer blog-name="Aurelia%20Release%20Notes%20-%20Early%20February%202018" blog-url="blog%2F2018%2F02%2F05%2Faurelia-release-notes-early-february-2018"></blog-footer>
 </section>
 
     </div>
