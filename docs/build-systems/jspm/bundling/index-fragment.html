@@ -33,10 +33,10 @@
 
     <span class="token keyword">var</span> config <span class="token operator">=</span> <span class="token punctuation">{</span>
       force<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-      baseURL<span class="token punctuation">:</span> <span class="token string">'.'</span><span class="token punctuation">,</span>                   <span class="token comment" spellcheck="true">// baseURL of the application</span>
-      configPath<span class="token punctuation">:</span> <span class="token string">'./config.js'</span><span class="token punctuation">,</span>      <span class="token comment" spellcheck="true">// config.js file. Must be within `baseURL`</span>
+      baseURL<span class="token punctuation">:</span> <span class="token string">'.'</span><span class="token punctuation">,</span>                   <span class="token comment">// baseURL of the application</span>
+      configPath<span class="token punctuation">:</span> <span class="token string">'./config.js'</span><span class="token punctuation">,</span>      <span class="token comment">// config.js file. Must be within `baseURL`</span>
       bundles<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token string">"dist/app-build"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>           <span class="token comment" spellcheck="true">// bundle name/path. Must be within `baseURL`. Final path is: `baseURL/dist/app-build.js`.</span>
+        <span class="token string">"dist/app-build"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>           <span class="token comment">// bundle name/path. Must be within `baseURL`. Final path is: `baseURL/dist/app-build.js`.</span>
           includes<span class="token punctuation">:</span> <span class="token punctuation">[</span>
             <span class="token string">'[*.js]'</span><span class="token punctuation">,</span>
             <span class="token string">'*.html!text'</span><span class="token punctuation">,</span>
@@ -100,14 +100,14 @@ The bundle function returns a Promise for proper integration into async task eng
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     <span class="token keyword">var</span> config <span class="token operator">=</span> <span class="token punctuation">{</span>
       force<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-      baseURL<span class="token punctuation">:</span> <span class="token string">'.'</span><span class="token punctuation">,</span>             <span class="token comment" spellcheck="true">// baseURL of the application</span>
-      configPath<span class="token punctuation">:</span> <span class="token punctuation">[</span>             <span class="token comment" spellcheck="true">// SystemJS/JSPM configuration files</span>
+      baseURL<span class="token punctuation">:</span> <span class="token string">'.'</span><span class="token punctuation">,</span>             <span class="token comment">// baseURL of the application</span>
+      configPath<span class="token punctuation">:</span> <span class="token punctuation">[</span>             <span class="token comment">// SystemJS/JSPM configuration files</span>
         <span class="token string">'./jspm.browser.js'</span><span class="token punctuation">,</span>
         <span class="token string">'./jspm.config.js'</span>
       <span class="token punctuation">]</span><span class="token punctuation">,</span>        
-      injectionConfigPath<span class="token punctuation">:</span> <span class="token string">'./jspm.config.js'</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">// Configuration file path where bundle and depCache meta will be injected.</span>
+      injectionConfigPath<span class="token punctuation">:</span> <span class="token string">'./jspm.config.js'</span><span class="token punctuation">,</span>  <span class="token comment">// Configuration file path where bundle and depCache meta will be injected.</span>
       bundles<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token string">"dist/app-build"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>     <span class="token comment" spellcheck="true">// bundle name/path. Must be within `baseURL`. Output path will look like: `baseURL/dist/app-build.js`.</span>
+        <span class="token string">"dist/app-build"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>     <span class="token comment">// bundle name/path. Must be within `baseURL`. Output path will look like: `baseURL/dist/app-build.js`.</span>
           includes<span class="token punctuation">:</span> <span class="token punctuation">[</span>
             <span class="token string">'[*.js]'</span><span class="token punctuation">,</span>
             <span class="token string">'*.html!text'</span><span class="token punctuation">,</span>
@@ -161,7 +161,7 @@ The bundle function returns a Promise for proper integration into async task eng
       users <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
       <span class="token function">constructor</span><span class="token punctuation">(</span>http<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        http<span class="token punctuation">.</span><span class="token function">configure</span><span class="token punctuation">(</span>config <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        http<span class="token punctuation">.</span><span class="token function">configure</span><span class="token punctuation">(</span>config <span class="token operator">=></span> <span class="token punctuation">{</span>
           config
             <span class="token punctuation">.</span><span class="token function">useStandardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
             <span class="token punctuation">.</span><span class="token function">withBaseUrl</span><span class="token punctuation">(</span><span class="token string">'https://api.github.com/'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -172,8 +172,8 @@ The bundle function returns a Promise for proper integration into async task eng
 
       <span class="token function">activate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
         <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>http<span class="token punctuation">.</span><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">'users'</span><span class="token punctuation">)</span>
-          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>response <span class="token operator">=</span><span class="token operator">></span> response<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>users <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span>users <span class="token operator">=</span> users<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>response <span class="token operator">=></span> response<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>users <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span>users <span class="token operator">=</span> users<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
@@ -265,7 +265,7 @@ Exclusion of files that are being used in the project but are not part of it (e.
 
       aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-html-import-template-loader'</span><span class="token punctuation">)</span>
 
-      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>a <span class="token operator">=</span><span class="token operator">></span> a<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>a <span class="token operator">=></span> a<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>

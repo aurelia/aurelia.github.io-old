@@ -86,7 +86,7 @@ The <code>dist</code> folder is automatically deleted before a new bundle is bui
   <span class="token keyword">const</span> baseConfig <span class="token operator">=</span> <span class="token punctuation">{</span>
     entry<span class="token punctuation">:</span> <span class="token punctuation">{</span>
       <span class="token string">'app'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token comment" spellcheck="true">// (...) //</span>
+      <span class="token comment">// (...) //</span>
       <span class="token string">'vendor'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'moment'</span><span class="token punctuation">]</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
     output<span class="token punctuation">:</span> <span class="token punctuation">{</span>
@@ -177,8 +177,8 @@ Since the syntax is still relatively new, many Aurelia plugins do not declare th
           <span class="token punctuation">}</span><span class="token punctuation">,</span>
           <span class="token punctuation">{</span>
             <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
-              <span class="token comment" spellcheck="true">// lets say we only use the checkbox from within subpage1</span>
-              <span class="token comment" spellcheck="true">// we want those to be bundled together in a bundle called: "subpage1"</span>
+              <span class="token comment">// lets say we only use the checkbox from within subpage1</span>
+              <span class="token comment">// we want those to be bundled together in a bundle called: "subpage1"</span>
               <span class="token string">"aurelia-some-ui-plugin/checkbox"</span><span class="token punctuation">,</span>
               <span class="token string">"./items/subpage1"</span>
             <span class="token punctuation">]</span><span class="token punctuation">,</span>
@@ -206,14 +206,14 @@ Example use-cases for this are: conditionally loading foreign language support b
 <code-listing heading="custom_typings/system.d.ts">
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
     <span class="token keyword">declare</span> <span class="token keyword">module</span> <span class="token string">'system'</span> <span class="token punctuation">{</span>
-      <span class="token keyword">import</span> fetch <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'isomorphic-fetch'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">import</span> <span class="token operator">*</span> as Aurelia <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+      <span class="token keyword">import</span> fetch <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'isomorphic-fetch'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> Aurelia <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
 
-      <span class="token comment" spellcheck="true">/**
+      <span class="token comment">/**
        * List your dynamically imported modules to get typing support
        */</span>
       <span class="token keyword">interface</span> <span class="token class-name">System</span> <span class="token punctuation">{</span>
-        <span class="token keyword">import</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Promise<span class="token operator">&lt;</span><span class="token keyword">any</span><span class="token operator">></span><span class="token punctuation">;</span>
+        <span class="token keyword">import</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Promise<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">></span><span class="token punctuation">;</span>
         <span class="token keyword">import</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Promise<span class="token operator">&lt;</span><span class="token keyword">typeof</span> Aurelia<span class="token operator">></span><span class="token punctuation">;</span>
         <span class="token keyword">import</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">'isomorphic-fetch'</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Promise<span class="token operator">&lt;</span><span class="token keyword">typeof</span> fetch<span class="token operator">></span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
@@ -251,14 +251,14 @@ Example use-cases for this are: conditionally loading foreign language support b
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     <span class="token keyword">const</span> generateConfig <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@easy-webpack/core'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">;</span>
 
-    <span class="token comment" spellcheck="true">// ...</span>
-    <span class="token comment" spellcheck="true">// let's assume these variables are defined:</span>
-    <span class="token comment" spellcheck="true">//   rootDir, srcDir, title, baseUrl</span>
-    <span class="token comment" spellcheck="true">// ...</span>
+    <span class="token comment">// ...</span>
+    <span class="token comment">// let's assume these variables are defined:</span>
+    <span class="token comment">//   rootDir, srcDir, title, baseUrl</span>
+    <span class="token comment">// ...</span>
 
     <span class="token keyword">const</span> baseConfig <span class="token operator">=</span> <span class="token punctuation">{</span>
-      <span class="token comment" spellcheck="true">// here we'd put our base configuration</span>
-      <span class="token comment" spellcheck="true">// such as the entry bundles and output path</span>
+      <span class="token comment">// here we'd put our base configuration</span>
+      <span class="token comment">// such as the entry bundles and output path</span>
     <span class="token punctuation">}</span><span class="token punctuation">;</span>
     config <span class="token operator">=</span> <span class="token function">generateConfig</span><span class="token punctuation">(</span>
       baseConfig<span class="token punctuation">,</span>
@@ -288,8 +288,8 @@ Example use-cases for this are: conditionally loading foreign language support b
       <span class="token punctuation">(</span><span class="token punctuation">{</span>appChunkName<span class="token punctuation">:</span> <span class="token string">'app'</span><span class="token punctuation">,</span> firstChunk<span class="token punctuation">:</span> <span class="token string">'aurelia-bootstrap'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
 
       <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// here we can override or append any setting or plugin</span>
-        <span class="token comment" spellcheck="true">// that can be manually set in a webpack.config.js file</span>
+        <span class="token comment">// here we can override or append any setting or plugin</span>
+        <span class="token comment">// that can be manually set in a webpack.config.js file</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
 

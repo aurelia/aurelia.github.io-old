@@ -42,8 +42,8 @@
   </code></pre></source-code>
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
     <span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">IProduct</span> <span class="token punctuation">{</span>
-       id<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
-       name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+       id<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+       name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -53,7 +53,7 @@
         <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">'Memory'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
       <span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-      selectedProductId<span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+      selectedProductId<span class="token punctuation">:</span> <span class="token builtin">number</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>
@@ -105,8 +105,8 @@
   </code></pre></source-code>
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
     <span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">IProduct</span> <span class="token punctuation">{</span>
-       id<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
-       name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+       id<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+       name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -153,7 +153,7 @@
           <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">'Memory'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
         <span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-        <span class="token keyword">this</span><span class="token punctuation">.</span>productMatcher <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> a<span class="token punctuation">.</span>id <span class="token operator">===</span> b<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function-variable function">productMatcher</span> <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token operator">=></span> a<span class="token punctuation">.</span>id <span class="token operator">===</span> b<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
 
         <span class="token keyword">this</span><span class="token punctuation">.</span>selectedProduct <span class="token operator">=</span> <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">'CPU'</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
@@ -167,15 +167,15 @@
         <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">'Memory'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
       <span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-      productMatcher <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> a<span class="token punctuation">.</span>id <span class="token operator">===</span> b<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
+      <span class="token function-variable function">productMatcher</span> <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token operator">=></span> a<span class="token punctuation">.</span>id <span class="token operator">===</span> b<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
 
       selectedProduct <span class="token operator">=</span> <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">'CPU'</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
     <span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">IProduct</span> <span class="token punctuation">{</span>
-       id<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
-       name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+       id<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+       name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -185,7 +185,7 @@
         <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">'Memory'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
       <span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-      productMatcher <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> a<span class="token punctuation">.</span>id <span class="token operator">===</span> b<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
+      <span class="token function-variable function">productMatcher</span> <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token operator">=></span> a<span class="token punctuation">.</span>id <span class="token operator">===</span> b<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
 
       selectedProduct<span class="token punctuation">:</span> IProduct <span class="token operator">=</span> <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">'CPU'</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -268,8 +268,8 @@
   </code></pre></source-code>
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-      products<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'Motherboard'</span><span class="token punctuation">,</span> <span class="token string">'CPU'</span><span class="token punctuation">,</span> <span class="token string">'Memory'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-      selectedProduct<span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+      products<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'Motherboard'</span><span class="token punctuation">,</span> <span class="token string">'CPU'</span><span class="token punctuation">,</span> <span class="token string">'Memory'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      selectedProduct<span class="token punctuation">:</span> <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>
@@ -321,8 +321,8 @@
   </code></pre></source-code>
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
     <span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">IProduct</span> <span class="token punctuation">{</span>
-       id<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
-       name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+       id<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+       name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -332,7 +332,7 @@
         <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">'Memory'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
       <span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-      selectedProductIds<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      selectedProductIds<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>
@@ -383,8 +383,8 @@
   </code></pre></source-code>
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
     <span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">IProduct</span> <span class="token punctuation">{</span>
-       id<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
-       name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+       id<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+       name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -439,8 +439,8 @@
   </code></pre></source-code>
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-      products<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'Motherboard'</span><span class="token punctuation">,</span> <span class="token string">'CPU'</span><span class="token punctuation">,</span> <span class="token string">'Memory'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-      selectedProducts<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      products<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'Motherboard'</span><span class="token punctuation">,</span> <span class="token string">'CPU'</span><span class="token punctuation">,</span> <span class="token string">'Memory'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      selectedProducts<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>
