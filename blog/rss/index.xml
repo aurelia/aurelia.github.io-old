@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Sun Feb 11 2018 21:25:18 GMT-0800 (PST)</lastBuildDate>
+    <lastBuildDate>Thu Feb 15 2018 22:00:08 GMT-0800 (PST)</lastBuildDate>
+    <item>
+      <title><![CDATA[AureliaCasts - Creating Compelling Aurelia Video Tutorials]]></title>
+      <link>http://aurelia.io/blog/2018/02/15/aureliacasts-creating-compelling-aurelia-video-tutorials</link>
+      <description><![CDATA[This week, we're proud to have community member and creator of AureliaCasts, Nick Shallee, guest posting to share with our community what he's been up to.]]></description>
+      <pubDate>Thu Feb 15 2018 22:00:06 GMT-0800 (PST)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia Users Community Space Guides]]></title>
       <link>http://aurelia.io/blog/2018/02/11/aurelia-users-community-space-guides</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2017/04/27/aurelia-dialog-release-candidate</link>
       <description><![CDATA[Thanks to the hard work of Aurelia Core Team members, Strahil Kazlachev and Patrick Walters, we're proud to announce the Aurelia Dialog v1 Release Candidate.]]></description>
       <pubDate>Thu Apr 27 2017 18:56:29 GMT-0700 (PDT)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Introducing Aurelia Weekly]]></title>
-      <link>http://aurelia.io/blog/2017/04/18/introducing-aurelia-weekly</link>
-      <description><![CDATA[Today we're excited to launch our official weekly Aurelia newsletter. Each week we'll be featuring Aurelia announcements, events, articles, community surveys and important web industry news. If you haven't already signed up, you can get on the list here [http://eepurl.com/ces50j]. We're thrilled to have Aurelia Core Team member Andreas Wänqvist [https://github.com/mobilemancer] putting together this great content on a regular basis and we look forward to hearing your feedback.]]></description>
-      <pubDate>Tue Apr 18 2017 09:24:30 GMT-0700 (PDT)</pubDate>
     </item>
   </channel>
 </rss>
