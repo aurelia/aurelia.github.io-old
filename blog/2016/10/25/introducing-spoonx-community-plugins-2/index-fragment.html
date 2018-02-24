@@ -196,13 +196,13 @@
         <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-api'</span><span class="token punctuation">,</span> aureliaApiConfig<span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-authentication'</span><span class="token punctuation">,</span> aureliaAuthenticationConfig<span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-notification'</span><span class="token punctuation">,</span> aureliaNotificationConfig<span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true">//      ...</span>
+    <span class="token comment">//      ...</span>
   </code></pre></source-code>
 </code-listing>
 <p>Using aurelia-config, that becomes easier and more organized. We have just a single namespaced config object with all the configuration options and aurelia-config does all those plugin calls for us with the appropriate namespace section. Here's a simple example:</p>
 <code-listing>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token comment" spellcheck="true">// Example config</span>
+    <span class="token comment">// Example config</span>
     <span class="token keyword">let</span> appConfigOverwrites <span class="token operator">=</span> <span class="token punctuation">{</span>
       <span class="token string">'aurelia-api'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
         endpoints<span class="token punctuation">:</span> <span class="token punctuation">[</span>
@@ -217,7 +217,7 @@
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">;</span>
     
-    <span class="token comment" spellcheck="true">// Configure function</span>
+    <span class="token comment">// Configure function</span>
     <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       aurelia<span class="token punctuation">.</span>use
         <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>

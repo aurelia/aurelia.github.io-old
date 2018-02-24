@@ -30,7 +30,7 @@
         config<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string">'Aurelia'</span><span class="token punctuation">;</span>
         config<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
 
-          <span class="token comment" spellcheck="true">// This tells the Aurelia that the 'users' route empties the right view port.</span>
+          <span class="token comment">// This tells the Aurelia that the 'users' route empties the right view port.</span>
           <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">'users'</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">'users'</span><span class="token punctuation">,</span> viewPorts<span class="token punctuation">:</span> <span class="token punctuation">{</span> left<span class="token punctuation">:</span> <span class="token punctuation">{</span> moduleId<span class="token punctuation">:</span> <span class="token string">'user/list'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> right<span class="token punctuation">:</span> <span class="token punctuation">{</span> moduleId<span class="token punctuation">:</span> <span class="token keyword">null</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span>
         <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
@@ -45,12 +45,12 @@
       <span class="token function">configureRouter</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         config<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string">'Aurelia'</span><span class="token punctuation">;</span>
 
-        <span class="token comment" spellcheck="true">// Again, we tell Aurelia that the 'users' route "empties" the right view port.</span>
+        <span class="token comment">// Again, we tell Aurelia that the 'users' route "empties" the right view port.</span>
         config<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
           <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">'users'</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">'users'</span><span class="token punctuation">,</span> viewPorts<span class="token punctuation">:</span> <span class="token punctuation">{</span> left<span class="token punctuation">:</span> <span class="token punctuation">{</span> moduleId<span class="token punctuation">:</span> <span class="token string">'user/list'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> right<span class="token punctuation">:</span> <span class="token punctuation">{</span> moduleId<span class="token punctuation">:</span> <span class="token keyword">null</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span>
         <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="token comment" spellcheck="true">// However, we specify a special placeholder page when the right view port is empty.</span>
+        <span class="token comment">// However, we specify a special placeholder page when the right view port is empty.</span>
         config<span class="token punctuation">.</span><span class="token function">useViewPortDefaults</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
           right<span class="token punctuation">:</span> <span class="token punctuation">{</span> moduleId<span class="token punctuation">:</span> <span class="token string">'pages/placeholder'</span> <span class="token punctuation">}</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span>
@@ -67,11 +67,11 @@
         config<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string">'Aurelia'</span><span class="token punctuation">;</span>
         config<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
 
-          <span class="token comment" spellcheck="true">// Now, since we don't give Aurelia any instructions for the right view port on the 'users' route, Aurelia simply ignores the route.</span>
+          <span class="token comment">// Now, since we don't give Aurelia any instructions for the right view port on the 'users' route, Aurelia simply ignores the route.</span>
           <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">'users'</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">'users'</span><span class="token punctuation">,</span> viewPorts<span class="token punctuation">:</span> <span class="token punctuation">{</span> left<span class="token punctuation">:</span> <span class="token punctuation">{</span> moduleId<span class="token punctuation">:</span> <span class="token string">'user/list'</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span>
         <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="token comment" spellcheck="true">// If the user navigates directly to the 'users' route however, Aurelia will populate the right view port with the placeholder page.</span>
+        <span class="token comment">// If the user navigates directly to the 'users' route however, Aurelia will populate the right view port with the placeholder page.</span>
         config<span class="token punctuation">.</span><span class="token function">useViewPortDefaults</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
           right<span class="token punctuation">:</span> <span class="token punctuation">{</span> moduleId<span class="token punctuation">:</span> <span class="token string">'pages/placeholder'</span> <span class="token punctuation">}</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span>
@@ -115,10 +115,10 @@
     <span class="token function">configureRouter</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> router<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       config<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
 
-        <span class="token comment" spellcheck="true">// This specification says the main view port should be populated with master, the side view port emptied.</span>
+        <span class="token comment">// This specification says the main view port should be populated with master, the side view port emptied.</span>
         <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">'master'</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">'master'</span><span class="token punctuation">,</span> viewPorts<span class="token punctuation">:</span> <span class="token punctuation">{</span> main<span class="token punctuation">:</span> <span class="token punctuation">{</span> moduleId<span class="token punctuation">:</span> <span class="token string">'master'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> side<span class="token punctuation">:</span> <span class="token punctuation">{</span> moduleId<span class="token punctuation">:</span> <span class="token keyword">null</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
 
-        <span class="token comment" spellcheck="true">// And here we specify that when the detail parameter is passed, we should load detail into the side view port.</span>
+        <span class="token comment">// And here we specify that when the detail parameter is passed, we should load detail into the side view port.</span>
         <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">'master/:detail'</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">'master-detail'</span><span class="token punctuation">,</span> viewPorts<span class="token punctuation">:</span> <span class="token punctuation">{</span> main<span class="token punctuation">:</span> <span class="token punctuation">{</span> moduleId<span class="token punctuation">:</span> <span class="token string">'master'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> side<span class="token punctuation">:</span> <span class="token punctuation">{</span> moduleId<span class="token punctuation">:</span> <span class="token string">'detail'</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
       <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>router <span class="token operator">=</span> router<span class="token punctuation">;</span>
@@ -142,7 +142,7 @@
 <p>We haven't opened up any new doors yet, but we have cut out a few of the old hoops we had to jump through. However, this does allow us to add some extremely simple CSS magic to completely transform the user experience of the application:</p>
 <code-listing heading="app.css">
   <source-code lang="CSS"><pre class="language-javascript"><code>
-    <span class="token comment" spellcheck="true">/* We give the body the full screen magic treatment to afford us some greater flexibility to treat the router-views
+    <span class="token comment">/* We give the body the full screen magic treatment to afford us some greater flexibility to treat the router-views
       as individual windows. */</span>
     body <span class="token punctuation">{</span>
       position<span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
@@ -161,13 +161,13 @@
       display<span class="token punctuation">:</span> block<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
-    <span class="token comment" spellcheck="true">/* We fill the screen with the main view port so it can be as large as possible at all times. */</span>
+    <span class="token comment">/* We fill the screen with the main view port so it can be as large as possible at all times. */</span>
     router<span class="token operator">-</span>view<span class="token punctuation">[</span>name<span class="token operator">=</span><span class="token string">"main"</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
       height<span class="token punctuation">:</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span>
       width<span class="token punctuation">:</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
-    <span class="token comment" spellcheck="true">/* And we fill the right 65% of the window with the side view port on top of the main view port. This gives
+    <span class="token comment">/* And we fill the right 65% of the window with the side view port on top of the main view port. This gives
       us enough space to display the side content without completely obscuring the main view port. This is particularly
       useful when we want to use the information we've found in the detail view to inform a decision in the master view. */</span>
     router<span class="token operator">-</span>view<span class="token punctuation">[</span>name<span class="token operator">=</span><span class="token string">"side"</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
@@ -178,7 +178,7 @@
       width<span class="token punctuation">:</span> 65vw<span class="token punctuation">;</span>
       z<span class="token operator">-</span>index<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">;</span>
 
-      <span class="token comment" spellcheck="true">/* And here's the magic. We use the :empty selector on the side view port to shift it completely off screen when
+      <span class="token comment">/* And here's the magic. We use the :empty selector on the side view port to shift it completely off screen when
         emptied, and add a transition for a clean, professional visual feedback to the user. In two lines of css. */</span>
       transition<span class="token punctuation">:</span> transform 250ms ease<span class="token operator">-</span><span class="token keyword">in</span><span class="token operator">-</span>out<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>

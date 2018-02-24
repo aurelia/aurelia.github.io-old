@@ -83,9 +83,19 @@ You can skip this part if you're planning to use the built-in aurelia-i18n-loade
   npm install aurelia<span class="token operator">-</span>i18n <span class="token operator">--</span>save
   
 </code></pre></source-code></code-listing>
+<p>or if you prefer yarn</p>
+<code-listing><source-code lang="Shell"><pre class="language-powershell"><code>
+  yarn add aurelia<span class="token operator">-</span>i18n
+  
+</code></pre></source-code></code-listing>
 <p>Also optionally install the <code>i18next-xhr-backend</code> plugin:</p>
 <code-listing><source-code lang="Shell"><pre class="language-powershell"><code>
   npm install i18next<span class="token operator">-</span>xhr<span class="token operator">-</span>backend <span class="token operator">--</span>save
+  
+</code></pre></source-code></code-listing>
+<p>or using yarn</p>
+<code-listing><source-code lang="Shell"><pre class="language-powershell"><code>
+  yarn add i18next<span class="token operator">-</span>xhr<span class="token operator">-</span>backend
   
 </code></pre></source-code></code-listing>
 <div class="info"><div class="icon"> <i></i> </div><p>
@@ -247,31 +257,42 @@ defaultNS. For example <code>t='nav:profile'</code> would access the <code>profi
 the necessary type definitions (d.ts) for the plugins dependencies.
 Here we show how you can do that for i18next and the i18next-xhr-backend, but this
 should be applicable to every other backend choice.</p>
-<p>The way to get hold of those is using 
-<a href="https://github.com/typings/typings" target="_blank">typings</a>
-.
-You can install the typings for 
-<a href="http://i18next.com/" target="_blank">i18next</a>
- using this command:</p>
+<p>The way to get hold of those is using using npm or perhaps Yarn as with other packages.
+In this case the typings are at 
+<a href="https://www.npmjs.com/package/@types/i18next" target="_blank">@types/i18next</a>
+,
+along with the instructions. The command is</p>
 <code-listing><source-code lang="Shell"><pre class="language-powershell"><code>
-  typings install dt~i18next <span class="token operator">--</span>save <span class="token operator">--</span>global
+  npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev @types<span class="token operator">/</span>i18next
   
 </code></pre></source-code></code-listing>
+<p>or if you are using Yarn</p>
+<code-listing><source-code lang="Shell"><pre class="language-powershell"><code>
+  yarn add <span class="token operator">--</span>dev @types<span class="token operator">/</span>i18next
+  
+</code></pre></source-code></code-listing>
+<p>but in case of yarn there might be a complication as described at https://github.com/yarnpkg/yarn/issues/4226
+with a solution proposed to fix complications should they arise.</p>
 <div class="info"><div class="icon"> <i></i> </div><p>
 Alternatively, you can find this file in the plugins repository doc folder: <code>doc/i18next.d.ts</code></p>
 </div>
 <p>As for the XHR-Backend you'll be using:</p>
 <code-listing><source-code lang="Shell"><pre class="language-powershell"><code>
-  typings install dt~i18next<span class="token operator">-</span>xhr<span class="token operator">-</span>backend <span class="token operator">--</span>save <span class="token operator">--</span>global
+  npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev @types<span class="token operator">/</span>i18next<span class="token operator">-</span>xhr<span class="token operator">-</span>backend
+  
+</code></pre></source-code></code-listing>
+<p>or for yarn</p>
+<code-listing><source-code lang="Shell"><pre class="language-powershell"><code>
+  yarn add <span class="token operator">--</span>dev @types<span class="token operator">/</span>i18next<span class="token operator">-</span>xhr<span class="token operator">-</span>backend
   
 </code></pre></source-code></code-listing>
 <div class="info"><div class="icon"> <i></i> </div><p>
 Alternative, you can find this file in the plugins repository doc folder: <code>doc/i18next-xhr-backend.d.ts</code></p>
 </div>
 <p>Note: if you decide to use the <code>doc/*.d.ts</code> files, you should copy them to another folder, e.g. <code>custom_typings</code>.</p>
-<p>If you're running a JSPM setup, in order to properly find the <code>aurelia-i18n.d.ts</code> file, you can alternatively install it via typings as well.</p>
+<p>If you're running a JSPM setup, in order to properly find the <code>aurelia-i18n.d.ts</code> file, you can alternatively install it via npm:</p>
 <code-listing><source-code lang="Shell"><pre class="language-powershell"><code>
-  typings install github:aurelia<span class="token operator">/</span>i18n
+  npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev github:aurelia<span class="token operator">/</span>i18n
   
 </code></pre></source-code></code-listing>
 <p>The next step is to let the compiler know about your <code>*.d.ts</code> files. Add the following section to your <code>tsconfig.json</code> file.</p>
@@ -279,12 +300,16 @@ Alternative, you can find this file in the plugins repository doc folder: <code>
   <source-code lang="ES 2015"><pre class="language-javascript"><code>
     <span class="token operator">...</span> existing configuration code
     <span class="token string">"filesGlob"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
-        <span class="token string">"./typings/browser.d.ts"</span><span class="token punctuation">,</span> <span class="token comment">// this must be specified in case you use typings(https://github.com/typings/typings)</span>
+        <span class="token string">"./typings/browser.d.ts"</span><span class="token punctuation">,</span>
         <span class="token string">"./your_custom_typings_folder_path/**/*.d.ts"</span><span class="token punctuation">,</span> <span class="token comment">// if you use both typings files from this repository (`doc</span><span class="token comment">/*.d.ts`)
       ],
     ... other existing configuration code
   </span></code></pre></source-code>
 </code-listing>
+<p>or if you are using TypeScript 2.0 or later, you can add them to the types section like
+<code-listing heading="Configuring custom typings in tsconfig.json">
+<source-code lang="ES 2015">%3Cpre%20class%3D%22language-javascript%22%3E%3Ccode%3E%0A%20%20%20%20%3Cspan%20class%3D%22token%20operator%22%3E...%3C/span%3E%20existing%20configuration%20code%0A%20%20%20%20%3Cspan%20class%3D%22token%20string%22%3E%22types%22%3C/span%3E%3Cspan%20class%3D%22token%20punctuation%22%3E%3A%3C/span%3E%20%3Cspan%20class%3D%22token%20punctuation%22%3E%5B%3C/span%3E%20%3Cspan%20class%3D%22token%20string%22%3E%22i18next%22%3C/span%3E%3Cspan%20class%3D%22token%20punctuation%22%3E%2C%3C/span%3E%20%3Cspan%20class%3D%22token%20string%22%3E%22i18next-xhr-backend%22%3C/span%3E%20%3Cspan%20class%3D%22token%20punctuation%22%3E%5D%3C/span%3E%0A%20%20%20%20%20%20%3Cspan%20class%3D%22token%20punctuation%22%3E%5D%3C/span%3E%3Cspan%20class%3D%22token%20punctuation%22%3E%2C%3C/span%3E%0A%20%20%20%20%3Cspan%20class%3D%22token%20operator%22%3E...%3C/span%3E%20other%20existing%20configuration%20code%0A%20%20%3C/code%3E%3C/pre%3E</source-code>
+</code-listing></p>
 <div class="warning"><div class="icon"> <i></i> </div><p>
 TypeScript will throw errors like <code>Module xxx not found</code> either for aurelia-i18n or one of the backends. This is due to the fact that TypeScript does not see proper ES6 exported defaults. So you can now either switch to alias imports <code>import * as Backend from 'i18next-xhr-backend'</code> or update your tsconfig with <code>&quot;allowSyntheticDefaultImports&quot;: true</code> to maintain the same import style.</p>
 </div>
@@ -939,7 +964,7 @@ translations. If you're missing yours, I welcome you to provide a PR so everybod
 </code></pre></source-code></code-listing>
 </section>
 <section><h2 id="internationalization-api-polyfill">Internationalization API Polyfill</h2><p>The plugin leverages the JavaScript Internationalization API to perform certain tasks. Since not all browsers do fully support it (
-<a href="https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Intl#Browser_compatibility" target="_blank">compatibility table</a>
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Browser_compatibility" target="_blank">compatibility table</a>
 ) the aurelia-i18n conditionally loads the Polyfill if needed.</p>
 <p>In case of bundling your app you should thus keep in mind that it will not be automatically included into the bundle. That means you have to manually adjust the bundle config to include the polyfill as well, if you intend to have your application run on browsers without full support. 
 <a href="https://github.com/aurelia/i18n/issues/61#issuecomment-178801842" target="_blank">related GitHub issue</a>
@@ -1000,6 +1025,55 @@ more info about that consult the
       aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
+</code-listing>
+<p>When using WebPack, one needs to add <code>PLATFORM.modulename</code> to enable 
+<a href="https://www.npmjs.com/package/aurelia-webpack-plugin" target="_blank">aurelia-webpack-plugin</a>
+
+to properly recognize the plugins. With that change, the example code looks like so:</p>
+<code-listing heading="Using the polyfill with Webpack">
+  <source-code lang="ES 2015"><pre class="language-javascript"><code>
+    <span class="token function">bootstrap</span><span class="token punctuation">(</span>aurelia <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>global<span class="token punctuation">.</span>Intl<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Intl not present'</span><span class="token punctuation">)</span>
+        require<span class="token punctuation">.</span><span class="token function">ensure</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+          <span class="token string">'intl'</span><span class="token punctuation">,</span>
+          <span class="token string">'intl/locale-data/jsonp/en.js'</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>require<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'intl'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'intl/locale-data/jsonp/en.js'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token function">boot</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token function">boot</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">function</span> <span class="token function">boot</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      aurelia<span class="token punctuation">.</span>use
+        <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>PLATFORM<span class="token punctuation">.</span><span class="token function">modulename</span><span class="token punctuation">(</span><span class="token string">'aurelia-i18n'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>instance<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+            <span class="token comment">// code to setup aurelia-i18n</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<p>Or using TypeScript</p>
+<code-listing heading="Using the polyfill with Webpack">
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+ aurelia<span class="token punctuation">.</span>use
+        <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-i18n'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>instance<span class="token punctuation">:</span> I18N<span class="token punctuation">)</span> <span class="token operator">=></span>
+            <span class="token comment">// code to setup aurelia-i18n</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">await</span> aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">await</span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+      </code></pre></source-code>
 </code-listing>
 <p>More information 
 <a href="https://github.com/andyearnshaw/Intl.js/#intljs-and-browserifywebpack" target="_blank">in the README of the Intl.js polyfill</a>

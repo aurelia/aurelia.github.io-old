@@ -304,6 +304,21 @@ Aurelia's CSS libraries. However, if you don't want to do that, you can also def
 because the data is one-time bound. Why don't we use <code>show.one-time</code>? If we think about what <code>show</code> does, it doesn't
 really make sense. We're saying we want a CSS class to be applied that will hide an element, and that it will never
 change. In most cases, we want <code>if</code> to refuse to create an element we'll never use.</p>
+<p>Complementing <code>if</code>, there is <code>else</code>. Used in conjunction with <code>if</code>, <code>else</code> will render its content when <code>if</code> does
+not evaluate to true.</p>
+<code-listing heading="if-else-template.html">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">if.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>showMessage<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>${message}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">else</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>Nothing to see here<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<p>Elements using the <code>else</code> template modifier must follow an <code>if</code> bound element to make contextual sense and function properly.</p>
 </section>
 <section><h2 id="repeaters">Repeaters</h2><p>Repeaters can be used on any element, including custom elements, and template elements too! Here are a few different data types that can be iterated with a repeater.</p>
 <h3>Arrays</h3>
@@ -341,6 +356,11 @@ inhabitants of the world at once.</p>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code></pre></source-code>
 </code-listing>
+<div class="info"><div class="icon"> <i></i> </div><p>
+Aurelia will not be able to observe changes to arrays using the <code>array[index] = value</code> syntax. To ensure that
+Aurelia can observe the changes on your array, make use of the Array methods: <code>Array.prototype.push</code>, <code>Array.prototype.pop</code> and
+<code>Array.prototype.splice</code>.</p>
+</div>
 <h3>Range</h3>
 <p>We can also iterate over a numerical range:</p>
 <code-listing heading="repeater-template.html">

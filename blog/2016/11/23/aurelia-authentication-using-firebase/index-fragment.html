@@ -21,7 +21,7 @@
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     <span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://www.gstatic.com/firebasejs/3.6.1/firebase.js"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
     <span class="token operator">&lt;</span>script<span class="token operator">></span>
-      <span class="token comment" spellcheck="true">// Initialize Firebase</span>
+      <span class="token comment">// Initialize Firebase</span>
       <span class="token keyword">var</span> config <span class="token operator">=</span> <span class="token punctuation">{</span>
         apiKey<span class="token punctuation">:</span> <span class="token string">"AIzaSyD450934850934805934095834095"</span><span class="token punctuation">,</span>
         authDomain<span class="token punctuation">:</span> <span class="token string">"aurelia-auth-app.firebaseapp.com"</span><span class="token punctuation">,</span>
@@ -61,7 +61,7 @@
     <span class="token operator">&lt;</span>body aurelia<span class="token operator">-</span>app<span class="token operator">=</span><span class="token string">"main"</span><span class="token operator">></span>
         <span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://www.gstatic.com/firebasejs/3.6.1/firebase.js"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
         <span class="token operator">&lt;</span>script<span class="token operator">></span>
-          <span class="token comment" spellcheck="true">// Initialize Firebase</span>
+          <span class="token comment">// Initialize Firebase</span>
           <span class="token keyword">var</span> config <span class="token operator">=</span> <span class="token punctuation">{</span>
             apiKey<span class="token punctuation">:</span> <span class="token string">"AIzaSyD450934850934805934095834095"</span><span class="token punctuation">,</span>
             authDomain<span class="token punctuation">:</span> <span class="token string">"aurelia-auth-app.firebaseapp.com"</span><span class="token punctuation">,</span>
@@ -80,7 +80,7 @@
 <p>If you thought that was easy, now we're going to add in authentication, which isn't any harder. Rather than make you write code step-by-step, line-by-line, <strong>just copy/paste the following well-documented code into <code>src/app.ts</code>:</strong></p>
 <code-listing>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token comment" spellcheck="true">// For TypeScript, because Firebase is a global variable</span>
+    <span class="token comment">// For TypeScript, because Firebase is a global variable</span>
     declare <span class="token keyword">var</span> firebase<span class="token punctuation">;</span>
     
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -89,10 +89,10 @@
             <span class="token keyword">private</span> authToken <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
             <span class="token keyword">private</span> user <span class="token operator">=</span> <span class="token keyword">null</span>
         <span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// This mostly gets called on subsequent page loads to determine</span>
-            <span class="token comment" spellcheck="true">// what the current status of the user is with "user" being an object</span>
-            <span class="token comment" spellcheck="true">// return by Firebase with credentials and other info inside of it</span>
-            firebase<span class="token punctuation">.</span><span class="token function">auth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">onAuthStateChanged</span><span class="token punctuation">(</span>user <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token comment">// This mostly gets called on subsequent page loads to determine</span>
+            <span class="token comment">// what the current status of the user is with "user" being an object</span>
+            <span class="token comment">// return by Firebase with credentials and other info inside of it</span>
+            firebase<span class="token punctuation">.</span><span class="token function">auth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">onAuthStateChanged</span><span class="token punctuation">(</span>user <span class="token operator">=></span> <span class="token punctuation">{</span>
                 <span class="token keyword">this</span><span class="token punctuation">.</span>userLoggedIn <span class="token operator">=</span> user <span class="token operator">?</span> <span class="token boolean">true</span> <span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
                 <span class="token keyword">this</span><span class="token punctuation">.</span>user <span class="token operator">=</span> user<span class="token punctuation">;</span>
             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -101,8 +101,8 @@
         <span class="token function">login</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword">let</span> provider<span class="token punctuation">;</span>
     
-            <span class="token comment" spellcheck="true">// Determine which provider to use depending on provided type</span>
-            <span class="token comment" spellcheck="true">// which is passed through from app.html</span>
+            <span class="token comment">// Determine which provider to use depending on provided type</span>
+            <span class="token comment">// which is passed through from app.html</span>
             <span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">===</span> <span class="token string">'google'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 provider <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">firebase<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>GoogleAuthProvider</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">===</span> <span class="token string">'facebook'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -111,19 +111,19 @@
                 provider <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">firebase<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>TwitterAuthProvider</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token punctuation">}</span>
             
-            <span class="token comment" spellcheck="true">// Call the Firebase signin method for our provider</span>
-            <span class="token comment" spellcheck="true">// then take the successful or failed result and deal with</span>
-            <span class="token comment" spellcheck="true">// it accordingly.</span>
-            firebase<span class="token punctuation">.</span><span class="token function">auth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">signInWithPopup</span><span class="token punctuation">(</span>provider<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>result<span class="token punctuation">:</span> any<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// The token for this session</span>
+            <span class="token comment">// Call the Firebase signin method for our provider</span>
+            <span class="token comment">// then take the successful or failed result and deal with</span>
+            <span class="token comment">// it accordingly.</span>
+            firebase<span class="token punctuation">.</span><span class="token function">auth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">signInWithPopup</span><span class="token punctuation">(</span>provider<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>result<span class="token punctuation">:</span> any<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+                <span class="token comment">// The token for this session</span>
                 <span class="token keyword">this</span><span class="token punctuation">.</span>authToken <span class="token operator">=</span> result<span class="token punctuation">.</span>credential<span class="token punctuation">.</span>accessToken<span class="token punctuation">;</span>
     
-                <span class="token comment" spellcheck="true">// The user object containing information about the current user</span>
+                <span class="token comment">// The user object containing information about the current user</span>
                 <span class="token keyword">this</span><span class="token punctuation">.</span>user <span class="token operator">=</span> result<span class="token punctuation">.</span>user<span class="token punctuation">;</span>
     
-                <span class="token comment" spellcheck="true">// Set a class variable to true to state we are logged in</span>
+                <span class="token comment">// Set a class variable to true to state we are logged in</span>
                 <span class="token keyword">this</span><span class="token punctuation">.</span>userLoggedIn <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span>error <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span>error <span class="token operator">=></span> <span class="token punctuation">{</span>
                 <span class="token keyword">let</span> errorCode <span class="token operator">=</span> error<span class="token punctuation">.</span>code<span class="token punctuation">;</span>
                 <span class="token keyword">let</span> errorMessage <span class="token operator">=</span> error<span class="token punctuation">.</span>message<span class="token punctuation">;</span>
                 <span class="token keyword">let</span> email <span class="token operator">=</span> error<span class="token punctuation">.</span>email<span class="token punctuation">;</span>
@@ -132,10 +132,10 @@
         <span class="token punctuation">}</span>
     
         <span class="token function">logout</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// Self-explanatory signout code</span>
-            firebase<span class="token punctuation">.</span><span class="token function">auth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">signOut</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token comment">// Self-explanatory signout code</span>
+            firebase<span class="token punctuation">.</span><span class="token function">auth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">signOut</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
                 <span class="token keyword">this</span><span class="token punctuation">.</span>userLoggedIn <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span>error <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span>error <span class="token operator">=></span> <span class="token punctuation">{</span>
                 <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>

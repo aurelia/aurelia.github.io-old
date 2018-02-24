@@ -56,12 +56,12 @@ This will make sure the css is injected into the shadow dom or if that is not av
 Pretty cool right? You can also add bindable properties to your simple html component by adding a `bindable` attribute to the template of your view. Here's what that might look like:
 <code-listing>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token comment" spellcheck="true">// nav-bar.html</span>
+    <span class="token comment">// nav-bar.html</span>
     <span class="token operator">&lt;</span>template bindable<span class="token operator">=</span><span class="token string">"router"</span><span class="token operator">></span>
       $<span class="token punctuation">{</span>router<span class="token punctuation">.</span>title<span class="token punctuation">}</span>
     <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
     
-    <span class="token comment" spellcheck="true">// app.html</span>
+    <span class="token comment">// app.html</span>
     <span class="token operator">&lt;</span>require <span class="token keyword">from</span><span class="token operator">=</span><span class="token string">"nav-bar.html"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>require<span class="token operator">></span>	
     <span class="token operator">&lt;</span>nav<span class="token operator">-</span>bar router<span class="token punctuation">.</span>bind<span class="token operator">=</span><span class="token string">"router"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>nav<span class="token operator">-</span>bar<span class="token operator">></span>
   </code></pre></source-code>

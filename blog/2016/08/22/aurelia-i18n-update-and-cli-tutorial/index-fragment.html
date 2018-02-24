@@ -56,12 +56,12 @@ in the root of your app named <em>locales</em>.</p>
 <p>Last but not least, it's time to wire up the plugin inside your app. Therefore go to your <em>src/main.js</em> file and configure it as follows (don't forget to add the imports).</p>
 <code-listing>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token comment" spellcheck="true">//add the imports</span>
+    <span class="token comment">//add the imports</span>
     <span class="token keyword">import</span> environment <span class="token keyword">from</span> <span class="token string">'./environment'</span><span class="token punctuation">;</span>
     <span class="token keyword">import</span> Backend <span class="token keyword">from</span> <span class="token string">'i18next-xhr-backend'</span><span class="token punctuation">;</span>
     
-    <span class="token comment" spellcheck="true">//Configure Bluebird Promises.</span>
-    <span class="token comment" spellcheck="true">//Note: You may want to use environment-specific configuration.</span>
+    <span class="token comment">//Configure Bluebird Promises.</span>
+    <span class="token comment">//Note: You may want to use environment-specific configuration.</span>
     Promise<span class="token punctuation">.</span><span class="token function">config</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
       warnings<span class="token punctuation">:</span> <span class="token punctuation">{</span>
         wForgottenReturn<span class="token punctuation">:</span> <span class="token boolean">false</span>
@@ -81,9 +81,9 @@ in the root of your app named <em>locales</em>.</p>
         aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-testing'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     
-      <span class="token comment" spellcheck="true">//register the plugin</span>
-      aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-i18n'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>instance<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// register backend plugin</span>
+      <span class="token comment">//register the plugin</span>
+      aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-i18n'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>instance<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+        <span class="token comment">// register backend plugin</span>
         instance<span class="token punctuation">.</span>i18next<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>Backend<span class="token punctuation">)</span><span class="token punctuation">;</span>
     
         <span class="token keyword">return</span> instance<span class="token punctuation">.</span><span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
@@ -97,7 +97,7 @@ in the root of your app named <em>locales</em>.</p>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     
-      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>

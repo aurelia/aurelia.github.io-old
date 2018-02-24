@@ -40,8 +40,8 @@
       <span class="token punctuation">}</span>
     
       <span class="token keyword">private</span> <span class="token function">clearSelection</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>input<span class="token punctuation">.</span>type <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>input<span class="token punctuation">.</span>type <span class="token operator">=</span> <span class="token string">'file'</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>input<span class="token punctuation">.</span><span class="token keyword">type</span> <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>input<span class="token punctuation">.</span><span class="token keyword">type</span> <span class="token operator">=</span> <span class="token string">'file'</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
@@ -88,7 +88,7 @@ property.</p>
     @autoinject
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">FileDropTarget</span> <span class="token punctuation">{</span>
     
-      value<span class="token punctuation">:</span> FileList <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">{</span>files<span class="token punctuation">:</span> FileList<span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      value<span class="token punctuation">:</span> FileList <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">{</span>files<span class="token punctuation">:</span> FileList<span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       
       <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> element<span class="token punctuation">:</span> Element<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
     
@@ -98,14 +98,14 @@ property.</p>
         <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'dragend'</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>onDragEnd<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     
-      <span class="token keyword">private</span> onDragOver <span class="token operator">=</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token keyword">private</span> <span class="token function-variable function">onDragOver</span> <span class="token operator">=</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
         e<span class="token punctuation">.</span><span class="token function">stopPropagation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         e<span class="token punctuation">.</span><span class="token function">preventDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     
         e<span class="token punctuation">.</span>dataTransfer<span class="token punctuation">.</span>dropEffect <span class="token operator">=</span> <span class="token string">'copy'</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span><span class="token punctuation">;</span>
     
-      <span class="token keyword">private</span> onDrop <span class="token operator">=</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token keyword">private</span> <span class="token function-variable function">onDrop</span> <span class="token operator">=</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
         e<span class="token punctuation">.</span><span class="token function">stopPropagation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         e<span class="token punctuation">.</span><span class="token function">preventDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     
@@ -116,7 +116,7 @@ property.</p>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span><span class="token punctuation">;</span>
     
-      <span class="token keyword">private</span> onDragEnd <span class="token operator">=</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token keyword">private</span> <span class="token function-variable function">onDragEnd</span> <span class="token operator">=</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
         e<span class="token punctuation">.</span><span class="token function">stopPropagation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         e<span class="token punctuation">.</span><span class="token function">preventDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         
@@ -146,7 +146,7 @@ a <code>drop</code> event occurs.</p>
     
     @<span class="token function">valueConverter</span><span class="token punctuation">(</span><span class="token string">'chunk'</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Chunk</span> <span class="token punctuation">{</span>
-      <span class="token function">toView</span><span class="token punctuation">(</span>array<span class="token punctuation">:</span> <span class="token keyword">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
+      <span class="token function">toView</span><span class="token punctuation">(</span>array<span class="token punctuation">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> size<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
         <span class="token keyword">let</span> result <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
         <span class="token keyword">let</span> nbChunks <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">ceil</span><span class="token punctuation">(</span>array<span class="token punctuation">.</span>length <span class="token operator">/</span> size<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> nbChunks<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -173,7 +173,7 @@ custom attribute, which will be used essentially on <code>img</code> elements, w
     @<span class="token function">inject</span><span class="token punctuation">(</span>Element<span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">BlobSrc</span> <span class="token punctuation">{</span>
     
-      <span class="token keyword">private</span> objectUrl<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+      <span class="token keyword">private</span> objectUrl<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
     
       <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> element<span class="token punctuation">:</span> HTMLImageElement<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
     

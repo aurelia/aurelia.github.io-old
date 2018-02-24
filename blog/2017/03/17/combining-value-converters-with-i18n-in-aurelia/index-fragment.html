@@ -45,18 +45,18 @@
 <code-listing>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     <span class="token keyword">return</span> instance<span class="token punctuation">.</span><span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-      <span class="token comment" spellcheck="true">// ...</span>
+      <span class="token comment">// ...</span>
       interpolation <span class="token punctuation">:</span> <span class="token punctuation">{</span>
         format <span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>value<span class="token punctuation">,</span> format<span class="token punctuation">,</span> lng<span class="token punctuation">)</span> <span class="token punctuation">{</span>
           <span class="token keyword">const</span> parts <span class="token operator">=</span> format<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">':'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     
-          <span class="token comment" spellcheck="true">//  Check if the value converter is registered as a resource</span>
+          <span class="token comment">//  Check if the value converter is registered as a resource</span>
           <span class="token keyword">const</span> vc <span class="token operator">=</span> aurelia<span class="token punctuation">.</span>resources<span class="token punctuation">.</span>valueConverters<span class="token punctuation">[</span>parts<span class="token punctuation">.</span><span class="token function">shift</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     
           <span class="token keyword">return</span> vc <span class="token operator">?</span> vc<span class="token punctuation">.</span><span class="token function">toView</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> <span class="token operator">...</span>parts<span class="token punctuation">)</span> <span class="token punctuation">:</span> value<span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span>
-      <span class="token comment" spellcheck="true">// ...</span>
+      <span class="token comment">// ...</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre></source-code>
 </code-listing>
@@ -70,7 +70,7 @@
     <span class="token keyword">import</span> moment <span class="token keyword">from</span> <span class="token string">'moment'</span><span class="token punctuation">;</span>
     
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">FormatDateValueConverter</span> <span class="token punctuation">{</span>
-      toView <span class="token punctuation">(</span>value<span class="token punctuation">,</span> format<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">toView</span> <span class="token punctuation">(</span>value<span class="token punctuation">,</span> format<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span> <span class="token function">moment</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> <span class="token string">'YYYY-MM-DD'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>format<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>

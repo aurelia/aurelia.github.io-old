@@ -28,7 +28,7 @@
         <span class="token function">animate</span><span class="token punctuation">(</span>element<span class="token punctuation">:</span>Element<span class="token punctuation">,</span> className<span class="token punctuation">:</span>string<span class="token punctuation">,</span> options<span class="token punctuation">:</span>Object<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token function">runSequence</span><span class="token punctuation">(</span>sequence<span class="token punctuation">:</span>string<span class="token punctuation">)</span><span class="token punctuation">:</span>Promise<span class="token punctuation">;</span>
        
-        <span class="token comment" spellcheck="true">/** (for JS based animators) **/</span>
+        <span class="token comment">/** (for JS based animators) **/</span>
         <span class="token function">registerEffect</span><span class="token punctuation">(</span>effectName<span class="token punctuation">:</span>string<span class="token punctuation">,</span> properties<span class="token punctuation">:</span>Object<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token function">unregisterEffect</span><span class="token punctuation">(</span>effectName<span class="token punctuation">:</span>string<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>  
@@ -154,14 +154,14 @@
 <code-listing>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     <span class="token function">enter</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    	<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    	<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     	<span class="token operator">...</span>
   </code></pre></source-code>
 </code-listing>
 <p>Next, a unique animation id is created to identify the current animation:</p>
 <code-listing>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token comment" spellcheck="true">// Step 1: generate animation id</span>
+    <span class="token comment">// Step 1: generate animation id</span>
     <span class="token keyword">var</span> animId <span class="token operator">=</span> element<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
     	classList <span class="token operator">=</span> element<span class="token punctuation">.</span>classList<span class="token punctuation">;</span>
     	<span class="token operator">...</span>
@@ -170,7 +170,7 @@
 <p>In order to allow the developer to setup CSS-properties before the actual animation runs, the Animator will add the class <code>au-enter</code> to the element.</p>
 <code-listing>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token comment" spellcheck="true">//Step 2: Add animation preparation class</span>
+    <span class="token comment">//Step 2: Add animation preparation class</span>
     classList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">'au-enter'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
   </code></pre></source-code>
@@ -178,38 +178,38 @@
 <p>To handle the animation flow, the Animator will listen for the <code>animationstart</code> event, fired on the specific element. Notice the use of multiple events since browsers may fire vendor-specific events.</p>
 <code-listing>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token comment" spellcheck="true">// Step 3: setup event to check whether animations started</span>
+    <span class="token comment">// Step 3: setup event to check whether animations started</span>
     <span class="token keyword">var</span> animStart<span class="token punctuation">;</span>
     <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_addMultipleEventListener</span><span class="token punctuation">(</span>
     	element<span class="token punctuation">,</span> 
     	<span class="token string">"webkitAnimationStart animationstart"</span><span class="token punctuation">,</span> 
-    	animStart <span class="token operator">=</span> <span class="token punctuation">(</span>evAnimStart<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    	<span class="token function-variable function">animStart</span> <span class="token operator">=</span> <span class="token punctuation">(</span>evAnimStart<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     	<span class="token operator">...</span>
   </code></pre></source-code>
 </code-listing>
 <p>Now that we know that the animation actually started, add it to the stack and start listening for its completion.</p>
 <code-listing>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token comment" spellcheck="true">// Step 3.1: Animation exists, put on stack</span>
+    <span class="token comment">// Step 3.1: Animation exists, put on stack</span>
     <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_addAnimationToStack</span><span class="token punctuation">(</span>animId<span class="token punctuation">)</span><span class="token punctuation">;</span>
     	
-    <span class="token comment" spellcheck="true">// Step 3.2: Wait for animation to finish</span>
+    <span class="token comment">// Step 3.2: Wait for animation to finish</span>
     <span class="token keyword">var</span> animEnd<span class="token punctuation">;</span>
     <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_addMultipleEventListener</span><span class="token punctuation">(</span>
     	element<span class="token punctuation">,</span>
     	<span class="token string">"webkitAnimationEnd animationend"</span><span class="token punctuation">,</span>
-    	animEnd <span class="token operator">=</span> <span class="token punctuation">(</span>evAnimEnd<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    	<span class="token function-variable function">animEnd</span> <span class="token operator">=</span> <span class="token punctuation">(</span>evAnimEnd<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     	<span class="token operator">...</span>
   </code></pre></source-code>
 </code-listing>
 <p>When the animation ends, remove the activation/preparation classes and the animation id from the stack. Then resolve the promise with <code>true</code>.</p>
 <code-listing>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token comment" spellcheck="true">// Step 3.2.1: remove animation classes</span>
+    <span class="token comment">// Step 3.2.1: remove animation classes</span>
     classList<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token string">'au-enter-active'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     classList<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token string">'au-enter'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     	
-    <span class="token comment" spellcheck="true">// Step 3.2.2 remove animation from stack</span>
+    <span class="token comment">// Step 3.2.2 remove animation from stack</span>
     <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_removeAnimationFromStack</span><span class="token punctuation">(</span>animId<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>          
     <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -219,7 +219,7 @@
 <p>In order to get the animation triggered, the animator adds the activation class.</p>
 <code-listing>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token comment" spellcheck="true">// Step 4: trigger animation      </span>
+    <span class="token comment">// Step 4: trigger animation      </span>
     <span class="token operator">...</span>      
     classList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">'au-enter-active'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
@@ -228,8 +228,8 @@
 <p>But perhaps that class is not defined in your stylesheet. In that case the Animator will wait for a certain timeout to run out and cleanup the element classes, resolving the promise with <code>false</code> to indicate that no animation happened.</p>
 <code-listing>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token comment" spellcheck="true">// Step 5: if no animations happened cleanup animation classes</span>
-    <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    <span class="token comment">// Step 5: if no animations happened cleanup animation classes</span>
+    <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     	<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>animationStack<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>animId<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     		classList<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token string">'au-enter-active'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     		classList<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token string">'au-enter'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -294,7 +294,7 @@
     	animation<span class="token punctuation">:</span> fadeOut 2s<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
     	
-    <span class="token comment" spellcheck="true">/* CSS3-Animations */</span>
+    <span class="token comment">/* CSS3-Animations */</span>
     @<span class="token operator">-</span>webkit<span class="token operator">-</span>keyframes fadeIn <span class="token punctuation">{</span>
     	<span class="token number">0</span><span class="token operator">%</span>   <span class="token punctuation">{</span> opacity<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
     	<span class="token number">100</span><span class="token operator">%</span> <span class="token punctuation">{</span> opacity<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>

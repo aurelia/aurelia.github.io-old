@@ -25,7 +25,7 @@
 <p>One-liners that access members that are accessible from the binding scope are good candidates for observation by this plugin.  Here's a few examples:</p>
 <code-listing>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token comment" spellcheck="true">// "firstName" and "lastName" will be observed.</span>
+    <span class="token comment">// "firstName" and "lastName" will be observed.</span>
     <span class="token keyword">get</span> <span class="token function">fullName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">return</span> <span class="token template-string"><span class="token string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>firstName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>lastName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -33,7 +33,7 @@
 </code-listing>
 <code-listing>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token comment" spellcheck="true">// "isLoggedIn", "user" and "user.name" will be observed.</span>
+    <span class="token comment">// "isLoggedIn", "user" and "user.name" will be observed.</span>
     <span class="token keyword">get</span> <span class="token function">userName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>isLoggedIn <span class="token operator">?</span> <span class="token keyword">this</span><span class="token punctuation">.</span>user<span class="token punctuation">.</span>name <span class="token punctuation">:</span> <span class="token string">'(Anonymous)'</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -41,7 +41,7 @@
 </code-listing>
 <code-listing>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token comment" spellcheck="true">// "count" will be observed.</span>
+    <span class="token comment">// "count" will be observed.</span>
     <span class="token keyword">get</span> <span class="token function">shoppingCartDescription</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token string">' '</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">pluralize</span><span class="token punctuation">(</span><span class="token string">'item'</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>count<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -53,9 +53,9 @@
     
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Foo</span> <span class="token punctuation">{</span>
     
-      <span class="token comment" spellcheck="true">// This property cannot be observed by aurelia-computed.</span>
-      <span class="token comment" spellcheck="true">// Dirty-checking will be required.</span>
-      <span class="token comment" spellcheck="true">// "_bar" can't be accessed from the binding scope.</span>
+      <span class="token comment">// This property cannot be observed by aurelia-computed.</span>
+      <span class="token comment">// Dirty-checking will be required.</span>
+      <span class="token comment">// "_bar" can't be accessed from the binding scope.</span>
       <span class="token keyword">get</span> <span class="token function">bar</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span> _bar<span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
@@ -100,12 +100,12 @@
     <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       aurelia<span class="token punctuation">.</span>use
         <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true">// enable debug logging to see aurelia-computed's messages.</span>
+        <span class="token comment">// enable debug logging to see aurelia-computed's messages.</span>
         <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true">// install the plugin</span>
+        <span class="token comment">// install the plugin</span>
         <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-computed'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     
-      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>a <span class="token operator">=</span><span class="token operator">></span> a<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>a <span class="token operator">=></span> a<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>

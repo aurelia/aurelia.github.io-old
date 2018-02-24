@@ -32,7 +32,7 @@
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     <span class="token keyword">var</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     
-    exports<span class="token punctuation">.</span>base <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    exports<span class="token punctuation">.</span><span class="token function-variable function">base</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">return</span> <span class="token punctuation">{</span>
         filename<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
         filenameRelative<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
@@ -52,25 +52,25 @@
       <span class="token punctuation">}</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">;</span>
     
-    exports<span class="token punctuation">.</span>commonjs <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    exports<span class="token punctuation">.</span><span class="token function-variable function">commonjs</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">var</span> options <span class="token operator">=</span> exports<span class="token punctuation">.</span><span class="token function">base</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       options<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">'transform-es2015-modules-commonjs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token keyword">return</span> options<span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">;</span>
     
-    exports<span class="token punctuation">.</span>amd <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    exports<span class="token punctuation">.</span><span class="token function-variable function">amd</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">var</span> options <span class="token operator">=</span> exports<span class="token punctuation">.</span><span class="token function">base</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       options<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">'transform-es2015-modules-amd'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token keyword">return</span> options<span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">;</span>
     
-    exports<span class="token punctuation">.</span>system <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    exports<span class="token punctuation">.</span><span class="token function-variable function">system</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">var</span> options <span class="token operator">=</span> exports<span class="token punctuation">.</span><span class="token function">base</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       options<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">'transform-es2015-modules-systemjs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token keyword">return</span> options<span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">;</span>
     
-    exports<span class="token punctuation">.</span>es2015 <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    exports<span class="token punctuation">.</span><span class="token function-variable function">es2015</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">var</span> options <span class="token operator">=</span> exports<span class="token punctuation">.</span><span class="token function">base</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       options<span class="token punctuation">.</span>presets <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'stage-1'</span><span class="token punctuation">]</span>
       <span class="token keyword">return</span> options<span class="token punctuation">;</span>
@@ -137,14 +137,14 @@
       aurelia<span class="token punctuation">.</span>use
         <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-dialog'</span><span class="token punctuation">,</span> config <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-dialog'</span><span class="token punctuation">,</span> config <span class="token operator">=></span> <span class="token punctuation">{</span>
           config<span class="token punctuation">.</span><span class="token function">useDefaults</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
           config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>lock <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
           config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>centerHorizontalOnly <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
           config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>startingZIndex <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     
-      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>a <span class="token operator">=</span><span class="token operator">></span> a<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>a <span class="token operator">=></span> a<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>

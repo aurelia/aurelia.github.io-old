@@ -306,6 +306,18 @@
         ]
       },
       {
+        "name": "Server Side Rendering",
+        "description": "Learn about Server Side Rendering with Aurelia and how to configure your project.",
+        "dest": "docs/ssr",
+        "items": [
+          {
+            "name": "Introduction to SSR",
+            "src": "../ssr-engine/doc/article/en-US/aurelia-server-render.md",
+            "dest": "docs/ssr/introduction"
+          }
+        ]
+      },
+      {
         "name": "Build Systems",
         "description": "Learn about the various build setups that Aurelia supports out-of-the-box.",
         "dest": "docs/build-systems",

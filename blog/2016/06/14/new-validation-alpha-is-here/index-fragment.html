@@ -25,7 +25,7 @@
       email <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
     
       <span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// todo: call server...</span>
+        <span class="token comment">// todo: call server...</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
@@ -130,7 +130,7 @@
     
       <span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">let</span> errors <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>controller<span class="token punctuation">.</span><span class="token function">validate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// todo: call server...</span>
+        <span class="token comment">// todo: call server...</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
@@ -258,7 +258,7 @@
       <span class="token punctuation">.</span><span class="token function">ensure</span><span class="token punctuation">(</span><span class="token string">'firstName'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">required</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
       <span class="token punctuation">.</span><span class="token function">ensure</span><span class="token punctuation">(</span><span class="token string">'lastName'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">required</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
       <span class="token punctuation">.</span><span class="token function">ensure</span><span class="token punctuation">(</span><span class="token string">'email'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">required</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">email</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-      <span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// &lt;-- define rules on the instance</span>
+      <span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// &lt;-- define rules on the instance</span>
   </code></pre></source-code>
 </code-listing>
 <p>There's no requirement to use the <code>.on()</code> method however.  You can capture the ruleset in a property and pass it into the <code>validate</code> decorator as a parameter if you prefer:</p>
@@ -354,12 +354,12 @@
       <span class="token function">constructor</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>element <span class="token operator">=</span> element<span class="token punctuation">;</span>
     
-        <span class="token comment" spellcheck="true">// ensure the element exposes a "focus" method</span>
-        element<span class="token punctuation">.</span>focus <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span>input<span class="token punctuation">.</span><span class="token function">focus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// ensure the element exposes a "focus" method</span>
+        element<span class="token punctuation">.</span><span class="token function-variable function">focus</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span>input<span class="token punctuation">.</span><span class="token function">focus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     
       <span class="token function">blur</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// forward "blur" events to the custom element</span>
+        <span class="token comment">// forward "blur" events to the custom element</span>
         <span class="token keyword">const</span> event <span class="token operator">=</span> DOM<span class="token punctuation">.</span><span class="token function">createCustomEvent</span><span class="token punctuation">(</span><span class="token string">'blur'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span><span class="token function">dispatchEvent</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
