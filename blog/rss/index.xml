@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Sat Feb 24 2018 14:57:34 GMT-0800 (PST)</lastBuildDate>
+    <lastBuildDate>Sun Feb 25 2018 22:40:11 GMT-0800 (PST)</lastBuildDate>
+    <item>
+      <title><![CDATA[Server Side Rendering]]></title>
+      <link>http://aurelia.io/blog/2018/02/25/server-side-rendering</link>
+      <description><![CDATA[Without Server Side Rendering the server returns only boilerplate HTML without any content. Today we're announcing Aurelia Server Side Rendering which allows a Node.js server to render your application on the server and return the HTML of a fully rendered page.]]></description>
+      <pubDate>Sun Feb 25 2018 22:36:44 GMT-0800 (PST)</pubDate>
+    </item>
     <item>
       <title><![CDATA[AureliaCasts - Creating Compelling Aurelia Video Tutorials]]></title>
       <link>http://aurelia.io/blog/2018/02/15/aureliacasts-creating-compelling-aurelia-video-tutorials</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2017/04/27/aurelia-release-notes-late-april-2017</link>
       <description><![CDATA[Our most recent set of Aurelia releases includes the Aurelia Dialog Release Candidate. We have a post dedicated to the details of that release, which you can read here [http://blog.aurelia.io/2017/04/27/aurelia-dialog-release-candidate/]. You'll also see that Aurelia UX is moving ahead steadily, with new components and capabilities being added every one to two weeks.]]></description>
       <pubDate>Thu Apr 27 2017 19:09:04 GMT-0700 (PDT)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Dialog Release Candidate]]></title>
-      <link>http://aurelia.io/blog/2017/04/27/aurelia-dialog-release-candidate</link>
-      <description><![CDATA[Thanks to the hard work of Aurelia Core Team members, Strahil Kazlachev and Patrick Walters, we're proud to announce the Aurelia Dialog v1 Release Candidate.]]></description>
-      <pubDate>Thu Apr 27 2017 18:56:29 GMT-0700 (PDT)</pubDate>
     </item>
   </channel>
 </rss>

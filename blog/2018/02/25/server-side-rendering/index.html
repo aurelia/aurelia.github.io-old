@@ -10,13 +10,13 @@
   </script>
 
   <meta charset="utf-8">
-  <title>The Aurelia Blog - Page 10 | Aurelia</title>
+  <title>Server Side Rendering | Aurelia</title>
   <base href="/">
   <meta name="msapplication-tap-highlight" content="no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   
-  <meta name="description" content="The official blog of the Aurelia project and Core Team."/>
+  <meta name="description" content="Without Server Side Rendering the server returns only boilerplate HTML without any content. Today we&#x27;re announcing Aurelia Server Side Rendering which allows a Node.js server to render your application on the server and return the HTML of a fully rendered page."/>
   <meta name="robots" content="index,follow"/>
   
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:200,400,700" rel="stylesheet">
@@ -32,70 +32,45 @@
 
   <main ref="main">
     <div screen-activator.bind="activeScreen" screen-activated.trigger="onScreenActivated()" class="screen-activator">
-      <section class="article-group blog">
+      <section class="article blog">
   <header>
-    <h1>The Aurelia Blog - Page 10</h1>
+    <h1>Server Side Rendering</h1>
+    <h2>Posted by <span class="author">Jeroen Vinke</span> on <span class="date">February 25, 2018</span></h2>
   </header>
 
-  <section>
-    <ul class="article-list">
-      <li>
-        <a href="blog/2016/08/08/aurelia-virtual-training-is-coming-up-2">
-          <h3>Aurelia Virtual Training is Coming Up!</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">August 8, 2016</span>
-          <p>If you are interested in getting training in either Modern JavaScript or Aurelia, there&#x27;s a fantastic opportunity coming up [https://www.picatic.com/modern-javascript-and-aurelia].</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/08/03/releases-august-3-2016">
-          <h3>Releases - August 3, 2016</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">August 3, 2016</span>
-          <p>Even though we released Aurelia 1.0 last week, we&#x27;re not slowing down. We&#x27;re continuing to make fixes and enhancements. In order to keep the community informed, we&#x27;ll make sure to post these updates here each week as needed.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/07/27/aurelia-1-0-is-here">
-          <h3>Aurelia 1.0 is Here!!!</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">July 27, 2016</span>
-          <p>It&#x27;s been an amazing journey to get here and it couldn&#x27;t have happened without the feedback of thousands of community members, the contributions from hundreds of developers and the guidance of our core team. It&#x27;s a special day in the history of our project. Today I&#x27;m proud to announce the official Aurelia 1.0 Release!</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/07/12/release-candidate-update">
-          <h3>Release Candidate Update</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">July 12, 2016</span>
-          <p>In the last couple of weeks since we announced the Aurelia Release Candidate, we&#x27;ve closed over 150 issues. So, today we&#x27;re pushing out patch releases which reflect those fixes.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/06/24/aurelia-interface-update">
-          <h3>Aurelia Interface Update</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">June 24, 2016</span>
-          <p>For some time, we&#x27;ve been working on a component library for Aurelia: a suite of controls that would enable hybrid mobile development on iOS and Android, as well as desktop and browser-based development by leveraging Material Design. In today&#x27;s update, we&#x27;d like to share with you a bit about our journey, where we&#x27;re at and what the future looks like.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/06/23/introducing-the-aurelia-hub-beta-2">
-          <h3>Introducing the Aurelia HUB Beta!!!</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">June 23, 2016</span>
-          <p>Yesterday we launched the Aurelia Release Candidate. Today we&#x27;re taking the first step towards our vision for developer community and productivity.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/06/22/the-aurelia-release-candidate-is-here-2">
-          <h3>The Aurelia Release Candidate is Here!!!</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">June 22, 2016</span>
-          <p>It&#x27;s been an amazing journey since we first announced Aurelia [http://blog.durandal.io/2015/01/26/introducing-aurelia/] and now we&#x27;re finally at our biggest milestone yet. Today we&#x27;re happy to announce the full availability of the Aurelia Release Candidate. You can get the bits through npm, jspm, bower or directly on Github now.</p>
-        </a>
-      </li>
-    </ul>
-  </section>
+  <article class="markdown">
+    <div class="content">
+      <p>Today, we're very excited to announce the early-adopter release of Aurelia's Server Side Rendering!</p>
+<p>With Server Side Rendering, the server returns the HTML of a fully rendered page, which is great for Search Engine Optimization and initial render times. For this to work, your Aurelia application has to run on the server, which we've now enabled through the combination of 
+<a href="https://nodejs.org/" target="_blank">Node.js</a>
+ and 
+<a href="http://koajs.com/" target="_blank">Koa</a>
+.</p>
+<section><h2 id="skeleton">Skeleton</h2><p>We'd love for you to play around with Aurelia Server Side Rendering. That's why we've made a skeleton application that's already setup for you, making it easy to get started quickly. Interested? Download it from the 
+<a href="https://github.com/aurelia/skeleton-navigation" target="_blank">skeleton-navigation</a>
+ repository and follow 
+<a href="https://github.com/aurelia/skeleton-navigation/blob/master/skeleton-typescript-webpack-ssr/README.md" target="_blank">these instructions</a>
+ to get started.</p>
+</section>
+<section><h2 id="learn-more">Learn More</h2><p>If you would like to read more on this subject, check out the Server Side Rendering 
+<a href="http://aurelia.io/docs/ssr/introduction" target="_blank">documentation</a>
+.</p>
+</section>
+<section><h2 id="thank-you-angular-team-and-community">Thank You Angular Team and Community</h2><p>We'd like to extend a huge thank you to the Angular team and their community. In building our Aurelia SSR implementation, we were able to leverage foundational work that the Angular team had invested into their 
+<a href="https://github.com/angular/preboot" target="_blank">preboot</a>
+ library. Thanks to Jeff Whelply, Patrick Stapleton, Jeff Cross, Alex Rickabaugh, and Vikram Subramanian for their great work and for building something that was usable by other frameworks.</p>
+</section>
+<section><h2 id="what-next">What Next?</h2><p>Currently, Server Side Rendering is best used by early adopters. We'd like to work with you, the Aurelia community, in developing this feature further. Your feedback and contributions are instrumental in doing so.</p>
+<p>We think that next milestones should be to add a Server Side Rendering option to the Aurelia CLI for the Webpack bundler, so that the Aurelia CLI can set it up for you when you create new Webpack projects using <code>au new</code>. Then, we'd like to look into Server Side Rendering for .NET Core so that you can choose whether to use .NET Core or Node.js to render and serve your application. If any of these upcoming goals interest you, we'd love for you to contribute and help us deliver these incremental updates faster. Please 
+<a href="https://github.com/aurelia/ssr-engine" target="_blank">join us</a>
+ in continuing to build Aurelia together.</p>
+</section>
 
-  <div class="button-bar">
-    <a class="prev" href="blog/page/9">Newer Posts</a>
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
 
-    <a class="next" href="blog/page/11">Older Posts</a>
-  </div>
+  <blog-footer blog-name="Server%20Side%20Rendering" blog-url="blog%2F2018%2F02%2F25%2Fserver-side-rendering"></blog-footer>
 </section>
 
     </div>
