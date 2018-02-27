@@ -27,6 +27,18 @@
       "vimeo": "https://vimeo.com/channels/867847",
       "gitter": "https://gitter.im/aurelia/Discuss"
     },
+    "sponsorLevels": [
+      {
+        "name": "Silver Sponsors",
+        "sponsors": [
+          {
+            "name": "Simployer",
+            "href": "https://www.simployer.no/",
+            "imageSrc": "styles/images/logos/simployer-small.jpg"
+          }
+        ]
+      }
+    ],
     "migration": {
       "src": "../blog/aurelia.ghost.2018-01-15.json"
     }
