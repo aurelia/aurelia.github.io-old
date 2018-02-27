@@ -30,6 +30,11 @@
   </code></pre></source-code>
 </code-listing>
 <p>So, if you want to keep all the default settings, it's really easy. Just call <code>standardConfiguration()</code> to configure the standard set of plugins. Then call <code>developmentLogging()</code> to turn on logging in debug mode, output to the <code>console</code>.</p>
+<div class="warning"><div class="icon"> <i></i> </div><p>
+Some Aurelia modules will not behave correctly if they are imported before the Aurelia Platform Abstraction Layer (PAL) is initialized, which happens during <code>aurelia.start()</code>. If you need these modules in your configuration module, you need to initialize the PAL yourself before the file is loaded. 
+<a href="https://github.com/aurelia/pal-browser/issues/17" target="_blank">This Github issue</a>
+ describes how you can manually initialize the PAL before starting the bootstrapping process.</p>
+</div>
 <p>The <code>use</code> property on the <code>aurelia</code> instance is an instance of <code>FrameworkConfiguration</code>. It has many helper methods for configuring Aurelia. For example, if you wanted to manually configure all the standard plugins without using the <code>standardConfiguration()</code> helper method to do so and you wanted to configure logging without using the helper method for that, this is how you would utilize the <code>FrameworkConfiguration</code> instance:</p>
 <code-listing heading="Manual Configuration">
   <source-code lang="ES 2015/2016"><pre class="language-javascript"><code>
