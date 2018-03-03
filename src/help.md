@@ -10,6 +10,7 @@ There are a number of books available to help you get started learning Modern Ja
 * [Aurelia For Real World Web Applications](https://leanpub.com/aurelia-for-real-world-applications) by Dwayne Charrington
 * [Aurelia in Action](https://www.manning.com/books/aurelia-in-action) by Sean Hunter
 * [Learning Aurelia](https://www.packtpub.com/web-development/learning-aurelia) by Manuel Guilbault
+* [Practical Aurelia](https://leanpub.com/practical-aurelia) by Behzad Abbasi
 * [Aurelia Succinctly](https://www.syncfusion.com/resources/techportal/details/ebooks/aurelia_succinctly) (Free) by Matthew Duffield
 
 ## Videos
