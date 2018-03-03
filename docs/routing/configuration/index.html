@@ -93,6 +93,8 @@
 <li>Wildcard routes are used to match the &quot;rest&quot; of a path (ie: files/*path matches files/new/doc or files/temp). An object with the rest of the URL after the segment is set as the <code>path</code> property and passed as a parameter to <code>activate()</code> as well.</li>
 </ul>
 </li>
+<li><code>name</code> - is a friendly name that you can use to reference the route with, particularly when using route generation.</li>
+<li><code>moduleId</code> - is the id (usually a relative path) of the module that exports the component that should be rendered when the route is matched.</li>
 <li><code>href</code> - is a conditionally optional property. If it is not defined then route is used. If route has segments then href is required as in the case of files because the router does not know how to fill out the parameterized portions of the pattern.</li>
 <li><code>nav</code> - is a boolean or number property. When set to true the route will be included in the router's navigation model. When specified as number, the value will be used in sorting the routes. This makes it easier to create a dynamic menu or similar elements.  The navigation model will be available as array of <code>NavModel</code> in <code>router.navigation</code>. These are the available properties in <code>NavModel</code>:
 <ul>
@@ -105,6 +107,7 @@
 <li>Other properties includes <code>relativeHref</code> and <code>order</code>.</li>
 </ul>
 </li>
+<li><code>title</code> - is the text to be displayed as the document's title (appears in your browser's title bar or tab). It is combined with the <code>router.title</code> and the title from any child routes.</li>
 </ul>
 <h3>Navigation States</h3>
 <p>The router contains a number of additional properties that indicate the current status of router navigation. These properties are only set on the base router, i.e. not in child routers. Additionally, these properties are all with respect to browser history which extends past the lifecycle of the router itself.</p>
