@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Mon Feb 26 2018 23:07:23 GMT-0800 (PST)</lastBuildDate>
+    <lastBuildDate>Sun Mar 04 2018 22:40:40 GMT-0800 (PST)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia Release Notes - Early March 2018]]></title>
+      <link>http://aurelia.io/blog/2018/03/04/aurelia-release-notes-early-march-2018</link>
+      <description><![CDATA[Last week we announced official support for Server-Side Rendering in Aurelia [blog/2018/02/25/server-side-rendering]. This week we're announcing an update to our Webpack tooling to support Webpack 4.0! We've also got a number of incremental fixes and small new features for other Aurelia libraries, detailed below.]]></description>
+      <pubDate>Sun Mar 04 2018 22:40:38 GMT-0800 (PST)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Server Side Rendering]]></title>
       <link>http://aurelia.io/blog/2018/02/25/server-side-rendering</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2017/05/08/aurelia-at-build-2017</link>
       <description><![CDATA[If you are attending Build [http://build.microsoft.com] and are interested in seeing how to combine ASP.NET Core [https://docs.microsoft.com/en-us/aspnet/core/] and Aurelia [http://aurelia.io], you'll want to attend "Getting Started with Aurelia and ASP.NET Core" this Friday.]]></description>
       <pubDate>Mon May 08 2017 21:19:05 GMT-0700 (PDT)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Release Notes - Late April 2017]]></title>
-      <link>http://aurelia.io/blog/2017/04/27/aurelia-release-notes-late-april-2017</link>
-      <description><![CDATA[Our most recent set of Aurelia releases includes the Aurelia Dialog Release Candidate. We have a post dedicated to the details of that release, which you can read here [http://blog.aurelia.io/2017/04/27/aurelia-dialog-release-candidate/]. You'll also see that Aurelia UX is moving ahead steadily, with new components and capabilities being added every one to two weeks.]]></description>
-      <pubDate>Thu Apr 27 2017 19:09:04 GMT-0700 (PDT)</pubDate>
     </item>
   </channel>
 </rss>
