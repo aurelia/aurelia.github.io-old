@@ -5,7 +5,7 @@
   </header>
 
   <article class="markdown">
-    <section><h2 id="class">Class</h2><p>You can bind an element's <code>class</code> attribute using string interpolation or with <code>.bind</code>/<code>.one-time</code>.</p>
+    <section><h2 id="class">Class</h2><p>You can bind an element's <code>class</code> attribute using string interpolation or with <code>.bind</code>/<code>.to-view</code>.</p>
 <code-listing heading="Class Binding">
   <source-code lang="HTML"><pre class="language-markup"><code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -19,7 +19,8 @@
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/className" target="_blank">className</a>
  property using <code>class-name.bind=&quot;....&quot;</code> or <code>class-name.one-time=&quot;...&quot;</code>. This will be marginally faster but can add up over a lot of bindings.</p>
 </section>
-<section><h2 id="style">Style</h2><p>You can bind a css string or object to an element's <code>style</code> attribute. Use the <code>style</code> attribute's alias, <code>css</code> when doing string interpolation to ensure your application is compatible with Internet Explorer and Edge.</p>
+<section><h2 id="style">Style</h2><p>You can bind a css string or object to an element's <code>style</code> attribute. Use <code>css</code> custom attribute when doing string interpolation in your view to ensure your application is compatible with Internet Explorer and Edge.
+If you don't use interpolation in <code>css</code> - it won't get processed, so if you are just using inline style - use the proper style attribute of HTMLElement.</p>
 <code-listing heading="Style Binding Data">
   <source-code lang="ES 2015/2016"><pre class="language-javascript"><code>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">StyleData</span> <span class="token punctuation">{</span>
@@ -68,6 +69,13 @@
   <source-code lang="HTML"><pre class="language-markup"><code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">css</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>width: ${width}px; height: ${height}px;<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="Won't Work Without Interpolation">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">css</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>width: 100px; height: 100px;<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code></pre></source-code>
 </code-listing>

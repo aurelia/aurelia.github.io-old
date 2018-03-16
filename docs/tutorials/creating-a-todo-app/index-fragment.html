@@ -11,7 +11,7 @@
   <a class="au-button" href="http://aurelia.io/downloads/basic-aurelia-project.zip" target="_blank">Download the Basic Aurelia Project Setup</a>
 </div>
 <p>With this setup, you can choose between two popular programming language options: ESNext and TypeScript. If you would like to stay strictly with spec-compliant next-generation ECMAScript, you will want to go with the ESNext option. However, if you like strong typing and rich compile-time verification and tooling for your language, you'll want to go with TypeScript.</p>
-<p>Once you've made your language choice, we'll need to do two things:</p>
+<p>Once you've made your language choice, you'll need to do two things:</p>
 <ul>
 <li>Configure this documentation to show all code samples in your preferred programming language.</li>
 <li>Configure your Aurelia project to use your preferred programming language.</li>
@@ -82,14 +82,14 @@ In a production app, you wouldn't use a transpiler to transform code on-the-fly 
   SystemJS<span class="token punctuation">.</span><span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'aurelia-bootstrapper'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
 </code></pre></source-code></code-listing>
-<p>The last script tag is a bit different. Instead of setting a <code>src</code>, it provides some code. The <code>SystemJS</code> object is being provided by the SystemJS module loader we mentioned above. Here, we're calling one of its APIs, <code>import</code>. This API tells the loader to load or &quot;import&quot; a module with the specified name. In this case, we're loading <code>aurelia-bootstrapper</code> which resides in the <code>aurelia-core.min.js</code> linked above. This module contains Aurelia's &quot;bootstrap&quot; or &quot;startup&quot; code. This tells Aurelia to load the framework, configure it and run your application.</p>
+<p>The last script tag is a bit different. Instead of setting a <code>src</code>, it provides some code. The <code>SystemJS</code> object is being provided by the SystemJS module loader we mentioned above. Here, we're calling one of its APIs, <code>import</code>. This API tells the loader to load or &quot;import&quot; a module with the specified name. In this case, we're loading <code>aurelia-bootstrapper</code> which resides in the <code>aurelia-core.min.js</code> file linked above. This module contains Aurelia's &quot;bootstrap&quot; or &quot;startup&quot; code. This tells Aurelia to load the framework, configure it and run your application.</p>
 <p>There's one more thing to note. I wonder if you noticed it. On the <code>body</code> tag, there's an <code>aurelia-app</code> attribute. It's pointing to <code>src/main</code>. This is what tells Aurelia's bootstrapper what module contains the framework configuration as well as what HTML element is the &quot;host&quot; element where the application will be rendered. We'll look at creating that file a little bit later. Before we do that, we want to do something a bit non-traditional. We want to show you how you can build your entire Todo application in plain, vanilla ${context.language.name} without using any Aurelia APIs. Then, we'll use Aurelia to render our application to the screen, without changing any of our ${context.language.name} code.</p>
 <p>I know you're going to find this interesting, so let's get to it!</p>
 </section>
 <section><h2 id="the-todo-class">The Todo Class</h2><p>One of the amazing things you can do with Aurelia, that you can't with any other framework or library, is model your entire application using plain ${context.language.name}. We think you'll understand it when you see it.</p>
 <p>We're going to begin by creating a <code>Todo</code> class. Since we're making a Todo App, we'll need a class to model out an individual Todo item. In the <code>src</code> folder of your project, create the following file:</p>
 <code-listing heading="todo${context.language.fileExtension}">
-  <source-code lang="ES 2015/2016"><pre class="language-javascript"><code>
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Todo</span> <span class="token punctuation">{</span>
       <span class="token function">constructor</span><span class="token punctuation">(</span>description<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>description <span class="token operator">=</span> description<span class="token punctuation">;</span>
@@ -107,9 +107,9 @@ In a production app, you wouldn't use a transpiler to transform code on-the-fly 
 </code-listing>
 <p>That's it. It's a plain class that models the todo's <code>description</code> text along with a boolean <code>done</code> to indicate if you've completed your todo.</p>
 </section>
-<section><h2 id="the-app-class">The App Class</h2><p>Our todo application contains a list of <code>Todo</code> instances. It can add and remove todos. The todos are added by allowing the end user to provide a todo description. Once they type a description and add the todo, the description is cleared so they can create another todo. Let's model these ideas. Here's the <code>App</code> class:</p>
+<section><h2 id="the-app-class">The App Class</h2><p>Our todo application contains a list of <code>Todo</code> instances. It can add and remove todos. The todos are added by allowing the user to provide a todo description. Once they type a description and add the todo, the description is cleared so they can create another todo. Let's model these ideas. Here's the <code>App</code> class:</p>
 <code-listing heading="app${context.language.fileExtension}">
-  <source-code lang="ES 2015/2016"><pre class="language-javascript"><code>
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>Todo<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./todo'</span><span class="token punctuation">;</span>
 
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -171,7 +171,7 @@ In a production app, you wouldn't use a transpiler to transform code on-the-fly 
 <section><h2 id="getting-ready-to-render">Getting Ready to Render</h2><p>Ok, now that we've modeled out our application in ${context.language.name}, we need to make Aurelia render it. We weren't completely honest when we said above that we had showed you all the ${context.language.name} code. There's one final piece that gets it all going.</p>
 <p>If you recall, when we looked at <code>index.html</code> there was an <code>aurelia-app</code> attribute on the <code>body</code> element. This attribute tells the <code>aurelia-bootstrapper</code> where to render the application and what main file to use to configure the app. The value of that attribute points to <code>src/main</code>. So, let's create that file in our <code>src</code> folder and see what it does.</p>
 <code-listing heading="main${context.language.fileExtension}">
-  <source-code lang="ES 2015/2016"><pre class="language-javascript"><code>
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
     <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">basicConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -187,7 +187,7 @@ In a production app, you wouldn't use a transpiler to transform code on-the-fly 
   </code></pre></source-code>
 </code-listing>
 <div class="info"><div class="icon"> <i></i> </div><p>
-When working with TypeScript, in this simple setup, you may see some &quot;squigglies&quot; in your code editor. This results from the fact that this simple setup isn't configured in a way that the code editor can find the type definition files. It's nothing to worry about and everything will work correctly. In the next tutorial, when we set up a production-ready project, this issue will go away. If you have experience with this before, you can use Typings to install them yourself at any point.</p>
+When working with TypeScript, in this simple setup, you may see some &quot;squigglies&quot; in your code editor. This results from the fact that this simple setup isn't configured in a way that the code editor can find the type definition files. It's nothing to worry about and everything will work correctly. In the next tutorial, when we set up a production-ready project, this issue will go away. If you have prior experience with this, you can use Typings to install the d.ts definitions yourself at any point.</p>
 </div>
 <p>When we provide a main file, like above, we are able to tell Aurelia how to configure itself by simply exporting a <code>configure</code> method. The framework will provide an instance of the <code>Aurelia</code> object which you can use in a variety of ways. There are many options, plugins and 3rd party extensions you can add, for example. In this case, we're configuring Aurelia with the &quot;basic configuration&quot;. After that, we tell the framework to &quot;start&quot;. Once it is started up we tell it to &quot;set root&quot;.</p>
 <p>So, what does &quot;set root&quot; mean? If you think of your UI as a hierarchy of components, what we're doing is configuring the &quot;root&quot; component of that hierarchy. This is the root of the UI component tree that Aurelia needs to render.</p>
@@ -209,7 +209,7 @@ We call a View's associated class its <em>View-Model</em> because it's a model f
 </div>
 <p>Ok, now that we have a view, we're ready to run our app. To do that, we'll need to start a web server to serve up your index.html page, so we can view it in a browser. How you go about doing that depends on which server-side technology you want to use. Below are instructions for a couple of common scenarios:</p>
 <ul>
-<li><strong>Visual Studio</strong> - Open Visual Studio 2015. Using the main menu, select File &gt; Open &gt; Web site... In the resulting dialog, choose the project folder then click the Open button. The folder contents will be displayed in the Visual Studio Solution Explorer window. Right click on index.html in Solution Explorer and select &quot;View in Browser&quot;. This will fire up IISExpress and serve index.html.</li>
+<li><strong>Visual Studio</strong> - Open Visual Studio 2015. Using the main menu, select File &gt; Open &gt; Web site... In the resulting dialog, choose the project folder then click the Open button. The folder contents will be displayed in the Visual Studio Solution Explorer window. Right click on index.html in Solution Explorer and select &quot;View in Browser&quot;. This will fire up the development web server and serve index.html.</li>
 <li><strong>NodeJS with npm</strong> - To start up a simple web server in the project folder, first globally install the http-server command with <code>npm install http-server -g</code>. (In some environments you may need to use <code>sudo</code>). Once that is installed, change directory to the project folder. You can now spin up the server from within the folder with the following command <code>http-server -o -c-1</code>.</li>
 <li><strong>NodeJS with yarn</strong> - First install the http-server with <code>yarn add http-server</code>. Then use <code>yarn run http-server -o -c-1</code> to run the server.</li>
 <li><strong>Firefox</strong> - If you don't want to worry about setting up a web server, Firefox is flexible enough to serve the app directly from your hard drive. Simply open the <code>index.html</code> file with Firefox.</li>
@@ -239,7 +239,7 @@ Aurelia will use two-way binding for all form control value bindings and one-way
 <p><img src="docs/tutorials/creating-a-todo-app/img/todo-app-with-form.png" alt="Todo App With Form" /></p>
 <p>Try typing into the input box and adding the todo. You should notice that the input box gets cleared out each time you do that. The reason for this is that the <code>value</code> of the <code>input</code> has two way binding and our original code cleared out the <code>todoDescription</code> after adding a new Todo instance. Here's our <code>addTodo()</code> implementation for reference:</p>
 <code-listing heading="The Add Todo Implementation">
-  <source-code lang="ES 2015/2016"><pre class="language-javascript"><code>
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
     <span class="token function">addTodo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Todo</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -313,7 +313,7 @@ Use the <code>style</code> attribute's alias, <code>css</code> when doing string
 <p><img src="docs/tutorials/creating-a-todo-app/img/todo-app-with-css.png" alt="Todo App With CSS" /></p>
 </section>
 <section><h2 id="conclusion">Conclusion</h2><p>With its strong focus on developer experience, Aurelia can enable you to not only create amazing applications, but also enjoy the process. We've designed it with simple conventions in mind so you don't need to waste time with tons of configuration or write boilerplate code just to satisfy a stubborn or restrictive framework. You'll never hit a roadblock with Aurelia either. It's been carefully designed to be pluggable and customizable...and most of the time you just write plain ${context.language.name} and forget the framework is even there.</p>
-<p>Thanks for taking the time to read through our guide. There's so much more to learn and do! We hope you'll continue on to our &quot;Contact Manager&quot; tutorial to learn how to use the Aurelia CLI to get setup with a production-grade project and use some more advanced features like routing, publish/subscribe and custom elements.</p>
+<p>Thanks for taking the time to read through our guide. There's so much more to learn and do! We hope you'll continue on to our <a href="docs/tutorials/creating-a-contact-manager">Contact Manager Tutorial</a> to learn how to use the Aurelia CLI to get setup with a production-grade project and use some more advanced features like routing, publish/subscribe and custom elements.</p>
 <p>We're looking forward to seeing what you create!</p>
 </section>
 

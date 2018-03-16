@@ -279,6 +279,35 @@ An expression representing a call to a member function.
 
 
 
+### CheckedObserver
+
+Checked observer for checkboxes
+
+#### Properties
+
+
+#### Methods
+
+
+* `getValue(): any` - 
+
+
+* `handleEvent(): any` - Handle underlying checkbox element change events
+
+
+* `setValue(newValue: any): void` - 
+  * `newValue: any` - No description available
+
+
+* `subscribe(callback: ): void` - Subscribe to property changes with a callback function.
+  * `callback: ` - No description available
+
+
+* `unsubscribe(callback: ): void` - Unsubscribes a callback function from property changes.
+  * `callback: ` - No description available
+
+
+
 ### Conditional
 
 A conditional (ternary) expression.
@@ -542,6 +571,35 @@ Parses strings containing javascript expressions and returns a data-binding spec
 
 
 
+### SelectValueObserver
+
+Select observer for select
+
+#### Properties
+
+
+#### Methods
+
+
+* `getValue(): any` - 
+
+
+* `handleEvent(): any` - Handle underlying checkbox element change events
+
+
+* `setValue(newValue: any): void` - 
+  * `newValue: any` - No description available
+
+
+* `subscribe(callback: ): void` - Subscribe to property changes with a callback function.
+  * `callback: ` - No description available
+
+
+* `unsubscribe(callback: ): void` - Unsubscribes a callback function from property changes.
+  * `callback: ` - No description available
+
+
+
 ### Unparser
 
 Visits an expression AST and returns the string equivalent.
@@ -550,6 +608,35 @@ Visits an expression AST and returns the string equivalent.
 
 
 #### Methods
+
+
+
+### ValueAttributeObserver
+
+Value observer for elements
+
+#### Properties
+
+
+#### Methods
+
+
+* `getValue(): any` - 
+
+
+* `handleEvent(): any` - Handle underlying checkbox element change events
+
+
+* `setValue(newValue: any): void` - 
+  * `newValue: any` - No description available
+
+
+* `subscribe(callback: ): void` - Subscribe to property changes with a callback function.
+  * `callback: ` - No description available
+
+
+* `unsubscribe(callback: ): void` - Unsubscribes a callback function from property changes.
+  * `callback: ` - No description available
 
 
 
@@ -738,6 +825,49 @@ An expression AST visitor.
 
 
 
+### IArrayObserverSplice
+
+The splice type to expect when observing an Array collection.
+
+#### Properties
+
+* `addedCount: number` - Number of items added to the collection.
+* `index: number` - The position at which the items were added.
+* `removed: Array` - A collection of items that were removed from the collection.
+
+#### Methods
+
+
+
+### IMapObserverSplice
+
+The splice type to expect when observing a Map collection.
+
+#### Properties
+
+* `key: K` - The key of the item that was changed.
+* `object: Map` - The observed Map after the change.
+* `oldValue: V` - The value of the item prior to the change.
+* `type: ` - The type of change that has taken place. Valid options are &quot;add&quot;, &quot;delete&quot;, and &quot;update&quot;.
+
+#### Methods
+
+
+
+### ISetObserverSplice
+
+The splice type to expect when observing a Set collection.
+
+#### Properties
+
+* `object: Set` - The observed Set after the change.
+* `type: ` - The type of change that has taken place. Valid options are &quot;add&quot; and &quot;delete&quot;.
+* `value: T` - The value that was either added or removed.
+
+#### Methods
+
+
+
 ### InternalCollectionObserver
 
 Observes collection mutation.
@@ -846,6 +976,22 @@ Provides efficient property observers for properties that would otherwise requir
   * `object: any` - No description available.
   * `propertyName: string` - No description available.
   * `descriptor: PropertyDescriptor` - No description available.
+
+
+
+### ObserverEventHandler
+
+Event subscription handler for observers
+
+#### Properties
+
+
+#### Methods
+
+
+* `subscribe(target: Element, callbackOrlistener: EventListenerOrEventListenerObject): Function` - 
+  * `target: Element` - No description available.
+  * `callbackOrlistener: EventListenerOrEventListenerObject` - No description available.
 
 
 
@@ -965,6 +1111,16 @@ the binding that the context is a &quot;target update&quot;.
 
 
 * `getChangeRecords(): any` - An internal API used by Aurelia&#x27;s array observation components.
+
+
+* `getContextFor(name: string, scope: Scope, ancestor?: number): any` - Gets the binding context for the specified property name by looking for the property
+on the scope.bindingContext, then on the scope.overrideContext before repeating on
+the ancestor scopes until the property is found. If the property is not found anywhere
+in the scope then the root binding context is returned.
+  * `name: string` - The property name.
+  * `scope: Scope` - The scope.
+  * `ancestor?: number` - The number of ancestor scopes to skip back to (used in $parent bindings).
+
 
 
 * `hasDeclaredDependencies(descriptor: PropertyDescriptor): boolean` - Returns whether a property&#x27;s dependencies have been declared.

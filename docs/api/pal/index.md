@@ -15,6 +15,7 @@ Represents the core APIs of the DOM.
 #### Properties
 
 * `Element: ` - The global DOM Element type.
+* `NodeList: ` - The global DOM NodeList type.
 * `SVGElement: ` - The global DOM SVGElement type.
 * `activeElement: Element` - The document&#x27;s active/focused element.
 * `boundary: string` - A key representing a DOM boundary.
@@ -92,7 +93,7 @@ Represents the core APIs of the DOM.
   * `styles: string` - The css text to injext.
   * `destination?: Element` - The destination element to inject the css text into. If not specified it will default to the document.head.
   * `prepend?: boolean` - Indicates whether or not the styles should be prepended to the destination. By default they are appended.
-  * `id?: string` - No description available.
+  * `id?: string` - The existing style element&#x27;s id to replace the contents for
 
 
 * `nextElementSibling(element: Node): Element` - Gets the element that is the next sibling of the provided element.
@@ -160,6 +161,33 @@ The runtime&#x27;s performance API.
 
 
 #### Methods
+
+
+* `clearMarks(markName?: string): void` - Removes the given mark from the browser&#x27;s performance entry buffer.
+  * `markName?: string` - No description available.
+
+
+* `clearMeasures(measureName?: string): void` - Removes the given measure from the browser&#x27;s performance entry buffer.
+  * `measureName?: string` - No description available.
+
+
+* `getEntriesByName(name: string, entryType?: string): any` - Returns a list of PerformanceEntry objects based on the given name and entry type.
+  * `name: string` - The name of the entry to retrieve
+  * `entryType?: string` - No description available.
+
+
+* `getEntriesByType(entryType: string): any` - Returns a list of PerformanceEntry objects of the given entry type.
+  * `entryType: string` - The type of entry to retrieve such as &quot;mark&quot;. The valid entry types are listed in PerformanceEntry.entryType.
+
+
+* `mark(markName: string): void` - Creates a timestamp in the browser&#x27;s performance entry buffer with the given name.
+  * `markName: string` - a DOMString representing the name of the mark
+
+
+* `measure(measureName: string, startMarkName?: string, endMarkName?: string): void` - Creates a named timestamp in the browser&#x27;s performance entry buffer between two specified marks (known as the start mark and end mark, respectively).
+  * `measureName: string` - a DOMString representing the name of the measure.
+  * `startMarkName?: string` - No description available.
+  * `endMarkName?: string` - No description available.
 
 
 * `now(): number` - Gets a DOMHighResTimeStamp.

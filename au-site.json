@@ -202,7 +202,7 @@
           },
           {
             "name": "Observable Properties",
-            "src": "../binding/doc/article/en-US/binding-observable-properties.md",
+            "src": "../binding/doc/article/en-US/binding-observables.md",
             "dest": "docs/binding/binding-observable-properties"
           },
           {

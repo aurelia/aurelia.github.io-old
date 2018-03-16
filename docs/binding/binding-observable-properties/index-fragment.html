@@ -1,11 +1,11 @@
 <section class="article">
   <header>
-    <h1>Binding: Observable Properties</h1>
-    <h2>Data-binding observable properties with Aurelia.</h2>
+    <h1>Binding: Observables</h1>
+    <h2>Using observables with Aurelia.</h2>
   </header>
 
   <article class="markdown">
-    <section><h2 id="introduction">Introduction</h2><p>Have you ever needed to perform an action when a property is changed? If you have, that's a great use of property observation.</p>
+    <section><h2 id="observable-properties">Observable Properties</h2><p>Have you ever needed to perform an action when a property is changed? If you have, that's a great use of property observation.</p>
 <p>To observe a property, you need to decorate it with the <code>@observable</code> decorator and define a method as the change handler. This method can receive 2 parameters: the new value and the old value. You can put any business logic inside this method.</p>
 <p>By convention, the change handler is a method whose name is composed of the <em>property_name</em> and the literal value 'Changed'. For example, if you decorate the property <code>color</code> with <code>@observable</code>, you have to define a method named <code>colorChanged()</code> to be the change handler. Here's an example of that:</p>
 <code-listing heading="Observable Properties">
@@ -149,6 +149,176 @@ You do not have to check if <code>newValue</code> and <code>oldValue</code> are 
 </code-listing>  
 <div class="info"><div class="icon"> <i></i> </div><p>
 The <code>@observable</code> <em>only</em> tracks changes to the value of a property, <em>not</em> changes <em>in</em> the value itself. This means that if the property is an array, the change handler will not fire when adding, removing or editing items.</p>
+</div>
+</section>
+<section><h2 id="observing-collections">Observing Collections</h2><p>Use the Collection Observer to observe changes to a collection. Collection types that can be observed are 
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" target="_blank">Array</a>
+, 
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map" target="_blank">Map</a>
+, and 
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set" target="_blank">Set</a>
+. Create a subscription by providing the collection to observe and a callback function.</p>
+<code-listing heading="Configuring a Collection Observer">
+  <source-code lang="ES 2015"><pre class="language-javascript"><code>
+  </code></pre></source-code>
+  <source-code lang="ES 2016"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>BindingEngine<span class="token punctuation">,</span> autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+
+    @<span class="token function">inject</span><span class="token punctuation">(</span>BindingEngine<span class="token punctuation">)</span>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+
+      myCollection <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"foo"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+      <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> bindingEngine<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> subscription <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>bindingEngine<span class="token punctuation">.</span><span class="token function">collectionObserver</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>myCollection<span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>collectionChanged<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">collectionChanged</span><span class="token punctuation">(</span>splices<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// This will fire any time the collection is modified. </span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>BindingEngine<span class="token punctuation">,</span> autoinject<span class="token punctuation">,</span> IArrayObserverSplice<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+
+    @autoinject
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+
+      myCollection<span class="token punctuation">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">></span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"foo"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> bindingEngine<span class="token punctuation">:</span> BindingEngine<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> subscription <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>bindingEngine<span class="token punctuation">.</span><span class="token function">collectionObserver</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>myCollection<span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>collectionChanged<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">collectionChanged</span><span class="token punctuation">(</span>splices<span class="token punctuation">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span>IArrayObserverSplice<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">>></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// This will fire any time the collection is modified. </span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>  
+<p>The callback will receive an array of splices which provides information about the change that was detcted. The properties of the splice may vary depending on the type of collection being observed. Here you can see example callback functions used to observe each of the different collection types.</p>
+<code-listing heading="Array Splice">
+  <source-code lang="ES 2015"><pre class="language-javascript"><code>
+  </code></pre></source-code>
+  <source-code lang="ES 2016"><pre class="language-javascript"><code>
+    <span class="token function">collectionChanged</span><span class="token punctuation">(</span>splices<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> splices<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> splice <span class="token operator">=</span> splices<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">var</span> valuesAdded <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>myCollection<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span>index<span class="token punctuation">,</span> splice<span class="token punctuation">.</span>index <span class="token operator">+</span> splice<span class="token punctuation">.</span>addedCount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>valuesAdded<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`The following values were inserted at </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>index<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>JSON<span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>valuesAdded<span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>splice<span class="token punctuation">.</span>removed<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`The following values were removed from </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>index<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>JSON<span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span>removed<span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+    <span class="token function">collectionChanged</span><span class="token punctuation">(</span>splices<span class="token punctuation">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span>IArrayObserverSplice<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">>></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> splices<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> splice<span class="token punctuation">:</span> IArrayObserverSplice<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">></span> <span class="token operator">=</span> splices<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">var</span> valuesAdded <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>myCollection<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span>index<span class="token punctuation">,</span> splice<span class="token punctuation">.</span>index <span class="token operator">+</span> splice<span class="token punctuation">.</span>addedCount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>valuesAdded<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`The following values were inserted at </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>index<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>JSON<span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>valuesAdded<span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>splice<span class="token punctuation">.</span>removed<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`The following values were removed from </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>index<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>JSON<span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span>removed<span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="Map Splice">
+  <source-code lang="ES 2015"><pre class="language-javascript"><code>
+  </code></pre></source-code>
+  <source-code lang="ES 2016"><pre class="language-javascript"><code>
+    <span class="token function">collectionChanged</span><span class="token punctuation">(</span>splices<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> splices<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> splice <span class="token operator">=</span> splices<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span>type <span class="token operator">==</span> <span class="token string">"add"</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">var</span> valuesAdded <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>myCollection<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`'</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>valuesAdded<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">' was added to position </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>key<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        
+        <span class="token keyword">if</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span>type <span class="token operator">==</span> <span class="token string">"update"</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">var</span> newValue <span class="token operator">=</span> splice<span class="token punctuation">.</span>object<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`Position </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>key<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> changed from '</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>oldValue<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">' to '</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>newValue<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span>type <span class="token operator">==</span> <span class="token string">"delete"</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`'</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>oldValue<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">' was deleted from position </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>key<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+    <span class="token function">collectionChanged</span><span class="token punctuation">(</span>splices<span class="token punctuation">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span>IMapObserverSplice<span class="token operator">&lt;</span><span class="token builtin">number</span><span class="token punctuation">,</span> <span class="token builtin">string</span><span class="token operator">>></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> splices<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> splice<span class="token punctuation">:</span> IMapObserverSplice<span class="token operator">&lt;</span><span class="token builtin">number</span><span class="token punctuation">,</span> <span class="token builtin">string</span><span class="token operator">></span> <span class="token operator">=</span> splices<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span><span class="token keyword">type</span> <span class="token operator">==</span> <span class="token string">"add"</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">var</span> valuesAdded <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>myCollection<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`'</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>valuesAdded<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">' was added to position </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>key<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        
+        <span class="token keyword">if</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span><span class="token keyword">type</span> <span class="token operator">==</span> <span class="token string">"update"</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">var</span> newValue <span class="token operator">=</span> splice<span class="token punctuation">.</span>object<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`Position </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>key<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> changed from '</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>oldValue<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">' to '</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>newValue<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span><span class="token keyword">type</span> <span class="token operator">==</span> <span class="token string">"delete"</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`'</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>oldValue<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">' was deleted from position </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>key<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<code-listing heading="Set Splice">
+  <source-code lang="ES 2015"><pre class="language-javascript"><code>
+  </code></pre></source-code>
+  <source-code lang="ES 2016"><pre class="language-javascript"><code>
+    <span class="token function">collectionChanged</span><span class="token punctuation">(</span>splices<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> splices<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> splice <span class="token operator">=</span> splices<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span>type <span class="token operator">==</span> <span class="token string">"add"</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`'</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>value<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">' was added to the set`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span>type <span class="token operator">==</span> <span class="token string">"delete"</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`'</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>value<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">' was removed from the set`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+    <span class="token function">collectionChanged</span><span class="token punctuation">(</span>splices<span class="token punctuation">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span>ISetObserverSplice<span class="token operator">&lt;</span><span class="token builtin">number</span><span class="token operator">>></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> splices<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> splice<span class="token punctuation">:</span> ISetObserverSplice<span class="token operator">&lt;</span><span class="token builtin">number</span><span class="token operator">></span> <span class="token operator">=</span> splices<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span><span class="token keyword">type</span> <span class="token operator">==</span> <span class="token string">"add"</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`'</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>value<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">' was added to the set`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span>splice<span class="token punctuation">.</span><span class="token keyword">type</span> <span class="token operator">==</span> <span class="token string">"delete"</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`'</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>splice<span class="token punctuation">.</span>value<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">' was removed from the set`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<div class="warning"><div class="icon"> <i></i> </div><p>
+If you were to overwrite the value of the collection after the subscription has been created, changes wil no longer be detected. For example, running <code>this.myCollection = []</code> after <code>this.bindingEngine.collectionObserver(this.myCollection)</code> will fail to observe changes to <code>myCollection</code>.</p>
 </div>
 </section>
 

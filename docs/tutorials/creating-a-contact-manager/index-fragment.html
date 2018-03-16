@@ -26,7 +26,7 @@
 </li>
 </ul>
 <div class="warning"><div class="icon"> <i></i> </div><p>
-Note on Git for Windows installation: When installing Git for Windows, there is an option to <code>use git bash only</code>, <code>run git from windows command prompt</code>, or <code>run git and included unix tools from windows command prompt</code>. You have to choose <code>run git from windows command prompt</code> or <code>run git and included unix tools from windows command prompt</code> in order for Aurelia CLI to work.</p>
+When installing Git for Windows, there is an option to <code>use git bash only</code>, <code>run git from windows command prompt</code>, or <code>run git and included unix tools from windows command prompt</code>. You must choose <code>run git from windows command prompt</code> or <code>run git and included unix tools from windows command prompt</code> in order for the Aurelia CLI to work.</p>
 </div>
 <p>Once you have the prerequisites installed, you can install the Aurelia CLI itself. From the command line, use npm to install the CLI globally:</p>
 <code-listing><source-code lang="Shell"><pre class="language-powershell"><code>
@@ -57,7 +57,7 @@ While creating a new project doesn't require NPM 3, front-end development, in ge
 <p>Copy all of these files to the <code>src</code> folder of your project. TypeScript users should also rename the file extensions from <code>.js</code> to <code>.ts</code>.</p>
 </section>
 <section><h2 id="building-the-application-shell">Building the Application Shell</h2><div class="warning"><div class="icon"> <i></i> </div><p>
-Before proceeding any further, please make sure you are familiar with the concepts introduced in the Quick Start Guide or otherwise have some basic experience with Aurelia. Topics covered in the Quick Start will not be explained again here.</p>
+Before proceeding any further, please make sure you are familiar with the concepts introduced in <a href="docs/tutorials/creating-a-todo-app">Creating a Todo App</a> or otherwise have some basic experience with Aurelia. Topics covered in <a href="docs/tutorials/creating-a-todo-app">Creating a Todo App</a> will not be covered in this article.</p>
 </div>
 <p>Let's start by looking at a picture of the final product of this tutorial. It will help us to see the application's structure and the pieces we need to build.</p>
 <p><img src="docs/tutorials/creating-a-contact-manager/img/contact-app-final.png" alt="The Final Contact Manager App" /></p>
@@ -65,12 +65,14 @@ Before proceeding any further, please make sure you are familiar with the concep
 <p>To begin, we're going to setup our <code>App</code> class by configuring it with a router. We want our browser history to reflect which contact in our list is selected, so we'll introduce a client-side router to handle the navigation from screen to screen. Replace the code in your <code>app${context.language.fileExtension}</code> with the following:</p>
 <code-listing heading="app${context.language.fileExtension}">
   <source-code lang="ES 2015/ES Next"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>PLATFORM<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
+
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
       <span class="token function">configureRouter</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> router<span class="token punctuation">)</span><span class="token punctuation">{</span>
         config<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string">'Contacts'</span><span class="token punctuation">;</span>
         config<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
-          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>              moduleId<span class="token punctuation">:</span> <span class="token string">'no-selection'</span><span class="token punctuation">,</span>   title<span class="token punctuation">:</span> <span class="token string">'Select'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">'contacts/:id'</span><span class="token punctuation">,</span>  moduleId<span class="token punctuation">:</span> <span class="token string">'contact-detail'</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span><span class="token string">'contacts'</span> <span class="token punctuation">}</span>
+          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>              moduleId<span class="token punctuation">:</span> PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'no-selection'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>   title<span class="token punctuation">:</span> <span class="token string">'Select'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">'contacts/:id'</span><span class="token punctuation">,</span>  moduleId<span class="token punctuation">:</span> PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'contact-detail'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span><span class="token string">'contacts'</span> <span class="token punctuation">}</span>
         <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
         <span class="token keyword">this</span><span class="token punctuation">.</span>router <span class="token operator">=</span> router<span class="token punctuation">;</span>
@@ -79,6 +81,7 @@ Before proceeding any further, please make sure you are familiar with the concep
   </code></pre></source-code>
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>Router<span class="token punctuation">,</span> RouterConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-router'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>PLATFORM<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
 
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
       router<span class="token punctuation">:</span> Router<span class="token punctuation">;</span>
@@ -86,8 +89,8 @@ Before proceeding any further, please make sure you are familiar with the concep
       <span class="token function">configureRouter</span><span class="token punctuation">(</span>config<span class="token punctuation">:</span> RouterConfiguration<span class="token punctuation">,</span> router<span class="token punctuation">:</span> Router<span class="token punctuation">)</span><span class="token punctuation">{</span>
         config<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string">'Contacts'</span><span class="token punctuation">;</span>
         config<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
-          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>              moduleId<span class="token punctuation">:</span> <span class="token string">'no-selection'</span><span class="token punctuation">,</span>   title<span class="token punctuation">:</span> <span class="token string">'Select'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">'contacts/:id'</span><span class="token punctuation">,</span>  moduleId<span class="token punctuation">:</span> <span class="token string">'contact-detail'</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span><span class="token string">'contacts'</span> <span class="token punctuation">}</span>
+          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>              moduleId<span class="token punctuation">:</span> PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'no-selection'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>   title<span class="token punctuation">:</span> <span class="token string">'Select'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">'contacts/:id'</span><span class="token punctuation">,</span>  moduleId<span class="token punctuation">:</span> PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'contact-detail'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span><span class="token string">'contacts'</span> <span class="token punctuation">}</span>
         <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
         <span class="token keyword">this</span><span class="token punctuation">.</span>router <span class="token operator">=</span> router<span class="token punctuation">;</span>
@@ -95,14 +98,19 @@ Before proceeding any further, please make sure you are familiar with the concep
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>
+<div class="warning"><div class="icon"> <i></i> </div><p>
+After changing the code above, if you immediately try to compile, you may receive a compile error on your unit tests because the sample test references the <code>App</code> class, which we just changed. To address this, remove the dummy unit test.</p>
+</div>
 <p>To add routing to your app, all you have to do is add a <code>configureRouter</code> method to your <code>App</code> class. The framework will call this method, passing it a <code>RouterConfiguration</code> and a <code>Router</code>. You can use the configuration object to get the router setup with the routes you want. Use the <code>map</code> method to map route patterns to the modules that should handle the patterns. Minimally, each route needs at least a <code>route</code> pattern and a <code>moduleId</code>.</p>
 <p>In the case above, we are registering two routes. The first route is empty, indicated by <code>route: ''</code>. This will be the default route that is matched when there is no fragment. This route will cause the <code>no-selection</code> module to load. We'll use this to display a nice message to the user, if they haven't selected a contact to view. The second route has the pattern <code>contacts/:id</code>. This will match the literal <code>contacts/</code> followed by a parameter, which we've named <code>id</code>. When this route is matched, the router will load the <code>contact-detail</code> module so that we can display the selected contact.</p>
+<div class="info"><div class="icon"> <i></i> </div><p>
+Did you notice the calls to <code>PLATFORM.moduleName(....)</code>? This is a special API that is used in Aurelia Webpack projects to allow Webpack to identify strings that represent modules. This enables Webpack to include the referenced module in the built package.</p>
+</div>
 <p>There are a couple more points of interest with this configuration. First, notice that we've set the <code>config.title</code> property. This sets a base &quot;title&quot; to be used in the document's title for the browser. We can also set a <code>title</code> on each route. When we do that, the router's title and the matched route's title will be joined together to form the final document title. The second thing to notice is that the second route has a <code>name</code> property. We'll be able to use this later to generate routes without needing to copy/paste the route pattern everywhere. Instead, we can just refer to the route by name.</p>
 <p>Now that we've configured our application's navigation structure, we need to put the visual structure in place. To do that, replace your <code>app.html</code> file with the following markup:</p>
 <code-listing heading="app.html">
   <source-code lang="HTML"><pre class="language-markup"><code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bootstrap/css/bootstrap.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./styles.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
 
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>nav</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>navbar navbar-default navbar-fixed-top<span class="token punctuation">"</span></span> <span class="token attr-name">role</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>navigation<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -123,53 +131,31 @@ Before proceeding any further, please make sure you are familiar with the concep
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code></pre></source-code>
 </code-listing>
-<p>There are several interesting things to note about this view. First, take a look at the <code>require</code> elements at the top of the view. This is how we can &quot;import&quot; or &quot;require&quot; various resources into our view. It's the view equivalent of the ES 2015 &quot;import&quot; syntax. Just as JavaScript is modularized and requires importing of other resources, so do Aurelia views. In this specific case, we're indicating that we want to bring in bootstrap's CSS as well as our own custom styles. Of course, we haven't actually installed Bootstrap yet. We'll get to that in a minute.</p>
+<p>There are several interesting things to note about this view. First, take a look at the <code>require</code> elements at the top of the view. This is how we can &quot;import&quot; or &quot;require&quot; various resources into our view. It's the view equivalent of the ES 2015 &quot;import&quot; syntax. Just as JavaScript is modularized and requires importing of other resources, so do Aurelia views. In this specific case, we're indicating that we want to bring in our custom styles.</p>
 <p>Below the <code>require</code> elements, you can see a pretty standard structure. We have some HTML to setup a navbar at the top. Below that we have the application's main container div. This has two columns. The first will contain our contact list, indicated by the placeholder div. The second contains a <code>router-view</code> custom element.</p>
 <p>The <code>router-view</code> is provided by Aurelia and is a placeholder that indicated where the router should render the current route. This allows you to structure your application layout however you want, simply placing the <code>router-view</code> wherever you want to see the current page rendered. Whenever you have a <code>configureRouter</code> method, the view must also contain a <code>router-view</code>.</p>
-<p>We're almost done setting up the application shell. Before we're done, we need to install Bootstrap. We'll be using that in this tutorial in order to give our application a decent appearance. In your own apps, you can use any CSS framework you like.</p>
+<p>We're almost done setting up the application shell. Before we're done, we need to install Bootstrap and import it in our main file. We'll be using that in this tutorial in order to give our application a decent appearance. In your own apps, you can use any CSS framework you like.</p>
 <p>To get Bootstrap setup, we begin by installing the library itself with NPM. Execute the following on the command line to do this:</p>
 <code-listing><source-code lang="Shell"><pre class="language-powershell"><code>
   npm install bootstrap <span class="token operator">--</span>save
   
 </code></pre></source-code></code-listing>
-<p>Next, because Bootstrap uses jQuery, we want to install jQuery as well, like this:</p>
-<code-listing><source-code lang="Shell"><pre class="language-powershell"><code>
-  npm install jquery@^2<span class="token punctuation">.</span>2<span class="token punctuation">.</span>4 <span class="token operator">--</span>save
+<p>Next, we need to import it in our <code>main${context.language.fileExtension}</code> by adding the following line to the top of the file:</p>
+<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+  <span class="token keyword">import</span> <span class="token string">'bootstrap/dist/css/bootstrap.css'</span><span class="token punctuation">;</span>
   
 </code></pre></source-code></code-listing>
 <div class="info"><div class="icon"> <i></i> </div><p>
 Whenever you install new dependencies used in your app, make sure to restart the <code>au run</code> or respectively the <code>au run --watch</code> command, in order to have the CLI re-bundle your freshly added dependencies.</p>
 </div>
-<p>With these libraries installed, we now need to tell Aurelia which application bundle they should be included in and how to properly configure them with the module system. To do this, look in the <code>aurelia_project</code> folder and open up the <code>aurelia.json</code> file. This file contains all the information that the Aurelia CLI uses to build our project. If you scroll down, you will see a <code>bundles</code> section. There are two bundles defined by default: <code>app-bundle.js</code>, which contains your code and <code>vendor-bundle.js</code> which contains all 3rd party libraries. We need to add some new items to the <code>dependencies</code> array of the <code>vendor-bundle.js</code> bundle. Add the following two entries for jQuery and Bootstrap:</p>
-<code-listing heading="jQuery and Bootstrap Bundle Config">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token string">"dependencies"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
-      <span class="token operator">...</span>
-      <span class="token string">"jquery"</span><span class="token punctuation">,</span>
-      <span class="token punctuation">{</span>
-        <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"bootstrap"</span><span class="token punctuation">,</span>
-        <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"../node_modules/bootstrap/dist"</span><span class="token punctuation">,</span>
-        <span class="token string">"main"</span><span class="token punctuation">:</span> <span class="token string">"js/bootstrap.min"</span><span class="token punctuation">,</span>
-        <span class="token string">"deps"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"jquery"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token string">"exports"</span><span class="token punctuation">:</span> <span class="token string">"$"</span><span class="token punctuation">,</span>
-        <span class="token string">"resources"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
-          <span class="token string">"css/bootstrap.css"</span>
-        <span class="token punctuation">]</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token operator">...</span>
-    <span class="token punctuation">]</span>
-  </code></pre></source-code>
-</code-listing>
-<p>You can read more about configuring 3rd party libraries in the documentation on the Aurelia CLI. For now, just know that this causes jQuery, Bootstrap and all necessary CSS to be included in the vendor bundle and makes it reachable through the module system.</p>
-<p>After you have modified the aurelia.json file, it is necessary to restart the <code>au run --watch</code> process in order for the changes to be picked up.</p>
 </section>
-<section><h2 id="building-out-the-default-route">Building Out the Default Route</h2><p>If you run the application now, you'll see a blank screen and the browser's console will display the following message:</p>
+<section><h2 id="building-out-the-default-route">Building Out the Default Route</h2><p>If you run the application now, using <code>au run --watch</code>, you'll see a compile error similar to:</p>
 <code-listing><source-code lang="Output"><pre class="language-javascript"><code>
-  Failed to load resource<span class="token punctuation">:</span> the server responded <span class="token keyword">with</span> a status <span class="token keyword">of</span> <span class="token number">404</span> <span class="token punctuation">(</span>Not Found<span class="token punctuation">)</span> http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token punctuation">:</span><span class="token number">9000</span><span class="token operator">/</span>src<span class="token operator">/</span>no<span class="token operator">-</span>selection<span class="token punctuation">.</span>js
-  ERROR <span class="token punctuation">[</span>app<span class="token operator">-</span>router<span class="token punctuation">]</span> Error<span class="token punctuation">:</span> Script error <span class="token keyword">for</span> <span class="token string">"no-selection"</span>
+  ERROR <span class="token keyword">in</span> <span class="token punctuation">.</span><span class="token operator">/</span>src<span class="token operator">/</span>app<span class="token punctuation">.</span>js
+  Module not found<span class="token punctuation">:</span> Error<span class="token punctuation">:</span> Can<span class="token string">'t resolve '</span>contact<span class="token operator">-</span>detail<span class="token string">' in '</span><span class="token operator">/</span>contact<span class="token operator">-</span>manager<span class="token operator">/</span>src'
   
 </code></pre></source-code></code-listing>
-<p>This is actually expected. Why? Well, we have now configured a router, that router is matching on the empty route pattern we defined and it's trying to load the <code>no-selection</code> module, but we haven't created that yet. Let's do that now. Create a new file under <code>src</code> named <code>no-selection${context.language.fileExtension}</code> and give it the following code:</p>
+<p>This is actually expected. Why? Well, we use <code>PLATFORM.moduleName(....)</code> as part of our route configuration, but we haven't actually created these modules. Let's create them now. Create a new file under <code>src</code> named <code>no-selection${context.language.fileExtension}</code> and give it the following code:</p>
 <code-listing heading="no-selection${context.language.fileExtension}">
   <source-code lang="ES 2015/ES Next"><pre class="language-javascript"><code>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">NoSelection</span> <span class="token punctuation">{</span>
@@ -194,7 +180,20 @@ Whenever you install new dependencies used in your app, make sure to restart the
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code></pre></source-code>
 </code-listing>
-<p>All it does is provide a container with some styling in order to display our message to the user. With this in place, you should now be able to run your application. If you haven't stopped/restarted it after editing the bundles, then you will need to do that now. When you run the application, you should see something like this:</p>
+<p>All it does is provide a container with some styling in order to display our message to the user.</p>
+<p>Next, let's just add a placeholder module for our contact detail screen, so we can satisfy the build. Create a new file under <code>src</code> named <code>contact-detail${context.language.fileExtension}</code> and give it the following code:</p>
+<code-listing heading="contact-detail${context.language.fileExtension}">
+  <source-code lang="ES 2015"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ContactDetail</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="ES Next"><pre class="language-javascript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ContactDetail</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ContactDetail</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<p>With this in place, you should now be able to run your application. If you haven't stopped/restarted it after editing the bundles, then you will need to do that now. When you run the application, you should see something similar to this:</p>
 <p><img src="docs/tutorials/creating-a-contact-manager/img/contact-app-no-selection.png" alt="No Selection Screen" /></p>
 </section>
 <section><h2 id="building-out-the-contact-list">Building Out the Contact List</h2><p>We've got the basic visual structure of our application in place and routing is now working. We've even created our first screen. However, it's not very interesting. We've got a <code>div</code> placeholder for the actual contact list at present. Let's go ahead and build that out, as a <code>contact-list</code> custom element.</p>
@@ -287,12 +286,11 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
   </code></pre></source-code>
 </code-listing>
 <p>The markup above begins by repeating an <code>li</code> for each contact of our contacts array. Take a look at the class attribute on the <code>li</code>. We've used an interesting technique here to add an <code>active</code> class if the contact's id is the same as the <code>selectedId</code> of the contact on our <code>ContactList</code> view-model. We've used the <code>$parent</code> special value to reach outside of the list's scope and into the parent view-model so we can test against that property. Throughout the list template, we've used basic string interpolation binding to show the <code>firstName</code>, <code>lastName</code> and <code>email</code> of each contact.</p>
-<p>Take special note of the <code>a</code> tag. First, we are using a custom attribute provided by Aurelia's routing system: <code>route-href</code>. This attribute can generate an href for a route, based on the route's name and a set of parameters. Remember how we named the contacts route in our configuration? Here we're using that by referencing the &quot;contacts&quot; route name and binding the contacts's <code>id</code> parameter as the route's <code>id</code> parameter. With this information, the router is able to generate the correct <code>href</code> on the <code>a</code> tag for each contact. Additionally, we've also wired up a <code>click</code> event. Why would we do this if the <code>href</code> is already going to handle navigating to the correct contact? Well, we're looking for instant user feedback. We want the list selection to happen ASAP, so we don't have to wait on the navigation system or on the loading of the contact data. To accomplish this, we use the <code>select</code> method to track the selected contact's <code>id</code>, which allows us to instantly apply the selection style. Finally, normal use of <code>.trigger</code> or <code>.delegate</code> causes the default action of the event to be cancelled. But, if you return true from your method, as we have done above, it will be allowed to continue. Thus, when the user clicks on the contact, we immediately select the contact in the list and then the <code>href</code> is allowed to trigger the router, causing a navigation to the selected contact.</p>
+<p>Take special note of the <code>a</code> tag. First, we are using a custom attribute provided by Aurelia's routing system: <code>route-href</code>. This attribute can generate an <code>href</code> for a route, based on the route's name and a set of parameters. Remember how we named the contacts route in our configuration? Here we're using that by referencing the &quot;contacts&quot; route name and binding the contacts's <code>id</code> parameter as the route's <code>id</code> parameter. With this information, the router is able to generate the correct <code>href</code> on the <code>a</code> tag for each contact. Additionally, we've also wired up a <code>click</code> event. Why would we do this if the <code>href</code> is already going to handle navigating to the correct contact? Well, we're looking for instant user feedback. We want the list selection to happen ASAP, so we don't have to wait on the navigation system or on the loading of the contact data. To accomplish this, we use the <code>select</code> method to track the selected contact's <code>id</code>, which allows us to instantly apply the selection style. Finally, normal use of <code>.trigger</code> or <code>.delegate</code> causes the default action of the event to be cancelled. But, if you return true from your method, as we have done above, it will be allowed to continue. Thus, when the user clicks on the contact, we immediately select the contact in the list and then the <code>href</code> is allowed to trigger the router, causing a navigation to the selected contact.</p>
 <p>Ok, now that we've got the contact list built, we need to use it. To do that, update your <code>app.html</code> with the following markup:</p>
 <code-listing heading="app.html">
   <source-code lang="HTML"><pre class="language-markup"><code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bootstrap/css/bootstrap.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./styles.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./contact-list<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
 
@@ -320,10 +318,10 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
 </section>
 <section><h2 id="building-out-the-contact-detail-screen">Building Out the Contact Detail Screen</h2><p>Ok, things are starting to come together, but we still can't view an individual contact. If you try selecting something from the list, you'll see an error like the following in the console:</p>
 <code-listing><source-code lang="Output"><pre class="language-javascript"><code>
-  ERROR <span class="token punctuation">[</span>app<span class="token operator">-</span>router<span class="token punctuation">]</span> Error<span class="token punctuation">:</span> Script error <span class="token keyword">for</span> <span class="token string">"contact-detail"</span>
+  ERROR <span class="token punctuation">[</span>app<span class="token operator">-</span>router<span class="token punctuation">]</span> Error<span class="token punctuation">:</span> Unable to find module <span class="token keyword">with</span> ID<span class="token punctuation">:</span> contact<span class="token operator">-</span>detail<span class="token punctuation">.</span>html
   
 </code></pre></source-code></code-listing>
-<p>Again, this is because the router is trying to route to the detail screen, but we have not yet created the component. So, let's do that next. Create a new file named <code>contact-detail${context.language.fileExtension}</code> and add the following code:</p>
+<p>Again, this is because the router is trying to route to the detail screen, but we only have a stub component with no view. So, let's build out the real detail component. Replace the contents of <code>contact-detail${context.language.fileExtension}</code> with the following code:</p>
 <code-listing heading="contact-detail${context.language.fileExtension}">
   <source-code lang="ES 2015"><pre class="language-javascript"><code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>WebAPI<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./web-api'</span><span class="token punctuation">;</span>
@@ -833,35 +831,18 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
   npm install nprogress <span class="token operator">--</span>save
   
 </code></pre></source-code></code-listing>
-<p>Once this is installed, we'll need to make sure it gets configured in the proper bundle. Open your <code>aurelia.json</code> file again, find the bundles section and add the following entry to the dependencies array of the <code>vendor-bundle.js</code> bundle:</p>
-<code-listing heading="NProgress Bundle Config">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token string">"dependencies"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
-      <span class="token operator">...</span>
-      <span class="token punctuation">{</span>
-        <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"nprogress"</span><span class="token punctuation">,</span>
-        <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"../node_modules/nprogress"</span><span class="token punctuation">,</span>
-        <span class="token string">"main"</span><span class="token punctuation">:</span> <span class="token string">"nprogress"</span><span class="token punctuation">,</span>
-        <span class="token string">"resources"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
-          <span class="token string">"nprogress.css"</span>
-        <span class="token punctuation">]</span>
-      <span class="token punctuation">}</span>
-      <span class="token operator">...</span>
-    <span class="token punctuation">]</span>
-  </code></pre></source-code>
-</code-listing>
-<p>As you can see, we've configured the standard JavaScript main but are also including an additional CSS resource, just like we did with Bootstrap.</p>
 <div class="info"><div class="icon"> <i></i> </div><h4>TypeScript Definition Files</h4><p>
-TypeScript users should note that when using 3rd party libraries, in order to make them work in a TypeScript project, you will either need to install the d.ts files or create them for yourself. In the case of NProgress, there are definition files available via Definitely Typed which can be installed with the Typings CLI. Assuming you have the Typings tool installed, you would install the definition files for NProgress with the following command: <code>typings install dt~nprogress --global --save</code> (or <code>npm install @types/nprogress --global --save</code> for TypeScript &gt;= 2.0)</p>
+TypeScript users should note that when using 3rd party libraries, in order to make them work in a TypeScript project, you may need to acquire (or create) d.ts files. See TypeScript's official documentation, if you encounter issues.</p>
 </div>
 <p>With that in place, let's create our <code>loading-indicator</code> custom element. In the <code>src/resources/elements</code> folder create a file named <code>loading-indicator${context.language.fileExtension}</code> and use the code below for its implementation:</p>
 <code-listing heading="loading-indicator${context.language.fileExtension}">
   <source-code lang="ES 2015"><pre class="language-javascript"><code>
     <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> nprogress <span class="token keyword">from</span> <span class="token string">'nprogress'</span><span class="token punctuation">;</span>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">,</span> noView<span class="token punctuation">,</span> decorators<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token string">'nprogress/nprogress.css'</span><span class="token punctuation">;</span>
 
     <span class="token keyword">export</span> <span class="token keyword">let</span> LoadingIndicator <span class="token operator">=</span> <span class="token function">decorators</span><span class="token punctuation">(</span>
-      <span class="token function">noView</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'nprogress/nprogress.css'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token function">noView</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token function">bindable</span><span class="token punctuation">(</span><span class="token punctuation">{</span>name<span class="token punctuation">:</span> <span class="token string">'loading'</span><span class="token punctuation">,</span> defaultValue<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token keyword">class</span> <span class="token punctuation">{</span>
       <span class="token function">loadingChanged</span><span class="token punctuation">(</span>newValue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -876,8 +857,9 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
   <source-code lang="ES Next"><pre class="language-javascript"><code>
     <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> nprogress <span class="token keyword">from</span> <span class="token string">'nprogress'</span><span class="token punctuation">;</span>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">,</span> noView<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token string">'nprogress/nprogress.css'</span><span class="token punctuation">;</span>
 
-    @<span class="token function">noView</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'nprogress/nprogress.css'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    @noView
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">LoadingIndicator</span> <span class="token punctuation">{</span>
       @bindable loading <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
 
@@ -892,9 +874,10 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
   </code></pre></source-code>
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
     <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> nprogress <span class="token keyword">from</span> <span class="token string">'nprogress'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">,</span> noView<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">,</span> noView<span class="token punctuation">,</span> PLATFORM<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token string">'nprogress/nprogress.css'</span><span class="token punctuation">;</span>
 
-    @<span class="token function">noView</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'nprogress/nprogress.css'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    @noView
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">LoadingIndicator</span> <span class="token punctuation">{</span>
       @bindable loading <span class="token operator">=</span> <span class="token keyword">false</span><span class="token punctuation">;</span>
 
@@ -908,31 +891,36 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>
-<p>This code creates a custom element, but we're doing a few unique things here. First, since the entire rendering job is handled by the NProgress library, we don't need Aurelia's templating engine to render this component at all. So, we use the <code>noView()</code> decorator to tell Aurelia not to load a <code>loading-indicator.html</code>, compile it or do any of that rendering work. Additionally, the NProgress library requires some CSS to work, so we can declare that in the decorator as well. In the case of <code>noView</code>, this works exactly as if you had put this in a <code>require</code> element inside the view.</p>
+<p>This code creates a custom element, but we're doing a few unique things here. First, since the entire rendering job is handled by the NProgress library, we don't need Aurelia's templating engine to render this component at all. So, we use the <code>noView()</code> decorator to tell Aurelia not to load a <code>loading-indicator.html</code>, compile it or do any of that rendering work. Additionally, the NProgress library requires some CSS to work, so we make sure to import that above.</p>
 <p>Next, we want our custom HTML element to have a <code>loading</code> property that we can bind to via an HTML attribute in the DOM. So, we declare that by using the <code>bindable</code> decorator. Whenever you have a <code>bindable</code>, by convention, you can optionally declare a <em>propertyName</em>Changed method that will be called whenever the binding system updates the property. So, we've added one of those so that we can toggle the NProgress indicator off and on, based on the value of that property.</p>
 <p>Previously, when we created the <code>contact-list</code> component, we required that into the <code>app.html</code> view and used it, since all views are encapsulated. However, we're going to do something different in this case, as an example. Aurelia actually gives you the ability to globalize view resources, such as custom elements. This is a convenience so that you don't have to require common resources repeatedly into every view. To do this, we need to register our element as a global resource. Open up the <code>resources/index${context.language.fileExtension}</code> file that's already in your solution, and change the code so that it has the registration as follows:</p>
 <code-listing heading="resources/index${context.language.fileExtension}">
   <source-code lang="ES 2015"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>PLATFORM<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+
     <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      config<span class="token punctuation">.</span><span class="token function">globalResources</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'./elements/loading-indicator'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      config<span class="token punctuation">.</span><span class="token function">globalResources</span><span class="token punctuation">(</span><span class="token punctuation">[</span>PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'./elements/loading-indicator'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
   <source-code lang="ES Next"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>PLATFORM<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+
     <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      config<span class="token punctuation">.</span><span class="token function">globalResources</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'./elements/loading-indicator'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      config<span class="token punctuation">.</span><span class="token function">globalResources</span><span class="token punctuation">(</span><span class="token punctuation">[</span>PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'./elements/loading-indicator'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>FrameworkConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>FrameworkConfiguration<span class="token punctuation">,</span> PLATFORM<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
 
     <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token punctuation">:</span> FrameworkConfiguration<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      config<span class="token punctuation">.</span><span class="token function">globalResources</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'./elements/loading-indicator'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      config<span class="token punctuation">.</span><span class="token function">globalResources</span><span class="token punctuation">(</span><span class="token punctuation">[</span>PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'./elements/loading-indicator'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>
 <p>With this registration in place, we can now use our new indicator in our <code>app.html</code>, but before we do that, we want to make one more change to our <code>app${context.language.fileExtension}</code>. We would like to be able to bind the indicator to the request state of our API, so we need to make that available in our <code>App</code> class. Update your <code>app${context.language.fileExtension}</code> as follows:</p>
 <code-listing heading="app${context.language.fileExtension}">
   <source-code lang="ES 2015"><pre class="language-javascript"><code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>PLATFORM<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>WebAPI<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./web-api'</span><span class="token punctuation">;</span>
 
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -945,8 +933,8 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
       <span class="token function">configureRouter</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> router<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         config<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string">'Contacts'</span><span class="token punctuation">;</span>
         config<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
-          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>              moduleId<span class="token punctuation">:</span> <span class="token string">'no-selection'</span><span class="token punctuation">,</span>   title<span class="token punctuation">:</span> <span class="token string">'Select'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">'contacts/:id'</span><span class="token punctuation">,</span>  moduleId<span class="token punctuation">:</span> <span class="token string">'contact-detail'</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span><span class="token string">'contacts'</span> <span class="token punctuation">}</span>
+          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>              moduleId<span class="token punctuation">:</span> PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'no-selection'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>   title<span class="token punctuation">:</span> <span class="token string">'Select'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">'contacts/:id'</span><span class="token punctuation">,</span>  moduleId<span class="token punctuation">:</span> PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'contact-detail'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span><span class="token string">'contacts'</span> <span class="token punctuation">}</span>
         <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
         <span class="token keyword">this</span><span class="token punctuation">.</span>router <span class="token operator">=</span> router<span class="token punctuation">;</span>
@@ -954,7 +942,7 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
     <span class="token punctuation">}</span>
   </code></pre></source-code>
   <source-code lang="ES Next"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">,</span> PLATFORM<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>WebAPI<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./web-api'</span><span class="token punctuation">;</span>
 
     @<span class="token function">inject</span><span class="token punctuation">(</span>WebAPI<span class="token punctuation">)</span>
@@ -966,8 +954,8 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
       <span class="token function">configureRouter</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> router<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         config<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string">'Contacts'</span><span class="token punctuation">;</span>
         config<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
-          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>              moduleId<span class="token punctuation">:</span> <span class="token string">'no-selection'</span><span class="token punctuation">,</span>   title<span class="token punctuation">:</span> <span class="token string">'Select'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">'contacts/:id'</span><span class="token punctuation">,</span>  moduleId<span class="token punctuation">:</span> <span class="token string">'contact-detail'</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span><span class="token string">'contacts'</span> <span class="token punctuation">}</span>
+          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>              moduleId<span class="token punctuation">:</span> PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'no-selection'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>   title<span class="token punctuation">:</span> <span class="token string">'Select'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">'contacts/:id'</span><span class="token punctuation">,</span>  moduleId<span class="token punctuation">:</span> PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'contact-detail'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span><span class="token string">'contacts'</span> <span class="token punctuation">}</span>
         <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
         <span class="token keyword">this</span><span class="token punctuation">.</span>router <span class="token operator">=</span> router<span class="token punctuation">;</span>
@@ -976,7 +964,7 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
   </code></pre></source-code>
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>Router<span class="token punctuation">,</span> RouterConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-router'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">,</span> PLATFORM<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>WebAPI<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./web-api'</span><span class="token punctuation">;</span>
 
     @<span class="token function">inject</span><span class="token punctuation">(</span>WebAPI<span class="token punctuation">)</span>
@@ -988,8 +976,8 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
       <span class="token function">configureRouter</span><span class="token punctuation">(</span>config<span class="token punctuation">:</span> RouterConfiguration<span class="token punctuation">,</span> router<span class="token punctuation">:</span> Router<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         config<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string">'Contacts'</span><span class="token punctuation">;</span>
         config<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
-          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>              moduleId<span class="token punctuation">:</span> <span class="token string">'no-selection'</span><span class="token punctuation">,</span>   title<span class="token punctuation">:</span> <span class="token string">'Select'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">'contacts/:id'</span><span class="token punctuation">,</span>  moduleId<span class="token punctuation">:</span> <span class="token string">'contact-detail'</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span><span class="token string">'contacts'</span> <span class="token punctuation">}</span>
+          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>              moduleId<span class="token punctuation">:</span> PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'no-selection'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>   title<span class="token punctuation">:</span> <span class="token string">'Select'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> route<span class="token punctuation">:</span> <span class="token string">'contacts/:id'</span><span class="token punctuation">,</span>  moduleId<span class="token punctuation">:</span> PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'contact-detail'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span><span class="token string">'contacts'</span> <span class="token punctuation">}</span>
         <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
         <span class="token keyword">this</span><span class="token punctuation">.</span>router <span class="token operator">=</span> router<span class="token punctuation">;</span>
