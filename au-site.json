@@ -482,6 +482,12 @@
         "dest": "docs/api/path"
       },
       {
+        "name": "Route Recognizer",
+        "package": "../route-recognizer/package.json",
+        "src": "../route-recognizer/dist/aurelia-route-recognizer.d.ts",
+        "dest": "docs/api/route-recognizer"
+      },
+      {
         "name": "Router",
         "package": "../router/package.json",
         "src": "../router/dist/aurelia-router.d.ts",
