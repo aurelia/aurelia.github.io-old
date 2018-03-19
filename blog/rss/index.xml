@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Sun Mar 04 2018 22:40:40 GMT-0800 (PST)</lastBuildDate>
+    <lastBuildDate>Sun Mar 18 2018 21:03:15 GMT-0700 (PDT)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia Release Notes - Mid-March 2018]]></title>
+      <link>http://aurelia.io/blog/2018/03/18/aurelia-release-notes-mid-march-2018</link>
+      <description><![CDATA[We're excited to share that we've just published a new version of the Aurelia CLI which is packed with bug fixes and new features!]]></description>
+      <pubDate>Sun Mar 18 2018 21:03:13 GMT-0700 (PDT)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia Release Notes - Early March 2018]]></title>
       <link>http://aurelia.io/blog/2018/03/04/aurelia-release-notes-early-march-2018</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2017/05/24/introducing-aurelia-succinctly</link>
       <description><![CDATA[Interested in checking out a free book on Aurelia? Check out Aurelia Succinctly! It gives a great foundation for building your Aurelia applications.]]></description>
       <pubDate>Wed May 24 2017 08:18:00 GMT-0700 (PDT)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia at Build 2017]]></title>
-      <link>http://aurelia.io/blog/2017/05/08/aurelia-at-build-2017</link>
-      <description><![CDATA[If you are attending Build [http://build.microsoft.com] and are interested in seeing how to combine ASP.NET Core [https://docs.microsoft.com/en-us/aspnet/core/] and Aurelia [http://aurelia.io], you'll want to attend "Getting Started with Aurelia and ASP.NET Core" this Friday.]]></description>
-      <pubDate>Mon May 08 2017 21:19:05 GMT-0700 (PDT)</pubDate>
     </item>
   </channel>
 </rss>
