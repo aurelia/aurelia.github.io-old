@@ -407,15 +407,35 @@ This is an internal API and is subject to change without notice in future releas
 #### Methods
 
 
-* `addEventListener(target: Element, targetEvent: string, callback: , delegate: delegationStrategy): ` - Subscribes to specified event on the target element.
-  * `target: Element` - Target element.
+* `addEventListener(target: EventTarget, targetEvent: string, callback: EventListenerOrEventListenerObject, delegate: delegationStrategy, disposable: true): Disposable` - Subscribes to specified event on the target element.
+  * `target: EventTarget` - Target element.
   * `targetEvent: string` - Name of event to subscribe.
-  * `callback: ` - Event listener callback.
+  * `callback: EventListenerOrEventListenerObject` - Event listener callback.
   * `delegate: delegationStrategy` - True to use event delegation mechanism.
+  * `disposable: true` - True to return a disposable object with dispose() method instead of a function
 
 
 * `registerElementConfig(config: ): void` - 
   * `config: ` - No description available
+
+
+
+### EventSubscriber
+
+Event subscription handler for observers
+
+#### Properties
+
+
+#### Methods
+
+
+* `dispose(): void` - 
+
+
+* `subscribe(element: Element, handler: EventListenerOrEventListenerObject): void` - 
+  * `element: Element` - No description available
+  * `handler: EventListenerOrEventListenerObject` - No description available
 
 
 
@@ -825,44 +845,15 @@ An expression AST visitor.
 
 
 
-### IArrayObserverSplice
+### ICollectionObserverSplice
 
-The splice type to expect when observing an Array collection.
+The change record of a collection mutation.
 
 #### Properties
 
 * `addedCount: number` - Number of items added to the collection.
 * `index: number` - The position at which the items were added.
 * `removed: Array` - A collection of items that were removed from the collection.
-
-#### Methods
-
-
-
-### IMapObserverSplice
-
-The splice type to expect when observing a Map collection.
-
-#### Properties
-
-* `key: K` - The key of the item that was changed.
-* `object: Map` - The observed Map after the change.
-* `oldValue: V` - The value of the item prior to the change.
-* `type: ` - The type of change that has taken place. Valid options are &quot;add&quot;, &quot;delete&quot;, and &quot;update&quot;.
-
-#### Methods
-
-
-
-### ISetObserverSplice
-
-The splice type to expect when observing a Set collection.
-
-#### Properties
-
-* `object: Set` - The observed Set after the change.
-* `type: ` - The type of change that has taken place. Valid options are &quot;add&quot; and &quot;delete&quot;.
-* `value: T` - The value that was either added or removed.
 
 #### Methods
 
@@ -972,26 +963,10 @@ Provides efficient property observers for properties that would otherwise requir
 #### Methods
 
 
-* `getObserver(object: any, propertyName: string, descriptor: PropertyDescriptor): InternalPropertyObserver` - 
+* `getObserver(object: any, propertyName: string, descriptor: PropertyDescriptor): ` - 
   * `object: any` - No description available.
   * `propertyName: string` - No description available.
   * `descriptor: PropertyDescriptor` - No description available.
-
-
-
-### ObserverEventHandler
-
-Event subscription handler for observers
-
-#### Properties
-
-
-#### Methods
-
-
-* `subscribe(target: Element, callbackOrlistener: EventListenerOrEventListenerObject): Function` - 
-  * `target: Element` - No description available.
-  * `callbackOrlistener: EventListenerOrEventListenerObject` - No description available.
 
 
 

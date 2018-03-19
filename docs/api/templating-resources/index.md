@@ -723,7 +723,6 @@ No description available.
 
 #### Properties
 
-* `static inject: any` - No description available.
 
 #### Methods
 
