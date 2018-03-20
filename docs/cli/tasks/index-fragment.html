@@ -1,0 +1,60 @@
+<section class="article">
+  <header>
+    <h1>Gulp Tasks</h1>
+    <h2>Gulp tasks using the Aurelia CLI.</h2>
+  </header>
+
+  <article class="markdown">
+    <section><h2 id="introduction">Introduction</h2><p>The Aurelia CLI allows you to execute Gulp tasks, and a few gulp tasks are provided out of the box that get you started. For any new project you need a task to build, run and test the application, so the CLI provides these tasks for you. These tasks can be found in the <code>aurelia_project/tasks</code> directory.</p>
+<p>Gulp tasks in a CLI application are plain Gulp v4 tasks. Gulp v4 brings gulp.series and gulp.parallel which makes Gulp tasks easier and cleaner.</p>
+<p>Typescript is entirely supported to be used in Gulp tasks. As is ES2017. The language you use in Gulp tasks is equivalent to the language in your source code and is determined from the <code>transpiler</code> object in <code>aurelia.json</code>.</p>
+</section>
+<section><h2 id="task-execution">Task execution</h2><p>A task can be executed with the <code>au</code> command. <code>au build</code> would execute the Gulp task that's exported from <code>aurelia_project/tasks/build.js</code>, and <code>au test</code> executes the task that's in <code>aurelia_project/tasks/test.js</code>.</p>
+<p>What's good to know is that the Aurelia CLI executes the task that's exported as default, which means that you can export multiple tasks:</p>
+<code-listing heading="Export multiple tasks">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+	<span class="token keyword">let</span> <span class="token function-variable function">task1</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+	<span class="token keyword">let</span> <span class="token function-variable function">task2</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+	
+	<span class="token keyword">export</span> <span class="token punctuation">{</span> task1 <span class="token keyword">as</span> <span class="token keyword">default</span><span class="token punctuation">,</span> task2 <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+</code-listing>
+<p>When you execute the above task using the <code>au</code> command, <code>task1</code> will be executed.</p>
+</section>
+<section><h2 id="creating-a-new-task">Creating a new task</h2><p>Cool thing about the task runner of the CLI is that you can create your own tasks as well, and run them using the <code>au</code> command.</p>
+<p>Just create a new <code>.js</code> or <code>.ts</code> file in the <code>aurelia_project/tasks</code> directory and export a function from that file.</p>
+</section>
+<section><h2 id="task-metadata">Task metadata</h2><p>The <code>au help</code> command not only shows standard Aurelia CLI commands, it also lists tasks, but only those that have defined what we call &quot;task metadata&quot;. This metadata can be found in a <code>.json</code> file that has the same name as a task.</p>
+<p>For example, the <code>build.js</code> task could have a <code>build.json</code> file with the following structure:</p>
+<code-listing heading="Task metadata">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+	<span class="token punctuation">{</span>
+	  <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"build"</span><span class="token punctuation">,</span>
+	  <span class="token string">"description"</span><span class="token punctuation">:</span> <span class="token string">"Builds and processes all application assets."</span><span class="token punctuation">,</span>
+	  <span class="token string">"flags"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+	    <span class="token punctuation">{</span>
+	      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"env"</span><span class="token punctuation">,</span>
+	      <span class="token string">"description"</span><span class="token punctuation">:</span> <span class="token string">"Sets the build environment."</span><span class="token punctuation">,</span>
+	      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"string"</span>
+	    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+	    <span class="token punctuation">{</span>
+	      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"watch"</span><span class="token punctuation">,</span>
+	      <span class="token string">"description"</span><span class="token punctuation">:</span> <span class="token string">"Watches source files for changes and refreshes the bundles automatically."</span><span class="token punctuation">,</span>
+	      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"boolean"</span>
+	    <span class="token punctuation">}</span>
+	  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+	  <span class="token string">"parameters"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+	    <span class="token punctuation">{</span>
+	      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"some-parameter"</span><span class="token punctuation">,</span>
+	      <span class="token string">"description"</span><span class="token punctuation">:</span> <span class="token string">"a description of this parameter"</span>
+	    <span class="token punctuation">}</span>
+	  <span class="token punctuation">]</span>
+	<span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<p>Any task that has such json file, will show up in <code>au help</code>. It would display the description, any flag that is supported by the task and any parameters.</p>
+<p>If the <code>type</code> of a flag is not set to <code>&quot;boolean&quot;</code> then <code>au help</code> will display that the flag supports a value.</p>
+</section>
+
+  </article>
+</section>

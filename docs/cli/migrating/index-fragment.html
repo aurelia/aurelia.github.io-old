@@ -1,0 +1,25 @@
+<section class="article">
+  <header>
+    <h1>Migrating</h1>
+    <h2>Introduction of the Aurelia CLI.</h2>
+  </header>
+
+  <article class="markdown">
+    <section><h2 id="aurelia-cli-bundler-to-webpack">Aurelia-CLI Bundler to Webpack</h2><p>There are differences between the Aurelia CLI bundler and the Webpack bundler. When you are migrating an existing application from the integrated bundler to Webpack there are a few things to keep in mind.</p>
+<p>The recommended way to migrate is to create a new Webpack application using the CLI, choosing similar technology as the project that you want to migrate. Then you would copy over the source code (in the <code>src</code> folder by default) and the unit tests (in the <code>test/unit</code> folder). After that you will have to make some changes to the codebase, which are explained below.</p>
+<p>Webpack requires the use of <code>PLATFORM.moduleName()</code> for any module reference in the code, except for the import statements. <code>PLATFORM</code> can be imported using <code>import {PLATFORM} from 'aurelia-pal';</code>.</p>
+<p>A few examples:</p>
+<ul>
+<li>in <code>main.js</code> or <code>main.ts</code> do <code>aurelia.setRoot(PLATFORM.moduleName('app'))</code>.</li>
+<li>for routes do <code>{ ...., name: 'users', moduleId: PLATFORM.moduleName('./users'), ... }</code></li>
+<li><code>@useView(PLATFORM.moduleName('my-view.html'))</code></li>
+<li><code>.resources(PLATFORM.moduleName('resources/index'))</code></li>
+<li>when Webpack cannot find a module even though it exists, you likely are missing a PLATFORM.moduleName for that module</li>
+</ul>
+<p>The Aurelia CLI bundler gets its bundle configuration from the <code>aurelia_project/aurelia.json</code> file. This is different for Webpack, where the bundle configuration is inside <code>webpack.config.js</code>. Webpack projects created by the CLI use Aurelia's Webpack Plugin, which you'll find in <code>webpack.config.js</code>.</p>
+<p>If you use SASS or LESS, then you are going to have to import the stylesheets differently. When you include stylesheets and use the Aurelia CLI bundler, then your <code>&lt;require&gt;</code> statements will have the <code>.css</code> extension: <code>&lt;require from=&quot;styles/my-stylesheet.css&quot;&gt;&lt;/require&gt;</code>. When you use Webpack you have to change this into the <code>.sass</code> or <code>.less</code> extension: <code>&lt;require from=&quot;styles/my-stylesheet.sass&quot;&gt;&lt;/require&gt;</code>.</p>
+</require>
+</section>
+
+  </article>
+</section>

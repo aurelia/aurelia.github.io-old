@@ -1,0 +1,16 @@
+<section class="article">
+  <header>
+    <h1>Updating</h1>
+    <h2>The process of updating the Aurelia CLI.</h2>
+  </header>
+
+  <article class="markdown">
+    <section><h2 id="updating-the-aurelia-cli">Updating the Aurelia CLI</h2><p>There are a few steps involved to update the Aurelia CLI to a newer version. In this chapter these steps will be explained.</p>
+<p>Good thing to know is that Aurelia CLI is actually installed twice, once globally and once locally. The globally installed Aurelia CLI (<code>npm install aurelia-cli -g</code>) can be found in your user profile and the local one lives inside the <code>node_modules</code> folder of your project. The global Aurelia CLI is used when you're not inside a project directory, for example when you create a new Aurelia CLI project using <code>au new</code>. Inside a project directory however, the local version of Aurelia CLI is used. That allows you to use different versions of the Aurelia CLI per project.</p>
+<p>Since the CLI is installed both globally and locally, you need to update both. First run <code>npm install aurelia-cli@latest -g</code> to update the CLI globally, and run <code>npm install aurelia-cli@latest --save-dev</code> from the project directory to update the local Aurelia CLI.</p>
+<p>We're continuously improving the project setup to make development better and easier. This sometimes involves updating Gulp tasks. So when you want to update an existing project, you'll want to update the Gulp tasks as well. The recommended way to do this is to update the CLI globally and create a new project using <code>au new</code>. Then you can copy over the tasks in the <code>aurelia_project/tasks</code> directory to your own project.</p>
+<p>Always check out the release notes on the Aurelia blog as they may contain additional instructions for updating the CLI.</p>
+</section>
+
+  </article>
+</section>

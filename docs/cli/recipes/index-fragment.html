@@ -1,0 +1,34 @@
+<section class="article">
+  <header>
+    <h1>Recipes &amp; known issues</h1>
+    <h2>In this section you can find examples of particular setups, known issues and possible workarounds</h2>
+  </header>
+
+  <article class="markdown">
+    <section><h2 id="introduction">Introduction</h2><p>In this section you can find examples of particular setups, known issues and possible workarounds</p>
+</section>
+<section><h2 id="aurelia-cli-bundler-docker">Aurelia-CLI bundler + Docker</h2><p>When using the Aurelia-CLI bundler together with Docker you might notice that the file watcher doesn't pick up changes that are made from the host.</p>
+<p>In order to resolve this you can open up the <code>aurelia_project/tasks/watch.js</code> (or <code>watch.ts</code> when using typescript) and modify the <code>watchPath</code> function to use polling:</p>
+<code-listing heading="Build options">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  <span class="token keyword">let</span> <span class="token function-variable function">watchPath</span> <span class="token operator">=</span> <span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token function">gulpWatch</span><span class="token punctuation">(</span>
+      p<span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        read<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        verbose<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        usePolling<span class="token punctuation">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">(</span>vinyl<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">processChange</span><span class="token punctuation">(</span>vinyl<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+</code-listing>
+<p>More information on this problem be found in 
+<a href="https://github.com/floatdrop/gulp-watch/issues/174" target="_blank">this issue</a>
+.</p>
+</section>
+<section><h2 id="npm-uninstalling-packages">NPM uninstalling packages</h2><p>If you're on NPM 5.6.0 (<code>npm -v</code>) then you might experience strange behavior when you're trying to install a package (using <code>npm install</code>). This should be resolved with version 5.7.0 of NPM.</p>
+</section>
+
+  </article>
+</section>

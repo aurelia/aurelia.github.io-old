@@ -1,0 +1,64 @@
+<section class="article">
+  <header>
+    <h1>Webpack</h1>
+    <h2>Webpack and the Aurelia CLI.</h2>
+  </header>
+
+  <article class="markdown">
+    <section><h2 id="introduction">Introduction</h2><p>The Aurelia CLI fully supports Webpack. When you create a new project by running <code>au new</code> you can either choose for the Aurelia CLI bundler or you can choose for Webpack. The information in this document is specifically for people using the Webpack bundler.</p>
+<p>The Aurelia CLI will generate a <code>webpack.config.js</code> based on the technology that you select during <code>au new</code>. Like SASS more than LESS? Jest more than Karma? The Aurelia CLI can configure <code>webpack.config.js</code> just how you like it.</p>
+<p>The generated project makes use of the aurelia-webpack-plugin. As opposed to the Aurelia CLI Bundler, the bundle configuration is in the <code>webpack.config.js</code>, and not in <code>aurelia.json</code>.</p>
+<p>If you would like to learn more about Webpack, take a look at the following resources:</p>
+<ul>
+<li>https://www.pluralsight.com/courses/webpack-fundamentals</li>
+<li>https://blog.madewithenvy.com/getting-started-with-webpack-2-ed2b86c68783</li>
+<li>https://webpack.js.org/configuration/</li>
+</ul>
+</section>
+<section><h2 id="deploying-your-app">Deploying Your App</h2><p>When your application is done, the next step is to deploy it. First you will want to create a production build with <code>au build --env prod</code>. Depending on whether you use ASP.NET Core or not, the build output will end up in the <code>dist</code> folder or the <code>wwwroot/dist</code> folder.</p>
+<p>If you're not using ASP.NET core then everything you need to deploy can be found in the dist folder. Just copy this to the webserver and you'll be good to go. For ASP.NET Core however you'll want to do a production build (<code>au build --env prod</code>) and then deploy the ASP.NET Core application. Details can be found in the 
+<a href="https://docs.microsoft.com/en-us/aspnet/core/publishing/?tabs=aspnetcore2x" target="_blank">Microsoft Docs</a>
+.</p>
+</section>
+<section><h2 id="build-options">Build options</h2><p>When you look in the <code>webpack.config.js</code> you'll see that it exports a function:</p>
+<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+  module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>production<span class="token punctuation">,</span> server<span class="token punctuation">,</span> extractCss<span class="token punctuation">,</span> coverage<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+  
+</code></pre></source-code></code-listing>
+<p>The configuration that's returned from the function is based on the parameters that get passed in. That means that you can have a different Webpack config for production and development, but you can also configure whether to extract any CSS.</p>
+<p>The build and run tasks passes in these parameters. Most of these settings are defined in the <code>build.options</code> object in <code>aurelia.json</code>:</p>
+<code-listing heading="Build options">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+	<span class="token string">"build"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+		<span class="token string">"options"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+		  <span class="token string">"server"</span><span class="token punctuation">:</span> <span class="token string">"dev"</span><span class="token punctuation">,</span>
+		  <span class="token string">"extractCss"</span><span class="token punctuation">:</span> <span class="token string">"prod"</span><span class="token punctuation">,</span>
+		  <span class="token string">"coverage"</span><span class="token punctuation">:</span> <span class="token boolean">false</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span><span class="token punctuation">,</span>
+  </code></pre></source-code>
+</code-listing>
+<p>One is missing though: <code>production</code>. The environment (whether it's a production build or not) is determined from the <code>--env</code> flag. <code>au build</code> creates a development build, while <code>au build --env prod</code> creates production build.</p>
+</section>
+<section><h2 id="installing-3rd-party-dependencies">Installing 3rd party dependencies</h2><p>Webpack is a powerful and smart bundler, which means that you often don't need to configure a 3rd party dependency.  And if you do then there's a good chance that someone has done it before, so Google is your friend here.</p>
+<p>Check out the 
+<a href="https://webpack.js.org/concepts/" target="_blank">Webpack documentation</a>
+ for more info on the <code>webpack.config.js</code>.</p>
+</section>
+<section><h2 id="unit-testing">Unit Testing</h2><p>Depending on what you've selected during <code>au new</code> you will have the possibility to run one of the following test runners:</p>
+<ul>
+<li>Jest</li>
+<li>Karma</li>
+<li>Protractor</li>
+</ul>
+<p>Jest can be launched using <code>au jest</code> or <code>au jest --watch</code> if you would like to do continuously run tests.</p>
+<p>Similarly, Karma can be started using <code>au karma</code> or <code>au karma --watch</code>.</p>
+<p>However, Protractor is a bit different. It has to be started through <code>nps</code>, so make sure that you've installed that globally (<code>npm install nps -g</code>). Afterwards, run <code>nps e2e</code> to start Protractor.</p>
+</section>
+<section><h2 id="aspnet-core">ASP.NET Core</h2><p>When developing an ASP.NET Core application you will want to set the <code>ASPNETCORE_ENVIRONMENT</code> environment variable. Detailed instructions can be found on the 
+<a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/environments#setting-the-environment" target="_blank">Microsoft Docs</a>
+.</p>
+</section>
+
+  </article>
+</section>
