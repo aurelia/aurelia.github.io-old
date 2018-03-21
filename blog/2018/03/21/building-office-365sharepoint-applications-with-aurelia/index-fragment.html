@@ -19,6 +19,7 @@
 </ol>
 <p>Choices 1, 2 and 3 can be built with Aurelia. Adding UI commands, number 4, is only the means for opening your UI that is built via 1, 2 or 3. In this post I will focus on number 3, building modern client side webparts with SPFx and Aurelia.</p>
 </section>
+<section><h2 id="spfx-and-aurelia">SPFx and Aurelia</h2><p>The SharePoint Framework (SPFx) is a page and web part model that provides full support for client-side SharePoint development, easy integration with SharePoint data, and support for open source tooling. This means that your code runs in the browser in the context of the user. It is easy to call the SharePoint API and it is easy to build a modern responsive experience.</p>
 <p>The tooling you need on your local developer machine is Node, NPM and an editor of your choice. The code is written in TypeScript. SPFx is released to NPM and you use Yeoman to create your project. When you build your project, there is a gulp task that dynamically builds a WebPack configuration file that is then used by WebPack for building and bundling.</p>
 <p>Fortunately, Microsoft encourages developers to extend the build process, so I have adapted the build process for Aurelia developers. As always, my work stands on the shoulders of earlier work such as the Aurelia WebPack plugin.</p>
 </section>
