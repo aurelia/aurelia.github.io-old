@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Wed Mar 21 2018 11:41:24 GMT-0700 (PDT)</lastBuildDate>
+    <lastBuildDate>Mon Mar 26 2018 20:28:17 GMT-0700 (PDT)</lastBuildDate>
+    <item>
+      <title><![CDATA[Practical App Development with Aurelia]]></title>
+      <link>http://aurelia.io/blog/2018/03/26/practical-app-development-with-aurelia</link>
+      <description><![CDATA[This week we welcome Matt Duffield to tell us about his new Aurelia book!]]></description>
+      <pubDate>Mon Mar 26 2018 19:52:11 GMT-0700 (PDT)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Building Office 365/SharePoint Applications with Aurelia]]></title>
       <link>http://aurelia.io/blog/2018/03/21/building-office-365sharepoint-applications-with-aurelia</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2017/06/12/aurelia-release-notes-mid-june-2017</link>
       <description><![CDATA[This year, Aurelia's theme has been one of building out our ecosystem by enhancing plugins, tools, learning and community opportunity. Our releases today reflect that focus by showcasing improvements to several plugins (UX, Dialog and i18n) and launching a big update to our CLI.]]></description>
       <pubDate>Mon Jun 12 2017 23:10:40 GMT-0700 (PDT)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Introducing Aurelia Succinctly]]></title>
-      <link>http://aurelia.io/blog/2017/05/24/introducing-aurelia-succinctly</link>
-      <description><![CDATA[Interested in checking out a free book on Aurelia? Check out Aurelia Succinctly! It gives a great foundation for building your Aurelia applications.]]></description>
-      <pubDate>Wed May 24 2017 08:18:00 GMT-0700 (PDT)</pubDate>
     </item>
   </channel>
 </rss>
