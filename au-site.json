@@ -29,6 +29,16 @@
     },
     "sponsorLevels": [
       {
+        "name": "Gold Sponsors",
+        "sponsors": [
+          {
+            "name": "Hogia",
+            "href": "https://www.hogia.com/",
+            "imageSrc": "styles/images/logos/hogia.svg"
+          }
+        ]
+      },
+      {
         "name": "Silver Sponsors",
         "sponsors": [
           {

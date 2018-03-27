@@ -292,13 +292,11 @@ Aurelia's <code>require</code> element was inspired by the <code>import</code> s
         <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'Base add button'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre><pre class="language-javascript"><code>
-</code></pre></code-listing><pre class="language-javascript"><code>
-
-First<span class="token punctuation">,</span> notice that <span class="token keyword">in</span> the above example<span class="token punctuation">,</span> we declared <span class="token template-string"><span class="token string">`@useView('./icon-button.html')`</span></span> to use the same view <span class="token keyword">as</span> the base <span class="token keyword">class</span><span class="token punctuation">.</span> If we had not supplied <span class="token keyword">this</span><span class="token punctuation">,</span> the framework would look <span class="token keyword">for</span> <span class="token template-string"><span class="token string">`./add-button.html`</span></span> instead<span class="token punctuation">.</span> Second<span class="token punctuation">,</span> notice that we explicitly declared <span class="token template-string"><span class="token string">`@customElement()`</span></span><span class="token punctuation">.</span> <span class="token operator">*</span>Any time you inherit a custom element<span class="token punctuation">,</span> you must add the <span class="token template-string"><span class="token string">`customElement`</span></span> decorator<span class="token punctuation">.</span><span class="token operator">*</span> Here's how these components would be used <span class="token keyword">in</span> a view<span class="token punctuation">:</span>
-
-</code></pre><code-listing heading="view.html"><pre class="language-javascript"><code>
-  </code></pre><source-code lang="HTML"><pre class="language-markup"><code>
+  </code></pre></source-code>
+</code-listing>
+<p>First, notice that in the above example, we declared <code>@useView('./icon-button.html')</code> to use the same view as the base class. If we had not supplied this, the framework would look for <code>./add-button.html</code> instead. Second, notice that we explicitly declared <code>@customElement()</code>. <em>Any time you inherit a custom element, you must add the <code>customElement</code> decorator.</em> Here's how these components would be used in a view:</p>
+<code-listing heading="view.html">
+  <source-code lang="HTML"><pre class="language-markup"><code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./icon-button<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./add-button<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
@@ -340,6 +338,9 @@ First<span class="token punctuation">,</span> notice that <span class="token key
 <li><code>detached()</code> - At some point in the future, the component may be removed from the DOM. If/When this happens, and if the view-model has a <code>detached</code> callback, this is when it will be invoked.</li>
 <li><code>unbind()</code> - After a component is detached, it's usually unbound. If your view-model has the <code>unbind</code> callback, it will be invoked during this process.</li>
 </ol>
+<div class="info"><div class="icon"> <i></i> </div><h4>Bind callback stops initial</h4><p>&quot;Changed&quot; callbacks
+It should be noted that when the view-model has implemented the <code>bind</code> callback, the databinding framework will not invoke the changed handlers for the view-model's bindable properties until the &quot;next&quot; time those properties are updated. If you need to perform specific post-processing on your bindable properties, when implementing the <code>bind</code> callback, you should do so manually within the callback itself. For example, if you have a bindable property <code>foo</code>, implement the <code>fooChanged</code> callback, and you want <code>fooChanged</code> to be called on initial binding, then you will need to call it from within your <code>bind()</code> callback.</p>
+</div>
 <p>Tapping into a lifecycle event is as simple as implementing any of the above methods on the behavior's view-model class. Here's an example of a custom attribute that uses the attached and detached callbacks, something common when wrapping jQuery plugins:</p>
 <code-listing heading="some-plugin${context.language.fileExtension}">
   <source-code lang="ES 2015"><pre class="language-javascript"><code>

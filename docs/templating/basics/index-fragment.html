@@ -361,6 +361,16 @@ Aurelia will not be able to observe changes to arrays using the <code>array[inde
 Aurelia can observe the changes on your array, make use of the Array methods: <code>Array.prototype.push</code>, <code>Array.prototype.pop</code> and
 <code>Array.prototype.splice</code>.</p>
 </div>
+<p>Two-way binding with arrays requires a special syntax due to the nature of the <code>for-of</code> loop in javascript. Do not use <code>repeat.for=&quot;item of dataArray&quot;</code>;doing so will result in one-way binding only - values typed into an input will not be bound back. Instead use the following syntax:</p>
+<code-listing heading="repeater-template-input.html">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>		
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>i of dataArray.length<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>$parent.dataArray[i]<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
 <h3>Range</h3>
 <p>We can also iterate over a numerical range:</p>
 <code-listing heading="repeater-template.html">
