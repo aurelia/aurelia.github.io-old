@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Mon Mar 26 2018 20:28:17 GMT-0700 (PDT)</lastBuildDate>
+    <lastBuildDate>Thu Mar 29 2018 12:14:38 GMT-0700 (PDT)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia Release Notes - Late March 2018]]></title>
+      <link>http://aurelia.io/blog/2018/03/29/aurelia-release-notes-late-march-2018</link>
+      <description><![CDATA[We're excited to share that we've recently published a new version of the Aurelia CLI which is packed with bug fixes and new features.]]></description>
+      <pubDate>Thu Mar 29 2018 12:14:37 GMT-0700 (PDT)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Practical App Development with Aurelia]]></title>
       <link>http://aurelia.io/blog/2018/03/26/practical-app-development-with-aurelia</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2017/07/07/aurelia-release-notes-early-july-2017</link>
       <description><![CDATA[The Aurelia Team continues to iterate and improve all aspects of the framework. Below you can find details on our recent minor release of aurelia-validation along with our patch releases of the aurelia-cli and aurelia-polyfills.]]></description>
       <pubDate>Fri Jul 07 2017 07:05:30 GMT-0700 (PDT)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Release Notes - Mid June 2017]]></title>
-      <link>http://aurelia.io/blog/2017/06/12/aurelia-release-notes-mid-june-2017</link>
-      <description><![CDATA[This year, Aurelia's theme has been one of building out our ecosystem by enhancing plugins, tools, learning and community opportunity. Our releases today reflect that focus by showcasing improvements to several plugins (UX, Dialog and i18n) and launching a big update to our CLI.]]></description>
-      <pubDate>Mon Jun 12 2017 23:10:40 GMT-0700 (PDT)</pubDate>
     </item>
   </channel>
 </rss>
