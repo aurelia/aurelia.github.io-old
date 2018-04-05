@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Mon Apr 02 2018 07:19:40 GMT-0700 (PDT)</lastBuildDate>
+    <lastBuildDate>Wed Apr 04 2018 20:32:02 GMT-0700 (PDT)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia RealWorld App]]></title>
+      <link>http://aurelia.io/blog/2018/04/04/aurelia-realworld-app</link>
+      <description><![CDATA[Thanks to the fantastic work of Moritz Hilberg and other community members, Aurelia is now available as part of the RealWorld project [https://github.com/gothinkster/realworld]. Here's Moritz to tell you more about it...]]></description>
+      <pubDate>Wed Apr 04 2018 20:32:01 GMT-0700 (PDT)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia 2018 Q1 Report]]></title>
       <link>http://aurelia.io/blog/2018/04/02/aurelia-2018-q1-report</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2017/08/14/aurelia-release-notes-mid-august-2017</link>
       <description><![CDATA[Today, we have a small set of release to update you with. We're gearing up for some big releases next. Stay tuned for more...]]></description>
       <pubDate>Mon Aug 14 2017 07:42:42 GMT-0700 (PDT)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Introducing Aurelia in Action]]></title>
-      <link>http://aurelia.io/blog/2017/07/13/introducing-aurelia-in-action</link>
-      <description><![CDATA[Aurelia in Action [https://www.manning.com/books/aurelia-in-action] is a book targeted at teaching you what you need to build compelling, real-world applications in Aurelia from the ground up. The book centres around a fictional virtual bookshelf application (similar to Goodreads.com [https://www.goodreads.com/]) called my-books. We start off by creating a bare-bones application via the Aurelia CLI, then progressively layer on various features that users would want in a virtual bookshelf. By the end of the book we've built out a fully fledged SPA, giving you the chance to familiarise yourself with the many tools available in Aurelia's tool-belt along the way. Save 45% off Aurelia in Action [https://www.manning.com/books/aurelia-in-action] with discount code aureliash at Manning.com [https://www.manning.com/] today!]]></description>
-      <pubDate>Thu Jul 13 2017 08:09:39 GMT-0700 (PDT)</pubDate>
     </item>
   </channel>
 </rss>
