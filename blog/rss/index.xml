@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Wed Apr 04 2018 20:32:02 GMT-0700 (PDT)</lastBuildDate>
+    <lastBuildDate>Mon Apr 09 2018 07:13:02 GMT-0700 (PDT)</lastBuildDate>
+    <item>
+      <title><![CDATA[Visual Studio Code Extension 1.0.0 Release]]></title>
+      <link>http://aurelia.io/blog/2018/04/09/visual-studio-code-extension-100-release</link>
+      <description><![CDATA[With the latest release of the Visual Studio code extension from 0.3.4 to 1.0.0 we removed the preview tag and moved to a stable version.]]></description>
+      <pubDate>Mon Apr 09 2018 07:13:01 GMT-0700 (PDT)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia RealWorld App]]></title>
       <link>http://aurelia.io/blog/2018/04/04/aurelia-realworld-app</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2017/08/18/aurelia-cli-webpack-update</link>
       <description><![CDATA[Today, I'm thrilled to announce that we've added support for Webpack 3 to the Aurelia CLI. With this addition, the CLI supports project generation equally for Webpack, SystemJS and RequireJS.]]></description>
       <pubDate>Fri Aug 18 2017 06:45:57 GMT-0700 (PDT)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Release Notes - Mid August 2017]]></title>
-      <link>http://aurelia.io/blog/2017/08/14/aurelia-release-notes-mid-august-2017</link>
-      <description><![CDATA[Today, we have a small set of release to update you with. We're gearing up for some big releases next. Stay tuned for more...]]></description>
-      <pubDate>Mon Aug 14 2017 07:42:42 GMT-0700 (PDT)</pubDate>
     </item>
   </channel>
 </rss>
