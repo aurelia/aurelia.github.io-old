@@ -42,7 +42,7 @@
     <div class="api-card">
       <blockquote>
         <h3 class="api-signature">
-          <span class="api-name">createCustomEvent</span>(<span class="function-params"><span class="declare-param"><span class="param-name">eventType</span><span class="param-flag">: </span><span class="param-type">string</span>, </span><span class="declare-param"><span class="param-name">options</span><span class="param-flag">: </span><span class="param-type">Object</span></span></span>)<span>: <span class="function-returns">CustomEvent</span></span>
+          <span class="api-name">createCustomEvent</span>(<span class="function-params"><span class="declare-param"><span class="param-name">eventType</span><span class="param-flag">: </span><span class="param-type">string</span>, </span><span class="declare-param"><span class="param-name">options</span><span class="param-flag">?: </span><span class="param-type">CustomEventInit</span></span></span>)<span>: <span class="function-returns">CustomEvent</span></span>
         </h3>
         <div class="api-description">Creates a new CustomEvent.</div>
       </blockquote>
@@ -57,7 +57,7 @@
         </div>
         <div class="function-params">
           <div class="declare-param">
-            <span class="param-name">options</span><span class="param-flag">: </span><span class="param-type">Object</span>
+            <span class="param-name">options</span><span class="param-flag">?: </span><span class="param-type">CustomEventInit</span>
           </div>
           <div class="param-comment">An options object specifying bubbles:boolean, cancelable:boolean and/or detail:Object information.</div>
         </div>

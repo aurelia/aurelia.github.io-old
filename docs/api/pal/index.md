@@ -24,9 +24,9 @@ Represents the core APIs of the DOM.
 #### Methods
 
 
-* `addEventListener(eventName: string, callback: Function, capture: boolean): void` - Add an event listener to the document.
+* `addEventListener(eventName: string, callback: EventListenerOrEventListenerObject, capture: boolean): void` - Add an event listener to the document.
   * `eventName: string` - A string representing the event type to listen for.
-  * `callback: Function` - The function that receives a notification when an event of the specified type occurs.
+  * `callback: EventListenerOrEventListenerObject` - The function that receives a notification when an event of the specified type occurs.
   * `capture: boolean` - If true, useCapture indicates that the user wishes to initiate capture.
 
 
@@ -49,16 +49,16 @@ Represents the core APIs of the DOM.
   * `text: string` - A string to populate the new Comment node.
 
 
-* `createCustomEvent(eventType: string, options: Object): CustomEvent` - Creates a new CustomEvent.
+* `createCustomEvent(eventType: string, options?: CustomEventInit): CustomEvent` - Creates a new CustomEvent.
   * `eventType: string` - A string representing the event type.
-  * `options: Object` - An options object specifying bubbles:boolean, cancelable:boolean and/or detail:Object information.
+  * `options?: CustomEventInit` - An options object specifying bubbles:boolean, cancelable:boolean and/or detail:Object information.
 
 
 * `createDocumentFragment(): DocumentFragment` - Creates a new DocumentFragment.
 
 
-* `createElement(tagName: string): Element` - Creates the specified HTML element or an HTMLUnknownElement if the given element name isn&#x27;t a known one.
-  * `tagName: string` - A string that specifies the type of element to be created.
+* `createElement(tagName: T): HTMLElementTagNameMap[T]` - Creates the specified HTML element or an HTMLUnknownElement if the given element name isn&#x27;t a known one.
+  * `tagName: T` - A string that specifies the type of element to be created.
 
 
 * `createMutationObserver(callback: Function): MutationObserver` - Creates a new MutationObserver.
@@ -68,7 +68,7 @@ Represents the core APIs of the DOM.
 * `createTemplateElement(): HTMLTemplateElement` - Creates a new HTMLTemplateElement.
 
 
-* `createTemplateFromMarkup(markup: string): Element` - Creates an HTMLTemplateElement using the markup provided.
+* `createTemplateFromMarkup(markup: string): HTMLTemplateElement` - Creates an HTMLTemplateElement using the markup provided.
   * `markup: string` - A string containing the markup to turn into a template. Note: This string must contain the template element as well.
 
 
@@ -100,13 +100,17 @@ Represents the core APIs of the DOM.
   * `element: Node` - The element whose next sibling is being located.
 
 
-* `querySelectorAll(query: string): NodeList` - Performs a query selector on the document and returns all located matches.
-  * `query: string` - The query to use in searching the document.
+* `querySelector(selectors: K): ` - Performs a query selector on the document and returns first matched element, depth first.
+  * `selectors: K` - No description available.
 
 
-* `removeEventListener(eventName: string, callback: Function, capture: boolean): void` - Remove an event listener from the document.
+* `querySelectorAll(selectors: K): NodeListOf` - Performs a query selector on the document and returns all located matches.
+  * `selectors: K` - No description available.
+
+
+* `removeEventListener(eventName: string, callback: EventListenerOrEventListenerObject, capture: boolean): void` - Remove an event listener from the document.
   * `eventName: string` - A string representing the event type to listen for.
-  * `callback: Function` - The function to remove from the event.
+  * `callback: EventListenerOrEventListenerObject` - The function to remove from the event.
   * `capture: boolean` - Specifies whether the listener to be removed was registered as a capturing listener or not.
 
 
@@ -211,9 +215,9 @@ Represents the core APIs of the runtime environment.
 #### Methods
 
 
-* `addEventListener(eventName: string, callback: Function, capture?: boolean): void` - Add a global event listener.
+* `addEventListener(eventName: string, callback: EventListenerOrEventListenerObject, capture?: boolean): void` - Add a global event listener.
   * `eventName: string` - A string representing the event type to listen for.
-  * `callback: Function` - The function that receives a notification when an event of the specified type occurs.
+  * `callback: EventListenerOrEventListenerObject` - The function or listener object that receives a notification when an event of the specified type occurs.
   * `capture?: boolean` - If true, useCapture indicates that the user wishes to initiate capture.
 
 
@@ -231,9 +235,9 @@ and optionally allows adding custom metadata used by the build step.
 
 
 
-* `removeEventListener(eventName: string, callback: Function, capture?: boolean): void` - Remove a global event listener.
+* `removeEventListener(eventName: string, callback: EventListenerOrEventListenerObject, capture?: boolean): void` - Remove a global event listener.
   * `eventName: string` - A string representing the event type to listen for.
-  * `callback: Function` - The function to remove from the event.
+  * `callback: EventListenerOrEventListenerObject` - The function or listener object to remove from the event.
   * `capture?: boolean` - Specifies whether the listener to be removed was registered as a capturing listener or not.
 
 

@@ -59,7 +59,8 @@ Manages configuring the aurelia framework instance.
 * `defaultResources(): FrameworkConfiguration` - Plugs in the default templating resources (if, repeat, show, compose, etc.) from aurelia-templating-resources.
 
 
-* `developmentLogging(): FrameworkConfiguration` - Plugs in the ConsoleAppender and sets the log level to debug.
+* `developmentLogging(level?: String): FrameworkConfiguration` - Plugs in the ConsoleAppender and sets the log level to debug.
+  * `level?: String` - The log level (none/error/warn/info/debug), default to &#x27;debug&#x27;.
 
 
 * `eventAggregator(): FrameworkConfiguration` - Plugs in the event aggregator from aurelia-event-aggregator.
@@ -122,7 +123,7 @@ Manages configuring the aurelia framework instance.
 
 ## Constants
 
-* `LogManager: any` - The log manager.
+* `LogManager: &quot;/Users/EisenbergEffect/Documents/GitHub/aurelia/framework/node_modules/aurelia-logging/dist/aurelia-logging&quot;` - The log manager.
 
 ## Functions
 
