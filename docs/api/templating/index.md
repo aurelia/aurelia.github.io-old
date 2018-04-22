@@ -888,6 +888,54 @@ Provides all the instructions for how a target element should be enhanced inside
 
 
 
+### TargetResource
+
+No description available.
+
+#### Properties
+
+* `static Function: FunctionConstructor` - No description available.
+* `static arguments: any` - No description available.
+* `static caller: Function` - No description available.
+* `static length: number` - No description available.
+* `static name: string` - Returns the name of the function. Function names are read-only and can not be changed.
+* `static prototype: any` - No description available.
+* `static resource: ` - No description available.
+
+#### Methods
+
+
+* `static __@hasInstance(value: any): boolean` - Determines whether the given value inherits from this function if this function was used
+as a constructor function.
+  * `value: any` - No description available
+
+
+* `static apply(this: Function, thisArg: any, argArray?: any): any` - Calls the function, substituting the specified object for the this value of the function, and the specified array for the arguments of the function.
+  * `this: Function` - No description available
+  * `thisArg: any` - The object to be used as the this object.
+  * `argArray?: any` - A set of arguments to be passed to the function.
+
+
+
+* `static bind(this: Function, thisArg: any, argArray: ): any` - For a given function, creates a bound function that has the same body as the original function.
+The this object of the bound function is associated with the specified object, and has the specified initial parameters.
+  * `this: Function` - No description available
+  * `thisArg: any` - An object to which the this keyword can refer inside the new function.
+  * `argArray: ` - A list of arguments to be passed to the new function.
+
+
+
+* `static call(this: Function, thisArg: any, argArray: ): any` - Calls a method of an object, substituting another object for the current object.
+  * `this: Function` - No description available
+  * `thisArg: any` - The object to be used as the current object.
+  * `argArray: ` - A list of arguments to be passed to the method.
+
+
+
+* `static toString(): string` - Returns a string representation of a function.
+
+
+
 ### TemplateRegistryViewStrategy
 
 A view strategy created directly from the template registry entry.
@@ -1163,6 +1211,11 @@ Represents a collection of resources used during the compilation of a view.
 #### Methods
 
 
+* `autoRegister(container: Container, impl: Function): ` - 
+  * `container: Container` - No description available
+  * `impl: Function` - No description available
+
+
 * `getAttribute(attribute: string): HtmlBehaviorResource` - Gets an HTML attribute behavior.
   * `attribute: string` - The name of the attribute to lookup.
 
@@ -1234,6 +1287,10 @@ Represents a collection of resources used during the compilation of a view.
 
 * `relativeToView(path: string): string` - Maps a path relative to the associated view&#x27;s origin.
   * `path: string` - The relative path.
+
+
+* `static convention(target: TargetResource): ` - 
+  * `target: TargetResource` - No description available
 
 
 
@@ -1470,6 +1527,62 @@ No description available.
 * `handler: Function` - No description available.
 
 #### Methods
+
+
+
+### IBindablePropertyConfig
+
+No description available.
+
+#### Properties
+
+* `attribute: string` - No description available.
+* `changeHandler: string` - The name of a view model method to invoke when the property is updated.
+* `defaultBindingMode: ` - The default binding mode of the property. If given string, will use to lookup
+* `defaultValue: any` - A default value for the property.
+* `name: string` - The name of the property.
+* `primaryProperty: boolean` - Designates the property as the default bindable property among all the other bindable properties when used in a custom attribute with multiple bindable properties.
+
+#### Methods
+
+
+
+### IStaticResourceConfig
+
+No description available.
+
+#### Properties
+
+* `bindables: ` - List of bindable properties of this custom element / custom attribute, by name or full config object
+* `containerless: boolean` - Flag a custom element as containerless. Which will remove their render target
+* `defaultBindingMode: ` - Used to set default binding mode of default custom attribute view model &quot;value&quot; property
+* `hasDynamicOptions: boolean` - Flags a custom attribute has dynamic options
+* `name: string` - Name of this resource. Reccommended to explicitly set to works better with minifier
+* `shadowDOMOptions: ShadowRootInit` - Options that will be used if the element is flagged with usesShadowDOM
+* `templateController: boolean` - Used to tell if a custom attribute is a template controller
+* `type: ` - Resource type of this class, omit equals to custom element
+* `usesShadowDOM: boolean` - Flag if this custom element uses native shadow dom instead of emulation
+
+#### Methods
+
+
+* `processAttributes(viewCompiler: ViewCompiler, resources: ViewResources, node: Element, attributes: NamedNodeMap, elementInstruction: BehaviorInstruction): void` - Custom processing of the attributes on an element before the framework inspects them.
+  * `viewCompiler: ViewCompiler` - No description available.
+  * `resources: ViewResources` - No description available.
+  * `node: Element` - No description available.
+  * `attributes: NamedNodeMap` - No description available.
+  * `elementInstruction: BehaviorInstruction` - No description available.
+
+
+* `processContent(viewCompiler: ViewCompiler, resources: ViewResources, node: Element, instruction: BehaviorInstruction): boolean` - Enables custom processing of the content that is places inside the custom element by its consumer.
+Pass a boolean to direct the template compiler to not process
+the content placed inside this element. Alternatively, pass a function which
+can provide custom processing of the content. This function should then return
+a boolean indicating whether the compiler should also process the content.
+  * `viewCompiler: ViewCompiler` - No description available.
+  * `resources: ViewResources` - No description available.
+  * `node: Element` - No description available.
+  * `instruction: BehaviorInstruction` - No description available.
 
 
 

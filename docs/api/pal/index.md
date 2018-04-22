@@ -26,7 +26,7 @@ Represents the core APIs of the DOM.
 
 * `addEventListener(eventName: string, callback: EventListenerOrEventListenerObject, capture: boolean): void` - Add an event listener to the document.
   * `eventName: string` - A string representing the event type to listen for.
-  * `callback: EventListenerOrEventListenerObject` - The function that receives a notification when an event of the specified type occurs.
+  * `callback: EventListenerOrEventListenerObject` - The function or listener object that receives a notification when an event of the specified type occurs.
   * `capture: boolean` - If true, useCapture indicates that the user wishes to initiate capture.
 
 
@@ -57,8 +57,8 @@ Represents the core APIs of the DOM.
 * `createDocumentFragment(): DocumentFragment` - Creates a new DocumentFragment.
 
 
-* `createElement(tagName: T): HTMLElementTagNameMap[T]` - Creates the specified HTML element or an HTMLUnknownElement if the given element name isn&#x27;t a known one.
-  * `tagName: T` - A string that specifies the type of element to be created.
+* `createElement(tagName: string): HTMLElement` - Creates the specified HTML element or an HTMLUnknownElement if the given element name isn&#x27;t a known one.
+  * `tagName: string` - A string that specifies the type of element to be created.
 
 
 * `createMutationObserver(callback: Function): MutationObserver` - Creates a new MutationObserver.
@@ -100,17 +100,17 @@ Represents the core APIs of the DOM.
   * `element: Node` - The element whose next sibling is being located.
 
 
-* `querySelector(selectors: K): ` - Performs a query selector on the document and returns first matched element, depth first.
-  * `selectors: K` - No description available.
+* `querySelector(selectors: string): Element` - Performs a query selector on the document and returns first matched element, depth first.
+  * `selectors: string` - No description available.
 
 
-* `querySelectorAll(selectors: K): NodeListOf` - Performs a query selector on the document and returns all located matches.
-  * `selectors: K` - No description available.
+* `querySelectorAll(selectors: string): NodeList` - Performs a query selector on the document and returns all located matches.
+  * `selectors: string` - No description available.
 
 
 * `removeEventListener(eventName: string, callback: EventListenerOrEventListenerObject, capture: boolean): void` - Remove an event listener from the document.
   * `eventName: string` - A string representing the event type to listen for.
-  * `callback: EventListenerOrEventListenerObject` - The function to remove from the event.
+  * `callback: EventListenerOrEventListenerObject` - The function or listener object to remove from the event.
   * `capture: boolean` - Specifies whether the listener to be removed was registered as a capturing listener or not.
 
 
@@ -217,7 +217,7 @@ Represents the core APIs of the runtime environment.
 
 * `addEventListener(eventName: string, callback: EventListenerOrEventListenerObject, capture?: boolean): void` - Add a global event listener.
   * `eventName: string` - A string representing the event type to listen for.
-  * `callback: EventListenerOrEventListenerObject` - The function or listener object that receives a notification when an event of the specified type occurs.
+  * `callback: EventListenerOrEventListenerObject` - The function that receives a notification when an event of the specified type occurs.
   * `capture?: boolean` - If true, useCapture indicates that the user wishes to initiate capture.
 
 
@@ -237,7 +237,7 @@ and optionally allows adding custom metadata used by the build step.
 
 * `removeEventListener(eventName: string, callback: EventListenerOrEventListenerObject, capture?: boolean): void` - Remove a global event listener.
   * `eventName: string` - A string representing the event type to listen for.
-  * `callback: EventListenerOrEventListenerObject` - The function or listener object to remove from the event.
+  * `callback: EventListenerOrEventListenerObject` - The function to remove from the event.
   * `capture?: boolean` - Specifies whether the listener to be removed was registered as a capturing listener or not.
 
 
