@@ -103,13 +103,13 @@
 <p>But now lets pretend that we didn't have the code to paste in from the Aurelia documentation.  This is where TypeScript begins to shine.</p>
 <p>Notice that the configure function accepts an <code>Aurelia</code> object as its parameter.  At this point no type has been specified, so the IDE tooling can't help us figure out how to use the object we've been passed.</p>
 <p>To obtain the <code>Aurelia</code> type, we need to import it from the <code>aurelia-framework</code> repo.  As we type the import statement, the IDE tooling suggests possible imports we might want:</p>
-<p><img src="blog/2015/05/06/getting-started-with-aurelia-and-typescript/content/images/2015/05/main-01.jpg" alt="main01" /></p>
+<p><img src="/content/images/2015/05/main-01.jpg" alt="main01" /></p>
 <p>Now we can fill in the actual type we want to pull in from the <code>aurelia-framework</code> repo.  Again the IDE tooling leads the way, showing us the repo's exports, and helping us pick the one we are seeking:</p>
-<p><img src="blog/2015/05/06/getting-started-with-aurelia-and-typescript/content/images/2015/05/main-02.jpg" alt="main 02" /></p>
+<p><img src="/content/images/2015/05/main-02.jpg" alt="main 02" /></p>
 <p>The fact that we're picking the name from a list and not typing it out manually reduces typos.  But lets say we're feeling pretty good about our typing, and ignore the IDE tooling's helpful suggestion.  If we do make a typo, a friendly, unobtrusive red squiggly underline is presented to us.</p>
-<p><img src="blog/2015/05/06/getting-started-with-aurelia-and-typescript/content/images/2015/05/Main-02B.jpg" alt="main 02B" /></p>
+<p><img src="/content/images/2015/05/Main-02B.jpg" alt="main 02B" /></p>
 <p>So at this point we have successfully imported the <code>Aurelia</code> type, and can now use it to annotate the parameter type in the <code>configure</code> function as shown below.  Type annotation allows the IDE tooling to help us discover and chose valid members of the object.</p>
-<p><img src="blog/2015/05/06/getting-started-with-aurelia-and-typescript/content/images/2015/05/main-03.jpg" alt="main 03" /></p>
+<p><img src="/content/images/2015/05/main-03.jpg" alt="main 03" /></p>
 <p>At this point you may be wondering how the IDE actually knew about the types in the <code>aurelia-framework</code> import.  Let's talk about that next.</p>
 <h3>TypeScript Type Definition (<code>.d.ts</code>) Files</h3>
 <p>Each Aurelia repo has a corresponding <code>.d.ts</code> file that declares the type information exposed by that repo's public API.  Our project's Aurelia <code>.d.ts</code> files can be found 
@@ -182,27 +182,27 @@
 <p>Now lets look at some code that shows how easy it is for you to use decorators.</p>
 <h4>dependency injection</h4>
 <p>We are going to look at a simple example of dependency injection. You may be very familiar with the concept of dependency injection, but if you're not, think about the flickr view and view model in our sample application.  The view model needs to retrieve a collection of images from the Flickr web services.</p>
-<p><img src="blog/2015/05/06/getting-started-with-aurelia-and-typescript/content/images/2015/05/flickr-ui.jpg" alt="flickr ui" /></p>
+<p><img src="/content/images/2015/05/flickr-ui.jpg" alt="flickr ui" /></p>
 <p>We are going to &quot;separate our concerns&quot; into separate responsibilities - our flickr view model will worry only about how to display the results that come back from the web service, and the Aurelia <code>HttpClient</code> will be responsible for managing the HTTP retrieval of data from the web service.</p>
 <p>We really don't want our flickr view model to even worry about how to obtain the Aurelia <code>HttpClient</code>.  We just want to specify in our constructor that we need it and we'll let the framework take care of the rest.</p>
 <p>All we have to do to get the Aurelia framework to &quot;inject&quot; the Aurelia Http Client into our constructor is to first import and then place the <code>@autoinject</code> decorator on the class.</p>
 <p>IntelliSense will help us discover and correctly type the text as before.</p>
-<p><img src="blog/2015/05/06/getting-started-with-aurelia-and-typescript/content/images/2015/05/autoinject-decorator.jpg" alt="autoinject intellisense" /></p>
+<p><img src="/content/images/2015/05/autoinject-decorator.jpg" alt="autoinject intellisense" /></p>
 <p>So you can see, we just ask for the <code>HttpClient</code> and then we use its public API.  In fact, our flickr view model will be happy with any object that provides the same (polymorphic) API - that is one of the very powerful aspects of dependency injection.</p>
-<p><img src="blog/2015/05/06/getting-started-with-aurelia-and-typescript/content/images/2015/05/autoinject-decorator-2-1.jpg" alt="autoinject 2" /></p>
+<p><img src="/content/images/2015/05/autoinject-decorator-2-1.jpg" alt="autoinject 2" /></p>
 <p>Now lets dive a little deeper.  Don't worry if you don't understand everything going on in the next section as we talk about the decorator called <code>bindable</code>.</p>
 <h4>bindable</h4>
 <p>Before we talk about the <code>bindable</code> decorator, we'll need a little bit of background.</p>
 <p>First, a <code>custom element</code> is a reusable view / view model pair that can be embedded in another view.</p>
 <p>In our sample project, we have a <code>custom element</code> called <code>nav-bar</code>:</p>
-<p><img src="blog/2015/05/06/getting-started-with-aurelia-and-typescript/content/images/2015/05/nav-bar.jpg" alt="nav-bar" /></p>
+<p><img src="/content/images/2015/05/nav-bar.jpg" alt="nav-bar" /></p>
 <p>The <code>nav-bar</code> custom element gives us a great way to &quot;encapsulate&quot; the layout and functionality of our navigation menu in a single unit that can be included with a clean, understandable syntax:</p>
-<p><img src="blog/2015/05/06/getting-started-with-aurelia-and-typescript/content/images/2015/05/nav-bar-binding-2.jpg" alt="nav-bar binding 2" /></p>
+<p><img src="/content/images/2015/05/nav-bar-binding-2.jpg" alt="nav-bar binding 2" /></p>
 <p>Notice in the code above that our <code>custom element</code> (the <code>nav-bar</code>) has a router property that we are able to set (<code>bind</code>) to the router in our main application.  This works because the Aurelia framework supports bindable properties in <code>custom elements</code>.  But how does the Aurelia framework know which properties are to be exposed as such?  (hopefully you are thinking DECORATORS !!).</p>
 <p>Within the <code>nav-bar</code> view model, the <code>@bindable</code> decorator is used to alert the Aurelia framework that we want the <code>router</code> property to be bindable.</p>
-<p><img src="blog/2015/05/06/getting-started-with-aurelia-and-typescript/content/images/2015/05/bindable-decorator.jpg" alt="bindable decorator" /></p>
+<p><img src="/content/images/2015/05/bindable-decorator.jpg" alt="bindable decorator" /></p>
 <p>So in the outer code that embeds the <code>nav-bar</code>, we bound it to the router, and now router is accessible to the <code>nav-bar</code>'s view.  Notice how clean and expressive the <code>nav-bar</code>'s view template is, when referencing the router object's properties:</p>
-<p><img src="blog/2015/05/06/getting-started-with-aurelia-and-typescript/content/images/2015/05/nav-bar-binding-1.jpg" alt="nav-bar binding" /></p>
+<p><img src="/content/images/2015/05/nav-bar-binding-1.jpg" alt="nav-bar binding" /></p>
 <p>I'm sure at this point you're ready to start building great applications in TypeScript and Aurelia.  Here are a few resources you can utilize as you start down the path.  Thanks for your interest and we look forward to seeing you online !!</p>
 <h3>Resources</h3>
 <ul>

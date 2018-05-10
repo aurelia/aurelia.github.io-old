@@ -317,7 +317,7 @@
   </code></pre></source-code>
 </code-listing>
 <p>So we end up with the following result.</p>
-<p><img src="blog/2015/07/17/animating-apps-with-aurelia-part-1/content/images/2015/07/list-animate.gif" alt="" /></p>
+<p><img src="/content/images/2015/07/list-animate.gif" alt="" /></p>
 <p>Now that's nice but wouldn't it be better if all of the items would get rendered one after each other instead of in parallel? Those kind of animations are called staggered animations, where a series of elements is simply executed with a short timeout in between each one. The CSS-Animator does this by adding a class <code>au-stagger</code> to the parent of the elements.</p>
 <code-listing>
   <source-code lang="HTML"><pre class="language-markup"><code>
@@ -334,7 +334,7 @@
   </code></pre></source-code>
 </code-listing>
 <p>And the result looks like this.</p>
-<p><img src="blog/2015/07/17/animating-apps-with-aurelia-part-1/content/images/2015/07/list-staggered-animate.gif" alt="" /></p>
+<p><img src="/content/images/2015/07/list-staggered-animate.gif" alt="" /></p>
 <h3>Implementing Custom Animation Triggers</h3>
 <p>We've seen how to animate using pure CSS. But sometimes you'd like to trigger animations after certain actions. To do so, you can access all the animation methods via JavaScript inside your VM as well. In order to show that, lets animate the background of the list. We're adding a new button which is going to trigger the function <code>animateBackground</code>.</p>
 <code-listing>
@@ -395,7 +395,7 @@
   </code></pre></source-code>
 </code-listing>
 <p>And again, here is the result.</p>
-<p><img src="blog/2015/07/17/animating-apps-with-aurelia-part-1/content/images/2015/07/animate-custom.gif" alt="" /></p>
+<p><img src="/content/images/2015/07/animate-custom.gif" alt="" /></p>
 </section>
 <section><h2 id="summary">Summary</h2><p>We hope you enjoyed this introduction to working with Animation in the Aurelia Framework. There is much more to be told though. We'll continue this discussion in part 2 where we'll be presenting an alternative implementation via a JS-based Animator. Now go out and animate all the things! If you encounter any problems join us in 
 <a href="https://gitter.im/Aurelia/Discuss" target="_blank">our gitter channel</a>

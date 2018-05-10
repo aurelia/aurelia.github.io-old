@@ -14,7 +14,7 @@
 <p>
 <a href="http://editor.ivee.tech" target="_blank">Ivee 3d Editor</a>
  is an online editor which allows the creation of beautiful 3D presentations. It provides features like adding various 3D objects - cubes, spheres, torus, etc., configuring materials, textures, shaders, providing animations, tweening etc.</p>
-<p><img src="blog/2017/09/26/ivee-3d-editor-aurelia-microsoft-azure-case-study/content/images/2017/08/1.png" alt="Ivee 3D Editor" /></p>
+<p><img src="/content/images/2017/08/1.png" alt="Ivee 3D Editor" /></p>
 <p>In the following article I'm going to explain a bit about the internals of the editor and my journey of building Ivee using Aurelia and ThreeJS.</p>
 <p>On the server-side, Ivee 3D Editor uses a .NET Web API with a SQL Server database to store user authentication information. The editor output is stored as a JSON file on the server, in a dedicated user space. The database and web application is hosted on 
 <a href="https://azure.microsoft.com" target="_blank">Microsoft Azure</a>
@@ -505,7 +505,7 @@
 <p>Another win, I wanted to provide the user with a nice HTML editing experience and I looked for a nice HTML editor that I could integrate. I chose 
 <a href="https://github.com/neilj/Squire" target="_blank">squire-rte</a>
 . It almost goes without saying: to integrating the Squire editor was as easy as 1-2-3...</p>
-<p><img src="blog/2017/09/26/ivee-3d-editor-aurelia-microsoft-azure-case-study/content/images/2017/08/2.png" alt="HTML Editor" /></p>
+<p><img src="/content/images/2017/08/2.png" alt="HTML Editor" /></p>
 </section>
 <section><h2 id="exposing-viewer-api">Exposing Viewer API</h2><p>I always liked extensibility. The thought of exposing your own object model to the developer is fascinating. With Aurelia and TypeScript / ES6, I found that this is actually possible, providing you have designed a nice component structure and a properly written API. Ivee 3D Editor has two major features: the editor and the viewer. The editor is the tool that allows the users to create presentations, by adding objects, setting properties, creating animation timelines, etc. and the viewer is the tool that puts all the presentation parts together and executes them.</p>
 <p>But what if you want to interact with the presentation at runtime? No problem, Aurelia and TypeScript / ES6 work for you. The current instance of the <strong>Viewer</strong> type is available for scripting, using plain JavaScript:</p>
@@ -573,7 +573,7 @@
     <span class="token function">addSkyBox</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre></source-code>
 </code-listing>
-<p><img src="blog/2017/09/26/ivee-3d-editor-aurelia-microsoft-azure-case-study/content/images/2017/08/3.png" alt="Presentation modified at runtime" /></p>
+<p><img src="/content/images/2017/08/3.png" alt="Presentation modified at runtime" /></p>
 </section>
 <section><h2 id="conclusion">Conclusion</h2><p>The Ivee 3D Editor is still in alpha. It has many features, timelines, tweening, data sources, shaders, but it's still rough and needs a lot of refining. However, I think that for a one man job outside working hours, it is a pretty good achievement. All these features would have been much more painful to implement without Aurelia.</p>
 <p>Aurelia is beautiful because it doesn't get in your way; it guides you to do things then goes on the side, admitting that you need to focus on your business. It helps and it doesn't ask for anything in return. It is your quiet and supportive friend always close to you during your journey, ensuring that you have all the resources necessary to climb the highest peaks.</p>

@@ -9,7 +9,7 @@
       <p>Today, I'm really excited to introduce to you three innovative community members: Nikolaj Ivancic, Charles Pockert and Jeroen Vinke. They've been working together to create native Aurelia components for the Kendo UI suite, as well as a number of other tools for &quot;bridging&quot; the gap between existing component libraries and Aurelia. I asked them to put together a blog post that we could share with you here, announcing and explaining their work. Read on to learn more about the Aurelia UI Toolkits project.</p>
 <hr />
 <section><h2 id="introduction">Introduction</h2><p>This article describes the <strong>motivation</strong> for, the <strong>work</strong> on and the <strong>structure</strong> of the project we named a <strong>bridge</strong> (Image 1 below) to indicate its primary purpose: <em>to create the interface (an alternative word for a bridge in this context) for Aurelia application developers to KendoUI toolkit</em>.</p>
-<p><img src="blog/2016/01/28/aurelia-and-kendo-ui/content/images/2016/01/image-1-1.png" alt="Image 1" /></p>
+<p><img src="/content/images/2016/01/image-1-1.png" alt="Image 1" /></p>
 <p>This bridge is a structured, configurable collection of JavaScript classes that &quot;wrap&quot; KendoUI native controls, presenting them to the Aurelia developer in the form of <strong>
 <a href="http://aurelia.io/docs.html#/aurelia/framework/1.0.0-beta.1.0.8/doc/article/creating-components" target="_blank">Aurelia components</a>
 </strong>.</p>
@@ -28,11 +28,11 @@
 <p>It continuously shares the status of the project by providing rich navigation support demonstrating several different ways of using each component to render KendoUI controls (see image 2 below)</p>
 </li>
 </ul>
-<p><img src="blog/2016/01/28/aurelia-and-kendo-ui/content/images/2016/01/image-2.png" alt="Image 2" /></p>
+<p><img src="/content/images/2016/01/image-2.png" alt="Image 2" /></p>
 <ul>
 <li>By adding the extensive online help pages with installation instructions,  several tutorials and samples, this catalog can be used as a teaching tool (Image 3 below):</li>
 </ul>
-<p><img src="blog/2016/01/28/aurelia-and-kendo-ui/content/images/2016/01/image-3.png" alt="Image 3" /></p>
+<p><img src="/content/images/2016/01/image-3.png" alt="Image 3" /></p>
 <ul>
 <li>Offer a rich set of services that are used to simplify development of new bridges. See more at 
 <a href="https://github.com/aurelia-ui-toolkits/skeleton-bridge/wiki/Informal-definition-of-the-bridge-structure-and-development-process" target="_blank">Informal definition of the bridge structure and development process</a>
@@ -116,7 +116,7 @@
 <p>It's safe to say that this was not optimal. If we missed an event or the Kendo API changed we would need to issue a new version of the plugin.</p>
 <p>A more robust approach was necessary.</p>
 <p>Fortunately, the KendoUI source contains a list of properties from which we can generate part of the wrapper implementation:</p>
-<p><img src="blog/2016/01/28/aurelia-and-kendo-ui/content/images/2016/01/image-4.png" alt="Image 4" /></p>
+<p><img src="/content/images/2016/01/image-4.png" alt="Image 4" /></p>
 <p>This gives us all possible properties and their default values for each KendoUI control.</p>
 <p>Because Aurelia is open source, we were able to take a peek into the implementation of the 
 <a href="https://github.com/aurelia/templating/blob/d02ac893c3e45dcf08d4098ca86f13115ee45c5a/src/decorators.js#L83-L109" target="_blank">@bindable</a>

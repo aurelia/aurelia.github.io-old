@@ -56,7 +56,6 @@ No description available.
 
 #### Properties
 
-* `static inject: any` - No description available.
 
 #### Methods
 
@@ -65,6 +64,9 @@ No description available.
 
 
 * `detached(): any` - 
+
+
+* `static inject(): any` - 
 
 
 
@@ -352,7 +354,6 @@ No description available.
 
 #### Properties
 
-* `static inject: any` - No description available.
 
 #### Methods
 
@@ -376,6 +377,9 @@ No description available.
   * `aliases?: any` - No description available
 
 
+* `static inject(): any` - 
+
+
 
 ### TParamsCustomAttribute
 
@@ -384,7 +388,6 @@ No description available.
 #### Properties
 
 * `service: any` - No description available.
-* `static inject: any` - No description available.
 
 #### Methods
 
@@ -394,6 +397,9 @@ No description available.
 
 * `static configureAliases(aliases?: any): any` - 
   * `aliases?: any` - No description available
+
+
+* `static inject(): any` - 
 
 
 

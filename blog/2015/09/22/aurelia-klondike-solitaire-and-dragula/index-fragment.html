@@ -30,7 +30,7 @@ Web developers MUST NOT (in the sense of RFC 2119) use HTML 5 drag and drop. The
 <p>##Enter 
 <a href="http://bevacqua.github.io/dragula/" target="_blank">Dragula</a>
 ...
-<img src="blog/2015/09/22/aurelia-klondike-solitaire-and-dragula/content/images/2015/09/687474703a2f2f692e696d6775722e636f6d2f7362376c6f33682e706e67.png" alt="dragula logo" /></p>
+<img src="/content/images/2015/09/687474703a2f2f692e696d6775722e636f6d2f7362376c6f33682e706e67.png" alt="dragula logo" /></p>
 <p>Dragula is the new kid on the block in terms of drag-and-drop.  It has a clean, flexible 
 <a href="https://github.com/bevacqua/dragula/blob/master/readme.markdown#usage" target="_blank">API</a>
  and no dependencies so I decided to try it out.</p>
@@ -120,7 +120,7 @@ So far we've described the model for the game but we haven't defined how these o
 <p>If you haven't clicked on the 
 <a href="http://jdanyow.github.io/aurelia-solitaire/" target="_blank">game link</a>
  yet, here's what it looks like:
-<img src="blog/2015/09/22/aurelia-klondike-solitaire-and-dragula/content/images/2015/09/687474703a2f2f692e696d6775722e636f6d2f64364f776264702e706e67.png" alt="game" /></p>
+<img src="/content/images/2015/09/687474703a2f2f692e696d6775722e636f6d2f64364f776264702e706e67.png" alt="game" /></p>
 <p>There are only three views in the game:  the 
 <a href="https://github.com/jdanyow/aurelia-solitaire/blob/master/src/card-element.html" target="_blank">Card element</a>
 , 
@@ -165,8 +165,8 @@ So far we've described the model for the game but we haven't defined how these o
 </code-listing>
 <p><strong>Card and Pile elements</strong>:  I won't list the code and markup for these elements here but I do want to call out a key part of the design...</p>
 <p>The Card element uses a recursive template, matching the recursive nature of the Card model.  By nesting each Card element within the Card element beneath it, implementing grabbing and moving a stack of cards becomes a non-issue because moving a card automatically carries the cards above it.
-<img src="blog/2015/09/22/aurelia-klondike-solitaire-and-dragula/content/images/2015/09/687474703a2f2f692e696d6775722e636f6d2f3263524e5869372e706e67-1.png" alt="drag pile" />
-<img src="blog/2015/09/22/aurelia-klondike-solitaire-and-dragula/content/images/2015/09/687474703a2f2f692e696d6775722e636f6d2f32586d6154766f2e706e67.png" alt="pile markup" /></p>
+<img src="/content/images/2015/09/687474703a2f2f692e696d6775722e636f6d2f3263524e5869372e706e67-1.png" alt="drag pile" />
+<img src="/content/images/2015/09/687474703a2f2f692e696d6775722e636f6d2f32586d6154766f2e706e67.png" alt="pile markup" /></p>
 <p>###Drag-and-drop
 We're using Aurelia which is MV* SPA framework.  Personally, I tend to think in terms of MVVM.  How do we implement drag-and-drop using an external library that cares nothing about bindings, models, templates and will happily move elements all over the DOM without concern for the fact that the Aurelia templating system is tracking them?  To avoid potential problems I <strong>
 <a href="https://github.com/jdanyow/aurelia-solitaire/blob/master/src/drag-and-drop.js#L41-L42" target="_blank">always cancel the drop</a>

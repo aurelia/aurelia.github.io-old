@@ -196,28 +196,27 @@ Notice that Aurelia I18N makes use of a non-standard attributes option, which is
     <span class="token comment">// otherwise add "allowSyntheticDefaultImports": true, to your tsconfig</span>
 
     <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        aurelia<span class="token punctuation">.</span>use
-          <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-          <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-          <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-i18n'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>instance<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-            <span class="token keyword">let</span> aliases <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'t'</span><span class="token punctuation">,</span> <span class="token string">'i18n'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token comment">// add aliases for 't' attribute</span>
-            TCustomAttribute<span class="token punctuation">.</span><span class="token function">configureAliases</span><span class="token punctuation">(</span>aliases<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      aurelia<span class="token punctuation">.</span>use
+        <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-i18n'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>instance<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+          <span class="token keyword">let</span> aliases <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'t'</span><span class="token punctuation">,</span> <span class="token string">'i18n'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+          <span class="token comment">// add aliases for 't' attribute</span>
+          TCustomAttribute<span class="token punctuation">.</span><span class="token function">configureAliases</span><span class="token punctuation">(</span>aliases<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="token comment">// register backend plugin</span>
-            instance<span class="token punctuation">.</span>i18next<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>Backend<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token comment">// register backend plugin</span>
+          instance<span class="token punctuation">.</span>i18next<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>Backend<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="token comment">// adapt options to your needs (see http://i18next.com/docs/options/)</span>
-            <span class="token comment">// make sure to return the promise of the setup method, in order to guarantee proper loading</span>
-            <span class="token keyword">return</span> instance<span class="token punctuation">.</span><span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-              backend<span class="token punctuation">:</span> <span class="token punctuation">{</span>                                  <span class="token comment">// &lt;-- configure backend settings</span>
-                loadPath<span class="token punctuation">:</span> <span class="token string">'./locales/{{lng}}/{{ns}}.json'</span><span class="token punctuation">,</span> <span class="token comment">// &lt;-- XHR settings for where to get the files from</span>
-              <span class="token punctuation">}</span><span class="token punctuation">,</span>
-              attributes<span class="token punctuation">:</span> aliases<span class="token punctuation">,</span>
-              lng <span class="token punctuation">:</span> <span class="token string">'de'</span><span class="token punctuation">,</span>
-              fallbackLng <span class="token punctuation">:</span> <span class="token string">'en'</span><span class="token punctuation">,</span>
-              debug <span class="token punctuation">:</span> <span class="token boolean">false</span>
-            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token comment">// adapt options to your needs (see http://i18next.com/docs/options/)</span>
+          <span class="token comment">// make sure to return the promise of the setup method, in order to guarantee proper loading</span>
+          <span class="token keyword">return</span> instance<span class="token punctuation">.</span><span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            backend<span class="token punctuation">:</span> <span class="token punctuation">{</span>                                  <span class="token comment">// &lt;-- configure backend settings</span>
+              loadPath<span class="token punctuation">:</span> <span class="token string">'./locales/{{lng}}/{{ns}}.json'</span><span class="token punctuation">,</span> <span class="token comment">// &lt;-- XHR settings for where to get the files from</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            attributes<span class="token punctuation">:</span> aliases<span class="token punctuation">,</span>
+            lng <span class="token punctuation">:</span> <span class="token string">'de'</span><span class="token punctuation">,</span>
+            fallbackLng <span class="token punctuation">:</span> <span class="token string">'en'</span><span class="token punctuation">,</span>
+            debug <span class="token punctuation">:</span> <span class="token boolean">false</span>
           <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -391,6 +390,10 @@ property plugin <code>instance.setup</code> function parameter.</p>
     <span class="token operator">...</span>
   </code></pre></source-code>
 </code-listing>
+<blockquote>
+<p>Passing the option <code>skipTranslationOnMissingKey</code> during plugin initialization, will keep your original contents in place and instead add a warning in the console
+about trying to update an element without a matching key.</p>
+</blockquote>
 <p>Any element in your views that has one of those attributes, will be translated when the locale is changed.</p>
 <code-listing heading="Attribute based translation with the TCustomAttribute">
   <source-code lang="HTML"><pre class="language-markup"><code>

@@ -29,7 +29,7 @@
   </code></pre></source-code>
 </code-listing>
 <p>Up until now, we have not done any bundling. Let's say we decided to put our app into production as is. If we open the browser's dev tools we can see how many requests are being made by the application:</p>
-<p><img src="blog/2015/06/23/bundling-an-aurelia-application/content/images/2015/06/unbundled-aurelia-application.jpg" alt="No of requests made my the application" /></p>
+<p><img src="/content/images/2015/06/unbundled-aurelia-application.jpg" alt="No of requests made my the application" /></p>
 <p>258! Yep, that's a scary picture for a production scenario. We want to minimize the number of requests. So, let's call <code>Aurelia-CLI</code> to the rescue.</p>
 <p>Before we bundle our app, we need to change the <code>config.js</code> file a little bit to switch off building <code>css</code>. Add <code>buildCSS: false</code> in the <code>config.js</code>, so that the file looks something like this:</p>
 <code-listing>
@@ -110,7 +110,7 @@
 <blockquote>
 <p>Note: Make sure you clear the browser cache to see the result.</p>
 </blockquote>
-<p><img src="blog/2015/06/23/bundling-an-aurelia-application/content/images/2015/06/after-js-bundling.jpg" alt="No of requests after bundling" /></p>
+<p><img src="/content/images/2015/06/after-js-bundling.jpg" alt="No of requests after bundling" /></p>
 <p>15 requests! That's a significant improvement over 256. But, we can make it even better. As we can see in the picture, we have some requests for templates like <code>app.html</code>, <code>nav-bar.html</code> etc. In skeleton-navigation we have only 5 templates. But, a non trivial application may have 100s or even more. So, we need a way to bundle them as well. Fortunately, <code>Aurelia CLI</code> does have an answer to that too!</p>
 </section>
 <section><h2 id="bundling-templates">Bundling Templates</h2><p>Let's teach the <code>cli</code> which templates to bundle. We will add a template configuration section in <code>aureliafile.js</code>. It should now look like this:</p>
@@ -157,7 +157,7 @@
 <p>Note: You may have to run <code>aurelia bundle --force</code> since we already have a JS bundle at this point in the <code>dist</code> folder. The cli <em>will not</em> overwrite a created bundle normally.</p>
 </blockquote>
 <p>Now, let's reload the application and see the request count again:</p>
-<p><img src="blog/2015/06/23/bundling-an-aurelia-application/content/images/2015/06/after-bundling-templates.jpg" alt="No of requests after bundling templates" /></p>
+<p><img src="/content/images/2015/06/after-bundling-templates.jpg" alt="No of requests after bundling templates" /></p>
 <p>10 requests! That's better, isn't it?</p>
 <p>That's how easy it is to create bundles with Aurelia CLI. Once the <code>aureliafile.js</code> is in place with proper configuration, all we need to do is run <code>aurelia bundle</code>.</p>
 <h3>Important Notes When Bundling Templates</h3>
