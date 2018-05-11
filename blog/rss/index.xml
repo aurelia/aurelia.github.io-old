@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Wed May 09 2018 21:06:56 GMT-0700 (PDT)</lastBuildDate>
+    <lastBuildDate>Thu May 10 2018 23:36:36 GMT-0700 (PDT)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia Release Notes - Early May 2018]]></title>
+      <link>http://aurelia.io/blog/2018/05/10/aurelia-release-notes-early-may-2018</link>
+      <description><![CDATA[We're excited to be working on a number of great new improvements to Aurelia's templating and binding engines. Just this week we've released the first set of improvements to the binding engine, which merge the Lexer and the Parser. By doing this we were able to increase the performance of binding parsing by 10x in some cases!]]></description>
+      <pubDate>Thu May 10 2018 23:34:44 GMT-0700 (PDT)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Visual Studio Code Extension 1.0.0 Release]]></title>
       <link>http://aurelia.io/blog/2018/04/09/visual-studio-code-extension-100-release</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2017/08/30/aurelia-release-notes-late-august-2017</link>
       <description><![CDATA[We've got a number of bug fixes, enhancements and perf improvements this time around. In particular, we've made some substantial fixes to our CLI Webpack support.]]></description>
       <pubDate>Wed Aug 30 2017 10:42:22 GMT-0700 (PDT)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia CLI Webpack Update!]]></title>
-      <link>http://aurelia.io/blog/2017/08/18/aurelia-cli-webpack-update</link>
-      <description><![CDATA[Today, I'm thrilled to announce that we've added support for Webpack 3 to the Aurelia CLI. With this addition, the CLI supports project generation equally for Webpack, SystemJS and RequireJS.]]></description>
-      <pubDate>Fri Aug 18 2017 06:45:57 GMT-0700 (PDT)</pubDate>
     </item>
   </channel>
 </rss>
