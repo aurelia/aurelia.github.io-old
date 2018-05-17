@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Thu May 10 2018 23:36:36 GMT-0700 (PDT)</lastBuildDate>
+    <lastBuildDate>Wed May 16 2018 21:17:00 GMT-0700 (PDT)</lastBuildDate>
+    <item>
+      <title><![CDATA[Financing Changes to Aurelia]]></title>
+      <link>http://aurelia.io/blog/2018/05/16/financing-changes-to-aurelia</link>
+      <description><![CDATA[Announcing some major changes to Aurelia's financial ecosystem that will accelerate the future of the Aurelia framework.]]></description>
+      <pubDate>Wed May 16 2018 21:15:12 GMT-0700 (PDT)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia Release Notes - Early May 2018]]></title>
       <link>http://aurelia.io/blog/2018/05/10/aurelia-release-notes-early-may-2018</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2017/09/26/ivee-3d-editor-aurelia-microsoft-azure-case-study</link>
       <description><![CDATA[Today, I'm pleased to introduce you to Daniel Radu. Dan is a member of our Aurelia community who has been building some pretty awesome stuff by combining Aurelia [http://aurelia.io] with Microsoft Azure [https://azure.microsoft.com]. I'll let Dan tell you about his experiences, in his own words...]]></description>
       <pubDate>Tue Sep 26 2017 08:59:48 GMT-0700 (PDT)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Release Notes - Late August 2017]]></title>
-      <link>http://aurelia.io/blog/2017/08/30/aurelia-release-notes-late-august-2017</link>
-      <description><![CDATA[We've got a number of bug fixes, enhancements and perf improvements this time around. In particular, we've made some substantial fixes to our CLI Webpack support.]]></description>
-      <pubDate>Wed Aug 30 2017 10:42:22 GMT-0700 (PDT)</pubDate>
     </item>
   </channel>
 </rss>
