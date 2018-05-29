@@ -282,6 +282,11 @@
             "dest": "docs/plugins/http-services"
           },
           {
+            "name": "Store",
+            "src": "../store/doc/article/en-US/aurelia-store-plugin.md",
+            "dest": "docs/plugins/store"
+          },
+          {
             "name": "Validation",
             "src": "../validation/doc/article/en-US/validation-basics.md",
             "dest": "docs/plugins/validation"
