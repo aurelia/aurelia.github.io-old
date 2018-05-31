@@ -258,6 +258,18 @@ Notice that Aurelia I18N makes use of a non-standard attributes option, which is
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>
+<p>To have <code>webpack</code> serving your translation files for <code>i18next-xhr-backend</code>, they need to be copied into the virtual (development) or actual (production) output directory. To copy them from <code>src/locales/</code> to <code>$outputDir$/locales/</code>, add the following entry under the plugins section of your <code>webpack.config.js</code>.</p>
+<code-listing heading="Copy translation files for webpack and i18next-xhr-backend">
+  <source-code lang="ES 2015"><pre class="language-javascript"><code>
+    plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token comment">// ...</span>
+      <span class="token keyword">new</span> <span class="token class-name">CopyWebpackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+        <span class="token punctuation">{</span> <span class="token keyword">from</span><span class="token punctuation">:</span> <span class="token string">'src/locales/'</span><span class="token punctuation">,</span> to<span class="token punctuation">:</span> <span class="token string">'locales/'</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token comment">// ...</span>
+    <span class="token punctuation">]</span>
+  </code></pre></source-code>
+</code-listing>
 <p>You may also group your translations by namespaces, spread across multiple files. Say you have the standard translation.json and an additional <code>nav.json</code> for the navigation items, you can configure aurelia-i18n by passing the <code>ns</code> setting in the config object containing the different namespaces as well as the default namespace.
 When using namespaces, you will need to prepend string references with <code>ns:</code> for those strings that are not in the
 defaultNS. For example <code>t='nav:profile'</code> would access the <code>profile</code> string in <code>nav.json</code>.</p>
@@ -339,10 +351,15 @@ Alternative, you can find this file in the plugins repository doc folder: <code>
     ... other existing configuration code
   </span></code></pre></source-code>
 </code-listing>
-<p>or if you are using TypeScript 2.0 or later, you can add them to the types section like
+<p>or if you are using TypeScript 2.0 or later, you can add them to the types section like</p>
 <code-listing heading="Configuring custom typings in tsconfig.json">
-<source-code lang="ES 2015">%3Cpre%20class%3D%22language-javascript%22%3E%3Ccode%3E%0A%20%20%20%20%3Cspan%20class%3D%22token%20operator%22%3E...%3C/span%3E%20existing%20configuration%20code%0A%20%20%20%20%3Cspan%20class%3D%22token%20string%22%3E%22types%22%3C/span%3E%3Cspan%20class%3D%22token%20punctuation%22%3E%3A%3C/span%3E%20%3Cspan%20class%3D%22token%20punctuation%22%3E%5B%3C/span%3E%20%3Cspan%20class%3D%22token%20string%22%3E%22i18next%22%3C/span%3E%3Cspan%20class%3D%22token%20punctuation%22%3E%2C%3C/span%3E%20%3Cspan%20class%3D%22token%20string%22%3E%22i18next-xhr-backend%22%3C/span%3E%20%3Cspan%20class%3D%22token%20punctuation%22%3E%5D%3C/span%3E%0A%20%20%20%20%20%20%3Cspan%20class%3D%22token%20punctuation%22%3E%5D%3C/span%3E%3Cspan%20class%3D%22token%20punctuation%22%3E%2C%3C/span%3E%0A%20%20%20%20%3Cspan%20class%3D%22token%20operator%22%3E...%3C/span%3E%20other%20existing%20configuration%20code%0A%20%20%3C/code%3E%3C/pre%3E</source-code>
-</code-listing></p>
+  <source-code lang="ES 2015"><pre class="language-javascript"><code>
+    <span class="token operator">...</span> existing configuration code
+    <span class="token string">"types"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token string">"i18next"</span><span class="token punctuation">,</span> <span class="token string">"i18next-xhr-backend"</span> <span class="token punctuation">]</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token operator">...</span> other existing configuration code
+  </code></pre></source-code>
+</code-listing>
 <div class="warning"><div class="icon"> <i></i> </div><p>
 TypeScript will throw errors like <code>Module xxx not found</code> either for aurelia-i18n or one of the backends. This is due to the fact that TypeScript does not see proper ES6 exported defaults. So you can now either switch to alias imports <code>import * as Backend from 'i18next-xhr-backend'</code> or update your tsconfig with <code>&quot;allowSyntheticDefaultImports&quot;: true</code> to maintain the same import style.</p>
 </div>
@@ -982,7 +999,7 @@ translations. If you're missing yours, I welcome you to provide a PR so everybod
   <span class="token punctuation">]</span>
   
 </code></pre></source-code></code-listing>
-<p>and inlcude the json extension in the loader plugin part build/loader/plugins/extensions</p>
+<p>and include the json extension in the loader plugin part build/loader/plugins/extensions</p>
 <code-listing><source-code lang="JSON"><pre class="language-javascript"><code>
   <span class="token operator">...</span>
   <span class="token string">"plugins"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
@@ -999,6 +1016,56 @@ translations. If you're missing yours, I welcome you to provide a PR so everybod
   <span class="token operator">...</span>
   
 </code></pre></source-code></code-listing>
+<h3>Using Webpack</h3>
+<p>As an easy starting point for getting aurelia-i18n to work with webpack or if you don't want your translations files split into several chunks, you might refrain from lazy loading them and instead bundle them all with your app.bundle. With all locales included into the app.bundle, it's size and upfront loading time will increase, but for a small amount of translations, that might not be much of an issue. To do this, you can use the 
+<a href="https://github.com/atroo/i18next-resource-store-loader" target="_blank">i18next-resource-store-loader</a>
+.</p>
+<p>First install the module from within the root folder of your project:</p>
+<code-listing><source-code lang="Shell"><pre class="language-powershell"><code>
+  npm install i18next<span class="token operator">-</span>resource<span class="token operator">-</span>store<span class="token operator">-</span>loader <span class="token operator">--</span>save
+  
+</code></pre></source-code></code-listing>
+<p>Given following file structure:</p>
+<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+  └── src
+        ├── assets
+        │   └── i18n
+        │       ├── index<span class="token punctuation">.</span>js <span class="token comment">// Add an empty index.js as root pointer here.</span>
+        │       ├── de
+        │       │   └── translation<span class="token punctuation">.</span>json
+        │       └── en
+        │           └── translation<span class="token punctuation">.</span>json
+        └── main<span class="token punctuation">.</span>js<span class="token operator">/</span>ts
+  
+</code></pre></source-code></code-listing>
+<p>Configure aurelia-i18n as follows:</p>
+<code-listing heading="Configuring the i18next-resource-store-loader">
+  <source-code lang="ES 2015"><pre class="language-javascript"><code>   
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>PLATFORM<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
+    <span class="token comment">// Pass the path to the root pointer relative to main to the loader</span>
+    <span class="token keyword">import</span> resBundle <span class="token keyword">from</span> <span class="token string">'i18next-resource-store-loader!./assets/i18n/index.js'</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      aurelia<span class="token punctuation">.</span>use
+        <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-i18n'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> instance <span class="token operator">=></span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> instance<span class="token punctuation">.</span><span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            resources  <span class="token punctuation">:</span> resBundle<span class="token punctuation">,</span> <span class="token comment">//&lt;-- configure aurelia-i18n to use your bundled translations</span>
+            lng        <span class="token punctuation">:</span> <span class="token string">'de'</span><span class="token punctuation">,</span>
+            attributes <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'t'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            fallbackLng<span class="token punctuation">:</span> <span class="token string">'en'</span><span class="token punctuation">,</span>
+            debug      <span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      
+      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span>PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<p>For additional information about the resource store loader please take a look at the 
+<a href="https://github.com/atroo/i18next-resource-store-loader" target="_blank">official repos information</a>
+.</p>
 </section>
 <section><h2 id="internationalization-api-polyfill">Internationalization API Polyfill</h2><p>The plugin leverages the JavaScript Internationalization API to perform certain tasks. Since not all browsers do fully support it (
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Browser_compatibility" target="_blank">compatibility table</a>
@@ -1093,7 +1160,7 @@ to properly recognize the plugins. With that change, the example code looks like
             <span class="token comment">// code to setup aurelia-i18n</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span>PLATFORM<span class="token punctuation">.</span><span class="token function">modulename</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>
@@ -1115,8 +1182,8 @@ to properly recognize the plugins. With that change, the example code looks like
 <p>More information 
 <a href="https://github.com/andyearnshaw/Intl.js/#intljs-and-browserifywebpack" target="_blank">in the README of the Intl.js polyfill</a>
 .</p>
-<p>On top of that if you need the Intl polyfill included you have to manualy require and bundle it. To do so add the following import statement at the begin of your <code>main.js/ts</code> file:</p>
-<code-listing heading="Manually requiering the Intl Polyfill">
+<p>On top of that if you need the Intl polyfill included you have to manually require and bundle it. To do so add the following import statement at the begin of your <code>main.js/ts</code> file:</p>
+<code-listing heading="Manually requiring the Intl Polyfill">
   <source-code lang="ES 2015"><pre class="language-javascript"><code>
     <span class="token comment">//main.js</span>
     <span class="token keyword">import</span> <span class="token string">'intl'</span><span class="token punctuation">;</span>
