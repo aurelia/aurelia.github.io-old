@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Mon May 28 2018 21:22:01 GMT-0700 (PDT)</lastBuildDate>
+    <lastBuildDate>Sun Jun 17 2018 23:28:52 GMT-0700 (PDT)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia Store Released!]]></title>
+      <link>http://aurelia.io/blog/2018/06/17/aurelia-store-released</link>
+      <description><![CDATA[Announcing the release of the Aurelia Store state management plugin!]]></description>
+      <pubDate>Sun Jun 17 2018 23:28:50 GMT-0700 (PDT)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Financing Changes to Aurelia]]></title>
       <link>http://aurelia.io/blog/2018/05/16/financing-changes-to-aurelia</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2017/10/03/aurelia-release-notes-early-october-2017</link>
       <description><![CDATA[We've just made a massive set of releases to Aurelia's core libraries and plugins. This set of releases includes perf optimizations, reduced memory utilization, removal of a memory leak, plenty of fixed bugs and adds some new features!]]></description>
       <pubDate>Tue Oct 03 2017 08:36:23 GMT-0700 (PDT)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Case Study: Ivee 3D Editor - Aurelia+Azure+ASP.NET+Redux+ThreeJS]]></title>
-      <link>http://aurelia.io/blog/2017/09/26/ivee-3d-editor-aurelia-microsoft-azure-case-study</link>
-      <description><![CDATA[Today, I'm pleased to introduce you to Daniel Radu. Dan is a member of our Aurelia community who has been building some pretty awesome stuff by combining Aurelia [http://aurelia.io] with Microsoft Azure [https://azure.microsoft.com]. I'll let Dan tell you about his experiences, in his own words...]]></description>
-      <pubDate>Tue Sep 26 2017 08:59:48 GMT-0700 (PDT)</pubDate>
     </item>
   </channel>
 </rss>
