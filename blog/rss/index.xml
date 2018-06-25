@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Sun Jun 24 2018 22:51:53 GMT-0700 (PDT)</lastBuildDate>
+    <lastBuildDate>Sun Jun 24 2018 23:16:36 GMT-0700 (PDT)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia Release Notes - June 2018]]></title>
+      <link>http://aurelia.io/blog/2018/06/24/aurelia-release-notes-june-2018</link>
+      <description><![CDATA[June is a significant month for Aurelia. Our latest set of releases adds some great new features for our templating engine, allowing more seamless Webpack builds and an even more unobtrusive programming model. We've also made huge improvements to our binding engine, including adding new keywords and beefing up performance. Finally, the Aurelia Store plugin was released! Read on to get the details from the Aurelia Core Team.]]></description>
+      <pubDate>Sun Jun 24 2018 23:03:59 GMT-0700 (PDT)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia Store Released!]]></title>
       <link>http://aurelia.io/blog/2018/06/17/aurelia-store-released</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2017/10/10/aurelia-at-techdays-the-netherlands</link>
       <description><![CDATA[Techdays The Netherlands is just two days away! There's some great Aurelia content for you, if you are attending this event. Read on to learn more about the upcoming talks.]]></description>
       <pubDate>Tue Oct 10 2017 08:45:58 GMT-0700 (PDT)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Release Notes - Early October 2017]]></title>
-      <link>http://aurelia.io/blog/2017/10/03/aurelia-release-notes-early-october-2017</link>
-      <description><![CDATA[We've just made a massive set of releases to Aurelia's core libraries and plugins. This set of releases includes perf optimizations, reduced memory utilization, removal of a memory leak, plenty of fixed bugs and adds some new features!]]></description>
-      <pubDate>Tue Oct 03 2017 08:36:23 GMT-0700 (PDT)</pubDate>
     </item>
   </channel>
 </rss>
