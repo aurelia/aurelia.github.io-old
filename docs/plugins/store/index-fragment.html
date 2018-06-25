@@ -132,10 +132,10 @@ The contained component state is a good thing and should stay with the component
       frameworks<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"Aurelia"</span><span class="token punctuation">,</span> <span class="token string">"React"</span><span class="token punctuation">,</span> <span class="token string">"Angular"</span><span class="token punctuation">]</span>
     <span class="token punctuation">}</span><span class="token punctuation">;</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Defining the initialState">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
+    <span class="token comment">// there is no need for a dedicated entity in JavaScript</span>
+
     <span class="token comment">// state.js</span>
     <span class="token keyword">export</span> <span class="token keyword">const</span> initialState <span class="token operator">=</span> <span class="token punctuation">{</span>
       frameworks<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"Aurelia"</span><span class="token punctuation">,</span> <span class="token string">"React"</span><span class="token punctuation">,</span> <span class="token string">"Angular"</span><span class="token punctuation">]</span>
@@ -163,8 +163,6 @@ The contained component state is a good thing and should stay with the component
       aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Registering the plugin">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
     <span class="token comment">// main.js</span>
@@ -215,8 +213,6 @@ The contained component state is a good thing and should stay with the component
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Injecting the store and creating a subscription">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// app.js</span>
@@ -283,8 +279,6 @@ What it does is to connect your store's state automatically to a class property 
       <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> store<span class="token punctuation">:</span> Store<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Using the connectTo decorator">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// app.js</span>
@@ -315,8 +309,6 @@ Notice how we've declared the public state property of type <code>State</code> i
       <span class="token operator">...</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Sub-state selection">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// app.js</span>
@@ -343,8 +335,6 @@ Notice how we've declared the public state property of type <code>State</code> i
       <span class="token operator">...</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Defining the selector and target">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// app.js</span>
@@ -375,8 +365,6 @@ Notice how we've declared the public state property of type <code>State</code> i
       <span class="token operator">...</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Overriding the default setup and teardown methods">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// app.js</span>
@@ -416,8 +404,6 @@ The provided action names for setup and teardown don't necessarily have to be on
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Define an onChanged handler">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// app.js</span>
@@ -464,8 +450,6 @@ You create a shallow clone of the state by using Object.assign. By saying shallo
       <span class="token keyword">return</span> newState<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="A simple action">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token keyword">const</span> <span class="token function-variable function">demoAction</span> <span class="token operator">=</span> <span class="token punctuation">(</span>state<span class="token punctuation">,</span> frameworkName<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -499,8 +483,6 @@ You create a shallow clone of the state by using Object.assign. By saying shallo
       <span class="token operator">...</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Registering an action">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// app.js</span>
@@ -539,8 +521,6 @@ You create a shallow clone of the state by using Object.assign. By saying shallo
       <span class="token operator">...</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Unregistering an action">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// app.js</span>
@@ -584,8 +564,6 @@ You create a shallow clone of the state by using Object.assign. By saying shallo
       <span class="token keyword">return</span> newState<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="An async action">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token keyword">function</span> <span class="token function">validateAsync</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -646,8 +624,6 @@ Alternatively we can also provide the previously registered name instead.</p>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Dispatching an action">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// app.js</span>
@@ -688,7 +664,7 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
 
     <span class="token comment">// framework-list.ts</span>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span> useView <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-framework"</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> inlineView <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-framework"</span><span class="token punctuation">;</span>
     <span class="token keyword">import</span> <span class="token punctuation">{</span> dispatchify <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-store"</span><span class="token punctuation">;</span>
 
     <span class="token keyword">const</span> <span class="token function-variable function">addFramework</span> <span class="token operator">=</span> <span class="token punctuation">(</span>state<span class="token punctuation">:</span> State<span class="token punctuation">,</span> frameworkName<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -698,7 +674,7 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
       <span class="token keyword">return</span> newState<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
-    @<span class="token function">useView</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`
+    @<span class="token function">inlineView</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`
       &lt;template>
         &lt;require from="./framework-item">&lt;/require>
         &lt;framework-item add.bind="addFramework">&lt;/framework-item>
@@ -709,9 +685,9 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
     <span class="token punctuation">}</span>
 
     <span class="token comment">// framework-item.ts</span>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span> bindable<span class="token punctuation">,</span> useView <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-framework"</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> bindable<span class="token punctuation">,</span> inlineView <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-framework"</span><span class="token punctuation">;</span>
     
-    @<span class="token function">useView</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`
+    @<span class="token function">inlineView</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`
       &lt;template>
         New framework name:
         &lt;input value.bind="newFrameworkName" />
@@ -722,12 +698,10 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
       @bindable add<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Forwarding a dispatchable function as argument to child-elements">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// framework-list.js</span>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span> useView <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-framework"</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> inlineView <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-framework"</span><span class="token punctuation">;</span>
     <span class="token keyword">import</span> <span class="token punctuation">{</span> dispatchify <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-store"</span><span class="token punctuation">;</span>
 
     <span class="token keyword">const</span> <span class="token function-variable function">addFramework</span> <span class="token operator">=</span> <span class="token punctuation">(</span>state<span class="token punctuation">,</span> frameworkName<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -737,7 +711,7 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
       <span class="token keyword">return</span> newState<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
-    @<span class="token function">useView</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`
+    @<span class="token function">inlineView</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`
       &lt;template>
         &lt;require from="./framework-item">&lt;/require>
         &lt;framework-item add.bind="addFramework">&lt;/framework-item>
@@ -750,9 +724,9 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
     <span class="token punctuation">}</span>
 
     <span class="token comment">// framework-item.js</span>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span> bindable<span class="token punctuation">,</span> useView <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-framework"</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> bindable<span class="token punctuation">,</span> inlineView <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-framework"</span><span class="token punctuation">;</span>
     
-    @<span class="token function">useView</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`
+    @<span class="token function">inlineView</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`
       &lt;template>
         New framework name:
         &lt;input value.bind="newFrameworkName" />
@@ -793,8 +767,6 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
       aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Registering the plugin with history support">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
     <span class="token comment">// main.js</span>
@@ -850,8 +822,6 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Subscribing to the state history">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
     <span class="token comment">// app.js</span>
@@ -906,8 +876,6 @@ You can use the <code>nextStateHistory</code> helper function to easily push you
       <span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="A StateHistory aware action">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
     <span class="token comment">// app.js</span>
@@ -970,8 +938,6 @@ You can use the <code>nextStateHistory</code> helper function to easily push you
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="A StateHistory aware action">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
     <span class="token comment">// app.js</span>
@@ -1032,8 +998,6 @@ That means your past and future arrays can hold only a maximum of the provided <
       aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Registering the plugin with history overflow limits">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
     <span class="token comment">// main.js</span>
@@ -1079,8 +1043,6 @@ As soon as you have one async middleware registered, essentially all action disp
 
     
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Registering a middleware">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
     <span class="token comment">// app.js</span>
@@ -1091,6 +1053,9 @@ As soon as you have one async middleware registered, essentially all action disp
     store<span class="token punctuation">.</span><span class="token function">registerMiddleware</span><span class="token punctuation">(</span>customLogMiddleware<span class="token punctuation">,</span> <span class="token string">"after"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre></source-code>
 </code-listing>
+<blockquote>
+<p>You can call the <code>store.registerMiddleware</code> function whenever you want. This means middlewares don't have to be defined upfront at the apps configuration time but whenever needed. Same applies to <code>store.unregisterMiddleware</code>.</p>
+</blockquote>
 </section>
 <section><h2 id="accessing-the-original-unmodified-state-in-a-middleware">Accessing the original (unmodified) state in a middleware</h2><p>When executed, a middleware might accept a second argument which reflects the current unmodified state, the one before any other middlewares or, in case of an after positioning, the result of the dispatched action. This can be useful to determine the state diff that happened in the middleware chain or to reset the next state at certain conditions.</p>
 <code-listing heading="Accessing the original state">
@@ -1104,8 +1069,6 @@ As soon as you have one async middleware registered, essentially all action disp
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Accessing the original state">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
     <span class="token comment">// app.js</span>
@@ -1131,8 +1094,6 @@ These are passed in as the third argument to the middleware function and are reg
 
     
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Passing settings to middlewares">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
     <span class="token comment">// app.js</span>
@@ -1159,8 +1120,6 @@ In here you get an object containing the actions <code>name</code> and the provi
     
     store<span class="token punctuation">.</span><span class="token function">registerMiddleware</span><span class="token punctuation">(</span>gateKeeperMiddleware<span class="token punctuation">,</span> MiddlewarePlacement<span class="token punctuation">.</span>After<span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Reference to the calling action in middlewares">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
     <span class="token comment">// app.js</span>
@@ -1199,8 +1158,6 @@ In here you get an object containing the actions <code>name</code> and the provi
       aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Registering the plugin with active error propagation">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
     <span class="token comment">// main.js</span>
@@ -1238,8 +1195,6 @@ In here you get an object containing the actions <code>name</code> and the provi
 
     store<span class="token punctuation">.</span><span class="token function">registerMiddleware</span><span class="token punctuation">(</span>logMiddleware<span class="token punctuation">,</span> MiddlewarePlacement<span class="token punctuation">.</span>After<span class="token punctuation">,</span> <span class="token punctuation">{</span> logType<span class="token punctuation">:</span> LogLevel<span class="token punctuation">.</span>log <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Registering the Logging middleware">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
     <span class="token comment">// app.js</span>
@@ -1267,8 +1222,6 @@ In here you get an object containing the actions <code>name</code> and the provi
 
     store<span class="token punctuation">.</span><span class="token function">registerMiddleware</span><span class="token punctuation">(</span>localStorageMiddleware<span class="token punctuation">,</span> MiddlewarePlacement<span class="token punctuation">.</span>After<span class="token punctuation">,</span> <span class="token punctuation">{</span> key<span class="token punctuation">:</span> <span class="token string">"my-storage-key"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Registering the LocalStorage middleware">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
     <span class="token comment">// app.js</span>
@@ -1293,8 +1246,6 @@ In here you get an object containing the actions <code>name</code> and the provi
     store<span class="token punctuation">.</span><span class="token function">registerAction</span><span class="token punctuation">(</span><span class="token string">"Rehydrate"</span><span class="token punctuation">,</span> rehydrateFromLocalStorage<span class="token punctuation">)</span><span class="token punctuation">;</span>
     store<span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span>rehydrateFromLocalStorage<span class="token punctuation">,</span> <span class="token string">"my-storage-key"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Dispatching the localStorage rehydration action">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
     <span class="token comment">// app.js</span>
@@ -1307,6 +1258,9 @@ In here you get an object containing the actions <code>name</code> and the provi
     store<span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span>rehydrateFromLocalStorage<span class="token punctuation">,</span> <span class="token string">"my-storage-key"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre></source-code>
 </code-listing>
+<blockquote>
+<p>Keep in mind that the store starts with an initialState. If the localStorage middleware is registered at the apps start, most likely the next refresh, will immediately overwrite your localStorage and that way negate the effect of restoring data from previous runs. In order to avoid that make sure to register the middleware just after the initial state has passed.</p>
+</blockquote>
 </section>
 <section><h2 id="execution-order">Execution order</h2><p>If multiple actions are dispatched, they will get queued and executed one after another in order to make sure that each dispatch starts with an up to date state.</p>
 <p>If either your actions or middlewares return a sync or async value of <code>false</code> it will cause the Aurelia Store plugin to interrupt the execution and not emit the next state. Use this behavior in order to avoid unnecessary states.</p>
@@ -1321,8 +1275,6 @@ In here you get an object containing the actions <code>name</code> and the provi
     <span class="token operator">...</span>
     aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-store"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> initialState<span class="token punctuation">,</span> measurePerformance<span class="token punctuation">:</span> PerformanceMeasurement<span class="token punctuation">.</span>All <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Tracking performance data">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
     <span class="token comment">// main.js</span>
@@ -1357,8 +1309,6 @@ In here you get an object containing the actions <code>name</code> and the provi
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre></source-code>
-</code-listing>
-<code-listing heading="Dispatch logs to console.debug">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
     <span class="token comment">// main.js</span>

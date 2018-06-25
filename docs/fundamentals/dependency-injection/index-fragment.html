@@ -312,14 +312,14 @@ At present, the Decorators spec allows for decorators to use parens or not depen
 </ul>
 </li>
 </ul>
-<p>If using TypeScript, keep in mind that <code>@autoinject</code> won't allow you to use <code>Resolvers</code>. Instead, you may use argument decorators, without duplicating argument order, which you otherwise have to maintain when using the class decorator or the static <code>inject</code> property. Available function parameter decorators are:</p>
+<p>If using TypeScript, keep in mind that <code>@autoinject</code> won't allow you to use <code>Resolvers</code>. Instead, you may use argument decorators, without duplicating argument order, which you otherwise have to maintain when using the class decorator or the static <code>inject</code> property. You also can use <code>inject</code> as argument decorator for your own custom resolvers, eg <code>constructor(@inject(NewInstance.of(HttpClient)) public client: HttpClient){...}</code>. Available build-in function parameter decorators are:</p>
 <ul>
 <li><code>lazy(key)</code></li>
 <li><code>all(key)</code></li>
 <li><code>optional(checkParent?)</code></li>
 <li><code>parent</code></li>
-<li><code>factory(key, asValue?)</code></li>
-<li><code>newInstance(key?)</code></li>
+<li><code>factory(key)</code></li>
+<li><code>newInstance(asKey?, dynamicDependencies: [any])</code></li>
 </ul>
 <p>Here's an example of how we might express a dependency on <code>HttpClient</code> that we may or may not actually need to use, depending on runtime scenarios:</p>
 <code-listing heading="Using Resolvers">

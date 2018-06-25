@@ -832,6 +832,31 @@ No description available.
   * `oldValue?: any` - No description available
 
 
+* `static inject(): any` - 
+
+
+
+### StaticViewStrategy
+
+No description available.
+
+#### Properties
+
+* `dependencies: ` - No description available.
+* `factory: ViewFactory` - No description available.
+* `factoryIsReady: boolean` - No description available.
+* `template: ` - No description available.
+
+#### Methods
+
+
+* `loadViewFactory(viewEngine: ViewEngine, compileInstruction: ViewCompileInstruction, loadContext: ResourceLoadContext, target: any): Promise` - Loads a view factory.
+  * `viewEngine: ViewEngine` - The view engine to use during the load process.
+  * `compileInstruction: ViewCompileInstruction` - Additional instructions to use during compilation of the view.
+  * `loadContext: ResourceLoadContext` - The loading context used for loading all resources and dependencies.
+  * `target: any` - A class from which to extract metadata of additional resources to load.
+
+
 
 ### TargetInstruction
 
@@ -885,54 +910,6 @@ Provides all the instructions for how a target element should be enhanced inside
   * `behaviorInstructions: Array` - The instructions for creating behaviors on this element.
   * `expressions: Array` - Bindings, listeners, triggers, etc.
   * `values: Object` - A key/value lookup of attributes to transplant.
-
-
-
-### TargetResource
-
-No description available.
-
-#### Properties
-
-* `static Function: FunctionConstructor` - No description available.
-* `static arguments: any` - No description available.
-* `static caller: Function` - No description available.
-* `static length: number` - No description available.
-* `static name: string` - Returns the name of the function. Function names are read-only and can not be changed.
-* `static prototype: any` - No description available.
-* `static resource: ` - No description available.
-
-#### Methods
-
-
-* `static __@hasInstance(value: any): boolean` - Determines whether the given value inherits from this function if this function was used
-as a constructor function.
-  * `value: any` - No description available
-
-
-* `static apply(this: Function, thisArg: any, argArray?: any): any` - Calls the function, substituting the specified object for the this value of the function, and the specified array for the arguments of the function.
-  * `this: Function` - No description available
-  * `thisArg: any` - The object to be used as the this object.
-  * `argArray?: any` - A set of arguments to be passed to the function.
-
-
-
-* `static bind(this: Function, thisArg: any, argArray: ): any` - For a given function, creates a bound function that has the same body as the original function.
-The this object of the bound function is associated with the specified object, and has the specified initial parameters.
-  * `this: Function` - No description available
-  * `thisArg: any` - An object to which the this keyword can refer inside the new function.
-  * `argArray: ` - A list of arguments to be passed to the new function.
-
-
-
-* `static call(this: Function, thisArg: any, argArray: ): any` - Calls a method of an object, substituting another object for the current object.
-  * `this: Function` - No description available
-  * `thisArg: any` - The object to be used as the current object.
-  * `argArray: ` - A list of arguments to be passed to the method.
-
-
-
-* `static toString(): string` - Returns a string representation of a function.
 
 
 
@@ -1203,6 +1180,7 @@ The default implementation returns and instance of ConventionalViewStrategy.
 ### ViewResources
 
 Represents a collection of resources used during the compilation of a view.
+Will optinally add information to an existing HtmlBehaviorResource if given
 
 #### Properties
 
@@ -1211,9 +1189,9 @@ Represents a collection of resources used during the compilation of a view.
 #### Methods
 
 
-* `autoRegister(container: Container, impl: Function): ` - 
-  * `container: Container` - No description available
-  * `impl: Function` - No description available
+* `autoRegister(container?: any, impl?: any): any` - 
+  * `container?: any` - No description available
+  * `impl?: any` - No description available
 
 
 * `getAttribute(attribute: string): HtmlBehaviorResource` - Gets an HTML attribute behavior.
@@ -1289,8 +1267,10 @@ Represents a collection of resources used during the compilation of a view.
   * `path: string` - The relative path.
 
 
-* `static convention(target: TargetResource): ` - 
-  * `target: TargetResource` - No description available
+* `static convention(target: Function, existing?: HtmlBehaviorResource): ` - Checks whether the provided class contains any resource conventions
+  * `target: Function` - Target class to extract metadata based on convention
+  * `existing?: HtmlBehaviorResource` - If supplied, all custom element / attribute metadata extracted from convention will be apply to this instance
+
 
 
 
@@ -1558,6 +1538,12 @@ No description available.
 * `defaultBindingMode: ` - Used to set default binding mode of default custom attribute view model &quot;value&quot; property
 * `hasDynamicOptions: boolean` - Flags a custom attribute has dynamic options
 * `name: string` - Name of this resource. Reccommended to explicitly set to works better with minifier
+* `processAttributes: ` - Custom processing of the attributes on an element before the framework inspects them.
+* `processContent: ` - Enables custom processing of the content that is places inside the custom element by its consumer.
+Pass a boolean to direct the template compiler to not process
+the content placed inside this element. Alternatively, pass a function which
+can provide custom processing of the content. This function should then return
+a boolean indicating whether the compiler should also process the content.
 * `shadowDOMOptions: ShadowRootInit` - Options that will be used if the element is flagged with usesShadowDOM
 * `templateController: boolean` - Used to tell if a custom attribute is a template controller
 * `type: ` - Resource type of this class, omit equals to custom element
@@ -1566,23 +1552,30 @@ No description available.
 #### Methods
 
 
-* `processAttributes(viewCompiler: ViewCompiler, resources: ViewResources, node: Element, attributes: NamedNodeMap, elementInstruction: BehaviorInstruction): void` - Custom processing of the attributes on an element before the framework inspects them.
-  * `viewCompiler: ViewCompiler` - No description available.
-  * `resources: ViewResources` - No description available.
-  * `node: Element` - No description available.
-  * `attributes: NamedNodeMap` - No description available.
-  * `elementInstruction: BehaviorInstruction` - No description available.
+
+### IStaticViewConfig
+
+No description available.
+
+#### Properties
+
+* `dependencies: ` - No description available.
+* `template: ` - No description available.
+
+#### Methods
 
 
-* `processContent(viewCompiler: ViewCompiler, resources: ViewResources, node: Element, instruction: BehaviorInstruction): boolean` - Enables custom processing of the content that is places inside the custom element by its consumer.
-Pass a boolean to direct the template compiler to not process
-the content placed inside this element. Alternatively, pass a function which
-can provide custom processing of the content. This function should then return
-a boolean indicating whether the compiler should also process the content.
-  * `viewCompiler: ViewCompiler` - No description available.
-  * `resources: ViewResources` - No description available.
-  * `node: Element` - No description available.
-  * `instruction: BehaviorInstruction` - No description available.
+
+### IStaticViewStrategyConfig
+
+No description available.
+
+#### Properties
+
+* `dependencies: ` - No description available.
+* `template: ` - No description available.
+
+#### Methods
 
 
 
@@ -1743,8 +1736,8 @@ a boolean indicating whether the compiler should also process the content.
 
 
 
-* `resource(instance: Object): any` - Decorator: Specifies a resource instance that describes the decorated class.
-  * `instance: Object` - The resource instance.
+* `resource(instanceOrConfig: ): any` - Decorator: Specifies a resource instance that describes the decorated class.
+  * `instanceOrConfig: ` - The resource instance.
 
 
 
@@ -1767,6 +1760,15 @@ DOM. This decorator may change slightly when Aurelia updates to Shadow DOM v1.
 * `useViewStrategy(strategy: Object): any` - Decorator: Associates a custom view strategy with the component.
   * `strategy: Object` - The view strategy instance.
 
+
+
+* `validateBehaviorName(name: string, type: string): any` - 
+  * `name: string` - No description available.
+  * `type: string` - No description available.
+
+
+* `view(templateOrConfig: ): any` - Decorator: Indicates that the element use static view
+  * `templateOrConfig: ` - No description available.
 
 
 * `viewEngineHooks(target?: any): any` - 

@@ -548,6 +548,46 @@ An expression representing a literal string.
 
 
 
+### LiteralTemplate
+
+An expression representing a (optionally tagged) template literal.
+
+#### Properties
+
+* `cooked: ` - The cooked (escaped) string parts of the template.
+The first item is the TemplateHead. If there is only one item,
+then this counts as a NoSubstituteTemplate - functionally equivalent
+to a LiteralString, unless it&#x27;s tagged.
+* `expressions: ` - The expressions within the template (the parts between &#x60;${&#x60; and &#x60;}&#x60;)
+* `func: ` - The tag (function) to be invoked with the LiteralTemplate arguments.
+The first argument is LiteralTemplate.cooked.
+The following arguments are the results of evaluating LiteralTemplate.expressions.
+
+#### Methods
+
+
+* `accept(visitor: ExpressionVisitor): void` - Accepts an expression visitor.
+  * `visitor: ExpressionVisitor` - No description available
+
+
+* `assign(scope: Scope, value: any, lookupFunctions: LookupFunctions): void` - Assigns a value to the property represented by the expression.
+  * `scope: Scope` - No description available
+  * `value: any` - No description available
+  * `lookupFunctions: LookupFunctions` - No description available
+
+
+* `connect(binding: Binding, scope: Scope): void` - Subscribes a binding instance to the property change events along the path of the expression.
+  * `binding: Binding` - No description available
+  * `scope: Scope` - No description available
+
+
+* `evaluate(scope: Scope, lookupFunctions?: LookupFunctions): any` - Evaluates the expression using the provided scope and lookup functions.
+  * `scope: Scope` - The scope (bindingContext + overrideContext)
+  * `lookupFunctions?: LookupFunctions` - Required for BindingBehavior and ValueConverter expressions.
+
+
+
+
 ### ObserverLocator
 
 Internal object observation API. Locates observers for properties, arrays and maps using a variety of strategies.
@@ -853,7 +893,13 @@ The change record of a collection mutation.
 
 * `addedCount: number` - Number of items added to the collection.
 * `index: number` - The position at which the items were added.
+* `key: K` - The key of the Map item that was changed.
+* `object: ` - The observed Set or Map after the change.
+* `oldValue: T` - The value of the Map item prior to the change.
 * `removed: Array` - A collection of items that were removed from the collection.
+* `type: ` - The type of change that has taken place. Valid options are &quot;add&quot;, &quot;delete&quot;, and &quot;update&quot;.
+&quot;update&quot; is invalid for Set.
+* `value: T` - The Set value that was either added or removed.
 
 #### Methods
 

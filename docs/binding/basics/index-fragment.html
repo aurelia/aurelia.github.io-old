@@ -149,6 +149,180 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 <li><code>$odd</code> - In a repeat template, is true if the item has an odd numbered index.</li>
 </ul>
 </section>
+<section><h2 id="expression-syntax">Expression Syntax</h2><p>Aurelia's expression parser implements a subset of 
+<a href="https://tc39.github.io/ecma262/#sec-ecmascript-language-expressions" target="_blank">ECMAScript Expressions</a>
+. For the features that are supported, you can typically expect the JavaScript in your view to work the same way as it would in your view model, or in the browser console. In addition there are two adjustments:</p>
+<ul>
+<li>The Ampersand <code>&amp;</code> represents a <code>BindingBehavior</code> (instead of Bitwise AND)</li>
+<li>The Bar <code>|</code> represents a <code>ValueConverter</code> (instead of a Bitwise OR)</li>
+</ul>
+<p>Non-expression syntax (statements, declarations, function and class definitions) is not supported.</p>
+<p>As an overview of various expressions that are possible, the following list is for illustrative purposes and not exhaustive (and not necessarily recommended, either), but should give you a fairly good idea of what you can do:</p>
+<h3>Primary Expressions</h3>
+<h4>Identifiers</h4>
+<ul>
+<li><code>foo</code> - The <code>foo</code> variable in the current view-model</li>
+<li><code>ßɑṙ</code> - The <code>ßɑṙ</code> variable in the current view-model</li>
+</ul>
+<div class="info"><div class="icon"> <i></i> </div><p>
+non-ASCII characters in the 
+<a href="https://en.wikipedia.org/wiki/Latin_script_in_Unicode#Table_of_characters" target="_blank">Latin</a>
+ script are supported. This script contains 1,350 characters covering the vast majority of languages. Other 
+<a href="https://en.wikipedia.org/wiki/Plane_(Unicode)" target="_blank">Non-BMP characters / Surrogate Pairs</a>
+ are not supported.</p>
+</div>
+<h4>Identifiers with special meaning in Aurelia</h4>
+<ul>
+<li><code>$this</code> - The current view-model</li>
+<li><code>$parent</code> - The parent view-model</li>
+</ul>
+<h4>Primitive literals</h4>
+<ul>
+<li><code>true</code> - The literal value <code>true</code></li>
+<li><code>false</code> - The literal value <code>false</code></li>
+<li><code>null</code> - The literal value <code>null</code></li>
+<li><code>undefined</code> - The literal value <code>undefined</code></li>
+</ul>
+<h4>String literals and escape sequences</h4>
+<ul>
+<li><code>'foo'</code> or <code>&quot;foo&quot;</code> - The literal string <code>foo</code></li>
+<li><code>'\n'</code> - The literal string <code>[NEWLINE]</code></li>
+<li><code>'\t'</code> - The literal string <code>[TAB]</code></li>
+<li><code>'\''</code> - The literal string <code>'</code></li>
+<li><code>'\\'</code> - The literal string <code>\</code></li>
+<li><code>'\\n'</code> - The literal string <code>\n</code></li>
+<li><code>'\u0061'</code> - The literal string <code>a</code></li>
+</ul>
+<div class="warning"><div class="icon"> <i></i> </div><p>
+Unsupported string literals include <code>'\x61'</code> (2-point hex escape), <code>'\u{61}'</code> or <code>'\u{000061}'</code> (n-point braced unicode escape), and Non-BMP characters and Surrogate Pairs.</p>
+</div>
+<h4>Template literals</h4>
+<ul>
+<li><code>`foo`</code> - Equivalent to <code>'foo'</code></li>
+<li><code>`foo${bar}baz${qux}quux`</code> - Equivalent to <code>'foo'+bar+'baz'+qux+'quux'</code></li>
+</ul>
+<h4>Numeric literals</h4>
+<ul>
+<li><code>42</code> - The literal number <code>42</code></li>
+<li><code>42.</code> or <code>42.0</code> - The literal number <code>42.0</code></li>
+<li><code>.42</code> or <code>0.42</code> - The literal number <code>0.42</code></li>
+<li><code>42.3</code> - The literal number <code>42.3</code></li>
+<li><code>10e3</code> or <code>10E3</code> - The literal number <code>1000</code></li>
+</ul>
+<div class="warning"><div class="icon"> <i></i> </div><p>
+Unsupported numeric literals include <code>0b01</code> (binary integer literal), <code>0o07</code> (octal integer literal), and <code>0x0F</code> (hex integer literal).</p>
+</div>
+<h4>Array literals</h4>
+<ul>
+<li><code>[]</code> - An empty array</li>
+<li><code>[1,2,3]</code> - An array containing the literal numbers <code>1</code>, <code>2</code> and <code>3</code></li>
+<li><code>[foo, bar]</code> - An array containing the variables <code>foo</code> and <code>bar</code></li>
+<li><code>[[]]</code> - An array containing an empty array</li>
+</ul>
+<div class="warning"><div class="icon"> <i></i> </div><p>
+Unsupported array literals include <code>[,]</code> - 
+<a href="https://tc39.github.io/ecma262/#prod-Elision" target="_blank">Elision</a>
+</p>
+</div>
+<h4>Object literals</h4>
+<ul>
+<li><code>{}</code> - An empty object</li>
+<li><code>{foo}</code> or <code>{foo,bar}</code> - ES6 shorthand notation, equivalent to <code>{'foo':foo}</code> or <code>{'foo':foo,'bar':bar}</code></li>
+<li><code>{42:42}</code> - Equivalent to <code>{'42':42}</code></li>
+</ul>
+<div class="warning"><div class="icon"> <i></i> </div><p>
+Unsupported object literals include <code>{[foo]: bar}</code> or <code>{['foo']: bar}</code> (computed property names).</p>
+</div>
+<h3>Unary expressions</h3>
+<p><strong><code>foo</code> here represents any valid primary expression or unary expression.</strong></p>
+<ul>
+<li><code>+foo</code> or <code>+1</code> - Equivalent to <code>foo</code> or <code>1</code> (the <code>+</code> unary operator is always ignored)</li>
+<li><code>-foo</code> or <code>-1</code> - Equivalent to <code>0-foo</code> or <code>0-1</code></li>
+<li><code>!foo</code> - Negates <code>foo</code></li>
+<li><code>typeof foo</code> - Returns the primitive type name of <code>foo</code></li>
+<li><code>void foo</code> - Evaluates <code>foo</code> and returns <code>undefined</code></li>
+</ul>
+<div class="warning"><div class="icon"> <i></i> </div><p>
+Unary increment (<code>++foo</code> or <code>foo++</code>), decrement (<code>--foo</code> or <code>foo--</code>), bitwise (<code>~</code>), <code>delete</code>, <code>await</code> and <code>yield</code> operators are not supported.</p>
+</div>
+<h3>Binary expressions (from highest to lowest precedence)</h3>
+<p><strong><code>a</code> and <code>b</code> here represent any valid primary, unary or binary expression.</strong></p>
+<ul>
+<li><code>a*b</code> or <code>a/b</code> or <code>a%b</code> - Multiplicative</li>
+<li><code>a+b</code> or <code>a-b</code> - Additive</li>
+<li><code>a&lt;b</code> or <code>a&gt;b</code> or <code>a&lt;=b</code> or <code>a&gt;=b</code> or <code>a in b</code> or <code>a instanceof b</code> - Relational</li>
+<li><code>a==b</code> or <code>a!=b</code> or <code>a===b</code> or <code>a!==b</code> - Equality</li>
+<li><code>a&amp;&amp;b</code> - Logical AND</li>
+<li><code>a||b</code> - Logical OR</li>
+</ul>
+<div class="warning"><div class="icon"> <i></i> </div><p>
+Exponentiation (<code>a**b</code>) and bitwise operators are not supported.</p>
+</div>
+<h3>Conditional expressions</h3>
+<p><strong><code>foo</code> etc here represent any valid primary, unary, binary or conditional expression.</strong></p>
+<ul>
+<li><code>foo ? bar : baz</code></li>
+<li><code>foo ? bar : baz ? qux : quux</code></li>
+</ul>
+<h3>Assignment expressions</h3>
+<p><strong><code>foo</code> here must be an assignable expression (a simple accessor, a member accessor or an indexed member accessor). <code>bar</code> can any valid primary, unary, binary, conditional or assignment expression.</strong></p>
+<ul>
+<li><code>foo = bar</code></li>
+<li><code>foo = bar = baz</code></li>
+</ul>
+<h3>Member and Call expressions</h3>
+<p>Member expressions with special meaning in Aurelia:</p>
+<ul>
+<li><code>$parent.foo</code> - Access the <code>foo</code> variable in the parent view-model</li>
+<li><code>$parent.$parent.foo</code> - Access the <code>foo</code> variable in the parent's parent view-model</li>
+<li><code>$this</code> - Access the current view-model (equivalent to simply <code>this</code> inside the view-model if it's an ES class)</li>
+</ul>
+<p>Normal member and call expressions:</p>
+<p><strong><code>foo</code> here represents any valid member, call, assignment, conditional, binary, unary or primary expression (provided the expression as a whole is also valid JavaScript).</strong></p>
+<ul>
+<li><code>foo.bar</code> - Member accessor</li>
+<li><code>foo['bar']</code> - Keyed member accessor</li>
+<li><code>foo()</code> - Function call</li>
+<li><code>foo.bar()</code> - Member function call</li>
+<li><code>foo['bar']()</code> - Keyed member function call</li>
+</ul>
+<p>Tagged template literals:</p>
+<p><strong><code>foo</code> here should be a function that can be called. The string parts of the template are passed as an array to the first argument and the expression parts are passed as consecutive arguments.</strong></p>
+<ul>
+<li><code>foo`bar`</code> - Equivalent to <code>foo(['bar'])</code></li>
+<li><code>foo`bar${baz}qux`</code> - Equivalent to <code>foo(['bar','qux'], baz)</code></li>
+<li><code>foo`bar${baz}qux${quux}corge`</code> - Equivalent to <code>foo(['bar','qux','corge'],baz,quux)</code></li>
+<li><code>foo`${bar}${baz}${qux}`</code> - Equivalent to <code>foo(['','','',''],bar,baz,qux)</code></li>
+</ul>
+<h3>Binding Behaviors and Value Converters</h3>
+<p>These are not considered to be a part of normal expressions and must always come at the end of an expression (though multiple can be chained). Furthermore, BindingBehaviors must come after ValueConverters.
+(note: BindingBehavior and ValueConverter are abbreviated to BB and VC for readability)</p>
+<p>Valid BB expressions:</p>
+<ul>
+<li><code>foo &amp; bar &amp; baz</code> - Applies the BB <code>bar</code> to the variable <code>foo</code>, and then applies the BB <code>baz</code> to the result of that.</li>
+<li><code>foo &amp; bar:'baz'</code> - Applies the BB <code>bar</code> to the variable <code>foo</code>, and passes the literal string <code>'baz'</code> as an argument to the BB</li>
+<li><code>foo &amp; bar:baz:qux</code> - Applies the BB <code>bar</code> to the variable <code>foo</code>, and passes the variables <code>baz</code> and <code>qux</code> as arguments to the BB</li>
+<li><code>'foo' &amp; bar</code> - Applies the BB <code>bar</code> to the literal string <code>'foo'</code></li>
+</ul>
+<p>Valid VC expressions (likewise):</p>
+<ul>
+<li><code>foo | bar | baz</code></li>
+<li><code>foo | bar:'baz'</code></li>
+<li><code>foo | bar:baz:qux</code></li>
+<li><code>'foo' | bar</code></li>
+</ul>
+<p>Combined BB and VC expressions:</p>
+<ul>
+<li><code>foo | bar &amp; baz</code></li>
+<li><code>foo | bar:42:43 &amp; baz:'qux':'quux'</code></li>
+<li><code>foo | bar | baz &amp; qux &amp; quux</code></li>
+</ul>
+<p>Invalid combined BB and VC expressions (BB must come at the end):</p>
+<ul>
+<li><code>foo &amp; bar | baz</code></li>
+<li><code>foo | bar &amp; baz | qux</code></li>
+</ul>
+</section>
 
   </article>
 </section>

@@ -26,8 +26,8 @@ The loader used by the application.
   * `applicationHost?: ` - The DOM object that Aurelia will enhance.
 
 
-* `setRoot(root?: string, applicationHost?: ): Promise` - Instantiates the root component and adds it to the DOM.
-  * `root?: string` - The root component to load upon bootstrap.
+* `setRoot(root?: , applicationHost?: ): Promise` - Instantiates the root component and adds it to the DOM.
+  * `root?: ` - The root component to load upon bootstrap.
   * `applicationHost?: ` - The DOM object that Aurelia will attach to.
 
 
@@ -66,8 +66,8 @@ Manages configuring the aurelia framework instance.
 * `eventAggregator(): FrameworkConfiguration` - Plugs in the event aggregator from aurelia-event-aggregator.
 
 
-* `feature(plugin: string, config?: any): FrameworkConfiguration` - Configures an internal feature plugin before Aurelia starts.
-  * `plugin: string` - The folder for the internal plugin to configure (expects an index.js in that folder).
+* `feature(plugin: , config?: any): FrameworkConfiguration` - Configures an internal feature plugin before Aurelia starts.
+  * `plugin: ` - The folder for the internal plugin to configure (expects an index.js in that folder).
   * `config?: any` - The configuration for the specified plugin.
 
 
@@ -88,9 +88,9 @@ Manages configuring the aurelia framework instance.
   * `instance: any` - The existing instance of the dependency that the framework will inject.
 
 
-* `plugin(plugin: string, config?: any): FrameworkConfiguration` - Configures an external, 3rd party plugin before Aurelia starts.
-  * `plugin: string` - The ID of the 3rd party plugin to configure.
-  * `config?: any` - The configuration for the specified plugin.
+* `plugin(plugin: , pluginConfig?: any): FrameworkConfiguration` - Configures an external, 3rd party plugin before Aurelia starts.
+  * `plugin: ` - The ID of the 3rd party plugin to configure.
+  * `pluginConfig?: any` - The configuration for the specified plugin.
 
 
 * `postTask(task: Function): FrameworkConfiguration` - Adds an async function that runs after the plugins are run.
@@ -119,6 +119,21 @@ Manages configuring the aurelia framework instance.
 
 
 ## Interfaces
+
+
+### FrameworkPluginInfo
+
+No description available.
+
+#### Properties
+
+* `config: any` - No description available.
+* `configure: ` - No description available.
+* `moduleId: string` - No description available.
+* `resourcesRelativeTo: ` - No description available.
+
+#### Methods
+
 
 
 ## Constants

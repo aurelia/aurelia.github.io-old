@@ -22,6 +22,11 @@ Requests being processed by interceptors are considered active.
 #### Methods
 
 
+* `buildRequest(input: string, init: RequestInit): Request` - 
+  * `input: string` - No description available
+  * `init: RequestInit` - No description available
+
+
 * `configure(config: ): HttpClient` - Configure this client with default settings to be used by all requests.
   * `config: ` - A configuration object, or a function that takes a config
 object and configures it.
@@ -82,6 +87,37 @@ response and responseError act as resolve and reject handlers for
 the Response after it has been received.
 
 
+* `withRetry(config?: RetryConfiguration): any` - 
+  * `config?: RetryConfiguration` - No description available
+
+
+
+### RetryInterceptor
+
+No description available.
+
+#### Properties
+
+* `retryConfig: RetryConfiguration` - No description available.
+
+#### Methods
+
+
+* `request(request?: any): any` - 
+  * `request?: any` - No description available
+
+
+* `response(response?: any, request?: any): any` - 
+  * `response?: any` - No description available
+  * `request?: any` - No description available
+
+
+* `responseError(error?: any, request?: any, httpClient?: any): any` - 
+  * `error?: any` - No description available
+  * `request?: any` - No description available
+  * `httpClient?: any` - No description available
+
+
 
 ## Interfaces
 
@@ -125,6 +161,25 @@ See https://developer.mozilla.org/en-US/docs/Web/API/Request/Request
 * `mode: string` - The mode you want to use for the request, e.g., cors, no-cors, same-origin, or navigate. The default is cors. In Chrome the default is no-cors before Chrome 47 and same-origin starting with Chrome 47.
 * `redirect: string` - The redirect mode to use: follow, error, or manual. In Chrome the default is follow before Chrome 47 and manual starting with Chrome 47.
 * `referrer: string` - A USVString specifying no-referrer, client, or a URL. The default is client.
+* `signal: any` - An AbortSignal to set request’s signal.
+
+#### Methods
+
+
+
+### RetryConfiguration
+
+No description available.
+
+#### Properties
+
+* `beforeRetry: ` - No description available.
+* `doRetry: ` - No description available.
+* `interval: number` - No description available.
+* `maxRandomInterval: number` - No description available.
+* `maxRetries: number` - No description available.
+* `minRandomInterval: number` - No description available.
+* `strategy: ` - No description available.
 
 #### Methods
 
@@ -132,6 +187,7 @@ See https://developer.mozilla.org/en-US/docs/Web/API/Request/Request
 
 ## Constants
 
+* `retryStrategy: any` - No description available.
 
 ## Functions
 

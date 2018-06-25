@@ -30,9 +30,9 @@ An implementation of the basic history API.
   * `key: string` - The key for the value.
 
 
-* `navigate(fragment?: string, undefined?: any): boolean` - Causes a history navigation to occur.
+* `navigate(fragment?: string, __namedParameters?: ): boolean` - Causes a history navigation to occur.
   * `fragment?: string` - The history fragment to navigate to.
-  * `undefined?: any` - No description available
+  * `__namedParameters?: ` - No description available
 
 
 * `navigateBack(): void` - Causes the history state to navigate back.

@@ -528,7 +528,13 @@ The following example will not change the content of the element, but will set i
   
 </code></pre></source-code></code-listing>
 <h4>Specifying multiple attributes</h4>
-<p>Multiple attributes can be specified by separating them with a semicolon.</p>
+<p>Multiple attributes for the same key can be specified by separating them with a comma.</p>
+<code-listing><source-code lang="HTML"><pre class="language-markup"><code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>[placeholder,aria-placeholder]placeholder<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  
+</code></pre></source-code></code-listing>
+<p>When the locale changes it will set the <code>placeholder</code> and the <code>aria-placeholder</code> of the input element to the translated value of <code>placeholder</code>.</p>
+<p>Multiple attributes for different keys can be specified by separating them with a semicolon.</p>
 <code-listing><source-code lang="HTML"><pre class="language-markup"><code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>[html]title;[class]title-class<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
   

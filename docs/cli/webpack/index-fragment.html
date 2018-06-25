@@ -15,6 +15,26 @@
 <li>https://webpack.js.org/configuration/</li>
 </ul>
 </section>
+<section><h2 id="running-the-application">Running the application</h2><div class="info"><div class="icon"> <i></i> </div><p>
+This section does not apply for JavascriptServices</p>
+</div>
+<p>Running an Aurelia-CLI Webpack application is simple: <code>au run --watch</code> and you're on your way. But it's good to be aware of other flags that can be supplied to the <code>au run</code> command. <code>au --help</code> shows you all supported flags, but there are a couple that we would like to highlight.</p>
+<p>If you're interested in Hot Module Reload, you can use the <code>--hmr</code> flag (e.g. <code>au run --watch --hmr</code>) to launch in Hot Module Reload mode. Another cool one is <code>au run --analyze</code> which opens up the Webpack Bundler Analyzer, giving you a nice visualization of the bundle contents.</p>
+<p>Let's now take a look at the <code>platform</code> section in <code>aurelia.json</code>:</p>
+<code-listing heading="Platform options">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  <span class="token string">"platform"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"id"</span><span class="token punctuation">:</span> <span class="token string">"web"</span><span class="token punctuation">,</span>
+    <span class="token string">"displayName"</span><span class="token punctuation">:</span> <span class="token string">"Web"</span><span class="token punctuation">,</span>
+    <span class="token string">"port"</span><span class="token punctuation">:</span> <span class="token number">8080</span><span class="token punctuation">,</span>
+    <span class="token string">"hmr"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token string">"open"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token string">"output"</span><span class="token punctuation">:</span> <span class="token string">"dist"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  </code></pre></source-code>
+</code-listing>
+<p>Here you can find default settings for <code>au run</code> and <code>au build</code>. If you always run in Hot Module Reload mode, you can set <code>hmr</code> to <code>true</code> and you don't need to supply the <code>--hmr</code> flag any longer. Enabling the <code>open</code> option will cause the browser to navigate to the site after Webpack has finished bundling. The <code>output</code> option is used in the <code>webpack.config.js</code> file to determine where to output all the assets. If you're looking to change the default port that <code>au run</code> uses, you can change the <code>port</code> option in this section.</p>
+</section>
 <section><h2 id="deploying-your-app">Deploying Your App</h2><p>When your application is done, the next step is to deploy it. First you will want to create a production build with <code>au build --env prod</code>. Depending on whether you use ASP.NET Core or not, the build output will end up in the <code>dist</code> folder or the <code>wwwroot/dist</code> folder.</p>
 <p>If you're not using ASP.NET core then everything you need to deploy can be found in the dist folder. Just copy this to the webserver and you'll be good to go. For ASP.NET Core however you'll want to do a production build (<code>au build --env prod</code>) and then deploy the ASP.NET Core application. Details can be found in the 
 <a href="https://docs.microsoft.com/en-us/aspnet/core/publishing/?tabs=aspnetcore2x" target="_blank">Microsoft Docs</a>

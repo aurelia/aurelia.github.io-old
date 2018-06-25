@@ -1178,6 +1178,13 @@ If you don't name a <code>router-view</code>, it will be available under the nam
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code></pre></source-code>
 </code-listing>
+<code-listing heading="Bypassing the Router for a Link">
+  <source-code lang="HTML"><pre class="language-markup"><code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/my-page<span class="token punctuation">"</span></span> <span class="token attr-name">router-ignore</span><span class="token punctuation">></span></span>Click to load my-page from server<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code></pre></source-code>
+</code-listing>
 </section>
 <section><h2 id="custom-attributes">Custom Attributes</h2><code-listing heading="Simple Attribute Declaration">
   <source-code lang="ES 2016"><pre class="language-javascript"><code>

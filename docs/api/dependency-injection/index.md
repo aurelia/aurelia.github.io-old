@@ -215,8 +215,6 @@ under a different key by supplying a key using the &#x60;as&#x60; method.
 
 #### Properties
 
-* `asKey: any` - No description available.
-* `key: any` - No description available.
 
 #### Methods
 
@@ -294,7 +292,7 @@ Used to allow functions/classes to indicate that they should be registered as si
 
 ### StrategyResolver
 
-No description available.
+Used to resolve instances, singletons, transients, aliases
 
 #### Properties
 
@@ -416,17 +414,15 @@ Used to allow functions/classes to specify custom dependency resolution logic.
   * `potentialTarget?: any` - No description available.
 
 
-* `factory(keyValue: any, asValue?: any): ` - Decorator: Specifies the dependency to create a factory method, that can accept optional arguments
+* `factory(keyValue: any): ` - Decorator: Specifies the dependency to create a factory method, that can accept optional arguments
   * `keyValue: any` - No description available.
-  * `asValue?: any` - No description available.
 
 
-* `getDecoratorDependencies(target: any, name: any): any` - 
-  * `target: any` - No description available.
-  * `name: any` - No description available.
+* `getDecoratorDependencies(target: any): any` - Used by parameter decorators to call autoinject for the target and retrieve the target&#x27;s inject property.
+  * `target: any` - The target class.
 
 
-* `inject(rest: ): any` - Decorator: Specifies the dependencies that should be injected by the DI Container into the decoratored class/function.
+* `inject(rest: ): any` - Decorator: Specifies the dependencies that should be injected by the DI Container into the decorated class/function.
   * `rest: ` - No description available.
 
 
@@ -442,7 +438,8 @@ Used to allow functions/classes to specify custom dependency resolution logic.
   * `keyValue: any` - No description available.
 
 
-* `newInstance(asKeyOrTarget?: any, dynamicDependencies: ): ` - Decorator: Specifies the dependency as a new instance
+* `newInstance(asKeyOrTarget?: any, dynamicDependencies: ): ` - Decorator: Specifies the dependency as a new instance. Instances can optionally be registered in the container
+under a different key and/or use dynamic dependencies
   * `asKeyOrTarget?: any` - No description available.
   * `dynamicDependencies: ` - No description available.
 

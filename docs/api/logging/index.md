@@ -35,6 +35,9 @@ A logger logs messages to a set of appenders, depending on the log level that is
 
 
 
+* `isDebugEnabled(): boolean` - Returns if the logger is in debug mode or not.
+
+
 * `setLevel(level: number): void` - Sets the level of logging for this logger instance
   * `level: number` - Matches a value of logLevel specifying the level of logging.
 
