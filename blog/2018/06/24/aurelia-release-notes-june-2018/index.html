@@ -45,12 +45,12 @@
 <p>The parser now recognizes the backtick (<code>`</code>) character and processes the encapsulated content of two backticks as a 
 <a href="https://tc39.github.io/ecma262/#sec-template-literals" target="_blank">template literal</a>
 . They behave the same way as they do in JavaScript, and you can use them in &quot;normal&quot; <code>.bind=&quot;...&quot;</code> expressions as well as in <code>\${...}</code> interpolation expressions. Examples:</p>
-<p>** Template literal vs. Non-template equivalent**</p>
+<p><strong>Template literal vs. Non-template equivalent</strong></p>
 <ul>
 <li><code>`foo`</code> vs. <code>'foo'</code></li>
-<li><code>`Hello, ${firstName} ${lastName}!`</code> vs. <code>'Hello, ' + firstName + ' ' + lastName + '!'</code></li>
-<li><code>`Price: $${dollars}.${cents}`</code> vs. <code>'Price: $' + dollars + '.' + cents</code></li>
-<li><code>`Escaped $\{template\}`</code> vs. <code>'Escaped ${template}'</code></li>
+<li><code>`Hello, \${firstName} \${lastName}!`</code> vs. <code>'Hello, ' + firstName + ' ' + lastName + '!'</code></li>
+<li><code>`Price: $\${dollars}.\${cents}`</code> vs. <code>'Price: $' + dollars + '.' + cents</code></li>
+<li><code>`Escaped $\{template\}`</code> vs. <code>'Escaped \${template}'</code></li>
 </ul>
 <p>Sometimes this is easier to read and/or work with, and sometimes it isn't. But now there is a choice.</p>
 <h3>Tagged Templates</h3>
@@ -59,9 +59,9 @@
 <p><strong>Tagged template vs. Non-template equivalent</strong></p>
 <ul>
 <li><code>process`foo`</code> vs. <code>process(['foo'])</code></li>
-<li><code>process`Hello, ${firstName} ${lastName}!`</code> vs. <code>process(['Hello, ', ' ', '!'], firstName, lastName)</code></li>
-<li><code>process`Price: $${dollars}.${cents}`</code> vs <code>process(['Price: $', '.', ''], dollars, cents)</code></li>
-<li><code>process`Escaped $\{template\}`</code> vs. <code>process(['Escaped ${template}'])</code></li>
+<li><code>process`Hello, \${firstName} \${lastName}!`</code> vs. <code>process(['Hello, ', ' ', '!'], firstName, lastName)</code></li>
+<li><code>process`Price: $\${dollars}.\${cents}`</code> vs <code>process(['Price: $', '.', ''], dollars, cents)</code></li>
+<li><code>process`Escaped $\{template\}`</code> vs. <code>process(['Escaped \${template}'])</code></li>
 </ul>
 <p>Per the spec, an additional property <code>raw</code> is placed on the <code>strings</code> array which contains the unescaped string parts. For example: <code>process`foo\tbar`</code> enables leveraging <code>raw</code> in the view model as below:</p>
 <code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
@@ -107,9 +107,8 @@
 </code></pre></source-code></code-listing>
 <p>A more contrived example (as it can be solved in other ways):</p>
 <p><strong>Inline</strong></p>
-<code-listing>
+<code-listing heading="Doesn't work - value converters cannot be nested inside expressions">
   <source-code lang="HTML"><pre class="language-markup"><code>
-     doesn't work - value converters cannot be nested inside expressions 
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>${displayDate ? (date | formatDate:'YYYYMMDD') : 'N/A'}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
   </code></pre></source-code>
 </code-listing>
@@ -254,6 +253,35 @@ The <code>name</code> resource metadata can be omitted if minification is config
 You can also use <code>dependencies: () =&gt; [import('/path/to/check-box')]</code> to enable code splitting with popular bundlers!</p>
 </div>
 <p>Notice that there is no trace of any imports from Aurelia. This new capability helps commonly shared resources (custom elements/attributes/value converters/etc) focus on business logic, while still being reusable.</p>
+<p>For those who prefer to use decorators over static class fields/methods, we now have <code>@view</code> and <code>@resource</code> decorators that map to the <code>$view</code> and <code>$resource</code> static properties. The way they work is similar to the <code>@inject</code> decorator and static <code>inject</code> field/method:</p>
+<p>Instead of this:</p>
+<code-listing><source-code lang="TypeScript"><pre class="language-typescript"><code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CheckBox</span> <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> $view <span class="token operator">=</span> <span class="token punctuation">{</span>
+      <span class="token comment">// ...</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token keyword">static</span> $resource <span class="token operator">=</span> <span class="token punctuation">{</span>
+      <span class="token comment">// ...</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  
+</code></pre></source-code></code-listing>
+<p>You could also do this:</p>
+<code-listing><source-code lang="TypeScript"><pre class="language-typescript"><code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> view<span class="token punctuation">,</span> resource <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">resource</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  @<span class="token function">view</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Checkbox</span> <span class="token punctuation">{</span>
+  
+  <span class="token punctuation">}</span>
+  
+</code></pre></source-code></code-listing>
 <p>In addition to the ways you can use classes described above, you can also leverage them with <code>aurelia.setRoot(...)</code>.</p>
 <p>Instead of writing this:</p>
 <code-listing><source-code lang="TypeScript"><pre class="language-typescript"><code>
