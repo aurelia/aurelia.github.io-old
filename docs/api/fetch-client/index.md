@@ -122,6 +122,63 @@ No description available.
 ## Interfaces
 
 
+### AbortController
+
+No description available.
+
+#### Properties
+
+* `signal: AbortSignal` - No description available.
+
+#### Methods
+
+
+* `abort(): void` - 
+
+
+
+### AbortSignal
+
+No description available.
+
+#### Properties
+
+* `EventTarget: ` - No description available.
+* `aborted: boolean` - No description available.
+* `onabort: ` - No description available.
+
+#### Methods
+
+
+* `addEventListener(type: K, listener: , options?: ): void` - 
+  * `type: K` - No description available.
+  * `listener: ` - No description available.
+  * `options?: ` - No description available.
+
+
+* `dispatchEvent(evt: Event): boolean` - 
+  * `evt: Event` - No description available.
+
+
+* `removeEventListener(type: K, listener: , options?: ): void` - 
+  * `type: K` - No description available.
+  * `listener: ` - No description available.
+  * `options?: ` - No description available.
+
+
+
+### AbortSignalEventMap
+
+No description available.
+
+#### Properties
+
+* `abort: ProgressEvent` - No description available.
+
+#### Methods
+
+
+
 ### Interceptor
 
 Interceptors can process requests before they are sent, and responses
@@ -161,7 +218,7 @@ See https://developer.mozilla.org/en-US/docs/Web/API/Request/Request
 * `mode: string` - The mode you want to use for the request, e.g., cors, no-cors, same-origin, or navigate. The default is cors. In Chrome the default is no-cors before Chrome 47 and same-origin starting with Chrome 47.
 * `redirect: string` - The redirect mode to use: follow, error, or manual. In Chrome the default is follow before Chrome 47 and manual starting with Chrome 47.
 * `referrer: string` - A USVString specifying no-referrer, client, or a URL. The default is client.
-* `signal: any` - An AbortSignal to set request’s signal.
+* `signal: AbortSignal` - An AbortSignal to set request’s signal.
 
 #### Methods
 

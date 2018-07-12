@@ -434,45 +434,7 @@ Other attributes, specified in the <code>attributes</code> option, may be used a
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>
-<p>Use <code>updateTranslation()</code> to update all translations within the children of the element that is passed to it.
-The following example shows how a view model can be configured to update it's contents when the view is attached and every time a locale is changed.</p>
-<code-listing heading="Updating translations manually">
-  <source-code lang="ES 2015"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>I18N<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>EventAggregator<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-event-aggregator'</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoVM</span> <span class="token punctuation">{</span>
-      <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span>I18N<span class="token punctuation">,</span>Element<span class="token punctuation">,</span>EventAggregator<span class="token punctuation">]</span><span class="token punctuation">;</span>
-      <span class="token function">constructor</span><span class="token punctuation">(</span>i18n<span class="token punctuation">,</span>element<span class="token punctuation">,</span>ea<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>i18n <span class="token operator">=</span> i18n<span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>element <span class="token operator">=</span> element<span class="token punctuation">;</span>
-
-        ea<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">'i18n:locale:changed'</span><span class="token punctuation">,</span> payload <span class="token operator">=></span> <span class="token punctuation">{</span>
-          <span class="token keyword">this</span><span class="token punctuation">.</span>i18n<span class="token punctuation">.</span><span class="token function">updateTranslations</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-
-      <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>i18n<span class="token punctuation">.</span><span class="token function">updateTranslations</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  </code></pre></source-code>
-</code-listing>
-<p>Alternatively you may extend your VM with the provided Base-I18N-VM, which will set that up for you automatically.</p>
-<code-listing heading="Automatic locale changed subscription using the Base-I18N-VM">
-  <source-code lang="ES 2015"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>BaseI18N<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoVM</span> <span class="token keyword">extends</span> <span class="token class-name">BaseI18N</span> <span class="token punctuation">{</span>
-
-    <span class="token punctuation">}</span>
-  </code></pre></source-code>
-</code-listing>
-<div class="info"><div class="icon"> <i></i> </div><p>
-Just remember in case you define your own <code>constructor</code>, to call <code>this.super</code> and pass it the instances of its
-dependencies as described in the previous example. Same applies to <code>attached</code>, although nothing needs to be passed
-in here</p>
-</div>
+<p>Use <code>i18n.updateTranslations()</code> to update all translations within the children of the element that is passed to it.</p>
 <h4>Specifying attributes</h4>
 <p>By default the plugin will set the <code>textContent</code> property of an element.</p>
 <code-listing><source-code lang="HTML"><pre class="language-markup"><code>

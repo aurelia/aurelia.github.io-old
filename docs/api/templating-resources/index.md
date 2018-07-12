@@ -186,6 +186,9 @@ Used to compose a new view / view-model template or bind to an existing instance
 
 
 
+* `static inject(): any` - 
+
+
 
 ### DebounceBindingBehavior
 
@@ -253,6 +256,20 @@ CustomAttribute that binds provided DOM element&#x27;s focus attribute with a pr
 
 
 
+* `static inject(): any` - 
+
+
+
+### FromViewBindingBehavior
+
+No description available.
+
+#### Properties
+
+
+#### Methods
+
+
 
 ### HTMLSanitizer
 
@@ -291,6 +308,9 @@ Binding to conditionally show markup in the DOM based on the value.
 * `valueChanged(newValue?: any): any` - Invoked everytime the bound value changes.
   * `newValue?: any` - The new value.
 
+
+
+* `static inject(): any` - 
 
 
 
@@ -658,6 +678,9 @@ Binding to conditionally show markup in the DOM based on the value.
 
 
 
+* `static inject(): any` - 
+
+
 
 ### SignalBindingBehavior
 
@@ -703,6 +726,17 @@ No description available.
 * `unbind(binding?: any, source?: any): any` - 
   * `binding?: any` - No description available
   * `source?: any` - No description available
+
+
+
+### ToViewBindingBehavior
+
+No description available.
+
+#### Properties
+
+
+#### Methods
 
 
 
