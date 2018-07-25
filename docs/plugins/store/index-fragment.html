@@ -18,7 +18,7 @@
 <h3>Why is RxJS used for this plugin?</h3>
 <p>As mentioned in the intro this plugin uses RxJS as a foundation. The main idea is having a 
 <a href="http://reactivex.io/rxjs/manual/overview.html#behaviorsubject" target="_blank">BehaviorSubject</a>
- <code>store._state</code> which will store the current state. It starts with some initial state and emits new states as they come. Since having access to the BehaviorSubject would allow consumers to directly emit the <code>next</code> value, instead of a front-facing <code>state</code> property, being an Observable which connects to the BehaviorSubject, is exposed. This way consumers only have access to streamed values but cannot directly manipulate the streaming queue.</p>
+ <code>store._state</code> which will store the current state. It starts with some initial state and emits new states as they come. The BehaviorSubject cannot be accessed directly - it is defined as private - but instead a public Observable named <code>state</code> should be consumed. This way consumers only have reading access to streamed values but cannot directly manipulate the streaming queue through the Subjects <code>next</code> method.</p>
 <p>But besides these core features, RxJS itself can be described as <em>
 <a href="http://reactivex.io/rxjs/manual/overview.html#introduction" target="_blank">Lodash/Underscore for events</a>
 </em>. As such all of the operators and objects can be used to manipulate the state in whatever way necessary. As an example 
@@ -312,6 +312,80 @@ Notice how we've declared the public state property of type <code>State</code> i
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>
+<p>If you want to have multiple selectors, you can pass an object to the <code>selector</code>, where each property in that <code>selector</code> object defines a new <code>target</code> receiving the slice of the state. The value of each property should be a function as shown above matching above.</p>
+<code-listing heading="Defining multiple selectors">
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+
+    <span class="token comment">// app.ts</span>
+    <span class="token operator">...</span>
+
+    @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      selector<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        currentState<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
+        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+    <span class="token comment">// app.js</span>
+    <span class="token operator">...</span>
+
+    @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      selector<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        currentState<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
+        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<p>You can still provide a <code>target</code> with multiple selectors, which changes the behavior of multiple selectors. Instead of having multiple target properties on your view model for each selector name, the <code>target</code> will be an object on your view model and the multiple selector names will be the properties on that object.</p>
+<code-listing heading="Defining multiple selectors with a target">
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+
+    <span class="token comment">// app.ts</span>
+    <span class="token operator">...</span>
+
+    @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      target<span class="token punctuation">:</span> <span class="token string">'currentState'</span><span class="token punctuation">,</span>
+      selector<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        frameworks<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      <span class="token function">activate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>currentState<span class="token punctuation">.</span>frameworks<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>currentState<span class="token punctuation">.</span>databases<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+    <span class="token comment">// app.js</span>
+    <span class="token operator">...</span>
+
+    @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      target<span class="token punctuation">:</span> <span class="token string">'currentState'</span><span class="token punctuation">,</span>
+      selector<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        currentState<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
+        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      <span class="token function">activate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>currentState<span class="token punctuation">.</span>frameworks<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>currentState<span class="token punctuation">.</span>databases<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
 <p>Not only the target but also the default <code>setup</code> and <code>teardown</code> methods can be specified, either one or both. The hooks <code>bind</code> and <code>unbind</code> act as the default value.</p>
 <code-listing heading="Overriding the default setup and teardown methods">
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
@@ -348,6 +422,187 @@ The provided action names for setup and teardown don't necessarily have to be on
 <a href="http://aurelia.io/docs/fundamentals/components#the-component-lifecycle" target="_blank">lifecycle methods</a>
  but should be used as these get called automatically by Aurelia at the proper time.</p>
 </div>
+<p>Last but not least you can also handle changes from the state in multiple ways</p>
+<p>The decorator will attempt to call <code>stateChanged(newState, oldState)</code> when no settings are passed, a function is used or an object settings is used with selector.</p>
+<code-listing heading="Default change stateChanged handling">
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+
+    <span class="token comment">// app.ts</span>
+    <span class="token operator">...</span>
+
+    <span class="token comment">// All of these have the same change handling</span>
+    <span class="token comment">// @connectTo&lt;State>({</span>
+    <span class="token comment">//   selector: (store) => store.state.pluck("frameworks"),</span>
+    <span class="token comment">// })</span>
+    <span class="token comment">// OR</span>
+    <span class="token comment">// @connectTo&lt;State>((store) => store.state.pluck("frameworks"))</span>
+    <span class="token comment">// OR</span>
+    @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>
+
+      <span class="token function">stateChanged</span><span class="token punctuation">(</span>newState<span class="token punctuation">:</span> State<span class="token punctuation">,</span> oldState<span class="token punctuation">:</span> State<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The state has changed"</span><span class="token punctuation">,</span> newState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+    <span class="token comment">// app.js</span>
+    <span class="token operator">...</span>
+
+    <span class="token comment">// All of these have the same change handling</span>
+    <span class="token comment">// @connectTo({</span>
+    <span class="token comment">//   selector: (store) => store.state.pluck("frameworks"),</span>
+    <span class="token comment">// })</span>
+    <span class="token comment">// OR</span>
+    <span class="token comment">// @connectTo((store) => store.state.pluck("frameworks"))</span>
+    <span class="token comment">// OR</span>
+    @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>
+
+      <span class="token function">stateChanged</span><span class="token punctuation">(</span>newState<span class="token punctuation">,</span> oldState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The state has changed"</span><span class="token punctuation">,</span> newState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<p>Providing a target name without multiple selectors calls the<code>target</code>Changed method instead.</p>
+<code-listing heading="Default change handling with target">
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+
+    <span class="token comment">// app.ts</span>
+    <span class="token operator">...</span>
+
+    @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      target<span class="token punctuation">:</span> <span class="token string">"currentState"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>
+
+      <span class="token function">currentStateChanged</span><span class="token punctuation">(</span>newState<span class="token punctuation">:</span> State<span class="token punctuation">,</span> oldState<span class="token punctuation">:</span> State<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The state has changed"</span><span class="token punctuation">,</span> newState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+    <span class="token comment">// app.js</span>
+    <span class="token operator">...</span>
+
+    @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      target<span class="token punctuation">:</span> <span class="token string">"currentState"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>
+
+      <span class="token function">currentStateChanged</span><span class="token punctuation">(</span>newState<span class="token punctuation">,</span> oldState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The state has changed"</span><span class="token punctuation">,</span> newState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<p>With multiple selectors, you get the same change handling per selector.</p>
+<code-listing heading="Default change handling with multiple selectors">
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+
+    <span class="token comment">// app.ts</span>
+    <span class="token operator">...</span>
+
+    @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      selector<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        frameworks<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>
+
+      <span class="token function">frameworksChanged</span><span class="token punctuation">(</span>newState<span class="token punctuation">:</span> State<span class="token punctuation">,</span> oldState<span class="token punctuation">:</span> State<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The state has changed"</span><span class="token punctuation">,</span> newState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">databasesChanged</span><span class="token punctuation">(</span>newState<span class="token punctuation">:</span> State<span class="token punctuation">,</span> oldState<span class="token punctuation">:</span> State<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The state has changed"</span><span class="token punctuation">,</span> newState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+    <span class="token comment">// app.js</span>
+    <span class="token operator">...</span>
+
+    @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      selector<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        frameworks<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>
+
+      <span class="token function">frameworksChanged</span><span class="token punctuation">(</span>newState<span class="token punctuation">,</span> oldState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The state has changed"</span><span class="token punctuation">,</span> newState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">databasesChanged</span><span class="token punctuation">(</span>newState<span class="token punctuation">,</span> oldState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The state has changed"</span><span class="token punctuation">,</span> newState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<p>However, providing a <code>target</code> with multiple selectors changes the prior behavior by calling the <code>target</code>Changed method with 3 arguments instead of each individual selector with 2 arguments. You get access to individual state being changed from the first argument.</p>
+<code-listing heading="Default change handling with multiple selectors and target">
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+
+    <span class="token comment">// app.ts</span>
+    <span class="token operator">...</span>
+
+    @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      target<span class="token punctuation">:</span> <span class="token string">"currentState"</span><span class="token punctuation">,</span>
+      selector<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        frameworks<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>
+
+      <span class="token function">currentStateChanged</span><span class="token punctuation">(</span>stateName<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> newState<span class="token punctuation">:</span> State<span class="token punctuation">,</span> oldState<span class="token punctuation">:</span> State<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// this will be called twice:</span>
+        <span class="token comment">//   once for stateName="frameworks"</span>
+        <span class="token comment">//   once for stateName="databases"</span>
+
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The state has changed"</span><span class="token punctuation">,</span> newState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+    <span class="token comment">// app.js</span>
+    <span class="token operator">...</span>
+
+    @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      target<span class="token punctuation">:</span> <span class="token string">"currentState"</span><span class="token punctuation">,</span>
+      selector<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        frameworks<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>
+
+      <span class="token function">currentStateChanged</span><span class="token punctuation">(</span>stateName<span class="token punctuation">,</span> newState<span class="token punctuation">,</span> oldState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// this will be called twice:</span>
+        <span class="token comment">//   once for stateName="frameworks"</span>
+        <span class="token comment">//   once for stateName="databases"</span>
+
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The state has changed"</span><span class="token punctuation">,</span> newState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
 <p>Last but not least you can also define a callback to be called with the next state once a state change happens.</p>
 <code-listing heading="Define an onChanged handler">
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
@@ -356,14 +611,14 @@ The provided action names for setup and teardown don't necessarily have to be on
     <span class="token operator">...</span>
 
     @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-      selector<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
-      onChanged<span class="token punctuation">:</span> <span class="token string">"stateChanged"</span>
+      selector<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      onChanged<span class="token punctuation">:</span> <span class="token string">"changeHandler"</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
       <span class="token operator">...</span>
 
-      <span class="token function">stateChanged</span><span class="token punctuation">(</span>state<span class="token punctuation">:</span> State<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The state has changed"</span><span class="token punctuation">,</span> state<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">changeHandler</span><span class="token punctuation">(</span>newState<span class="token punctuation">:</span> State<span class="token punctuation">,</span> oldState<span class="token punctuation">:</span> State<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The state has changed"</span><span class="token punctuation">,</span> newState<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
@@ -374,19 +629,53 @@ The provided action names for setup and teardown don't necessarily have to be on
 
     @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
       selector<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
-      onChanged<span class="token punctuation">:</span> <span class="token string">"stateChanged"</span>
+      onChanged<span class="token punctuation">:</span> <span class="token string">"changeHandler"</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
       <span class="token operator">...</span>
 
-      <span class="token function">stateChanged</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The state has changed"</span><span class="token punctuation">,</span> state<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">changeHandler</span><span class="token punctuation">(</span>newState<span class="token punctuation">,</span> oldState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The state has changed"</span><span class="token punctuation">,</span> newState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<p>For any one of these configuration, you can add an additional change handling function called <code>propertyChanged</code> that will be called last. This has 3 arguments, the state name being changed, the new state and the old state.</p>
+<code-listing heading="Default change handling with propertyChanged">
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+
+    <span class="token comment">// app.ts</span>
+    <span class="token operator">...</span>
+
+    @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>
+
+      <span class="token function">propertyChanged</span><span class="token punctuation">(</span>stateName<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> newState<span class="token punctuation">:</span> State<span class="token punctuation">,</span> oldState<span class="token punctuation">:</span> State<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// stateName will be "state"</span>
+        <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The state has changed"</span><span class="token punctuation">,</span> newState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+    <span class="token comment">// app.js</span>
+    <span class="token operator">...</span>
+
+    @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>
+
+      <span class="token function">propertyChanged</span><span class="token punctuation">(</span>stateName<span class="token punctuation">,</span> newState<span class="token punctuation">,</span> oldState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// stateName will be "state"</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The state has changed"</span><span class="token punctuation">,</span> newState<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>
 <div class="info"><div class="icon"> <i></i> </div><p>
-Your <code>onChanged</code> handler will be called before the target property is changed. This way you have access to both the current and previous state.</p>
+Your change handler function will be called before the target property is changed. This way you have access to both the current and previous state.
+If you provide an <code>onChanged</code> handler, then you could have up to 3 change handling methods in your view model (called in order): the <code>onChanged</code> method, the <code>target</code>Changed method and the <code>propertyChanged</code> method.</p>
 </div>
 <p>Next, let's find out how to produce state changes.</p>
 </section>
