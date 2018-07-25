@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Tue Jul 24 2018 21:06:30 GMT-0700 (PDT)</lastBuildDate>
+    <lastBuildDate>Tue Jul 24 2018 21:24:13 GMT-0700 (PDT)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia Release Notes - Late July 2018]]></title>
+      <link>http://aurelia.io/blog/2018/07/24/aurelia-release-notes-late-july-2018</link>
+      <description><![CDATA[This month we've a fixed number of issues in the routing and templating engines, including a few regressions that cropped up in the previous round of releases. Additionally, we've moved the aurelia-dialog plugin to a 1.0.0 release and have begun work on 2.0.0.]]></description>
+      <pubDate>Tue Jul 24 2018 21:21:54 GMT-0700 (PDT)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia Release Notes - June 2018]]></title>
       <link>http://aurelia.io/blog/2018/06/24/aurelia-release-notes-june-2018</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2017/10/23/aurelia-discourse-and-new-site-experience</link>
       <description><![CDATA[Today, we're thrilled to announce that we've launched the official Aurelia Discourse forum [https://discourse.aurelia.io]! At the same time, we've completely overhauled our site [http://aurelia.io/] and documentation technology, opening the way for better docs and learning to come.]]></description>
       <pubDate>Mon Oct 23 2017 00:28:28 GMT-0700 (PDT)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia at Techdays The Netherlands]]></title>
-      <link>http://aurelia.io/blog/2017/10/10/aurelia-at-techdays-the-netherlands</link>
-      <description><![CDATA[Techdays The Netherlands is just two days away! There's some great Aurelia content for you, if you are attending this event. Read on to learn more about the upcoming talks.]]></description>
-      <pubDate>Tue Oct 10 2017 08:45:58 GMT-0700 (PDT)</pubDate>
     </item>
   </channel>
 </rss>
