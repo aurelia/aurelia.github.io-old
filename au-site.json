@@ -57,11 +57,23 @@
     "url": "https://discourse.aurelia.io",
     "name": "Discourse"
   },
-  "help": {
-    "name": "Help",
-    "src": "./src/help.md",
-    "dest": "help"
+  "learn": {
+    "name": "Learn",
+    "src": "./src/learn.md",
+    "dest": "learn"
   },
+  "support": {
+    "name": "Support",
+    "src": "./src/support.md",
+    "dest": "support"
+  },
+  "pages": [
+    {
+      "name": "Get in Touch",
+      "src": "./src/contact.html",
+      "dest": "contact"
+    }
+  ],
   "notFound":{
     "name": "404",
     "description": "Not Found",
