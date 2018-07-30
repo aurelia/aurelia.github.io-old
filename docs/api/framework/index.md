@@ -138,7 +138,7 @@ No description available.
 
 ## Constants
 
-* `LogManager: &quot;/Users/EisenbergEffect/Documents/GitHub/aurelia/framework/node_modules/aurelia-logging/dist/aurelia-logging&quot;` - The log manager.
+* `LogManager: &quot;/Users/EisenbergEffect/Documents/GitHub/aurelia-current/framework/node_modules/aurelia-logging/dist/aurelia-logging&quot;` - The log manager.
 
 ## Functions
 
