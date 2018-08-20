@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Sun Aug 05 2018 21:18:50 GMT-0700 (PDT)</lastBuildDate>
+    <lastBuildDate>Sun Aug 19 2018 21:08:36 GMT-0700 (PDT)</lastBuildDate>
+    <item>
+      <title><![CDATA[CoinMesh brings Litecoin and Bitcoin dApp development to Aurelia developers]]></title>
+      <link>http://aurelia.io/blog/2018/08/19/coinmesh-litecoin-bitcoin-aurelia-dapps</link>
+      <description><![CDATA[Today, we're thrilled to invite former core team member and long-time Aurelia community member, Patrick Walters, to share a special announcement regarding the exciting, new project he's been working on. Let's hear what Patrick has been up to...]]></description>
+      <pubDate>Sun Aug 19 2018 21:08:35 GMT-0700 (PDT)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia vNext]]></title>
       <link>http://aurelia.io/blog/2018/08/05/aurelia-vnext</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2017/11/15/aurelia-ux-overhaul</link>
       <description><![CDATA[We've been doing some major work on Aurelia UX, both in terms of building out components and refining the core capabilities and approach. In this post, we'd like to share a bit about the details of our most recent set of releases.]]></description>
       <pubDate>Wed Nov 15 2017 10:50:44 GMT-0800 (PST)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Projects That Make Aurelia Shine]]></title>
-      <link>http://aurelia.io/blog/2017/11/12/projects-that-make-aurelia-shine</link>
-      <description><![CDATA[This week, Aurelia community member and author, Sean Hunter, shares a section from his book "Aurelia in Action".]]></description>
-      <pubDate>Sun Nov 12 2017 23:30:29 GMT-0800 (PST)</pubDate>
     </item>
   </channel>
 </rss>
