@@ -86,6 +86,32 @@ With the recent release of RxJS v.6, which this plugin depends on, quite a lot h
  in aurelia.json as a dependency and use it as the main include file. If you do on the other hand already use the newest APIs you'll have to adjust your <code>aurelia.json</code> or do a fresh new <code>au import aurelia-store</code> to get the rxjs dependencies properly auto-setup.</p>
 </div>
 </section>
+<section><h2 id="bring-your-own-polyfills-byop">Bring your own polyfills (BYOP)</h2><p>This plugin depends on the 
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries#Polyfill" target="_blank">Object.entries feature</a>
+ which is not available in Internet Explorer out of the box.</p>
+<p>Since it's not actually needed for the core of Aurelia, it won't be part of 
+<a href="https://github.com/aurelia/polyfills" target="_blank">aurelia-polyfills</a>
+ and you should add the following polyfill by yourself.</p>
+<p>In case of the Aurelia CLI with RequireJS/SystemJS you can either create a new <code>object.entries.polyfill.js</code> file in the root of your project and add it into the configuration file <code>aurelia.json</code> in the prepend section.</p>
+<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+  <span class="token comment">// object.entries.polyfill.js</span>
+  
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>Object<span class="token punctuation">.</span>entries<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Object<span class="token punctuation">.</span><span class="token function-variable function">entries</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">var</span> ownProps <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        i <span class="token operator">=</span> ownProps<span class="token punctuation">.</span>length<span class="token punctuation">,</span>
+        resArray <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// preallocate the Array</span>
+      <span class="token keyword">while</span> <span class="token punctuation">(</span>i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        resArray<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>ownProps<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> obj<span class="token punctuation">[</span>ownProps<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      
+      <span class="token keyword">return</span> resArray<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  
+</code></pre></source-code></code-listing>
+<p>Alternatively you can include the file via a script tag as one of the first scripts in your <code>index.html</code>.</p>
+</section>
 <section><h2 id="what-is-the-state">What is the State?</h2><p>A typical application consists of multiple components, which render various data. Besides actual data though, your components also contain various statuses. An &quot;active&quot; status for a toggle button for example, but also high-level statuses like the selected theme or the current page.
 State that is contained within the component is a good thing, as long as only that single component instance cares about it. But the moment you reference that state from another component, you're going to need a way to communicate about that state, like service classes. Pub-sub mechanisms like the EventAggregator are another example of inter-component communication.</p>
 <p>In contrast to that, the Store plugin operates on a single overall application state. Think of it as a large object containing all the sub-states reflecting your applications condition at a specific moment in time. This state object needs to only contain serializable properties. With that you gain the benefit of having snapshots of your app, which allow all kinds of cool features like time-traveling, save/reload and so on.</p>
@@ -265,9 +291,10 @@ Notice how we've declared the public state property of type <code>State</code> i
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
 
     <span class="token comment">// app.ts</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> pluck <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"rxjs/operators"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
 
-    @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
       <span class="token operator">...</span>
     <span class="token punctuation">}</span>
@@ -275,9 +302,10 @@ Notice how we've declared the public state property of type <code>State</code> i
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// app.js</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> pluck <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"rxjs/operators"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
 
-    @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
       <span class="token operator">...</span>
     <span class="token punctuation">}</span>
@@ -288,10 +316,11 @@ Notice how we've declared the public state property of type <code>State</code> i
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
 
     <span class="token comment">// app.ts</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> pluck <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"rxjs/operators"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
 
     @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-      selector<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
+      selector<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
       target<span class="token punctuation">:</span> <span class="token string">"currentState"</span> <span class="token comment">// link to currentState instead of state property</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -301,10 +330,11 @@ Notice how we've declared the public state property of type <code>State</code> i
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// app.js</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> pluck <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"rxjs/operators"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
 
     @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-      selector<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
+      selector<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
       target<span class="token punctuation">:</span> <span class="token string">"currentState"</span> <span class="token comment">// link to currentState instead of state property</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -317,11 +347,12 @@ Notice how we've declared the public state property of type <code>State</code> i
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
 
     <span class="token comment">// app.ts</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> pluck <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"rxjs/operators"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
 
     @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
       selector<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        currentState<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
+        currentState<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
         databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
@@ -332,11 +363,12 @@ Notice how we've declared the public state property of type <code>State</code> i
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// app.js</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> pluck <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"rxjs/operators"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
 
     @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
       selector<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        currentState<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
+        currentState<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
         databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
@@ -350,13 +382,14 @@ Notice how we've declared the public state property of type <code>State</code> i
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
 
     <span class="token comment">// app.ts</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> pluck <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"rxjs/operators"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
 
     @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
       target<span class="token punctuation">:</span> <span class="token string">'currentState'</span><span class="token punctuation">,</span>
       selector<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        frameworks<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span>
+        frameworks<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -369,13 +402,14 @@ Notice how we've declared the public state property of type <code>State</code> i
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// app.js</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> pluck <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"rxjs/operators"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
 
     @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
       target<span class="token punctuation">:</span> <span class="token string">'currentState'</span><span class="token punctuation">,</span>
       selector<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        currentState<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
-        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span>
+        currentState<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
+        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -391,10 +425,11 @@ Notice how we've declared the public state property of type <code>State</code> i
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
 
     <span class="token comment">// app.ts</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> pluck <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"rxjs/operators"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
 
     @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-      selector<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
+      selector<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
       setup<span class="token punctuation">:</span> <span class="token string">"create"</span>        <span class="token comment">// create the subscription inside the create life-cycle hook</span>
       teardown<span class="token punctuation">:</span> <span class="token string">"deactivate"</span> <span class="token comment">// do the disposal in deactivate</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
@@ -405,10 +440,11 @@ Notice how we've declared the public state property of type <code>State</code> i
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// app.js</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> pluck <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"rxjs/operators"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
 
     @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-      selector<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
+      selector<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
       setup<span class="token punctuation">:</span> <span class="token string">"create"</span>        <span class="token comment">// create the subscription inside the create life-cycle hook</span>
       teardown<span class="token punctuation">:</span> <span class="token string">"deactivate"</span> <span class="token comment">// do the disposal in deactivate</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
@@ -432,10 +468,10 @@ The provided action names for setup and teardown don't necessarily have to be on
 
     <span class="token comment">// All of these have the same change handling</span>
     <span class="token comment">// @connectTo&lt;State>({</span>
-    <span class="token comment">//   selector: (store) => store.state.pluck("frameworks"),</span>
+    <span class="token comment">//   selector: (store) => store.state.pipe(pluck("frameworks")),</span>
     <span class="token comment">// })</span>
     <span class="token comment">// OR</span>
-    <span class="token comment">// @connectTo&lt;State>((store) => store.state.pluck("frameworks"))</span>
+    <span class="token comment">// @connectTo&lt;State>((store) => store.state.pipe(pluck("frameworks")))</span>
     <span class="token comment">// OR</span>
     @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -453,10 +489,10 @@ The provided action names for setup and teardown don't necessarily have to be on
 
     <span class="token comment">// All of these have the same change handling</span>
     <span class="token comment">// @connectTo({</span>
-    <span class="token comment">//   selector: (store) => store.state.pluck("frameworks"),</span>
+    <span class="token comment">//   selector: (store) => store.state.pipe(pluck("frameworks")),</span>
     <span class="token comment">// })</span>
     <span class="token comment">// OR</span>
-    <span class="token comment">// @connectTo((store) => store.state.pluck("frameworks"))</span>
+    <span class="token comment">// @connectTo((store) => store.state.pipe(pluck("frameworks")))</span>
     <span class="token comment">// OR</span>
     @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -508,12 +544,13 @@ The provided action names for setup and teardown don't necessarily have to be on
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
 
     <span class="token comment">// app.ts</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> pluck <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"rxjs/operators"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
 
     @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
       selector<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        frameworks<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span>
+        frameworks<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -531,12 +568,13 @@ The provided action names for setup and teardown don't necessarily have to be on
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// app.js</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> pluck <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"rxjs/operators"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
 
     @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
       selector<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        frameworks<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span>
+        frameworks<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -557,13 +595,14 @@ The provided action names for setup and teardown don't necessarily have to be on
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
 
     <span class="token comment">// app.ts</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> pluck <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"rxjs/operators"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
 
     @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
       target<span class="token punctuation">:</span> <span class="token string">"currentState"</span><span class="token punctuation">,</span>
       selector<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        frameworks<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span>
+        frameworks<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -581,13 +620,14 @@ The provided action names for setup and teardown don't necessarily have to be on
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// app.js</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> pluck <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"rxjs/operators"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
 
     @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
       target<span class="token punctuation">:</span> <span class="token string">"currentState"</span><span class="token punctuation">,</span>
       selector<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        frameworks<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span>
+        frameworks<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        databases<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"databases"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -608,10 +648,11 @@ The provided action names for setup and teardown don't necessarily have to be on
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
 
     <span class="token comment">// app.ts</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> pluck <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"rxjs/operators"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
 
     @connectTo<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-      selector<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      selector<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
       onChanged<span class="token punctuation">:</span> <span class="token string">"changeHandler"</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -625,10 +666,11 @@ The provided action names for setup and teardown don't necessarily have to be on
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
 
     <span class="token comment">// app.js</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> pluck <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"rxjs/operators"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
 
     @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-      selector<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
+      selector<span class="token punctuation">:</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token operator">=></span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">pluck</span><span class="token punctuation">(</span><span class="token string">"frameworks"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// same as above</span>
       onChanged<span class="token punctuation">:</span> <span class="token string">"changeHandler"</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -1537,6 +1579,35 @@ Keep in mind that the store starts with an <code>initialState</code>. If the <co
  to get you started. Head over to 
 <a href="https://github.com/zalmoxisus/redux-devtools-extension" target="_blank">DevTools browser extension page</a>
  for instructions on how to install the extension, start your Aurelia Store plugin project and see how it works.</p>
+</section>
+<section><h2 id="defining-custom-devtoolsoptions">Defining custom devToolsOptions</h2><p>if you use the Redux DevTools extension you can pass options to Aurelia-Store to setup the extension with your 
+<a href="https://github.com/zalmoxisus/redux-devtools-extension/blob/master/docs/API/Arguments.md" target="_blank">preferred configuration</a>
+.</p>
+<p>In the following example, we set the serialize option to false. This way our state will not get serialized when sending it to the extension.</p>
+<code-listing heading="Initializing the DevTools extension with custom options">
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+    
+    <span class="token comment">// main.ts</span>
+
+    <span class="token operator">...</span>
+    aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-store"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> initialState<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      devToolsOptions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        serialize<span class="token punctuation">:</span> <span class="token keyword">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span> 
+    <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+    
+    <span class="token comment">// main.js</span>
+
+    <span class="token operator">...</span>
+    aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-store"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> initialState<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      devToolsOptions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        serialize<span class="token punctuation">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span> 
+    <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code></pre></source-code>
+</code-listing>
 </section>
 <section><h2 id="defining-custom-loglevels">Defining custom LogLevels</h2><p>For various features, Aurelia Store can log information if logging is turned on. E.g. the dispatch info of the currently dispatched action will log on info level by default. Combining the logging of many of these features might be very distracting in your console window. As such you can define the log level to be used per feature in the plugin's setup options. In the following example, we'd like to have the <code>logLevel</code> for the <code>dispatchAction</code> info set to <code>debug</code> instead of the default <code>info</code> level.</p>
 <code-listing heading="Dispatch logs to console.debug">
