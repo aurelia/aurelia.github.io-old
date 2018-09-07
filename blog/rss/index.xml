@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Sat Sep 01 2018 09:04:01 GMT-0700 (PDT)</lastBuildDate>
+    <lastBuildDate>Thu Sep 06 2018 19:57:30 GMT-0700 (PDT)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia Release Notes - Early September 2018]]></title>
+      <link>http://aurelia.io/blog/2018/09/06/aurelia-release-notes-early-september-2018</link>
+      <description><![CDATA[This month we've had big releases for the Aurelia-CLI, the Aurelia Dialog plugin and the Aurelia i18n plugin. Read on to get the details...]]></description>
+      <pubDate>Thu Sep 06 2018 19:57:28 GMT-0700 (PDT)</pubDate>
+    </item>
     <item>
       <title><![CDATA[CoinMesh brings Litecoin and Bitcoin dApp development to Aurelia developers]]></title>
       <link>http://aurelia.io/blog/2018/08/19/coinmesh-litecoin-bitcoin-aurelia-dapps</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2017/12/03/aurelia-framework7</link>
       <description><![CDATA[Thanks to the investigative work of one of our community members, Andy [https://github.com/weoreference], we've got another great Aurelia component framework to share with you: Aurelia-Framework7. Read on to learn more, directly from Alexander Flenniken [https://github.com/alflennik], the creator of this project...]]></description>
       <pubDate>Sun Dec 03 2017 21:11:31 GMT-0800 (PST)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia UX Overhaul]]></title>
-      <link>http://aurelia.io/blog/2017/11/15/aurelia-ux-overhaul</link>
-      <description><![CDATA[We've been doing some major work on Aurelia UX, both in terms of building out components and refining the core capabilities and approach. In this post, we'd like to share a bit about the details of our most recent set of releases.]]></description>
-      <pubDate>Wed Nov 15 2017 10:50:44 GMT-0800 (PST)</pubDate>
     </item>
   </channel>
 </rss>
