@@ -1,0 +1,66 @@
+<section class="contact">
+  <div class="banner">
+    Have an Aurelia concierge reach out to you
+  </div>
+  <form id="contact-form" class="feature-zone">
+    <label class="required">
+      <span>Your Name</span>
+      <input type="text" name="name" />
+    </label>
+    <label class="required">
+      <span>Email Address</span>
+      <input type="text" name="email" required />
+    </label>
+    <label>
+      <span>Business Name</span>
+      <input type="text" name="business" />
+    </label>
+    <label>
+      <span>Country</span>
+      <input type="text" name="country" />
+    </label>
+    <label>
+      <span>Employees</span>
+      <input type="number" name="employees" />
+    </label>
+
+    <fieldset>
+      <legend>Which plan are you most interested in?</legend>
+      <label>
+        <input type="radio" name="plan" value="business" />
+        <span>Business</span>
+      </label>
+      <label>
+        <input type="radio" name="plan" value="enterprise" />
+        <span>Enterprise</span>
+      </label>
+    </fieldset>
+
+    <button type="submit">Send</button>
+  </form>
+  <script>
+    (function () {
+      var form = document.getElementById('contact-form');
+      var submitted = false;
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (!submitted) {
+          submitted = true;
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', 'https://hooks.zapier.com/hooks/catch/3543272/g2n7t3/', true);
+          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          xhr.send(JSON.stringify({
+            name: form.name.value,
+            email: form.email.value,
+            business: form.business.value,
+            country: form.country.value,
+            employees: form.employees.value,
+            plan: form.plan.value
+          }));
+        }
+        form.reset();
+        alert(`Thank you! An Aurelia team member will be in contact with you shortly!`);
+      });
+    })();
+  </script>
+</section>

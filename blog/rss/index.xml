@@ -5,7 +5,31 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Tue Jul 24 2018 21:24:13 GMT-0700 (PDT)</lastBuildDate>
+    <lastBuildDate>Thu Sep 06 2018 19:57:30 GMT-0700 (PDT)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia Release Notes - Early September 2018]]></title>
+      <link>http://aurelia.io/blog/2018/09/06/aurelia-release-notes-early-september-2018</link>
+      <description><![CDATA[This month we've had big releases for the Aurelia-CLI, the Aurelia Dialog plugin and the Aurelia i18n plugin. Read on to get the details...]]></description>
+      <pubDate>Thu Sep 06 2018 19:57:28 GMT-0700 (PDT)</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[CoinMesh brings Litecoin and Bitcoin dApp development to Aurelia developers]]></title>
+      <link>http://aurelia.io/blog/2018/08/19/coinmesh-litecoin-bitcoin-aurelia-dapps</link>
+      <description><![CDATA[Today, we're thrilled to invite former core team member and long-time Aurelia community member, Patrick Walters, to share a special announcement regarding the exciting, new project he's been working on. Let's hear what Patrick has been up to...]]></description>
+      <pubDate>Sun Aug 19 2018 21:08:35 GMT-0700 (PDT)</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[Aurelia vNext]]></title>
+      <link>http://aurelia.io/blog/2018/08/05/aurelia-vnext</link>
+      <description><![CDATA[The codebase of today's Aurelia is approaching 4 years old. Much has changed in the industry since 2014, with advances in JavaScript, TypeScript, module loading, packaging, browsers, tooling, and much more. We've worked hard over the years to maintain full backwards compatibility and minimal-to-no breaking changes. We're one of the only frameworks that has managed to achieve this. Most other frameworks have several major breaking change releases every year. Aurelia's stability is something we know our community appreciates, and it's something we're very proud of. That said, it has been almost four years and the time has finally come to think about Aurelia's next major version.]]></description>
+      <pubDate>Sun Aug 05 2018 21:18:48 GMT-0700 (PDT)</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[Aurelia 2018 Q2 Report]]></title>
+      <link>http://aurelia.io/blog/2018/08/05/aurelia-2018-q2-report</link>
+      <description><![CDATA[The second quarter of 2018 was an amazing time for the Aurelia team with some major progress towards key goals in our 2018 roadmap [blog/2018/01/03/aurelia-2018-roadmap/]. Read on to hear about what we've accomplished and what's in store next.]]></description>
+      <pubDate>Sun Aug 05 2018 21:18:26 GMT-0700 (PDT)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia Release Notes - Late July 2018]]></title>
       <link>http://aurelia.io/blog/2018/07/24/aurelia-release-notes-late-july-2018</link>
@@ -131,30 +155,6 @@
       <link>http://aurelia.io/blog/2017/12/03/aurelia-framework7</link>
       <description><![CDATA[Thanks to the investigative work of one of our community members, Andy [https://github.com/weoreference], we've got another great Aurelia component framework to share with you: Aurelia-Framework7. Read on to learn more, directly from Alexander Flenniken [https://github.com/alflennik], the creator of this project...]]></description>
       <pubDate>Sun Dec 03 2017 21:11:31 GMT-0800 (PST)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia UX Overhaul]]></title>
-      <link>http://aurelia.io/blog/2017/11/15/aurelia-ux-overhaul</link>
-      <description><![CDATA[We've been doing some major work on Aurelia UX, both in terms of building out components and refining the core capabilities and approach. In this post, we'd like to share a bit about the details of our most recent set of releases.]]></description>
-      <pubDate>Wed Nov 15 2017 10:50:44 GMT-0800 (PST)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Projects That Make Aurelia Shine]]></title>
-      <link>http://aurelia.io/blog/2017/11/12/projects-that-make-aurelia-shine</link>
-      <description><![CDATA[This week, Aurelia community member and author, Sean Hunter, shares a section from his book "Aurelia in Action".]]></description>
-      <pubDate>Sun Nov 12 2017 23:30:29 GMT-0800 (PST)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Release Notes - Early November 2017]]></title>
-      <link>http://aurelia.io/blog/2017/11/10/aurelia-release-notes-early-november-2017</link>
-      <description><![CDATA[As always, the Aurelia Team continues to fix bugs, add new features and make tons of improvements throughout the framework. In this set of releases, we've got a minor breaking change to our dialog plugin. We've also converted our testing library to TypeScript. While we've made no changes to the API or behavior, we've bumped the major version since the improved, more-accurate typings may affect some TypeScript users. Finally, we've launched another major set of enhancements to the CLI and made our initial launch of the HTTP Mocking library. Huge thanks to Thomas Schlage [https://github.com/fragsalat] for his work on the new library.]]></description>
-      <pubDate>Fri Nov 10 2017 11:54:29 GMT-0800 (PST)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Announcing the Aurelia Discourse and New Site Experience!]]></title>
-      <link>http://aurelia.io/blog/2017/10/23/aurelia-discourse-and-new-site-experience</link>
-      <description><![CDATA[Today, we're thrilled to announce that we've launched the official Aurelia Discourse forum [https://discourse.aurelia.io]! At the same time, we've completely overhauled our site [http://aurelia.io/] and documentation technology, opening the way for better docs and learning to come.]]></description>
-      <pubDate>Mon Oct 23 2017 00:28:28 GMT-0700 (PDT)</pubDate>
     </item>
   </channel>
 </rss>
