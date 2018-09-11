@@ -1,8 +1,8 @@
 <section class="contact">
   <div class="banner">
-    Have an Aurelia concierge reach out to you
+    Have an Aurelia engineer get in contact with you today
   </div>
-  <form action="https://hooks.zapier.com/hooks/catch/3543272/g2n7t3/" method="POST" class="feature-zone">
+  <form id="contact-form" class="feature-zone">
     <label class="required">
       <span>Your Name</span>
       <input type="text" name="name" />
@@ -19,23 +19,56 @@
       <span>Country</span>
       <input type="text" name="country" />
     </label>
-    <label>
-      <span>Employees</span>
-      <input type="number" name="employees" />
-    </label>
 
     <fieldset>
-      <legend>Which plan are you most interested in?</legend>
+      <legend>What are you interested in?</legend>
       <label>
-        <input type="radio" name="plan" value="business" />
-        <span>Business</span>
+        <input type="radio" name="subject" value="enterprise support" />
+        <span>Aurelia Enterprise Support</span>
       </label>
       <label>
-        <input type="radio" name="plan" value="enterprise" />
-        <span>Enterprise</span>
+        <input type="radio" name="subject" value="consulting services" />
+        <span>Aurelia Consulting</span>
+      </label>
+      <label>
+        <input type="radio" name="subject" value="Aurelia University" />
+        <span>Aurelia University</span>
+      </label>
+      <label>
+        <input type="radio" name="subject" value="Aurelia" />
+        <span>Something else</span>
       </label>
     </fieldset>
 
+    <label>
+      <span>Tell us more</span>
+      <textarea name="details" rows="5"></textarea>
+    </label>
+
     <button type="submit">Send</button>
   </form>
+  <script>
+    (function () {
+      var form = document.getElementById('contact-form');
+      var submitted = false;
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (!submitted) {
+          submitted = true;
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', 'https://hooks.zapier.com/hooks/catch/3763764/qa546d/', true);
+          xhr.send(JSON.stringify({
+            name: form.name.value,
+            email: form.email.value,
+            business: form.business.value,
+            country: form.country.value,
+            subject: form.subject.value,
+            details: form.details.value
+          }));
+        }
+        form.reset();
+        alert(`Thank you! An Aurelia team member will be in contact with you shortly!`);
+      });
+    })();
+  </script>
 </section>
