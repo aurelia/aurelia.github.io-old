@@ -7,6 +7,14 @@
   "appearance": {
     "logoSrc": "./src/logo.svg"
   },
+  "header": {
+    "buttons": [
+      {
+        "text": "Get the Newsletter",
+        "url": "http://eepurl.com/ces50j"
+      }
+    ]
+  },
   "home": {
     "name": "Home",
     "description": "Aurelia is a JavaScript client framework for web, mobile and desktop that leverages simple conventions to empower your creativity.",
