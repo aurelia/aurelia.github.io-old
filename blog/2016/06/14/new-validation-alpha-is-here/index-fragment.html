@@ -343,7 +343,7 @@
 </code-listing>
 <code-listing>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">,</span> inject<span class="token punctuation">,</span> DOM<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">,</span> inject<span class="token punctuation">,</span> <span class="token constant">DOM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
     
     @<span class="token function">inject</span><span class="token punctuation">(</span>Element<span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Widget</span> <span class="token punctuation">{</span>
@@ -360,7 +360,7 @@
     
       <span class="token function">blur</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment">// forward "blur" events to the custom element</span>
-        <span class="token keyword">const</span> event <span class="token operator">=</span> DOM<span class="token punctuation">.</span><span class="token function">createCustomEvent</span><span class="token punctuation">(</span><span class="token string">'blur'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> event <span class="token operator">=</span> <span class="token constant">DOM</span><span class="token punctuation">.</span><span class="token function">createCustomEvent</span><span class="token punctuation">(</span><span class="token string">'blur'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span><span class="token function">dispatchEvent</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>

@@ -787,7 +787,7 @@ The renderer example uses <code>Element.closest</code>. You'll need to
 <p>Here's how to override the methods, in your main.js, during application startup:</p>
 <code-listing heading="main.js">
   <source-code lang="ES 2015"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>I18N<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>ValidationMessageProvider<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-validation'</span><span class="token punctuation">;</span>
 
     <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -795,7 +795,7 @@ The renderer example uses <code>Element.closest</code>. You'll need to
       <span class="token operator">...</span>
 
       ValidationMessageProvider<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">getMessage</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">const</span> i18n <span class="token operator">=</span> aurelia<span class="token punctuation">.</span>container<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span>I18N<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> i18n <span class="token operator">=</span> aurelia<span class="token punctuation">.</span>container<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token constant">I18N</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">const</span> translation <span class="token operator">=</span> i18n<span class="token punctuation">.</span><span class="token function">tr</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`errorMessages.</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>key<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>parser<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>translation<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span><span class="token punctuation">;</span>
@@ -804,7 +804,7 @@ The renderer example uses <code>Element.closest</code>. You'll need to
         <span class="token keyword">if</span> <span class="token punctuation">(</span>displayName <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> displayName <span class="token operator">!==</span> undefined<span class="token punctuation">)</span> <span class="token punctuation">{</span>
           <span class="token keyword">return</span> displayName<span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
-        <span class="token keyword">const</span> i18n <span class="token operator">=</span> aurelia<span class="token punctuation">.</span>container<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span>I18N<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> i18n <span class="token operator">=</span> aurelia<span class="token punctuation">.</span>container<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token constant">I18N</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">return</span> i18n<span class="token punctuation">.</span><span class="token function">tr</span><span class="token punctuation">(</span>propertyName<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
@@ -847,10 +847,10 @@ The renderer example uses <code>Element.closest</code>. You'll need to
 <code-listing heading="I18N ViewModel">
   <source-code lang="ES 2015"><pre class="language-javascript"><code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">,</span> NewInstance<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>I18N<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>ValidationRules<span class="token punctuation">,</span> ValidationController<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-validation'</span><span class="token punctuation">;</span>
 
-    @<span class="token function">inject</span><span class="token punctuation">(</span>NewInstance<span class="token punctuation">.</span><span class="token keyword">of</span><span class="token punctuation">(</span>ValidationController<span class="token punctuation">)</span><span class="token punctuation">,</span> I18N<span class="token punctuation">)</span>
+    @<span class="token function">inject</span><span class="token punctuation">(</span>NewInstance<span class="token punctuation">.</span><span class="token keyword">of</span><span class="token punctuation">(</span>ValidationController<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token constant">I18N</span><span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
       firstName<span class="token punctuation">;</span>
       lastName<span class="token punctuation">;</span>

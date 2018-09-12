@@ -153,7 +153,7 @@
       height<span class="token punctuation">:</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span>
       width<span class="token punctuation">:</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span>
       margin<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
-      padding<span class="token punctuation">:</span> 2vh 2vw<span class="token punctuation">;</span>
+      padding<span class="token punctuation">:</span> <span class="token number">2</span>vh <span class="token number">2</span>vw<span class="token punctuation">;</span>
       overflow<span class="token punctuation">:</span> hidden<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
@@ -175,15 +175,15 @@
       top<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
       right<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
       height<span class="token punctuation">:</span> <span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">;</span>
-      width<span class="token punctuation">:</span> 65vw<span class="token punctuation">;</span>
+      width<span class="token punctuation">:</span> <span class="token number">65</span>vw<span class="token punctuation">;</span>
       z<span class="token operator">-</span>index<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">;</span>
 
       <span class="token comment">/* And here's the magic. We use the :empty selector on the side view port to shift it completely off screen when
         emptied, and add a transition for a clean, professional visual feedback to the user. In two lines of css. */</span>
-      transition<span class="token punctuation">:</span> transform 250ms ease<span class="token operator">-</span><span class="token keyword">in</span><span class="token operator">-</span>out<span class="token punctuation">;</span>
+      transition<span class="token punctuation">:</span> transform <span class="token number">250</span>ms ease<span class="token operator">-</span><span class="token keyword">in</span><span class="token operator">-</span>out<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
     router<span class="token operator">-</span>view<span class="token punctuation">[</span>name<span class="token operator">=</span><span class="token string">"side"</span><span class="token punctuation">]</span><span class="token punctuation">:</span>empty <span class="token punctuation">{</span>
-      transform<span class="token punctuation">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span>65vw<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      transform<span class="token punctuation">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">65</span>vw<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>

@@ -1050,7 +1050,7 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
       aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-store"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
         initialState<span class="token punctuation">,</span>
         history<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-          undoable<span class="token punctuation">:</span> <span class="token keyword">true</span> <span class="token operator">&lt;</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span> REGISTER THE PLUGIN WITH THE HISTORY FEATURE
+          undoable<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token operator">&lt;</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span> <span class="token constant">REGISTER</span> <span class="token constant">THE</span> <span class="token constant">PLUGIN</span> <span class="token constant">WITH</span> <span class="token constant">THE</span> <span class="token constant">HISTORY</span> <span class="token constant">FEATURE</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -1073,7 +1073,7 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
       aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-store"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
         initialState<span class="token punctuation">,</span>
         history<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-          undoable<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token operator">&lt;</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span> REGISTER THE PLUGIN WITH THE HISTORY FEATURE
+          undoable<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token operator">&lt;</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span> <span class="token constant">REGISTER</span> <span class="token constant">THE</span> <span class="token constant">PLUGIN</span> <span class="token constant">WITH</span> <span class="token constant">THE</span> <span class="token constant">HISTORY</span> <span class="token constant">FEATURE</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -1085,9 +1085,9 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
 <code-listing><source-code lang="typescript"><pre class="language-typescript"><code>
   <span class="token comment">// aurelia-store -> history.ts</span>
   <span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">StateHistory</span><span class="token operator">&lt;</span>t<span class="token operator">></span> <span class="token punctuation">{</span>
-    past<span class="token punctuation">:</span> T<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    present<span class="token punctuation">:</span> T<span class="token punctuation">;</span>
-    future<span class="token punctuation">:</span> T<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    past<span class="token punctuation">:</span> <span class="token constant">T</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    present<span class="token punctuation">:</span> <span class="token constant">T</span><span class="token punctuation">;</span>
+    future<span class="token punctuation">:</span> <span class="token constant">T</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
 </code></pre></source-code></code-listing>
@@ -1274,8 +1274,8 @@ That means your past and future arrays can hold only a maximum of the provided <
       aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-store"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
         initialState<span class="token punctuation">,</span>
         history<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-          undoable<span class="token punctuation">:</span> <span class="token keyword">true</span><span class="token punctuation">,</span>
-          limit<span class="token punctuation">:</span> <span class="token number">10</span>       <span class="token operator">&lt;</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span> LIMIT THE HISTORY TO <span class="token number">10</span> ENTRIES
+          undoable<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+          limit<span class="token punctuation">:</span> <span class="token number">10</span>       <span class="token operator">&lt;</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span> <span class="token constant">LIMIT</span> <span class="token constant">THE</span> <span class="token constant">HISTORY</span> <span class="token constant">TO</span> <span class="token number">10</span> <span class="token constant">ENTRIES</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -1299,7 +1299,7 @@ That means your past and future arrays can hold only a maximum of the provided <
         initialState<span class="token punctuation">,</span>
         history<span class="token punctuation">:</span> <span class="token punctuation">{</span>
           undoable<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-          limit<span class="token punctuation">:</span> <span class="token number">10</span>       <span class="token operator">&lt;</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span> LIMIT THE HISTORY TO <span class="token number">10</span> ENTRIES
+          limit<span class="token punctuation">:</span> <span class="token number">10</span>       <span class="token operator">&lt;</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span> <span class="token constant">LIMIT</span> <span class="token constant">THE</span> <span class="token constant">HISTORY</span> <span class="token constant">TO</span> <span class="token number">10</span> <span class="token constant">ENTRIES</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -1399,7 +1399,7 @@ In here you get an object containing the action's <code>name</code> and the prov
 
     <span class="token keyword">const</span> <span class="token function-variable function">gateKeeperMiddleware</span> <span class="token operator">=</span> <span class="token punctuation">(</span>currentState<span class="token punctuation">,</span> originalState<span class="token punctuation">,</span> _<span class="token punctuation">,</span> action<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
       <span class="token comment">// imagine a lockActive property on the state indicating that certain actions may not be executed</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>currentState<span class="token punctuation">.</span>lockActive <span class="token operator">===</span> <span class="token keyword">true</span> <span class="token operator">&amp;&amp;</span> action<span class="token punctuation">.</span>name <span class="token operator">===</span> <span class="token string">"trespasser"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>currentState<span class="token punctuation">.</span>lockActive <span class="token operator">===</span> <span class="token boolean">true</span> <span class="token operator">&amp;&amp;</span> action<span class="token punctuation">.</span>name <span class="token operator">===</span> <span class="token string">"trespasser"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span> originalState<span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">;</span>
@@ -1438,7 +1438,7 @@ In here you get an object containing the action's <code>name</code> and the prov
 
       aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-store"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
         initialState<span class="token punctuation">,</span>
-        propagateError<span class="token punctuation">:</span> <span class="token keyword">true</span>
+        propagateError<span class="token punctuation">:</span> <span class="token boolean">true</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
       aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1592,7 +1592,7 @@ Keep in mind that the store starts with an <code>initialState</code>. If the <co
     <span class="token operator">...</span>
     aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-store"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> initialState<span class="token punctuation">,</span> <span class="token punctuation">{</span>
       devToolsOptions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        serialize<span class="token punctuation">:</span> <span class="token keyword">false</span>
+        serialize<span class="token punctuation">:</span> <span class="token boolean">false</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span> 
     <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre></source-code>
@@ -1618,7 +1618,7 @@ Keep in mind that the store starts with an <code>initialState</code>. If the <co
     <span class="token keyword">import</span> <span class="token punctuation">{</span> LogLevel <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-store"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
     aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-store"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> initialState<span class="token punctuation">,</span> <span class="token punctuation">{</span>
-      logDispatchedActions<span class="token punctuation">:</span> <span class="token keyword">true</span><span class="token punctuation">,</span>
+      logDispatchedActions<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
       logDefinitions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
         dispatchedActions<span class="token punctuation">:</span> LogLevel<span class="token punctuation">.</span>debug
       <span class="token punctuation">}</span>

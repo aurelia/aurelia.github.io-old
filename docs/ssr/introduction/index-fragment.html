@@ -52,11 +52,11 @@ Server Side Rendering is a new feature of the Aurelia framework, intended for us
 <p>However, since there is no <code>document</code> global on the server, you need to use the PAL:</p>
 <code-listing heading="DOM Manipulation Using SSR">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>DOM<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">DOM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
 
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyPage</span> <span class="token punctuation">{</span>
       <span class="token function">activate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        DOM<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>DOM<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token constant">DOM</span><span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span><span class="token constant">DOM</span><span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
@@ -75,7 +75,7 @@ Server Side Rendering is a new feature of the Aurelia framework, intended for us
 <code-listing heading="Alternative Entry Point">
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span> Aurelia <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span> PLATFORM <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span> <span class="token constant">PLATFORM</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
     <span class="token keyword">import</span> bootstrapper <span class="token keyword">from</span> <span class="token string">'./ssr-bootstrapper-webpack'</span><span class="token punctuation">;</span>
 
     <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">:</span> Aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -83,7 +83,7 @@ Server Side Rendering is a new feature of the Aurelia framework, intended for us
         <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
       <span class="token keyword">await</span> aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">await</span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span>PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">await</span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
     module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token function">bootstrapper</span><span class="token punctuation">(</span>configure<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -112,7 +112,7 @@ Server Side Rendering is a new feature of the Aurelia framework, intended for us
     	  <span class="token comment">// routes omitted</span>
         config<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        config<span class="token punctuation">.</span><span class="token function">mapUnknownRoutes</span><span class="token punctuation">(</span>PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'not-found'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        config<span class="token punctuation">.</span><span class="token function">mapUnknownRoutes</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'not-found'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
         <span class="token keyword">this</span><span class="token punctuation">.</span>router <span class="token operator">=</span> router<span class="token punctuation">;</span>
       <span class="token punctuation">}</span>

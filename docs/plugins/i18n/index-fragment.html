@@ -155,7 +155,7 @@ Notice that Aurelia I18N makes use of a non-standard attributes option, which is
 </div>
 <code-listing heading="Registering the Plugin - using the built-in aurelia loader backed:">
   <source-code lang="ES 2015"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>I18N<span class="token punctuation">,</span> Backend<span class="token punctuation">,</span> TCustomAttribute<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">,</span> Backend<span class="token punctuation">,</span> TCustomAttribute<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
 
     <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       aurelia<span class="token punctuation">.</span>use
@@ -188,7 +188,7 @@ Notice that Aurelia I18N makes use of a non-standard attributes option, which is
 </code-listing>
 <code-listing heading="Registering the Plugin - using the i18next-xhr-backend">
   <source-code lang="ES 2015"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>I18N<span class="token punctuation">,</span> TCustomAttribute<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">,</span> TCustomAttribute<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
     <span class="token keyword">import</span> Backend <span class="token keyword">from</span> <span class="token string">'i18next-xhr-backend'</span><span class="token punctuation">;</span> <span class="token comment">// &lt;-- your previously installed backend plugin</span>
 
     <span class="token comment">// if you use TypeScript and target ES5 you might need to import it like this instead</span>
@@ -312,10 +312,10 @@ Alternative, you can find this file in the plugins repository doc folder: <code>
     <span class="token operator">...</span> existing configuration code
     <span class="token string">"filesGlob"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
         <span class="token string">"./typings/browser.d.ts"</span><span class="token punctuation">,</span>
-        <span class="token string">"./your_custom_typings_folder_path/**/*.d.ts"</span><span class="token punctuation">,</span> <span class="token comment">// if you use both typings files from this repository (`doc</span><span class="token comment">/*.d.ts`)
-      ],
-    ... other existing configuration code
-  </span></code></pre></source-code>
+        <span class="token string">"./your_custom_typings_folder_path/**/*.d.ts"</span><span class="token punctuation">,</span> <span class="token comment">// if you use both typings files from this repository (`doc/*.d.ts`)</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token operator">...</span> other existing configuration code
+  </code></pre></source-code>
 </code-listing>
 <p>or if you are using TypeScript 2.0 or later, you can add them to the types section like</p>
 <code-listing heading="Configuring custom typings in tsconfig.json">
@@ -335,10 +335,10 @@ TypeScript will throw errors like <code>Module xxx not found</code> either for a
 <p>In order to change the active language you'd have to call the function <code>setLocale(localeName)</code> via code.</p>
 <code-listing heading="Setting the active locale with setLocale">
   <source-code lang="ES 2015"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>I18N<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
 
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoVM</span> <span class="token punctuation">{</span>
-      <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span>I18N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token constant">I18N</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
       <span class="token function">constructor</span><span class="token punctuation">(</span>i18n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>i18n <span class="token operator">=</span> i18n<span class="token punctuation">;</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>i18n
@@ -355,10 +355,10 @@ TypeScript will throw errors like <code>Module xxx not found</code> either for a
 <p>To get the active locale you'd go with <code>getLocale()</code>:</p>
 <code-listing heading="Getting the active locale using getLocale">
   <source-code lang="ES 2015"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>I18N<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
 
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoVM</span> <span class="token punctuation">{</span>
-      <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span>I18N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token constant">I18N</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
       <span class="token function">constructor</span><span class="token punctuation">(</span>i18n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>i18n <span class="token operator">=</span> i18n<span class="token punctuation">;</span>
         console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>i18n<span class="token punctuation">.</span><span class="token function">getLocale</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -373,10 +373,10 @@ TypeScript will throw errors like <code>Module xxx not found</code> either for a
  for a detailed list of those:</p>
 <code-listing heading="Translating using the i18n.tr function">
   <source-code lang="ES 2015"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>I18N<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
 
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoVM</span> <span class="token punctuation">{</span>
-      <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span>I18N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token constant">I18N</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
       <span class="token function">constructor</span><span class="token punctuation">(</span>i18n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>i18n <span class="token operator">=</span> i18n<span class="token punctuation">;</span>
         console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>i18n<span class="token punctuation">.</span><span class="token function">tr</span><span class="token punctuation">(</span><span class="token string">'mykey'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -686,10 +686,10 @@ You can also mix and match it with simple variables.</p>
 <p>Below is an example how to access the NumberFormat via code:</p>
 <code-listing heading="Number formatting via Code">
   <source-code lang="ES 2015"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>I18N<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
 
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoVM</span> <span class="token punctuation">{</span>
-      <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span>I18N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token constant">I18N</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
       <span class="token function">constructor</span><span class="token punctuation">(</span>i18n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>i18n <span class="token operator">=</span> i18n<span class="token punctuation">;</span>
 
@@ -746,10 +746,10 @@ If you provide the active locale as a bound VM property, the ValueConverter will
 Below you'll find an example how to use those via code:</p>
 <code-listing heading="Formatting Dates via Code">
   <source-code lang="ES 2015"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>I18N<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
 
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoVM</span> <span class="token punctuation">{</span>
-      <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span>I18N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token constant">I18N</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
       <span class="token function">constructor</span><span class="token punctuation">(</span>i18n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>i18n <span class="token operator">=</span> i18n<span class="token punctuation">;</span>
 
@@ -975,7 +975,7 @@ translations. If you're missing yours, I welcome you to provide a PR so everybod
 <p>Configure aurelia-i18n as follows:</p>
 <code-listing heading="Configuring the i18next-resource-store-loader">
   <source-code lang="ES 2015"><pre class="language-javascript"><code>   
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>PLATFORM<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
     <span class="token comment">// Pass the path to the root pointer relative to main to the loader</span>
     <span class="token keyword">import</span> resBundle <span class="token keyword">from</span> <span class="token string">'i18next-resource-store-loader!./assets/i18n/index.js'</span><span class="token punctuation">;</span>
 
@@ -983,7 +983,7 @@ translations. If you're missing yours, I welcome you to provide a PR so everybod
       aurelia<span class="token punctuation">.</span>use
         <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-i18n'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> instance <span class="token operator">=></span> <span class="token punctuation">{</span>
+        <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-i18n'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> instance <span class="token operator">=></span> <span class="token punctuation">{</span>
           <span class="token keyword">return</span> instance<span class="token punctuation">.</span><span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
             resources  <span class="token punctuation">:</span> resBundle<span class="token punctuation">,</span> <span class="token comment">//&lt;-- configure aurelia-i18n to use your bundled translations</span>
             lng        <span class="token punctuation">:</span> <span class="token string">'de'</span><span class="token punctuation">,</span>
@@ -993,7 +993,7 @@ translations. If you're missing yours, I welcome you to provide a PR so everybod
           <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       
-      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span>PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>
@@ -1090,11 +1090,11 @@ to properly recognize the plugins. With that change, the example code looks like
       aurelia<span class="token punctuation">.</span>use
         <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>PLATFORM<span class="token punctuation">.</span><span class="token function">modulename</span><span class="token punctuation">(</span><span class="token string">'aurelia-i18n'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>instance<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+        <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">modulename</span><span class="token punctuation">(</span><span class="token string">'aurelia-i18n'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>instance<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
             <span class="token comment">// code to setup aurelia-i18n</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span>PLATFORM<span class="token punctuation">.</span><span class="token function">modulename</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">modulename</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   </code></pre></source-code>
 </code-listing>
@@ -1104,7 +1104,7 @@ to properly recognize the plugins. With that change, the example code looks like
  aurelia<span class="token punctuation">.</span>use
         <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>PLATFORM<span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-i18n'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>instance<span class="token punctuation">:</span> I18N<span class="token punctuation">)</span> <span class="token operator">=></span>
+        <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-i18n'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>instance<span class="token punctuation">:</span> <span class="token constant">I18N</span><span class="token punctuation">)</span> <span class="token operator">=></span>
             <span class="token comment">// code to setup aurelia-i18n</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 

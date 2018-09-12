@@ -32,12 +32,51 @@ Requests being processed by interceptors are considered active.
 object and configures it.
 
 
+* `delete(input: , body?: any, init?: RequestInit): Promise` - Calls fetch with request method set to DELETE.
+  * `input: ` - The resource that you wish to fetch. Either a
+Request object, or a string containing the URL of the resource.
+  * `body?: any` - The body of the request.
+  * `init?: RequestInit` - An options object containing settings to be applied to
+the Request.
+
+
 * `fetch(input: , init?: RequestInit): Promise` - Starts the process of fetching a resource. Default configuration parameters
 will be applied to the Request. The constructed Request will be passed to
 registered request interceptors before being sent. The Response will be passed
 to registered Response interceptors before it is returned.
   * `input: ` - The resource that you wish to fetch. Either a
 Request object, or a string containing the URL of the resource.
+  * `init?: RequestInit` - An options object containing settings to be applied to
+the Request.
+
+
+* `get(input: , init?: RequestInit): Promise` - Calls fetch as a GET request.
+  * `input: ` - The resource that you wish to fetch. Either a
+Request object, or a string containing the URL of the resource.
+  * `init?: RequestInit` - An options object containing settings to be applied to
+the Request.
+
+
+* `patch(input: , body?: any, init?: RequestInit): Promise` - Calls fetch with request method set to PATCH.
+  * `input: ` - The resource that you wish to fetch. Either a
+Request object, or a string containing the URL of the resource.
+  * `body?: any` - The body of the request.
+  * `init?: RequestInit` - An options object containing settings to be applied to
+the Request.
+
+
+* `post(input: , body?: any, init?: RequestInit): Promise` - Calls fetch with request method set to POST.
+  * `input: ` - The resource that you wish to fetch. Either a
+Request object, or a string containing the URL of the resource.
+  * `body?: any` - The body of the request.
+  * `init?: RequestInit` - An options object containing settings to be applied to
+the Request.
+
+
+* `put(input: , body?: any, init?: RequestInit): Promise` - Calls fetch with request method set to PUT.
+  * `input: ` - The resource that you wish to fetch. Either a
+Request object, or a string containing the URL of the resource.
+  * `body?: any` - The body of the request.
   * `init?: RequestInit` - An options object containing settings to be applied to
 the Request.
 
@@ -120,63 +159,6 @@ No description available.
 
 
 ## Interfaces
-
-
-### AbortController
-
-No description available.
-
-#### Properties
-
-* `signal: AbortSignal` - No description available.
-
-#### Methods
-
-
-* `abort(): void` - 
-
-
-
-### AbortSignal
-
-No description available.
-
-#### Properties
-
-* `EventTarget: ` - No description available.
-* `aborted: boolean` - No description available.
-* `onabort: ` - No description available.
-
-#### Methods
-
-
-* `addEventListener(type: K, listener: , options?: ): void` - 
-  * `type: K` - No description available.
-  * `listener: ` - No description available.
-  * `options?: ` - No description available.
-
-
-* `dispatchEvent(evt: Event): boolean` - 
-  * `evt: Event` - No description available.
-
-
-* `removeEventListener(type: K, listener: , options?: ): void` - 
-  * `type: K` - No description available.
-  * `listener: ` - No description available.
-  * `options?: ` - No description available.
-
-
-
-### AbortSignalEventMap
-
-No description available.
-
-#### Properties
-
-* `abort: ProgressEvent` - No description available.
-
-#### Methods
-
 
 
 ### Interceptor

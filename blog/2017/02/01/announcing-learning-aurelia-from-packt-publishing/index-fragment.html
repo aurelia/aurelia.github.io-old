@@ -28,7 +28,7 @@
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">FilePicker</span> <span class="token punctuation">{</span>
     
       @bindable accept <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
-      @bindable multiple <span class="token operator">=</span> <span class="token keyword">false</span><span class="token punctuation">;</span>
+      @bindable multiple <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
       @<span class="token function">bindable</span><span class="token punctuation">(</span><span class="token punctuation">{</span> defaultBindingMode<span class="token punctuation">:</span> bindingMode<span class="token punctuation">.</span>twoWay <span class="token punctuation">}</span><span class="token punctuation">)</span> files<span class="token punctuation">:</span> FileList<span class="token punctuation">;</span>
     
       input<span class="token punctuation">:</span> HTMLInputElement<span class="token punctuation">;</span>
@@ -180,7 +180,7 @@ custom attribute, which will be used essentially on <code>img</code> elements, w
       <span class="token keyword">private</span> <span class="token function">disposeObjectUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>objectUrl<span class="token punctuation">)</span> <span class="token punctuation">{</span>
           <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>src <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
-          URL<span class="token punctuation">.</span><span class="token function">revokeObjectURL</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>objectUrl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token constant">URL</span><span class="token punctuation">.</span><span class="token function">revokeObjectURL</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>objectUrl<span class="token punctuation">)</span><span class="token punctuation">;</span>
           <span class="token keyword">this</span><span class="token punctuation">.</span>objectUrl <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span>
@@ -189,7 +189,7 @@ custom attribute, which will be used essentially on <code>img</code> elements, w
         <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">disposeObjectUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     
         <span class="token keyword">if</span> <span class="token punctuation">(</span>value <span class="token keyword">instanceof</span> <span class="token class-name">Blob</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">this</span><span class="token punctuation">.</span>objectUrl <span class="token operator">=</span> URL<span class="token punctuation">.</span><span class="token function">createObjectURL</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>objectUrl <span class="token operator">=</span> <span class="token constant">URL</span><span class="token punctuation">.</span><span class="token function">createObjectURL</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
           <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>src <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>objectUrl<span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span>
