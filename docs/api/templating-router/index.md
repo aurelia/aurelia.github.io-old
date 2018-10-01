@@ -29,6 +29,9 @@ No description available.
 * `unbind(): any` - 
 
 
+* `static inject(): any` - 
+
+
 
 ### RouterView
 
@@ -61,6 +64,9 @@ No description available.
 
 * `swap(viewPortInstruction?: any): any` - 
   * `viewPortInstruction?: any` - No description available
+
+
+* `static inject(): any` - 
 
 
 

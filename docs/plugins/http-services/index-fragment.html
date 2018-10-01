@@ -33,7 +33,7 @@ If you are looking for some information on the Fetch API specification, we recom
 <p>First, install the polyfill using your package manager. Second, make sure to import the polyfill into your application code so that it's correctly initialized before you use our fetch client. The best place to load the polyfill is typically in your application's <code>main</code> module. That might look something like this:</p>
 <code-listing heading="Initializing the Fetch Polyfill">
   <source-code lang="ES 2015/2016"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token string">'fetch'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token string">'whatwg-fetch'</span><span class="token punctuation">;</span>
 
     <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       aurelia<span class="token punctuation">.</span>use
@@ -45,7 +45,7 @@ If you are looking for some information on the Fetch API specification, we recom
   </code></pre></source-code>
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>Aurelia<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> <span class="token string">'fetch'</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> <span class="token string">'whatwg-fetch'</span><span class="token punctuation">;</span>
 
     <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">:</span> Aurelia<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
       aurelia<span class="token punctuation">.</span>use

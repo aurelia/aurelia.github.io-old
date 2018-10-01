@@ -232,6 +232,12 @@ No description available.
   * `context?: any` - No description available
 
 
+* `createLetExpressions(resources?: any, letElement?: any): any` - 
+  * `resources?: any` - No description available
+  * `letElement?: any` - 
+
+
+
 * `inspectAttribute(resources?: any, elementName?: any, attrName?: any, attrValue?: any): any` - 
   * `resources?: any` - No description available
   * `elementName?: any` - No description available

@@ -29,6 +29,7 @@ The main application router.
 
 * `baseUrl: string` - The [[Router]]&#x27;s current base URL, typically based on the [[Router.currentInstruction]].
 * `container: Container` - No description available.
+* `couldDeactivate: boolean` - True if the previous instruction successfully completed the CanDeactivatePreviousStep in the current navigation.
 * `currentInstruction: NavigationInstruction` - The currently active navigation instruction.
 * `currentNavigationTracker: number` - The currently active navigation tracker.
 * `history: History` - No description available.
@@ -46,6 +47,8 @@ The main application router.
 * `options: any` - No description available.
 * `parent: Router` - The parent router, or null if this instance is not a child router.
 * `routes: ` - No description available.
+* `title: ` - If defined, used in generation of document title for [[Router]]&#x27;s routes.
+* `titleSeparator: ` - The separator used in the document title between [[Router]]&#x27;s routes.
 * `transformTitle: ` - Extension point to transform the document title before it is built and displayed.
 By default, child routers delegate to the parent router, and the app router
 returns the title unchanged.
@@ -111,20 +114,20 @@ returns the title unchanged.
 
 
 
-* `navigate(fragment: string, options?: any): boolean` - Navigates to a new location.
+* `navigate(fragment: string, options?: NavigationOptions): Promise` - Navigates to a new location.
   * `fragment: string` - The URL fragment to use as the navigation destination.
-  * `options?: any` - The navigation options. See [[History.NavigationOptions]] for all available options.
+  * `options?: NavigationOptions` - The navigation options.
 
 
 
 * `navigateBack(): void` - Navigates back to the most recent location in history.
 
 
-* `navigateToRoute(route: string, params?: any, options?: any): boolean` - Navigates to a new location corresponding to the route and params specified. Equivallent to [[Router.generate]] followed
+* `navigateToRoute(route: string, params?: any, options?: NavigationOptions): Promise` - Navigates to a new location corresponding to the route and params specified. Equivallent to [[Router.generate]] followed
 by [[Router.navigate]].
   * `route: string` - The name of the route to use when generating the navigation location.
   * `params?: any` - The route parameters to be used when populating the route pattern.
-  * `options?: any` - The navigation options. See [[History.NavigationOptions]] for all available options.
+  * `options?: NavigationOptions` - The navigation options.
 
 
 
@@ -362,7 +365,8 @@ Class responsible for creating the navigation pipeline.
   * `step: PipelineStep` - No description available
 
 
-* `createPipeline(): Pipeline` - Create the navigation pipeline.
+* `createPipeline(useCanDeactivateStep?: boolean): Pipeline` - Create the navigation pipeline.
+  * `useCanDeactivateStep?: boolean` - No description available
 
 
 * `removeStep(name: string, step: PipelineStep): any` - Removes a step from a slot in the pipeline
@@ -444,6 +448,7 @@ The primary class responsible for handling routing and navigation.
 
 * `baseUrl: string` - The [[Router]]&#x27;s current base URL, typically based on the [[Router.currentInstruction]].
 * `container: Container` - No description available.
+* `couldDeactivate: boolean` - True if the previous instruction successfully completed the CanDeactivatePreviousStep in the current navigation.
 * `currentInstruction: NavigationInstruction` - The currently active navigation instruction.
 * `currentNavigationTracker: number` - The currently active navigation tracker.
 * `history: History` - No description available.
@@ -461,6 +466,8 @@ The primary class responsible for handling routing and navigation.
 * `options: any` - No description available.
 * `parent: Router` - The parent router, or null if this instance is not a child router.
 * `routes: ` - No description available.
+* `title: ` - If defined, used in generation of document title for [[Router]]&#x27;s routes.
+* `titleSeparator: ` - The separator used in the document title between [[Router]]&#x27;s routes.
 * `transformTitle: ` - Extension point to transform the document title before it is built and displayed.
 By default, child routers delegate to the parent router, and the app router
 returns the title unchanged.
@@ -514,20 +521,20 @@ returns the title unchanged.
 
 
 
-* `navigate(fragment: string, options?: any): boolean` - Navigates to a new location.
+* `navigate(fragment: string, options?: NavigationOptions): Promise` - Navigates to a new location.
   * `fragment: string` - The URL fragment to use as the navigation destination.
-  * `options?: any` - The navigation options. See [[History.NavigationOptions]] for all available options.
+  * `options?: NavigationOptions` - The navigation options.
 
 
 
 * `navigateBack(): void` - Navigates back to the most recent location in history.
 
 
-* `navigateToRoute(route: string, params?: any, options?: any): boolean` - Navigates to a new location corresponding to the route and params specified. Equivallent to [[Router.generate]] followed
+* `navigateToRoute(route: string, params?: any, options?: NavigationOptions): Promise` - Navigates to a new location corresponding to the route and params specified. Equivallent to [[Router.generate]] followed
 by [[Router.navigate]].
   * `route: string` - The name of the route to use when generating the navigation location.
   * `params?: any` - The route parameters to be used when populating the route pattern.
-  * `options?: any` - The navigation options. See [[History.NavigationOptions]] for all available options.
+  * `options?: NavigationOptions` - The navigation options.
 
 
 
@@ -561,12 +568,13 @@ Class used to configure a [[Router]] instance.
 
 #### Properties
 
-* `instructions: any` - No description available.
-* `options: any` - No description available.
+* `instructions: Array` - No description available.
+* `options: ` - No description available.
 * `pipelineSteps: Array` - No description available.
 * `title: string` - No description available.
-* `unknownRouteConfig: any` - No description available.
-* `viewPortDefaults: any` - No description available.
+* `titleSeparator: string` - No description available.
+* `unknownRouteConfig: ` - No description available.
+* `viewPortDefaults: ` - No description available.
 
 #### Methods
 
@@ -614,8 +622,8 @@ Class used to configure a [[Router]] instance.
  [[NavigationInstruction]] and selects a moduleId to load.
 
 
-* `useViewPortDefaults(viewPortConfig: any): any` - Configures defaults to use for any view ports.
-  * `viewPortConfig: any` - a view port configuration object to use as a
+* `useViewPortDefaults(viewPortConfig: ): RouterConfiguration` - Configures defaults to use for any view ports.
+  * `viewPortConfig: ` - a view port configuration object to use as a
  default, of the form { viewPortName: { moduleId } }.
 
 

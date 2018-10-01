@@ -881,7 +881,7 @@ You can create a &quot;shallow&quot; clone of the state by using <code>Object.as
   </code></pre></source-code>
 </code-listing>
 <div class="info"><div class="icon"> <i></i> </div><p>
-You dont't have to use async/await but it's highly recommended to use it for better readability whenever you can.</p>
+You don't have to use async/await but it's highly recommended to use it for better readability whenever you can.</p>
 </div>
 </section>
 <section><h2 id="dispatching-actions">Dispatching actions</h2><p>So far we've just created an action and registered it by several means. Now let's look at how we can actually execute one of them to trigger the next state change.
@@ -1149,7 +1149,7 @@ You can use the <code>nextStateHistory</code> helper function to easily push you
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
-    <span class="token comment">// The same as returing a handcrafted object like</span>
+    <span class="token comment">// The same as returning a handcrafted object like</span>
 
     <span class="token keyword">const</span> <span class="token function-variable function">demoAction</span> <span class="token operator">=</span> <span class="token punctuation">(</span>currentState<span class="token punctuation">:</span> StateHistory<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">,</span> frameworkName<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
       <span class="token keyword">return</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span>
@@ -1174,7 +1174,7 @@ You can use the <code>nextStateHistory</code> helper function to easily push you
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
-    <span class="token comment">// The same as returing a handcrafted object like</span>
+    <span class="token comment">// The same as returning a handcrafted object like</span>
 
     <span class="token keyword">const</span> <span class="token function-variable function">demoAction</span> <span class="token operator">=</span> <span class="token punctuation">(</span>currentState<span class="token punctuation">,</span> frameworkName<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
       <span class="token keyword">return</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span>
@@ -1390,7 +1390,7 @@ These are passed in as the third argument to the middleware function and are reg
   </code></pre></source-code>
 </code-listing>
 </section>
-<section><h2 id="reference-to-the-calling-action-for-middlewares">Reference to the calling action for middlewares</h2><p>Last but not least the optional forth argument passed into a middleware is the calling action, meaning the action that is being dispatched.
+<section><h2 id="reference-to-the-calling-action-for-middlewares">Reference to the calling action for middlewares</h2><p>Last but not least the optional fourth argument passed into a middleware is the calling action, meaning the action that is being dispatched.
 In here you get an object containing the action's <code>name</code> and the provided <code>params</code>. This is useful when you, for instance, want only certain actions to pass or be canceled under certain circumstances.</p>
 <code-listing heading="Reference to the calling action in middlewares">
   <source-code lang="TypeScript"><pre class="language-typescript"><code>
@@ -1590,22 +1590,24 @@ Keep in mind that the store starts with an <code>initialState</code>. If the <co
     <span class="token comment">// main.ts</span>
 
     <span class="token operator">...</span>
-    aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-store"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> initialState<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-store"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> 
+      initialState<span class="token punctuation">,</span>
       devToolsOptions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
         serialize<span class="token punctuation">:</span> <span class="token boolean">false</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span> 
-    <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre></source-code>
   <source-code lang="JavaScript"><pre class="language-javascript"><code>
     
     <span class="token comment">// main.js</span>
 
     <span class="token operator">...</span>
-    aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-store"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> initialState<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-store"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> 
+      initialState<span class="token punctuation">,</span>
       devToolsOptions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
         serialize<span class="token punctuation">:</span> <span class="token boolean">false</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span> 
-    <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre></source-code>
 </code-listing>
 </section>
@@ -1617,7 +1619,8 @@ Keep in mind that the store starts with an <code>initialState</code>. If the <co
 
     <span class="token keyword">import</span> <span class="token punctuation">{</span> LogLevel <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-store"</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
-    aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-store"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> initialState<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-store"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> 
+      initialState<span class="token punctuation">,</span>
       logDispatchedActions<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
       logDefinitions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
         dispatchedActions<span class="token punctuation">:</span> LogLevel<span class="token punctuation">.</span>debug
@@ -1628,12 +1631,13 @@ Keep in mind that the store starts with an <code>initialState</code>. If the <co
     
     <span class="token comment">// main.js</span>
 
-    aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-store"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> initialState<span class="token punctuation">,</span> history<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-store"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> 
+      initialState<span class="token punctuation">,</span>
       logDispatchedActions<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
       logDefinitions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
         dispatchedActions<span class="token punctuation">:</span> <span class="token string">"debug"</span>
       <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre></source-code>
 </code-listing>
 <p>Besides the control for <code>dispatchedActions</code> you can also set the logType for the <code>performanceLog</code> and <code>devToolsStatus</code> notifications.</p>

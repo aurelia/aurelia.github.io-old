@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Tue Sep 11 2018 21:21:55 GMT-0700 (PDT)</lastBuildDate>
+    <lastBuildDate>Sun Sep 30 2018 19:20:56 GMT-0700 (PDT)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia Release Notes - Early October 2018]]></title>
+      <link>http://aurelia.io/blog/2018/10/01/aurelia-release-notes-early-october-2018</link>
+      <description><![CDATA[As always, we continue to on improving Aurelia by both fixing bugs and adding new features. In fact, while we're hard at work on Aurelia vNext, we've also been back-porting some new features to the current version of Aurelia.]]></description>
+      <pubDate>Mon Oct 01 2018 03:00:00 GMT-0700 (PDT)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia Release Notes - Early September 2018]]></title>
       <link>http://aurelia.io/blog/2018/09/06/aurelia-release-notes-early-september-2018</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2017/12/13/aurelia-openid-connect</link>
       <description><![CDATA[This week we invite Aurelia community member, Shaun Luttin [https://github.com/shaunluttin], to share with us a bit about the Aurelia OpenID connect plugin he's been working on. Take it away Shaun...]]></description>
       <pubDate>Wed Dec 13 2017 23:16:31 GMT-0800 (PST)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Framework7]]></title>
-      <link>http://aurelia.io/blog/2017/12/03/aurelia-framework7</link>
-      <description><![CDATA[Thanks to the investigative work of one of our community members, Andy [https://github.com/weoreference], we've got another great Aurelia component framework to share with you: Aurelia-Framework7. Read on to learn more, directly from Alexander Flenniken [https://github.com/alflennik], the creator of this project...]]></description>
-      <pubDate>Sun Dec 03 2017 21:11:31 GMT-0800 (PST)</pubDate>
     </item>
   </channel>
 </rss>

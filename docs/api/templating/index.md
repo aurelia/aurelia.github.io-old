@@ -184,6 +184,11 @@ An abstract base class for implementations of a binding language.
   * `existingInstruction?: Object` - A previously created instruction for this attribute.
 
 
+* `createLetExpressions(resources: ViewResources, element: Element): ` - Creates let expressions from a &lt;let/&gt; element
+  * `resources: ViewResources` - The ViewResources for the view being compiled
+  * `element: Element` - the let element in the view template
+
+
 * `inspectAttribute(resources: ViewResources, elementName: string, attrName: string, attrValue: string): Object` - Inspects an attribute for bindings.
   * `resources: ViewResources` - The ViewResources for the view being compiled.
   * `elementName: string` - The element name to inspect.
@@ -866,10 +871,11 @@ Provides all the instructions for how a target element should be enhanced inside
 
 * `anchorIsContainer: boolean` - No description available.
 * `behaviorInstructions: Array` - No description available.
-* `contentExpression: any` - No description available.
+* `contentExpression: any` - Indicates if this instruction is targeting a text node
 * `elementInstruction: BehaviorInstruction` - No description available.
 * `expressions: Array` - No description available.
 * `injectorId: number` - No description available.
+* `letElement: boolean` - Indicates if this instruction is a let element instruction
 * `lifting: boolean` - No description available.
 * `parentInjectorId: number` - No description available.
 * `providers: Array` - No description available.
@@ -885,6 +891,10 @@ Provides all the instructions for how a target element should be enhanced inside
 
 * `static contentExpression(expression?: any): TargetInstruction` - Creates an instruction that represents a binding expression in the content of an element.
   * `expression?: any` - The binding expression.
+
+
+* `static letElement(expressions: Array): TargetInstruction` - Creates an instruction that represents an element with behaviors and bindings.
+  * `expressions: Array` - Bindings, listeners, triggers, etc.
 
 
 * `static lifting(parentInjectorId: number, liftingInstruction: BehaviorInstruction): TargetInstruction` - Creates an instruction that represents content that was lifted out of the DOM and into a ViewFactory.
@@ -1576,6 +1586,43 @@ No description available.
 * `template: ` - No description available.
 
 #### Methods
+
+
+
+### LetBinding
+
+No description available.
+
+#### Properties
+
+* `sourceExpression: Expression` - The expression to access/assign/connect the binding source property.
+
+#### Methods
+
+
+* `bind(source: Scope): void` - Connects the binding to a scope.
+  * `source: Scope` - No description available.
+
+
+* `unbind(): void` - Disconnects the binding from a scope.
+
+
+* `updateTarget(value: any): void` - Assigns a value to the target.
+  * `value: any` - No description available.
+
+
+
+### LetExpression
+
+No description available.
+
+#### Properties
+
+
+#### Methods
+
+
+* `createBinding(): LetBinding` - 
 
 
 
