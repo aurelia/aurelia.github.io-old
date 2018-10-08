@@ -2,7 +2,7 @@
   <div class="banner">
     Have an Aurelia engineer get in contact with you today
   </div>
-  <form id="contact-form" class="feature-zone" onsubmit="submitContactForm(event)">
+  <form id="contact-form" class="feature-zone">
     <label class="required">
       <span>Your Name</span>
       <input type="text" name="name" />
@@ -48,12 +48,14 @@
     <button type="submit">Send</button>
   </form>
   <script>
-    var form = document.getElementById('contact-form');
     var submitted = false;
-    function submitContactForm(event) {
-      event.preventDefault();
+    var form = document.getElementById('contact-form');
+    console.debug(form ? 'form initialized' : 'form not initialized');
+    form.addEventListener('submit', function(event) {
+      console.debug('form submit event', event);
       if (!submitted) {
         submitted = true;
+        event.preventDefault();
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'https://hooks.zapier.com/hooks/catch/3763764/qa546d/', true);
         xhr.send(JSON.stringify({
@@ -66,7 +68,7 @@
         }));
       }
       form.reset();
-      alert(`Thank you! An Aurelia team member will be in contact with you shortly!`);
-    };
+      alert('Thank you! An Aurelia team member will be in contact with you shortly!');
+    });
   </script>
 </section>
