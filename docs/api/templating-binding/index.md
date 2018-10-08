@@ -103,6 +103,49 @@ No description available.
 
 
 
+### LetBinding
+
+No description available.
+
+#### Properties
+
+
+#### Methods
+
+
+* `bind(source?: any): any` - 
+  * `source?: any` - Binding context
+
+
+
+* `call(context?: any): any` - 
+  * `context?: any` - No description available
+
+
+* `connect(): any` - 
+
+
+* `unbind(): any` - 
+
+
+* `updateTarget(): any` - 
+
+
+
+### LetExpression
+
+No description available.
+
+#### Properties
+
+
+#### Methods
+
+
+* `createBinding(): any` - 
+
+
+
 ### SyntaxInterpreter
 
 No description available.

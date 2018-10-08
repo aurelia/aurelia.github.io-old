@@ -1032,6 +1032,110 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
 <a href="http://pragmatic-coder.net/using-a-state-container-with-aurelia/" target="_blank">this article</a>
 .</p>
 </section>
+<section><h2 id="resetting-the-store-to-a-specific-state">Resetting the store to a specific state</h2><p>Occasionally it might be necessary to <em>reset</em> the store to a specific state, without running through it built-in queue and thus without notifying middlewares.
+A use case for this can be restoring the initial state or time-travelling with the Redux-DevTools extension. To do so use the method <code>resetToState</code> and pass in the desired state.
+The result will be that a new state is emitted and your subscriptions will receive it.</p>
+<blockquote>
+<p>Keep in mind that this feature should be used with caution as it might introduce unintended side effects, especially in collaboration with the Redux DevTools, as the reset states are not tracked by it.</p>
+</blockquote>
+</section>
+<section><h2 id="two-way-binding-and-state-management">Two-way binding and state management</h2><p>Two-way binding definitely has its merits when it comes to easily develop applications. By having Aurelia take care of synchronizing of the View and ViewModel a lot of work gets done for free.
+This behavior though becomes troublesome when working with a central state management. Remember, the primary vision is to do state modifications only via dispatching actions. This way we guarantee a single source of truth and no side-effects.
+Yet exactly the later is what a two-way binding introduces if you bind your VM directly to state objects. So instead of two-way binding to state objects you should:</p>
+<ul>
+<li>Create a new property, reflecting the state part you'd like to modify and bind to that.</li>
+<li>When changes are made, persist the changes by dispatching an action which uses the binding models values</li>
+<li>After dispatching make sure to update the binding model to match any updates to the object happening during dispatch</li>
+</ul>
+<code-listing heading="Sub-state selection">
+  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+
+    <span class="token comment">/*
+     * state: {
+     *  firstName: string,
+     *  lastName: string
+     * }
+     */</span>
+
+    <span class="token comment">// app.ts</span>
+    <span class="token operator">...</span>
+
+    <span class="token keyword">function</span> <span class="token function">updateUser</span><span class="token punctuation">(</span>state<span class="token punctuation">:</span> State<span class="token punctuation">,</span> model<span class="token punctuation">:</span> State<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> state<span class="token punctuation">,</span> model<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    @<span class="token function">autoinject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    @<span class="token function">inlineView</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`
+      &lt;template>
+        Firstname: &lt;input type="text" value.bind="model.firstName">
+        Lastname: &lt;input type="text" value.bind="model.lastName">
+        &lt;button click.delegate="updateUser()">Update&lt;/button>
+      &lt;/template>
+    `</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      <span class="token keyword">public</span> state<span class="token punctuation">:</span> State<span class="token punctuation">;</span>
+      <span class="token keyword">public</span> model<span class="token punctuation">:</span> State<span class="token punctuation">;</span>
+
+      <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> store<span class="token punctuation">:</span> Store<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span><span class="token function">registerAction</span><span class="token punctuation">(</span><span class="token string">"updateUser"</span><span class="token punctuation">,</span> updateUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span>newState<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> newState<span class="token punctuation">;</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>model <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> newState<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// take care of shallow cloning</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">updateUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span>updateUser<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>model<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+    <span class="token comment">/*
+     * state: {
+     *  firstName: string,
+     *  lastName: string
+     * }
+     */</span>
+
+    <span class="token comment">// app.js</span>
+    <span class="token operator">...</span>
+
+    <span class="token keyword">function</span> <span class="token function">updateUser</span><span class="token punctuation">(</span>state<span class="token punctuation">,</span> model<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> state<span class="token punctuation">,</span> model<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    @<span class="token function">autoinject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    @<span class="token function">inlineView</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`
+      &lt;template>
+        Firstname: &lt;input type="text" value.bind="model.firstName">
+        Lastname: &lt;input type="text" value.bind="model.lastName">
+        &lt;button click.delegate="updateUser()">Update&lt;/button>
+      &lt;/template>
+    `</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> store<span class="token punctuation">:</span> Store<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span><span class="token function">registerAction</span><span class="token punctuation">(</span><span class="token string">"updateUser"</span><span class="token punctuation">,</span> updateUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span>newState<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> newState<span class="token punctuation">;</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>model <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> newState<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// take care of shallow cloning</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token function">updateUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span>updateUser<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>model<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<p>Alternatively you can resort to only using <code>one-time</code>, <code>to-view</code>, <code>one-way</code> and handle the updates yourself.</p>
+</section>
 <section><h2 id="recording-a-navigable-history-of-the-stream-of-states">Recording a navigable history of the stream of states</h2><p>Since the whole concept of this plugin is to stream states over time, it makes sense to also keep track of the historical changes. Aurelia Store supports this feature by turning on the history support during the plugin registration.</p>
 <code-listing heading="Registering the plugin with history support">
   <source-code lang="TypeScript"><pre class="language-typescript"><code>

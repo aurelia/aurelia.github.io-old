@@ -414,14 +414,36 @@
             "dest": "docs/cli/tasks"
           },
           {
-            "name": "Aurelia-CLI Bundler",
-            "src": "../cli/doc/article/en-US/aurelia-cli-bundler.md",
-            "dest": "docs/cli/bundler"
-          },
-          {
-            "name": "Webpack",
+            "name": "Webpack (default)",
             "src": "../cli/doc/article/en-US/webpack.md",
             "dest": "docs/cli/webpack"
+          },
+          {
+            "name": "Built-in Bundler (alternative)",
+            "description": "The CLI Built-in Bundler is an alternative bundler to Webpack. It provides similar capabilities but with much simpler configuration. If you have little or no experience with Webpack, we recommend our built-in bundler.",
+            "dest": "docs/cli/cli-bundler",
+            "items": [
+              {
+                "name": "Basics",
+                "src": "../cli/doc/article/en-US/cli-bundler/basics.md",
+                "dest": "docs/cli/cli-bundler/basics"
+              },
+              {
+                "name": "Dependency Management",
+                "src": "../cli/doc/article/en-US/cli-bundler/dependency-management.md",
+                "dest": "docs/cli/cli-bundler/dependency-management"
+              },
+              {
+                "name": "Advanced Features",
+                "src": "../cli/doc/article/en-US/cli-bundler/advanced.md",
+                "dest": "docs/cli/cli-bundler/advanced"
+              },
+              {
+                "name": "Cookbook",
+                "src": "../cli/doc/article/en-US/cli-bundler/cook-book.md",
+                "dest": "docs/cli/cli-bundler/cook-book"
+              }
+            ]
           },
           {
             "name": "Migrating",

@@ -1,11 +1,11 @@
 <section class="article">
   <header>
     <h1>Migrating</h1>
-    <h2>Introduction of the Aurelia CLI.</h2>
+    <h2>Migrate from CLI built-in bundler to Webpack, or from old built-in bundler to new auto-tracing bundler.</h2>
   </header>
 
   <article class="markdown">
-    <section><h2 id="aurelia-cli-bundler-to-webpack">Aurelia-CLI Bundler to Webpack</h2><p>There are differences between the Aurelia CLI bundler and the Webpack bundler. When you are migrating an existing application from the integrated bundler to Webpack there are a few things to keep in mind.</p>
+    <section><h2 id="from-cli-bundler-to-webpack">From CLI Bundler to Webpack</h2><p>There are differences between the Aurelia CLI bundler and the Webpack bundler. When you are migrating an existing application from the integrated bundler to Webpack there are a few things to keep in mind.</p>
 <p>The recommended way to migrate is to create a new Webpack application using the CLI, choosing similar technology as the project that you want to migrate. Then you would copy over the source code (in the <code>src</code> folder by default) and the unit tests (in the <code>test/unit</code> folder). After that you will have to make some changes to the codebase, which are explained below.</p>
 <p>Webpack requires the use of <code>PLATFORM.moduleName()</code> for any module reference in the code, except for the import statements. <code>PLATFORM</code> can be imported using <code>import {PLATFORM} from 'aurelia-pal';</code>.</p>
 <p>A few examples:</p>
@@ -18,7 +18,54 @@
 </ul>
 <p>The Aurelia CLI bundler gets its bundle configuration from the <code>aurelia_project/aurelia.json</code> file. This is different for Webpack, where the bundle configuration is inside <code>webpack.config.js</code>. Webpack projects created by the CLI use Aurelia's Webpack Plugin, which you'll find in <code>webpack.config.js</code>.</p>
 <p>If you use SASS or LESS, then you are going to have to import the stylesheets differently. When you include stylesheets and use the Aurelia CLI bundler, then your <code>&lt;require&gt;</code> statements will have the <code>.css</code> extension: <code>&lt;require from=&quot;styles/my-stylesheet.css&quot;&gt;&lt;/require&gt;</code>. When you use Webpack you have to change this into the <code>.sass</code> or <code>.less</code> extension: <code>&lt;require from=&quot;styles/my-stylesheet.sass&quot;&gt;&lt;/require&gt;</code>.</p>
-</require>
+</section>
+<section><h2 id="upgrade-to-auto-tracing-bundler-100-beta1-or-above">Upgrade to Auto-Tracing Bundler (1.0.0-beta.1 or above)</h2><p>This is for existing CLI built-in bundler (RequireJS/SystemJS) users. It is irrelevant to Webpack users.</p>
+<p>Auto-tracing bundler in 1.0.0-beta.1 replaced 
+<a href="https://github.com/amodrojs/amodro-trace" target="_blank">amodro-trace</a>
+ based bundler. The implementation is totally new, but on the surface, we maintain maximum backward compatibility.</p>
+<p>Most of existing apps should still work without any modification of <code>aurelia.json</code>. But you could be caught with some bugs and one breaking change: the way to reference non-js main file is changed. The non-js main (or missing main) is used by some pure css npm package like font-awesome v4 and normalize.css.</p>
+<p>For example font-awesome v4, you should remove the explicit dependency configuration <code>{&quot;name&quot;: &quot;font-awesome&quot;, ...</code> from <code>aurelia.json</code>, have a look at <a href="/docs/cli/cli-bundler/cook-book">cook-book</a> on how to use font-awesome v4 and normalize.css with latest CLI bundler. It is only easier.</p>
+<p>Once your app works, you should start to cleanup <code>aurelia.json</code> vendor-bundle dependencies to take advantages of auto-tracing. Following are the minimum required dependencies.</p>
+<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+  <span class="token string">"aurelia-bootstrapper"</span><span class="token punctuation">,</span>
+  <span class="token string">"aurelia-loader-default"</span><span class="token punctuation">,</span>
+  <span class="token string">"aurelia-pal-browser"</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span>
+    <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"aurelia-testing"</span><span class="token punctuation">,</span>
+    <span class="token string">"env"</span><span class="token punctuation">:</span> <span class="token string">"dev"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment">// for requirejs</span>
+  <span class="token string">"text"</span><span class="token punctuation">,</span>
+  <span class="token comment">// or for systemjs</span>
+  <span class="token comment">// {</span>
+  <span class="token comment">//   "name": "text",</span>
+  <span class="token comment">//   "path": "../node_modules/systemjs-plugin-text",</span>
+  <span class="token comment">//   "main": "text"</span>
+  <span class="token comment">// }</span>
+  
+</code></pre></source-code></code-listing>
+<p>For any 3rd party dependency, if it's not a shim (has <code>&quot;deps&quot;</code> or <code>&quot;exports&quot;</code> or both), not a custom local package, not a package alias, you can remove its config. Auto-tracing bundles npm packages automatically without manual configuration in <code>aurelia.json</code>.</p>
+<p>The new bundler also uses cache to speed up consecutive builds. To turn it on, update <code>aurelia.json</code> file. You can use <code>&quot;cache&quot;: true</code> to turn it on for all environments.</p>
+<code-listing><source-code lang="javascript"><pre class="language-javascript"><code>
+  <span class="token string">"options"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"minify"</span><span class="token punctuation">:</span> <span class="token string">"stage &amp; prod"</span><span class="token punctuation">,</span>
+    <span class="token string">"sourcemaps"</span><span class="token punctuation">:</span> <span class="token string">"dev &amp; stage"</span><span class="token punctuation">,</span>
+    <span class="token string">"rev"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token string">"cache"</span><span class="token punctuation">:</span> <span class="token string">"dev &amp; stage"</span>
+  <span class="token punctuation">}</span>
+  
+</code></pre></source-code></code-listing>
+<p>You would need the new task file for command <code>au clear-cache</code>. Use latest cli to create a new app choosing built-in bundler. Then copy following files from the new app to your existing app:</p>
+<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+  aurelia_project<span class="token operator">/</span>tasks<span class="token operator">/</span>clear<span class="token operator">-</span>cache<span class="token punctuation">.</span><span class="token function">js</span> <span class="token punctuation">(</span>or <span class="token punctuation">.</span>ts<span class="token punctuation">)</span>
+  aurelia_project<span class="token operator">/</span>tasks<span class="token operator">/</span>clear<span class="token operator">-</span>cache<span class="token punctuation">.</span>json
+  
+</code></pre></source-code></code-listing>
+<p>Only for esnext app (not TypeScript app), do <code>npm install --save-dev gulp-cache</code> or <code>yarn add -D gulp-cache</code>, copy the new <code>aurelia_project/tasks/transpile.js</code> which further improves performance using gulp-cache to cache transpiling result.</p>
+<p>For more information, read <a href="/docs/cli/cli-bundler">Built-in Bundler Chapter</a>.</p>
+</section>
+<section><h2 id="update-3rd-party-plugin-installation-guide">Update 3rd party plugin installation guide</h2><p>For all Aurelia plugin authors, you should update the installation guide to remove dedicated CLI guide. The installation of any Aurelia plugin is now same for Webpack and CLI bundler users, just do <code>npm install your-plugin</code>.
+</require></p>
 </section>
 
   </article>

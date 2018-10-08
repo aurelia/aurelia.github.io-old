@@ -1,0 +1,218 @@
+<section class="article">
+  <header>
+    <h1>CLI + built-in Bundler Advanced</h1>
+    <h2>Advanced Usage of the CLI built-in Bundler.</h2>
+  </header>
+
+  <article class="markdown">
+    <section><h2 id="introduction">Introduction</h2><p>This page covers advanced usage of CLI built-in bundler. Thanks for the runtime capability of RequireJS and SystemJS, apps built with CLI bundler are very flexible at runtime.</p>
+</section>
+<section><h2 id="onrequiringmodule">onRequiringModule</h2><p>onRequiringModule is an API to customize CLI bundler's behavior on module tracing. Use this API in in <code>aurelia_project/tasks/build.js</code> (or <code>build.ts</code>).</p>
+<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+  <span class="token keyword">function</span> <span class="token function">writeBundles</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> buildCLI<span class="token punctuation">.</span><span class="token function">dest</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      onRequiringModule<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>moduleId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">//...</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+</code></pre></source-code></code-listing>
+<p>This optional callback is called before auto-tracing any moduleId (including auto-stubbing core Node.js modules).
+It would not be called for any modules provided by app's src files or explicit
+dependencies config in aurelia.json.</p>
+<p>You can return three types of result (all can be returned in promise):</p>
+<ol>
+<li>Boolean <code>false</code>: ignore this moduleId;</li>
+<li>Array of strings like <code>['a', 'b']</code>: ignore this moduleId, but require module id &quot;a&quot; and &quot;b&quot; instead;</li>
+<li>A string: the full JavaScript content of this module, must be in AMD format;</li>
+<li>All other returns are ignored and go onto performing auto-tracing.</li>
+</ol>
+<p>Here are examples of use cases:</p>
+<h3>1. ignore certain moduleId at bundling time, supply it at runtime</h3>
+<p>To build a multi-tenancy app, you can ignore moduleId &quot;client-info&quot; at bundling time, then fills it up at runtime.</p>
+<p>First, calm CLI bundler down on missing module.</p>
+<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+  <span class="token keyword">function</span> <span class="token function">writeBundles</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> buildCLI<span class="token punctuation">.</span><span class="token function">dest</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      onRequiringModule<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>moduleId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 1. Boolean `false`: ignore this moduleId;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>moduleId <span class="token operator">===</span> <span class="token string">'client-info'</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+</code></pre></source-code></code-listing>
+<p>If you use TypeScript, add a <code>ts-ignore</code> to calm TypeScript compiler down.</p>
+<code-listing><source-code lang="TypeScript"><pre class="language-typescript"><code>
+  <span class="token comment">// @ts-ignore TS2307</span>
+  <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> clientInfo <span class="token keyword">from</span> <span class="token string">'client-info'</span><span class="token punctuation">;</span>
+  
+</code></pre></source-code></code-listing>
+<p>Second, add a path in <code>aurelia_project/aurelia.json</code> to point it to runtime location you will supply it.</p>
+<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+  <span class="token string">"paths"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"root"</span><span class="token punctuation">:</span> <span class="token string">"src"</span><span class="token punctuation">,</span>
+    <span class="token string">"resources"</span><span class="token punctuation">:</span> <span class="token string">"resources"</span><span class="token punctuation">,</span>
+    <span class="token string">"elements"</span><span class="token punctuation">:</span> <span class="token string">"resources/elements"</span><span class="token punctuation">,</span>
+    <span class="token string">"attributes"</span><span class="token punctuation">:</span> <span class="token string">"resources/attributes"</span><span class="token punctuation">,</span>
+    <span class="token string">"valueConverters"</span><span class="token punctuation">:</span> <span class="token string">"resources/value-converters"</span><span class="token punctuation">,</span>
+    <span class="token string">"bindingBehaviors"</span><span class="token punctuation">:</span> <span class="token string">"resources/binding-behaviors"</span><span class="token punctuation">,</span>
+    <span class="token string">"client-info"</span><span class="token punctuation">:</span> <span class="token string">"../customize/client-info"</span>
+  <span class="token punctuation">}</span>
+  
+</code></pre></source-code></code-listing>
+<p>Note <code>&quot;../customize/client-info&quot;</code> is relative to <code>&quot;root&quot;: &quot;src&quot;</code>, it will resolve to <code>https://hostname/customize/client-info.js</code> at runtime when RequireJS loads the missing module. You need to make sure you supply an AMD or UMD format JavaScript file at that location. Technically it should be an anonymous AMD module, not named AMD module.</p>
+<div class="warning"><div class="icon"> <i></i> </div><h4>No CommonJS and Native ES Module at runtime for RequireJS</h4><p>
+CommonJS and Native ES Module are not supported at runtime, they are only acceptable at bundling time.</p>
+</div>
+<div class="warning"><div class="icon"> <i></i> </div><h4>Native ES Module at runtime for SystemJS</h4><p>
+Native ES Module is not supported at runtime. But SystemJS supports it with extra transpiler config, we would not go into details here.</p>
+</div>
+<p>For local dev, you can have a local <code>customize/client-info.js</code> something like this:</p>
+<code-listing><source-code lang="js"><pre class="language-javascript"><code>
+  <span class="token function">define</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token keyword">return</span> <span class="token string">"client-info"</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+</code></pre></source-code></code-listing>
+<p>Note SystemJS is different, the above path <code>&quot;client-info&quot;: &quot;../customize/client-info&quot;</code> doesn't work for SystemJS at runtime. For SystemJS, you need to:</p>
+<ol>
+<li>change the import line to <code>import * as clientInfo from 'client-info.js';</code> with <code>.js</code> extension.</li>
+<li>supply the runtime module at <code>https://hostname/client-info.js</code></li>
+</ol>
+<h3>2. bundling depedencies for missing module</h3>
+<p>This is a companion feature to support the previous use case. For instance, your runtime <code>client-info</code> module uses lodash, but your main app doesn't use lodash. We want to bundle lodash in our app.</p>
+<p>Example of <code>client-info</code> module code.</p>
+<code-listing><source-code lang="js"><pre class="language-javascript"><code>
+  <span class="token function">define</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'lodash'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>_<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token keyword">return</span> _<span class="token punctuation">.</span><span class="token function">camelCase</span><span class="token punctuation">(</span><span class="token string">"client-info"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+</code></pre></source-code></code-listing>
+<p>Bring lodash in.</p>
+<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+  <span class="token keyword">function</span> <span class="token function">writeBundles</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> buildCLI<span class="token punctuation">.</span><span class="token function">dest</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      onRequiringModule<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>moduleId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token comment">// 2. Array of strings like `['a', 'b']`: require module id "a" and "b" instead;</span>
+         <span class="token keyword">if</span> <span class="token punctuation">(</span>moduleId <span class="token operator">===</span> <span class="token string">'client-info'</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token string">'lodash'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+</code></pre></source-code></code-listing>
+<p>Note the above is not the only way to achieve the outcome. You can also do:</p>
+<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+  onRequiringModule<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>moduleId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 1. Boolean `false`: ignore this moduleId;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>moduleId <span class="token operator">===</span> <span class="token string">'client-info'</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+</code></pre></source-code></code-listing>
+<p>Plus</p>
+<code-listing heading="aurelia_project/aurelia.json">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+    <span class="token string">"bundles"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token comment">// ...</span>
+      <span class="token punctuation">{</span>
+        <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
+        <span class="token string">"prepend"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"dependencies"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+          <span class="token comment">// ...</span>
+          <span class="token comment">// force bundling lodash</span>
+          <span class="token string">"lodash"</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  </code></pre></source-code>
+</code-listing>
+<h3>3. supply module implementation directly</h3>
+<p>In previous chapter &quot;Dependency Management&quot;, we said</p>
+<blockquote>
+<p>With jquery in prepend, please don't <code>import $ from 'jquery'</code> in any code. Otherwise, auto tracing will bring jquery npm package into bundler again, causes duplicated jquery loading (one prepend before <code>require.js</code>, one npm package after <code>require.js</code>).</p>
+</blockquote>
+<p>Here is how you can still allow <code>import $ from 'jquery'</code>.</p>
+<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+  onRequiringModule<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>moduleId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 3. A string: the full JavaScript content of this module, must be in AMD format;</span>
+    <span class="token comment">// just return global jQuery object</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>moduleId <span class="token operator">===</span> <span class="token string">'jquery'</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token template-string"><span class="token string">`define(function() {return window.jQuery});`</span></span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+</code></pre></source-code></code-listing>
+<p>This trick is particularly useful if you want to test your source code in Node.js env (where you want to load npm package jquery), and run your app in browser with jquery prepended.</p>
+</section>
+<section><h2 id="global-wrapshim">Global wrapShim</h2><p>In previous chapter &quot;Dependency Management&quot;, we showed <code>wrapShim</code> per shim. You can also set it globally.</p>
+<code-listing heading="aurelia_project/aurelia.json">
+  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+    <span class="token string">"build"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"loader"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"require"</span><span class="token punctuation">,</span>
+        <span class="token string">"configTarget"</span><span class="token punctuation">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
+        <span class="token string">"includeBundleMetadataInConfig"</span><span class="token punctuation">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+        <span class="token string">"config"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+          <span class="token string">"wrapShim"</span><span class="token punctuation">:</span> <span class="token boolean">true</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  </code></pre></source-code>
+</code-listing>
+<p><code>wrapShim</code> wraps shimmed legacy code in a function. This will delay the execution of the legacy code to module loading time.</p>
+</section>
+<section><h2 id="npm-package-alias">Npm package alias</h2><p>In dependency config, there are two more fields you can play with:</p>
+<ul>
+<li><code>path</code> - This is a path to the folder where the package's source is located. This path is relative to your application's <code>src</code> folder.</li>
+<li><code>main</code> - This is the main module (entry point) of the package, relative to the <code>path</code>. It works with or without <code>.js</code> file extension.</li>
+</ul>
+<p>For instance, monaco-languageclient wants to use a patched version of vscode. You can alias vscode like this:</p>
+<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+  <span class="token punctuation">{</span>
+    <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"vscode"</span><span class="token punctuation">,</span>
+    <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"../node_modules/monaco-languageclient/lib"</span><span class="token punctuation">,</span>
+    <span class="token string">"main"</span><span class="token punctuation">:</span> <span class="token string">"vscode-compatibility"</span>
+  <span class="token punctuation">}</span>
+  
+</code></pre></source-code></code-listing>
+</section>
+<section><h2 id="local-copy-of-npm-package">Local copy of npm package</h2><p>Similar to the above example, you can do:</p>
+<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+  <span class="token punctuation">{</span>
+    <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"my-awesome-package"</span><span class="token punctuation">,</span>
+    <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"../my-awesome-package"</span><span class="token punctuation">,</span>
+    <span class="token comment">// main field is optional, as long as you have a package.json in</span>
+    <span class="token comment">// my-awesome-package folder, CLI bundler can read it and find main file</span>
+    <span class="token string">"main"</span><span class="token punctuation">:</span> <span class="token string">"index"</span>
+  <span class="token punctuation">}</span>
+  
+</code></pre></source-code></code-listing>
+<p>If it is a single-file package, you can merge path and main:</p>
+<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+  <span class="token punctuation">{</span>
+    <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"my-awesome-package"</span><span class="token punctuation">,</span>
+    <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"../my-awesome-package/the-entry-file.js"</span>
+  <span class="token punctuation">}</span>
+  
+</code></pre></source-code></code-listing>
+<p>This short-cut can also be used in npm package alias.</p>
+</section>
+<section><h2 id="lazy-bundling-of-main-file">Lazy bundling of main file</h2><p>The default behavior on npm package main file:</p>
+<ul>
+<li>lazy loading for any package without explicit config.</li>
+<li>eager loading for package with explicit config. This design suggests you only use explicit config on lib that is not explicitly required by your code (directly or indirectly).</li>
+<li>you can use <code>&quot;lazyMain&quot;: true</code> in explicit config to force lazy loading.</li>
+</ul>
+<p>For example, you have a local copy of lodash, but don't want to pack main file (the main file imports all lodash features).</p>
+<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+  <span class="token punctuation">{</span>
+    <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"lodash"</span><span class="token punctuation">,</span>
+    <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"../lodash"</span><span class="token punctuation">,</span>
+    <span class="token comment">// you can let CLI bundler to find main file in package.json</span>
+    <span class="token comment">// or explicitly name main file</span>
+    <span class="token comment">// "main": "lodash"</span>
+    <span class="token string">"lazyMain"</span><span class="token punctuation">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span>
+  
+</code></pre></source-code></code-listing>
+<p>With lazyMain setup, if you only use <code>import map from 'lodash/map';</code>, only <code>loash/map.js</code> will be bundled.</p>
+<p>lazyMain would not prevent bundling the main file when you use <code>import _ from 'lodash';</code>, it only ensures not bundling it blindly.</p>
+</section>
+
+  </article>
+</section>
