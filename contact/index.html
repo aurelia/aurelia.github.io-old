@@ -85,10 +85,8 @@
   <script>
     var submitted = false;
     var form = document.getElementById('contact-form');
-    console.debug(form ? 'form initialized' : 'form not initialized');
-    form.addEventListener('submit', function(event) {
-      console.debug('form submit event', event);
-      if (!submitted) {
+    window.addEventListener('submit', function(event) {
+      if (event.target === form && !submitted) {
         submitted = true;
         event.preventDefault();
         var xhr = new XMLHttpRequest();
@@ -104,7 +102,7 @@
       }
       form.reset();
       alert('Thank you! An Aurelia team member will be in contact with you shortly!');
-    });
+    }, true);
   </script>
 </section>
 
