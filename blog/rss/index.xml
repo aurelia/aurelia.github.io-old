@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Mon Oct 08 2018 16:52:01 GMT-0700 (PDT)</lastBuildDate>
+    <lastBuildDate>Sun Nov 04 2018 20:26:51 GMT-0800 (PST)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia 2018 Q3 Report]]></title>
+      <link>http://aurelia.io/blog/2018/11/04/aurelia-2018-q3-report</link>
+      <description><![CDATA[The third quarter of 2018 was filled with major advances in our vNext Aurelia implementation along with a few cool new updates in today's Aurelia. Read on to hear about what we've accomplished and what's next as we round out 2018 and head into 2019.]]></description>
+      <pubDate>Sun Nov 04 2018 20:26:49 GMT-0800 (PST)</pubDate>
+    </item>
     <item>
       <title><![CDATA[The New Aurelia-CLI Auto-tracing Bundler]]></title>
       <link>http://aurelia.io/blog/2018/10/08/release-aurelia-cli-with-auto-tracing-bundler</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2018/01/03/aurelia-2018-roadmap</link>
       <description><![CDATA[2017 was a great year for Aurelia but 2018 is shaping up to be even better!]]></description>
       <pubDate>Wed Jan 03 2018 10:02:07 GMT-0800 (PST)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Release Notes - December 2017]]></title>
-      <link>http://aurelia.io/blog/2017/12/20/aurelia-release-notes-december-2017</link>
-      <description><![CDATA[2017 is almost at an end. So, we wanted to close out this year with another set of releases to Aurelia, its plugins and tools. Below you can read the details on the bug fixes, performance improvements and new features available in the latest libraries.]]></description>
-      <pubDate>Wed Dec 20 2017 11:20:01 GMT-0800 (PST)</pubDate>
     </item>
   </channel>
 </rss>
