@@ -80,6 +80,11 @@
       "name": "Get in Touch",
       "src": "./src/contact.html",
       "dest": "contact"
+    },
+    {
+      "name": "Thank You",
+      "src": "./src/thanks.html",
+      "dest": "thanks"
     }
   ],
   "notFound":{
