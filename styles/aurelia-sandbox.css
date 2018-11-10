@@ -1,0 +1,74 @@
+h4:first-child {
+  margin: -20px -20px 15px;
+  padding: 10px 0;
+  text-align: center;
+  background-color: #6d50a2;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 400 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+p {
+  font-weight: 600;
+}
+
+label {
+  font-size: 0.9em;
+  margin-bottom: -5px;
+}
+
+input.au-target,
+select.au-target {
+  color: #222;
+  margin: 5px 0;
+}
+
+input[type="text"],
+input[type="color"] {
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #6d50a2;
+  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.4),
+    0 1px 0 0 rgba(255, 255, 255, 0.2);
+}
+
+input[type="color"] {
+  padding: 0;
+}
+
+button {
+  padding: 3px 10px 5px;
+  border-radius: 6px;
+  background-color: #ed2b88;
+  color: white;
+  border: 1px solid #6d50a2;
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+}
+
+button:active {
+  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+table.table {
+  color: #222;
+}
+
+a.au-target {
+  color: #ed2b88 !important;
+}
+
+output {
+  background-color: rgb(247, 247, 247);
+  border-radius: 6px;
+  padding: 16px;
+  display: block;
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2),
+    inset 0 0 10px 0 rgba(154, 132, 186, 0.2);
+}
