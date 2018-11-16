@@ -263,6 +263,12 @@
         "package": "../testing/package.json",
         "src": "../testing/dist/commonjs/aurelia-testing.d.ts",
         "dest": "docs/api/testing"
+      },
+      {
+        "name": "Validation",
+        "package": "../validation/package.json",
+        "src": "../validation/dist/aurelia-validation.d.ts",
+        "dest": "docs/api/validation"
       }
     ]
   },
