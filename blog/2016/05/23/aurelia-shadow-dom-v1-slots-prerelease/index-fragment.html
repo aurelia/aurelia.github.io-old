@@ -11,8 +11,12 @@
 <a href="http://w3c.github.io/webcomponents/spec/shadow/" target="_blank">the Shadow DOM v1 spec</a>
  is used to declare how two separate DOM trees can be merged together to produce a single visual representation. Why is this important? Well, when creating custom elements, your custom element often has a set of DOM nodes that represent the view of the element. Then, when a developer uses the custom element, that developer may also place HTML inside the content of the element. This results in two DOM trees that must be merged together to produce the final visual.</p>
 <p>To illustrate this, imagine an Aurelia <code>name-tag</code> HTML component implemented like this:</p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">bindable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>color<span class="token punctuation">"</span></span> <span class="token attr-name">css</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>background: ${color}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./name-tag.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
     
@@ -27,22 +31,38 @@
     
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>footer<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Now, in another view, you want to use this <code>name-tag</code>, providing different names as content:</p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./name-tag.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
     
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name-tag</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>red<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>John<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name-tag</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name-tag</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>blue<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Bob<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name-tag</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Look back up at the <code>name-tag</code> view. Do you see the <code>slot</code> element? This tells the renderer where to &quot;project&quot; the content that is placed inside of the <code>name-tag</code>. So, in the first case, the text &quot;John&quot; will be rendered at the location of the <code>slot</code>. At runtime, the composed DOM tree will look something like this:</p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name-tag</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>header<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h3</span><span class="token punctuation">></span></span>HELLO<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h3</span><span class="token punctuation">></span></span>
@@ -55,13 +75,21 @@
     
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>footer<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name-tag</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 </section>
 <section><h2 id="what-else-can-it-do">What Else Can It Do?</h2><p>The scenario above uses a &quot;default&quot; slot because the <code>slot</code> has no <code>name</code> attribute. In Shadow DOM, you can create as many slots as you want, provided that you give them different names. Then, the content that gets projected into the Shadow DOM must specify which slot it wants using a <code>slot</code> attribute. If it indicates no particular slot (or is plain text) it will get projected into the default slot. Here's an example of named slots:</p>
 <p><strong>Shadow DOM Tree for a named-slot Element</strong></p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
         The first slot:
@@ -74,11 +102,19 @@
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p><strong>Using the named-slot Element</strong></p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>named-slot</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>slot1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
         This Goes in Slot 1
@@ -88,11 +124,19 @@
         This Goes in Slot 2
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>named-slot</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p><strong>The Composed Visual Tree</strong></p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>named-slot</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
         The first slot:
@@ -109,12 +153,20 @@
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>named-slot</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>A nice feature of slots is that they can have fallback content. If nothing gets projected into the slot, the slot will render its fallback content:</p>
 <p><strong>Shadow DOM Tree for a fallback-content Element</strong></p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
         The first slot:
@@ -127,21 +179,37 @@
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p><strong>Using the fallback-content Element</strong></p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>fallback-content</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>slot1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
         This Goes in Slot 1
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>fallback-content</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p><strong>The Composed Visual Tree</strong></p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>named-slot</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
         The first slot:
@@ -156,14 +224,22 @@
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>named-slot</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Ok, now it's time to get crazy. What if the fallback content generates more slots!? Those fallback slots can be targeted by the content. Here's an example based on 
 <a href="https://webkit.org/blog/4096/introducing-shadow-dom-api/" target="_blank">a post from the WebKit team</a>
 :</p>
 <p><strong>Shadow DOM Tree for a contact-card Element</strong></p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>b</span><span class="token punctuation">></span></span>Name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>b</span><span class="token punctuation">></span></span>:
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slot</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fullName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -177,11 +253,19 @@
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>b</span><span class="token punctuation">></span></span>Address<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>b</span><span class="token punctuation">></span></span>:
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slot</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>address<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Unknown<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slot</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p><strong>Using the contact-card Element</strong></p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>contact-card</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fullName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>John Doe<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>address<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>123 Main Street<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
@@ -192,11 +276,19 @@
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>lastName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Bob<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>email<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>billy@bob.com<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>contact-card</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p><strong>The Composed Visual Tree</strong></p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>contact-card</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>b</span><span class="token punctuation">></span></span>Name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>b</span><span class="token punctuation">></span></span>:
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fullName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>John Doe<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">></span></span>
@@ -219,12 +311,20 @@
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>b</span><span class="token punctuation">></span></span>Address<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>b</span><span class="token punctuation">></span></span>:
       Unknown
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>contact-card</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>That was fun! Ok, what about slots, that target other slots with fallback content that generates slots...</p>
 <p><strong>Shadow DOM Tree for mixed-slot Element</strong></p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
         The first slot:
@@ -256,11 +356,19 @@
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p><strong>Shadow DOM Tree for slot-to-mixed-slot Element</strong></p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./mixed-slot<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
     
@@ -271,19 +379,35 @@
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mixed-slot</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p><strong>Using the slot-to-mixed-slot Element</strong></p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slot-to-mixed-slot</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>slot2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>This is user content for slot 2. (should appear in fallbackSlot2)<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slot-to-mixed-slot</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p><strong>The Composed Visual Tree</strong></p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slot-to-mixed-slot</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
         The first slot:
@@ -309,7 +433,11 @@
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slot-to-mixed-slot</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 </section>
 <section><h2 id="implementation-limitations">Implementation Limitations</h2><p>All the above is implemented with Aurelia. It also works with <em>template controllers</em> such as <code>if</code> and <code>repeat</code> which can dynamically generate content. We've fixed up our <code>@child</code> and <code>@children</code> decorators to understand the new model as well.</p>

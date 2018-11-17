@@ -17,8 +17,12 @@
 <p>The sample application in the Github repository provided (at the end of this post) has the other providers wired up, but you'll need to get app credentials and then enable these providers yourself. Once you've done that, click on the name of your app in the left-hand pane at the top. I called my app &quot;Aurelia Auth App.&quot;</p>
 <p>Then you'll see three icons; Add Firebase to your iOS app, Add Firebase to your Android app and Add Firebase to your web app. Choose the last one, &quot;Add Firebase to your web app&quot;, and you'll see a popup which contains the SDK script and some configuration details.</p>
 <p><strong>Mine looked similar to the following:</strong></p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://www.gstatic.com/firebasejs/3.6.1/firebase.js"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
     <span class="token operator">&lt;</span>script<span class="token operator">></span>
       <span class="token comment">// Initialize Firebase</span>
@@ -31,7 +35,11 @@
       <span class="token punctuation">}</span><span class="token punctuation">;</span>
       firebase<span class="token punctuation">.</span><span class="token function">initializeApp</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Don't use my snippet, make sure you get your own, or this tutorial might not work properly for you. Hold onto it; we'll need it soon.</p>
 </section>
@@ -39,25 +47,45 @@
 <p>Make sure you have 
 <a href="http://nodejs.org" target="_blank">Node.js</a>
  installed and then open up a terminal window and install the CLI as a global dependency:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     npm install aurelia<span class="token operator">-</span>cli <span class="token operator">-</span>g
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Once this completes, test the CLI installed correctly by typing: <code>au -v</code> and a version number should be displayed.</p>
 <p>Now, let's create our project. We'll call it &quot;aurelia-secured&quot; for the sake of this article, but you can call it whatever you want.</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     au <span class="token keyword">new</span> <span class="token class-name">aurelia</span><span class="token operator">-</span>secured
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Go through the prompts and choose whatever works for you. I favour using TypeScript, so I selected TypeScript over Babel. Keep in mind code snippets you might encounter in this post are TypeScript, but can be quickly changed to be plain old Javascript.</p>
 <p>During the prompts, make sure you choose to install the dependencies as well. This will just run <code>npm install</code>, but it is one less step to worry about if you do it during the CLI process.</p>
 </section>
 <section><h2 id="coding-our-app">Coding our app.</h2><p>Firstly, in the newly created application folder, open up <code>index.html</code> and above the script which imports <code>scripts/vendor-bundle.js</code> paste in your provided SDK code from Firebase. We do this to ensure Firebase's SDK loads before Aurelia code.</p>
 <p>Your <code>index.html</code> file should resemble closely to the following:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token operator">&lt;</span>body aurelia<span class="token operator">-</span>app<span class="token operator">=</span><span class="token string">"main"</span><span class="token operator">></span>
         <span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://www.gstatic.com/firebasejs/3.6.1/firebase.js"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
         <span class="token operator">&lt;</span>script<span class="token operator">></span>
@@ -73,13 +101,21 @@
         <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
         <span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"scripts/vendor-bundle.js"</span> data<span class="token operator">-</span>main<span class="token operator">=</span><span class="token string">"aurelia-bootstrapper"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
     <span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Congratulations, you just added Firebase into your app. If you're wondering why we are not using third party plugins like Aurelia Firebase, it is because I think Firebase already provides an excellent SDK that does not need to be over-complicated or abstracted.</p>
 <p>If you want to use a third-party plugin, nothing is stopping you. However, this article will be focusing on the official SDK only.</p>
 <p>If you thought that was easy, now we're going to add in authentication, which isn't any harder. Rather than make you write code step-by-step, line-by-line, <strong>just copy/paste the following well-documented code into <code>src/app.ts</code>:</strong></p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token comment">// For TypeScript, because Firebase is a global variable</span>
     declare <span class="token keyword">var</span> firebase<span class="token punctuation">;</span>
     
@@ -140,7 +176,11 @@
             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <blockquote>
 <p>If you would like to know how you can configure the scope to request additional information from a provider or other configuration options, the Firebase documentation has you covered 
@@ -148,8 +188,12 @@
 .</p>
 </blockquote>
 <p><strong>Lastly, add the following into <code>app.html</code>:</strong></p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token operator">&lt;</span>template<span class="token operator">></span>
         <span class="token operator">&lt;</span>a href<span class="token operator">=</span><span class="token string">"javascript:void(0);"</span> click<span class="token punctuation">.</span>delegate<span class="token operator">=</span><span class="token string">"login('google')"</span> <span class="token keyword">if</span><span class="token punctuation">.</span>bind<span class="token operator">=</span><span class="token string">"!userLoggedIn"</span><span class="token operator">></span>Login via Google<span class="token operator">&lt;</span><span class="token operator">/</span>a<span class="token operator">></span>
         <span class="token operator">&lt;</span>a href<span class="token operator">=</span><span class="token string">"javascript:void(0);"</span> click<span class="token punctuation">.</span>delegate<span class="token operator">=</span><span class="token string">"login('twiter')"</span> <span class="token keyword">if</span><span class="token punctuation">.</span>bind<span class="token operator">=</span><span class="token string">"!userLoggedIn"</span><span class="token operator">></span>Login via Twitter<span class="token operator">&lt;</span><span class="token operator">/</span>a<span class="token operator">></span>
@@ -162,7 +206,11 @@
             <span class="token operator">&lt;</span>img src<span class="token punctuation">.</span>bind<span class="token operator">=</span><span class="token string">"user.photoURL"</span> <span class="token keyword">if</span><span class="token punctuation">.</span>bind<span class="token operator">=</span><span class="token string">"user.photoURL"</span><span class="token operator">></span>
         <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
     <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>We are only showing login links if we are not already logged in using Aurelia's <code>if.bind</code> which conditionally adds and removes the element from the DOM. We could also use <code>show.bind</code> to achieve the same thing, but the element does not get removed.</p>
 <p>Lastly, we have a profile DIV which only gets shown if we are logged in, and we have a user object. Then inside we display some values.</p>

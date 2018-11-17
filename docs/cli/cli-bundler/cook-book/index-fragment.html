@@ -13,42 +13,82 @@ Note all following recipes are not for using <code>prepend</code>.</p>
 </ul>
 </section>
 <section><h2 id="jquery">jQuery</h2><p><code>npm install jquery</code> or <code>yarn add jquery</code></p>
-<code-listing heading="any-file${context.language.fileExtension}">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> $ <span class="token keyword">from</span> <span class="token string">'jquery'</span><span class="token punctuation">;</span>
-  </code></pre></source-code>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
-    <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> $ <span class="token keyword">from</span> <span class="token string">'jquery'</span><span class="token punctuation">;</span>
-  </code></pre></source-code>
+
+<code-listing heading="any-file.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> $ <span class="token keyword">from</span> <span class="token string">'jquery'</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> $ <span class="token keyword">from</span> <span class="token string">'jquery'</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 </section>
 <section><h2 id="normalizecss">normalize.css</h2><p><code>npm install normalize.css</code> or <code>yarn add normalize.css</code></p>
+
 <code-listing heading="app.html">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>normalize.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>normalize.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p><code>normalize.css</code>'s package name is interesting, it has file extension <code>.css</code> which matches its main file <code>node_modules/normalize.css/normalize.css</code>. We can directly do <code>&lt;require from=&quot;normalize.css&quot;&gt;&lt;/require&gt;</code> because <code>.css</code> tells Aurelia the correct file type, so Aurelia understands this is a css resource.</p>
 <p>Full path <code>&lt;require from=&quot;normalize.css/normalize.css&quot;&gt;&lt;/require&gt;</code> also works here.</p>
 <p>For some npm package like <code>some-css</code> with main file <code>node_modules/some-css/some.css</code>, we cannot use <code>&lt;require from=&quot;some-css&quot;&gt;&lt;/require&gt;</code> because Aurelia will mistake <code>some-css</code> as a JavaScript resource. We can only use <code>&lt;require from=&quot;some-css/some.css&quot;&gt;&lt;/require&gt;</code>.</p>
 </section>
 <section><h2 id="bootstrap-css-v4">Bootstrap CSS v4</h2><p><code>npm install jquery bootstrap popper.js</code></p>
-<code-listing heading="main${context.language.fileExtension}">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token string">'bootstrap'</span><span class="token punctuation">;</span> <span class="token comment">// load bootstrap JavaScript</span>
-  </code></pre></source-code>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
-    <span class="token keyword">import</span> <span class="token string">'bootstrap'</span><span class="token punctuation">;</span> <span class="token comment">// load bootstrap JavaScript</span>
-  </code></pre></source-code>
+
+<code-listing heading="main.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token string">'bootstrap'</span><span class="token punctuation">;</span> <span class="token comment">// load bootstrap JavaScript</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token string">'bootstrap'</span><span class="token punctuation">;</span> <span class="token comment">// load bootstrap JavaScript</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
+
 <code-listing heading="app.html">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bootstrap/css/bootstrap.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bootstrap/css/bootstrap.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Note both <code>&lt;require from=&quot;bootstrap/css/bootstrap.min.css&quot;&gt;&lt;/require&gt;</code> and <code>&lt;require from=&quot;bootstrap/dist/css/bootstrap.min.css&quot;&gt;&lt;/require&gt;</code> work.</p>
 </section>
@@ -83,30 +123,57 @@ Note all following recipes are not for using <code>prepend</code>.</p>
 <li>You choices on test, editor, then install dependencies with npm/yarn</li>
 </ul>
 <p><code>npm install jquery bootstrap popper.js</code> or <code>yarn add jquery bootstrap popper.js</code></p>
-<code-listing heading="main${context.language.fileExtension}">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token string">'bootstrap'</span><span class="token punctuation">;</span> <span class="token comment">// load bootstrap JavaScript</span>
-  </code></pre></source-code>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
-    <span class="token keyword">import</span> <span class="token string">'bootstrap'</span><span class="token punctuation">;</span> <span class="token comment">// load bootstrap JavaScript</span>
-  </code></pre></source-code>
+
+<code-listing heading="main.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token string">'bootstrap'</span><span class="token punctuation">;</span> <span class="token comment">// load bootstrap JavaScript</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token string">'bootstrap'</span><span class="token punctuation">;</span> <span class="token comment">// load bootstrap JavaScript</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
+
 <code-listing heading="app.scss">
-  <source-code lang="SCSS"><pre class="language-javascript"><code>
-    <span class="token comment">// customize bootstrap to use 24 columns</span>
-    <span class="token comment">// check node_modules/bootstrap/scss/_variables.scss</span>
-    <span class="token comment">// for all possible customization</span>
-    $grid<span class="token operator">-</span>columns<span class="token punctuation">:</span> <span class="token number">24</span><span class="token punctuation">;</span>
-    <span class="token comment">// compile node_modules/bootstrap/scss/bootstrap.scss</span>
-    @<span class="token keyword">import</span> <span class="token string">'../node_modules/bootstrap/scss/bootstrap'</span><span class="token punctuation">;</span>
-  </code></pre></source-code>
+  
+<source-code lang="SCSS">
+  <pre class="language-javascript">
+    <code>
+  <span class="token comment">// customize bootstrap to use 24 columns</span>
+  <span class="token comment">// check node_modules/bootstrap/scss/_variables.scss</span>
+  <span class="token comment">// for all possible customization</span>
+  $grid<span class="token operator">-</span>columns<span class="token punctuation">:</span> <span class="token number">24</span><span class="token punctuation">;</span>
+  <span class="token comment">// compile node_modules/bootstrap/scss/bootstrap.scss</span>
+  @<span class="token keyword">import</span> <span class="token string">'../node_modules/bootstrap/scss/bootstrap'</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
+
 <code-listing heading="app.html">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./app.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./app.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>With CLI Bundler, all scss files are compiled by <code>aurelia_project/tasks/process-css.js</code> before sending to bundler. CLI Bundler only sees the resulting <code>app.css</code> file not the source <code>app.scss</code> file. That's why we use <code>./app.css</code> in <code>app.html</code>.</p>
 <div class="info"><div class="icon"> <i></i> </div><h4>Difference with Webpack</h4><p>
@@ -115,205 +182,330 @@ Webpack behaves differently, it controls the whole scss compilation. With Webpac
 </section>
 <section><h2 id="bootstrap-css-v3-legacy">Bootstrap CSS v3 (legacy)</h2><p>We need to use shim.</p>
 <p><code>npm install jquery bootstrap@3.3.7</code> or <code>yarn add jquery bootstrap@3.3.7</code></p>
+
 <code-listing heading="aurelia_project/aurelia.json">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token string">"bundles"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
-      <span class="token comment">// ...</span>
-      <span class="token punctuation">{</span>
-        <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
-        <span class="token string">"prepend"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token string">"dependencies"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
-          <span class="token comment">// ...</span>
-          <span class="token punctuation">{</span>
-            <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"bootstrap"</span><span class="token punctuation">,</span>
-            <span class="token string">"deps"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"jquery"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-            <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"../node_modules/bootstrap"</span><span class="token punctuation">,</span>
-            <span class="token string">"main"</span><span class="token punctuation">:</span> <span class="token string">"dist/js/bootstrap.min"</span>
-          <span class="token punctuation">}</span>
-        <span class="token punctuation">]</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token string">"copyFiles"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"node_modules/bootstrap/dist/fonts/*"</span><span class="token punctuation">:</span> <span class="token string">"bootstrap/fonts"</span>
+  
+<source-code lang="JSON">
+  <pre class="language-javascript">
+    <code>
+  <span class="token string">"bundles"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token comment">// ...</span>
+    <span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
+      <span class="token string">"prepend"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string">"dependencies"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token comment">// ...</span>
+        <span class="token punctuation">{</span>
+          <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"bootstrap"</span><span class="token punctuation">,</span>
+          <span class="token string">"deps"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"jquery"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"../node_modules/bootstrap"</span><span class="token punctuation">,</span>
+          <span class="token string">"main"</span><span class="token punctuation">:</span> <span class="token string">"dist/js/bootstrap.min"</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"copyFiles"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"node_modules/bootstrap/dist/fonts/*"</span><span class="token punctuation">:</span> <span class="token string">"bootstrap/fonts"</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
-<code-listing heading="main${context.language.fileExtension}">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token string">'bootstrap'</span><span class="token punctuation">;</span>
-  </code></pre></source-code>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
-    <span class="token keyword">import</span> <span class="token string">'bootstrap'</span><span class="token punctuation">;</span>
-  </code></pre></source-code>
+
+<code-listing heading="main.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token string">'bootstrap'</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token string">'bootstrap'</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
+
 <code-listing heading="app.html">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bootstrap/css/bootstrap.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bootstrap/css/bootstrap.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Note both <code>&lt;require from=&quot;bootstrap/css/bootstrap.min.css&quot;&gt;&lt;/require&gt;</code> and <code>&lt;require from=&quot;bootstrap/dist/css/bootstrap.min.css&quot;&gt;&lt;/require&gt;</code> work. But if you use <code>bootstrap/dist/css/bootstrap.min.css</code>, you need to adjust <code>copyFiles</code> target folder to <code>bootstrap/dist/fonts</code>.</p>
-<code-listing heading="use in any-file${context.language.fileExtension}">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> $ <span class="token keyword">from</span> <span class="token string">'jquery'</span><span class="token punctuation">;</span>
-    <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'[data-toggle="popover"]'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">popover</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  </code></pre></source-code>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
-    <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> $ <span class="token keyword">from</span> <span class="token string">'jquery'</span><span class="token punctuation">;</span>
-    <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'[data-toggle="popover"]'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">popover</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  </code></pre></source-code>
+
+<code-listing heading="use in any-file.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> $ <span class="token keyword">from</span> <span class="token string">'jquery'</span><span class="token punctuation">;</span>
+  <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'[data-toggle="popover"]'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">popover</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> $ <span class="token keyword">from</span> <span class="token string">'jquery'</span><span class="token punctuation">;</span>
+  <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'[data-toggle="popover"]'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">popover</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 </section>
 <section><h2 id="font-awesome-v5-free">Font Awesome v5 Free</h2><p><code>npm install @fortawesome/fontawesome-free</code> or <code>yarn add @fortawesome/fontawesome-free</code></p>
+
 <code-listing heading="aurelia_project/aurelia.json">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token string">"bundles"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
-      <span class="token comment">// ...</span>
-    <span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token string">"copyFiles"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"node_modules/@fortawesome/fontawesome-free/webfonts/*"</span><span class="token punctuation">:</span> <span class="token string">"@fortawesome/fontawesome-free/webfonts"</span>
-    <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+<source-code lang="JSON">
+  <pre class="language-javascript">
+    <code>
+  <span class="token string">"bundles"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token comment">// ...</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"copyFiles"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"node_modules/@fortawesome/fontawesome-free/webfonts/*"</span><span class="token punctuation">:</span> <span class="token string">"@fortawesome/fontawesome-free/webfonts"</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
+
 <code-listing heading="app.html">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@fortawesome/fontawesome-free/css/all.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-      optional v4-shims
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@fortawesome/fontawesome-free/css/v4-shims.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fas fa-cube<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@fortawesome/fontawesome-free/css/all.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    optional v4-shims
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@fortawesome/fontawesome-free/css/v4-shims.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fas fa-cube<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 </section>
 <section><h2 id="font-awesome-v4">Font Awesome v4</h2><p><code>npm install font-awesome</code> or <code>yarn add font-awesome</code></p>
+
 <code-listing heading="aurelia_project/aurelia.json">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token string">"bundles"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
-      <span class="token comment">// ...</span>
-    <span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token string">"copyFiles"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"node_modules/font-awesome/fonts/*"</span><span class="token punctuation">:</span> <span class="token string">"font-awesome/fonts"</span>
-    <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+<source-code lang="JSON">
+  <pre class="language-javascript">
+    <code>
+  <span class="token string">"bundles"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token comment">// ...</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"copyFiles"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"node_modules/font-awesome/fonts/*"</span><span class="token punctuation">:</span> <span class="token string">"font-awesome/fonts"</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
+
 <code-listing heading="app.html">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>font-awesome/css/font-awesome.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fa fa-cube<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>font-awesome/css/font-awesome.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fa fa-cube<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 </section>
 <section><h2 id="foundation-css-v6">Foundation CSS v6</h2><p><code>npm install jquery what-input foundation-sites</code> or <code>yarn add jquery what-input foundation-sites</code></p>
-<code-listing heading="main${context.language.fileExtension}">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token string">'what-input'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> <span class="token string">'foundation-sites'</span><span class="token punctuation">;</span> <span class="token comment">// load foundation JavaScript</span>
-  </code></pre></source-code>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
-    <span class="token keyword">import</span> <span class="token string">'what-input'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> <span class="token string">'foundation-sites'</span><span class="token punctuation">;</span> <span class="token comment">// load foundation JavaScript</span>
-  </code></pre></source-code>
+
+<code-listing heading="main.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token string">'what-input'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token string">'foundation-sites'</span><span class="token punctuation">;</span> <span class="token comment">// load foundation JavaScript</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token string">'what-input'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token string">'foundation-sites'</span><span class="token punctuation">;</span> <span class="token comment">// load foundation JavaScript</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
-<code-listing heading="app${context.language.fileExtension}">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> $ <span class="token keyword">from</span> <span class="token string">'jquery'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> Foundation <span class="token keyword">from</span> <span class="token string">'foundation-sites'</span><span class="token punctuation">;</span>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-      <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment">// using ref="demo" in html template</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>tooltip <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Foundation<span class="token punctuation">.</span>Tooltip</span><span class="token punctuation">(</span><span class="token function">$</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>demo<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">// for better reuse, wrap foundation js features</span>
-        <span class="token comment">// behind Aurelia custom elements or attributes.</span>
-      <span class="token punctuation">}</span>
-      <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>tooltip<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">this</span><span class="token punctuation">.</span>tooltip<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-          <span class="token keyword">this</span><span class="token punctuation">.</span>tooltip <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+
+<code-listing heading="app.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> $ <span class="token keyword">from</span> <span class="token string">'jquery'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> Foundation <span class="token keyword">from</span> <span class="token string">'foundation-sites'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// using ref="demo" in html template</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>tooltip <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Foundation<span class="token punctuation">.</span>Tooltip</span><span class="token punctuation">(</span><span class="token function">$</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>demo<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// for better reuse, wrap foundation js features</span>
+      <span class="token comment">// behind Aurelia custom elements or attributes.</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>tooltip<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>tooltip<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>tooltip <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
-    <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> $ <span class="token keyword">from</span> <span class="token string">'jquery'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> Foundation <span class="token keyword">from</span> <span class="token string">'foundation-sites'</span><span class="token punctuation">;</span>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-      <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment">// using ref="demo" in html template</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>tooltip <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Foundation<span class="token punctuation">.</span>Tooltip</span><span class="token punctuation">(</span><span class="token function">$</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>demo<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">// for better reuse, wrap foundation js features</span>
-        <span class="token comment">// behind Aurelia custom elements or attributes.</span>
-      <span class="token punctuation">}</span>
-      <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>tooltip<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">this</span><span class="token punctuation">.</span>tooltip<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-          <span class="token keyword">this</span><span class="token punctuation">.</span>tooltip <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> $ <span class="token keyword">from</span> <span class="token string">'jquery'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> Foundation <span class="token keyword">from</span> <span class="token string">'foundation-sites'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// using ref="demo" in html template</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>tooltip <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Foundation<span class="token punctuation">.</span>Tooltip</span><span class="token punctuation">(</span><span class="token function">$</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>demo<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// for better reuse, wrap foundation js features</span>
+      <span class="token comment">// behind Aurelia custom elements or attributes.</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>tooltip<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>tooltip<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>tooltip <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
+
 <code-listing heading="app.html">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foundation-sites/css/foundation.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>demo<span class="token punctuation">"</span></span> <span class="token attr-name">data-tooltip</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>top<span class="token punctuation">"</span></span> <span class="token attr-name">tabindex</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Fancy word for a beetle.<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>demo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foundation-sites/css/foundation.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>demo<span class="token punctuation">"</span></span> <span class="token attr-name">data-tooltip</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>top<span class="token punctuation">"</span></span> <span class="token attr-name">tabindex</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Fancy word for a beetle.<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>demo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 </section>
 <section><h2 id="materialize-css-v1">Materialize CSS v1</h2><p><code>npm install jquery materialize-css</code> or <code>yarn add jquery materialize-css</code></p>
-<code-listing heading="app${context.language.fileExtension}">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> materialize <span class="token keyword">from</span> <span class="token string">'materialize-css'</span><span class="token punctuation">;</span>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-      <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment">// using ref="modal" in html template</span>
-        materialize<span class="token punctuation">.</span>Modal<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>modal<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">// for better reuse, wrap materialize js features</span>
-        <span class="token comment">// behind Aurelia custom elements or attributes.</span>
-      <span class="token punctuation">}</span>
-      <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">const</span> ins <span class="token operator">=</span> materialize<span class="token punctuation">.</span>Modal<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>modal<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>ins<span class="token punctuation">)</span> ins<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
+
+<code-listing heading="app.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> materialize <span class="token keyword">from</span> <span class="token string">'materialize-css'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// using ref="modal" in html template</span>
+      materialize<span class="token punctuation">.</span>Modal<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>modal<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// for better reuse, wrap materialize js features</span>
+      <span class="token comment">// behind Aurelia custom elements or attributes.</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
-    <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> materialize <span class="token keyword">from</span> <span class="token string">'materialize-css'</span><span class="token punctuation">;</span>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-      <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment">// using ref="modal" in html template</span>
-        materialize<span class="token punctuation">.</span>Modal<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>modal<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">// for better reuse, wrap materialize js features</span>
-        <span class="token comment">// behind Aurelia custom elements or attributes.</span>
-      <span class="token punctuation">}</span>
-      <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">const</span> ins <span class="token operator">=</span> materialize<span class="token punctuation">.</span>Modal<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>modal<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>ins<span class="token punctuation">)</span> ins<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
+    <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> ins <span class="token operator">=</span> materialize<span class="token punctuation">.</span>Modal<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>modal<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>ins<span class="token punctuation">)</span> ins<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> materialize <span class="token keyword">from</span> <span class="token string">'materialize-css'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// using ref="modal" in html template</span>
+      materialize<span class="token punctuation">.</span>Modal<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>modal<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// for better reuse, wrap materialize js features</span>
+      <span class="token comment">// behind Aurelia custom elements or attributes.</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> ins <span class="token operator">=</span> materialize<span class="token punctuation">.</span>Modal<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>modal<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>ins<span class="token punctuation">)</span> ins<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
+
 <code-listing heading="app.html">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>materialize-css/css/materialize.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>waves-effect waves-light btn modal-trigger<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#modal1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Modal<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal1<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal-content<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h4</span><span class="token punctuation">></span></span>Modal Header<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h4</span><span class="token punctuation">></span></span>
-          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>A bunch of text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal-footer<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#!<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal-close waves-effect waves-green btn-flat<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Agree<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>materialize-css/css/materialize.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>waves-effect waves-light btn modal-trigger<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#modal1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Modal<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal1<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal-content<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h4</span><span class="token punctuation">></span></span>Modal Header<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h4</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>A bunch of text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal-footer<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#!<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal-close waves-effect waves-green btn-flat<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Agree<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 </section>
 

@@ -22,16 +22,23 @@
 <li><code>expression</code>: a JavaScript expression.</li>
 </ul>
 <p>Typically you'll use the <code>bind</code> command since it does what you intend most of the time.  Consider using <code>one-time</code> in performance critical situations where the data never changes because it skips the overhead of observing the view-model for changes. Below are a few examples.</p>
-<code-listing heading="HTML Attribute Binding Examples">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>firstName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.two-way</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>lastName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.from-view</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>middleName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>external-link<span class="token punctuation">"</span></span> <span class="token attr-name">href.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>profile.blogUrl<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Blog<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>external-link<span class="token punctuation">"</span></span> <span class="token attr-name">href.to-view</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>profile.twitterUrl<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Twitter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>external-link<span class="token punctuation">"</span></span> <span class="token attr-name">href.one-time</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>profile.linkedInUrl<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>LinkedIn<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+<code-listing heading="HTML Attribute Binding Examples">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>firstName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.two-way</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>lastName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.from-view</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>middleName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>external-link<span class="token punctuation">"</span></span> <span class="token attr-name">href.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>profile.blogUrl<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Blog<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>external-link<span class="token punctuation">"</span></span> <span class="token attr-name">href.to-view</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>profile.twitterUrl<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Twitter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>external-link<span class="token punctuation">"</span></span> <span class="token attr-name">href.one-time</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>profile.linkedInUrl<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>LinkedIn<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>The first input uses the <code>bind</code> command which will automatically create <code>two-way</code> bindings for input value attribute bindings. The second and third input uses the <code>two-way</code> / <code>from-view</code> commands which explicitly set the binding modes. For the first and second inputs, their value will be updated whenever the bound view-model <code>firstName</code> / <code>lastName</code> properties are updated, and the those properties will also be updated whenever the inputs change. For the third input, changes in the bound view-model <code>middleName</code> property will not update the input value, however, changes in the input will update the view-model. The first anchor element uses the <code>bind</code> command which will automatically create a <code>to-view</code> binding for anchor href attributes. The other two anchor elements use the <code>to-view</code> and <code>one-time</code> commands to explicitly set the binding's mode.</p>
 </section>
@@ -48,16 +55,23 @@
 <li><code>expression</code>: a JavaScript expression. Use the special <code>$event</code> property to access the DOM event in your binding expression.</li>
 </ul>
 <p>Below are a few examples.</p>
-<code-listing heading="DOM Event Binding Examples">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">click.trigger</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cancel()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Cancel<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
 
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">click.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>select(<span class="token punctuation">'</span>yes<span class="token punctuation">'</span>)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Yes<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">click.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>select(<span class="token punctuation">'</span>no<span class="token punctuation">'</span>)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>No<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
-
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">blur.trigger</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>elementBlurred($event.target)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">change.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>lastName = $event.target.value<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+<code-listing heading="DOM Event Binding Examples">">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">click.trigger</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cancel()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Cancel<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+  
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">click.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>select(<span class="token punctuation">'</span>yes<span class="token punctuation">'</span>)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Yes<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">click.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>select(<span class="token punctuation">'</span>no<span class="token punctuation">'</span>)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>No<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+  
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">blur.trigger</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>elementBlurred($event.target)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">change.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>lastName = $event.target.value<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>The cancel button uses the <code>trigger</code> command to attach an event listener to the button element that will call the view-model's cancel method.  The yes and no buttons use the <code>delegate</code> command which will use the event delegation pattern.  The input elements have binding expressions that use the special <code>$event</code> property to access the 
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Event" target="_blank">DOM event</a>
@@ -67,28 +81,49 @@
  on events handled with <code>delegate</code> or <code>trigger</code> binding. Most of the time this is the behavior you want. To turn this off, return <code>true</code> from your event handler function.</p>
 </section>
 <section><h2 id="function-references">Function References</h2><p>While developing custom elements or custom attributes you may encounter a situation where you have a <code>@bindable</code> property that expects a reference to a function. Use the <code>call</code> binding command to declare and pass a function to the bindable property. The <code>call</code> command is superior to the <code>bind</code> command for this use-case because it will execute the function in the correct context, ensuring <code>this</code> is what you expect it to be.</p>
-<code-listing heading="Simple call binding">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-element</span> <span class="token attr-name">go.call</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>doSomething()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-element</span><span class="token punctuation">></span></span>
 
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>taskName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-element</span> <span class="token attr-name">go.call</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>doSomething(taskName)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-element</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+<code-listing heading="Simple call binding">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-element</span> <span class="token attr-name">go.call</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>doSomething()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-element</span><span class="token punctuation">></span></span>
+  
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>taskName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-element</span> <span class="token attr-name">go.call</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>doSomething(taskName)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-element</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Your custom element or attribute can invoke the function that was passed to the <code>@bindable</code> property using standard call syntax: <code>this.go();</code>. If you need to invoke the function with arguments, create an object whose keys are the argument names and whose values are the argument values, then invoke the function with this &quot;arguments object&quot;. The object's properties will be available for data-binding in the <code>call</code> binding expression.  For example, invoking the function with <code>this.go({ x: 5, y: -22, z: 11})</code>) will make <code>x</code>, <code>y</code> and <code>z</code> available for binding:</p>
+
 <code-listing heading="Accessing the call argument properties">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-element</span> <span class="token attr-name">execute.call</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>doSomething(x, y)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-element</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-element</span> <span class="token attr-name">execute.call</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>doSomething(x, y)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-element</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 </section>
 <section><h2 id="referencing-elements">Referencing Elements</h2><p>Use the <code>ref</code> binding command to create a reference to a DOM element. The ref command's most basic syntax is <code>ref=&quot;expression&quot;</code>. When the view is data-bound the specified expression will be assigned the DOM element.</p>
+
 <code-listing heading="Simple ref example">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>nameInput<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> ${nameInput.value}
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>nameInput<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> ${nameInput.value}
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>The <code>ref</code> command has several qualifiers you can use in conjunction with custom elements and attributes:</p>
 <ul>
@@ -100,12 +135,19 @@
 </ul>
 </section>
 <section><h2 id="string-interpolation">String Interpolation</h2><p>String interpolation expressions enable interpolating (surprise!) the result of an expression with text.  The best way to demonstrate this capability is with an example. Below are two span elements with data-bound textcontent:</p>
-<code-listing heading="String interpolation example">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">textcontent.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">'</span>Hello<span class="token punctuation">'</span> + firstName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
 
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>Hello ${firstName}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+<code-listing heading="String interpolation example">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">textcontent.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">'</span>Hello<span class="token punctuation">'</span> + firstName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+  
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>Hello ${firstName}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>The first span uses the <code>bind</code> command. The second uses string interpolation.  The interpolated version is much easier to read and easy to remember because the syntax matches the 
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals" target="_blank">template literal</a>
@@ -113,20 +155,34 @@
 <p>String interpolation can be used within html attributes as an alternative to to-view binding. By default, the mode of an interpolation binding is <code>to-view</code> and the result of the expression is always coerced to a string. Results that are <code>null</code> or <code>undefined</code> will result in empty string.</p>
 </section>
 <section><h2 id="element-content">Element Content</h2><p>The previous example compared string interpolation binding with <code>textcontent.bind</code>. Interpolation is easier to read but <code>textcontent.bind</code> can come in handy when you need to two-bind a <code>contenteditable</code> element:</p>
+
 <code-listing heading="textContent example">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">contenteditable</span> <span class="token attr-name">textcontent.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>firstName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">contenteditable</span> <span class="token attr-name">textcontent.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>lastName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">contenteditable</span> <span class="token attr-name">textcontent.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>firstName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">contenteditable</span> <span class="token attr-name">textcontent.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>lastName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>You may also need to bind html text to an element's <code>innerHTML</code> property:</p>
+
 <code-listing heading="Binding innerHTML">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">innerhtml.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>htmlProperty | sanitizeHTML<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">innerhtml</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>${htmlProperty | sanitizeHTML}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">innerhtml.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>htmlProperty | sanitizeHTML<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">innerhtml</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>${htmlProperty | sanitizeHTML}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <div class="danger"><div class="icon"> <i></i> </div><p>
 Always use HTML sanitization. We provide a simple converter that can be used. You are encouraged to use a more complete HTML sanitizer such as 

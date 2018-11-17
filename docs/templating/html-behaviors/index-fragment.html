@@ -1,0 +1,528 @@
+<section class="article">
+  <header>
+    <h1>Templating: HTML Behaviors Introduction</h1>
+    <h2>An overview of the Aurelia templating engine&#x27;s custom attribute and custom element functionality, including not only how to create basic versions, but how to use them both locally and globally in your application.</h2>
+  </header>
+
+  <article class="markdown">
+    <section><h2 id="introduction">Introduction</h2><p>The term &quot;HTML Behavior&quot; in Aurelia encompasses two basic concepts: Custom Elements and Custom Attributes. HTML Behaviors are a fundamental part of nearly every Aurelia application. They help to create componentized applications with highly reusable code. In this introductory document, we will explore some basic topics to help you build an understanding of working with these concepts in an Aurelia application.</p>
+</section>
+<section><h2 id="what-is-an-html-behavior">What is an HTML Behavior?</h2><p>HTML Behaviors are how you extend HTML with Custom Elements and Custom Attributes in an Aurelia application. Custom Elements are, as their name suggests, their own element in your markup. They generally have a view with some markup that will be rendered as part of a page in your application. Custom Attributes, on the other hand, can be used on standard HTML elements (such as <code>div</code> or <code>button</code>) or Custom Elements to change the behavior of the element. Both Custom Elements and Custom Attributes support Aurelia's strong data-binding.</p>
+<p>HTML Behaviors, with one exception, require you to create a class for the behavior. This class is called a &quot;ViewModel&quot; for both Custom Elements and Custom Attributes. A Custom Element's ViewModel is typically paired with an HTML &quot;View&quot;. A Custom Attribute's ViewModel is not paired with a view. Aurelia provides a naming convention for classes that allows you to tell the framework that a class is a ViewModel for a Custom Element or a Custom Attribute. This naming convention is very simple: append <code>CustomElement</code> or <code>CustomAttribute</code> to your ViewModel's name. It really is that simple.</p>
+<div class="info"><div class="icon"> <i></i> </div><h4>Custom Elements as Default</h4><p>
+Actually, you don't even need to append <code>CustomElement</code> to a class to turn it into a custom element. The reason for this is that if Aurelia can't match any other convention, and finds no explicit configuration, it will assume that the class is a custom element.</p>
+</div>
+<p>If you are using the naming convention for your HTML Behavior's class, then Aurelia will use the class's name to determine the name your behavior will have in an HTML view. The standard naming convention for JavaScript classes is <code>InitCaps</code>, meaning you start each word with a capital letter; however, HTML is case-insensitive, usually normalized to lower-case. To bridge this gap, Aurelia will take the class name, strip the <code>CustomElement</code> or <code>CustomAttribute</code> postfix from it, and then convert the class name to <code>dash-case</code>. This means that <code>HelloWorldCustomElement</code> becomes <code>hello-world</code> and <code>RedSquareCustomAttribute</code> becomes <code>red-square</code> when you use it in a template.</p>
+<p>You can override the naming convention and explicitly name your HTML Behavior by using a <code>@customAttribute</code> or <code>@customElement</code> decorator on your HTML Behavior's ViewModel. You pass a string to the decorator and this becomes the name your behavior will use. Aurelia will not alter this string in any way. This means that <code>@customElement('helloworld')</code> will give you a custom element named <code>&lt;helloworld&gt;</code>. These two decorators can be imported from the <code>aurelia-framework</code> module. When you use one of these decorators, there is no need to follow the naming convention mentioned above, as the use of the decorator tells Aurelia that you are creating a Custom Element or Custom Attribute. In fact, when you're using these decorators, the name of your class doesn't matter to Aurelia! Let's look at an example of using the <code>@customAttribute</code> decorator to explicitly name a custom attribute.</p>
+
+<code-listing heading="red-square.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>customAttribute<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">customAttribute</span><span class="token punctuation">(</span><span class="token string">'red-square'</span><span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">BlueSquare</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>As you see here, the custom attribute's name will be <code>red-square</code> even though the class is named <code>BlueSquare</code>. You obviously would not want to give a contradictory name like this in real code, but it's done here to show that the class name doesn't matter when you use the decorator to explicitly name your behavior.</p>
+<div class="info"><div class="icon"> <i></i> </div><h4>Naming Practices</h4><p>
+It's generally recommended that custom elements and custom attributes be named so that the HTML behavior has a hyphen in the name. Use <code>hello-world</code> as apposed to <code>helloworld</code>. While nothing in Aurelia or the browser is going to stop you, in order to be forward compatible with Web Components, we recommend always using a hyphenated name. A common practice is to adopt a two-letter prefix and use it throughout your company or application.</p>
+</div>
+</section>
+<section><h2 id="getting-the-dom-element-for-your-behavior">Getting the DOM Element for your Behavior</h2><p>When you are creating an HTML Behavior, there will be many instances where you will need to perform some manipulation of the DOM Element associated with your behavior. Initially, you might think, &quot;No big deal! I'll just use <code>document.querySelector</code> or jQuery to get the DOM Element.&quot; But this would fall apart very quickly, as an HTML Behavior is likely to be used repeatedly on a page. How would you figure out exactly which element to query for? Well, luckily, Aurelia gives you an extremely easy way to get a reference to the element your Behavior is associated with: just have it injected in to your ViewModel.</p>
+<p>When you tell Aurelia to inject an instance of the <code>Element</code> class in to your class, Aurelia will inject the DOM Element your HTML Behavior is associated with. So no need to futz around with DOM queries! Let's take our <code>red-square</code> attribute and have it actually set it's element to be a red square. Just assign the passed in object to a property on your class, and you're good to go.</p>
+
+<code-listing heading="red-square.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">inject</span><span class="token punctuation">(</span>Element<span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">RedSquareCustomAttribute</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>element <span class="token operator">=</span> element<span class="token punctuation">;</span>
+  
+      <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>height <span class="token operator">=</span> <span class="token string">'100px'</span><span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>backgroundColor <span class="token operator">=</span> <span class="token string">'red'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
+  @autoinject
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">RedSquareCustomAttribute</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> element<span class="token punctuation">:</span> Element<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>height <span class="token operator">=</span> <span class="token string">'100px'</span><span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>backgroundColor <span class="token operator">=</span> <span class="token string">'red'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Remember, you don't need jQuery to get the Element your HTML Behavior is attached to. Aurelia can provide it to you!</p>
+<div class="warning"><div class="icon"> <i></i> </div><h4>Try to Avoid Browser Globals</h4><p>
+In the above examples, we used a browser global: <code>Element</code>. Sometimes using browser globals can cause testing issues. That's not the case here. However, should you desire to leverage server-side rendering, you'll need to have a codebase free of browser globals. You may want to prepare for this in advance. To help you avoid browser globals, Aurelia provides a Platform Abstraction Layer (PAL) that provides three exports <code>DOM</code>, <code>FEATURE</code> and <code>PLATFORM</code>. In the case above, you could substitute <code>Element</code> for <code>DOM.Element</code>.</p>
+</div>
+</section>
+<section><h2 id="making-an-html-behavior-available-in-a-view">Making an HTML Behavior Available in a View</h2><p>So far, we've merely talked about creating HTML Behaviors, but creating a behavior isn't very useful if you can't use it. So how do you use one? Well, first we have to make it available in a view. HTML Behaviors (and other view resources) are not available globally by default. This means that you must let Aurelia know which resources will be available in each view. This is done using the <code>require</code> element. The <code>require</code> element has two attributes <code>from</code> and <code>as</code>. You <em>must</em> supply a value for the <code>from</code> attribute, while <code>as</code> is optional. You cannot use data-binding with the <code>from</code> or <code>as</code> attributes on <code>require</code>.  When you &quot;require in&quot; a view resource with a <code>require</code> element, Aurelia will make it available for use in your view.</p>
+
+<code-listing heading="Require an External Resource">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>my-custom-element<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-custom-element</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-custom-element</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The path you supply in the <code>from</code> attribute can take one of two forms: It can be relative to the root of your application or relative to the path of the view you are currently in. A path that does not have a <code>./</code> or <code>../</code> to start the path will be relative to the root of your application, while a path with <code>./</code> or <code>../</code> will be relative to your view's path. Note that you can use multiple <code>..</code>s to traverse up a directory tree as needed.</p>
+
+<code-listing heading="Relative Paths for External Resources">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./my-custom-element-one<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../another-dir/my-custom-attribute<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-custom-element-one</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-custom-element-one</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">my-custom-attribute</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The name the resource will take in your view is determined in one of three ways: by Aurelia convention, by explicit naming in the resource, or by being overridden using the <code>as</code> attribute. If you happen to be using multiple resources that have the same name, you must provide a value for the <code>as</code> attribute for all but one of the conflicting resources. The <code>as</code> attribute can also be used whenever you would like to alias the name of a resource. Perhaps the standard name for an HTML Behavior is really long and you want to give it a shorter name. The <code>as</code> attribute can help you out.</p>
+
+<code-listing heading="Overriding a Resource Name">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>my-custom-element-one<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../another-dir/my-custom-element-one<span class="token punctuation">"</span></span> <span class="token attr-name">as</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>override-the-name<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-custom-element-one</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-custom-element-one</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>override-the-name</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>override-the-name</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>You will typically not provide a file extension to the <code>from</code> attribute. There are multiple reasons for this. First, the file extension for files in your development environment may be different from the file extension the browser runs (such as <code>.ts</code> files when using TypeScript). Second, most (but not all) custom elements will require Aurelia to pull in both a javascript ViewModel as well as an HTML View. Aurelia's loader will determine which file extension needs to be appended to the file name you provide. There is one exception to this rule, though, Aurelia provides for &quot;HTML-only Custom Elements.&quot; You must tell Aurelia that you are utilizing an HTML-only custom element by providing the <code>.html</code> extension in the <code>from</code> attribute. This is common source of confusion for Aurelia developers, so it is important to remember this nuance to using the <code>require</code> element!</p>
+
+<code-listing heading="Sample Template With External Resources">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>my-custom-element<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./my-html-only-custom-element.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-custom-element</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-custom-element</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-html-only-custom-element</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-html-only-custom-element</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<div class="info"><div class="icon"> <i></i> </div><h4>The Inspiration for Require</h4><p>
+Aurelia's <code>require</code> element was inspired by the <code>import</code> statement in ES 2015. In the same way that modern JavaScript has modules which contain imports, so Aurelia's views are also modularized and can contain imports, which we accomplish via <code>require</code>. You may wonder why we didn't just name our element <code>import</code> instead of <code>require</code>. Those who have been using Aurelia for a while may remember that the initial name was in fact 'import'. The name was changed in order to enable compatibility with older version of Internet Explorer, which didn't like the use of <code>import</code>.</p>
+</div>
+</section>
+<section><h2 id="global-resources">Global Resources</h2><p>You are likely to have certain resources that you will use in multiple views while developing an Aurelia application. In these instances it might be wise to make these resources available globally in your application. Luckily, Aurelia provides you with this capability in a simple fashion. This is typically done at application startup in your <code>main.js</code> file (or whatever you call your application startup file). The <code>FrameworkConfiguration</code> class provides the <code>globalResources</code> which takes one or more strings that are paths to a resource as parameters. Globalized resources do not need to be required into a template.</p>
+<p>The file you use to configure Aurelia will have a <code>configure</code> method. Aurelia will call this method and pass an instance of the <code>Aurelia</code> class to it. This class provides a fluent interface for accessing the <code>FrameworkConfiguration</code> object via its <code>use</code> property. The methods on the <code>FrameworkConfiguration</code> object return the <code>FrameworkConfiguration</code> object to allow you to chain multiple calls together as shown below.</p>
+
+<code-listing heading="main.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    aurelia<span class="token punctuation">.</span>use
+      <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">globalResources</span><span class="token punctuation">(</span><span class="token string">'custom-element`, '</span>another<span class="token operator">-</span>directory<span class="token operator">/</span>custom<span class="token operator">-</span>attribute'<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+    aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>Aurelia<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">:</span> Aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    aurelia<span class="token punctuation">.</span>use
+      <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">globalResources</span><span class="token punctuation">(</span><span class="token string">'custom-element'</span><span class="token punctuation">,</span> <span class="token string">'another-directory/custom-attribute'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+    aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Note that the same rules regarding file extensions (only include it for HTML-only custom elements) apply for the paths passed to <code>globalResources</code>.  You can globalize anything you would use the <code>require</code> element for, including Custom Elements, HTML-only Custom Elements, Custom Attributes, Value Converters and Binding Behaviors.</p>
+</section>
+<section><h2 id="creating-bindable-properties-on-an-html-behavior">Creating Bindable Properties on an HTML Behavior</h2><p>As you likely know by now, one of Aurelia's key features is its strong data-bind system, and I'm sure you're itching to know how to create bindable properties on your HTML Behaviors. Well, you're in luck, as we're now ready to discuss the <code>@bindable</code> decorator. One last thing though: this section is a very basic introduction to creating bindable properties, and does not fully explore the topic. For a full explanation, we encourage you to check out the Custom Element and Custom Attribute documentation.</p>
+<p>The <code>@bindable</code> decorator can be imported from the <code>aurelia-framework</code> module. When you put the <code>@bindable</code> decorator on a property in your ViewModel, Aurelia will now allow you to bind to this property using all the binding commands Aurelia offers (<code>bind</code>, <code>two-way</code>, <code>one-way</code>, <code>one-time</code>, etc.). Let's look at a simple example in a Custom Element.</p>
+
+<code-listing heading="greet-customer.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">GreetCustomerCustomElement</span> <span class="token punctuation">{</span>
+    @bindable customerName <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing heading="greet-customer.html">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    Welcome to Pizza Planet, ${customerName}!
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing heading="Binding to the Custom Element">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./greet-customer<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>greet-customer</span> <span class="token attr-name">customer-name.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>greet-customer</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The page's <code>name</code> property will be bound to the <code>customerName</code> property of the <code>greet-customer</code> Custom Element. Note that the previously mentioned convention of converting JavaScript names to dash-case applies with bindable property names. They are converted from <code>camelCase</code> to <code>dash-case</code> when they appear as attributes in HTML.</p>
+<p>By default, bindable properties only allow <code>one-way</code> data binding. This means that data will flow <em>into</em> the HTML Behavior, but not <em>out of</em> the custom element. Luckily, this can be overridden, or be made explicit by passing a configuration object to the <code>@bindable</code> decorator with a property named <code>defaultBindingMode</code> set to one of the values of the <code>bindingMode</code> enumeration. This enumeration is located in the <code>aurelia-framework</code> module and has three values: <code>oneWay</code>, <code>twoWay</code>, and <code>oneTime</code>. Here is a quick example of how to set the default binding mode for a property to <code>two-way</code>:</p>
+
+<code-listing heading="greet-customer.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">,</span> bindingMode<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">GreetCustomerCustomElement</span> <span class="token punctuation">{</span>
+    @<span class="token function">bindable</span><span class="token punctuation">(</span><span class="token punctuation">{</span> defaultBindingMode<span class="token punctuation">:</span> bindingMode<span class="token punctuation">.</span>twoWay <span class="token punctuation">}</span><span class="token punctuation">)</span> customerName <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Binding with Custom Attributes is a bit more nuanced than Custom Elements in that Custom Attributes support three types of binding: single value, options binding, and dynamic options binding. In this document, we will only look at single value binding. Please check out the Custom Attribute documentation for examples of how to implement and use all three types of bindings.</p>
+<p>The <code>@bindable</code> decorator isn't used when doing single value binding with a Custom Attribute because all attributes have a <code>value</code> property by default. This is ensured by Aurelia. Instead, we implement a <code>valueChanged</code> callback function that Aurelia calls to alert us that the bound value of the Custom Attribute has changed. Aurelia will set the value to the <code>value</code> property of the Custom Attribute's ViewModel, and will pass two parameters to the <code>valueChanged</code> callback: the new value and the old value. Let's look at an example.</p>
+
+<code-listing heading="square.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">inject</span><span class="token punctuation">(</span>Element<span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SquareCustomAttribute</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>element <span class="token operator">=</span> element<span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>height <span class="token operator">=</span> <span class="token string">'100px'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token function">valueChanged</span><span class="token punctuation">(</span>newValue<span class="token punctuation">,</span> oldValue<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>backgroundColor <span class="token operator">=</span> newValue<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
+  @autoinject
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SquareCustomAttribute</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> element<span class="token punctuation">:</span> Element<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>height <span class="token operator">=</span> <span class="token string">'100px'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token function">valueChanged</span><span class="token punctuation">(</span>newValue<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> oldValue<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>backgroundColor <span class="token operator">=</span> newValue<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing heading="Simple Attribute Value Binding">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./square<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">square.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>color<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Aurelia will call the <code>valueChanged</code> callback whenever the bound value changes. This gives the attribute a chance to change the background color of the element. In this example, we don't even need to use the <code>value</code> property that Aurelia has set for us.</p>
+</section>
+<section><h2 id="inheritance-with-html-behaviors">Inheritance with HTML Behaviors</h2><p>For developers who want to leverage inheritance, bindable properties can be inherited through the class hierarchy for custom elements only (not custom attributes).</p>
+<p>In the following example we create a generic icon button component, <code>icon-button</code>, that is integrated with 
+<a href="http://fontawesome.io/" target="_blank">font awesome</a>
+.</p>
+
+<code-listing heading="icon-button.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-templating'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">IconButton</span><span class="token punctuation">{</span>
+    @bindable icon <span class="token operator">=</span> <span class="token string">'ban'</span><span class="token punctuation">;</span>
+  
+    <span class="token function">onClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">"Default method"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing heading="icon-button.html">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">click.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>onClick<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fa fa-${icon}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The next component extends the generic button, setting its default icon as well as a different <code>onClick</code> behavior.</p>
+
+<code-listing heading="add-button.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>useView<span class="token punctuation">,</span> customElement<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-templating'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>IconButton<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./icon-button'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">useView</span><span class="token punctuation">(</span><span class="token string">'./icon-button.html'</span><span class="token punctuation">)</span>
+  @<span class="token function">customElement</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AddButton</span> <span class="token keyword">extends</span> <span class="token class-name">IconButton</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>icon <span class="token operator">=</span> <span class="token string">'plus'</span><span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>onClick <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>add<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token function">add</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'Base add button'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>First, notice that in the above example, we declared <code>@useView('./icon-button.html')</code> to use the same view as the base class. If we had not supplied this, the framework would look for <code>./add-button.html</code> instead. Second, notice that we explicitly declared <code>@customElement()</code>. <em>Any time you inherit a custom element, you must add the <code>customElement</code> decorator.</em> Here's how these components would be used in a view:</p>
+
+<code-listing heading="view.html">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./icon-button<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./add-button<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>icon-button</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>icon-button</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>icon-button</span> <span class="token attr-name">icon</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cogs<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>icon-button</span><span class="token punctuation">></span></span>
+  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>add-button</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>add-button</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>add-button</span> <span class="token attr-name">icon</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>plus-square-o<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>add-button</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+</section>
+<section><h2 id="html-only-custom-elements">HTML-Only Custom Elements</h2><p>Earlier, we said that there is one exception to the rule that all HTML Behaviors must have a JavaScript class to act as a ViewModel, but we never explained just what that exception is. The exception is HTML Only Custom Elements. Aurelia provides you with the ability to create Custom Elements without needing to create a ViewModel class. This is great for those cases where you want to encapsulate something in to its own Custom Element, but whatever you are encapsulating isn't complex enough to need any complex logic and doesn't have any dependencies like data services.</p>
+<p>Creating an HTML Only Custom Element is as simple as creating an HTML view file and then requiring it in to your view with the <code>.html</code> extension, as mentioned in the &quot;Making an HTML Behavior Available in a View&quot; section above. You can even have bindable properties on your HTML Only Custom Element. These properties default to <code>one-way</code> databinding, but you can't change the default, though you are still free to explicitly set the binding direction when you bind to the Custom Element. To create bindable properties, just supply a comma separated list of property names to the <code>bindable</code> attribute on the <code>template</code> element as shown below.</p>
+
+<code-listing heading="hello-world.html">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">bindable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>firstName, lastName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    Hello, ${firstName} ${lastName}!
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing heading="app.html">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./hello-world.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>hello-world</span> <span class="token attr-name">first-name.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>firstName<span class="token punctuation">"</span></span> <span class="token attr-name">last-name.two-way</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>lastName<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>hello-world</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+</section>
+<section><h2 id="html-behavior-lifecycle">HTML Behavior Lifecycle</h2><p>All HTML Behaviors have a well defined lifecycle. Using this lifecycle, you can tap in and trigger code to run when appropriate. Below is a listing of the standard lifecycle callbacks:</p>
+<ol>
+<li><code>constructor()</code> - The view-model's constructor is called first.</li>
+<li><code>created(owningView: View, myView: View)</code> - If the view-model implements the <code>created</code> callback it is invoked next. If your behavior is a custom element, it's view has also been created and both the view-model and the view are connected to their controller. The created callback will receive the instance of the &quot;owningView&quot;. This is the view that the component is declared inside of. If the component itself has a view, this will be passed second.</li>
+<li><code>bind(bindingContext: Object, overrideContext: Object)</code> - Databinding is then activated on the view and view-model. If the view-model has a <code>bind</code> callback, it will be invoked at this time. The &quot;binding context&quot; to which the component is being bound will be passed first. An &quot;override context&quot; will be passed second. The override context contains information used to traverse the parent hierarchy and can also be used to add any contextual properties that the component wants to add. It should be noted that when the view-model has implemented the <code>bind</code> callback, the databinding framework will not invoke the changed handlers for the view-model's bindable properties until the &quot;next&quot; time those properties are updated. If you need to perform specific post-processing on your bindable properties, when implementing the <code>bind</code> callback, you should do so manually within the callback itself.</li>
+<li><code>attached()</code> - Next, the component is attached to the DOM (in document). If the view-model has an <code>attached</code> callback, it will be invoked at this time.</li>
+<li><code>detached()</code> - At some point in the future, the component may be removed from the DOM. If/When this happens, and if the view-model has a <code>detached</code> callback, this is when it will be invoked.</li>
+<li><code>unbind()</code> - After a component is detached, it's usually unbound. If your view-model has the <code>unbind</code> callback, it will be invoked during this process.</li>
+</ol>
+<div class="info"><div class="icon"> <i></i> </div><h4>Bind callback stops initial</h4><p>&quot;Changed&quot; callbacks
+It should be noted that when the view-model has implemented the <code>bind</code> callback, the databinding framework will not invoke the changed handlers for the view-model's bindable properties until the &quot;next&quot; time those properties are updated. If you need to perform specific post-processing on your bindable properties, when implementing the <code>bind</code> callback, you should do so manually within the callback itself. For example, if you have a bindable property <code>foo</code>, implement the <code>fooChanged</code> callback, and you want <code>fooChanged</code> to be called on initial binding, then you will need to call it from within your <code>bind()</code> callback.</p>
+</div>
+<p>Tapping into a lifecycle event is as simple as implementing any of the above methods on the behavior's view-model class. Here's an example of a custom attribute that uses the attached and detached callbacks, something common when wrapping jQuery plugins:</p>
+
+<code-listing heading="some-plugin.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">inject</span><span class="token punctuation">(</span>Element<span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SomePluginCustomAttribute</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>element <span class="token operator">=</span> element<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>plugin <span class="token operator">=</span> <span class="token function">jQuery</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">somePlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>plugin<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
+  @autoinject
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SomePluginCustomAttribute</span> <span class="token punctuation">{</span>
+    plugin<span class="token punctuation">;</span>
+  
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> element<span class="token punctuation">:</span> Element<span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token punctuation">}</span>
+  
+    <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>plugin <span class="token operator">=</span> <span class="token function">jQuery</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">somePlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>plugin<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+</section>
+<section><h2 id="conclusion">Conclusion</h2><p>If you've made it this far, you should have the basics down of creating HTML Behaviors. HTML Behaviors in Aurelia can be a Custom Element or a Custom Attribute. Both of these have ViewModels, while only Custom Elements can have Views. There is no need to use jQuery or <code>document.querySelector</code> to get the DOM Element your behavior is associated with, as you can simply have Aurelia inject it in to your ViewModel. You must make sure that an HTML Behavior is accessible to the template you are using it in, either by using the <code>require</code> element or by making the behavior a global resource. When doing either of these, you do not provide a file extension in the path for the behavior, unless you are specifying an HTML Only Custom Element.</p>
+<p>You can create bindable properties for your Custom Elements by using the <code>@bindable</code> decorator, while Aurelia will call the <code>valueChanged</code> callback on your CustomAttribute's ViewModel if you are doing single-value binding to your Custom Attribute. And finally, HTML Only Custom Elements can have bindable properties if you specify them in the <code>bindable</code> attribute on the <code>template</code> element.</p>
+<p>Now that you've got a solid foundation, we encourage you to read the more advanced and in-depth documentation regarding both Custom Elements and Custom Attributes! Happy Coding!</p>
+</section>
+
+  </article>
+</section>

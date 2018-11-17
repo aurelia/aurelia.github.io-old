@@ -63,8 +63,12 @@
 <p>The Aurelia &quot;starter kit&quot; app: 
 <a href="https://github.com/aurelia/skeleton-navigation" target="_blank">skeleton-navigation</a>
 , includes a scenario where dirty-checking is required:  the <code>fullName</code> property.</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Welcome</span><span class="token punctuation">{</span>
       <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>heading <span class="token operator">=</span> <span class="token string">'Welcome to the Aurelia Navigation App!'</span><span class="token punctuation">;</span>
@@ -81,12 +85,20 @@
         <span class="token function">alert</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`Welcome, </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>fullName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">!`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>To avoid dirty-checking we can tell Aurelia the <code>fullName</code> property's dependencies are <code>firstName</code> and <code>lastName</code>.  This will save Aurelia from having to constantly poll the <code>fullName</code> property for changes because it can observe <code>firstName</code> and <code>lastName</code> directly.</p>
 <p>Here's how you declare property dependencies today:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token comment">// add this line:</span>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>declarePropertyDependencies<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
      
@@ -97,20 +109,32 @@
      
     <span class="token comment">// and add this line:</span>
     <span class="token function">declarePropertyDependencies</span><span class="token punctuation">(</span>Welcome<span class="token punctuation">,</span> <span class="token string">'fullName'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'firstName'</span><span class="token punctuation">,</span> <span class="token string">'lastName'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Decorators are now supported in 
 <a href="https://babeljs.io/" target="_blank">babel</a>
  and 
 <a href="http://blogs.msdn.com/b/typescript/archive/2015/03/27/announcing-typescript-1-5-alpha.aspx" target="_blank">Typescript 1.5 alpha</a>
 .  With this important feature in place, declaring property dependencies in Aurelia will be even easier after our release next week:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     @<span class="token function">computedFrom</span><span class="token punctuation">(</span><span class="token string">'firstName'</span><span class="token punctuation">,</span> <span class="token string">'lastName'</span><span class="token punctuation">)</span>
     <span class="token keyword">get</span> <span class="token function">fullName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
       <span class="token keyword">return</span> <span class="token template-string"><span class="token string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>firstName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>lastName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 </section>
 <section><h2 id="property-observation-adapters">Property Observation Adapters</h2><p>The Aurelia binding system is pluggable.  This means you can supply an adapter to Aurelia that can observe certain types of properties when Aurelia isn't able to use a preferred binding strategy.</p>
@@ -131,8 +155,12 @@
 <a href="http://caniuse.com/#feat=object-observe" target="_blank">caniuse</a>
  says this is not an option in today's browser environment.</p>
 <p>The good news is you can use Aurelia's ObserverLocator which provides a cross-browser approach for observing properties.  All you need to do is grab the observer locator from the container and start subscribing.</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>ObserverLocator<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-binding'</span><span class="token punctuation">;</span>  <span class="token comment">// or 'aurelia-framework'</span>
      
     <span class="token keyword">class</span> <span class="token class-name">Foo</span> <span class="token punctuation">{</span>
@@ -151,7 +179,11 @@
         <span class="token function">alert</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`bar changed from </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>oldValue<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> to </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>newValue<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>As with any event subscription you need to unsubscribe/dispose-it when you no longer need it, to prevent memory leaks, etc.  This is why the <code>subscribe</code> method returns a function you can invoke to dispose of the subscription.</p>
 <blockquote>
@@ -161,8 +193,12 @@
 <p>A scenario came up in the Aurelia 
 <a href="https://gitter.im/Aurelia/Discuss" target="_blank">gitter chat</a>
  the other day where someone needed to update a property in their view-model when properties in another object changed.  To simplify the logic around this we put together a generic &quot;MultiObserver&quot; class that can observe any number of object properties and invoke a callback when something changes:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>ObserverLocator<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span> <span class="token comment">// or 'aurelia-binding'</span>
      
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MultiObserver</span> <span class="token punctuation">{</span>
@@ -187,11 +223,19 @@
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Using the MultiObserver we can create an OilSpeculator class that reacts to the different factors involved in speculating oil prices:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>MultiObserver<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'multi-observer'</span><span class="token punctuation">;</span>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>OilReserves<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'oil-reserves'</span><span class="token punctuation">;</span>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>Mood<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'temperment'</span><span class="token punctuation">;</span>
@@ -217,8 +261,12 @@
         <span class="token keyword">this</span><span class="token punctuation">.</span>oilPrice <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>mood<span class="token punctuation">.</span>crankiness <span class="token operator">*</span> <span class="token keyword">this</span><span class="token punctuation">.</span>oilReserves<span class="token punctuation">.</span>barrels <span class="token operator">/</span> <span class="token keyword">this</span><span class="token punctuation">.</span>fudgeFactor<span class="token punctuation">.</span>value<span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
-</code-listing></textarea></select>
+  
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
 </section>
 
     </div>

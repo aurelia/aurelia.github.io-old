@@ -42,8 +42,12 @@
 <p>A very interesting configuration option for i18next's interpolation feature is the 
 <a href="http://i18next.com/translate/formatting/" target="_blank">format</a>
  property. This provides us with a hook into the processing pipeline of i18next. Go ahead and extend your i18n configuration like so:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">return</span> instance<span class="token punctuation">.</span><span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
       <span class="token comment">// ...</span>
       interpolation <span class="token punctuation">:</span> <span class="token punctuation">{</span>
@@ -58,15 +62,23 @@
       <span class="token punctuation">}</span>
       <span class="token comment">// ...</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>There's a couple of things going on here, let's use an example to explain this step by step.</p>
 </section>
 <section><h2 id="2-using-value-converters-in-your-locales-an-example">2. Using Value Converters In Your Locales, An Example</h2><p>Let's consider a value converter called <code>formatDate</code>. All this value converter does is receive a date and a format, and return a string representation of that date in the provided format. To make that easier, we're using the date manipulation library 
 <a href="https://momentjs.com/" target="_blank">Moment.js</a>
 </p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">import</span> moment <span class="token keyword">from</span> <span class="token string">'moment'</span><span class="token punctuation">;</span>
     
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">FormatDateValueConverter</span> <span class="token punctuation">{</span>
@@ -75,21 +87,41 @@
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
     
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>To use this in your view you could have a setup like so:</p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>a<span class="token punctuation">"</span></span> <span class="token attr-name">t-params.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{date: <span class="token punctuation">'</span>2017-02-20}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>And your locale file could look like this:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token punctuation">{</span>
       <span class="token string">"a"</span> <span class="token punctuation">:</span> <span class="token string">"Today's date is : {{date, formatDate:MMMM D YYYY}}"</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>When executed, i18next will recognize that the key you're trying to translate contains a section that needs to be interpolated (because of the default prefix and suffix <code>{{ ... }}</code> in your locale file).</p>
 <blockquote>

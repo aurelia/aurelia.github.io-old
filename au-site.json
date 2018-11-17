@@ -133,6 +133,12 @@
         "dest": "docs/api/dependency-injection"
       },
       {
+        "name": "Dialog",
+        "package": "../dialog/package.json",
+        "src": "../dialog/dist/es2015/aurelia-dialog.d.ts",
+        "dest": "docs/api/dialog"
+      },
+      {
         "name": "Event Aggregator",
         "package": "../event-aggregator/package.json",
         "src": "../event-aggregator/dist/aurelia-event-aggregator.d.ts",

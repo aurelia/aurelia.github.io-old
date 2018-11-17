@@ -12,32 +12,56 @@
 <a href="https://github.com/dkent600" target="_blank">Doug Kent</a>
 , a single bindable property can now be made the primary among all the options in an Options Attribute.  Thus, when you use a custom attribute that would otherwise require using the options HTML syntax, and you want to provide a value or binding only for the primary property, you can use the simpler HTML syntax of a single value binding.</p>
 <p>With Options Attributes, each bindable property must be decorated with the <code>bindable</code> decorator.  To specify that you want a bindable property to be the primary among all the other bindable properties, use the <code>primaryProperty</code> configuration parameter of the <code>bindable</code> decorator, as shown below:</p>
-<code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">,</span> inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
 
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">,</span> inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
     @<span class="token function">inject</span><span class="token punctuation">(</span>Element<span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SquareCustomAttribute</span> <span class="token punctuation">{</span>
       @bindable sideLength<span class="token punctuation">;</span>
       @<span class="token function">bindable</span><span class="token punctuation">(</span><span class="token punctuation">{</span> primaryProperty<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> color<span class="token punctuation">;</span>
-
+  
       <span class="token function">constructor</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span><span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>element <span class="token operator">=</span> element<span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Then, when you use the custom attribute, instead of writing this:</p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">square</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>color.bind: squareColor<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>You can write this:</p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">square.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>squareColor<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <h3>aurelia-i18n-loader</h3>
 <p>Aurelia's i18n plugin is built on i18next which works with various backends to load translation files. As of our latest release, we now ship with a backend built on top of Aurelia's <code>Loader</code> abstraction. This enables our translation loading backend to leverage whichever module loader you've configured with aurelia. Thanks to 

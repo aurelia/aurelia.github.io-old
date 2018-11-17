@@ -17,21 +17,29 @@
 <li>The <em>default resources</em> (<code>UxDialog</code>, <code>UxDialogHeader</code>, <code>UxDialogBody</code>, <code>UxDialogFooter</code>, <code>AttachFocus</code>) are no longer re-exported from the <em>main</em> module. So if you've been doing something like <code>import { UxDialog } from 'aurelia-dialog';</code>, it will no longer work.</li>
 <li>The <em>default resources</em> are no longer statically imported from any of the mandatory modules. Because they are optional, you can now choose not to register them, or just to register some of them using the configuration API. We import them using <code>import()</code>. As a result you may need to reconfigure your build setup differently. For example, if you are using the <code>aurelia-cli</code> <code>RequireJS</code>/<code>SystemJS</code> build setup and you are using the default resources, here's a sample configuration for the dialog:</li>
 </ul>
-<code-listing><source-code lang="JSON"><pre class="language-javascript"><code>
-  <span class="token punctuation">{</span>
-      <span class="token string">"dependencies"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
-      <span class="token comment">//...</span>
-      <span class="token punctuation">{</span>
-          <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"aurelia-dialog"</span><span class="token punctuation">,</span>
-          <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"../node_modules/aurelia-dialog/dist/amd"</span><span class="token punctuation">,</span>
-          <span class="token string">"main"</span><span class="token punctuation">:</span> <span class="token string">"aurelia-dialog"</span><span class="token punctuation">,</span>
-          <span class="token string">"resources"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"resources/*.js"</span><span class="token punctuation">]</span>
-      <span class="token punctuation">}</span>
-      <span class="token comment">//...</span>
-      <span class="token punctuation">]</span>
-  <span class="token punctuation">}</span>
+
+<code-listing>
   
-</code></pre></source-code></code-listing>
+<source-code lang="JSON">
+  <pre class="language-javascript">
+    <code>
+  <span class="token punctuation">{</span>
+    <span class="token string">"dependencies"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token comment">//...</span>
+    <span class="token punctuation">{</span>
+        <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"aurelia-dialog"</span><span class="token punctuation">,</span>
+        <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"../node_modules/aurelia-dialog/dist/amd"</span><span class="token punctuation">,</span>
+        <span class="token string">"main"</span><span class="token punctuation">:</span> <span class="token string">"aurelia-dialog"</span><span class="token punctuation">,</span>
+        <span class="token string">"resources"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"resources/*.js"</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">//...</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
 <ul>
 <li>All <em>default resources</em> are moved under the <code>resources</code> folder.</li>
 <li>The <code>native-modules</code> and <code>es2015</code> builds are now targeting <em>esnext</em> modules; they will contain dynamic imports in the form of <code>import()</code>.</li>

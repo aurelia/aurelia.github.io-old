@@ -71,13 +71,21 @@
 <p>Tons of bugs fixed all over the place. Oh my!</p>
 <h4>Upgrade Notes</h4>
 <p>We have removed the code for configuring Bluebird from <code>main.[js|ts]</code>. This code has been moved to a file that is now prepended to <code>vendor-bundle.js</code>. You will need to update the <code>prepend</code> section of your <code>vendor-bundle.js</code> configuration to start with the following two files:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token string">"prepend"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
       <span class="token string">"node_modules/bluebird/js/browser/bluebird.core.js"</span><span class="token punctuation">,</span>
       <span class="token string">"node_modules/aurelia-cli/lib/resources/scripts/configure-bluebird.js"</span>
     <span class="token punctuation">]</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <h3>aurelia-webpack-plugin</h3>
 <p>This is a complete re-write of the Aurelia Webpack plugin, designed to modernize our Webpack setup to match the latest version of the popular build and asset bundling system.</p>

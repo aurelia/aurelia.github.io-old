@@ -26,7 +26,12 @@
 <p>Most of existing apps should still work without any modification of <code>aurelia.json</code>. But you could be caught with some bugs and one breaking change: the way to reference non-js main file is changed. The non-js main (or missing main) is used by some pure css npm package like font-awesome v4 and normalize.css.</p>
 <p>For example font-awesome v4, you should remove the explicit dependency configuration <code>{&quot;name&quot;: &quot;font-awesome&quot;, ...</code> from <code>aurelia.json</code>, have a look at <a href="/docs/cli/cli-bundler/cook-book">cook-book</a> on how to use font-awesome v4 and normalize.css with latest CLI bundler. It is only easier.</p>
 <p>Once your app works, you should start to cleanup <code>aurelia.json</code> vendor-bundle dependencies to take advantages of auto-tracing. Following are the minimum required dependencies.</p>
-<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
   <span class="token string">"aurelia-bootstrapper"</span><span class="token punctuation">,</span>
   <span class="token string">"aurelia-loader-default"</span><span class="token punctuation">,</span>
   <span class="token string">"aurelia-pal-browser"</span><span class="token punctuation">,</span>
@@ -42,30 +47,48 @@
   <span class="token comment">//   "path": "../node_modules/systemjs-plugin-text",</span>
   <span class="token comment">//   "main": "text"</span>
   <span class="token comment">// }</span>
+  </code>
+  </pre>
+</source-code>
   
-</code></pre></source-code></code-listing>
+</code-listing>
 <p>For any 3rd party dependency, if it's not a shim (has <code>&quot;deps&quot;</code> or <code>&quot;exports&quot;</code> or both), not a custom local package, not a package alias, you can remove its config. Auto-tracing bundles npm packages automatically without manual configuration in <code>aurelia.json</code>.</p>
 <p>The new bundler also uses cache to speed up consecutive builds. To turn it on, update <code>aurelia.json</code> file. You can use <code>&quot;cache&quot;: true</code> to turn it on for all environments.</p>
-<code-listing><source-code lang="javascript"><pre class="language-javascript"><code>
+
+<code-listing>
+  
+<source-code lang="javascript">
+  <pre class="language-javascript">
+    <code>
   <span class="token string">"options"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
     <span class="token string">"minify"</span><span class="token punctuation">:</span> <span class="token string">"stage &amp; prod"</span><span class="token punctuation">,</span>
     <span class="token string">"sourcemaps"</span><span class="token punctuation">:</span> <span class="token string">"dev &amp; stage"</span><span class="token punctuation">,</span>
     <span class="token string">"rev"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
     <span class="token string">"cache"</span><span class="token punctuation">:</span> <span class="token string">"dev &amp; stage"</span>
   <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
   
-</code></pre></source-code></code-listing>
+</code-listing>
 <p>You would need the new task file for command <code>au clear-cache</code>. Use latest cli to create a new app choosing built-in bundler. Then copy following files from the new app to your existing app:</p>
-<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
   aurelia_project<span class="token operator">/</span>tasks<span class="token operator">/</span>clear<span class="token operator">-</span>cache<span class="token punctuation">.</span><span class="token function">js</span> <span class="token punctuation">(</span>or <span class="token punctuation">.</span>ts<span class="token punctuation">)</span>
   aurelia_project<span class="token operator">/</span>tasks<span class="token operator">/</span>clear<span class="token operator">-</span>cache<span class="token punctuation">.</span>json
+  </code>
+  </pre>
+</source-code>
   
-</code></pre></source-code></code-listing>
+</code-listing>
 <p>Only for esnext app (not TypeScript app), do <code>npm install --save-dev gulp-cache</code> or <code>yarn add -D gulp-cache</code>, copy the new <code>aurelia_project/tasks/transpile.js</code> which further improves performance using gulp-cache to cache transpiling result.</p>
 <p>For more information, read <a href="/docs/cli/cli-bundler">Built-in Bundler Chapter</a>.</p>
 </section>
-<section><h2 id="update-3rd-party-plugin-installation-guide">Update 3rd party plugin installation guide</h2><p>For all Aurelia plugin authors, you should update the installation guide to remove dedicated CLI guide. The installation of any Aurelia plugin is now same for Webpack and CLI bundler users, just do <code>npm install your-plugin</code>.
-</require></p>
+<section><h2 id="update-3rd-party-plugin-installation-guide">Update 3rd party plugin installation guide</h2><p>For all Aurelia plugin authors, you should update the installation guide to remove dedicated CLI guide. The installation of any Aurelia plugin is now same for Webpack and CLI bundler users, just do <code>npm install your-plugin</code>.</p>
 </section>
 
   </article>

@@ -88,8 +88,12 @@
  of this code and the 
 <a href="http://aurelia.io/docs.html#startup-and-configuration" target="_blank">JavaScript version</a>
  are identical.</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       aurelia<span class="token punctuation">.</span>use
         <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -97,7 +101,11 @@
     
       aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>a <span class="token operator">=></span> a<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>The reason this works is because JavaScript IS TypeScript.</p>
 <p>But now lets pretend that we didn't have the code to paste in from the Aurelia documentation.  This is where TypeScript begins to shine.</p>
@@ -124,8 +132,12 @@
 <a href="https://github.com/cmichaelgraham/aurelia-typescript-atom/tree/900655787fc7775d87e79e061eb1539415b3b856/skel-nav-ts/tsconfig.json" target="_blank">here</a>
 .</p>
 <p>This is the tsconfig.json file in our project (with the files property stripped down to save space).</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token punctuation">{</span>
         <span class="token string">"version"</span><span class="token punctuation">:</span> <span class="token string">"1.5.1"</span><span class="token punctuation">,</span>
         <span class="token string">"compilerOptions"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
@@ -145,7 +157,11 @@
             <span class="token comment">// ...</span>
         <span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>The <code>files</code> property is filled in automatically by Atom-TypeScript using the <code>filesGlob</code> property's patterns.  This occurs when saving <code>tsconfig.json</code>.</p>
 <p>For a description of the <code>compilerOptions</code>, please refer to the 

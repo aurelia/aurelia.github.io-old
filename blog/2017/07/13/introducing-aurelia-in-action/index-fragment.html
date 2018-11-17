@@ -63,33 +63,63 @@
 </section>
 <section><h2 id="validation-rules">Validation Rules</h2><p>Validation rules allow you to apply various constraints to view-model properties. They can be applied either to simple values (such as a string), or to an entire object. Several built-in validation rules come along with the Aurelia framework. In this case we'll use a combination of 3 validation rules to validate two input fields:</p>
 <ul>
-<li><strong>title</strong> : Required validation rule.</li>
-<li><strong>timesRead</strong> : Required validation rule, and custom validation rule to ensure that the user specifies a number which is either 0, or a positive integer. The validation rules will be applied as follows:</li>
-</ul>
+<li>
+<p><strong>title</strong> : Required validation rule.</p>
+</li>
+<li>
+<p><strong>timesRead</strong> : Required validation rule, and custom validation rule to ensure that the user specifies a number which is either 0, or a positive integer. The validation rules will be applied as follows:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     ValidationRules
       <span class="token punctuation">.</span><span class="token function">ensure</span><span class="token punctuation">(</span><span class="token string">'title'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">required</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">//ensure title provided</span>
       <span class="token punctuation">.</span><span class="token function">ensure</span><span class="token punctuation">(</span><span class="token string">'timesRead'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">required</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment">//ensure user specifies a value for times-read</span>
       <span class="token punctuation">.</span><span class="token function">satisfiesRule</span><span class="token punctuation">(</span><span class="token string">'positiveInteger'</span><span class="token punctuation">)</span> <span class="token comment">//validate the positiveInteger custom rule</span>
       <span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//apply validation rules to the current view-model</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
-</section>
-<section><h2 id="executing-the-validation">Executing the Validation</h2><p>With the plumbing of the validation controller, validation renderer, and validation rules in place, the last step is to configure triggers for when we want to execute the validation rules. While we're on the subject of the view-model, we'll add a validation trigger to execute the validation rules on form submit, and only raise an <code>added</code> notification if the validation results return successfully using the validation controller's <code>validate</code> method. This method returns a promise to allow to also handle the case where the validation may take some time (for example a server side validation over HTTP):</p>
+</li>
+</ul>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-     <span class="token function">addBook</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>controller<span class="token punctuation">.</span><span class="token function">validate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>result <span class="token operator">=></span> <span class="token punctuation">{</span>
-          <span class="token keyword">if</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span>valid<span class="token punctuation">)</span> <span class="token keyword">this</span><span class="token punctuation">.</span>eventAggregator<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span><span class="token string">'book-added'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
-         <span class="token comment">//publish the book-added event only when the edit-book form is valid.</span>
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  
+  ## Executing the Validation
+  
+  With the plumbing <span class="token keyword">of</span> the validation controller<span class="token punctuation">,</span> validation renderer<span class="token punctuation">,</span> and validation rules <span class="token keyword">in</span> place<span class="token punctuation">,</span> the last step is to configure triggers <span class="token keyword">for</span> when we want to execute the validation rules<span class="token punctuation">.</span> While we<span class="token string">'re on the subject of the view-model, we'</span>ll add a validation trigger to execute the validation rules on form submit<span class="token punctuation">,</span> and only raise an <span class="token template-string"><span class="token string">`added`</span></span> notification <span class="token keyword">if</span> the validation results <span class="token keyword">return</span> successfully using the validation controller's <span class="token template-string"><span class="token string">`validate`</span></span> method<span class="token punctuation">.</span> This method returns a promise to allow to also handle the <span class="token keyword">case</span> where the validation may take some <span class="token function">time</span> <span class="token punctuation">(</span><span class="token keyword">for</span> example a server side validation over <span class="token constant">HTTP</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  
+  
+  
+    <span class="token template-string"><span class="token string">``</span></span>`JavaScript
+       <span class="token function">addBook</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>controller<span class="token punctuation">.</span><span class="token function">validate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>result <span class="token operator">=></span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span>valid<span class="token punctuation">)</span> <span class="token keyword">this</span><span class="token punctuation">.</span>eventAggregator<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span><span class="token string">'book-added'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+           <span class="token comment">//publish the book-added event only when the edit-book form is valid.</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Putting this all together, the <code>edit-book</code> view-model looks like this. There are some elements of this code sample that we won't cover here, but stay tuned as these aspects will be covered in Chapter 7 of Aurelia in Action.</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">,</span>NewInstance<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span> <span class="token comment">//import the new instance class</span>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>EventAggregator<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-event-aggregator'</span><span class="token punctuation">;</span> 
     <span class="token keyword">import</span> <span class="token punctuation">{</span>BooksApi<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'books-api'</span><span class="token punctuation">;</span>
@@ -156,14 +186,22 @@
           <span class="token keyword">this</span><span class="token punctuation">.</span>selectGenreElement<span class="token punctuation">.</span><span class="token function">removeEventListener</span><span class="token punctuation">(</span><span class="token string">'change'</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>genreSelectedListener<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 </section>
-<section><h2 id="the-validate-binding-behavior">The Validate Binding Behavior</h2><p>You can enroll view elements for validation using the <code>validate</code> binding behavior provided by the Aurelia validation plugin. For example, applying validation to an input element is a simple matter of <code>&lt;input value.bind=&quot;title &amp; validate&quot;&gt;</code>, which applies the validate binding behavior to the input value binding.</p>
+<section><h2 id="the-validate-binding-behavior">The Validate Binding Behavior</h2><p>You can enroll view elements for validation using the <code>validate</code> binding behavior provided by the Aurelia validation plugin. For example, applying validation to an input element is a simple matter of <code>&lt;input value.bind=&quot;title &amp; validate&quot;/&gt;</code>, which applies the validate binding behavior to the input value binding.</p>
 <p>From there, the view can take as large a role as you want in the validation process. You can use either the <code>validation-errors</code> renderer, which means more validation markup in your view, or a custom validation renderer, which incurs little to no involvement from the view in deciding how the validation results should be displayed to the user.</p>
 <p>With the view-model in place the last step is to wire up validation triggers in the view itself on the relevant input fields as shown in the following code listing.</p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>typeahead<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>star-rating<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
@@ -177,7 +215,7 @@
               <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>title<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form-control<span class="token punctuation">"</span></span> 
                      <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>enter a title<span class="token punctuation">'</span></span> 
                      <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>title &amp; validate<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>input</span><span class="token punctuation">></span></span> 
-                      validation trigger added to title input field 
+                     <span class="token comment">&lt;!-- validation trigger added to title input field --></span>
             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form-group<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
               <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>genre<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Genre<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
@@ -192,7 +230,7 @@
               <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>times-read<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Times read<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
               <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span>times-read</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form-control<span class="token punctuation">"</span></span> 
                       <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>timesRead &amp; validate<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>input</span><span class="token punctuation">></span></span> 
-                       validation trigger added to times-read input field 
+                      <span class="token comment">&lt;!-- validation trigger added to times-read input field --></span>
             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>hr</span><span class="token punctuation">/></span></span>
             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>star-rating</span> 
@@ -210,7 +248,11 @@
        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>This completes our implementation of Bootstrap 4 form validation in the edit-book form. You can see this in action and review the entire source code on 
 <a href="https://gist.run/?id=c9c19fbe1e147fc39ac864cf0b694fd1" target="_blank">GistRun</a>

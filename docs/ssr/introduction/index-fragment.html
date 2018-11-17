@@ -40,26 +40,40 @@ Server Side Rendering is a new feature of the Aurelia framework, intended for us
 </section>
 <section><h2 id="isomorphic-code">Isomorphic Code</h2><p>In order to use server side rendering it is necessary to write your code in a way so that it can run both on the client (a browser environment) and on the server (a Node.js environment).</p>
 <p>In a setup where there is no Server Side Rendering you could do the following without any issues:</p>
+
 <code-listing heading="DOM Manipulation in the Browser">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyPage</span> <span class="token punctuation">{</span>
-      <span class="token function">activate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyPage</span> <span class="token punctuation">{</span>
+    <span class="token function">activate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>However, since there is no <code>document</code> global on the server, you need to use the PAL:</p>
-<code-listing heading="DOM Manipulation Using SSR">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">DOM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
 
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyPage</span> <span class="token punctuation">{</span>
-      <span class="token function">activate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token constant">DOM</span><span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span><span class="token constant">DOM</span><span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
+<code-listing heading="DOM Manipulation Using SSR">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">DOM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyPage</span> <span class="token punctuation">{</span>
+    <span class="token function">activate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token constant">DOM</span><span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span><span class="token constant">DOM</span><span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Please refer to the API documentation of the 
 <a href="http://aurelia.io/docs/api/pal" target="_blank">Platform Abstraction Layer</a>
@@ -72,52 +86,73 @@ Server Side Rendering is a new feature of the Aurelia framework, intended for us
 <section><h2 id="different-main-entry-points">Different Main Entry Points</h2><p>In a non-SSR application you can have a main module (<code>main.js</code> or <code>main.ts</code>) to configure the application during startup.</p>
 <p>While that configuration works when the application runs client-side, you might want a different configuration when the application starts up on the server side.</p>
 <p>To accomplish this you can create a <code>server-main.js</code> or <code>server-main.ts</code> as follows:</p>
+
 <code-listing heading="Alternative Entry Point">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span> Aurelia <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span> <span class="token constant">PLATFORM</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> bootstrapper <span class="token keyword">from</span> <span class="token string">'./ssr-bootstrapper-webpack'</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">:</span> Aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      aurelia<span class="token punctuation">.</span>use
-        <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-      <span class="token keyword">await</span> aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">await</span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token function">bootstrapper</span><span class="token punctuation">(</span>configure<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  </code></pre></source-code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> Aurelia <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> <span class="token constant">PLATFORM</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> bootstrapper <span class="token keyword">from</span> <span class="token string">'./ssr-bootstrapper-webpack'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">:</span> Aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    aurelia<span class="token punctuation">.</span>use
+      <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+    <span class="token keyword">await</span> aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">await</span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token function">bootstrapper</span><span class="token punctuation">(</span>configure<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Then, in <code>webpack.server.config.js</code> you can configure the server bundle to use the <code>server-main</code> as the main entry point of your application:</p>
+
 <code-listing heading="Alternative Entry Point in Webpack">
-  <source-code lang="JSON"><pre class="language-javascript"><code>
-    entry<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      server<span class="token punctuation">:</span> <span class="token string">'./src/server-main'</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  </code></pre></source-code>
+  
+<source-code lang="JSON">
+  <pre class="language-javascript">
+    <code>
+  <span class="token string">"entry"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"server"</span><span class="token punctuation">:</span> <span class="token string">"./src/server-main"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 </section>
 <section><h2 id="404-pages">404 pages</h2><p>When using Server Side Rendering you will likely want to take care of requests for non-existing routes. This can be done by mapping unknown routes to a 404 module:</p>
+
 <code-listing heading="404 Page in Aurelia">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-      router<span class="token punctuation">:</span> Router<span class="token punctuation">;</span>
-
-      <span class="token function">configureRouter</span><span class="token punctuation">(</span>config<span class="token punctuation">:</span> RouterConfiguration<span class="token punctuation">,</span> router<span class="token punctuation">:</span> Router<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        config<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string">'Aurelia'</span><span class="token punctuation">;</span>
-        config<span class="token punctuation">.</span>options<span class="token punctuation">.</span>pushState <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        config<span class="token punctuation">.</span>options<span class="token punctuation">.</span>root <span class="token operator">=</span> <span class="token string">'/'</span><span class="token punctuation">;</span>
-
-    	  <span class="token comment">// routes omitted</span>
-        config<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        config<span class="token punctuation">.</span><span class="token function">mapUnknownRoutes</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'not-found'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token keyword">this</span><span class="token punctuation">.</span>router <span class="token operator">=</span> router<span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    router<span class="token punctuation">:</span> Router<span class="token punctuation">;</span>
+  
+    <span class="token function">configureRouter</span><span class="token punctuation">(</span>config<span class="token punctuation">:</span> RouterConfiguration<span class="token punctuation">,</span> router<span class="token punctuation">:</span> Router<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      config<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string">'Aurelia'</span><span class="token punctuation">;</span>
+      config<span class="token punctuation">.</span>options<span class="token punctuation">.</span>pushState <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+      config<span class="token punctuation">.</span>options<span class="token punctuation">.</span>root <span class="token operator">=</span> <span class="token string">'/'</span><span class="token punctuation">;</span>
+  
+      <span class="token comment">// routes omitted</span>
+      config<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+      config<span class="token punctuation">.</span><span class="token function">mapUnknownRoutes</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'not-found'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+      <span class="token keyword">this</span><span class="token punctuation">.</span>router <span class="token operator">=</span> router<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>When a non-existing route is requested by a user, the server will render the 404 page just like any other page.</p>
 </section>

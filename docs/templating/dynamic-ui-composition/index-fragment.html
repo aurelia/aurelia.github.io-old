@@ -10,111 +10,185 @@
 <p>When using Aurelia's <code>&lt;compose&gt;</code> element, inside of the view-model being used, you have access to all of Aurelia's standard view lifecycle events, such as <code>attached</code>, as well as the other callback hooks.</p>
 </section>
 <section><h2 id="basic-composition">Basic Composition</h2><p>Using the <code>&lt;compose&gt;</code> element, we are going to be dynamically composing a view.</p>
+
 <code-listing heading="hello-world.html">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>compose</span> <span class="token attr-name">view-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./compose-me<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>compose</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>compose</span> <span class="token attr-name">view-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./compose-me<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>compose</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
-<code-listing heading="compose-me${context.language.fileExtension}">
-  <source-code lang="ES 2016"><pre class="language-javascript"><code>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ComposeMe</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-  </code></pre></source-code>
+
+<code-listing heading="compose-me.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ComposeMe</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
+
 <code-listing heading="compose-me.html">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Hello World!!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Hello World!!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Inside of our <code>hello-world.html</code> template, we are using the <code>&lt;compose&gt;</code> element and passing through a view-model (without file extension) to be rendered. The view-model is just a standard class, like you create elsewhere in an Aurelia application.</p>
 <p>Because Aurelia is a convention based framework, the <code>&lt;compose&gt;</code> element knows to use the default convention of loading the matching view for our view-model of the same name.</p>
 </section>
 <section><h2 id="composing-without-a-view-model">Composing Without a View-Model</h2><p>If you're wanting to dynamically compose just a view template without specifying a view-model, all you need to do is omit the <code>view-model</code> property and supply a <code>view</code>. The result will be that the current view-model will be used as the binding context for our view, allowing you to create HTML partials that take the current properties and methods.</p>
+
 <code-listing heading="hello-world.html">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>compose</span> <span class="token attr-name">view</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./compose-me.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>compose</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>compose</span> <span class="token attr-name">view</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./compose-me.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>compose</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
+
 <code-listing heading="compose-me.html">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Hello World!!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Hello World!!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>For the <code>view</code> property, we need to specify a file extension, unlike the view-model property, which does not have an extension. The above example will work the same way as our first example, except we're not supplying our own view-model, it's inheriting the binding context from where the <code>compose</code> element is used.</p>
 </section>
 <section><h2 id="passing-through-data">Passing Through Data</h2><p>Using what we learned above, we can dynamically compose view-models and views and pass through additional data via the <code>model</code> property on the <code>&lt;compose&gt;</code> element.</p>
 <p>We are going to be building an example which will dynamically render a view/view-model pair and accept an object of provided values.</p>
-<code-listing heading="hello-world${context.language.fileExtension}">
-  <source-code lang="ES 2016"><pre class="language-javascript"><code>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">HelloWorld</span> <span class="token punctuation">{</span>
-        <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">this</span><span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token punctuation">{</span>
-            name<span class="token punctuation">:</span> <span class="token string">'John Doe'</span><span class="token punctuation">,</span>
-            company<span class="token punctuation">:</span> <span class="token string">'Cool Co.'</span><span class="token punctuation">,</span>
-            likes<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'Javascript'</span><span class="token punctuation">,</span> <span class="token string">'fruit'</span><span class="token punctuation">,</span> <span class="token string">'jelly'</span><span class="token punctuation">]</span>
-          <span class="token punctuation">}</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  </code></pre></source-code>
-  <source-code lang="Typescript"><pre class="language-javascript"><code>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">HelloWorld</span> <span class="token punctuation">{</span>
-      <span class="token keyword">private</span> data <span class="token operator">=</span> <span class="token punctuation">{</span>
-        name<span class="token punctuation">:</span> <span class="token string">'John Doe'</span><span class="token punctuation">,</span>
-        company<span class="token punctuation">:</span> <span class="token string">'Cool Co.'</span><span class="token punctuation">,</span>
-        likes<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'Javascript'</span><span class="token punctuation">,</span> <span class="token string">'fruit'</span><span class="token punctuation">,</span> <span class="token string">'jelly'</span><span class="token punctuation">]</span>
-      <span class="token punctuation">}</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-  </code></pre></source-code>
-</code-listing>
-<code-listing heading="hello-world.html">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>compose</span> <span class="token attr-name">view-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./compose-me<span class="token punctuation">"</span></span> <span class="token attr-name">model.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>data<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>compose</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
-</code-listing>
-<code-listing heading="compose-me${context.language.fileExtension}">
-  <source-code lang="ES 2016"><pre class="language-javascript"><code>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ComposeMe</span> <span class="token punctuation">{</span>
-      <span class="token function">activate</span><span class="token punctuation">(</span>model<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>data <span class="token operator">=</span> model<span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  </code></pre></source-code>
-  <source-code lang="Typescript"><pre class="language-javascript"><code>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ComposeMe</span> <span class="token punctuation">{</span>
-      <span class="token keyword">private</span> data<span class="token punctuation">:</span> any <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-      <span class="token function">activate</span><span class="token punctuation">(</span>model<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>data <span class="token operator">=</span> model<span class="token punctuation">;</span>
+<code-listing heading="hello-world.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">HelloWorld</span> <span class="token punctuation">{</span>
+      <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token punctuation">{</span>
+          name<span class="token punctuation">:</span> <span class="token string">'John Doe'</span><span class="token punctuation">,</span>
+          company<span class="token punctuation">:</span> <span class="token string">'Cool Co.'</span><span class="token punctuation">,</span>
+          likes<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'Javascript'</span><span class="token punctuation">,</span> <span class="token string">'fruit'</span><span class="token punctuation">,</span> <span class="token string">'jelly'</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">HelloWorld</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> data <span class="token operator">=</span> <span class="token punctuation">{</span>
+      name<span class="token punctuation">:</span> <span class="token string">'John Doe'</span><span class="token punctuation">,</span>
+      company<span class="token punctuation">:</span> <span class="token string">'Cool Co.'</span><span class="token punctuation">,</span>
+      likes<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'Javascript'</span><span class="token punctuation">,</span> <span class="token string">'fruit'</span><span class="token punctuation">,</span> <span class="token string">'jelly'</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing heading="hello-world.html">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>compose</span> <span class="token attr-name">view-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./compose-me<span class="token punctuation">"</span></span> <span class="token attr-name">model.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>data<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>compose</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing heading="compose-me.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ComposeMe</span> <span class="token punctuation">{</span>
+    <span class="token function">activate</span><span class="token punctuation">(</span>model<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>data <span class="token operator">=</span> model<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ComposeMe</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> data<span class="token punctuation">:</span> <span class="token builtin">any</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  
+    <span class="token function">activate</span><span class="token punctuation">(</span>model<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>data <span class="token operator">=</span> model<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>If you have worked with the Aurelia router before and router parameters, you will notice we obtain the provided model object the same way: as the first argument of the <code>activate</code> method. We then store the object on our class itself, making it available in our HTML view under a property called <code>data</code>.</p>
+
 <code-listing heading="compose-me.html">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Hello, my name is ${data.name} and my company is ${data.company}.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>My likes include:<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ol</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>like of data.likes<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${like}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ol</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Hello, my name is ${data.name} and my company is ${data.company}.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>My likes include:<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ol</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>like of data.likes<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${like}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ol</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Notice how we are referencing values on our provided object, <code>name</code> and <code>company</code>, and then looping over an array of provided strings for <code>likes</code>.</p>
 <div class="info"><div class="icon"> <i></i> </div><p>
-While the full view lifecycle (created, bind, attached, detached, unbind) is supported during dynamic composition, the full navigation lifecycle is not. Only the <code>activate</code> hook is enabled. It receives a single parameter which is the <code>model</code> and can optionally return a promise if executing an asynchronous task.
-</compose></compose></compose></compose></compose></p>
+While the full view lifecycle (created, bind, attached, detached, unbind) is supported during dynamic composition, the full navigation lifecycle is not. Only the <code>activate</code> hook is enabled. It receives a single parameter which is the <code>model</code> and can optionally return a promise if executing an asynchronous task.</p>
 </div>
 </section>
 

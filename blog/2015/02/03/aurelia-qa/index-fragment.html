@@ -55,40 +55,9 @@
  internally for all its rendering. You could even provide bindable attributes in HTML that trigger the internal re-render. Oh...and since 
 <a href="https://6to5.org/docs/usage/jsx/" target="_blank">6to5 supports JSX</a>
 ...you can mix that together with your Aurelia component in the same file. Here's a fictitious example:</p>
-<code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyElement</span> <span class="token punctuation">{</span>
-    	<span class="token keyword">static</span> <span class="token function">metadata</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span> 
-    		<span class="token keyword">return</span> Behavior
-    			<span class="token punctuation">.</span><span class="token function">customElement</span><span class="token punctuation">(</span><span class="token string">'my-element'</span><span class="token punctuation">)</span>
-    			<span class="token punctuation">.</span><span class="token function">withProperty</span><span class="token punctuation">(</span><span class="token string">'foo'</span><span class="token punctuation">)</span>
-    			<span class="token punctuation">.</span><span class="token function">noView</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
-    	<span class="token punctuation">}</span>
-    	
-    	<span class="token keyword">static</span> <span class="token function">inject</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    		<span class="token keyword">return</span> <span class="token punctuation">[</span>Element<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    	<span class="token punctuation">}</span>
-    	
-    	<span class="token function">constructor</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    		<span class="token keyword">this</span><span class="token punctuation">.</span>element <span class="token operator">=</span> element<span class="token punctuation">;</span>
-    	<span class="token punctuation">}</span>
-    	
-    	<span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    		React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>MyReactElement foo<span class="token operator">=</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>foo<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">></span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    	<span class="token punctuation">}</span>
-    	
-    	<span class="token function">fooChanged</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    		<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    	<span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  </code></pre></source-code>
-</code-listing>
+null
 <p>You can now use it like this in your Aurelia views:</p>
-<code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token operator">&lt;</span>my<span class="token operator">-</span>element foo<span class="token punctuation">.</span>bind<span class="token operator">=</span><span class="token string">"some.property"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>my<span class="token operator">-</span>element<span class="token operator">></span>
-  </code></pre></source-code>
-</code-listing>
+null
 <p>When the component it databound, it will render itself for the first time with the bound values. Any time the bindings update, the component will re-render itself internally.</p>
 <h3>How are Web Components used?</h3>
 <p>Web Components consist of four specs:</p>
@@ -106,34 +75,16 @@
 <p>So, we use 3 out of 4 of the specs internally and expect to support the 4th in some fashion by release. We've abstracted the use of these technologies in various ways and provided fallbacks so that browser support is not necessary. I've got a lot more to say about Web Components....they have serious flaws and I believe they should not be standardized or implemented in their current form (it's not the <em>idea</em> of Web Components that is bad...it's the actual spec). The topic deserves an entire blog post...which I will write soon. Regardless, Aurelia works well with all Web Component specs today.</p>
 <h3>Can I compose UI without a router?</h3>
 <p>Yes, indeed. To do this you can leverage Aurelia's <code>compose</code> Custom Element. Here's an example from the docs that shows how you can render different view-models and views over a heterogeneous list named <code>items</code>:</p>
-<code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token operator">&lt;</span>template repeat<span class="token punctuation">.</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"item of items"</span><span class="token operator">></span>
-        <span class="token operator">&lt;</span>compose
-          view<span class="token operator">-</span>model<span class="token operator">=</span><span class="token string">"widgets/${item.type}"</span>
-          model<span class="token punctuation">.</span>bind<span class="token operator">=</span><span class="token string">"item"</span><span class="token operator">></span>
-        <span class="token operator">&lt;</span><span class="token operator">/</span>compose<span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
-  </code></pre></source-code>
-</code-listing>
+null
 <h3>Why jspm for package management?</h3>
 <p>If you haven't 
 <a href="http://jspm.io/" target="_blank">checked out JSPM</a>
  yet, you really owe it to yourself. It's a package manager designed with ES6 modules in mind from the beginning, so it's a perfect fit for use with Aurelia. Also, the JSPM command line directly integrates with the SystemJS module loader. By having deep integration between the package manager and the loader, you can have a truly elegant development experience. Just the other day I needed to leverage the 
 <a href="https://logentries.com" target="_blank">LogEntries</a>
  JavaScript api in my application for logging, so I executed this command to install their library from Github into my project:</p>
-<code-listing>
-  <source-code lang="Shell"><pre class="language-powershell"><code>
-    jspm install github:logentries<span class="token operator">/</span>le_js
-  </code></pre></source-code>
-</code-listing>
+null
 <p>After that I imported their library in my code like this:</p>
-<code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token constant">LE</span> <span class="token keyword">from</span> <span class="token string">'le_js'</span><span class="token punctuation">;</span>
-    <span class="token constant">LE</span><span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"JSPM makes ES6 modular development easy..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  </code></pre></source-code>
-</code-listing>
+null
 <p>That's really all there is to installing a library from NPM or Github and importing it for use in your own code.</p>
 <blockquote>
 <p><strong>Note:</strong> You don't have to use JSPM or SystemJS. You can use any package manager and any loader. We've got support for Bower and Require-based APIs as well out of the box. You can plug your own stuff in too.</p>

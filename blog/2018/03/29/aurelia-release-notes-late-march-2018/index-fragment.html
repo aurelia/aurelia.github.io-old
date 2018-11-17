@@ -11,7 +11,12 @@
 <p>Speaking of Webpack 4, <strong>all Webpack projects are now using Webpack 4!</strong></p>
 <p>In addition to the above, we've also added a major new feature to the CLI, the Bundle Analyzer. New Webpack projects are now pre-configured to use the Webpack Bundle Analyzer. After starting <code>au run --analyze</code> your browser will open to the bundle analyzer page.</p>
 <p>If your project uses RequireJS or SystemJS, a similar option is available. In your <code>aurelia.json</code> file, configure the bundleReport build option as follows:</p>
-<code-listing><source-code lang="json"><pre class="language-javascript"><code>
+
+<code-listing>
+  
+<source-code lang="JSON">
+  <pre class="language-javascript">
+    <code>
   <span class="token operator">...</span>
   <span class="token string">"build"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
     <span class="token string">"options"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
@@ -21,8 +26,11 @@
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token operator">...</span>
+  </code>
+  </pre>
+</source-code>
   
-</code></pre></source-code></code-listing>
+</code-listing>
 <p>After this is configured, run the build (<code>au build --env prod</code>) and the bundle report will show up in your project directory.</p>
 <p>In addition to the above, we've made tons of other improvements. You can read about those below along with the release notes for several other Aurelia libraries.</p>
 <p>As always, we'd like to send out a huge thanks to the community for helping with these improvements. Keep it coming!</p>

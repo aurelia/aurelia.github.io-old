@@ -107,8 +107,12 @@
 .</strong></em></p>
 <p><code>aurelia-form</code> makes your life easier by letting you define and generate forms based on data. It does so by using something named a schema.</p>
 <p>A schema is a collection of objects that describes the form you want. The schema consists out of basic javascript data types which every programmer understands and knows how to manipulate. A simple example:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">this</span><span class="token punctuation">.</span>loginSchema <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
       type<span class="token punctuation">:</span> <span class="token string">'email'</span><span class="token punctuation">,</span>
       key <span class="token punctuation">:</span> <span class="token string">'email'</span>
@@ -118,17 +122,29 @@
     <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     
     <span class="token keyword">this</span><span class="token punctuation">.</span>credentials <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>You can then use this schema and the object that holds the data like this:</p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>schema-form</span> <span class="token attr-name">schema.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>schema<span class="token punctuation">"</span></span> <span class="token attr-name">model.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>credentials<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>schema-form</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>This plugin is especially useful when combined with 
 <a href="https://aurelia-orm.spoonx.org" target="_blank">aurelia-orm</a>
-, as it generates the form based on your entity schema using the custom component <code>&lt;entity-form&gt;</code>.</p>
+, as it generates the form based on your entity schema using the custom component <code>&lt;entity-form /&gt;</code>.</p>
 <p><em>
 <a href="https://github.com/SpoonX/aurelia-form" target="_blank">Github</a>
  | 
@@ -190,18 +206,30 @@
 <a href="https://github.com/doktordirk" target="_blank">@doktordirk</a>
 .</strong></em></p>
 <p>With the increasing number of plugins, plugin initialization and configuration has become somewhat tedious. Currently, one might have something like this, a long list of plugins and their configs:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     aurelia<span class="token punctuation">.</span>use
         <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-api'</span><span class="token punctuation">,</span> aureliaApiConfig<span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-authentication'</span><span class="token punctuation">,</span> aureliaAuthenticationConfig<span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-notification'</span><span class="token punctuation">,</span> aureliaNotificationConfig<span class="token punctuation">)</span>
     <span class="token comment">//      ...</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Using aurelia-config, that becomes easier and more organized. We have just a single namespaced config object with all the configuration options and aurelia-config does all those plugin calls for us with the appropriate namespace section. Here's a simple example:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token comment">// Example config</span>
     <span class="token keyword">let</span> appConfigOverwrites <span class="token operator">=</span> <span class="token punctuation">{</span>
       <span class="token string">'aurelia-api'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
@@ -227,7 +255,11 @@
           <span class="token string">'aurelia-notification'</span><span class="token punctuation">,</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span> appConfigOverwrites<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>That's the main feature of aurelia-config, but there's more to it.</p>
 <ul>

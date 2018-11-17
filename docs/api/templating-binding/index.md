@@ -146,6 +146,42 @@ No description available.
 
 
 
+### LetInterpolationBinding
+
+No description available.
+
+#### Properties
+
+
+#### Methods
+
+
+* `bind(source?: any): any` - 
+  * `source?: any` - 
+
+
+
+* `createInterpolationBinding(): any` - 
+
+
+* `unbind(): any` - 
+
+
+
+### LetInterpolationBindingExpression
+
+No description available.
+
+#### Properties
+
+
+#### Methods
+
+
+* `createBinding(): any` - 
+
+
+
 ### SyntaxInterpreter
 
 No description available.

@@ -19,8 +19,12 @@
 , you can see, among other things, how to build an image file picker component, supporting drag and drop and showing a preview of the selected image. In this post, we'll use the techniques described in the book to build a multi-select image file picker, also supporting drag and drop, with a gallery-style preview feature.</p>
 <section><h2 id="picking-files">Picking Files</h2><p>Let's start by creating a custom <code>file-picker</code> element, which will encapsulate an <code>&lt;input type=&quot;file&quot;&gt;</code> element:</p>
 <h5>resources/elements/file-picker.ts</h5>
+
 <code-listing>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>customElement<span class="token punctuation">,</span> useView<span class="token punctuation">,</span> bindable<span class="token punctuation">,</span> bindingMode<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
     
     @<span class="token function">customElement</span><span class="token punctuation">(</span><span class="token string">'file-picker'</span><span class="token punctuation">)</span>
@@ -44,7 +48,11 @@
         <span class="token keyword">this</span><span class="token punctuation">.</span>input<span class="token punctuation">.</span><span class="token keyword">type</span> <span class="token operator">=</span> <span class="token string">'file'</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>This view-model declares three bindable properties:</p>
 <ul>
@@ -61,8 +69,12 @@ back to the bound property.</li>
 assign a reference on the <code>&lt;input type=&quot;file&quot;&gt;</code> element.</p>
 <p>Lastly, since the <code>input</code>'s <code>files</code> property is read-only and the DOM API doesn't expose a method to clear the <code>input</code>'s file selection (other than calling the <code>reset</code> method on the whole surrounding <code>form</code>), the view-model uses a hack to clear the selected files when an empty value is assigned to the <code>file-picker</code>'s <code>files</code> property: it sets the <code>input</code>'s <code>type</code> to an empty string then resets it back to <code>file</code>.</p>
 <h5>resources/elements/file-picker.html</h5>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span> <span class="token attr-name">accept.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>accept<span class="token punctuation">"</span></span> <span class="token attr-name">multiple.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>multiple<span class="token punctuation">"</span></span> 
              <span class="token attr-name">files.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>files<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>input<span class="token punctuation">"</span></span>
@@ -71,7 +83,11 @@ assign a reference on the <code>&lt;input type=&quot;file&quot;&gt;</code> eleme
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slot</span><span class="token punctuation">></span></span>Select<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slot</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>The <code>file-picker</code>'s template defines an <code>&lt;input type=&quot;file&quot;&gt;</code> element, styled so it is invisible and so it occupies no space in the DOM. Its <code>accept</code>, <code>multiple</code>, and <code>files</code> attributes are also properly bound to their corresponding property on the view-model. Lastly, it assigns a reference on the <code>input</code> to the view-model's <code>input</code>
 property.</p>
@@ -80,8 +96,12 @@ property.</p>
 </section>
 <section><h2 id="adding-a-file-drop-target">Adding a file drop target</h2><p>Next, let's create a custom attribute allowing to transform any element into a file drag and drop target:</p>
 <h5>resources/attributes/file-drop-target.ts</h5>
+
 <code-listing>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>customAttribute<span class="token punctuation">,</span> bindingMode<span class="token punctuation">,</span> autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
     
     @<span class="token function">customAttribute</span><span class="token punctuation">(</span><span class="token string">'file-drop-target'</span><span class="token punctuation">,</span> bindingMode<span class="token punctuation">.</span>twoWay<span class="token punctuation">)</span>
@@ -129,7 +149,11 @@ property.</p>
         <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span><span class="token function">removeEventListener</span><span class="token punctuation">(</span><span class="token string">'dragover'</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>onDragOver<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>The attribute's target element will be injected in the view-model's constructor. When the attribute is <code>attached</code> to the DOM, it starts listening for the <code>dragover</code>, <code>drop</code>, and <code>dragend</code> events on the target element. When the attribute is <code>detached</code> from the DOM, the
 event listeners are removed.</p>
@@ -140,8 +164,12 @@ a <code>drop</code> event occurs.</p>
 <section><h2 id="chunking-an-array">Chunking an Array</h2><p>In order to display the selected images as a gallery, we'll use Bootstrap's grid system. This means we'll need to break the files array down in chunks, so we can iterate on chunks to render rows, then on each chunk's files to render columns.</p>
 <p>The best way to do this in Aurelia is with a value converter:</p>
 <h5>resources/value-converters/chunk.ts</h5>
+
 <code-listing>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>valueConverter<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
     
     @<span class="token function">valueConverter</span><span class="token punctuation">(</span><span class="token string">'chunk'</span><span class="token punctuation">)</span>
@@ -156,7 +184,11 @@ a <code>drop</code> event occurs.</p>
         <span class="token keyword">return</span> result<span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>The <code>chunk</code> value converter expects an array and the chunks' size as its parameter and returns an array of array.</p>
 </section>
@@ -165,8 +197,12 @@ custom attribute, which will be used essentially on <code>img</code> elements, w
 <p>Some of you might think that a value converter would be a better fit for this type of feature, and I would absolutely agree. A value converter could take as an input a <code>Blob</code> object and return the object URL. It could then be used on a binding between an <code>img</code> element's <code>src</code> attribute and a property containing a <code>Blob</code> object.</p>
 <p>However, in this particular case, each object URL must be released after usage in order to prevent memory leaks, and value converters offer no mechanism to be notified when a value is no longer used. On the contrary, HTML behaviors offer a much richer workflow and a wider set of extension points. That's why we will create a custom attribute instead:</p>
 <h5>resources/attributes/blob-src.ts</h5>
+
 <code-listing>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>customAttribute<span class="token punctuation">,</span> inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
     
     @<span class="token function">customAttribute</span><span class="token punctuation">(</span><span class="token string">'blob-src'</span><span class="token punctuation">)</span>
@@ -198,7 +234,11 @@ custom attribute, which will be used essentially on <code>img</code> elements, w
         <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">disposeObjectUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 </section>
 <section><h2 id="bringing-it-all-together">Bringing It All Together</h2><blockquote>
@@ -207,8 +247,12 @@ even though some have been modified to fit the current context.</p>
 </blockquote>
 <p>The last missing piece is the one that brings everything together: an <code>image-files-picker</code> custom element.</p>
 <h5>resources/elements/image-files-picker.html</h5>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>jumbotron jumbotron-fluid<span class="token punctuation">"</span></span> <span class="token attr-name">file-drop-target.call</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>add(files)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -241,15 +285,23 @@ even though some have been modified to fit the current context.</p>
         Add
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>file-picker</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>The template starts with a <code>jumbotron</code> container, which acts as a <code>file-drop-target</code>. When files are dragged and dropped on this element, the view-model's <code>add</code> method will be called and passed the dropped <code>files</code>.</p>
 <p>Inside this container, the <code>files</code> array is rendered on three columns using the <code>chunk</code> value converter, each file displayed inside a Bootstrap <code>card</code> component. Each <code>card</code> displays the file in an <code>img</code> element using the <code>blob-src</code> attribute, a <code>button</code> whose <code>click</code> event calls the view-model's <code>remove</code> method, and the file's <code>name</code>.</p>
 <p>Lastly, underneath the image gallery, a <code>file-picker</code> element allows the user to select image files. The selected files are bound to the view-model's <code>selectedFiles</code> property, then the <code>change</code> event dispatched by the underlying <code>&lt;input type=&quot;file&quot;&gt;</code> element and bubbling up the DOM triggers a call to the <code>addSelectedFiles</code> method. The
 <code>file-picker</code>'s default projection slot is also overwritten with the text <em>Add</em>.</p>
 <h5>resources/elements/image-files-picker.ts</h5>
+
 <code-listing>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>customElement<span class="token punctuation">,</span> useView<span class="token punctuation">,</span> bindable<span class="token punctuation">,</span> bindingMode<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
     
     @<span class="token function">customElement</span><span class="token punctuation">(</span><span class="token string">'image-files-picker'</span><span class="token punctuation">)</span>
@@ -276,7 +328,11 @@ even though some have been modified to fit the current context.</p>
         <span class="token keyword">this</span><span class="token punctuation">.</span>selectedFiles <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>The view-model declares a <code>files</code> bindable property, which is bound two way by default. This property is expected to initially contain an empty array.</p>
 <p>When files are dropped on the drop target element, the <code>add</code> method is called and the dropped <code>files</code> are appended to the <code>files</code> property. When the user selects files using the <code>file-picker</code>, the selected files are assigned back to the <code>selectedFiles</code> property, then the <code>change</code> event handler calls the <code>addSelectedFiles</code>, which appends the <code>selectedFiles</code> to the <code>files</code> property, and finally assigns <code>null</code> to the <code>selectedFiles</code>.</p>
@@ -284,17 +340,29 @@ even though some have been modified to fit the current context.</p>
 <h3>Using the Image Files Picker</h3>
 <p>Using the <code>image-files-picker</code> element is then pretty simple. We first need to declare a property hosting the array of files on the <code>App</code> view-model:</p>
 <h5>app.ts</h5>
+
 <code-listing>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
       files<span class="token punctuation">:</span> File<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Next, we simply need to add the custom element in the template of our <code>App</code> component:</p>
 <h5>app.html</h5>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bootstrap/css/bootstrap.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
       
@@ -302,7 +370,11 @@ even though some have been modified to fit the current context.</p>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>image-files-picker</span> <span class="token attr-name">files.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>files<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>image-files-picker</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>section</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Of course, the various parts need to be loaded, either using the <code>require</code> statement in the <code>app.html</code> template, or in the <code>resources/index.ts</code> feature's <code>configure</code> function.</p>
 </section>
@@ -313,8 +385,12 @@ even though some have been modified to fit the current context.</p>
 </section>
 <section><h2 id="exploiting-the-selected-images">Exploiting the Selected Images</h2><p>Typically, such a component would be used to first select a bunch of image files, then to upload those files to some remote endpoint. This is pretty easy to do with  Aurelia's Fetch client and the <code>FormData</code> class from the Fetch API.</p>
 <p>Here's an example of a client service used to upload an array of <code>File</code> instances to some remote endpoint:</p>
+
 <code-listing>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>HttpClient<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-fetch-client'</span><span class="token punctuation">;</span>
     
@@ -330,7 +406,11 @@ even though some have been modified to fit the current context.</p>
         <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>http<span class="token punctuation">.</span><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">'some/url'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> method<span class="token punctuation">:</span> <span class="token string">'POST'</span><span class="token punctuation">,</span> body <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <blockquote>
 <p>The Mozilla Developer Network has 

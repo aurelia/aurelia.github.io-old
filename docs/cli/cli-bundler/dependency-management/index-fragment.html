@@ -24,19 +24,32 @@ Same as Webpack and Browserify, not all core Node.js functionality can be replic
 <h3>Known problem of auto stubbing core Node.js modules</h3>
 <p>Sometimes you may see missing <code>process</code> or <code>Buffer</code> variable, as they are Node.js globals.</p>
 <p>To fix the missing global, add these to your main${context.language.fileExtension}.</p>
-<code-listing heading="main${context.language.fileExtension}">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> process <span class="token keyword">from</span> <span class="token string">'process'</span><span class="token punctuation">;</span>
-    window<span class="token punctuation">.</span>process <span class="token operator">=</span> process<span class="token punctuation">;</span>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>Buffer<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'buffer'</span><span class="token punctuation">;</span>
-    window<span class="token punctuation">.</span>Buffer <span class="token operator">=</span> Buffer<span class="token punctuation">;</span>
-  </code></pre></source-code>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
-    <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> process <span class="token keyword">from</span> <span class="token string">'process'</span><span class="token punctuation">;</span>
-    window<span class="token punctuation">.</span>process <span class="token operator">=</span> process<span class="token punctuation">;</span>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>Buffer<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'buffer'</span><span class="token punctuation">;</span>
-    window<span class="token punctuation">.</span>Buffer <span class="token operator">=</span> Buffer<span class="token punctuation">;</span>
-  </code></pre></source-code>
+
+<code-listing heading="main.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> process <span class="token keyword">from</span> <span class="token string">'process'</span><span class="token punctuation">;</span>
+  window<span class="token punctuation">.</span>process <span class="token operator">=</span> process<span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>Buffer<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'buffer'</span><span class="token punctuation">;</span>
+  window<span class="token punctuation">.</span>Buffer <span class="token operator">=</span> Buffer<span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> process <span class="token keyword">from</span> <span class="token string">'process'</span><span class="token punctuation">;</span>
+  window<span class="token punctuation">.</span>process <span class="token operator">=</span> process<span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>Buffer<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'buffer'</span><span class="token punctuation">;</span>
+  window<span class="token punctuation">.</span>Buffer <span class="token operator">=</span> Buffer<span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Make sure you don't load those npm packages rely on those globals in main${context.language.fileExtension}. You need to delay them after the globals were ready, typically you can load them in app${context.language.fileExtension} or any other component delayed by Aurelia module loading.</p>
 <p>In this scenario, you'd better not use <code>aurelia.setRoot(App)</code>, use <code>aurelia.setRoot(PLATFORM.moduleName('app'))</code> or <code>aurelia.setRoot('app')</code> or <code>aurelia.setRoot()</code> to make sure <code>app</code> module is delayed.</p>
@@ -45,7 +58,12 @@ Same as Webpack and Browserify, not all core Node.js functionality can be replic
 <h3>1. modules not explicitly required by your code</h3>
 <p>For modules not explicitly required (directly or indirectly), we need to tell the bundler to bundle them in.</p>
 <p>Let's look at the default <code>aurelia_project/aurelia.json</code> of a new app.</p>
-<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+<code-listing>
+  
+<source-code lang="JSON">
+  <pre class="language-javascript">
+    <code>
   <span class="token string">"bundles"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
       <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"app-bundle.js"</span><span class="token punctuation">,</span>
@@ -75,18 +93,29 @@ Same as Webpack and Browserify, not all core Node.js functionality can be replic
     <span class="token string">"configTarget"</span><span class="token punctuation">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
     <span class="token comment">/* ... */</span>
   <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
   
-</code></pre></source-code></code-listing>
+</code-listing>
 <p>Note we hard coded five npm packages in <code>dependencies</code> of <code>vendor-bundle</code>. They are not directly required by your code, so we need to explicitly ask CLI bundler to bundle them.</p>
 <p>It will be very rare for you to have additional dependencies like them.</p>
 <h3>Conditional Dependency</h3>
 <p><code>aurelia-testing</code> is special, it's required by your source code but behind a condition check.</p>
-<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
   <span class="token keyword">if</span> <span class="token punctuation">(</span>environment<span class="token punctuation">.</span>testing<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-testing'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
   
-</code></pre></source-code></code-listing>
+</code-listing>
 <p>Because tracing is based on static code analysis, CLI bundler cannot smartly make conditional decision. To avoid bundling unnecessary package for production build, CLI bundler removes those conditional plugin(s) from auto traced dependencies. This kind of conditional plugin need to be configured manually.</p>
 <p>In the above config of <code>aurelia-testing</code>, we use <code>&quot;env&quot;: &quot;dev&quot;</code> to target only dev environment , if you want to target both dev and stage, use <code>&quot;env&quot;: &quot;dev &amp; stage&quot;</code>.</p>
 <h3>2. legacy modules that doesn't support any module format</h3>
@@ -95,7 +124,12 @@ Same as Webpack and Browserify, not all core Node.js functionality can be replic
 <section><h2 id="prepend">Prepend</h2><p>This is the best solution to save your time on stubborn npm packages.</p>
 <p>Those stubborn npm packages were not designed to work with any module loader. So why wast your time to try wrapping them into AMD modules? Why not just let them do what they were designed to do (polluting the global name space)?</p>
 <p>In <code>aurelia_project/aurelia.json</code> vendor-bundle, there is a <code>prepend</code> section.</p>
-<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+<code-listing>
+  
+<source-code lang="JSON">
+  <pre class="language-javascript">
+    <code>
   <span class="token punctuation">{</span>
     <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
     <span class="token string">"prepend"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
@@ -114,17 +148,28 @@ Same as Webpack and Browserify, not all core Node.js functionality can be replic
       <span class="token comment">// ...</span>
     <span class="token punctuation">]</span>
   <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
   
-</code></pre></source-code></code-listing>
+</code-listing>
 <p>vendor-bundle is the entry bundle file which you load up in <code>index.html</code>, the entry bundle is specified by <code>loader.configTarget</code> in <code>aurelia.json</code>.</p>
-<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+<code-listing>
+  
+<source-code lang="JSON">
+  <pre class="language-javascript">
+    <code>
   <span class="token string">"loader"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
     <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"require"</span><span class="token punctuation">,</span>
     <span class="token string">"configTarget"</span><span class="token punctuation">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
     <span class="token comment">// ...</span>
   <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
   
-</code></pre></source-code></code-listing>
+</code-listing>
 <p>CLI bundler writes those prepend files at the beginning of <code>vendor-bundle.js</code>, most importantly writes the <code>require.js</code> at end of the <code>prepend</code> list.</p>
 <p><code>require.js</code> brings AMD module loader up in browser.</p>
 <ul>
@@ -137,7 +182,12 @@ Same as Webpack and Browserify, not all core Node.js functionality can be replic
 <p><code>tempusdominus-bootstrap-4</code> is a jQuery plugin of date picker. It doesn't support either AMD or CommonJS module loader. It depends on jQuery, moment, font-awesome v4 and Bootstrap v4. First we install all npm packages. Bootstrap v4 also needs additional popper.js.</p>
 <p><code>npm install tempusdominus-bootstrap-4 jquery bootstrap moment font-awesome popper.js</code> or <code>yarn add tempusdominus-bootstrap-4 jquery bootstrap moment font-awesome popper.js</code></p>
 <p>Prepend them before <code>require.js</code> so all of them can create JavaScript global objects. Note you need to list them in right order of dependency.</p>
-<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+<code-listing>
+  
+<source-code lang="JSON">
+  <pre class="language-javascript">
+    <code>
   <span class="token string">"bundles"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
     <span class="token comment">// ...</span>
     <span class="token punctuation">{</span>
@@ -159,14 +209,25 @@ Same as Webpack and Browserify, not all core Node.js functionality can be replic
     <span class="token comment">// need font-awesome v4 fonts files</span>
     <span class="token string">"node_modules/font-awesome/fonts/*"</span><span class="token punctuation">:</span> <span class="token string">"font-awesome/fonts"</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  </code>
+  </pre>
+</source-code>
   
-</code></pre></source-code></code-listing>
+</code-listing>
 <p>Now <code>$</code>, <code>jQuery</code> and <code>moment</code> are global JavaScript objects to your app. You can use them freely without any import (<code>import $ from 'jquery'</code>).</p>
 <p>To calm eslint down on warning of <code>'$' is not defined</code>, add following line to top of any file that uses those globals.</p>
-<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
-  <span class="token comment">/* global $, jQuery, moment */</span>
+
+<code-listing>
   
-</code></pre></source-code></code-listing>
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token comment">/* global $, jQuery, moment */</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
 <div class="warning"><div class="icon"> <i></i> </div><p>
 With jquery in prepend, please don't <code>import $ from 'jquery'</code> in any code. Otherwise, auto tracing will bring in jquery npm package again, causes duplicated jquery loading (one prepend before <code>require.js</code>, one npm package after <code>require.js</code>).</p>
 </div>
@@ -174,90 +235,123 @@ With jquery in prepend, please don't <code>import $ from 'jquery'</code> in any 
 There is still a way to allow you to write <code>import $ from 'jquery'</code> when using prepend, read <a href="/docs/cli/cli-bundler/advanced">onRequiringModule in CLI Bundler advanced</a> for more details.</p>
 </div>
 <p>An example of using <code>tempusdominus-bootstrap-4</code>:</p>
-<code-listing heading="app${context.language.fileExtension}">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token comment">/* global $, moment */</span>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-      value <span class="token operator">=</span> <span class="token function">moment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-      <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment">// for better reuse, wrap datetimepicker</span>
-        <span class="token comment">// behind an Aurelia custom element.</span>
-        <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-          date<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'change.datetimepicker'</span><span class="token punctuation">,</span> e <span class="token operator">=></span> <span class="token punctuation">{</span>
-          <span class="token comment">// sync back to value</span>
-          <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">=</span> e<span class="token punctuation">.</span>date<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-
-      <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token string">'destroy'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token comment">/* global $, moment */</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    value <span class="token operator">=</span> <span class="token function">moment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+    <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// for better reuse, wrap datetimepicker</span>
+      <span class="token comment">// behind an Aurelia custom element.</span>
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        date<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'change.datetimepicker'</span><span class="token punctuation">,</span> e <span class="token operator">=></span> <span class="token punctuation">{</span>
+        <span class="token comment">// sync back to value</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">=</span> e<span class="token punctuation">.</span>date<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
-    <span class="token comment">/* global $, moment */</span>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-      value <span class="token operator">=</span> <span class="token function">moment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-      <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment">// for better reuse, wrap datetimepicker</span>
-        <span class="token comment">// behind an Aurelia custom element.</span>
-        <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-          date<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'change.datetimepicker'</span><span class="token punctuation">,</span> e <span class="token operator">=></span> <span class="token punctuation">{</span>
-          <span class="token comment">// sync back to value</span>
-          <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">=</span> e<span class="token punctuation">.</span>date<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-
-      <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token string">'destroy'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
+  
+    <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token string">'destroy'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token comment">/* global $, moment */</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    value <span class="token operator">=</span> <span class="token function">moment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+    <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// for better reuse, wrap datetimepicker</span>
+      <span class="token comment">// behind an Aurelia custom element.</span>
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        date<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'change.datetimepicker'</span><span class="token punctuation">,</span> e <span class="token operator">=></span> <span class="token punctuation">{</span>
+        <span class="token comment">// sync back to value</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">=</span> e<span class="token punctuation">.</span>date<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token string">'destroy'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
+
 <code-listing heading="app.html">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>font-awesome/css/font-awesome.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bootstrap/css/bootstrap.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>row<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>col-sm-6<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Value: ${value}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form-group<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>input-group date<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>datetimepicker1<span class="token punctuation">"</span></span> <span class="token attr-name">data-target-input</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>nearest<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form-control datetimepicker-input<span class="token punctuation">"</span></span> <span class="token attr-name">data-target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#datetimepicker1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>input-group-append<span class="token punctuation">"</span></span> <span class="token attr-name">data-target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#datetimepicker1<span class="token punctuation">"</span></span> <span class="token attr-name">data-toggle</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>datetimepicker<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-                  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>input-group-text<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fa fa-calendar<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>font-awesome/css/font-awesome.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bootstrap/css/bootstrap.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>row<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>col-sm-6<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Value: ${value}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form-group<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>input-group date<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>datetimepicker1<span class="token punctuation">"</span></span> <span class="token attr-name">data-target-input</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>nearest<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form-control datetimepicker-input<span class="token punctuation">"</span></span> <span class="token attr-name">data-target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#datetimepicker1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>input-group-append<span class="token punctuation">"</span></span> <span class="token attr-name">data-target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#datetimepicker1<span class="token punctuation">"</span></span> <span class="token attr-name">data-toggle</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>datetimepicker<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>input-group-text<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fa fa-calendar<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
               <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <h3>Conditional Prepend</h3>
 <p>You can conditionally prepend a JavaScript file per environment, like this one conditionally adds a bluebird config for stage and prod environment.</p>
-<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+<code-listing>
+  
+<source-code lang="JSON">
+  <pre class="language-javascript">
+    <code>
   <span class="token punctuation">{</span>
     <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"node_modules/aurelia-cli/lib/resources/scripts/configure-bluebird-no-long-stacktraces.js"</span><span class="token punctuation">,</span>
     <span class="token string">"env"</span><span class="token punctuation">:</span> <span class="token string">"stage &amp; prod"</span>
   <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
   
-</code></pre></source-code></code-listing>
+</code-listing>
 </section>
 <section><h2 id="shim">Shim</h2><p>Shim is a technique to wrap a legacy JavaScript library into an AMD module. Here is how you wrap <code>tempusdominus-bootstrap-4</code> into AMD module, add following to <code>aurelia_project/aurelia.json</code> vendor-bundle dependencies:</p>
-<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+<code-listing>
+  
+<source-code lang="JSON">
+  <pre class="language-javascript">
+    <code>
   <span class="token comment">// remember to remove those jquery/moment... from your prepend</span>
   <span class="token string">"dependencies"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
     <span class="token comment">// ...</span>
@@ -272,8 +366,11 @@ There is still a way to allow you to write <code>import $ from 'jquery'</code> w
       <span class="token string">"wrapShim"</span><span class="token punctuation">:</span> <span class="token boolean">true</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span>
+  </code>
+  </pre>
+</source-code>
   
-</code></pre></source-code></code-listing>
+</code-listing>
 <div class="info"><div class="icon"> <i></i> </div><p>
 We only need explicit config for <code>tempusdominus-bootstrap-4</code>, all other jquery, bootstrap, popper.js, and moment are handled by auto tracing.</p>
 </div>
@@ -294,7 +391,12 @@ Unlike old version of CLI Bundler, we don't need <code>path</code> and <code>mai
 For anyone without much experience of AMD shim, this is quite hard to figure out. That's why we <strong>recommend prepend over shim for any legacy JavaScript library</strong>.</p>
 </div>
 <p>We can expose <code>moment</code> to global namespace in <code>main.js</code>, then loads <code>tempusdominus-bootstrap-4</code> in <code>app.js</code>. Here is a full setup.</p>
-<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+<code-listing>
+  
+<source-code lang="JSON">
+  <pre class="language-javascript">
+    <code>
   <span class="token comment">// aurelia_project/aurelia.json</span>
   <span class="token string">"bundles"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
     <span class="token comment">// ...</span>
@@ -319,93 +421,129 @@ For anyone without much experience of AMD shim, this is quite hard to figure out
   <span class="token string">"copyFiles"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
     <span class="token string">"node_modules/font-awesome/fonts/*"</span><span class="token punctuation">:</span> <span class="token string">"font-awesome/fonts"</span>
   <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
   
-</code></pre></source-code></code-listing>
-<code-listing heading="main${context.language.fileExtension}">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> moment <span class="token keyword">from</span> <span class="token string">'moment'</span><span class="token punctuation">;</span>
-    window<span class="token punctuation">.</span>moment <span class="token operator">=</span> moment<span class="token punctuation">;</span>
-  </code></pre></source-code>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
-    <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> moment <span class="token keyword">from</span> <span class="token string">'moment'</span><span class="token punctuation">;</span>
-    window<span class="token punctuation">.</span>moment <span class="token operator">=</span> moment<span class="token punctuation">;</span>
-  </code></pre></source-code>
 </code-listing>
-<code-listing heading="app${context.language.fileExtension}">
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> $ <span class="token keyword">from</span> <span class="token string">'jquery'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> moment <span class="token keyword">from</span> <span class="token string">'moment'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> <span class="token string">'tempusdominus-bootstrap-4'</span><span class="token punctuation">;</span>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-      value <span class="token operator">=</span> <span class="token function">moment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-      <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment">// for better reuse, wrap datetimepicker</span>
-        <span class="token comment">// behind an Aurelia custom element.</span>
-        <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-          date<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<code-listing heading="main.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> moment <span class="token keyword">from</span> <span class="token string">'moment'</span><span class="token punctuation">;</span>
+  window<span class="token punctuation">.</span>moment <span class="token operator">=</span> moment<span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
 
-        <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'change.datetimepicker'</span><span class="token punctuation">,</span> e <span class="token operator">=></span> <span class="token punctuation">{</span>
-          <span class="token comment">// sync back to value</span>
-          <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">=</span> e<span class="token punctuation">.</span>date<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-
-      <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token string">'destroy'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  </code></pre></source-code>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
-    <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> $ <span class="token keyword">from</span> <span class="token string">'jquery'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> moment <span class="token keyword">from</span> <span class="token string">'moment'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> <span class="token string">'tempusdominus-bootstrap-4'</span><span class="token punctuation">;</span>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-      value <span class="token operator">=</span> <span class="token function">moment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-      <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment">// for better reuse, wrap datetimepicker</span>
-        <span class="token comment">// behind an Aurelia custom element.</span>
-        <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-          date<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'change.datetimepicker'</span><span class="token punctuation">,</span> e <span class="token operator">=></span> <span class="token punctuation">{</span>
-          <span class="token comment">// sync back to value</span>
-          <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">=</span> e<span class="token punctuation">.</span>date<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-
-      <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token string">'destroy'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  </code></pre></source-code>
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> moment <span class="token keyword">from</span> <span class="token string">'moment'</span><span class="token punctuation">;</span>
+  window<span class="token punctuation">.</span>moment <span class="token operator">=</span> moment<span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
+
+<code-listing heading="app.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> $ <span class="token keyword">from</span> <span class="token string">'jquery'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> moment <span class="token keyword">from</span> <span class="token string">'moment'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token string">'tempusdominus-bootstrap-4'</span><span class="token punctuation">;</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    value <span class="token operator">=</span> <span class="token function">moment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+    <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// for better reuse, wrap datetimepicker</span>
+      <span class="token comment">// behind an Aurelia custom element.</span>
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        date<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'change.datetimepicker'</span><span class="token punctuation">,</span> e <span class="token operator">=></span> <span class="token punctuation">{</span>
+        <span class="token comment">// sync back to value</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">=</span> e<span class="token punctuation">.</span>date<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token string">'destroy'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> $ <span class="token keyword">from</span> <span class="token string">'jquery'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> moment <span class="token keyword">from</span> <span class="token string">'moment'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token string">'tempusdominus-bootstrap-4'</span><span class="token punctuation">;</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    value <span class="token operator">=</span> <span class="token function">moment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+    <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// for better reuse, wrap datetimepicker</span>
+      <span class="token comment">// behind an Aurelia custom element.</span>
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        date<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'change.datetimepicker'</span><span class="token punctuation">,</span> e <span class="token operator">=></span> <span class="token punctuation">{</span>
+        <span class="token comment">// sync back to value</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">=</span> e<span class="token punctuation">.</span>date<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token string">'destroy'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
 <code-listing heading="app.html">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>font-awesome/css/font-awesome.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bootstrap/css/bootstrap.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>row<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>col-sm-6<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Value: ${value}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form-group<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>input-group date<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>datetimepicker1<span class="token punctuation">"</span></span> <span class="token attr-name">data-target-input</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>nearest<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form-control datetimepicker-input<span class="token punctuation">"</span></span> <span class="token attr-name">data-target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#datetimepicker1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>input-group-append<span class="token punctuation">"</span></span> <span class="token attr-name">data-target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#datetimepicker1<span class="token punctuation">"</span></span> <span class="token attr-name">data-toggle</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>datetimepicker<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-                  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>input-group-text<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fa fa-calendar<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>font-awesome/css/font-awesome.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bootstrap/css/bootstrap.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>row<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>col-sm-6<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Value: ${value}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form-group<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>input-group date<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>datetimepicker1<span class="token punctuation">"</span></span> <span class="token attr-name">data-target-input</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>nearest<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form-control datetimepicker-input<span class="token punctuation">"</span></span> <span class="token attr-name">data-target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#datetimepicker1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>input-group-append<span class="token punctuation">"</span></span> <span class="token attr-name">data-target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#datetimepicker1<span class="token punctuation">"</span></span> <span class="token attr-name">data-toggle</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>datetimepicker<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>input-group-text<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fa fa-calendar<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
               <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 </section>
 <section><h2 id="au-run-auto-install">au run --auto-install</h2><p>When you run <code>au run</code> with <code>--auto-install</code>, it auto installs missing npm packages while tracing your source code. You can keep writing code, CLI bundler will take care of <code>npm install some-package</code> (or <code>yarn add some-package</code>).</p>

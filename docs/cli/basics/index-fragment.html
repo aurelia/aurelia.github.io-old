@@ -28,10 +28,18 @@
 </li>
 </ul>
 <p>Once you have the prerequisites installed, you can install the Aurelia CLI itself. From the command line, use npm to install the CLI globally:</p>
-<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
-  npm install aurelia<span class="token operator">-</span>cli <span class="token operator">-</span>g
+
+<code-listing>
   
-</code></pre></source-code></code-listing>
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  npm install aurelia<span class="token operator">-</span>cli <span class="token operator">-</span>g
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
 <div class="info"><div class="icon"> <i></i> </div><p>
 Always run commands from a Bash prompt. Depending on your environment, you may need to use <code>sudo</code> when executing npm global installs.</p>
 </div>
@@ -59,7 +67,7 @@ By Aurelia convention, we use
 <section><h2 id="aureliajson">Aurelia.json</h2><p>In the <code>aurelia_project</code> directory there is a file called <code>aurelia.json</code>. This file is the centralized settings for all the gulp tasks like build and test. We will show you more details of this file when talking about various customization.</p>
 </section>
 <section><h2 id="webpack-vs-built-in-bundler">Webpack vs Built-in Bundler</h2><p>When creating a new project using the Aurelia CLI, you are presented with a wizard to select a bundler, a module loader, CSS preprocessor and more.</p>
-<p>On top of all choices, you first need to choose a bundler: either Webpack (the default bundler), or CLI's built-in bundler (the alternative bundler).</p>
+<p>On top of all choices, you first need to choose a bundler: either Webpack (the default bundler) or CLI's built-in bundler (the alternative bundler).</p>
 <h3>Webpack</h3>
 <p>Webpack is the default choice for both ESNext and TypeScript applications.</p>
 <p>Webpack is a bundler with built-in module loader. If you choose to use Webpack then you don't need a separate module loader. Webpack is powerful and popular, but it could be a daunting task to set up Webpack from scratch. Aurelia CLI generates a battle-tested Webpack configuration file for your app, provides a solid base for further customization if you ever need to.</p>
@@ -67,21 +75,21 @@ By Aurelia convention, we use
 To ensure your code work nicely with Webpack, you need to use <code>PLATFORM.moduleName('someModule')</code> calls for module references. Read more in <a href="/docs/cli/webpack">Webpack section</a>.</p>
 </div>
 <h3>CLI's Built-in Bundler</h3>
-<p>Aurelia CLI ships with an in-house made bundler providing similar capability of Webpack but with much simpler configuration. If you have no experience on Webpack, we recommend to use the built-in bundler.</p>
+<p>Aurelia CLI ships with an in-house made bundler providing similar functionality of Webpack but with much simpler configuration. If you have no experience on Webpack, we recommend using the built-in bundler.</p>
 <p>The built-in bundler is paired with module loader RequireJS or SystemJS.</p>
 <ul>
-<li>RequireJS has been around for very long time, it's the reference module loader for AMD module format. Comparing to SystemJS, it is considered bit more mature and stable, but with less features.</li>
+<li>RequireJS has been around for a very long time, it's the reference module loader for AMD module format. Comparing to SystemJS, it is considered a bit more mature and stable, but with fewer features.</li>
 <li>SystemJS is a &quot;Dynamic ES module loader&quot;, the most versatile module loader in JavaScript world, supporting AMD/CommonJS/UMD or Native ESNext module format. This gives you most freedom at runtime.</li>
 </ul>
 <p>Choose RequireJS if you don't need or not sure about SystemJS's capability.</p>
 <div class="info"><div class="icon"> <i></i> </div><p>
 The built-in bundler supports any npm packages in CommonJS (Node.js default), AMD, UMD or Native ES Module format.</p>
 </div>
-<p>Previous version of the built-in bundler requires user to manually maintain dependencies configuration in <code>aurelia.json</code>. But now we got a totally new bundler written from scratch, we call it auto-tracing. As the name implies, it tracks dependencies automatically without explicit configuration. You rarely need to touch <code>aurelia.json</code> for dependency management.</p>
+<p>Previous versions of the built-in bundler required the user to manually maintain dependencies configuration in <code>aurelia.json</code>. But now we have a totally new bundler written from scratch, we call it auto-tracing. As the name implies, it tracks dependencies automatically without explicit configuration. You rarely need to touch <code>aurelia.json</code> for dependency management.</p>
 <p>If you migrate an app from old CLI bundler to latest CLI bundler, most apps should still work without modifying <code>aurelia.json</code>. If your app failed to work with latest CLI bundler, please read <a href="/docs/cli/migrating">migration guide</a>. If you still have trouble, ask a question on 
 <a href="https://discourse.aurelia.io/" target="_blank">Aurelia Discourse forum</a>
  or create an issue on 
-<a href="https://github.com/aurelia/cli/issues" target="_blank">our github repo</a>
+<a href="https://github.com/aurelia/cli/issues" target="_blank">our GitHub repo</a>
 , we will help you out.</p>
 <p>Read <a href="/docs/cli/cli-bundler">CLI bundler chapter</a> for more details.</p>
 <p>Please refer to the following websites for more information on Webpack, RequireJS and SystemJS.</p>
@@ -93,8 +101,7 @@ The built-in bundler supports any npm packages in CommonJS (Node.js default), AM
 </section>
 <section><h2 id="what-if-i-need-help">What if I need help?</h2><p>Run <code>au help</code>, or you can reach us on 
 <a href="https://discourse.aurelia.io/" target="_blank">Aurelia Discourse forum</a>
-. If you aren't sure what version of the CLI you are running, you can run <code>au -v</code>;
-</resource></p>
+. If you aren't sure what version of the CLI you are running, you can run <code>au -v</code>;</p>
 </section>
 
   </article>

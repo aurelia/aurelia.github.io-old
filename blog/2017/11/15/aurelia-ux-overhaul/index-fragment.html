@@ -34,19 +34,31 @@
 </section>
 <section><h2 id="design-language-improvements">Design Language Improvements</h2><p>All swatches and design variables are now exposed as CSS variables. They are given a prefix of <code>--ux-swatch--</code> and <code>--ux-design--</code>. For example the following CSS variables are just some that are exposed to be used anywhere you use Aurelia UX.</p>
 <p>Design</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token operator">--</span>ux<span class="token operator">-</span>design<span class="token operator">--</span>app<span class="token operator">-</span>background
     <span class="token operator">--</span>ux<span class="token operator">-</span>design<span class="token operator">--</span>app<span class="token operator">-</span>foreground
     <span class="token operator">--</span>ux<span class="token operator">-</span>design<span class="token operator">--</span>control<span class="token operator">-</span>background
     <span class="token operator">--</span>ux<span class="token operator">-</span>design<span class="token operator">--</span>control<span class="token operator">-</span>foreground
     <span class="token operator">--</span>ux<span class="token operator">-</span>design<span class="token operator">--</span>primary
     <span class="token operator">--</span>ux<span class="token operator">-</span>design<span class="token operator">--</span>primary<span class="token operator">-</span>foreground
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Swatches</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token operator">--</span>ux<span class="token operator">-</span>swatch<span class="token operator">--</span>blue<span class="token operator">-</span>grey<span class="token operator">-</span>p50
     <span class="token operator">--</span>ux<span class="token operator">-</span>swatch<span class="token operator">--</span>blue<span class="token operator">-</span>grey<span class="token operator">-</span>p100
     <span class="token operator">--</span>ux<span class="token operator">-</span>swatch<span class="token operator">--</span>blue<span class="token operator">-</span>grey<span class="token operator">-</span>p200
@@ -60,7 +72,11 @@
     <span class="token operator">--</span>ux<span class="token operator">-</span>swatch<span class="token operator">--</span>black
     <span class="token operator">--</span>ux<span class="token operator">-</span>swatch<span class="token operator">--</span>white
     <span class="token operator">...</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 </section>
 <section><h2 id="new-publish-location">New Publish Location</h2><p>Finally, as part of this overhaul, we've moved to publishing all Aurelia UX packages under the 

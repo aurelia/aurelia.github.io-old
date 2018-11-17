@@ -24,20 +24,40 @@
 <h3>Today's Alpha Release</h3>
 <p>I think we are at a point where we want to get heavy user feedback on the new validation system, so as of today you can install the alpha release:</p>
 <p>If you are using JSPM:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     $ jspm install aurelia<span class="token operator">-</span>validatejs
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>If you are using NPM:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     $ npm install aurelia<span class="token operator">-</span>validatejs <span class="token operator">--</span>save
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Once the package is installed, then install the plugin in your main.js configure method:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       aurelia<span class="token punctuation">.</span>use
         <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -45,24 +65,40 @@
         
       aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <h3>Applying Validation with Decorators</h3>
 <p>Once the plugin is installed, you can use it in your models and view-models with decorators:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>required<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-validatejs'</span><span class="token punctuation">;</span>
     
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyModel</span> <span class="token punctuation">{</span>
       @required name <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Notice that <code>name</code> on instances of MyModel will be required.</p>
 <h3>Applying Validation with the Fluent API</h3>
 <p>If you prefer not to use decorators (or can't), you can also use the fluent API as well:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>Validator<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-validatejs'</span><span class="token punctuation">;</span>
     
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Fluent</span> <span class="token punctuation">{</span>
@@ -78,14 +114,22 @@
             <span class="token punctuation">.</span><span class="token function">required</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Note that both the decorator and fluent API take the exact same configuration options.</p>
 <h3>Displaying Errors</h3>
 <p>Currently, to display errors you can use the <code>ValidateBindingBehavior</code> which <strong>watches for changes to the validation properties of the object</strong> and uses a <code>ValidationRenderer</code> to show them. We would like some feedback on the setup so try it out and let us know what you think.</p>
 <p>Use the <code>validate</code> binding behavior in your HTML to show errors like this:</p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
@@ -96,13 +140,21 @@
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>By default, the renderer uses the standard Bootstrap error formatting.</p>
 <h4>ValidationReporter</h4>
 <p>In your view-model code you can watch for errors emitted by the error reporter:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>required<span class="token punctuation">,</span> ValidationEngine<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-validatejs'</span><span class="token punctuation">;</span>
     
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyModel</span> <span class="token punctuation">{</span>
@@ -118,7 +170,11 @@
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <h3>What's Next?</h3>
 <h4>Weekly Releases</h4>
@@ -156,22 +212,42 @@
 <section><h2 id="new-testing-capabilities">New Testing Capabilities</h2><p>Previously, we announced that we're working on a library for easy testing of components. With today's releases we also have the first version of <code>aurelia-testing</code> available. With it you can easily stage a custom element or custom attribute in isolation inside a mini Aurelia application, assert how it responds to databinding and assert its behavior throughout the component's lifecycle (bind, attached etc). This library is still in an early stage but please take it for a spin, write some tests for your components and give us feedback.</p>
 <p>To get started:</p>
 <p>If you are using JSPM:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     $ jspm install aurelia<span class="token operator">-</span>testing
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>If you are using NPM:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     $ npm install aurelia<span class="token operator">-</span>testing <span class="token operator">--</span>save
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Once you've got the library installed, you can use it in a unit test. Here are a few examples of what it can do:</p>
 <p>Given you have following custom element:</p>
 <p><strong>my-component.js</strong></p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
     
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyComponent</span> <span class="token punctuation">{</span>
@@ -191,19 +267,35 @@
     
       <span class="token function">detached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p><strong>my-component.html</strong></p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${name} ${something}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Some basic tests could look like:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>StageComponent<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-testing'</span><span class="token punctuation">;</span>
     <span class="token keyword">import</span> <span class="token punctuation">{</span>MyComponent<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../src/my-component'</span><span class="token punctuation">;</span>
     
@@ -271,7 +363,11 @@
          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>done<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>As you see, the test helper lets you easily push components through their lifecycle, testing various aspects of it at each point along the way.</p>
 </section>

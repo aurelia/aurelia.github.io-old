@@ -59,24 +59,40 @@
 <p>The problem with Aurelia, however, was that it was very new. Don't get us wrong, the framework was impressive and really easy to work with, but it was lacking any out-of-the-box UI components. Rather than waiting to see someone else provide such UI components and having sufficiently good experience with KendoUI we decided to take a plunge and try to create a bridge that would make KendoUI controls shine as Aurelia Components.</p>
 <p>Take the following example that briefly explains our intentions:</p>
 <p><strong>In the KendoUI native programming model, a Kendo grid layout is defined in the view-model (JavaScript):</strong></p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token function">$</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">kendoGrid</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
      columns<span class="token punctuation">:</span> <span class="token punctuation">[</span>
        <span class="token punctuation">{</span> field<span class="token punctuation">:</span> <span class="token string">"CustomerId"</span><span class="token punctuation">,</span> template<span class="token punctuation">:</span> <span class="token string">"Customer: ${ CustomerId }"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
        <span class="token punctuation">{</span> field<span class="token punctuation">:</span> <span class="token string">"CustomerName"</span><span class="token punctuation">,</span> template<span class="token punctuation">:</span> <span class="token string">"${ CustomerName }"</span> <span class="token punctuation">}</span>
      <span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p><strong>We wanted to express the same information as Aurelia components:</strong></p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token operator">&lt;</span>k<span class="token operator">-</span>grid<span class="token operator">></span>
       <span class="token operator">&lt;</span>k<span class="token operator">-</span>col field<span class="token operator">=</span><span class="token string">"CustomerId"</span><span class="token operator">></span>Customer<span class="token punctuation">:</span> $<span class="token punctuation">{</span> CustomerId <span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">-</span>col<span class="token operator">></span>
       <span class="token operator">&lt;</span>k<span class="token operator">-</span>col field<span class="token operator">=</span><span class="token string">"CustomerName"</span><span class="token operator">></span>$<span class="token punctuation">{</span> CustomerName <span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">-</span>col<span class="token operator">></span>
     <span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">-</span>grid<span class="token operator">></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>This latter approach is more declarative and easier to visualize / understand. It also sits in the correct place in the MV* model -- and all these improvements are the consequences of using Aurelia's powerful <strong>
 <a href="https://github.com/aurelia/binding" target="_blank">binding</a>
@@ -86,7 +102,12 @@
 </section>
 <section><h2 id="some-interesting-problems-we-encountered">Some interesting problems we encountered.</h2><h4>Repetitive Code</h4>
 <p>After implementing the first few wrappers, we started to see a pattern emerge. Our code contained a lot of <code>@bindable</code> property declarations in order to expose Kendo's API to Aurelia's binding system:</p>
-<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Grid</span> <span class="token punctuation">{</span>
   
     @<span class="token function">children</span><span class="token punctuation">(</span><span class="token string">'k-col'</span><span class="token punctuation">)</span> columns<span class="token punctuation">;</span>
@@ -98,10 +119,18 @@
     @bindable filterable<span class="token punctuation">;</span>
     @bindable group<span class="token punctuation">;</span>
     <span class="token comment">// .. and more</span>
+  </code>
+  </pre>
+</source-code>
   
-</code></pre></source-code></code-listing>
+</code-listing>
 <p>That wasn't all - our wrappers also contained what we called <em>&quot;event proxies&quot;</em> which delegate events raised by the Kendo control. Before the optimizations, we had to write an event proxy for every event in every wrapper:</p>
-<code-listing><source-code lang="JavaScript"><pre class="language-javascript"><code>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
   cancel<span class="token punctuation">:</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">fireKendoEvent</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">,</span> <span class="token string">'cancel'</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">,</span>
   change<span class="token punctuation">:</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">fireKendoEvent</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">,</span> <span class="token string">'change'</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">,</span>
   columnHide<span class="token punctuation">:</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">fireKendoEvent</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">,</span> <span class="token string">'column-hide'</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -111,8 +140,11 @@
   columnReorder<span class="token punctuation">:</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">fireKendoEvent</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">,</span> <span class="token string">'column-reorder'</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">,</span>
   columnResize<span class="token punctuation">:</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">fireKendoEvent</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">,</span> <span class="token string">'column-resize'</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token comment">// .. and more</span>
+  </code>
+  </pre>
+</source-code>
   
-</code></pre></source-code></code-listing>
+</code-listing>
 <p>It's safe to say that this was not optimal. If we missed an event or the Kendo API changed we would need to issue a new version of the plugin.</p>
 <p>A more robust approach was necessary.</p>
 <p>Fortunately, the KendoUI source contains a list of properties from which we can generate part of the wrapper implementation:</p>
@@ -123,15 +155,23 @@
  decorator, and create a 
 <a href="https://github.com/aurelia-ui-toolkits/aurelia-kendoui-bridge/blob/343767e7fe5e484e80d1541a28e7a8e75f52cf70/src/common/decorators.js#L11-L37" target="_blank">@generateBindables</a>
  decorator. This makes the code much cleaner:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     @<span class="token function">customElement</span><span class="token punctuation">(</span><span class="token string">'k-grid'</span><span class="token punctuation">)</span>
     @<span class="token function">generateBindables</span><span class="token punctuation">(</span><span class="token string">'kendoGrid'</span><span class="token punctuation">)</span>
     @<span class="token function">inject</span><span class="token punctuation">(</span>Element<span class="token punctuation">,</span> WidgetBase<span class="token punctuation">)</span>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Grid</span>  <span class="token punctuation">{</span>
       @<span class="token function">children</span><span class="token punctuation">(</span><span class="token string">'k-col'</span><span class="token punctuation">)</span> columns<span class="token punctuation">;</span>
       @bindable options <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>The event proxies mentioned earlier are also generated, reducing the size of our codebase even more and ensuring that the plugin is resilient to future API changes.</p>
 <h4>Inheritance</h4>
@@ -166,8 +206,12 @@
 <a href="https://github.com/aurelia-ui-toolkits/aurelia-kendoui-bridge/tree/master/src" target="_blank">bridge</a>
 </strong>) illustrates several different examples showing how to use that component by showing the actual view, view model and eventual &quot;local&quot; css file. Here are the code snippets for Grid components:</p>
 <p><strong>view</strong></p>
+
 <code-listing>
-  <source-code lang="HTML"><pre class="language-markup"><code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./basic-use.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
     
@@ -182,11 +226,19 @@
           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k-col</span> <span class="token attr-name">field</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Country<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k-col</span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k-grid</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p><strong>view model</strong></p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">BasicUse</span> <span class="token punctuation">{</span>
     
       pageable <span class="token operator">=</span> <span class="token punctuation">{</span>
@@ -205,11 +257,19 @@
         <span class="token punctuation">}</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p><strong>style.css</strong></p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token punctuation">.</span>customer<span class="token operator">-</span>photo <span class="token punctuation">{</span>
         display<span class="token punctuation">:</span> inline<span class="token operator">-</span>block<span class="token punctuation">;</span>
         width<span class="token punctuation">:</span> <span class="token number">32</span>px<span class="token punctuation">;</span>
@@ -229,7 +289,11 @@
         line<span class="token operator">-</span>height<span class="token punctuation">:</span> <span class="token number">32</span>px<span class="token punctuation">;</span>
         padding<span class="token operator">-</span>left<span class="token punctuation">:</span> <span class="token number">3</span>px<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <h5>Feature 2</h5>
 <p>Besides the hope that many Aurelia application developers will use this Bridge, we also hope to get more Aurelia enthusiast to help finish this drive (<strong>

@@ -31,47 +31,63 @@ This feature hasn't been released for the templating engine just yet. We're push
 <h4>https://github.com/aurelia/vscode-extension/issues/53</h4>
 <p>A new VSCode setting allows you to specify which binding commands you want to get auto-completed. This allows you to configure this yourself for a given workspace/project or modify it in your VSCode user settings for each workspace/project.</p>
 <p>By default, it will show all, but if you don't want to get the deprecated <code>one-way</code> as a suggestion anymore (or any of the others) you can simply remove it from the object in the configuration settings.</p>
-<code-listing><source-code lang="json"><pre class="language-javascript"><code>
-  <span class="token string">"aurelia.autocomplete.bindings.data"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
-      <span class="token punctuation">{</span>
-        <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"bind"</span><span class="token punctuation">,</span>
-        <span class="token string">"documentation"</span><span class="token punctuation">:</span> <span class="token string">"automatically chooses the binding mode. Uses two-way binding for form controls and to-view/one-way binding for almost everything else"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token punctuation">{</span>
-        <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"to-view"</span><span class="token punctuation">,</span>
-        <span class="token string">"documentation"</span><span class="token punctuation">:</span> <span class="token string">"flows data one direction: from the view-model to the view"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token punctuation">{</span>
-        <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"one-way"</span><span class="token punctuation">,</span>
-        <span class="token string">"documentation"</span><span class="token punctuation">:</span> <span class="token string">"[deprecated, use to-view instead] flows data one direction: from the view-model to the view"</span><span class="token punctuation">,</span>
-        <span class="token string">"label"</span><span class="token punctuation">:</span> <span class="token string">".one-way='' [deprecated]"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token punctuation">{</span>
-        <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"from-view"</span><span class="token punctuation">,</span>
-        <span class="token string">"documentation"</span><span class="token punctuation">:</span> <span class="token string">"flows data one direction: from the view to the view-model"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token punctuation">{</span>
-        <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"two-way"</span><span class="token punctuation">,</span>
-        <span class="token string">"documentation"</span><span class="token punctuation">:</span> <span class="token string">"flows data both ways: from view-model to view and from view to view-model"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token punctuation">{</span>
-        <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"one-time"</span><span class="token punctuation">,</span>
-        <span class="token string">"documentation"</span><span class="token punctuation">:</span> <span class="token string">"flows data one direction: from the view-model to the view, once"</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">]</span>
+
+<code-listing>
   
-</code></pre></source-code></code-listing>
+<source-code lang="json">
+  <pre class="language-javascript">
+    <code>
+  <span class="token string">"aurelia.autocomplete.bindings.data"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"bind"</span><span class="token punctuation">,</span>
+      <span class="token string">"documentation"</span><span class="token punctuation">:</span> <span class="token string">"automatically chooses the binding mode. Uses two-way binding for form controls and to-view/one-way binding for almost everything else"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"to-view"</span><span class="token punctuation">,</span>
+      <span class="token string">"documentation"</span><span class="token punctuation">:</span> <span class="token string">"flows data one direction: from the view-model to the view"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"one-way"</span><span class="token punctuation">,</span>
+      <span class="token string">"documentation"</span><span class="token punctuation">:</span> <span class="token string">"[deprecated, use to-view instead] flows data one direction: from the view-model to the view"</span><span class="token punctuation">,</span>
+      <span class="token string">"label"</span><span class="token punctuation">:</span> <span class="token string">".one-way='' [deprecated]"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"from-view"</span><span class="token punctuation">,</span>
+      <span class="token string">"documentation"</span><span class="token punctuation">:</span> <span class="token string">"flows data one direction: from the view to the view-model"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"two-way"</span><span class="token punctuation">,</span>
+      <span class="token string">"documentation"</span><span class="token punctuation">:</span> <span class="token string">"flows data both ways: from view-model to view and from view to view-model"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"one-time"</span><span class="token punctuation">,</span>
+      <span class="token string">"documentation"</span><span class="token punctuation">:</span> <span class="token string">"flows data one direction: from the view-model to the view, once"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
 <p>The latest version of the above snippet can be found by searching in the left panel of the VSCode Settings panel for <code>Aurelia</code>. Click the pencil icon that appears while hovering the section to copy the settings as custom settings for your workspace/user profile.</p>
 <h3>Experimental</h3>
 <h4>https://github.com/aurelia/vscode-extension/commit/7312b031f82ce5bef464121add709582d514490c</h4>
 <p>The experimental feature to enable intellisence/smart complete in HTML templates is added behind a feature toggle. You can enable this feature by added the following to your VSCode settings:</p>
-<code-listing><source-code lang="json"><pre class="language-javascript"><code>
-    <span class="token string">"aurelia.featureToggles"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"smartAutocomplete"</span><span class="token punctuation">:</span> <span class="token boolean">true</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+<code-listing>
   
-</code></pre></source-code></code-listing>
-<p>At this moment in time, the feature is showing the bare minimum to work and should add suggestions from properties from your ViewModel. When the feature is enabled you are able to go to the command panel (Ctrl+Shift+P) and open up the information panel &quot;show Aurelia view data to the side&quot; on HTML templates to get information about what the extension currently detects in your HTML template.</let></p>
+<source-code lang="json">
+  <pre class="language-javascript">
+    <code>
+  <span class="token string">"aurelia.featureToggles"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"smartAutocomplete"</span><span class="token punctuation">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>At this moment in time, the feature is showing the bare minimum to work and should add suggestions from properties from your ViewModel. When the feature is enabled you are able to go to the command panel (Ctrl+Shift+P) and open up the information panel &quot;show Aurelia view data to the side&quot; on HTML templates to get information about what the extension currently detects in your HTML template.</p>
 </section>
 
     </div>

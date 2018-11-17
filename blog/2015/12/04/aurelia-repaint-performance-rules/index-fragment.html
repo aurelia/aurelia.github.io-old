@@ -51,10 +51,18 @@
 <blockquote>
 <p>Note: These demos are not a precise measure of repaint rate.  Many factors can impact performance - other open browser tabs, etc.  For best results run these demos using chrome with the following command:</p>
 </blockquote>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token string">"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"</span> <span class="token operator">--</span>user<span class="token operator">-</span>data<span class="token operator">-</span>dir<span class="token operator">=</span><span class="token string">"C:\chrome\dev-sessions\perf"</span> <span class="token operator">--</span>enable<span class="token operator">-</span>precise<span class="token operator">-</span>memory<span class="token operator">-</span>info <span class="token operator">--</span>enable<span class="token operator">-</span>benchmarking <span class="token operator">--</span>js<span class="token operator">-</span>flags<span class="token operator">=</span><span class="token string">"--expose-gc"</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 </section>
 <section><h2 id="aurelia">Aurelia</h2><p>While testing Aurelia with dbmonster we found that it performed well as long as view-caching was enabled and one-time bindings were used in places where the bound property wasn't going to change. To speed things up even more we've added logic to the repeat that analyzes the repeated template to determine whether it uses animation and whether it contains any components requiring the composition lifecycle. If those two things are not needed the repeat uses an optimized mode that skips unnecessary work related to adding/removing DOM elements and invoking bind/unbind/etc.</p>

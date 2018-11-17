@@ -236,73 +236,80 @@
 <h4>Notes for Upgrading from <code>0.21.0</code> and Earlier Versions of CLI</h4>
 <p>Version <code>0.22.0</code> of the CLI made changes to the <code>aurelia.json</code> file. This release has fixed issues with source maps; however, these changes require users who are upgrading existing projects to make the following tweaks to their <code>aurelia.json</code> file to enjoy these fixes:</p>
 <ul>
-<li>replace all instances of <code>\\</code> with <code>/</code> in file paths</li>
-<li>replace <code>&quot;scripts/require.js&quot;</code> with <code>node_modules/requirejs/require.js&quot;</code></li>
-<li>the <code>text</code> dependency in the <code>vendor-bundle.js</code> dependencies is an object literal as shown below. It should be replaced with just the string <code>&quot;text&quot;</code>.</li>
-</ul>
+<li>
+<p>replace all instances of <code>\\</code> with <code>/</code> in file paths</p>
+</li>
+<li>
+<p>replace <code>&quot;scripts/require.js&quot;</code> with <code>node_modules/requirejs/require.js&quot;</code></p>
+</li>
+<li>
+<p>the <code>text</code> dependency in the <code>vendor-bundle.js</code> dependencies is an object literal as shown below. It should be replaced with just the string <code>&quot;text&quot;</code>.</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token punctuation">{</span>
        <span class="token string">"text"</span><span class="token punctuation">,</span>
        <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"text"</span><span class="token punctuation">,</span>      
        <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"../scripts/text"</span>        
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
-* After making the above changes to `aurelia.json`, run `npm install requirejs requirejs/text --save` from the project directory.
-</section>
-<section><h2 id="patch-changes">Patch Changes</h2><p>Patch updates include only fixes to bugs and performance improvements.</p>
-<h3>
-<a href="https://github.com/aurelia/event-aggregator/compare/1.0.0...v1.0.1" target="_blank">aurelia-event-aggregator 1.0.1</a>
-</h3>
-<h4>Bug Fixes</h4>
-<ul>
-<li><strong>index:</strong> handle errors per callback invocation (
-<a href="https://github.com/aurelia/event-aggregator/commit/dc7819f" target="_blank">dc7819f</a>
-)</li>
-</ul>
-<h3>
-<a href="https://github.com/aurelia/templating/compare/1.1.3...v1.1.4" target="_blank">aurelia-templating 1.1.4</a>
-</h3>
-<h4>Bug Fixes</h4>
-<ul>
-<li><strong>view-compiler:</strong> proper anchoring for containerless elements inside of a template controller (
-<a href="https://github.com/aurelia/templating/commit/0f12514" target="_blank">0f12514</a>
-)</li>
-<li><em>view-compiler:</em>* account for undefined element instruction (
-<a href="https://github.com/aurelia/templating/commit/d1d1fe4" target="_blank">d1d1fe4</a>
-), closes 
-<a href="https://github.com/aurelia/templating/issues/503" target="_blank">#503</a>
 </li>
 </ul>
-<h4>Performance Improvements</h4>
-<ul>
-<li><strong>view-compiler:</strong> remove unnecessary assignment (
-<a href="https://github.com/aurelia/templating/commit/ddde119" target="_blank">ddde119</a>
-)</li>
-</ul>
-<h3>
-<a href="https://github.com/aurelia/templating-router/compare/1.0.0...v1.0.1" target="_blank">templating-router 1.0.1</a>
-</h3>
-<h4>Bug Fixes</h4>
-<ul>
-<li><strong>route-href:</strong> support attribute on custom elements</li>
-<li><strong>router-view:</strong> deco typo, lint and missing conditional (
-<a href="https://github.com/aurelia/templating-router/commit/7de1854" target="_blank">7de1854</a>
-)</li>
-</ul>
-<h3>
-<a href="https://github.com/aurelia/ui-virtualization/compare/1.0.0-beta.3.0.1...v1.0.0-beta.3.0.2" target="_blank">aurelia-ui-virtualization 1.0.0-beta.3.0.2</a>
-</h3>
-<h4>Bug Fixes</h4>
-<ul>
-<li>recalute height when source array is re-initialized (
-<a href="https://github.com/aurelia/ui-virtualization/commit/c81afad" target="_blank">c81afad</a>
-)</li>
-<li><strong>virtual-repeat:</strong> removed extra declaration (
-<a href="https://github.com/aurelia/ui-virtualization/commit/b3e783c" target="_blank">b3e783c</a>
-)</li>
-</ul>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token operator">*</span> After making the above changes to <span class="token template-string"><span class="token string">`aurelia.json`</span></span><span class="token punctuation">,</span> run <span class="token template-string"><span class="token string">`npm install requirejs requirejs/text --save`</span></span> <span class="token keyword">from</span> the project directory<span class="token punctuation">.</span>
+  
+  ## Patch Changes
+  
+  Patch updates include only fixes to bugs and performance improvements<span class="token punctuation">.</span>
+  
+  ### <span class="token punctuation">[</span>aurelia<span class="token operator">-</span>event<span class="token operator">-</span>aggregator <span class="token number">1.0</span><span class="token number">.1</span><span class="token punctuation">]</span><span class="token punctuation">(</span>https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>aurelia<span class="token operator">/</span>event<span class="token operator">-</span>aggregator<span class="token operator">/</span>compare<span class="token operator">/</span><span class="token number">1.0</span><span class="token number">.0</span><span class="token operator">...</span>v1<span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">)</span>
+  
+  #### Bug Fixes
+  
+  <span class="token operator">*</span> <span class="token operator">**</span>index<span class="token punctuation">:</span><span class="token operator">**</span> handle errors per callback <span class="token function">invocation</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>dc7819f<span class="token punctuation">]</span><span class="token punctuation">(</span>https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>aurelia<span class="token operator">/</span>event<span class="token operator">-</span>aggregator<span class="token operator">/</span>commit<span class="token operator">/</span>dc7819f<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  
+  ### <span class="token punctuation">[</span>aurelia<span class="token operator">-</span>templating <span class="token number">1.1</span><span class="token number">.4</span><span class="token punctuation">]</span><span class="token punctuation">(</span>https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>aurelia<span class="token operator">/</span>templating<span class="token operator">/</span>compare<span class="token operator">/</span><span class="token number">1.1</span><span class="token number">.3</span><span class="token operator">...</span>v1<span class="token punctuation">.</span><span class="token number">1.4</span><span class="token punctuation">)</span>
+  
+  #### Bug Fixes
+  
+  <span class="token operator">*</span> <span class="token operator">**</span>view<span class="token operator">-</span>compiler<span class="token punctuation">:</span><span class="token operator">**</span> proper anchoring <span class="token keyword">for</span> containerless elements inside <span class="token keyword">of</span> a template <span class="token function">controller</span> <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0</span>f12514<span class="token punctuation">]</span><span class="token punctuation">(</span>https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>aurelia<span class="token operator">/</span>templating<span class="token operator">/</span>commit<span class="token operator">/</span><span class="token number">0</span>f12514<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token operator">*</span> <span class="token operator">*</span>view<span class="token operator">-</span>compiler<span class="token punctuation">:</span><span class="token operator">**</span> account <span class="token keyword">for</span> undefined element <span class="token function">instruction</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>d1d1fe4<span class="token punctuation">]</span><span class="token punctuation">(</span>https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>aurelia<span class="token operator">/</span>templating<span class="token operator">/</span>commit<span class="token operator">/</span>d1d1fe4<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> closes <span class="token punctuation">[</span>#<span class="token number">503</span><span class="token punctuation">]</span><span class="token punctuation">(</span>https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>aurelia<span class="token operator">/</span>templating<span class="token operator">/</span>issues<span class="token operator">/</span><span class="token number">503</span><span class="token punctuation">)</span>
+  
+  #### Performance Improvements
+  
+  <span class="token operator">*</span> <span class="token operator">**</span>view<span class="token operator">-</span>compiler<span class="token punctuation">:</span><span class="token operator">**</span> remove unnecessary <span class="token function">assignment</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>ddde119<span class="token punctuation">]</span><span class="token punctuation">(</span>https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>aurelia<span class="token operator">/</span>templating<span class="token operator">/</span>commit<span class="token operator">/</span>ddde119<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  
+  ### <span class="token punctuation">[</span>templating<span class="token operator">-</span>router <span class="token number">1.0</span><span class="token number">.1</span><span class="token punctuation">]</span><span class="token punctuation">(</span>https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>aurelia<span class="token operator">/</span>templating<span class="token operator">-</span>router<span class="token operator">/</span>compare<span class="token operator">/</span><span class="token number">1.0</span><span class="token number">.0</span><span class="token operator">...</span>v1<span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">)</span>
+  
+  #### Bug Fixes
+  
+  <span class="token operator">*</span> <span class="token operator">**</span>route<span class="token operator">-</span>href<span class="token punctuation">:</span><span class="token operator">**</span> support attribute on custom elements
+  <span class="token operator">*</span> <span class="token operator">**</span>router<span class="token operator">-</span>view<span class="token punctuation">:</span><span class="token operator">**</span> deco typo<span class="token punctuation">,</span> lint and missing <span class="token function">conditional</span> <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">7</span>de1854<span class="token punctuation">]</span><span class="token punctuation">(</span>https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>aurelia<span class="token operator">/</span>templating<span class="token operator">-</span>router<span class="token operator">/</span>commit<span class="token operator">/</span><span class="token number">7</span>de1854<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  
+  ### <span class="token punctuation">[</span>aurelia<span class="token operator">-</span>ui<span class="token operator">-</span>virtualization <span class="token number">1.0</span><span class="token number">.0</span><span class="token operator">-</span>beta<span class="token punctuation">.</span><span class="token number">3.0</span><span class="token number">.2</span><span class="token punctuation">]</span><span class="token punctuation">(</span>https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>aurelia<span class="token operator">/</span>ui<span class="token operator">-</span>virtualization<span class="token operator">/</span>compare<span class="token operator">/</span><span class="token number">1.0</span><span class="token number">.0</span><span class="token operator">-</span>beta<span class="token punctuation">.</span><span class="token number">3.0</span><span class="token number">.1</span><span class="token operator">...</span>v1<span class="token punctuation">.</span><span class="token number">0.0</span><span class="token operator">-</span>beta<span class="token punctuation">.</span><span class="token number">3.0</span><span class="token number">.2</span><span class="token punctuation">)</span>
+  
+  #### Bug Fixes
+  
+  <span class="token operator">*</span> recalute height when source array is re<span class="token operator">-</span><span class="token function">initialized</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>c81afad<span class="token punctuation">]</span><span class="token punctuation">(</span>https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>aurelia<span class="token operator">/</span>ui<span class="token operator">-</span>virtualization<span class="token operator">/</span>commit<span class="token operator">/</span>c81afad<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token operator">*</span> <span class="token operator">**</span>virtual<span class="token operator">-</span>repeat<span class="token punctuation">:</span><span class="token operator">**</span> removed extra <span class="token function">declaration</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>b3e783c<span class="token punctuation">]</span><span class="token punctuation">(</span>https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>aurelia<span class="token operator">/</span>ui<span class="token operator">-</span>virtualization<span class="token operator">/</span>commit<span class="token operator">/</span>b3e783c<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
 </section>
 
     </div>

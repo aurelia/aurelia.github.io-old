@@ -11,55 +11,17 @@
 . I showed the &quot;reverse binding&quot; technique for Angular 2.0. Today I'm going to show how the 
 <a href="https://docs.google.com/document/d/1US9h0ORqBltl71TlEU6s76ix8SUnOLE2jabHVg9xxEA/" target="_blank">Angular 2.0 Forms Model</a>
  can be used instead. I'll also show Aurelia next to it, so you can see the difference. Both examples will use the same Contact model.</p>
-<code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">class</span> <span class="token class-name">Contact</span> <span class="token punctuation">{</span>
-      <span class="token function">constructor</span><span class="token punctuation">(</span>firstName<span class="token punctuation">,</span> lastName<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>firstName <span class="token operator">=</span> firstName<span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>lastName <span class="token operator">=</span> lastName<span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-      
-      <span class="token keyword">get</span> <span class="token function">fullName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-      	<span class="token keyword">return</span> <span class="token template-string"><span class="token string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>firstName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>lastName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  </code></pre></source-code>
-</code-listing>
+null
 <div>
 <div style="float: left; width: 50%">
 <h3>Angular 2.0</h3>
 <strong>app.js</strong>
-<code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>Component<span class="token punctuation">,</span> Template<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'angular2/angular2'</span><span class="token punctuation">;</span>
-    
-    @<span class="token function">Component</span><span class="token punctuation">(</span><span class="token punctuation">{</span>selector<span class="token punctuation">:</span> <span class="token string">'my-app'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
-    @<span class="token function">Template</span><span class="token punctuation">(</span><span class="token punctuation">{</span>url<span class="token punctuation">:</span> <span class="token string">'app.html'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
-    <span class="token keyword">class</span> <span class="token class-name">MyApp</span> <span class="token punctuation">{</span>
-      <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>contact <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Contact</span><span class="token punctuation">(</span><span class="token string">'John'</span><span class="token punctuation">,</span> <span class="token string">'Doe'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
-        <span class="token keyword">this</span><span class="token punctuation">.</span>contactForm <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FormControlGroup</span><span class="token punctuation">(</span><span class="token string">"form"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>
-          <span class="token keyword">new</span> <span class="token class-name">FormControl</span><span class="token punctuation">(</span><span class="token string">"firstName"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-          <span class="token keyword">new</span> <span class="token class-name">FormControl</span><span class="token punctuation">(</span><span class="token string">"lastName"</span><span class="token punctuation">)</span>
-        <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>contactForm<span class="token punctuation">.</span><span class="token function">readFrom</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>contact<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  </code></pre></source-code>
-</code-listing>
+null
 </div>
 <div style="float: right; width: 48%">
 <h3>Aurelia</h3>
 <strong>app.js</strong>
-<code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyApp</span><span class="token punctuation">{</span>
-      <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>contact <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Contact</span><span class="token punctuation">(</span><span class="token string">'John'</span><span class="token punctuation">,</span> <span class="token string">'Doe'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  </code></pre></source-code>
-</code-listing>
+null
 </div>
 </div>
 <div style="clear: both;"></div>
@@ -67,31 +29,11 @@
 <div>
 <div style="float: left; width: 50%">
 <strong>app.html</strong>
-<code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token operator">&lt;</span>form <span class="token punctuation">[</span>control<span class="token operator">-</span>group<span class="token punctuation">]</span><span class="token operator">=</span><span class="token string">'contactForm'</span><span class="token operator">></span>
-      First Name<span class="token punctuation">:</span>
-      <span class="token operator">&lt;</span>input type<span class="token operator">=</span><span class="token string">"text"</span> control<span class="token operator">=</span><span class="token string">"firstName"</span><span class="token operator">></span>
-      Last Name<span class="token punctuation">:</span>
-      <span class="token operator">&lt;</span>input type<span class="token operator">=</span><span class="token string">"text"</span> control<span class="token operator">=</span><span class="token string">"lastName"</span><span class="token operator">></span>
-      Full Name<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">{</span>contact<span class="token punctuation">.</span>fullName<span class="token punctuation">}</span><span class="token punctuation">}</span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>form<span class="token operator">></span>
-  </code></pre></source-code>
-</code-listing>
+null
 </div>
 <div style="float: right; width: 48%">
 <strong>app.html</strong>
-<code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
-    <span class="token operator">&lt;</span>form <span class="token keyword">with</span><span class="token punctuation">.</span>bind<span class="token operator">=</span><span class="token string">"contact"</span><span class="token operator">></span>
-      First Name<span class="token punctuation">:</span>
-      <span class="token operator">&lt;</span>input type<span class="token operator">=</span><span class="token string">"text"</span> value<span class="token punctuation">.</span>bind<span class="token operator">=</span><span class="token string">"firstName"</span><span class="token operator">></span>
-      Last Name<span class="token punctuation">:</span>
-      <span class="token operator">&lt;</span>input type<span class="token operator">=</span><span class="token string">"text"</span> value<span class="token punctuation">.</span>bind<span class="token operator">=</span><span class="token string">"lastName"</span><span class="token operator">></span>
-      Full Name<span class="token punctuation">:</span> $<span class="token punctuation">{</span>fullName<span class="token punctuation">}</span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>form<span class="token operator">></span>
-  </code></pre></source-code>
-</code-listing>
+null
 </div>
 </div>
 <div style="clear: both;"></div>

@@ -12,33 +12,53 @@
 <p>We're continuing to work on the new validation library we announced last Tuesday. Each of our releases to this plugin will likely contain breaking changes for a little while. So, remember, to get these updates you need to <code>jspm install</code> rather than <code>jspm update</code> (if you are using jspm). Here's some notes from Patrick Walters on the changes in this release.</p>
 <h4>Breaking Changes</h4>
 <p>The Validator class for the fluent API should not be injected because it should not be a singleton.  Developers should switch this...</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span>Validator<span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token function">constructor</span><span class="token punctuation">(</span>validator<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>validator <span class="token operator">=</span> validator
         <span class="token punctuation">.</span><span class="token function">ensure</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>model<span class="token punctuation">,</span> <span class="token string">'firstName'</span><span class="token punctuation">)</span>
           <span class="token punctuation">.</span><span class="token function">required</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>to this...</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>validator <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Validator</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>model<span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">ensure</span><span class="token punctuation">(</span><span class="token string">'firstName'</span><span class="token punctuation">)</span>
           <span class="token punctuation">.</span><span class="token function">required</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>You can also see that the fluent API has been refactored to reduce duplication and clean up usage.  More information available 
 <a href="https://github.com/aurelia/validatejs/issues/17" target="_blank">here</a>
 .</p>
 <h4>New Features</h4>
 <p>You can now manually validate instances that use decorators like this:</p>
+
 <code-listing>
-  <source-code lang="JavaScript"><pre class="language-javascript"><code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
     <span class="token keyword">class</span> <span class="token class-name">Model</span> <span class="token punctuation">{</span>
       @required firstName <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -46,7 +66,11 @@
     <span class="token keyword">this</span><span class="token punctuation">.</span>model <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Model</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">this</span><span class="token punctuation">.</span>validator <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Validator</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>model<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">this</span><span class="token punctuation">.</span>validator<span class="token punctuation">.</span><span class="token function">validate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  </code></pre></source-code>
+  
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <h4>Fixes</h4>
 <p>You can now pass configuration objects to <em>all</em> validation rules.  There was previously an issue with a few of the rules mentioned 

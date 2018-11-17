@@ -34,14 +34,21 @@ Please note that we're not removing support for string-based module registration
 <p>The Store plugin will continue to receive more samples showing-off its unique capabilities as well as more improvements to the docs. A major technical focus is to further reduce boilerplate code through improved decorators and optimized APIs. Finally, we hope to make the official 1.0 version release in the next few weeks.</p>
 <h3>Aurelia I18N</h3>
 <p>The Aurelia I18N library has seen several updates to the docs, plus improvements to the <code>t-attribute</code>, which now enables developers to define multiple target attributes for a single translation key. Here's an example:</p>
-<code-listing heading="Multi-target Translation Attribute">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    Before, only this was valid:
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>[html]title;[placeholder]placeholderValue<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
 
-    Now this is possible as well:
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>[html]title;[placeholder, aria-placeholder]placeholderValue<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+<code-listing heading="Multi-target Translation Attribute">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  Before, only this was valid:
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>[html]title;[placeholder]placeholderValue<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+  
+  Now this is possible as well:
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>[html]title;[placeholder, aria-placeholder]placeholderValue<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Additionally, developers are now able to turn off translations for missing keys, which helps to identify undefined keys.</p>
 <h4>What's Next</h4>

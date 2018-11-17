@@ -13,10 +13,17 @@
 </section>
 <section><h2 id="throttle">throttle</h2><p>Aurelia ships with a handful of behaviors out of the box to enable common scenarios.  The first is the throttle binding behavior which limits the rate at which the view-model is updated in two-way bindings or the rate at which the view is updated in to-view binding scenarios.</p>
 <p>By default <code>throttle</code> will only allow updates every 200ms. You can customize the rate of course.  Here are a few examples.</p>
+
 <code-listing heading="Updating a property, at most, every 200ms">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>query &amp; throttle<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>query &amp; throttle<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>The first thing you probably noticed in the example above is the <code>&amp;</code> symbol, which is used to declare binding behavior expressions. Binding behavior expressions use the same syntax pattern as value converter expressions:</p>
 <ul>
@@ -25,126 +32,198 @@
 <li>Binding expressions can also include a combination of value converters and binding behaviors: <code>\${foo | upperCase | truncate:3 &amp; throttle &amp; anotherBehavior:arg1:arg2}</code>.</li>
 </ul>
 <p>Here's another example using <code>throttle</code>, demonstrating the ability to pass arguments to the binding behavior:</p>
+
 <code-listing heading="Updating a property, at most, every 850ms">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>query &amp; throttle:850<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>query &amp; throttle:850<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>The throttle behavior is particularly useful when binding events to methods on your view-model.  Here's an example with the <code>mousemove</code> event:</p>
+
 <code-listing heading="Handling an event, at most, every 200ms">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">mousemove.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>mouseMove($event) &amp; throttle<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">mousemove.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>mouseMove($event) &amp; throttle<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
-<au-demo heading="Throttle Demo">
-  <source-code src="example/binding-binding-behaviors/throttle/app.js"><pre class="language-markup"><code></code></pre></source-code>
-</au-demo>
+<p>
+<au-sandbox src="https://codesandbox.io/embed/015vo6z8p0?autoresize=1&fontsize=18&hidenavigation=1&module=%2Fsrc%2Fapp.html&view=preview" heading="Throttle Demo"></au-sandbox>
+</p>
 </section>
 <section><h2 id="debounce">debounce</h2><p>The debounce binding behavior is another rate limiting binding behavior. Debounce prevents the binding from being updated until a specified interval has passed without any changes.</p>
 <p>A common use case is a search input that triggers searching automatically.  You wouldn't want to make a search API on every change (every keystroke).  It's more efficient to wait until the user has paused typing to invoke the search logic.</p>
+
 <code-listing heading="Update after typing stopped for 200ms">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>query &amp; debounce<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>query &amp; debounce<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
+
 <code-listing heading="Update after typing stopped for 850ms">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>query &amp; debounce:850<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>query &amp; debounce:850<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Like throttle, the <code>debounce</code> binding behavior really shines in event binding. Here's another example with the <code>mousemove</code> event:</p>
+
 <code-listing heading="Call mouseMove after mouse stopped moving for 500ms">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">mousemove.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>mouseMove($event) &amp; debounce:500<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">mousemove.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>mouseMove($event) &amp; debounce:500<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
-<au-demo heading="Debounce Demo">
-  <source-code src="example/binding-binding-behaviors/debounce/app.js"><pre class="language-markup"><code></code></pre></source-code>
-</au-demo>
+<p>
+<au-sandbox src="https://codesandbox.io/embed/zr7ylnjkm?autoresize=1&fontsize=18&hidenavigation=1&module=%2Fsrc%2Fapp.html&view=preview" heading="Debounce Demo"></au-sandbox>
+</p>
 </section>
 <section><h2 id="updatetrigger">updateTrigger</h2><p>Update trigger allows you to override the input events that cause the element's value to be written to the view-model. The default events are <code>change</code> and <code>input</code>.</p>
 <p>Here's how you would tell the binding to only update the model on <code>blur</code>:</p>
+
 <code-listing heading="Update on blur">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    &lt;input value.bind="firstName &amp; updateTrigger:'blur'>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  &lt;input value.bind="firstName &amp; updateTrigger:'blur'>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>Multiple events are supported:</p>
+
 <code-listing heading="Update with multiple events">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    &lt;input value.bind="firstName &amp; updateTrigger:'blur':'paste'>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  &lt;input value.bind="firstName &amp; updateTrigger:'blur':'paste'>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
-<au-demo heading="Update Trigger Demo">
-  <source-code src="example/binding-binding-behaviors/update-trigger/app.js"><pre class="language-markup"><code></code></pre></source-code>
-</au-demo>
+<p>
+<au-sandbox src="https://codesandbox.io/embed/0y58p82w2v?autoresize=1&fontsize=18&hidenavigation=1&module=%2Fsrc%2Fapp.html&view=preview" heading="Update Trigger Demo"></au-sandbox>
+</p>
 </section>
 <section><h2 id="signal">signal</h2><p>The signal binding behavior enables you to &quot;signal&quot; the binding to refresh. This is especially useful when a binding result is impacted by global changes that are outside of the observation path.</p>
 <p>For example, if you have a &quot;translate&quot; value converter that converts a key to a localized string- eg <code>\${'greeting-key' | translate}</code> and your site allows users to change the current language, how would you refresh the bindings when that happens?</p>
 <p>Another example is a value converter that uses the current time to convert a record's datetime to a &quot;time ago&quot; value:  <code>posted \${postDateTime | timeAgo}</code>. The moment this binding expression is evaluated it will correctly result in <code>posted a minute ago</code>.  As time passes, it will eventually become inaccurate. How can we refresh this binding periodically so that it correctly displays <code>5 minutes ago</code>, then <code>15 minutes ago</code>, <code>an hour ago</code>, etc?</p>
 <p>Here's how you would accomplish this using the <code>signal</code> binding behavior:</p>
+
 <code-listing heading="Using a Signal">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    posted ${postDateTime | timeAgo &amp; signal:'my-signal'}
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  posted ${postDateTime | timeAgo &amp; signal:'my-signal'}
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>In the binding expression above we're using the <code>signal</code> binding behavior <em>to assign the binding a &quot;signal name&quot; of <code>my-signal</code>.</em> Signal names are arbitrary, you can give multiple bindings the same signal name if you want to signal multiple bindings at the same time.</p>
 <p>Here's how we can use the <code>BindingSignaler</code> to signal the bindings periodically:</p>
+
 <code-listing heading="Signaling Bindings">
-  <source-code lang="ES 2015"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>BindingSignaler<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-templating-resources'</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-      <span class="token keyword">static</span> <span class="token function">inject</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token punctuation">[</span>BindingSignaler<span class="token punctuation">]</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-      <span class="token function">constructor</span><span class="token punctuation">(</span>signaler<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> signaler<span class="token punctuation">.</span><span class="token function">signal</span><span class="token punctuation">(</span><span class="token string">'my-signal'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>BindingSignaler<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-templating-resources'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">inject</span><span class="token punctuation">(</span>BindingSignaler<span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span>signaler<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> signaler<span class="token punctuation">.</span><span class="token function">signal</span><span class="token punctuation">(</span><span class="token string">'my-signal'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
-  <source-code lang="ES 2016"><pre class="language-javascript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>BindingSignaler<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-templating-resources'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
 
-    @<span class="token function">inject</span><span class="token punctuation">(</span>BindingSignaler<span class="token punctuation">)</span>
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-      <span class="token function">constructor</span><span class="token punctuation">(</span>signaler<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> signaler<span class="token punctuation">.</span><span class="token function">signal</span><span class="token punctuation">(</span><span class="token string">'my-signal'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>BindingSignaler<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-templating-resources'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
+  @autoinject
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>signaler<span class="token punctuation">:</span> BindingSignaler<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> signaler<span class="token punctuation">.</span><span class="token function">signal</span><span class="token punctuation">(</span><span class="token string">'my-signal'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
-  <source-code lang="TypeScript"><pre class="language-typescript"><code>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>BindingSignaler<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-templating-resources'</span><span class="token punctuation">;</span>
-    <span class="token keyword">import</span> <span class="token punctuation">{</span>autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
-
-    @autoinject
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-      <span class="token keyword">constructor</span><span class="token punctuation">(</span>signaler<span class="token punctuation">:</span> BindingSignaler<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> signaler<span class="token punctuation">.</span><span class="token function">signal</span><span class="token punctuation">(</span><span class="token string">'my-signal'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
-<au-demo heading="Signal Demo">
-  <source-code src="example/binding-binding-behaviors/signal/app.js"><pre class="language-typescript"><code></code></pre></source-code>
-</au-demo>
+<p>
+<au-sandbox src="https://codesandbox.io/embed/j3mjmnwrnw?autoresize=1&fontsize=18&hidenavigation=1&module=%2Fsrc%2Fapp.html&view=preview" heading="Signal Demo"></au-sandbox>
+</p>
 </section>
 <section><h2 id="onetime">oneTime</h2><p>With the <code>oneTime</code> binding behavior you can specify that string interpolated bindings should happen once. Simply write:</p>
+
 <code-listing heading="One-time String Interpolation">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>${foo &amp; oneTime}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>${foo &amp; oneTime}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>This is an important feature to expose. One-time bindings are the most efficient type of binding because they don't incur any property observation overhead.</p>
 <p>There are also binding behaviors for <code>toView</code> and <code>twoWay</code> which you could use like this:</p>
-<code-listing heading="To-view and two-way binding behaviours">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foo &amp; toView<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.to-view</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foo<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foo &amp; twoWay<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.two-way</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foo<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+<code-listing heading="To-view and two-way binding behaviours">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foo &amp; toView<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.to-view</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foo<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foo &amp; twoWay<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.two-way</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foo<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <div class="warning"><div class="icon"> <i></i> </div><h4>Binding Mode Casing</h4><p>
 The casing for binding modes is different depending on whether they appear as a <strong>binding command</strong> or as a <strong>binding behavior</strong>. Because HTML is case-insensitive, binding commands cannot use capitals. Thus, the binding modes, when specified in this place, use lowercase, dashed names. However, when used within a binding expression as a binding behavior, they must not use a dash because that is not a valid symbol for variable names in JavaScript. So, in this case, camel casing is used.</p>
@@ -152,103 +231,145 @@ The casing for binding modes is different depending on whether they appear as a 
 </section>
 <section><h2 id="self">self</h2><p>With the <code>self</code> binding behavior, you can specify that event handler will only response to the target where listener was attached to, not its descendants.</p>
 <p>For example, in the following markup</p>
+
 <code-listing heading="Self binding behavior">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>panel</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>header</span> <span class="token attr-name">mousedown.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>onMouseDown($event)<span class="token punctuation">'</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>header<span class="token punctuation">'</span></span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">></span></span>Settings<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">></span></span>Close<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>header</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>panel</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>panel</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>header</span> <span class="token attr-name">mousedown.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>onMouseDown($event)<span class="token punctuation">'</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>header<span class="token punctuation">'</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">></span></span>Settings<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">></span></span>Close<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>header</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>panel</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p><code>onMouseDown</code> is your event handler and it will be called not only when user <code>mousedown</code> on header element, but also all
 elements inside it, which in this case are the buttons <code>settings</code> and <code>close</code>. However, this is not always desired behavior.
 Sometimes you want the component to only react when user click on the header itself, not the buttons. In order to achieve this, <code>onMouseDown</code> method needs
 some modification:</p>
+
 <code-listing heading="Handler without self binding behavior">
-  <source-code lang="ES 2015/ES 2016/TypeScript"><pre class="language-javascript"><code>
-    <span class="token comment">// inside component's view model class</span>
-    <span class="token function">onMouseDown</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token comment">// if mousedown on the header's descendants. Do nothing</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>target <span class="token operator">!==</span> header<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
-      <span class="token comment">// mousedown on header, start listening for mousemove to drag the panel</span>
-      <span class="token comment">// ...</span>
-    <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token comment">// inside component's view model class</span>
+  <span class="token function">onMouseDown</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// if mousedown on the header's descendants. Do nothing</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>target <span class="token operator">!==</span> header<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token comment">// mousedown on header, start listening for mousemove to drag the panel</span>
+    <span class="token comment">// ...</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 <p>This works, but now business/ component logic are mixed up with DOM event handling, which are not necessary. Using <code>self</code> binding behavior can help
 you achieve the same goal without filling up your methods with unnecessary code:</p>
+
 <code-listing heading="Using self binding behavior">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>panel</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>header</span> <span class="token attr-name">mousedown.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>onMouseDown($event) &amp; self<span class="token punctuation">'</span></span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>settings<span class="token punctuation">'</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>close<span class="token punctuation">'</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>header</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>panel</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>panel</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>header</span> <span class="token attr-name">mousedown.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>onMouseDown($event) &amp; self<span class="token punctuation">'</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>settings<span class="token punctuation">'</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>close<span class="token punctuation">'</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>header</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>panel</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
+
 <code-listing heading="Using self binding behavior">
-  <source-code lang="ES 2015/ES 2016/TypeScript"><pre class="language-javascript"><code>
-    <span class="token comment">// inside component's view model class</span>
-    <span class="token function">onMouseDown</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token comment">// No need to perform check, as the binding behavior will ensure check</span>
-      <span class="token comment">// if (event.target !== header) return;</span>
-      <span class="token comment">// mousedown on header, start listening for mousemove to drag the panel</span>
-      <span class="token comment">// ...</span>
-    <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token comment">// inside component's view model class</span>
+  <span class="token function">onMouseDown</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// No need to perform check, as the binding behavior will ensure check</span>
+    <span class="token comment">// if (event.target !== header) return;</span>
+    <span class="token comment">// mousedown on header, start listening for mousemove to drag the panel</span>
+    <span class="token comment">// ...</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
 </section>
 <section><h2 id="custom-binding-behaviors">Custom binding behaviors</h2><p>You can build custom binding behaviors just like you can build value converters. Instead of <code>toView</code> and <code>fromView</code> methods you'll create <code>bind(binding, scope, [...args])</code> and <code>unbind(binding, scope)</code> methods. In the bind method you'll add your behavior to the binding and in the unbind method you should cleanup whatever you did in the bind method to restore the binding instance to it's original state. The <code>binding</code> argument is the binding instance whose behavior you want to change. It's an implementation of the <code>Binding</code> interface. The <code>scope</code> argument is the binding's data-context. It provides access to the model the binding will be bound to via it's <code>bindingContext</code> and <code>overrideContext</code> properties.</p>
 <p>Here's a custom binding behavior that calls a method on your view model each time the binding's <code>updateSource</code> / <code>updateTarget</code> and <code>callSource</code> methods are invoked.</p>
+
 <code-listing heading="Creating a Custom Binding Behavior">
-  <source-code lang="ES 2015/ES 2016/TypeScript"><pre class="language-javascript"><code>
-    <span class="token keyword">const</span> interceptMethods <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'updateTarget'</span><span class="token punctuation">,</span> <span class="token string">'updateSource'</span><span class="token punctuation">,</span> <span class="token string">'callSource'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">InterceptBindingBehavior</span> <span class="token punctuation">{</span>
-      <span class="token function">bind</span><span class="token punctuation">(</span>binding<span class="token punctuation">,</span> scope<span class="token punctuation">,</span> interceptor<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">let</span> i <span class="token operator">=</span> interceptMethods<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">let</span> method <span class="token operator">=</span> interceptMethods<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-          <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>binding<span class="token punctuation">[</span>method<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">continue</span><span class="token punctuation">;</span>
-          <span class="token punctuation">}</span>
-          binding<span class="token punctuation">[</span><span class="token template-string"><span class="token string">`intercepted-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>method<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">]</span> <span class="token operator">=</span> binding<span class="token punctuation">[</span>method<span class="token punctuation">]</span><span class="token punctuation">;</span>
-          <span class="token keyword">let</span> update <span class="token operator">=</span> binding<span class="token punctuation">[</span>method<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>binding<span class="token punctuation">)</span><span class="token punctuation">;</span>
-          binding<span class="token punctuation">[</span>method<span class="token punctuation">]</span> <span class="token operator">=</span> interceptor<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>binding<span class="token punctuation">,</span> method<span class="token punctuation">,</span> update<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">const</span> interceptMethods <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'updateTarget'</span><span class="token punctuation">,</span> <span class="token string">'updateSource'</span><span class="token punctuation">,</span> <span class="token string">'callSource'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">InterceptBindingBehavior</span> <span class="token punctuation">{</span>
+    <span class="token function">bind</span><span class="token punctuation">(</span>binding<span class="token punctuation">,</span> scope<span class="token punctuation">,</span> interceptor<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> i <span class="token operator">=</span> interceptMethods<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+      <span class="token keyword">while</span> <span class="token punctuation">(</span>i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> method <span class="token operator">=</span> interceptMethods<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>binding<span class="token punctuation">[</span>method<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">continue</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span>
-
-      <span class="token function">unbind</span><span class="token punctuation">(</span>binding<span class="token punctuation">,</span> scope<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">let</span> i <span class="token operator">=</span> interceptMethods<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">let</span> method <span class="token operator">=</span> interceptMethods<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-          <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>binding<span class="token punctuation">[</span>method<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">continue</span><span class="token punctuation">;</span>
-          <span class="token punctuation">}</span>
-          binding<span class="token punctuation">[</span>method<span class="token punctuation">]</span> <span class="token operator">=</span> binding<span class="token punctuation">[</span><span class="token template-string"><span class="token string">`intercepted-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>method<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-          binding<span class="token punctuation">[</span><span class="token template-string"><span class="token string">`intercepted-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>method<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        binding<span class="token punctuation">[</span><span class="token template-string"><span class="token string">`intercepted-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>method<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">]</span> <span class="token operator">=</span> binding<span class="token punctuation">[</span>method<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> update <span class="token operator">=</span> binding<span class="token punctuation">[</span>method<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>binding<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        binding<span class="token punctuation">[</span>method<span class="token punctuation">]</span> <span class="token operator">=</span> interceptor<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>binding<span class="token punctuation">,</span> method<span class="token punctuation">,</span> update<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  </code></pre></source-code>
+  
+    <span class="token function">unbind</span><span class="token punctuation">(</span>binding<span class="token punctuation">,</span> scope<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> i <span class="token operator">=</span> interceptMethods<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+      <span class="token keyword">while</span> <span class="token punctuation">(</span>i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> method <span class="token operator">=</span> interceptMethods<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>binding<span class="token punctuation">[</span>method<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">continue</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        binding<span class="token punctuation">[</span>method<span class="token punctuation">]</span> <span class="token operator">=</span> binding<span class="token punctuation">[</span><span class="token template-string"><span class="token string">`intercepted-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>method<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        binding<span class="token punctuation">[</span><span class="token template-string"><span class="token string">`intercepted-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>method<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
+
 <code-listing heading="Using a Custom Binding Behavior">
-  <source-code lang="HTML"><pre class="language-markup"><code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./intercept-binding-behavior<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">mousemove.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>mouseMove($event) &amp; intercept:myFunc<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foo &amp; intercept:myFunc<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-  </code></pre></source-code>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./intercept-binding-behavior<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">mousemove.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>mouseMove($event) &amp; intercept:myFunc<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foo &amp; intercept:myFunc<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
 </code-listing>
-<au-demo heading="Custom Binding Behavior Demo">
-  <source-code src="example/binding-binding-behaviors/custom/app.js"><pre class="language-markup"><code></code></pre></source-code>
-</au-demo>
+<p>
+<au-sandbox src="https://codesandbox.io/embed/n5905k993m?autoresize=1&fontsize=18&hidenavigation=1&module=%2Fsrc%2Fapp.html&view=preview" heading="Custom Binding Behavior Demo"></au-sandbox>
+</p>
 </section>
 
   </article>
