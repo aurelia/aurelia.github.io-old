@@ -63,18 +63,22 @@ Class that parses route patterns and matches path strings.
 
 
 
-* `generate(name: string, params: Object): string` - Generate a path and query string from a route name and params object.
-  * `name: string` - The name of the route.
-  * `params: Object` - The route params to use when populating the pattern.
+* `generate(nameOrRoute: , params: object): string` - Generate a path and query string from a route name or RouteConfig (RouteHandler) and params object.
+  * `nameOrRoute: ` - The name of the route or RouteConfig object.
+  * `params: object` - The route params to use when populating the pattern.
  Properties not required by the pattern will be appended to the query string.
 
 
-* `handlersFor(name: string): ` - Retrieve the handlers registered for the named route.
-  * `name: string` - The name of the route.
+* `getRoute(nameOrRoute: ): RouteGenerator` - Retrieve a RouteGenerator for a route by name or RouteConfig (RouteHandler).
+  * `nameOrRoute: ` - The name of the route or RouteConfig object.
 
 
-* `hasRoute(name: string): boolean` - Check if this RouteRecognizer recognizes a named route.
-  * `name: string` - The name of the route.
+* `handlersFor(nameOrRoute: ): ` - Retrieve the handlers registered for the route by name or RouteConfig (RouteHandler).
+  * `nameOrRoute: ` - The name of the route or RouteConfig object.
+
+
+* `hasRoute(nameOrRoute: ): boolean` - Check if this RouteRecognizer recognizes a route by name or RouteConfig (RouteHandler).
+  * `nameOrRoute: ` - The name of the route or RouteConfig object.
 
 
 * `recognize(path: string): ` - Match a path string against registered route patterns.
@@ -202,6 +206,19 @@ No description available.
 * `handler: RouteHandler` - No description available.
 * `isDynamic: boolean` - No description available.
 * `params: Object` - No description available.
+
+#### Methods
+
+
+
+### RouteGenerator
+
+No description available.
+
+#### Properties
+
+* `handlers: ` - No description available.
+* `segments: Array` - No description available.
 
 #### Methods
 
