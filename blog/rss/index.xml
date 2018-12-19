@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Sun Dec 02 2018 16:50:38 GMT-0800 (PST)</lastBuildDate>
+    <lastBuildDate>Tue Dec 18 2018 21:20:54 GMT-0800 (PST)</lastBuildDate>
+    <item>
+      <title><![CDATA[Smoke House Project]]></title>
+      <link>http://aurelia.io/blog/2018/12/18/smoke-house-project</link>
+      <description><![CDATA[Today, I'm pleased to introduce you to Daryl Cober, a member of the Aurelia community who has been building out "Smoke House Project", a skeleton framework for desktop/web/mobile deployment using Aurelia, including a node Web API and a MongoDB. I'll let him share more about what he's working on and his journey to get there. Take it away Daryl!]]></description>
+      <pubDate>Tue Dec 18 2018 21:17:48 GMT-0800 (PST)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia Release Notes - Early December 2018]]></title>
       <link>http://aurelia.io/blog/2018/12/02/aurelia-release-notes-early-december-2018</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2018/02/05/aurelia-release-notes-early-february-2018</link>
       <description><![CDATA[Continuing into 2018, we've got a number of fixes and improvements to core Aurelia libraries and plugins. The details are available below.]]></description>
       <pubDate>Mon Feb 05 2018 01:29:20 GMT-0800 (PST)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Big Changes in the Aurelia Router 1.5.0 Release]]></title>
-      <link>http://aurelia.io/blog/2018/01/22/big-changes-in-the-aurelia-router-150-release</link>
-      <description><![CDATA[Thanks to the new features in the latest update to the Aurelia router, building a beautiful and functional master-detail page in Aurelia is quick and easy.]]></description>
-      <pubDate>Mon Jan 22 2018 01:19:46 GMT-0800 (PST)</pubDate>
     </item>
   </channel>
 </rss>
