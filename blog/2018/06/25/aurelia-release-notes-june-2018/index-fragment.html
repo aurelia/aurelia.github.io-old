@@ -1,0 +1,907 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia Release Notes - June 2018</h1>
+    <h2>Posted by <span class="author">The Aurelia Core Team</span> on <span class="date">June 25, 2018</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>June is a significant month for Aurelia. Our latest set of releases adds some great new features for our templating engine, allowing more seamless Webpack builds and an even more unobtrusive programming model. We've also made huge improvements to our binding engine, including adding new keywords and beefing up performance. Finally, the Aurelia Store plugin was released! Read on to get the details from the Aurelia Core Team.</p>
+<section><h2 id="improvements-to-binding">Improvements to Binding</h2><h3>Template Literals</h3>
+<p>The parser now recognizes the backtick (<code>`</code>) character and processes the encapsulated content of two backticks as a 
+<a href="https://tc39.github.io/ecma262/#sec-template-literals" target="_blank">template literal</a>
+. They behave the same way as they do in JavaScript, and you can use them in &quot;normal&quot; <code>.bind=&quot;...&quot;</code> expressions as well as in <code>\${...}</code> interpolation expressions. Examples:</p>
+<p><strong>Template literal vs. Non-template equivalent</strong></p>
+<ul>
+<li><code>`foo`</code> vs. <code>'foo'</code></li>
+<li><code>`Hello, \${firstName} \${lastName}!`</code> vs. <code>'Hello, ' + firstName + ' ' + lastName + '!'</code></li>
+<li><code>`Price: $\${dollars}.\${cents}`</code> vs. <code>'Price: $' + dollars + '.' + cents</code></li>
+<li><code>`Escaped $\{template\}`</code> vs. <code>'Escaped \${template}'</code></li>
+</ul>
+<p>Sometimes this is easier to read and/or work with, and sometimes it isn't. But now there is a choice.</p>
+<h3>Tagged Templates</h3>
+<p>A lesser known (but quite powerful) feature of template literals is tagging. It's the same syntax as literal templates, with the addition of a &quot;tag&quot; (a reference to a function) on its left-hand side. It receives the string parts of the template as an array via the first argument, and any expressions (the parts between <code>${</code> and <code>}</code>) as the rest of the arguments.</p>
+<p>You can think of it as an inline <code>toView</code> value converter special for strings. A few examples to demonstrate the syntax:</p>
+<p><strong>Tagged template vs. Non-template equivalent</strong></p>
+<ul>
+<li><code>process`foo`</code> vs. <code>process(['foo'])</code></li>
+<li><code>process`Hello, \${firstName} \${lastName}!`</code> vs. <code>process(['Hello, ', ' ', '!'], firstName, lastName)</code></li>
+<li><code>process`Price: $\${dollars}.\${cents}`</code> vs <code>process(['Price: $', '.', ''], dollars, cents)</code></li>
+<li><code>process`Escaped $\{template\}`</code> vs. <code>process(['Escaped \${template}'])</code></li>
+</ul>
+<p>Per the spec, an additional property <code>raw</code> is placed on the <code>strings</code> array which contains the unescaped string parts. For example: <code>process`foo\tbar`</code> enables leveraging <code>raw</code> in the view model as below:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token function">process</span><span class="token punctuation">(</span>strings<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// returns 'foo    bar (raw: foo\tbar)'</span>
+    <span class="token keyword">return</span> strings<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token string">' (raw: '</span> <span class="token operator">+</span> strings<span class="token punctuation">.</span>raw<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token string">')'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>To illustrate the behavior, this is a generic function to process a tagged template literal (similar to how this happens inside the framework):</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token function">process</span><span class="token punctuation">(</span>strings<span class="token punctuation">,</span> <span class="token operator">...</span>expressions<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> result <span class="token operator">=</span> strings<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> expressions<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        result <span class="token operator">+=</span> expressions<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> parts<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Tagged templates become an interesting tool when there is complex string processing to be done with (nested) conditionals and/or custom transformers. Creating and importing (or globally registering) a value converter may be overkill for something you only need to do once. Tagged templates give you more ways to move some logic to the view model and make things dynamic, whilst keeping the view expressive.</p>
+<p>Here are a few examples:</p>
+<p><strong>Inline</strong></p>
+
+<code-listing>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>Enabled: ${item.enabled ? '[X]' : '[ ]'}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p><strong>With a tagged template</strong></p>
+
+<code-listing>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>Enabled: ${mark`${item.enabled}`}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token function">mark</span><span class="token punctuation">(</span>_<span class="token punctuation">,</span> enabled<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> enabled <span class="token operator">?</span> <span class="token string">'[X]'</span> <span class="token punctuation">:</span> <span class="token string">'[ ]'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>A more contrived example (as it can be solved in other ways):</p>
+<p><strong>Inline</strong></p>
+
+<code-listing heading="Doesn't work - value converters cannot be nested in expressions">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>${displayDate ? (date | formatDate:'YYYYMMDD') : 'N/A'}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>  
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p><strong>With a tagged template</strong></p>
+
+<code-listing>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>${displayDate ? formatDate`${date}YYYYMMDD` : 'N/A'}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token function">formatDate</span><span class="token punctuation">(</span>parts<span class="token punctuation">,</span> date<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">moment</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>parts<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<h3>Support for instanceof, in, typeof and void</h3>
+<p>We've added support for the binary operators <code>instanceof</code> and <code>in</code>, and the unary operators <code>typeof</code> and <code>void</code>, which may come in handy especially for dynamic composition or some exotic behaviors. Here are a few examples:</p>
+<p><strong>instanceof</strong></p>
+
+<code-listing>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>address-details</span> <span class="token attr-name">if.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>person.address instanceof addressCtor<span class="token punctuation">"</span></span> <span class="token attr-name">address.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>person.address<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>address-details</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>person <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>addressCtor <span class="token operator">=</span> Address<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p><strong>in</strong> + <strong>typeof</strong></p>
+
+<code-listing>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>prop of optionalProperties<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>primitive-element</span> <span class="token attr-name">if.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>prop in model &amp;&amp; model[prop] &amp;&amp; typeof model[prop] !== <span class="token punctuation">'</span>object<span class="token punctuation">'</span><span class="token punctuation">"</span></span>
+        <span class="token attr-name">item.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>model[prop]<span class="token punctuation">"</span></span> <span class="token attr-name">name.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>prop<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>primitive-element</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>object-element</span> <span class="token attr-name">if.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>prop in model &amp;&amp; model[prop] &amp;&amp; typeof model[prop] === <span class="token punctuation">'</span>object<span class="token punctuation">'</span><span class="token punctuation">"</span></span>
+        <span class="token attr-name">item.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>model[prop]<span class="token punctuation">"</span></span> <span class="token attr-name">name.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>prop<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>object-element</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>null-element</span> <span class="token attr-name">if.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>prop in model &amp;&amp; model[prop] == null<span class="token punctuation">"</span></span> <span class="token attr-name">name.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>prop<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>null-element</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>optionalProperties <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'foo'</span><span class="token punctuation">,</span> <span class="token string">'bar'</span><span class="token punctuation">,</span> <span class="token string">'baz'</span><span class="token punctuation">,</span> <span class="token string">'qux'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>model <span class="token operator">=</span> <span class="token punctuation">{</span>
+      foo<span class="token punctuation">:</span> <span class="token string">'someText'</span><span class="token punctuation">,</span> <span class="token comment">// displayed by primitive-element</span>
+      bar<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token comment">// displayed by object-element</span>
+      baz<span class="token punctuation">:</span> <span class="token keyword">null</span> <span class="token comment">// displayed by null-element</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token comment">// no element is displayed for the 'qux' property as it doesn't exist on model</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p><strong>void</strong></p>
+<p>A more rarely used operator that simply evaluates the right-hand side expression and always returns undefined. A (contrived) example of how this may be useful:</p>
+
+<code-listing>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>some-element</span> <span class="token attr-name">if.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>model.requiredProp ? true : void message = <span class="token punctuation">'</span>RequiredProp is missing<span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>some-element</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<h3>Non-ASCII characters in variable names</h3>
+<p>In the previous version we only supported variable names with characters in the ASCII range (<code>$</code>, <code>_</code>, <code>a-z</code>, <code>A-Z</code> for <code>IdentifierStart</code> and <code>$</code>, <code>_</code>, <code>0-9</code>, <code>a-z</code>, <code>A-Z</code> for <code>IdentifierPart</code>). In response to a request from a German user we decided to add support for all 1,353 characters from the Latin script, which (we think) should cover nearly all use cases. You may now do things like this, and the parser won't complain about it:</p>
+
+<code-listing>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Straße<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>custom-form</span> <span class="token attr-name">model.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>enquète<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>custom-form</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Feel free to reach out if you need any of the remaining 100,000 Unicode characters, which are valid identifier parts.</p>
+</section>
+<section><h2 id="new-templating-features">New Templating Features</h2><p>We are very excited to announce a set of new features in Aurelia that enable an even simpler way of writing and sharing your applications and plugins. What could previously only be done with the <code>@bindable</code> decorator and conventional view strategy can now alternatively be done with the vanilla static properties <code>$resource</code> and <code>$view</code>. Declaring global resources and adding or writing plugins can now be done by using view model classes and configure functions directly instead of their string module paths.</p>
+<p>The following example demonstrates how to write and share a <code>&lt;check-box/&gt;</code> custom element plugin using the new <code>$resource</code> and <code>$view</code> static properties in place of conventions, decorators and bindables:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CheckBox</span> <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> <span class="token function">$resource</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        name<span class="token punctuation">:</span> <span class="token string">'check-box'</span><span class="token punctuation">,</span>
+        bindables<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+          <span class="token string">'label'</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span>
+            name<span class="token punctuation">:</span> <span class="token string">'checked'</span><span class="token punctuation">,</span>
+            defaultBindingMode<span class="token punctuation">:</span> <span class="token string">'twoWay'</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token keyword">static</span> <span class="token function">$view</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token template-string"><span class="token string">`
+        &lt;template>
+          &lt;label>
+            &lt;input type="checkbox" checked.bind="checked">
+            \</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>label<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">
+          &lt;/label>
+        &lt;/template>
+      `</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token comment">// more implementation...</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<div class="info"><div class="icon"> <i></i> </div><p>
+The <code>name</code> resource metadata can be omitted if minification is configured to not mangle class names.</p>
+</div>
+<p>Once you've got a custom element like <code>CheckBox</code> you can now take advantage of new resources APIs that allow it to be registered by Type rather than string module id. Here's how you would register <code>CheckBox</code> as a global resource:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">globalResources</span><span class="token punctuation">(</span><span class="token punctuation">[</span>CheckBox<span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Additionally, you could use the same <code>CheckBox</code> element as a local resources in a specific component instead:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ContactsPage</span> <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> <span class="token function">$view</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        dependencies<span class="token punctuation">:</span> <span class="token punctuation">[</span>CheckBox<span class="token punctuation">]</span><span class="token punctuation">,</span>
+        template<span class="token punctuation">:</span> <span class="token template-string"><span class="token string">`
+          &lt;template>
+            &lt;contact>
+              &lt;check-box checked.bind="isRegistered">&lt;/check-box>
+            &lt;/contact>
+            &lt;!-- ... -->
+          &lt;/template>
+        `</span></span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token comment">// more implementation...</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<div class="info"><div class="icon"> <i></i> </div><p>
+You can also use <code>dependencies: () =&gt; [import('/path/to/check-box')]</code> to enable code splitting with popular bundlers!</p>
+</div>
+<p>Notice that there is no trace of any imports from Aurelia. This new capability helps commonly shared resources (custom elements/attributes/value converters/etc) focus on business logic, while still being reusable.</p>
+<p>For those who prefer to use decorators over static class fields/methods, we now have <code>@view</code> and <code>@resource</code> decorators that map to the <code>$view</code> and <code>$resource</code> static properties. The way they work is similar to the <code>@inject</code> decorator and static <code>inject</code> field/method:</p>
+<p>Instead of this:</p>
+
+<code-listing>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CheckBox</span> <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> $view <span class="token operator">=</span> <span class="token punctuation">{</span>
+      <span class="token comment">// ...</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token keyword">static</span> $resource <span class="token operator">=</span> <span class="token punctuation">{</span>
+      <span class="token comment">// ...</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>You could also do this:</p>
+
+<code-listing>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> view<span class="token punctuation">,</span> resource <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">resource</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  @<span class="token function">view</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Checkbox</span> <span class="token punctuation">{</span>
+  
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>In addition to the ways you can use classes described above, you can also leverage them with <code>aurelia.setRoot(...)</code>.</p>
+<p>Instead of writing this:</p>
+
+<code-listing>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">:</span> Aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token string">'path/to/app-root'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>It's now possible to use the view model class directly, like this:</p>
+
+<code-listing>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> App <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'path/to/app-root'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">:</span> Aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span>App<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>This new capability is enabled via the enhanced API in our composition engine, which also enables the <compose/> element to work with view model classes instead of a string. As a result, instead of this:</p>
+
+<code-listing>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>compose</span> <span class="token attr-name">view-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>path/to/${selectedViewModel}-editor<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>compose</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Editor</span> <span class="token punctuation">{</span>
+    selectedViewModel<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  
+    <span class="token keyword">switch</span><span class="token punctuation">(</span><span class="token keyword">type</span><span class="token punctuation">:</span> <span class="token string">'date'</span> <span class="token operator">|</span> <span class="token string">'time'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>selectedViewModel <span class="token operator">=</span> vm<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>It's now possible to write this:</p>
+
+<code-listing>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>compose</span> <span class="token attr-name">view-model.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>selectedViewModel<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>compose</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> TimeEditor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'path/to/time-editor'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> DateEditor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'path/to/date-editor'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Editor</span> <span class="token punctuation">{</span>
+    selectedViewModel<span class="token punctuation">:</span> <span class="token builtin">Function</span><span class="token punctuation">;</span>
+  
+    <span class="token keyword">switch</span><span class="token punctuation">(</span><span class="token keyword">type</span><span class="token punctuation">:</span> <span class="token string">'date'</span> <span class="token operator">|</span> <span class="token string">'time'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>selectedViewModel <span class="token operator">=</span> <span class="token keyword">type</span> <span class="token operator">===</span> <span class="token string">'date'</span> <span class="token operator">?</span> DateEditor <span class="token punctuation">:</span> TimeEditor<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Besides the above capabilities of linking view dependencies / global resources statically, Aurelia now supports static plugin / feature registration scenarios, as demonstrated via following example of adding <code>aurelia-dialog</code> plugin:</p>
+<p>Instead of writing</p>
+
+<code-listing>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token comment">// main.js</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    aurelia
+      <span class="token punctuation">.</span>use
+      <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-dialog'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> config <span class="token operator">=></span> <span class="token punctuation">{</span>
+        config<span class="token punctuation">.</span><span class="token function">useDefaults</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>lock <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>centerHorizontalOnly <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>startingZIndex <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+        config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>keyboard <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>It's now possible to write this:</p>
+
+<code-listing>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token comment">// main.js</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> configure <span class="token keyword">as</span> configureAureliaDialog <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-dialog'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    aurelia
+      <span class="token punctuation">.</span>use
+      <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>configureAureliaDialog<span class="token punctuation">,</span> config <span class="token operator">=></span> <span class="token punctuation">{</span>
+        config<span class="token punctuation">.</span><span class="token function">useDefaults</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>lock <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>centerHorizontalOnly <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>startingZIndex <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+        config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>keyboard <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>This is the first release of a series of releases that will continue to enable scenarios like this. Currently, there is still work in progress to enable direct view model class reference with the router, so developers who want to leverage modern bundler capabilities can easily compose and build Aurelia applications without any plugin.</p>
+</section>
+<section><h2 id="aurelia-store">Aurelia Store</h2><p>In case you missed it a couple weeks ago, we recently published the 1.0 release of 
+<a href="https://github.com/aurelia/store" target="_blank">the Aurelia Store plugin</a>
+. The new Store plugin enables a single, consistent state solution based on RxJS observables, with seamless integration into Aurelia via both declarative and imperative programming models. You can 
+<a href="https://aurelia.io/docs/plugins/store" target="_blank">read the documentation here</a>
+ to learn how to get up and running with this new and powerful state solution.</p>
+<blockquote>
+<p>This has been just a few highlights of things we're excited about. There have been many more features, bug fixes and performance improvements released this month. Please find the details below and we hope you enjoy the new releases!</p>
+</blockquote>
+</section>
+<section><h2 id="major-releases">Major Releases</h2><h3>
+<a href="https://github.com/aurelia/webpack-plugin/compare/3.0.0-rc.1...3.0.0" target="_blank">aurelia-webpack-plugin</a>
+</h3>
+<p>No changes from the release candidate. This release moves us out of RC and into full release.</p>
+</section>
+<section><h2 id="minor-releases">Minor Releases</h2><p>Minor updates include new features, updates to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/logging/compare/1.4.0...1.5.0" target="_blank">aurelia-logging 1.5.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>logging:</strong> Allow isDebugEnabled to be returned (
+<a href="https://github.com/aurelia/logging/commit/9e7d571" target="_blank">9e7d571</a>
+), closes 
+<a href="https://github.com/aurelia/logging/issues/41" target="_blank">#41</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/history-browser/compare/1.1.1...1.2.0" target="_blank">aurelia-history-browser 1.2.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>history-browser:</strong> Ensure all navigate() paths return a value (
+<a href="https://github.com/aurelia/history-browser/commit/47beb9b" target="_blank">47beb9b</a>
+)</li>
+<li><strong>index:</strong> revert return types (
+<a href="https://github.com/aurelia/history-browser/commit/0481af4" target="_blank">0481af4</a>
+)</li>
+<li><strong>typing:</strong> update return types (
+<a href="https://github.com/aurelia/history-browser/commit/e1a574a" target="_blank">e1a574a</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/http-client/compare/1.2.1...1.3.0" target="_blank">aurelia-http-client 1.3.0</a>
+</h3>
+<ul>
+<li>Fix unit tests.</li>
+<li>Enable error responses to be shaped like Error objects, addressing some issues with BlueBird.</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/fetch-client/compare/1.3.1...1.4.0" target="_blank">aurelia-fetch-client 1.4.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>fetch-client:</strong> add retry functionality (
+<a href="https://github.com/aurelia/fetch-client/commit/d16447a" target="_blank">d16447a</a>
+)</li>
+<li><strong>http-client:</strong> Expose buildRequest helper API (
+<a href="https://github.com/aurelia/fetch-client/commit/33d364d" target="_blank">33d364d</a>
+)</li>
+<li><strong>http-client:</strong> Expose HttpClient to interceptors (
+<a href="https://github.com/aurelia/fetch-client/commit/36518bc" target="_blank">36518bc</a>
+)</li>
+<li><strong>http-client:</strong> Forward Request from response interceptor (
+<a href="https://github.com/aurelia/fetch-client/commit/cc91034" target="_blank">cc91034</a>
+)</li>
+<li><strong>interface:</strong> add signal to RequestInit interface (
+<a href="https://github.com/aurelia/fetch-client/commit/7a056c0" target="_blank">7a056c0</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/route-recognizer/compare/1.1.1...1.2.0" target="_blank">aurelia-route-recognizer 1.2.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li>Require leading slashes to optional segments (
+<a href="https://github.com/aurelia/route-recognizer/commit/27f72a5" target="_blank">27f72a5</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/dependency-injection/compare/1.3.2...1.4.0" target="_blank">aurelia-dependency-injection 1.4.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>injection:</strong> fail with autoinject and own static inject (
+<a href="https://github.com/aurelia/dependency-injection/commit/e230bda" target="_blank">e230bda</a>
+)</li>
+<li><strong>resolver:</strong> use own property 'inject' in autoinject and parameter decorators (
+<a href="https://github.com/aurelia/dependency-injection/commit/724ff08" target="_blank">724ff08</a>
+)</li>
+<li><strong>resolvers:</strong> remove unusable asValue option of the factory decorator (
+<a href="https://github.com/aurelia/dependency-injection/commit/5739152" target="_blank">5739152</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>resolvers:</strong> allow using Factory.of and NewInstance.of with registered handlers (
+<a href="https://github.com/aurelia/dependency-injection/commit/991cbb5" target="_blank">991cbb5</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/binding/compare/2.0.0...2.1.0" target="_blank">aurelia-binding 2.1.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>ast:</strong> preserve evaluation context for the tag in tagged template literals (
+<a href="https://github.com/aurelia/binding/commit/8528baa" target="_blank">8528baa</a>
+)</li>
+<li><strong>doc:</strong> ICollectionObserverSplice Typescript interface (
+<a href="https://github.com/aurelia/binding/commit/92a0006" target="_blank">92a0006</a>
+)</li>
+<li><strong>EventManager:</strong> remove unnecessary dereference (
+<a href="https://github.com/aurelia/binding/commit/e2f8866" target="_blank">e2f8866</a>
+)</li>
+<li><strong>expression-cloner:</strong> add literal template (
+<a href="https://github.com/aurelia/binding/commit/d324785" target="_blank">d324785</a>
+)</li>
+<li><strong>literal-template:</strong> only throw on invalid function when mustEvaluate is truthy (
+<a href="https://github.com/aurelia/binding/commit/766571d" target="_blank">766571d</a>
+)</li>
+<li><strong>parser:</strong> allow $parent as an argument of binding behaviors and value converters (
+<a href="https://github.com/aurelia/binding/commit/f76de45" target="_blank">f76de45</a>
+), closes 
+<a href="https://github.com/aurelia/binding/issues/608" target="_blank">#608</a>
+</li>
+<li><strong>typescript:</strong> put back missing collection properties to ICollectionObserverSplice (
+<a href="https://github.com/aurelia/binding/commit/b4f7b28" target="_blank">b4f7b28</a>
+)</li>
+<li><strong>typings:</strong> accept Set<any> for collectionObserver (
+<a href="https://github.com/aurelia/binding/commit/87ca285" target="_blank">87ca285</a>
+)</li>
+<li><strong>parser:</strong> left-to-right associativity for nested binary expressions with same precedence (
+<a href="https://github.com/aurelia/binding/commit/d2d867e" target="_blank">d2d867e</a>
+)</li>
+<li><strong>parser:</strong> use loop instead of array.fill for IE10 compat (
+<a href="https://github.com/aurelia/binding/commit/a7080bd" target="_blank">a7080bd</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>parser:</strong> add basic support for template literals (
+<a href="https://github.com/aurelia/binding/commit/39021ef" target="_blank">39021ef</a>
+)</li>
+<li><strong>parser:</strong> add expression operators 'in', 'instanceof', 'typeof', 'void' (
+<a href="https://github.com/aurelia/binding/commit/e849661" target="_blank">e849661</a>
+)</li>
+<li><strong>parser:</strong> add support for non-ASCII identifiers in the Latin-1 supplement block (
+<a href="https://github.com/aurelia/binding/commit/dfaca35" target="_blank">dfaca35</a>
+), closes 
+<a href="https://github.com/aurelia/binding/issues/640" target="_blank">#640</a>
+</li>
+<li><strong>parser:</strong> add support for tagged template literals (
+<a href="https://github.com/aurelia/binding/commit/b9497d2" target="_blank">b9497d2</a>
+)</li>
+</ul>
+<h4>Performance Improvements</h4>
+<ul>
+<li><strong>parser:</strong> add node microbench script (
+<a href="https://github.com/aurelia/binding/commit/37dfcb8" target="_blank">37dfcb8</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/loader-webpack/compare/2.1.0...2.2.1" target="_blank">aurelia-loader-webpack 2.2.1</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>eachModule:</strong> shortcircuit the iteration when callback returns true (
+<a href="https://github.com/aurelia/loader-webpack/commit/d5a6d73" target="_blank">d5a6d73</a>
+)</li>
+<li><strong>loader-webpack:</strong> handle HMR changes also in async modules (
+<a href="https://github.com/aurelia/loader-webpack/issues/40" target="_blank">#40</a>
+) (
+<a href="https://github.com/aurelia/loader-webpack/commit/36c5de3" target="_blank">36c5de3</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/router/compare/1.5.0...1.6.0" target="_blank">aurelia-router 1.6.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>app-router:</strong> await navigation result (
+<a href="https://github.com/aurelia/router/commit/3d1c416" target="_blank">3d1c416</a>
+)</li>
+<li><strong>interfaces:</strong> Undo interface export (
+<a href="https://github.com/aurelia/router/commit/e21fc9c" target="_blank">e21fc9c</a>
+)</li>
+<li><strong>navigation:</strong> add NavigationResult type (
+<a href="https://github.com/aurelia/router/commit/089aa37" target="_blank">089aa37</a>
+)</li>
+<li><strong>redirect:</strong> do not use Promise.reject on redirect (
+<a href="https://github.com/aurelia/router/commit/487c33d" target="_blank">487c33d</a>
+), closes 
+<a href="https://github.com/aurelia/router/issues/480" target="_blank">#480</a>
+</li>
+<li><strong>router:</strong> define title property (
+<a href="https://github.com/aurelia/router/commit/2ad2280" target="_blank">2ad2280</a>
+)</li>
+<li><strong>router:</strong> make addRoute split list of routes into multiple routeconfigs with single route each (
+<a href="https://github.com/aurelia/router/commit/0cd5423" target="_blank">0cd5423</a>
+)</li>
+<li><strong>router-configuration:</strong> merge options instead of assign in exportRouter (
+<a href="https://github.com/aurelia/router/commit/d563f8a" target="_blank">d563f8a</a>
+)</li>
+<li><strong>router-configuration:</strong> throw early on invalid pipeline steps (
+<a href="https://github.com/aurelia/router/commit/e6e2f62" target="_blank">e6e2f62</a>
+)</li>
+<li><strong>typings:</strong> moduleId: string|null (
+<a href="https://github.com/aurelia/router/commit/a7cdb68" target="_blank">a7cdb68</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>router:</strong> add configurable title separator (
+<a href="https://github.com/aurelia/router/commit/d2a1896" target="_blank">d2a1896</a>
+)</li>
+<li><strong>router:</strong> redirect with token parameters (
+<a href="https://github.com/aurelia/router/commit/aafa070" target="_blank">aafa070</a>
+), closes 
+<a href="https://github.com/aurelia/router/issues/483" target="_blank">#483</a>
+</li>
+<li><strong>type declarations:</strong> improve type of RouterConfiguration (
+<a href="https://github.com/aurelia/router/commit/c1775e5" target="_blank">c1775e5</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/templating/compare/1.7.0...1.8.0-rc.1" target="_blank">aurelia-templating 1.8.0-rc.1</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>BehaviorPropertyObserver:</strong> use Object.is() for comparison (
+<a href="https://github.com/aurelia/templating/commit/bf8ec9a" target="_blank">bf8ec9a</a>
+)</li>
+<li><strong>child-observation:</strong> unset property in unbind (
+<a href="https://github.com/aurelia/templating/commit/7989015" target="_blank">7989015</a>
+)</li>
+<li><strong>ShadowDOM:</strong> unbind view when remove (
+<a href="https://github.com/aurelia/templating/commit/b4abe6e" target="_blank">b4abe6e</a>
+)</li>
+<li><strong>StaticViewStrategy:</strong> adjust interface for doc (
+<a href="https://github.com/aurelia/templating/commit/65aef43" target="_blank">65aef43</a>
+)</li>
+<li><strong>view-slot:</strong> fix return type (
+<a href="https://github.com/aurelia/templating/commit/66a86de" target="_blank">66a86de</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>CompositionEngine:</strong> compose accepts view model constructor (
+<a href="https://github.com/aurelia/templating/commit/524dee4" target="_blank">524dee4</a>
+)</li>
+<li><strong>decorators:</strong> add decorators for view / resource config (
+<a href="https://github.com/aurelia/templating/commit/2af6b28" target="_blank">2af6b28</a>
+)</li>
+<li><strong>resource:</strong> aurelialess aurelia (
+<a href="https://github.com/aurelia/templating/commit/e7da973" target="_blank">e7da973</a>
+)</li>
+<li><strong>resources:</strong> interop with custom element / attribute decorators (
+<a href="https://github.com/aurelia/templating/commit/e06668e" target="_blank">e06668e</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/framework/compare/1.2.0...1.3.0-rc.1" target="_blank">aurelia-framework 1.3.0-rc.1</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>Aurelia:</strong> ability to define root with constructor (
+<a href="https://github.com/aurelia/framework/commit/15fc9dd" target="_blank">15fc9dd</a>
+)</li>
+<li><strong>config:</strong> accepts classes beside module id string (
+<a href="https://github.com/aurelia/framework/commit/80a3d39" target="_blank">80a3d39</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/i18n/compare/2.2.0...2.3.0" target="_blank">aurelia-i18n 2.3.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>i18n:</strong> allow multiple attributes with the same key by listing them comma-separated (
+<a href="https://github.com/aurelia/i18n/commit/666cfba" target="_blank">666cfba</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/validation/compare/1.1.3...1.2.0" target="_blank">aurelia-validation 1.2.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>property-access:</strong> make number and string property keys work the same way (
+<a href="https://github.com/aurelia/validation/commit/bca8d33" target="_blank">bca8d33</a>
+)</li>
+<li><strong>property-accessor-parser:</strong> handle numeric property keys (
+<a href="https://github.com/aurelia/validation/commit/7288a73" target="_blank">7288a73</a>
+)</li>
+<li><strong>StandardValidator:</strong> change to handle empty rule sets (
+<a href="https://github.com/aurelia/validation/commit/85145b8" target="_blank">85145b8</a>
+), closes 
+<a href="https://github.com/aurelia/validation/issues/483" target="_blank">#483</a>
+</li>
+<li><strong>validation-messages:</strong> assign the parser in the constructor (
+<a href="https://github.com/aurelia/validation/commit/7ba58da" target="_blank">7ba58da</a>
+)</li>
+<li><strong>ValidationMessageProvider:</strong> increase visibility of parser field (
+<a href="https://github.com/aurelia/validation/commit/b7636b5" target="_blank">b7636b5</a>
+), closes 
+<a href="https://github.com/aurelia/validation/issues/464" target="_blank">#464</a>
+</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>Validation:</strong> support integer property keys (
+<a href="https://github.com/aurelia/validation/commit/e74ca86" target="_blank">e74ca86</a>
+), closes 
+<a href="https://github.com/aurelia/validation/issues/474" target="_blank">#474</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/ux/compare/v0.10.1...v0.11.0" target="_blank">aurelia-ux 0.11.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li>style: update properties that do not have a watcher on theme change</li>
+<li>theming: remove ensureDefaultTheme</li>
+<li>input: conform to new material design standards, add floating label</li>
+<li>input: add border radius to top of input</li>
+<li>input: apply correct css variables</li>
+<li>input: correct background colors and inherit font color</li>
+<li>input: align hover effect with material specifications</li>
+<li>input: increase animation length and add variables</li>
+<li>style: add border radius to outline button</li>
+</ul>
+</section>
+<section><h2 id="patch-releases">Patch Releases</h2><p>Patch updates include only fixes to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/pal-nodejs/compare/1.1.0...1.1.1" target="_blank">aurelia-pal-nodejs 1.1.1</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>mutation-observer:</strong> MutationObserver not handling changes to CharacterData.data</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/metadata/compare/1.0.3...1.0.4" target="_blank">aurelia-matadata 1.0.4</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>metadata:</strong> IE cross origin frame Access Denied on Window['frameElement'] in Origin.get (
+<a href="https://github.com/aurelia/metadata/commit/5e678d7" target="_blank">5e678d7</a>
+)</li>
+<li><strong>metadata:</strong> IE cross origin frame Access Denied on Window['frameElement'] in Origin.get - add test (
+<a href="https://github.com/aurelia/metadata/commit/553c5a2" target="_blank">553c5a2</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/task-queue/compare/1.3.0...1.3.1" target="_blank">aurelia-task-queue 1.3.1</a>
+</h3>
+<h4>Performance Improvements</h4>
+<ul>
+<li>Improved internal micro task queue flush initiation.</li>
+</ul>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%20Release%20Notes%20-%20June%202018" blog-url="blog%2F2018%2F06%2F25%2Faurelia-release-notes-june-2018"></blog-footer>
+</section>

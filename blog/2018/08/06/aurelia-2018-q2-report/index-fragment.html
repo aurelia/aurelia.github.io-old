@@ -1,0 +1,76 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia 2018 Q2 Report</h1>
+    <h2>Posted by <span class="author">Rob Eisenberg</span> on <span class="date">August 6, 2018</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>The second quarter of 2018 was an amazing time for the Aurelia team with some major progress towards key goals in <a href="blog/2018/01/03/aurelia-2018-roadmap/">our 2018 roadmap</a>. Read on to hear about what we've accomplished and what's in store next.</p>
+<section><h2 id="platform-features-and-capabilities">Platform Features and Capabilities</h2><p>We've made some major improvements in our core platform capabilities during Q2, including features that greatly improve Webpack scenarios, treeshaking, and modern bundler integrations. Our core plugins for state, i18n and UX continue with strong forward movement as well.</p>
+<h3>Templating and Binding</h3>
+<p>Early in the quarter <a href="blog/2018/05/10/aurelia-release-notes-early-may-2018">we announced major performance improvements</a> in our binding engine's expression parser. In some cases a 10x speed improvement was measured. We've also added new binding expression syntax for template literals and tagged templates, new support for the <code>instanceof</code>, <code>in</code>, <code>typeof</code>, and <code>void</code> operators, and non-ASCII character variable name support. You can read more details about the new binding features <a href="blog/2018/06/24/aurelia-release-notes-june-2018">here</a>.</p>
+<p>Some of the most significant new capabilities of the quarter have been through work on the templating engine. In particular, usage of string module names is no longer required to register custom elements, custom attributes, or any other templating resources. Now, you can simply <a href="blog/2018/06/24/aurelia-release-notes-june-2018">provide the class itself to the resource API</a>. This provides better compile-time checking and enables simplified tree-shaking for Webpack users.</p>
+<h4>What's Next</h4>
+<p>During the next few months we're planning to continue the templating work by adding similar capabilities to the Aurelia router and dialog plugins. This will enable registering route patterns and displaying dialogs with classes, rather than module strings.</p>
+<div class="info"><div class="icon"> <i></i> </div><p>
+Please note that we're not removing support for string-based module registration. Rather, we're adding additional support for direct class registration.</p>
+</div>
+<p>With these pieces in place, we'll then have a simpler mechanism for integrating with online tooling like 
+<a href="https://codesandbox.io/" target="_blank">CodeSandbox</a>
+ and 
+<a href="https://stackblitz.com/" target="_blank">StackBlitz</a>
+.</p>
+<h3>Aurelia Store</h3>
+<p>One of the biggest highlights of Q2 was that <a href="blog/2018/06/17/aurelia-store-released/">we made our first official release of the Aurelia Store plugin</a>, complete with <a href="docs/plugins/store">full documentation</a>!</p>
+<p>One of the main changes during this quarter was to switch Aurelia Store to RxJS 6. If you haven't seen it yet, please take a look at the 
+<a href="https://github.com/ReactiveX/rxjs/blob/master/MIGRATION.md" target="_blank">following upgrade instructions</a>
+.</p>
+<p>Besides the update to RxJS 6, we've improved the <code>connectTo</code> decorator, which with the help of @jmzargorski, now has support for <a href="docs/plugins/store#subscribing-with-the-connectto-decorator">multiple selectors</a>. This opens up a whole new workflow in working with multiple modules and making parts of your app even more self-contained in regards to the Store. 
+<a href="https://github.com/aurelia/store/issues/48" target="_blank">Take a look at the following discussion</a>
+ about how larger apps may be structured.</p>
+<p>From the very early days of Aurelia Sore, there has been fantastic support from the community to help improve both the library and the documentation. We're grateful for how they've contributed to building this plugin and how they've tirelessly worked to make it one of the best state management tools available today.</p>
+<h4>What's Next</h4>
+<p>The Store plugin will continue to receive more samples showing-off its unique capabilities as well as more improvements to the docs. A major technical focus is to further reduce boilerplate code through improved decorators and optimized APIs. Finally, we hope to make the official 1.0 version release in the next few weeks.</p>
+<h3>Aurelia I18N</h3>
+<p>The Aurelia I18N library has seen several updates to the docs, plus improvements to the <code>t-attribute</code>, which now enables developers to define multiple target attributes for a single translation key. Here's an example:</p>
+
+<code-listing heading="Multi-target Translation Attribute">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  Before, only this was valid:
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>[html]title;[placeholder]placeholderValue<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+  
+  Now this is possible as well:
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>[html]title;[placeholder, aria-placeholder]placeholderValue<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Additionally, developers are now able to turn off translations for missing keys, which helps to identify undefined keys.</p>
+<h4>What's Next</h4>
+<p>The I18N plugin's next major goal is a full TypeScript port and merge into 
+<a href="https://github.com/aurelia/aurelia" target="_blank">the Aurelia vNext monorepo</a>
+ (info on vNext below). This will provide the opportunity to not only improve library usage for TypeScript users but also cleanup lots of work around setup and testability, making sure that the plugin initialization is more approachable and robust.</p>
+<h3>Aurelia UX</h3>
+<p>If you stay on top of design system news, you may have noticed that the Material Design standards were recently updated. In Q2 we updated Aurelia UX to match these standards. Additionally, we've been doing work to update UX to take advantage of many of the new templating features we added, as described above. This will improve the developer's ability to tree-shake Aurelia UX as well as give us some other, more streamlined options for shipping the components.</p>
+<h4>What's Next</h4>
+<p>In the coming months we'll continue to align with design standards and further update UX to take advantage of new Aurelia features.</p>
+</section>
+<section><h2 id="aurelia-vnext">Aurelia vNext</h2><p>We've made HUGE progress in our experiments around the next major version of Aurelia. We're very excited about how that's turning out. As we sat down to write our quarterly report, we realized there was so much to say about this topic that it would be better to put it in a dedicated post. We invite you to <a href="blog/2018/08/05/aurelia-vnext/">hop on over to the Aurelia vNext post</a> and read all about it there.</p>
+</section>
+<section><h2 id="training-support-and-more">Training, Support and More...</h2><p>Over the years we've had many requests for official Aurelia Training and Support. To address those needs, we've put together several options, which you can read about on the new <a href="learn">learn</a> and <a href="support">support</a> pages of the Aurelia site. With this, we're pleased to announce preview access to Aurelia enterprise support. Basic information is available on <a href="support">our support page</a> and you can sign up to be contacted about support <a href="contact">here</a>.</p>
+</section>
+<section><h2 id="wrapping-up">Wrapping Up</h2><p>The second quarter of 2018 has been an exciting time! In just a few short months we've made significant enhancements to templating, binding, performance and major plugins like Aurelia store. Additionally, we've made a very strong start on the next major version of Aurelia (you read the vNext post right?), which we're beyond excited about.</p>
+<p>It's a great time to be a font-end developer working with Aurelia!</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%202018%20Q2%20Report" blog-url="blog%2F2018%2F08%2F06%2Faurelia-2018-q2-report"></blog-footer>
+</section>

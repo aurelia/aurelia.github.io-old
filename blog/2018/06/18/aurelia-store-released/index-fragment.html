@@ -1,0 +1,45 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia Store Released!</h1>
+    <h2>Posted by <span class="author">Vildan Softic</span> on <span class="date">June 18, 2018</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>Handling application state once your application's features grow may become a serious problem over time. Currently, a lot of modern development approaches leverage a single store, which acts as a central basis of your app. Well-known frameworks supporting these type of workflows include Redux, MobX and many others.</p>
+<p>
+<a href="https://www.poll-maker.com/results1055872x983e46b6-44#tab-2" target="_blank">When we asked our community</a>
+ back in April of last year, it was apparent that, while these solutions work, a lot of members hand-rolled their own solution. Be it because the known solutions didn't fit or because they were looking for something with deeper Aurelia integration, we've heard your concerns and 
+<a href="https://aurelia.io/blog/2018/01/03/aurelia-2018-roadmap" target="_blank">announced at the beginning of this year</a>
+, that we were working on Aurelia Store, an official Aurelia plugin for state management. It took some time to get the new library to a place where we were satisfied with the documentation and had battle-tested the plugin under real conditions with enough tests to fulfill 100% test-coverage, but now we've made it.</p>
+<p>
+<a href="https://github.com/aurelia/aurelia-store" target="_blank">Aurelia Store</a>
+ is an Aurelia plugin for handling state in your Aurelia applications. As with all official repositories, we take SemVer compatibility very seriously and will make sure to keep breaking changes down to the bare minimum as well as make sure to document all release notes as usual.</p>
+<p>Creating this library wouldn't have been possible without the awesome help of the community, enabling us to shape the plugin in a way that addresses as many use-cases as possible while making sure the quality didn't suffer. Special thanks go to my employer 
+<a href="https://www.ranorex.com/" target="_blank">Ranorex</a>
+, an automation tool provider for an all-in-one UI test experience for desktop, web and mobile applications, who allowed me to contribute working hours to the plugin. As a result of that, several tools, amongst them our Chrome extension called 
+<a href="https://www.ranorex.com/selocity/browser-extension/" target="_blank">Ranorex Selocity</a>
+, which can be downloaded for free, are now powered by Aurelia and the Store plugin.</p>
+<p>Amongst the first evangelists and zealous fans of the plugin is our core member Dwayne Charrington, who is well known in our community for his awesome contributions, including 
+<a href="https://builtwithaurelia.com/" target="_blank">builtwithaurelia.com</a>
+, which happens to be powered by Aurelia Store as well. So let's hear a few words from Dwayne about his journey with the plugin so far...</p>
+<hr />
+<p>I have been a huge advocate of Aurelia for over three years now and my background before Aurelia was working with ReactJS and Angular. Over the years, thanks in part to Facebook’s popularized method for handling state in the form of Flux, numerous state management solutions have appeared. One of the most popular state management libraries is Redux. While Redux is an exceptionally well-architected state management solution, its complexity and difficulty integrating with already built single page applications is a turn off for me personally. My preferred solution before using Aurelia Store was like many, a singleton class with a couple of methods. The downside of handling state yourself is that you eventually run into the problem exacerbated by JavaScript’s design of pass-by-reference; it’s hard to know what is modifying your state, undoing changes or being able to do anything meaningful with your hand-rolled state management solution. Aurelia Store has completely changed the way I build data-rich Aurelia applications, for the better. No longer do I need to hand-roll state management or solve issues with immutability and passed references. I find myself always looking for an excuse to use this plugin and the last 3 Aurelia projects I have worked on have used the Aurelia Store plugin.</p>
+<hr />
+<p>One of the biggest upsides to Aurelia Store is that it works with Redux Developer Tools (a free plugin available in all browsers). The Redux Developer Tools allow you to inspect state in your Aurelia applications, replay actions, and debug the way data flows throughout your application. It’s a game changer.</p>
+<p>Last but not least, the topic of state management in itself is a difficult one. So using our plugin shouldn't be part of your troubles getting on board. That's why we made sure to launch the official release with a set of 
+<a href="https://aurelia.io/docs/plugins/store" target="_blank">full-fledged documentation</a>
+.</p>
+<p>We're looking forward to hearing your thoughts about the plugin, so reach out to us in any of the well-known ways, such as our 
+<a href="https://gitter.im/aurelia/Discuss" target="_blank">Gitter channel</a>
+ or our 
+<a href="https://discourse.aurelia.io/" target="_blank">Discourse forum</a>
+.</p>
+<p>We hope you enjoy the new Aurelia Store plugin!</p>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%20Store%20Released!" blog-url="blog%2F2018%2F06%2F18%2Faurelia-store-released"></blog-footer>
+</section>
