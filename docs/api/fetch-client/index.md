@@ -22,8 +22,8 @@ Requests being processed by interceptors are considered active.
 #### Methods
 
 
-* `buildRequest(input: string, init: RequestInit): Request` - 
-  * `input: string` - No description available
+* `buildRequest(input: , init: RequestInit): Request` - 
+  * `input: ` - No description available
   * `init: RequestInit` - No description available
 
 
@@ -126,7 +126,7 @@ response and responseError act as resolve and reject handlers for
 the Response after it has been received.
 
 
-* `withRetry(config?: RetryConfiguration): any` - 
+* `withRetry(config?: RetryConfiguration): HttpClientConfiguration` - 
   * `config?: RetryConfiguration` - No description available
 
 
@@ -142,19 +142,19 @@ No description available.
 #### Methods
 
 
-* `request(request?: any): any` - 
-  * `request?: any` - No description available
+* `request(request: Request): Request` - 
+  * `request: Request` - No description available
 
 
-* `response(response?: any, request?: any): any` - 
-  * `response?: any` - No description available
-  * `request?: any` - No description available
+* `response(response: Response, request: Request): Response` - 
+  * `response: Response` - No description available
+  * `request: Request` - No description available
 
 
-* `responseError(error?: any, request?: any, httpClient?: any): any` - 
-  * `error?: any` - No description available
-  * `request?: any` - No description available
-  * `httpClient?: any` - No description available
+* `responseError(error: Response, request: Request, httpClient: HttpClient): Promise` - 
+  * `error: Response` - No description available
+  * `request: Request` - No description available
+  * `httpClient: HttpClient` - No description available
 
 
 
@@ -191,14 +191,17 @@ See https://developer.mozilla.org/en-US/docs/Web/API/Request/Request
 
 #### Properties
 
-* `body: ` - Any body that you want to add to your request: this can be a Blob, BufferSource, FormData, URLSearchParams, or USVString object. Note that a request using the GET or HEAD method cannot have a body.
+* `body: ` - Any body that you want to add to your request: this can be a Blob, BufferSource, FormData,
+URLSearchParams, ReadableStream, or USVString object.
 * `cache: string` - The cache mode you want to use for the request: default, no-store, reload, no-cache, or force-cache.
-* `credentials: string` - The request credentials you want to use for the request: omit, same-origin, or include. The default is omit. In Chrome the default is same-origin before Chrome 47 and include starting with Chrome 47.
+* `credentials: string` - The request credentials you want to use for the request: omit, same-origin, or include.
+The default is omit.
 * `headers: ` - Any headers you want to add to your request, contained within a Headers object or an object literal with ByteString values.
 * `integrity: string` - Contains the subresource integrity value of the request (e.g., sha256-BpfBw7ivV8q2jLiT13fxDYAe2tJllusRSZ273h2nFSE&#x3D;).
 * `method: string` - The request method, e.g., GET, POST.
-* `mode: string` - The mode you want to use for the request, e.g., cors, no-cors, same-origin, or navigate. The default is cors. In Chrome the default is no-cors before Chrome 47 and same-origin starting with Chrome 47.
-* `redirect: string` - The redirect mode to use: follow, error, or manual. In Chrome the default is follow before Chrome 47 and manual starting with Chrome 47.
+* `mode: string` - The mode you want to use for the request, e.g., cors, no-cors, same-origin, or navigate.
+The default is cors.
+* `redirect: string` - The redirect mode to use: follow, error, or manual.
 * `referrer: string` - A USVString specifying no-referrer, client, or a URL. The default is client.
 * `signal: AbortSignal` - An AbortSignal to set request’s signal.
 
@@ -213,11 +216,13 @@ No description available.
 #### Properties
 
 * `beforeRetry: ` - No description available.
+* `counter: number` - No description available.
 * `doRetry: ` - No description available.
 * `interval: number` - No description available.
 * `maxRandomInterval: number` - No description available.
 * `maxRetries: number` - No description available.
 * `minRandomInterval: number` - No description available.
+* `requestClone: Request` - No description available.
 * `strategy: ` - No description available.
 
 #### Methods
@@ -226,7 +231,7 @@ No description available.
 
 ## Constants
 
-* `retryStrategy: any` - No description available.
+* `retryStrategy: ` - No description available.
 
 ## Functions
 

@@ -415,6 +415,9 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 <div class="info"><div class="icon"> <i></i> </div><h4>Invalid Table Structure When Dynamically Creating Tables</h4><p>
 When the browser loads in the template it very helpfully validates the structure of the HTML, notices that you have an invalid tag inside your table definition, and very unhelpfully removes it for you before Aurelia even has a chance to examine your template.</p>
 </div>
+<div class="warning"><div class="icon"> <i></i> </div><h4>webpack</h4><p>
+Dynamic compose as used below does not work when using webpack. It is suggested to bind to a property on the viewmodel <code>template: PLATFORM.moduleName(&quot;./template_${r}.html&quot;)</code> and then use it like so <code>&lt;tr repeat.for=&quot;r of ['A','B','A','B']&quot; as-element=&quot;compose&quot; view.bind='template'&gt;</code></p>
+</div>
 <p>Use of the <code>as-element</code> attribute ensures we have a valid HTML table structure at load time, yet we tell Aurelia to treat its contents as though it were a different tag.</p>
 
 <code-listing heading="Compose an existing object instance with a view.">

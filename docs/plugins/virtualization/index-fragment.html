@@ -1,0 +1,246 @@
+<section class="article">
+  <header>
+    <h1>Virtualization</h1>
+    <h2>The basics of using the ui-virtualization plugin for Aurelia.</h2>
+  </header>
+
+  <article class="markdown">
+    <section><h2 id="introduction">Introduction</h2><p>When dealing with large collections of items (thousands, upwards of tens of thousands), whether that be an array or map, certain challenges come with displaying those items in a performant manner due to DOM constraints. This is where the UI Virtualization plugin comes in very handy.</p>
+<p>This plugin enables &quot;virtualization&quot; of lists through a new virtual-repeat.for attribute. When used, the list &quot;virtually&quot; has tens or hundreds of thousands of rows, but the DOM only has rows for what is visible. This allows rendering of massive lists of data with amazing performance. It works like repeat.for, it just creates a scrolling area and manages the list using UI virtualization techniques.</p>
+</section>
+<section><h2 id="installing-the-plugin">Installing The Plugin</h2><p>If you are using the CLI or Webpack, you can install the plugin from NPM:</p>
+
+<code-listing>
+  
+<source-code lang="Shell">
+  <pre class="language-powershell">
+    <code>
+  npm install aurelia<span class="token operator">-</span>ui<span class="token operator">-</span>virtualization <span class="token operator">--</span>save
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>or</p>
+
+<code-listing>
+  
+<source-code lang="Shell">
+  <pre class="language-powershell">
+    <code>
+  yarn add aurelia<span class="token operator">-</span>ui<span class="token operator">-</span>virtualization
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>If you are using JSPM for client dependencies, then you can use this command:</p>
+
+<code-listing>
+  
+<source-code lang="Shell">
+  <pre class="language-powershell">
+    <code>
+  jspm install aurelia<span class="token operator">-</span>ui<span class="token operator">-</span>virtualization
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+</section>
+<section><h2 id="configuring-the-plugin">Configuring The Plugin</h2><p>In your <code>main.js</code> within your <code>src</code> folder, simply call the plugin API with the animation plugin's name:</p>
+
+<code-listing heading="main.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> <span class="token constant">PLATFORM</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    aurelia<span class="token punctuation">.</span>use
+      <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-ui-virtualization'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//&lt;-- add this</span>
+  
+    aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>a <span class="token operator">=></span> a<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<div class="warning"><div class="icon"> <i></i> </div><p>
+<code>PLATFORM.moduleName</code> is only required if you are using <strong>Webpack</strong>.</p>
+</div>
+</section>
+<section><h2 id="using-the-plugin">Using The Plugin</h2><p>If you have used Aurelia's out-of-the-box <code>repeat.for</code> attribute, then you will probably notice the UI Virtualization library provides its own similar repeater called <code>virtual-repeat.for</code> which uses the exact same syntax.</p>
+<p>Just like you can with the standard <code>repeat.for</code> attribute, the <code>virtual-repeat.for</code> attribute allows you to repeat any kind of content in your views.</p>
+<div class="warning"><div class="icon"> <i></i> </div><p>
+The rows being repeated <strong>need</strong> a fixed height and only one item per row. The virtualization requires all elements are the exact same height</p>
+</div>
+<h3>Basic repeat</h3>
+
+<code-listing heading="app.html">
+  
+<source-code lang="Html">
+  <pre class="language-javascript">
+    <code>
+  <span class="token operator">&lt;</span>template<span class="token operator">></span>
+    <span class="token operator">&lt;</span>div virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"item of items"</span><span class="token operator">></span>
+      $<span class="token punctuation">{</span>$index<span class="token punctuation">}</span> $<span class="token punctuation">{</span>item<span class="token punctuation">}</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<h3>Unordered list repeat</h3>
+
+<code-listing heading="app.html">
+  
+<source-code lang="Html">
+  <pre class="language-javascript">
+    <code>
+  <span class="token operator">&lt;</span>template<span class="token operator">></span>
+    <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+      <span class="token operator">&lt;</span>li virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"item of items"</span><span class="token operator">></span>
+        $<span class="token punctuation">{</span>$index<span class="token punctuation">}</span> $<span class="token punctuation">{</span>item<span class="token punctuation">}</span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<h3>Table row repeat</h3>
+
+<code-listing heading="app.html">
+  
+<source-code lang="Html">
+  <pre class="language-javascript">
+    <code>
+  <span class="token operator">&lt;</span>template<span class="token operator">></span>
+    <span class="token operator">&lt;</span>table<span class="token operator">></span>
+      <span class="token operator">&lt;</span>tr virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"item of items"</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span>td<span class="token operator">></span>$<span class="token punctuation">{</span>$index<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>td<span class="token operator">></span>
+        <span class="token operator">&lt;</span>td<span class="token operator">></span>$<span class="token punctuation">{</span>item<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>td<span class="token operator">></span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>tr<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>table<span class="token operator">></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+</section>
+<section><h2 id="infinite-scroll">Infinite Scroll</h2><p>The UI Virtualization plugin allows you to virtually scroll lists comprised of many items, it also provides an infinite scroll attribute which allows you to fetch more items when the user scrolls the container. The <code>infinite-scroll-next</code> attribute accepts a callback function in your view which receives three arguments when fired.</p>
+<ul>
+<li>Argument #1 An integer value that represents the current item that exists at the top of the rendered items in the DOM.</li>
+<li>Argument #2 A boolean value that indicates whether the list has been scrolled to the bottom of the items list.</li>
+<li>Argument #3 A boolean value that indicates whether the list has been scrolled to the top of the items list.</li>
+</ul>
+
+<code-listing heading="app.html">
+  
+<source-code lang="Html">
+  <pre class="language-javascript">
+    <code>
+  <span class="token operator">&lt;</span>template<span class="token operator">></span>
+    <span class="token operator">&lt;</span>div virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"item of items"</span> infinite<span class="token operator">-</span>scroll<span class="token operator">-</span>next<span class="token operator">=</span><span class="token string">"getMore"</span><span class="token operator">></span>
+      $<span class="token punctuation">{</span>$index<span class="token punctuation">}</span> $<span class="token punctuation">{</span>item<span class="token punctuation">}</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing heading="app.js">
+  
+<source-code lang="Javascript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      items <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'Foo'</span><span class="token punctuation">,</span> <span class="token string">'Bar'</span><span class="token punctuation">,</span> <span class="token string">'Baz'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      
+      <span class="token function">getMore</span><span class="token punctuation">(</span>topIndex<span class="token punctuation">,</span> isAtBottom<span class="token punctuation">,</span> isAtTop<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">this</span><span class="token punctuation">.</span>items<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">'item'</span> <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Similarly, the <code>infinite-scroll-next</code> attribute also supports using an expression via <code>.call</code></p>
+
+<code-listing heading="app.html">
+  
+<source-code lang="Html">
+  <pre class="language-javascript">
+    <code>
+  <span class="token operator">&lt;</span>template<span class="token operator">></span>
+    <span class="token operator">&lt;</span>div virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"item of items"</span> infinite<span class="token operator">-</span>scroll<span class="token operator">-</span>next<span class="token punctuation">.</span>call<span class="token operator">=</span><span class="token string">"getMore($scrollContext)"</span><span class="token operator">></span>
+      $<span class="token punctuation">{</span>$index<span class="token punctuation">}</span> $<span class="token punctuation">{</span>item<span class="token punctuation">}</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing heading="app.js">
+  
+<source-code lang="Javascript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+      items <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'Foo'</span><span class="token punctuation">,</span> <span class="token string">'Bar'</span><span class="token punctuation">,</span> <span class="token string">'Baz'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      
+      <span class="token function">getMore</span><span class="token punctuation">(</span>scrollContext<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">this</span><span class="token punctuation">.</span>items<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">'item'</span> <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The infinite-scroll-next attribute can accept a function, a promise, or a function that returns a promise. It is quite flexible in how it allows you to implement infinite loading functionality into your Aurelia application.</p>
+</section>
+<section><h2 id="caveats">Caveats</h2><ol>
+<li><code>&lt;template/&gt;</code> is not supported as a root element of a virtual repeat template, because virtualization requires item heights to be calculatable. With <code>&lt;tempate/&gt;</code>, there is no easy and performant way to acquire this value.</li>
+<li>Similar to (1), other template controllers cannot be used in conjunction with 1virtual-repeat1, unlike repeat i.e: built-in template controllers: <code>with</code>, <code>if</code>, <code>replaceable</code> cannot be used with <code>virtual-repeat</code>. You can easily work around this constraint by nesting other template controllers inside the repeated element, with <code>&lt;template/&gt;</code> element, for example:</li>
+</ol>
+
+<code-listing heading="app.html">
+  
+<source-code lang="Html">
+  <pre class="language-javascript">
+    <code>
+  <span class="token operator">&lt;</span>template<span class="token operator">></span>
+    <span class="token operator">&lt;</span>h1<span class="token operator">></span>$<span class="token punctuation">{</span>message<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+    <span class="token operator">&lt;</span>div virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"person of persons"</span><span class="token operator">></span>
+      <span class="token operator">&lt;</span>template <span class="token keyword">with</span><span class="token punctuation">.</span>bind<span class="token operator">=</span><span class="token string">"person"</span><span class="token operator">></span>
+        $<span class="token punctuation">{</span>Name<span class="token punctuation">}</span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+</section>
+
+  </article>
+</section>

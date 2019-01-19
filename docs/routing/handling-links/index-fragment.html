@@ -1,0 +1,75 @@
+<section class="article">
+  <header>
+    <h1>Handling Links</h1>
+    <h2>This article covers Aurelia&#x27;s default behavior on handling links.</h2>
+  </header>
+
+  <article class="markdown">
+    <section><h2 id="basic-concept">Basic Concept</h2><p>When you use Aurelia router in your app, most links (in <code>&lt;a&gt;</code> elements) are processed by Aurelia without triggering a traditional full page reload. This is a fundamental feature of any SPA (Single Page Application) framework.</p>
+<p>Aurelia achieves this with 
+<a href="https://github.com/aurelia/history-browser/blob/master/src/link-handler.js" target="_blank">DefaultLinkHandler</a>
+ in <code>aurelia-history-browser</code>.</p>
+<p>It basically registered a global <code>click</code> event handler to hijack click on <code>&lt;a&gt;</code> elements, then does front-end navigation instead of default browser behavior which is a full page reload.</p>
+</section>
+<section><h2 id="skipping-click-hijacking">Skipping Click Hijacking</h2><p>By default, the <code>DefaultLinkHandler</code> skips click hijacking in following situations.</p>
+<h3>1. if it's not clicking primary button (left button for right-handed).</h3>
+<h3>2. if any of <code>Alt</code>/<code>Ctrl</code>/<code>Meta</code>/<code>Shift</code> keys is pressed.</h3>
+<h3>3. if the href on <code>&lt;a&gt;</code> element starts with <code>#</code> (link to local hash), or it's a full url like <code>http://...</code> or <code>ftp://...</code>.</h3>
+<h3>4. if the <code>&lt;a&gt;</code> has a <code>target</code> attribute and it is not targeting the current window.</h3>
+
+<code-listing>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/some/link<span class="token punctuation">"</span></span> <span class="token attr-name">target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>_blank<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Skip Hijacking<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/some/link<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Does Not Skip<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/some/link<span class="token punctuation">"</span></span> <span class="token attr-name">target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>_self<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Does Not Skip<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/some/link<span class="token punctuation">"</span></span> <span class="token attr-name">target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>name-of-current-window<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Does Not Skip<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<h3>5. if the <code>&lt;a&gt;</code> has special attribute <code>download</code>, or <code>router-ignore</code>, or <code>data-router-ignore</code>.</h3>
+
+<code-listing>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/some/link<span class="token punctuation">"</span></span> <span class="token attr-name">download</span><span class="token punctuation">></span></span>Skip Hijacking<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/some/link<span class="token punctuation">"</span></span> <span class="token attr-name">download</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Skip Hijacking<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/some/link<span class="token punctuation">"</span></span> <span class="token attr-name">router-ignore</span><span class="token punctuation">></span></span>Skip Hijacking<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/some/link<span class="token punctuation">"</span></span> <span class="token attr-name">router-ignore</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Skip Hijacking<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/some/link<span class="token punctuation">"</span></span> <span class="token attr-name">data-router-ignore</span><span class="token punctuation">></span></span>Skip Hijacking<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/some/link<span class="token punctuation">"</span></span> <span class="token attr-name">data-router-ignore</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Skip Hijacking<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+</section>
+<section><h2 id="conditional-skipping-click-hijacking">Conditional Skipping Click Hijacking</h2><p>The <code>data-router-ignore</code> is introduced to play nice with another Aurelia feature: automatic data attribute creation.</p>
+<div class="info"><div class="icon"> <i></i> </div><p>
+You might have already used this Aurelia feature without notice. This feature is why you can do <code>&lt;span data-placement.bind=&quot;tooHigh ? 'bottom' : 'top'&quot; data-toggle=&quot;tooltip&quot; title=&quot;lorem&quot;&gt;test&lt;/span&gt;</code> with bootstrap.</p>
+</div>
+
+<code-listing>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/some/link<span class="token punctuation">"</span></span> <span class="token attr-name">data-router-ignore.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>condition || null<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Conditional Skip Hijacking<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Here Aurelia will dynamically add/remove attribute <code>data-router-ignore</code> when condition changes. Note <code>|| null</code> is necessary because Aurelia only removes the data attribute when the bound value becomes <code>null</code> or <code>undefined</code>, it doesn't remove the data attribute when bound value is <code>0</code> or <code>&quot;&quot;</code> or even <code>false</code>.</p>
+<p>In comparison, <code>&lt;a href=&quot;/some/link&quot; router-ignore.bind=&quot;condition || null&quot;&gt;Does not work&lt;/a&gt;</code> does NOT add/remove attribute <code>router-ignore</code>. Aurelia only does that for <code>data-</code> or <code>aria-</code> attributes.</p>
+</section>
+
+  </article>
+</section>

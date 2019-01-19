@@ -615,6 +615,10 @@ Internal object observation API. Locates observers for properties, arrays and ma
   * `propertyName: string` - No description available
 
 
+* `getSetObserver(set: Set): InternalCollectionObserver` - Gets an observer for set mutation.
+  * `set: Set` - No description available
+
+
 
 ### Parser
 
@@ -897,8 +901,7 @@ The change record of a collection mutation.
 * `object: ` - The observed Set or Map after the change.
 * `oldValue: T` - The value of the Map item prior to the change.
 * `removed: Array` - A collection of items that were removed from the collection.
-* `type: ` - The type of change that has taken place. Valid options are &quot;add&quot;, &quot;delete&quot;, and &quot;update&quot;.
-&quot;update&quot; is invalid for Set.
+* `type: ` - The type of change that has taken place. Valid options are &quot;add&quot;, &quot;delete&quot;, &quot;update&quot;, and  &quot;clear&quot;.
 * `value: T` - The Set value that was either added or removed.
 
 #### Methods
@@ -913,6 +916,17 @@ Observes collection mutation.
 
 
 #### Methods
+
+
+* `flushChangeRecords(): void` - This will flush the change records of this observer and call any subscribers if applicable.
+
+
+* `getLengthObserver(): any` - Get a length observer for this collection.
+
+
+* `reset(oldCollection: ): void` - Reset the observer to the passed collection and call any subscribers with changes between the current collection and the reset collection.
+  * `oldCollection: ` - 
+
 
 
 * `subscribe(callback: ): void` - Subscribe to collection mutation events with a callback function.
@@ -1127,6 +1141,12 @@ the binding that the context is a &quot;target update&quot;.
   * `dependencies: ` - No description available.
 
 
+* `disableConnectQueue(): void` - Disables the connect queue.
+
+
+* `enableConnectQueue(): void` - Enables the connect queue.
+
+
 * `enqueueBindingConnect(binding: Binding): void` - Internal API that adds a binding to the connect queue.
   * `binding: Binding` - No description available.
 
@@ -1160,6 +1180,10 @@ in the scope then the root binding context is returned.
 
   * `key?: any` - No description available.
   * `descriptor?: any` - No description available.
+
+
+* `setConnectQueueThreshold(value: number): void` - set the number of bindings that should connect immediately before resorting to queueing.
+  * `value: number` - No description available.
 
 
 * `signalBindings(name: string): void` - Signals all bindings that are associated with the specified signal name.

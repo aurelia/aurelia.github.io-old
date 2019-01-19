@@ -23,13 +23,13 @@ Enables loosely coupled publish/subscribe messaging.
 
 * `subscribe(event: , callback: Function): Subscription` - Subscribes to a message channel or message type.
   * `event: ` - The event channel or event data type.
-  * `callback: Function` - The callback to be invoked when when the specified message is published.
+  * `callback: Function` - The callback to be invoked when the specified message is published.
 
 
 
 * `subscribeOnce(event: , callback: Function): Subscription` - Subscribes to a message channel or message type, then disposes the subscription automatically after the first message is received.
   * `event: ` - The event channel or event data type.
-  * `callback: Function` - The callback to be invoked when when the specified message is published.
+  * `callback: Function` - The callback to be invoked when the specified message is published.
 
 
 

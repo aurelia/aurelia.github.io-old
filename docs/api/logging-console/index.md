@@ -15,26 +15,26 @@ No description available.
 #### Methods
 
 
-* `debug(logger: Logger, rest: ): void` - Appends a debug log.
-  * `logger: Logger` - The source logger.
+* `debug(logger: , rest: ): void` - Appends a debug log.
+  * `logger: ` - The source logger.
   * `rest: ` - The data to log.
 
 
 
-* `error(logger: Logger, rest: ): void` - Appends an error log.
-  * `logger: Logger` - The source logger.
+* `error(logger: , rest: ): void` - Appends an error log.
+  * `logger: ` - The source logger.
   * `rest: ` - The data to log.
 
 
 
-* `info(logger: Logger, rest: ): void` - Appends an info log.
-  * `logger: Logger` - The source logger.
+* `info(logger: , rest: ): void` - Appends an info log.
+  * `logger: ` - The source logger.
   * `rest: ` - The data to log.
 
 
 
-* `warn(logger: Logger, rest: ): void` - Appends a warning log.
-  * `logger: Logger` - The source logger.
+* `warn(logger: , rest: ): void` - Appends a warning log.
+  * `logger: ` - The source logger.
   * `rest: ` - The data to log.
 
 

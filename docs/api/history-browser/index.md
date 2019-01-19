@@ -26,8 +26,16 @@ An implementation of the basic history API.
 * `getAbsoluteRoot(): string` - Returns the fully-qualified root of the current history object.
 
 
+* `getHistoryIndex(): number` - Returns the current index in the navigation history.
+
+
 * `getState(key: string): any` - Gets a key in the history page state.
   * `key: string` - The key for the value.
+
+
+* `go(movement: number): void` - Move to a specific position in the navigation history.
+  * `movement: number` - The amount of steps, positive or negative, to move.
+
 
 
 * `navigate(fragment?: string, __namedParameters?: ): boolean` - Causes a history navigation to occur.
