@@ -1,0 +1,259 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia Release Notes - Late January 2019</h1>
+    <h2>Posted by <span class="author">Rob Eisenberg</span> on <span class="date">January 22, 2019</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>2019 is off to a great start with another set of releases that address bugs and add new features to Aurelia. We're also continuing to enable more plugins for script-file deploy along the way. Of particular note is our recent improvements to the <code>aurelia-ui-virtualization</code> plugin for virtual and infinite scrolling. What? You didn't know there was an official plugin for that? Check out 
+<a href="https://aurelia-ui-virtualization.now.sh/" target="_blank">this demo to see what it can do</a>
+ and then head on over to <a href="docs/plugins/virtualization">the ui-virtualization documentation</a>.</p>
+<p>Read more below to get the rest of this month's release details.</p>
+<section><h2 id="minor-releases">Minor Releases</h2><p>Minor updates include new features, updates to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/logging-console/compare/1.0.0...1.1.0" target="_blank">aurelia-logging-console 1.1.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li>Apply ISP to improve code flexibility. (
+<a href="https://github.com/aurelia/logging-console/commit/075234e" target="_blank">075234e</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/history/compare/1.1.0...1.2.0" target="_blank">aurelia-history 1.2.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li>Add go method.</li>
+<li>Add history index getter.</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/history-browser/compare/1.2.0...1.3.0" target="_blank">aurelia-history-browser 1.3.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li>Add support of data-router-ignore attribute (
+<a href="https://github.com/aurelia/history-browser/commit/0d8f7a0" target="_blank">0d8f7a0</a>
+)</li>
+<li>Add go method</li>
+<li>Add history index getter</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/loader-default/compare/1.1.0...1.2.0" target="_blank">aurelia-loader-default 1.2.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li>do not reject unsupported AMD loader (
+<a href="https://github.com/aurelia/loader-default/commit/846befe" target="_blank">846befe</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li>add support of dumber-module-loader (
+<a href="https://github.com/aurelia/loader-default/commit/1d9433f" target="_blank">1d9433f</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/fetch-client/compare/1.7.0...1.8.0" target="_blank">aurelia-fetch-client 1.8.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li>Conversion to TypeScript</li>
+<li><strong>http-client:</strong> call trackRequestEnd when fetch fails (
+<a href="https://github.com/aurelia/fetch-client/commit/cf64989" target="_blank">cf64989</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/binding/compare/2.1.7...2.2.0" target="_blank">aurelia-binding 2.2.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>typings:</strong> Add &quot;clear&quot; as valid option for type (
+<a href="https://github.com/aurelia/binding/commit/c5f6486" target="_blank">c5f6486</a>
+)</li>
+<li><strong>typings:</strong> Add &quot;clear&quot; type to collection splice interface (
+<a href="https://github.com/aurelia/binding/commit/c16f1f3" target="_blank">c16f1f3</a>
+)</li>
+<li><strong>typings:</strong> Correct ICollectionObserverSplice generics (
+<a href="https://github.com/aurelia/binding/commit/52ca954" target="_blank">52ca954</a>
+)</li>
+<li><strong>typings:</strong> Revert exposing some APIs, add reset param typing (
+<a href="https://github.com/aurelia/binding/commit/1aa9c43" target="_blank">1aa9c43</a>
+)</li>
+<li><strong>typings:</strong> Update interfaces with missing property types and methods (
+<a href="https://github.com/aurelia/binding/commit/133edc3" target="_blank">133edc3</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/i18n/compare/3.0.0-beta.4...3.0.0-beta.5" target="_blank">aurelia-i18n 3.0.0-beta.5</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>typings:</strong> proper import of i18next (
+<a href="https://github.com/aurelia/i18n/issues/293" target="_blank">#293</a>
+) (
+<a href="https://github.com/aurelia/i18n/commit/13a9f9d" target="_blank">13a9f9d</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/ui-virtualization/compare/1.0.0-beta.3.3.2...1.0.0-beta.4" target="_blank">aurelia-ui-virtualization 1.0.0-beta.4</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>doc:</strong> adjust development doc (
+<a href="https://github.com/aurelia/ui-virtualization/commit/45d12ab" target="_blank">45d12ab</a>
+)</li>
+<li><strong>doc:</strong> readme typo, thanks 
+<a href="https://github.com/avrahamcool" target="_blank">@avrahamcool</a>
+ (
+<a href="https://github.com/aurelia/ui-virtualization/commit/14a810c" target="_blank">14a810c</a>
+)</li>
+<li><strong>scroll-next:</strong> invoke get more items in init if items length small (
+<a href="https://github.com/aurelia/ui-virtualization/commit/fa6af8c" target="_blank">fa6af8c</a>
+), closes 
+<a href="https://github.com/aurelia/ui-virtualization/issues/129" target="_blank">#129</a>
+</li>
+<li><strong>virtual-repeat:</strong> better handles repeating with table row / table body (
+<a href="https://github.com/aurelia/ui-virtualization/commit/a09d2a8" target="_blank">a09d2a8</a>
+), closes 
+<a href="https://github.com/aurelia/ui-virtualization/issues/84" target="_blank">#84</a>
+ 
+<a href="https://github.com/aurelia/ui-virtualization/issues/128" target="_blank">#128</a>
+</li>
+<li><strong>virtual-repeat:</strong> remove buffer size (
+<a href="https://github.com/aurelia/ui-virtualization/commit/c9de65b" target="_blank">c9de65b</a>
+)</li>
+<li><strong>virtual-repeat:</strong> remove debug statement (
+<a href="https://github.com/aurelia/ui-virtualization/commit/bf2c872" target="_blank">bf2c872</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>template-strategy:</strong> adjust tbody template strategy (
+<a href="https://github.com/aurelia/ui-virtualization/commit/c1fe513" target="_blank">c1fe513</a>
+)</li>
+<li><strong>template-strategy:</strong> diff between tbody and tr (
+<a href="https://github.com/aurelia/ui-virtualization/commit/8271abe" target="_blank">8271abe</a>
+)</li>
+<li><strong>template-strategy:</strong> fix issue with calculating top buffer distance (
+<a href="https://github.com/aurelia/ui-virtualization/commit/a5cb084" target="_blank">a5cb084</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/dialog/compare/2.0.0-rc.3...2.0.0-rc.4" target="_blank">aurelia-dialog 2.0.0-rc.4</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>build:</strong> add umd build to build script (
+<a href="https://github.com/aurelia/dialog/commit/0c46fdc" target="_blank">0c46fdc</a>
+)</li>
+<li><strong>build:</strong> update rollup dep, config (
+<a href="https://github.com/aurelia/dialog/commit/0c9e029" target="_blank">0c9e029</a>
+)</li>
+<li><strong>doc:</strong> fix html5 syntax (
+<a href="https://github.com/aurelia/dialog/commit/629ad1c" target="_blank">629ad1c</a>
+), closes 
+<a href="https://github.com//github.com/aurelia/templating/pull/647/issues/issuecomment-427989601" target="_blank">/github.com/aurelia/templating/pull/647#issuecomment-427989601</a>
+</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>keyboard:</strong> allow to configure keyevent type (
+<a href="https://github.com/aurelia/dialog/commit/3aad34f" target="_blank">3aad34f</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/cli/compare/1.0.0-beta.8...1.0.0-beta.11" target="_blank">aurelia-cli 1.0.0-beta.11</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>cli:</strong> add typings for bluebird (
+<a href="https://github.com/aurelia/cli/commit/215c3e0" target="_blank">215c3e0</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/991" target="_blank">#991</a>
+</li>
+<li><strong>cli:</strong> add typings for bluebird (
+<a href="https://github.com/aurelia/cli/commit/0a629cd" target="_blank">0a629cd</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/991" target="_blank">#991</a>
+</li>
+<li><strong>run-webpack.js run-webpack.ts index-webpack.ejs:</strong> update run scripts, remove redundant entry in index template (
+<a href="https://github.com/aurelia/cli/commit/9b3c171" target="_blank">9b3c171</a>
+)</li>
+<li>avoid early exist of &quot;au new&quot; (
+<a href="https://github.com/aurelia/cli/commit/be532fd" target="_blank">be532fd</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/977" target="_blank">#977</a>
+</li>
+<li><strong>bundler:</strong> fix stubbing on core Nodejs module &quot;stream&quot; (
+<a href="https://github.com/aurelia/cli/commit/1e36774" target="_blank">1e36774</a>
+)</li>
+<li><strong>alameda:</strong> Tests could not load files by path (
+<a href="https://github.com/aurelia/cli/commit/68b3ffa" target="_blank">68b3ffa</a>
+)</li>
+<li><strong>bundler:</strong> fix plugin prefix/subfix regex match (
+<a href="https://github.com/aurelia/cli/commit/f8266f3" target="_blank">f8266f3</a>
+)</li>
+<li><strong>bundler:</strong> tolerant missing main file, fix tracing on simple-line-icons (
+<a href="https://github.com/aurelia/cli/commit/9ad9eb5" target="_blank">9ad9eb5</a>
+)</li>
+<li><strong>jasmine:</strong> Updated aurelia-karma to get rid of deprecation error (
+<a href="https://github.com/aurelia/cli/commit/1fbe99a" target="_blank">1fbe99a</a>
+)</li>
+<li><strong>bundler:</strong> fix conventional html view dependency with SystemJS (
+<a href="https://github.com/aurelia/cli/commit/ae249ca" target="_blank">ae249ca</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1023" target="_blank">#1023</a>
+</li>
+<li><strong>bundler:</strong> tolerant js with missing ending semicolon (
+<a href="https://github.com/aurelia/cli/commit/90d247d" target="_blank">90d247d</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1021" target="_blank">#1021</a>
+</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>webpack:</strong> Improvements in CLI generated Webpack config (
+<a href="https://github.com/aurelia/cli/commit/2365331" target="_blank">2365331</a>
+)</li>
+<li><strong>bundler:</strong> support direct css import in js file (
+<a href="https://github.com/aurelia/cli/commit/2de02d2" target="_blank">2de02d2</a>
+)</li>
+<li><strong>bundler:</strong> support module resolution for lerna hoisting (
+<a href="https://github.com/aurelia/cli/commit/dabc8b9" target="_blank">dabc8b9</a>
+)</li>
+</ul>
+</section>
+<section><h2 id="patch-releases">Patch Releases</h2><p>Patch updates include only fixes to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/dependency-injection/compare/1.4.1...1.4.2" target="_blank">aurelia-dependency-injection 1.4.2</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>dependency-injection:</strong> add more tests using cases suggested by 
+<a href="https://github.com/fkleuver" target="_blank">@fkleuver</a>
+ (
+<a href="https://github.com/aurelia/dependency-injection/commit/ac4e6f9" target="_blank">ac4e6f9</a>
+), closes 
+<a href="https://github.com/aurelia/dependency-injection/issues/171" target="_blank">#171</a>
+</li>
+<li><strong>dependency-injection:</strong> adjust based on review (
+<a href="https://github.com/aurelia/dependency-injection/commit/dc756f4" target="_blank">dc756f4</a>
+), closes 
+<a href="https://github.com/aurelia/dependency-injection/issues/171" target="_blank">#171</a>
+</li>
+<li><strong>dependency-injection:</strong> ignore ...rest TypeScript metadata (
+<a href="https://github.com/aurelia/dependency-injection/commit/c093756" target="_blank">c093756</a>
+), closes 
+<a href="https://github.com/aurelia/dependency-injection/issues/171" target="_blank">#171</a>
+</li>
+</ul>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%20Release%20Notes%20-%20Late%20January%202019" blog-url="blog%2F2019%2F01%2F22%2Faurelia-release-notes-late-january-2019"></blog-footer>
+</section>

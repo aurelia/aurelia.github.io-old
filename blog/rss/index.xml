@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Sat Jan 19 2019 09:46:39 GMT-0800 (PST)</lastBuildDate>
+    <lastBuildDate>Tue Jan 22 2019 21:39:11 GMT-0800 (PST)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia Release Notes - Late January 2019]]></title>
+      <link>http://aurelia.io/blog/2019/01/22/aurelia-release-notes-late-january-2019</link>
+      <description><![CDATA[2019 is off to a great start with another set of releases that address bugs and add new features to Aurelia. We're also continuing to enable more plugins for script-file deploy along the way. Of particular note is our recent improvements to the aurelia-ui-virtualization plugin for virtual and infinite scrolling. What? You didn't know there was an official plugin for that? Check out this demo to see what it can do [https://aurelia-ui-virtualization.now.sh/].]]></description>
+      <pubDate>Tue Jan 22 2019 21:34:04 GMT-0800 (PST)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia 2018 Year in Review]]></title>
       <link>http://aurelia.io/blog/2019/01/02/aurelia-2018-year-in-review</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2018/02/15/aureliacasts-creating-compelling-aurelia-video-tutorials</link>
       <description><![CDATA[This week, we're proud to have community member and creator of AureliaCasts, Nick Shallee, guest posting to share with our community what he's been up to.]]></description>
       <pubDate>Thu Feb 15 2018 22:00:06 GMT-0800 (PST)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Users Community Space Guides]]></title>
-      <link>http://aurelia.io/blog/2018/02/11/aurelia-users-community-space-guides</link>
-      <description><![CDATA[Today, I'd like to invite a long-time Aurelia Community Member, Nikolaj Ivancic, to share a little bit about the "AUCS" community project that he's leading to help improve Aurelia's documentation. Take it away Nik!]]></description>
-      <pubDate>Sun Feb 11 2018 21:18:48 GMT-0800 (PST)</pubDate>
     </item>
   </channel>
 </rss>
