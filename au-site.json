@@ -45,16 +45,6 @@
             "imageSrc": "styles/images/logos/hogia.svg"
           }
         ]
-      },
-      {
-        "name": "Silver Sponsors",
-        "sponsors": [
-          {
-            "name": "Simployer",
-            "href": "https://www.simployer.no/",
-            "imageSrc": "styles/images/logos/simployer-small.jpg"
-          }
-        ]
       }
     ],
     "migration": {
