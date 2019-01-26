@@ -373,8 +373,8 @@ their own bound data, then keeping those elements loaded-but-hidden may not end 
 </source-code>
   
 </code-listing>
-<p>However, if we just want to hide the element from view instead of destroying it completely, we should use <code>show</code>
-instead of <code>if</code>.</p>
+<p>However, if we just want to hide the element from view instead of removing it from the DOM completely, we should use
+<code>show</code> instead of <code>if</code>.</p>
 
 <code-listing heading="show-template.html">
   
@@ -467,6 +467,30 @@ not evaluate to true.</p>
   
 </code-listing>
 <p>Elements using the <code>else</code> template modifier must follow an <code>if</code> bound element to make contextual sense and function properly.</p>
+<h3>Caching the view instance when condition changes</h3>
+<p>By default, <code>if</code> caches the underlying view model instance. Although the element is being removed from the DOM and
+the component goes through <code>detached</code> and <code>unbind</code> lifecyle events, its instance is kept in memory for further condition
+changes. Therefore, when the element is hidden and then shown again, <code>if</code> does not need to initialize the component
+again.</p>
+<p>You can opt-out this default behavior by setting the <code>cache</code> binding of the <code>if</code> directive explicitly. This is
+especially useful when using <code>if</code> on <a href="#custom-elements">custom elements</a> and initializing them on every appearance is
+crucial.</p>
+
+<code-listing heading="if-template-without-cache.html">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">if</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>condition.bind: showMessage; cache: false<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>${message}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
 </section>
 <section><h2 id="repeaters">Repeaters</h2><p>Repeaters can be used on any element, including custom elements, and template elements too! Here are a few different data types that can be iterated with a repeater.</p>
 <h3>Arrays</h3>

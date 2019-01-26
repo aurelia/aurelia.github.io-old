@@ -1067,6 +1067,20 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
   
 </code-listing>
 
+<code-listing heading="creating new component instance every time condition changes">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-custom-element</span> <span class="token attr-name">if</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>condition.bind: showMessage; cache: false<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-custom-element</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
 <code-listing heading="Render an array with a template">
   
 <source-code lang="HTML">

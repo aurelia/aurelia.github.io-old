@@ -321,6 +321,7 @@ Binding to conditionally include or not include template logic depending on retu
 
 #### Properties
 
+* `cache: ` - No description available.
 * `condition: any` - No description available.
 * `swapOrder: ` - No description available.
 
