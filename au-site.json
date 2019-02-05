@@ -45,6 +45,16 @@
             "imageSrc": "styles/images/logos/hogia.svg"
           }
         ]
+      },
+      {
+        "name": "Silver Sponsors",
+        "sponsors": [
+          {
+            "name": "Symbiosys",
+            "href": "https://www.smbsol.com/",
+            "imageSrc": "styles/images/logos/symbiosys.jpeg"
+          }
+        ]
       }
     ],
     "migration": {

@@ -615,7 +615,7 @@ When using Webpack, the syntax for enabling a feature is a little different. Ins
   
 </code-listing>
 <p>But what if you need to enhance multiple elements on a page that do not have a direct parent/child relationship? For example, suppose you have an existing application written on a non-Aurelia framework that you need to refactor component by component.</p>
-<p>You can't use the <code>aurelia.enhance</code> method multiple times because it was not designed for that. Instead you can use the templating engine's <code>enhance</code> method directly.</p>
+<p><strong>You can't use the <code>aurelia.enhance</code> method multiple times on the same content.</strong> It was not designed for that. Instead you can use the templating engine's <code>enhance</code> method directly.</p>
 
 <code-listing heading="Multiple Enhance HTML">
   
