@@ -1,0 +1,313 @@
+<section class="article blog">
+  <header>
+    <h1>Case Study: Codeline and Aurelia</h1>
+    <h2>Posted by <span class="author">Giray Temel</span> on <span class="date">February 10, 2019</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>Today we're please to introduce one of our Aurelia community members, Giray Temel, to share with you about Codeline's choice of and experience with Aurelia. Take it away Giray!</p>
+<section><h2 id="what-is-codeline">What is Codeline?</h2><p>
+<a href="https://codeline.io/" target="_blank">Codeline</a>
+ is an on demand software development platform. It offers an alternative to those who seek development services. Instead of turning to freelancing sites, posting jobs, and going through applications, you can bring your project to Codeline and we'll get experienced developers started on your tasks in no time.</p>
+<p>Codeline is an enterprise grade software product that contains real-time project management, timers and budgeting tools, finance, invoicing and payroll modules, an integrated payment system, a hiring pipeline, and more. We have a PHP / Laravel backend and a Socket.io setup for real-time functionality. <strong>Our entire front-end is written in Aurelia.</strong></p>
+<video width="100%" height="100%" controls>
+  <source src="../styles/images/blog/case-study-codeline-aurelia/CodelineVideo.mp4" type="video/mp4">
+</video>
+</section>
+<section><h2 id="choosing-aurelia">Choosing Aurelia</h2><p>To build Codeline, we needed to choose a modular, modern client-side framework that lends itself to robust single-page application development. Codeline is a data intensive, real-time software application. Therefore responsiveness, managing data flow, and handling complex routing were key concerns for us.</p>
+<p>Being already familiar with Aurelia from a previous client project, we knew the framework's strengths, extensibility, and ease with which it can be customized.</p>
+<p>We initially went for a Typescript + SystemJS setup. After the framework matured and the Aurelia CLI was released, we switched to that. Our build pipeline is now very simple and highly functional.</p>
+</section>
+<section><h2 id="less-constraints-more-customization">Less Constraints, More Customization</h2><p>Most frameworks require you to write code in a certain format. Vue has <code>.vue</code> files, React has <code>JSX.</code> On the other hand, in the Aurelia framework the <code>ViewController</code> is just a simple class. You don't need to extend a parent component class. There are no contrived <code>data()</code> or <code>methods()</code> methods. Your logic and your view live in two different files for each module. If there's no particular logic, you can even leave out the ViewController and just write the template.</p>
+<p>In our case, this flexibility allowed for a comprehensible architecture, enabled better separation of concerns, and resulted in a cleaner codebase.</p>
+</section>
+<section><h2 id="models-and-role-based-authorization">Models and Role Based Authorization</h2><p>Every client app needs to talk to the server and Codeline is no exception. These exchanges must be authenticated and authorized based on the active user.</p>
+<p>In our case, the business rules around what actions can be taken on which models are very complex. Clients can create new tasks, but they can't run timers on them. A developer cannot delete a task, only a project manager is able to do that.</p>
+<p><img src="../styles/images/blog/case-study-codeline-aurelia/projectview.png" alt="Codeline Project View" /></p>
+<p>When you consider the size of Codeline and the dozens of models we have, it's obvious that we needed a better solution than <em>if else</em>'ing all over the codebase. Plus, we had no intention of maintaining two copies of the same logic both on the server and the client-side.</p>
+<p>Our client-side strategy for authentication and authorization with Aurelia framework consists of these components:</p>
+<h3>1. Revive HTTP responses as Models</h3>
+<p>A model is nothing but a simple class. We simply take the response from the backend and instantiate the relevant Model class with this data.</p>
+<p>One obvious advantage of this is being able to enrich the plain data with additional methods and getters. For instance, we have a <code>Notification</code> model and notifications come in levels. 1 is an info, 2 is a warning and 3 is an alert. In the UI, we display corresponding icons for each level. So we added a simple transformer to our Notification model that returns the CSS class of the icon dynamically.</p>
+
+<code-listing>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  @<span class="token function">transient</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Notification</span> <span class="token keyword">extends</span> <span class="token class-name">Model</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+  
+    level<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+  
+    <span class="token keyword">private</span> levelIcons<span class="token punctuation">:</span> <span class="token builtin">any</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+      <span class="token number">1</span><span class="token punctuation">:</span> <span class="token string">"info-circle"</span><span class="token punctuation">,</span>
+      <span class="token number">2</span><span class="token punctuation">:</span> <span class="token string">"warning"</span><span class="token punctuation">,</span>
+      <span class="token number">3</span><span class="token punctuation">:</span> <span class="token string">"alert-circle"</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  
+    <span class="token keyword">get</span> <span class="token function">levelIcon</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>levelIcons<span class="token punctuation">[</span><span class="token keyword">this</span><span class="token punctuation">.</span>level<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token operator">...</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>This way, we can simply do this in any of our views:</p>
+
+<code-listing>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>${notification.levelIcon}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span> ${notification.text}
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<h3>2. Can Method on the Base Model</h3>
+<p>The more interesting upside is that our base model (the parent class for all models) presents a <code>can(action: string): boolean</code> method. Using this, we can check if an action is authorized on the given model anywhere in the codebase. To pull this off, we include an <code>actions</code> array in the data returned by the server. It looks something like this: <code>['start', 'edit', 'delete']</code> Then the <code>can(action)</code> method simply checks if this array contains the given string.</p>
+<p>In our views, it looks something like this:</p>
+
+<code-listing>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>timer-start-button</span> <span class="token attr-name">if.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>timer.can(<span class="token punctuation">'</span>start<span class="token punctuation">'</span>)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>timer-start-button</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<h3>3. User Model and Role Checks</h3>
+<p>The authenticated user's data is also revived as a User model and this instance exposes a <code>hasRole</code> method, much similar to the <code>can</code> method we mentioned earlier. We also added shortcut methods that just call <code>hasRole</code> for us with specific combinations, such as <code>isEmployee</code> and <code>isClient</code>.</p>
+</section>
+<section><h2 id="customizing-aurelia">Customizing Aurelia</h2><p>Codeline has unique needs when it comes to routing. The layout of the app is quite versatile and dynamic. Thankfully, Aurelia's powerful router went above and beyond our expectations when it came to customization.</p>
+<p>First, let's take a look at Codeline's full layout:</p>
+
+<code-listing>
+  
+<source-code lang="Shell">
+  <pre class="language-powershell">
+    <code>
+  _______________ Top Bar ________________
+  _______________ Nav Bar ________________
+  
+  <span class="token punctuation">|</span> Left Menu   <span class="token punctuation">|</span> Main View <span class="token punctuation">|</span> Right Pane <span class="token punctuation">|</span>
+  ________________________________________
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Here's where it gets tricky:</p>
+<ul>
+<li>We want the left menu to be displayed only for certain routes. We couldn't include the left menu with each view as this would cause unnecessary loads or jumps in scroll position. It had to stay in place and must be toggled based on the active route.</li>
+<li>The right pane, which we call the &quot;viewbar&quot;, is also only displayed with certain routes. It's basically a little view that slides in from the right and is typically used for quickly creating or updating records. We already had a jQuery plugin for this but we needed to keep it open when the page is refreshed, or hide it dynamically when the user navigates away to another page.</li>
+<li>Routes need to be authorized. We don't want our clients to access the administrative routes.</li>
+</ul>
+<p>With all of these custom requirements in mind, we devised the following interface:</p>
+
+<code-listing>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">RouteConfig</span> <span class="token punctuation">{</span>
+    name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    title<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    icon<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span> <span class="token comment">// Icon displayed in the navbar</span>
+    nav<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span> <span class="token comment">// Should the route appear in the navbar?</span>
+    viewbar<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span> <span class="token comment">// Path to the viewbar module. Null hides it.</span>
+    hasLeftMenu<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span> <span class="token comment">// Show/hide the left menu. Hidden by default.</span>
+    roles<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">></span><span class="token punctuation">;</span> <span class="token comment">// List of roles to access route. Null allows everyone.</span>
+    login<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span> <span class="token comment">// Null allows everyone. True: users only, False: guests only.</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<h3>Route Authorization</h3>
+<p>When adding routes, we make sure that the settings property of the route complies with the above interface.</p>
+<p>To authorize the routes, we created a pipeline step called <code>AuthorizeRoutes</code> and added it to our <code>configureRouter</code> in <code>app.ts</code> like this:</p>
+
+<code-listing>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> AuthorizeRoutes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"./core/auth/auth-middleware"</span><span class="token punctuation">;</span>
+  <span class="token operator">...</span>
+  <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+  	<span class="token function">configureRouter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  		config<span class="token punctuation">.</span><span class="token function">addPipelineStep</span><span class="token punctuation">(</span><span class="token string">"authorize"</span><span class="token punctuation">,</span> AuthorizeRoutes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  	<span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>And <code>auth-middleware.ts</code> looks like this:</p>
+
+<code-listing>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-dependency-injection"</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>NavigationInstruction<span class="token punctuation">,</span> Redirect<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-router"</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>Auth<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"./auth"</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">inject</span><span class="token punctuation">(</span>Auth<span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AuthorizeRoutes</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> auth<span class="token punctuation">:</span> Auth<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+  
+    <span class="token function">run</span><span class="token punctuation">(</span>navigationInstruction<span class="token punctuation">:</span> NavigationInstruction<span class="token punctuation">,</span> next<span class="token punctuation">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// Check if the route has an "auth" key</span>
+      <span class="token comment">// The reason for using `getAllInstructions()` is to check all the child routes</span>
+      <span class="token keyword">const</span> allInstructions <span class="token operator">=</span> navigationInstruction<span class="token punctuation">.</span><span class="token function">getAllInstructions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>allInstructions<span class="token punctuation">.</span><span class="token function">some</span><span class="token punctuation">(</span>i <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">requiresAuthMode</span><span class="token punctuation">(</span>i<span class="token punctuation">.</span>config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>login<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>auth<span class="token punctuation">.</span><span class="token function">check</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// User needs to login</span>
+          <span class="token comment">// Redirect to login...</span>
+        <span class="token punctuation">}</span>
+  
+        <span class="token keyword">let</span> roles <span class="token operator">=</span> navigationInstruction<span class="token punctuation">.</span>config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>roles<span class="token punctuation">;</span>
+  
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>roles<span class="token punctuation">.</span>length <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>auth<span class="token punctuation">.</span><span class="token function">user</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">hasRole</span><span class="token punctuation">(</span>roles<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'|'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// Not authorized to access</span>
+          <span class="token comment">// Redirect to home page</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+  
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>allInstructions<span class="token punctuation">.</span><span class="token function">some</span><span class="token punctuation">(</span>i <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">requiresGuestMode</span><span class="token punctuation">(</span>i<span class="token punctuation">.</span>config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>login<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// Must be a guest to view...</span>
+          <span class="token comment">// Redirect to home page</span>
+      <span class="token punctuation">}</span>
+  
+      <span class="token keyword">return</span> <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token keyword">private</span> <span class="token function">requiresAuthMode</span><span class="token punctuation">(</span>login<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> login <span class="token operator">===</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token keyword">private</span> <span class="token function">requiresGuestMode</span><span class="token punctuation">(</span>login<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> login <span class="token operator">===</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>    
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<h3>Toggling the Left Menu Based on Active Route</h3>
+<p>In our <code>app.html</code> we check if the left menu should be visible based on the current route:</p>
+
+<code-listing>
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>page scrollable<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>mainPageContainer<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>page-aside<span class="token punctuation">"</span></span> <span class="token attr-name">if.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>router.currentInstruction.config.hasLeftMenu<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>compose</span> <span class="token attr-name">view-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modules/left-menu/left-menu<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>compose</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>page-main<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>page-content<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-view</span> <span class="token attr-name">swap-order</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>after<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-view</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<h3>Using Aurelia's Enhance to Integrate jQuery With Aurelia</h3>
+<p>Our right pane implementation had to work with the existing jQuery plugin as it already had the CSS animations we wanted. One problem with it was we needed to load Aurelia views using the plugin, not just static HTML. Aurelia had a solution ready for this, too. As Aurelia is a modular framework, you are able to leverage the functionality in each module individually to create any custom implementation you can imagine.</p>
+<p>Our solution works in two steps:</p>
+<ol>
+<li>Listening to <code>router:navigation:success</code> to capture page changes.</li>
+<li>If the activated route has the <code>viewbar</code> setting defined, trigger the jQuery plugin and load the relevant module inside the right pane.</li>
+</ol>
+<p>The first part is done through the event aggregator package that ships with Aurelia. The router package will emit useful events that let you hook into the router lifecycle. 
+<a href="https://ilikekillnerds.com/2015/09/understanding-aurelia-router-events/" target="_blank">Here is a very useful article</a>
+ that lists all of these events.</p>
+
+<code-listing>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>eventAggregator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>
+  	<span class="token string">'router:navigation:success'</span><span class="token punctuation">,</span>
+  	<span class="token keyword">this</span><span class="token punctuation">.</span>onNavigationSuccess
+  <span class="token punctuation">)</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The second step is to get the router instruction from the event and handle it:</p>
+
+<code-listing>
+  
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token function">onNavigationSuccess</span><span class="token punctuation">(</span>$event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  	<span class="token keyword">const</span> <span class="token punctuation">{</span>viewbar<span class="token punctuation">}</span> <span class="token operator">=</span> $event<span class="token punctuation">.</span>instruction
+      <span class="token punctuation">.</span><span class="token function">getAllInstructions</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span>config<span class="token punctuation">.</span>settings
+     
+  	$<span class="token punctuation">.</span>slidePanel<span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  		content<span class="token punctuation">:</span> <span class="token string">'&lt;compose view-model="'</span> <span class="token operator">+</span> viewbar <span class="token operator">+</span> <span class="token string">'" containerless>&lt;/compose>'</span>
+  	<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  		afterLoad<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">enhance</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  	<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token function">enhance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  	<span class="token comment">// We get the main DIV to be enhanced,</span>
+  	<span class="token comment">// Binding context is basically the view model (data) exposed to your view.</span>
+  	<span class="token keyword">this</span><span class="token punctuation">.</span>viewbarView <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>templating<span class="token punctuation">.</span><span class="token function">enhance</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  		element<span class="token punctuation">:</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">".slidePanel"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  		bindingContext<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  			<span class="token operator">...</span>
+  		<span class="token punctuation">}</span><span class="token punctuation">,</span>
+  	<span class="token punctuation">}</span><span class="token punctuation">)</span>
+  	<span class="token comment">// As lifecycle methods are not called after manually enhancing,</span>
+  	<span class="token comment">// Call the attached method yourself.</span>
+  	<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"attached"</span> <span class="token keyword">in</span> <span class="token keyword">this</span><span class="token punctuation">.</span>viewbarView<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  		<span class="token keyword">this</span><span class="token punctuation">.</span>viewbarView<span class="token punctuation">.</span><span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  	<span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+</section>
+<section><h2 id="conclusion">Conclusion</h2><p>There are loads of other awesome features in Aurelia framework that made the process of developing Codeline really fun: value converters, custom elements and attributes, embedded event system and cutting edge templating features, to name a few. Aurelia is different from other frameworks in how customizable and versatile it is. You feel closer to the metal, as you simply write regular JavaScript classes. You don't have to jump through any hoops to satisfy any arbitrary syntax or structure determined by the framework. Aurelia packs great power inside its well-written and tested modules to satisfy your expectations out of a modern JavaScript framework. As Codeline, we are a proud supporter of Aurelia and we are happy to see the framework get better and better.</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Case%20Study%3A%20Codeline%20and%20Aurelia" blog-url="blog%2F2019%2F02%2F10%2Fcase-study-codeline-aurelia"></blog-footer>
+</section>

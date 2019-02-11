@@ -8,7 +8,7 @@
     <section><h2 id="introduction">Introduction</h2><p>In this section you can find examples of particular setups, known issues and possible workarounds</p>
 </section>
 <section><h2 id="aurelia-cli-bundler-docker">Aurelia-CLI bundler + Docker</h2><p>When using the Aurelia-CLI bundler together with Docker you might notice that the file watcher doesn't pick up changes that are made from the host.</p>
-<p>In order to resolve this you can open up the <code>aurelia_project/tasks/watch.js</code> (or <code>watch.ts</code> when using typescript) and modify the <code>watchPath</code> function to use polling:</p>
+<p>In order to resolve this you can open <code>aurelia_project/tasks/watch.js</code> file (or <code>watch.ts</code> when using typescript) and modify the <code>watchPath</code> function to use polling:</p>
 
 <code-listing heading="Build options">
   
@@ -35,6 +35,34 @@
 .</p>
 </section>
 <section><h2 id="npm-uninstalling-packages">NPM uninstalling packages</h2><p>If you're on NPM 5.6.0 (<code>npm -v</code>) then you might experience strange behavior when you're trying to install a package (using <code>npm install</code>). This should be resolved with version 5.7.0 of NPM.</p>
+</section>
+<section><h2 id="building-with-tfs">Building with TFS</h2><p>TFS sets readonly attribute on non checked out files. Depending on the selected environment corresponding file from <code>aurelia_project/environments/</code> folder copied as <code>src/environment.ts</code>. On first build there is no such destination file, so build succeeds. As enviroment files usually are not checked out (no so much to edit), the destination file would also have readonly attribute. This lead to subsequent builds failure until the destination file either removed or readonly attribute unset. On sunsequent build readonly attribute will be set again.</p>
+<p>In order to resolve this you can open <code>aurelia_project/tasks/environment.js</code> file (or <code>environment.ts</code> when using typescript) and add destination file removal code between <code>rename</code> and <code>gulp.dest</code>:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+      <span class="token comment">// ...</span>
+      <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">rename</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`environment</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>project<span class="token punctuation">.</span>transpiler<span class="token punctuation">.</span>fileExtension<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  
+      <span class="token comment">// add this code to remove destination file first</span>
+      <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>through<span class="token punctuation">.</span><span class="token function">obj</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>file<span class="token punctuation">,</span> enc<span class="token punctuation">,</span> cb<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        fs<span class="token punctuation">.</span><span class="token function">unlink</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>project<span class="token punctuation">.</span>paths<span class="token punctuation">.</span>root<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>file<span class="token punctuation">.</span>relative<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">cb</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> file<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  
+      <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>gulp<span class="token punctuation">.</span><span class="token function">dest</span><span class="token punctuation">(</span>project<span class="token punctuation">.</span>paths<span class="token punctuation">.</span>root<span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token comment">// ...</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>More information on this problem be found in 
+<a href="https://github.com/aurelia/cli/issues/1031" target="_blank">this issue</a>
+.</p>
+<p>Also it would be wise to rename <code>.gitignore</code> to <code>.tfignore</code>.</p>
 </section>
 
   </article>

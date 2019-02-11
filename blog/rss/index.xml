@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Mon Feb 04 2019 20:38:55 GMT-0800 (PST)</lastBuildDate>
+    <lastBuildDate>Sun Feb 10 2019 14:09:25 GMT-0800 (PST)</lastBuildDate>
+    <item>
+      <title><![CDATA[Case Study: Codeline and Aurelia]]></title>
+      <link>http://aurelia.io/blog/2019/02/10/case-study-codeline-aurelia</link>
+      <description><![CDATA[Today we're please to introduce one of our Aurelia community members, Giray Temel, to share with you about Codeline's choice of and experience with Aurelia. Take it away Giray!]]></description>
+      <pubDate>Sun Feb 10 2019 14:09:23 GMT-0800 (PST)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia Release Notes - Early February 2019]]></title>
       <link>http://aurelia.io/blog/2019/02/04/aurelia-release-notes-early-february-2019</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2018/03/04/aurelia-release-notes-early-march-2018</link>
       <description><![CDATA[Last week we announced official support for Server-Side Rendering in Aurelia [blog/2018/02/25/server-side-rendering]. This week we're announcing an update to our Webpack tooling to support Webpack 4.0! We've also got a number of incremental fixes and small new features for other Aurelia libraries, detailed below.]]></description>
       <pubDate>Sun Mar 04 2018 22:40:38 GMT-0800 (PST)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Server Side Rendering]]></title>
-      <link>http://aurelia.io/blog/2018/02/25/server-side-rendering</link>
-      <description><![CDATA[Without Server Side Rendering the server returns only boilerplate HTML without any content. Today we're announcing Aurelia Server Side Rendering which allows a Node.js server to render your application on the server and return the HTML of a fully rendered page.]]></description>
-      <pubDate>Sun Feb 25 2018 22:36:44 GMT-0800 (PST)</pubDate>
     </item>
   </channel>
 </rss>
