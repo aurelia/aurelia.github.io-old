@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Sat Feb 16 2019 12:09:27 GMT-0800 (PST)</lastBuildDate>
+    <lastBuildDate>Thu Feb 21 2019 17:02:02 GMT-0800 (PST)</lastBuildDate>
+    <item>
+      <title><![CDATA[How do we React?]]></title>
+      <link>http://aurelia.io/blog/2019/02/21/how-do-we-react-part-1</link>
+      <description><![CDATA[This is part 1 of 3 in a series titled "How do we React?" in which I discuss how Aurelia handles common React scenarios.]]></description>
+      <pubDate>Thu Feb 21 2019 17:02:00 GMT-0800 (PST)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Case Study: Codeline and Aurelia]]></title>
       <link>http://aurelia.io/blog/2019/02/10/case-study-codeline-aurelia</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2018/03/21/building-office-365sharepoint-applications-with-aurelia</link>
       <description><![CDATA[This week, please welcome community member Magnus Danielson to share a little bit about Aurelia and Office 365. Take it away Magnus!]]></description>
       <pubDate>Wed Mar 21 2018 11:41:22 GMT-0700 (PDT)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Release Notes - Early March 2018]]></title>
-      <link>http://aurelia.io/blog/2018/03/04/aurelia-release-notes-early-march-2018</link>
-      <description><![CDATA[Last week we announced official support for Server-Side Rendering in Aurelia [blog/2018/02/25/server-side-rendering]. This week we're announcing an update to our Webpack tooling to support Webpack 4.0! We've also got a number of incremental fixes and small new features for other Aurelia libraries, detailed below.]]></description>
-      <pubDate>Sun Mar 04 2018 22:40:38 GMT-0800 (PST)</pubDate>
     </item>
   </channel>
 </rss>
