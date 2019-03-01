@@ -240,6 +240,28 @@ The rows being repeated <strong>need</strong> a fixed height and only one item p
 </source-code>
   
 </code-listing>
+<ol start="3">
+<li>Beware of CSS selector <code>:nth-child</code> and similar selectors. Virtualization requires appropriate removing and inserting visible items, based on scroll position. This means DOM elements order will not stay the same, thus creating unexpected <code>:nth-child</code> CSS selector behavior. To work around this, you can use contextual properties <code>$index</code>, <code>$odd</code>, <code>$even</code> etc... to determine an item position, and apply CSS classes/styles against it, like the following example:</li>
+</ol>
+
+<code-listing>
+  
+<source-code lang="html">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">virtual-repeat.for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>person of persons<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>${$odd ? <span class="token punctuation">'</span>odd<span class="token punctuation">'</span> : <span class="token punctuation">'</span>even<span class="token punctuation">'</span>}-row<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      ${person.name}
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<ol start="4">
+<li>Similar to (3), virtualization requires appropriate removing and inserting visible items, corresponding lifecycle of items view will also be triggered while inserting (<code>bind</code>, <code>attached</code>) or removing (<code>unbind</code>, <code>detached</code>)</li>
+</ol>
 </section>
 
   </article>

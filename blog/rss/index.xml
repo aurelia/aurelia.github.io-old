@@ -5,11 +5,17 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Thu Feb 21 2019 17:02:02 GMT-0800 (PST)</lastBuildDate>
+    <lastBuildDate>Fri Mar 01 2019 10:05:26 GMT-0800 (PST)</lastBuildDate>
+    <item>
+      <title><![CDATA[How do we React? - Part 2]]></title>
+      <link>http://aurelia.io/blog/2019/03/01/how-do-we-react-part-2</link>
+      <description><![CDATA[This is part 2 of 3 in a series titled "How do we React?" in which I discuss how Aurelia handles common React scenarios. In this post, we'll cover Render Props.]]></description>
+      <pubDate>Fri Mar 01 2019 09:29:04 GMT-0800 (PST)</pubDate>
+    </item>
     <item>
       <title><![CDATA[How do we React?]]></title>
       <link>http://aurelia.io/blog/2019/02/21/how-do-we-react-part-1</link>
-      <description><![CDATA[This is part 1 of 3 in a series titled "How do we React?" in which I discuss how Aurelia handles common React scenarios.]]></description>
+      <description><![CDATA[This is part 1 of 3 in a series titled "How do we React?" in which I discuss how Aurelia handles common React scenarios. In this post, we'll cover HoCs.]]></description>
       <pubDate>Thu Feb 21 2019 17:02:00 GMT-0800 (PST)</pubDate>
     </item>
     <item>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2018/03/26/practical-app-development-with-aurelia</link>
       <description><![CDATA[This week we welcome Matt Duffield to tell us about his new Aurelia book!]]></description>
       <pubDate>Mon Mar 26 2018 19:52:11 GMT-0700 (PDT)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Building Office 365/SharePoint Applications with Aurelia]]></title>
-      <link>http://aurelia.io/blog/2018/03/21/building-office-365sharepoint-applications-with-aurelia</link>
-      <description><![CDATA[This week, please welcome community member Magnus Danielson to share a little bit about Aurelia and Office 365. Take it away Magnus!]]></description>
-      <pubDate>Wed Mar 21 2018 11:41:22 GMT-0700 (PDT)</pubDate>
     </item>
   </channel>
 </rss>

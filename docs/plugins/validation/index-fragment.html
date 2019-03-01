@@ -88,6 +88,7 @@
 <li><code>email()</code> validates an email address.</li>
 <li><code>minLength(length)</code> and <code>maxLength(length)</code> validate the length of string properties.</li>
 <li><code>minItems(count)</code> and <code>maxItems(count)</code> validate the number of items in an array.</li>
+<li><code>min(constaint)</code>, <code>max(constraint)</code>, <code>range(min, max)</code>, and <code>between(min, max)</code> validate the value of number properties.</li>
 <li><code>equals(expectedValue)</code> validates the property equals the expected value.</li>
 <li><code>satisfies((value: any, object?: any) =&gt; boolean|Promise&lt;boolean&gt;)</code> validates the supplied function returns <code>true</code> or a <code>Promise</code> that resolves to <code>true</code>. The function will be invoked with two arguments:
 <ul>
