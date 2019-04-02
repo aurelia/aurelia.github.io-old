@@ -109,6 +109,9 @@
 </section>
 <section><h2 id="custom-element-basics">Custom Element Basics</h2><p>Creating custom elements using Aurelia is extremely simple. Simply creating a JavaScript and HTML file pair with the same name is all that is necessary to create an Aurelia custom element. The HTML file must contain an Aurelia template wrapped in a <code>template</code> element. The JavaScript file must export a JavaScript class. Aurelia's standard naming convention for custom element VM classes is to append <code>CustomElement</code> to the end of the class name, e.g. <code>SecretMessageCustomElement</code>. Aurelia will take the JavaScript class name, strip <code>CustomElement</code> from the end, and convert it from InitCaps to dash-case for the custom element's name. Note that this means it is possible for the custom element name to not match the file name. Thus, it is recommended to name your custom element files to match the custom element name. It is acceptable to export more than one class from the JavaScript file for a custom element. Aurelia will use the first class exported from the file as the custom element's view-model (VM). Note that each instance of a custom element will receive its own separate VM instance.</p>
 <p>Custom elements are not allowed to be self-closing. This means that <code>&lt;secret-message /&gt;</code> will not work. When using a custom element, you must provide a closing tag as shown in <code>app.html</code> below.</p>
+<div class="info"><div class="icon"> <i></i> </div><p>
+This is not a limitation of Aurelia. It is HTML5 who doesn't support self-closing syntax. Self-closing is a XML syntax, not HTML5. To be clear, you can use self-closing in SVG when it's embedded inside HTML page, because SVG is actually XML. When browser parses an embedded SVG inside HTML page, it uses XML parser to parse the SVG part.</p>
+</div>
 
 <code-listing heading="secret-message.js">
   
@@ -397,7 +400,7 @@
   
 </code-listing>
 <p>And now after either <code>firstName</code> or <code>lastName</code> has changed, <code>fullName</code> is recomputed automatically and is ready to be used in other parts of the view.</p>
-<p>Additionally, if there is a need to react to changes on both <code>fullName</code>, we can specify a special attribute <code>to-binding-context</code> on the <code>&lt;let/&gt;</code> element to notify bindings to assign the value to the binding context, which is your view model, instead of override context, which is your view.</p>
+<p>Additionally, if there is a need to react to changes on both <code>fullName</code>, we can specify a special attribute <code>to-binding-context</code> on the <code>&lt;let&gt;&lt;/let&gt;</code> element to notify bindings to assign the value to the binding context, which is your view model, instead of override context, which is your view.</p>
 
 <code-listing heading="Declarative Computed Context View">
   
@@ -597,7 +600,7 @@
 <source-code lang="TypeScript">
   <pre class="language-typescript">
     <code>
-  <span class="token comment">// reference: https://stackoverflow.com/a/50066210/2270340 </span>
+  <span class="token comment">// reference: https://stackoverflow.com/a/50066210/2270340</span>
   <span class="token keyword">import</span> <span class="token punctuation">{</span> noView<span class="token punctuation">,</span> processContent <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-framework"</span><span class="token punctuation">;</span>
   
   @<span class="token function">noView</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -975,7 +978,7 @@
       header<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> tab<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">"header"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       header<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"is-active.bind"</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token string">`activeTabId=='</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>i<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       header<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"tab-selector.bind"</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token string">`showTab('</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>i<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">')`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      
+  
       <span class="token operator">...</span>
     <span class="token punctuation">}</span>
     <span class="token operator">...</span>
@@ -1002,7 +1005,7 @@
         header<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> tab<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">"header"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         header<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"is-active.bind"</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token string">`activeTabId=='</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>i<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         header<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"tab-selector.bind"</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token string">`showTab('</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>i<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">')`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        
+  
         <span class="token operator">...</span>
       <span class="token punctuation">}</span>
       <span class="token operator">...</span>
@@ -1036,7 +1039,7 @@
       header<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> tab<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">"header"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       header<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"is-active.bind"</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token string">`activeTabId=='</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>i<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       header<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"tab-selector.bind"</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token string">`showTab('</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>i<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">')`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      
+  
       <span class="token operator">...</span>
     <span class="token punctuation">}</span>
     <span class="token operator">...</span>
@@ -1067,7 +1070,7 @@
         header<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> tab<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">"header"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         header<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"is-active.bind"</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token string">`activeTabId=='</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>i<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         header<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"tab-selector.bind"</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token string">`showTab('</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>i<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">')`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        
+  
         <span class="token operator">...</span>
       <span class="token punctuation">}</span>
       <span class="token operator">...</span>

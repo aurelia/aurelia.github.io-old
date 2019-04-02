@@ -1,0 +1,357 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia Release Notes - April 2019</h1>
+    <h2>Posted by <span class="author">Rob Eisenberg</span> on <span class="date">April 2, 2019</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>Today, we're excited to announce the beta of Aurelia's Web Components plugin, enabling you to use your Aurelia custom elements as Web Component standard custom elements, easily inter-operating with other frameworks.</p>
+<p>Aurelia has always valued strong web standards usage. That's why when we launched Aurelia over four years ago we leveraged native HTML templates and Shadow DOM, two of the three major features under the Web Components umbrella at the time. However, we didn't feel that for application development there was a benefit to utilizing the emerging custom element API of the browser. In fact, in common application scenarios, it had a negative effect. This stems from initial use cases the W3C had for Web Component custom elements, which were mostly oriented around sharing of individual widgets, rather than building out full apps. However, we still wanted to support this standard. To that end, our plan was always to provide a plugin that would enable seamless sharing by transforming Aurelia elements into Web Component custom elements via a simple API. It's that plugin that we're announcing today.</p>
+<p>To use the Aurelia Web Components plugin, first install it via NPM:</p>
+
+<code-listing>
+  
+<source-code lang="Shell">
+  <pre class="language-powershell">
+    <code>
+  npm install aurelia<span class="token operator">-</span>web<span class="token operator">-</span>components <span class="token operator">--</span>save
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>With that in place, we can configure the plugin:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> CustomElementRegistry <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-web-components'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    aurelia<span class="token punctuation">.</span>use
+      <span class="token punctuation">.</span><span class="token function">basicConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">globalResources</span><span class="token punctuation">(</span><span class="token string">'resources/my-component'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+    <span class="token keyword">await</span> aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">const</span> registry <span class="token operator">=</span> aurelia<span class="token punctuation">.</span>container<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span>CustomElementRegistry<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    registry<span class="token punctuation">.</span><span class="token function">useGlobalElements</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The code above tells Aurelia to register a global element located in the <code>resources</code> folder, named <code>my-component</code>. It then uses our new plugin to make all of our known global Aurelia elements into standard Web Component custom elements. That's done with the registry's call to <code>useGlobalElements()</code>.</p>
+<p>Using this technique you can bundle up your Aurelia elements as Web Components for anyone to use. That's all there is to it.</p>
+<p>For more information on this plugin, have a read through 
+<a href="https://github.com/aurelia/web-components" target="_blank">the readme file</a>
+ on the repo. As we move through the beta period, we'll be adding this documentation to the official plugins section of the site.</p>
+<p>This month we also had a number of other releases to Aurelia's core, plugins, and tools. There are two items of particular note:</p>
+<ul>
+<li><strong>Aurelia CLI</strong> - With the latest CLI release (1.0.0-beta.15), we now have an option to scaffold a plugin project, in addition to scaffolding an application. To create a plugin project, simply execute <code>au new --plugin</code>.</li>
+<li><strong>Virtual Scrolling</strong> - We've been working hard on our virtual scrolling plugin to make it ever more versatile, allowing it handle different dom structures, CSS, and edge case rendering.</li>
+</ul>
+<p>Details on these update and all other libraries are available below.</p>
+<p>Cheers!</p>
+<section><h2 id="minor-releases">Minor Releases</h2><p>Minor updates include new features, updates to bugs, and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/cli/compare/1.0.0-beta.13...1.0.0-beta.14" target="_blank">aurelia-cli 1.0.0-beta.14</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>bundler:</strong> avoid unnecessary rewrite of index.html (
+<a href="https://github.com/aurelia/cli/commit/9faea2f" target="_blank">9faea2f</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1049" target="_blank">#1049</a>
+</li>
+<li><strong>bundler:</strong> enable tracing @babel/polyfill (
+<a href="https://github.com/aurelia/cli/commit/1bef893" target="_blank">1bef893</a>
+)</li>
+<li><strong>bundler:</strong> improve compatibility with legacy libs that depends on jquery or momentjs (
+<a href="https://github.com/aurelia/cli/commit/cd079a0" target="_blank">cd079a0</a>
+)</li>
+<li><strong>bundler:</strong> improve compatibility with nodejs global var &quot;global&quot; (
+<a href="https://github.com/aurelia/cli/commit/02d1cd0" target="_blank">02d1cd0</a>
+)</li>
+<li><strong>bundler:</strong> isolate cache between systemjs and requirejs apps (
+<a href="https://github.com/aurelia/cli/commit/5466ceb" target="_blank">5466ceb</a>
+)</li>
+<li><strong>bundler:</strong> skip deps cleanup (remove .js) for UMD file (
+<a href="https://github.com/aurelia/cli/commit/a4731da" target="_blank">a4731da</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1054" target="_blank">#1054</a>
+</li>
+<li><strong>cypress task:</strong> Return error when tests fail (
+<a href="https://github.com/aurelia/cli/commit/ea43b59" target="_blank">ea43b59</a>
+)</li>
+<li><strong>cypress task:</strong> Return error when tests fail (
+<a href="https://github.com/aurelia/cli/commit/7fa7e9e" target="_blank">7fa7e9e</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1057" target="_blank">#1057</a>
+</li>
+<li><strong>generate-skeletons:</strong> add missing httpProtocal to project definitions (
+<a href="https://github.com/aurelia/cli/commit/bab0e39" target="_blank">bab0e39</a>
+)</li>
+<li><strong>jest task:</strong> Return error when tests fail (
+<a href="https://github.com/aurelia/cli/commit/bfbe072" target="_blank">bfbe072</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1052" target="_blank">#1052</a>
+</li>
+<li><strong>jest task:</strong> Return error when tests fail (
+<a href="https://github.com/aurelia/cli/commit/830bda8" target="_blank">830bda8</a>
+)</li>
+<li><strong>skeleton:</strong> fix navigation scaffold with alameda (
+<a href="https://github.com/aurelia/cli/commit/9413239" target="_blank">9413239</a>
+)</li>
+<li><strong>sourcemaps:</strong> strip path from bundle sourcemap (
+<a href="https://github.com/aurelia/cli/commit/8601622" target="_blank">8601622</a>
+)</li>
+<li><strong>webpack:</strong> correctly exclude spec/test files from coverage report (
+<a href="https://github.com/aurelia/cli/commit/b2582f9" target="_blank">b2582f9</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>generate-skeletons:</strong> add alameda to generate-skeletons (
+<a href="https://github.com/aurelia/cli/commit/0147567" target="_blank">0147567</a>
+)</li>
+<li><strong>integration-test-runner:</strong> Add Cypress (
+<a href="https://github.com/aurelia/cli/commit/4b5919a" target="_blank">4b5919a</a>
+)</li>
+<li><strong>integration-test-runner:</strong> Add Cypress (
+<a href="https://github.com/aurelia/cli/commit/77c6f60" target="_blank">77c6f60</a>
+)</li>
+<li><strong>integration-test-runner:</strong> Add Cypress (
+<a href="https://github.com/aurelia/cli/commit/1ece72e" target="_blank">1ece72e</a>
+)</li>
+<li><strong>integration-test-runner:</strong> Add Cypress (
+<a href="https://github.com/aurelia/cli/commit/f2eb6c5" target="_blank">f2eb6c5</a>
+)</li>
+<li><strong>integration-test-runner:</strong> Add Cypress (
+<a href="https://github.com/aurelia/cli/commit/21ac3db" target="_blank">21ac3db</a>
+)</li>
+<li><strong>new-application:</strong> fix format on log messages (
+<a href="https://github.com/aurelia/cli/commit/6d6fcea" target="_blank">6d6fcea</a>
+)</li>
+<li><strong>test:</strong> Add Cypress integration test runner (
+<a href="https://github.com/aurelia/cli/commit/cabe6ce" target="_blank">cabe6ce</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/943" target="_blank">#943</a>
+</li>
+<li><strong>ui:</strong> add Enquirer as UI lib (
+<a href="https://github.com/aurelia/cli/commit/f05da1a" target="_blank">f05da1a</a>
+)</li>
+<li>unattended mode, descriptive skeleton (
+<a href="https://github.com/aurelia/cli/commit/0123c58" target="_blank">0123c58</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/cli/compare/1.0.0-beta.14...1.0.0-beta.15" target="_blank">aurelia-cli 1.0.0-beta.15</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>jest mock:</strong> Add stub for static content (
+<a href="https://github.com/aurelia/cli/commit/9268d5c" target="_blank">9268d5c</a>
+)</li>
+<li><strong>karam:</strong> ensure the element under testing is traced by webpack (
+<a href="https://github.com/aurelia/cli/commit/d6bab9d" target="_blank">d6bab9d</a>
+)</li>
+<li><strong>new-application:</strong> add missing dep clean-webpack-plugin to dotnet-core+webpack app (
+<a href="https://github.com/aurelia/cli/commit/7534244" target="_blank">7534244</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1072" target="_blank">#1072</a>
+</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>all:</strong> use core-js v3 to replace deprecated @babel/polyfill (
+<a href="https://github.com/aurelia/cli/commit/990af96" target="_blank">990af96</a>
+), closes 
+<a href="https://github.com//babeljs.io/blog/2019/03/19/7.4.0/issues/migration-from-core-js-2" target="_blank">/babeljs.io/blog/2019/03/19/7.4.0#migration-from-core-js-2</a>
+</li>
+<li>scaffolding aurelia plugin project (
+<a href="https://github.com/aurelia/cli/commit/f5b2367" target="_blank">f5b2367</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/658" target="_blank">#658</a>
+</li>
+<li><strong>generate-skeletons:</strong> add plugin skeletons to &quot;au generate-skeletons&quot; (
+<a href="https://github.com/aurelia/cli/commit/245ce7e" target="_blank">245ce7e</a>
+)</li>
+<li><strong>release-check:</strong> add release-check on plugin projects (
+<a href="https://github.com/aurelia/cli/commit/05c5980" target="_blank">05c5980</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/validation/compare/1.3.3...1.4.0" target="_blank">aurelia-validation 1.4.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>build:</strong> adjust umd build, add umd-es2015 (
+<a href="https://github.com/aurelia/validation/commit/895b149" target="_blank">895b149</a>
+)</li>
+<li><strong>package:</strong> fix unpkg field (
+<a href="https://github.com/aurelia/validation/commit/2635ecd" target="_blank">2635ecd</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>ValidationRules:</strong> add number validation rules (
+<a href="https://github.com/aurelia/validation/commit/f67cf59" target="_blank">f67cf59</a>
+), closes 
+<a href="https://github.com/aurelia/validation/issues/440" target="_blank">#440</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/templating-resources/compare/1.8.0...1.9.0" target="_blank">aurelia-templating-resources 1.9.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li>improve typescript typings of SignalBindingBehavior.bind (
+<a href="https://github.com/aurelia/templating-resources/commit/347f125" target="_blank">347f125</a>
+), closes 
+<a href="https://github.com/aurelia/templating-resources/issues/338" target="_blank">#338</a>
+</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>html-resource-plugin, dynamic-element:</strong> Add shadow dom support (
+<a href="https://github.com/aurelia/templating-resources/commit/56d29e9" target="_blank">56d29e9</a>
+), closes 
+<a href="https://github.com/aurelia/templating-resources/issues/368" target="_blank">#368</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/ui-virtualization/compare/1.0.0-beta.4...1.0.0-beta.6" target="_blank">aurelia-ui-virtualization 1.0.0-beta.5</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>array-repeat:</strong> properly check when to ignore update views (
+<a href="https://github.com/aurelia/ui-virtualization/commit/9b9d5b7" target="_blank">9b9d5b7</a>
+)</li>
+<li><strong>array-repeat:</strong> properly handle end of array instanceChanged() (
+<a href="https://github.com/aurelia/ui-virtualization/commit/f44eb98" target="_blank">f44eb98</a>
+)</li>
+<li><strong>interfaces:</strong> properly handle first/last element gets (
+<a href="https://github.com/aurelia/ui-virtualization/commit/eb6e4a3" target="_blank">eb6e4a3</a>
+)</li>
+<li><strong>repeat:</strong> add sizing handler (
+<a href="https://github.com/aurelia/ui-virtualization/commit/7f41efa" target="_blank">7f41efa</a>
+)</li>
+<li><strong>repeat:</strong> correct calculate distance to scroller for top buffer (
+<a href="https://github.com/aurelia/ui-virtualization/commit/75b6ad5" target="_blank">75b6ad5</a>
+)</li>
+<li><strong>repeat:</strong> correctly handle mutation (
+<a href="https://github.com/aurelia/ui-virtualization/commit/2a9eaf5" target="_blank">2a9eaf5</a>
+)</li>
+<li><strong>repeat:</strong> handle mutation properly (
+<a href="https://github.com/aurelia/ui-virtualization/commit/eafbfe1" target="_blank">eafbfe1</a>
+)</li>
+<li><strong>repeat:</strong> keep scroll up/down states when handling scroll (
+<a href="https://github.com/aurelia/ui-virtualization/commit/a6d6bfa" target="_blank">a6d6bfa</a>
+)</li>
+<li><strong>repeat-scrolling:</strong> correctly determine scrolltop when scrollr el is not documentElement (
+<a href="https://github.com/aurelia/ui-virtualization/commit/e8e14a1" target="_blank">e8e14a1</a>
+)</li>
+<li><strong>tests:</strong> adjust tbodies/tr tests, better description (
+<a href="https://github.com/aurelia/ui-virtualization/commit/6610116" target="_blank">6610116</a>
+)</li>
+<li><strong>tests:</strong> adjust tbodies/tr tests, better description (
+<a href="https://github.com/aurelia/ui-virtualization/commit/6d77586" target="_blank">6d77586</a>
+)</li>
+<li><strong>tests:</strong> update/add tests, add comments, rename variables for better readability (
+<a href="https://github.com/aurelia/ui-virtualization/commit/fe9f433" target="_blank">fe9f433</a>
+)</li>
+<li><strong>virtual repeat:</strong> prepare new tests, add examples (
+<a href="https://github.com/aurelia/ui-virtualization/commit/fd45928" target="_blank">fd45928</a>
+)</li>
+<li><strong>virtual-repeat:</strong> properly calc for fixheight ct (
+<a href="https://github.com/aurelia/ui-virtualization/commit/5171740" target="_blank">5171740</a>
+)</li>
+<li><strong>utilities-dom:</strong> use window.getComputedStyle for hasOverflowScroll (
+<a href="https://github.com/aurelia/ui-virtualization/commit/4b015d2" target="_blank">4b015d2</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>repeat:</strong> add ability to update buffer without handling scroll (
+<a href="https://github.com/aurelia/ui-virtualization/commit/f3b7195" target="_blank">f3b7195</a>
+)</li>
+<li><strong>template-strategy-default:</strong> walk up the DOM tree and determine what element will be scroller for virtual repeat (
+<a href="https://github.com/aurelia/ui-virtualization/commit/6ebf907" target="_blank">6ebf907</a>
+)</li>
+</ul>
+</section>
+<section><h2 id="patch-releases">Patch Releases</h2><p>Patch updates include only fixes to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/binding/compare/2.2.0...2.2.2" target="_blank">aurelia-binding 2.2.2</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>all:</strong> change es2015 back to native-modules (
+<a href="https://github.com/aurelia/binding/commit/13dd661" target="_blank">13dd661</a>
+)</li>
+<li><strong>build:</strong> don't build declaration (
+<a href="https://github.com/aurelia/binding/commit/d359e83" target="_blank">d359e83</a>
+)</li>
+<li><strong>connectable-binding:</strong> remove the silent limit of 100 observers per expression (
+<a href="https://github.com/aurelia/binding/commit/56ba36d" target="_blank">56ba36d</a>
+), closes 
+<a href="https://github.com/aurelia/binding/issues/742" target="_blank">#742</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/fetch-client/compare/1.8.0...1.8.2" target="_blank">aurelia-fetch-client 1.8.2</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>all:</strong> change es2015 back to native-modules (
+<a href="https://github.com/aurelia/fetch-client/commit/14245e8" target="_blank">14245e8</a>
+)</li>
+<li><strong>build:</strong> adjust build script, add umd es2015, fix unpkg field (
+<a href="https://github.com/aurelia/fetch-client/commit/b62089f" target="_blank">b62089f</a>
+)</li>
+<li><strong>retry-interceptor:</strong> conform to Interceptor interface (
+<a href="https://github.com/aurelia/fetch-client/commit/daae14b" target="_blank">daae14b</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/templating/compare/1.10.1...1.10.2" target="_blank">aurelia-templating 1.10.2</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>all:</strong> change es2015 back to native-modules (
+<a href="https://github.com/aurelia/templating/commit/ea50719" target="_blank">ea50719</a>
+)</li>
+<li><strong>ElementEvents:</strong> ElementEvents.defaultListenerOptions allows to set default options when subscribing to events (
+<a href="https://github.com/aurelia/templating/commit/f7e8e32" target="_blank">f7e8e32</a>
+), closes 
+<a href="https://github.com/aurelia/templating/issues/657" target="_blank">#657</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/i18n/compare/3.0.0-beta.5...3.0.0-beta.7" target="_blank">aurelia-i18n 3.0.0-beta.6</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>build:</strong> adjust umd build for IE11 compat, add umd-es2015 (
+<a href="https://github.com/aurelia/i18n/commit/0bd542a" target="_blank">0bd542a</a>
+)</li>
+<li><strong>dist:</strong> adjust unpkg field (
+<a href="https://github.com/aurelia/i18n/commit/9974b62" target="_blank">9974b62</a>
+)</li>
+<li><strong>setup:</strong> adjust i18next init; skip 404 errors (
+<a href="https://github.com/aurelia/i18n/commit/d2256b9" target="_blank">d2256b9</a>
+)</li>
+</ul>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%20Release%20Notes%20-%20April%202019" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2019%2F04%2F02%2Faurelia-release-notes-april-2019"></blog-footer>
+</section>

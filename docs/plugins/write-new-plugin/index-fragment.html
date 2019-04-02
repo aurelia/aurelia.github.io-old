@@ -1,0 +1,383 @@
+<section class="article">
+  <header>
+    <h1>Write New Plugin</h1>
+    <h2>The tutorial on how to write a new Aurelia plugin.</h2>
+  </header>
+
+  <article class="markdown">
+    <section><h2 id="introduction">Introduction</h2><p>Thank for Aurelia coding convention, writing an new Aurelia Plugin is not difficult. However the setup of a new plugin project was difficult, but now you can generate a new plugin project effortlessly using Aurelia-CLI.</p>
+</section>
+<section><h2 id="setup">Setup</h2><p>In this tutorial, we will use <a href="/docs/cli">Aurelia-CLI</a> to create a plugin project.</p>
+<p>First, make sure you installed the latest Aurelia-CLI.</p>
+
+<code-listing>
+  
+<source-code lang="shell">
+  <pre class="language-powershell">
+    <code>
+  npm i <span class="token operator">-</span>g aurelia<span class="token operator">-</span><span class="token function">cli</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Then run command <code>au new --plugin</code> or <code>au new project-name --plugin</code>. You will be asked to provide a project name, followed by a number of options. If you aren't sure what you want, you can select one of the default ESNext or TypeScript setup in the first question. Otherwise, you can create a custom project. Simply follow the prompts.</p>
+</section>
+<section><h2 id="structure-of-plugin">Structure of Plugin</h2><p>The plugin project created by Aurelia-CLI provides not only the plugin source itself, but also a dev app (with CLI built-in bundler and RequireJS) to simplify the development of the plugin.</p>
+<div class="info"><div class="icon"> <i></i> </div><p>
+We don't provide plugin skeleton with dev-app in webpack setup, not yet. We use CLI built-in bundler because it allows us to share some setup to transpile plugin resoruces (js/html/css).</p>
+</div>
+<ol>
+<li>The local <code>src/</code> folder, is the source code for the plugin.</li>
+<li>The local <code>dev-app/</code> folder, is the code for the dev app, just like a normal app bootstrapped by aurelia-cli.</li>
+<li>You can use normal <code>au run</code> and <code>au test</code> in development just like developing an app.</li>
+<li>You can use aurelia-testing to test your plugin, just like developing an app.</li>
+<li>To ensure compatibility to other apps, always use <code>PLATFORM.moduleName()</code> wrapper in files inside <code>src/</code>. You don't need to use the wrapper in <code>dev-app/</code> folder as CLI built-in bundler supports module name without the wrapper.</li>
+</ol>
+<h3>Plugin Entry</h3>
+<p>The plugin entry file is <code>src/index.js</code> (or <code>src/index.ts</code> if using TypeScript). It exports only one function called &quot;configure&quot;.</p>
+
+<code-listing heading="index.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    config<span class="token punctuation">.</span><span class="token function">globalResources</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+      <span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'./elements/hello-world'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>FrameworkConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token punctuation">:</span> FrameworkConfiguration<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    config<span class="token punctuation">.</span><span class="token function">globalResources</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+      <span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'./elements/hello-world'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The configure function is called by Aurelia when end users who use your plugin in their app like this:</p>
+
+<code-listing heading="main.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'your-plugin-name'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'your-plugin-name'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The methods you can use inside the configure function is listed in <a href="/docs/api/framework/class/FrameworkConfiguration">FrameworkConfiguration</a>. <code>globalResources</code> can register custom elements, custom attributes, value converters, and binding behaviors to be globally available in end users' app.</p>
+<div class="info"><div class="icon"> <i></i> </div><p>
+Note <code>globalResources</code> isn't the only method you can use. You can use other methods to bring in additional plugins, register objects to Aurelia DI container, and more. We will show some of those usage later in this tutorial.</p>
+</div>
+<h3>Create New Resources</h3>
+<p>You can create new custom element, custom attribute, value converter or binding behavior manually, or use command <code>au generate</code> to help.</p>
+
+<code-listing>
+  
+<source-code lang="shell">
+  <pre class="language-powershell">
+    <code>
+  au generate element some<span class="token operator">-</span>name
+  au generate attribute some<span class="token operator">-</span>name
+  au generate value<span class="token operator">-</span>converter some<span class="token operator">-</span>name
+  au generate binding<span class="token operator">-</span>behavior some<span class="token operator">-</span>name
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>By default, the cli generates command generates files in following folders:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  src<span class="token operator">/</span>elements
+  src<span class="token operator">/</span>attributes
+  src<span class="token operator">/</span>value<span class="token operator">-</span>converters
+  src<span class="token operator">/</span>binding<span class="token operator">-</span>behaviors
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Note the folder structure is only to help you organizing the files, it's not a requirement of Aurelia. You can manually create new element (or other thing) anywhere in <code>src/</code>.</p>
+<p>After you added some new file, you need to register it in <code>src/index.js</code> (or <code>src/index.ts</code>. Like this:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  config<span class="token punctuation">.</span><span class="token function">globalResources</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+    <span class="token comment">// ...</span>
+    <span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'./path/to/new-file-without-ext'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+</section>
+<section><h2 id="develop-plugin">Develop Plugin</h2><h3>Run Dev App</h3>
+<p>Run the built-in dev app with command <code>au run --open</code>, it will automatically open the browser to show you the example custom element <code>hello-world</code>.</p>
+<div class="info"><div class="icon"> <i></i> </div><p>
+If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugin</code>, the final question will provide you to choose a &quot;Basic&quot; scaffolding instead of &quot;None&quot;. The &quot;Basic&quot; will give you additional examples in custom attribute, value converter, and binding behavior.</p>
+</div>
+<h3>Tests</h3>
+<p>Terminate the running dev app before running tests. Run <code>au test</code> to run unit tests. Depending on your choice of unit testing framework (karma/jest), the way to write unit tests is slightly different, please follow the existing example in <code>test/unit/</code>.</p>
+<p>For the quality of your plugin, we recommend using karma, as we really want testing against a real browser. Jest runs tests in NodeJS with a simulated browser environment. Jest is much faster but it does not really test your plugin inside browser.</p>
+<h3>Manage dependencies</h3>
+<p>By default, this plugin has no &quot;dependencies&quot; in package.json. Theoretically this plugin depends on at least <code>aurelia-pal</code> because <code>src/index.js</code> (or <code>src/index.ts</code>) imports it. It could also depends on more core Aurelia package like <code>aurelia-binding</code> or <code>aurelia-templating</code> if you build advanced components that reference them.</p>
+<p>Ideally you need to carefully add those <code>aurelia-pal</code> (<code>aurelia-binding</code>...) to &quot;dependencies&quot; in package.json. But in practice you don't have to. Because every app that consumes this plugin will have full Aurelia core packages installed.</p>
+<p>Furthermore, there are two benefits by leaving those dependencies out of plugin's package.json.</p>
+<ol>
+<li>ensure this plugin doesn't bring in a duplicated Aurelia core package to consumers' app. This is mainly for app built with webpack. We had been hit with <code>aurelia-binding</code> v1 and v2 conflicts due to 3rd party plugin asks for <code>aurelia-binding</code> v1.</li>
+<li>reduce the burden for npm/yarn when installing this plugin.</li>
+</ol>
+<p>If you are a perfectionist who could not stand leaving out dependencies, I recommend you to add <code>aurelia-pal</code> (<code>aurelia-binding</code>...) to &quot;peerDependencies&quot; in package.json. So at least it could not cause a duplicated Aurelia core package.</p>
+<p>If your plugin depends on other npm package, like <code>lodash</code> or <code>jquery</code>, <strong>you have to add them to &quot;dependencies&quot; in package.json</strong>.</p>
+<h3>Build Plugin</h3>
+<p>Run <code>au build-plugin</code>. This will transpile all files from <code>src/</code> folder to <code>dist/native-modules/</code> and <code>dist/commonjs/</code>.</p>
+<p>For example, <code>src/index.js</code> (or <code>src/index.ts</code>) will become <code>dist/native-modules/index.js</code> and <code>dist/commonjs/index.js</code>.</p>
+<p>Note all other files in <code>dev-app/</code> folder are for the dev app, they would not appear in the published npm package.</p>
+<h3>Consume Plugin</h3>
+<p>By default, the <code>dist/</code> folder is not committed to git. (We have <code>/dist</code> in <code>.gitignore</code>). But that would not prevent you from consuming this plugin through direct git reference.</p>
+<p>You can consume this plugin directly by:</p>
+
+<code-listing>
+  
+<source-code lang="shell">
+  <pre class="language-powershell">
+    <code>
+  npm i github:your_github_username<span class="token operator">/</span>your<span class="token operator">-</span>plugin<span class="token operator">-</span>name
+  <span class="token comment"># or if you use bitbucket</span>
+  npm i bitbucket:your_github_username<span class="token operator">/</span>your<span class="token operator">-</span>plugin<span class="token operator">-</span>name
+  <span class="token comment"># or if you use gitlab</span>
+  npm i gitlab:your_github_username<span class="token operator">/</span>your<span class="token operator">-</span>plugin<span class="token operator">-</span>name
+  <span class="token comment"># or plain url</span>
+  npm i https:<span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>your_github_username<span class="token operator">/</span>your<span class="token operator">-</span>plugin<span class="token operator">-</span>name<span class="token punctuation">.</span>git
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Then load the plugin in app's <code>main.js</code> or <code>main.ts</code> like this.</p>
+
+<code-listing>
+  
+<source-code lang="js">
+  <pre class="language-javascript">
+    <code>
+  aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'your-plugin-name'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// for webpack user, use PLATFORM.moduleName wrapper</span>
+  aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'your-plugin-name'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The missing <code>dist/</code> files will be filled up by npm through <code>&quot;prepare&quot;: &quot;npm run build&quot;</code> (in <code>&quot;scripts&quot;</code> section of package.json).</p>
+<p>Yarn has a 
+<a href="https://github.com/yarnpkg/yarn/issues/5235" target="_blank">bug</a>
+ that ignores <code>&quot;prepare&quot;</code> script. If you want to use yarn to consume your plugin through direct git reference, remove <code>/dist</code> from <code>.gitignore</code> and commit all the files. Note you don't need to commit <code>dist/</code> files if you only use yarn to consume this plugin through published npm package (<code>npm i your-plugin-name</code>).</p>
+<h3>Publish npm package</h3>
+<p>By default, <code>&quot;private&quot;</code> field in package.json has been turned on, this prevents you from accidentally publish a private plugin to npm.</p>
+<p>To publish the plugin to npm for public assumption:</p>
+<ol>
+<li>
+<p>Remove <code>&quot;private&quot;: true,</code> from package.json.</p>
+</li>
+<li>
+<p>Pump up project version. This will run through <code>au test</code> (in &quot;preversion&quot; in package.json) first.</p>
+</li>
+</ol>
+
+<code-listing>
+  
+<source-code lang="shell">
+  <pre class="language-powershell">
+    <code>
+  npm version patch <span class="token comment"># or minor or major</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<ol start="3">
+<li>Push up changes to your git server</li>
+</ol>
+
+<code-listing>
+  
+<source-code lang="shell">
+  <pre class="language-powershell">
+    <code>
+  git push &amp;&amp; git push <span class="token operator">--</span>tags
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<ol start="4">
+<li>Then publish to npm, you need to have your npm account logged in.</li>
+</ol>
+
+<code-listing>
+  
+<source-code lang="shell">
+  <pre class="language-powershell">
+    <code>
+  npm publish
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<h3>Automate changelog, git push, and npm publish</h3>
+<p>You can enable <code>npm version patch # or minor or major</code> to automatically update changelog, push commits and version tag to the git server, and publish to npm.</p>
+<p>Here is one simple setup.</p>
+<ol>
+<li><code>npm i -D standard-changelog</code>. We use 
+<a href="https://github.com/conventional-changelog/conventional-changelog" target="_blank">standard-changelog</a>
+ as a minimum example to support conventional changelog.</li>
+</ol>
+<ul>
+<li>Alternatively you can use high level 
+<a href="https://github.com/conventional-changelog/standard-version" target="_blank">standard-version</a>
+.</li>
+</ul>
+<ol start="2">
+<li>Add two commands to <code>&quot;scripts&quot;</code> section of package.json.</li>
+</ol>
+
+<code-listing>
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token string">"scripts"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+    <span class="token string">"version"</span><span class="token punctuation">:</span> <span class="token string">"standard-changelog &amp;&amp; git add CHANGELOG.md"</span><span class="token punctuation">,</span>
+    <span class="token string">"postversion"</span><span class="token punctuation">:</span> <span class="token string">"git push &amp;&amp; git push --tags &amp;&amp; npm publish"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<ol start="3">
+<li>you can remove <code>&amp;&amp; npm publish</code> if your project is private</li>
+</ol>
+</section>
+<section><h2 id="advanced-usage">Advanced Usage</h2><h3>Wrap other plugins</h3>
+<p>You can use plugin to wrap other plugins without providing any additional functionality. This is practically useful to group a list of common plugins to be reused in your organization.</p>
+
+<code-listing heading="index.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    config<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-animator-css'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    config<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-dialog'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> config <span class="token operator">=></span> <span class="token punctuation">{</span>
+      config<span class="token punctuation">.</span><span class="token function">useDefaults</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>lock <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+      config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>ignoreTransitions <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>FrameworkConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token punctuation">:</span> FrameworkConfiguration<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    config<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-animator-css'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    config<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-dialog'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> config <span class="token operator">=></span> <span class="token punctuation">{</span>
+      config<span class="token punctuation">.</span><span class="token function">useDefaults</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>lock <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+      config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>ignoreTransitions <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>For the above example, you need to make sure to add <code>aurelia-animator-css</code> and <code>aurelia-dialog</code> to your plugin's &quot;dependencies&quot; in package.json.</p>
+<h3>Change Aurelia DI Behavior</h3>
+<p>The default Aurelia DI uses singleton for any JavaScript class, you can override the behavior for your class.</p>
+
+<code-listing heading="index.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>MyAwesomeService<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./my-awesome-service'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// new instance for every injection of MyAwesomeService</span>
+    config<span class="token punctuation">.</span><span class="token function">transient</span><span class="token punctuation">(</span>MyAwesomeService<span class="token punctuation">,</span> MyAwesomeService<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token keyword">export</span> <span class="token punctuation">{</span>MyAwesomeService<span class="token punctuation">}</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>FrameworkConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>MyAwesomeService<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./my-awesome-service'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token punctuation">:</span> FrameworkConfiguration<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// new instance for every injection of MyAwesomeService</span>
+    config<span class="token punctuation">.</span><span class="token function">transient</span><span class="token punctuation">(</span>MyAwesomeService<span class="token punctuation">,</span> MyAwesomeService<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token keyword">export</span> <span class="token punctuation">{</span>MyAwesomeService<span class="token punctuation">}</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+</section>
+
+  </article>
+</section>

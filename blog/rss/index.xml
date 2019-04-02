@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Tue Mar 12 2019 21:09:31 GMT-0700 (Pacific Daylight Time)</lastBuildDate>
+    <lastBuildDate>Tue Apr 02 2019 00:27:08 GMT-0700 (Pacific Daylight Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia Release Notes - April 2019]]></title>
+      <link>http://aurelia.io/blog/2019/04/02/aurelia-release-notes-april-2019</link>
+      <description><![CDATA[Today, we're excited to announce the beta of Aurelia's Web Components plugin, enabling you to use your Aurelia custom elements as Web Component standard custom elements, easily inter-operating with other frameworks.]]></description>
+      <pubDate>Tue Apr 02 2019 00:27:08 GMT-0700 (Pacific Daylight Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[How do we React? - Part 3]]></title>
       <link>http://aurelia.io/blog/2019/03/12/how-do-we-react-part-3</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2018/04/02/aurelia-2018-q1-report</link>
       <description><![CDATA[With the first quarter of 2018 now behind us, we wanted to take the time to provide an update on the progress the Aurelia team and community have made towards our 2018 roadmap goals [blog/2018/01/03/aurelia-2018-roadmap].]]></description>
       <pubDate>Mon Apr 02 2018 07:10:40 GMT-0700 (Pacific Daylight Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Release Notes - Late March 2018]]></title>
-      <link>http://aurelia.io/blog/2018/03/29/aurelia-release-notes-late-march-2018</link>
-      <description><![CDATA[We're excited to share that we've recently published a new version of the Aurelia CLI which is packed with bug fixes and new features.]]></description>
-      <pubDate>Thu Mar 29 2018 12:14:37 GMT-0700 (Pacific Daylight Time)</pubDate>
     </item>
   </channel>
 </rss>

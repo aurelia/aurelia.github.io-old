@@ -146,15 +146,15 @@ No description available.
   * `request: Request` - No description available
 
 
-* `response(response: Response, request: Request): Response` - 
+* `response(response: Response, request?: Request): Response` - 
   * `response: Response` - No description available
-  * `request: Request` - No description available
+  * `request?: Request` - No description available
 
 
-* `responseError(error: Response, request: Request, httpClient: HttpClient): Promise` - 
+* `responseError(error: Response, request?: Request, httpClient?: HttpClient): Promise` - 
   * `error: Response` - No description available
-  * `request: Request` - No description available
-  * `httpClient: HttpClient` - No description available
+  * `request?: Request` - No description available
+  * `httpClient?: HttpClient` - No description available
 
 
 
@@ -203,7 +203,7 @@ The default is omit.
 The default is cors.
 * `redirect: string` - The redirect mode to use: follow, error, or manual.
 * `referrer: string` - A USVString specifying no-referrer, client, or a URL. The default is client.
-* `signal: AbortSignal` - An AbortSignal to set request’s signal.
+* `signal: ` - An AbortSignal to set request’s signal.
 
 #### Methods
 

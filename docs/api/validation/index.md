@@ -153,6 +153,13 @@ Part of the fluent rule API. Enables customizing property rules.
 #### Methods
 
 
+* `between(min: number, max: number): FluentRuleCustomizer` - Applies the &quot;between&quot; NUMBER validation rule to the property.
+Value must be between but not equal to the specified min and max.
+null and undefined values are considered valid.
+  * `min: number` - No description available
+  * `max: number` - No description available
+
+
 * `email(): FluentRuleCustomizer` - Applies the &quot;email&quot; rule to the property.
 null, undefined and empty-string values are considered valid.
 
@@ -175,6 +182,12 @@ null, undefined and empty-string values are considered valid.
   * `regex: RegExp` - No description available
 
 
+* `max(value: number): FluentRuleCustomizer` - Applies the &quot;max&quot; NUMBER validation rule to the property.
+Value must be less than or equal to the specified constraint.
+null and undefined values are considered valid.
+  * `value: number` - No description available
+
+
 * `maxItems(count: number): FluentRuleCustomizer` - Applies the &quot;maxItems&quot; ARRAY validation rule to the property.
 null and undefined values are considered valid.
   * `count: number` - No description available
@@ -183,6 +196,12 @@ null and undefined values are considered valid.
 * `maxLength(length: number): FluentRuleCustomizer` - Applies the &quot;maxLength&quot; STRING validation rule to the property.
 null, undefined and empty-string values are considered valid.
   * `length: number` - No description available
+
+
+* `min(value: number): FluentRuleCustomizer` - Applies the &quot;min&quot; NUMBER validation rule to the property.
+Value must be greater than or equal to the specified constraint.
+null and undefined values are considered valid.
+  * `value: number` - No description available
 
 
 * `minItems(count: number): FluentRuleCustomizer` - Applies the &quot;minItems&quot; ARRAY validation rule to the property.
@@ -198,6 +217,13 @@ null, undefined and empty-string values are considered valid.
 * `on(target: any): FluentEnsure` - Applies the rules to a class or object, making them discoverable by the StandardValidator.
   * `target: any` - A class or object.
 
+
+
+* `range(min: number, max: number): FluentRuleCustomizer` - Applies the &quot;range&quot; NUMBER validation rule to the property.
+Value must be between or equal to the specified min and max.
+null and undefined values are considered valid.
+  * `min: number` - No description available
+  * `max: number` - No description available
 
 
 * `required(): FluentRuleCustomizer` - Applies the &quot;required&quot; rule to the property.
@@ -260,6 +286,13 @@ manages this property, there&#x27;s usually no need to set it directly.
 #### Methods
 
 
+* `between(min: number, max: number): FluentRuleCustomizer` - Applies the &quot;between&quot; NUMBER validation rule to the property.
+Value must be between but not equal to the specified min and max.
+null and undefined values are considered valid.
+  * `min: number` - No description available
+  * `max: number` - No description available
+
+
 * `displayName(name: ): this` - Sets the display name of the ensured property.
   * `name: ` - No description available
 
@@ -279,6 +312,12 @@ null, undefined and empty-string values are considered valid.
   * `regex: RegExp` - No description available
 
 
+* `max(constraint: number): FluentRuleCustomizer` - Applies the &quot;max&quot; NUMBER validation rule to the property.
+Value must be less than or equal to the specified constraint.
+null and undefined values are considered valid.
+  * `constraint: number` - No description available
+
+
 * `maxItems(count: number): FluentRuleCustomizer` - Applies the &quot;maxItems&quot; ARRAY validation rule to the property.
 null and undefined values are considered valid.
   * `count: number` - No description available
@@ -289,6 +328,12 @@ null, undefined and empty-string values are considered valid.
   * `length: number` - No description available
 
 
+* `min(constraint: number): FluentRuleCustomizer` - Applies the &quot;min&quot; NUMBER validation rule to the property.
+Value must be greater than or equal to the specified constraint.
+null and undefined values are considered valid.
+  * `constraint: number` - No description available
+
+
 * `minItems(count: number): FluentRuleCustomizer` - Applies the &quot;minItems&quot; ARRAY validation rule to the property.
 null and undefined values are considered valid.
   * `count: number` - No description available
@@ -297,6 +342,13 @@ null and undefined values are considered valid.
 * `minLength(length: number): FluentRuleCustomizer` - Applies the &quot;minLength&quot; STRING validation rule to the property.
 null, undefined and empty-string values are considered valid.
   * `length: number` - No description available
+
+
+* `range(min: number, max: number): FluentRuleCustomizer` - Applies the &quot;range&quot; NUMBER validation rule to the property.
+Value must be between or equal to the specified min and max.
+null and undefined values are considered valid.
+  * `min: number` - No description available
+  * `max: number` - No description available
 
 
 * `required(): FluentRuleCustomizer` - Applies the &quot;required&quot; rule to the property.

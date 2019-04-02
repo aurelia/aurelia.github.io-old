@@ -8,7 +8,7 @@
     <div class="api-card">
       <blockquote>
         <h3 class="api-signature">
-          <span class="api-name">reloadResources</span>(<span class="function-params"><span class="declare-param"><span class="param-name">lngs</span><span class="param-flag">?: </span><span class="param-type">any</span>, </span><span class="declare-param"><span class="param-name">ns</span><span class="param-flag">?: </span><span class="param-type">any</span></span></span>)<span>: <span class="function-returns">void</span></span>
+          <span class="api-name">reloadResources</span>(<span class="function-params"><span class="declare-param"><span class="param-name">lngs</span><span class="param-flag">?: </span><span class="param-type">any</span>, </span><span class="declare-param"><span class="param-name">ns</span><span class="param-flag">?: </span><span class="param-type">any</span>, </span><span class="declare-param"><span class="param-name">callback</span><span class="param-flag">?: </span><span class="param-type">any</span></span></span>)<span>: <span class="function-returns">Promise</span></span>
         </h3>
         <div class="api-description">Reloads resources on given state. Optionally you can pass an array of languages and namespaces as params if you don&#x27;t want to reload all.</div>
       </blockquote>
@@ -23,6 +23,11 @@
         <div class="function-params">
           <div class="declare-param">
             <span class="param-name">ns</span><span class="param-flag">?: </span><span class="param-type">any</span>
+          </div>
+        </div>
+        <div class="function-params">
+          <div class="declare-param">
+            <span class="param-name">callback</span><span class="param-flag">?: </span><span class="param-type">any</span>
           </div>
         </div>
     

@@ -185,9 +185,9 @@
   
 </code-listing>
 <div class="danger"><div class="icon"> <i></i> </div><p>
-Always use HTML sanitization. We provide a simple converter that can be used. You are encouraged to use a more complete HTML sanitizer such as 
-<a href="https://www.npmjs.com/package/sanitize-html" target="_blank">sanitize-html</a>
-.</p>
+Always use HTML sanitization. We provide a simple converter as a placeholder. However, it does NOT provide security against a wide variety of sophisticated XSS attacks, and should not be relied upon for sanitizing input from unknown sources. You can replace the built-in sanitizer by registering your own implementation of 
+<a href="https://github.com/aurelia/templating-resources/blob/master/src/html-sanitizer.js" target="_blank">HTMLSanitizer</a>
+ with the app at startup. For example, <code>aurelia.use.singleton(HTMLSanitizer, BetterHTMLSanitizer);</code> We recommend using a library such as DOMPurify or sanitize-html for your implementation.</p>
 </div>
 <div class="warning"><div class="icon"> <i></i> </div><p>
 Binding using the <code>innerhtml</code> attribute simply sets the element's <code>innerHTML</code> property.  The markup does not pass through Aurelia's templating system.  Binding expressions and require elements will not be evaluated.</p>

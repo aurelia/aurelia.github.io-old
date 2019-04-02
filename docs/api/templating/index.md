@@ -402,6 +402,7 @@ Dispatches subscribets to and publishes events in the DOM.
 
 #### Properties
 
+* `static defaultListenerOptions: ` - No description available.
 
 #### Methods
 
@@ -422,16 +423,16 @@ Dispatches subscribets to and publishes events in the DOM.
 
 
 
-* `subscribe(eventName: string, handler: Function, captureOrOptions?: boolean): EventHandler` - Adds and Event Listener on the context element.
+* `subscribe(eventName: string, handler: Function, captureOrOptions?: ): EventHandler` - Adds and Event Listener on the context element.
   * `eventName: string` - No description available
   * `handler: Function` - No description available
-  * `captureOrOptions?: boolean` - No description available
+  * `captureOrOptions?: ` - No description available
 
 
-* `subscribeOnce(eventName: string, handler: Function, captureOrOptions?: boolean): EventHandler` - Adds an Event Listener on the context element, that will be disposed on the first trigger.
+* `subscribeOnce(eventName: string, handler: Function, captureOrOptions?: ): EventHandler` - Adds an Event Listener on the context element, that will be disposed on the first trigger.
   * `eventName: string` - No description available
   * `handler: Function` - No description available
-  * `captureOrOptions?: boolean` - No description available
+  * `captureOrOptions?: ` - No description available
 
 
 

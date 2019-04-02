@@ -694,9 +694,10 @@ No description available.
 #### Methods
 
 
-* `bind(binding?: any, source?: any): any` - 
+* `bind(binding?: any, source?: any, names: ): any` - 
   * `binding?: any` - No description available
   * `source?: any` - No description available
+  * `names: ` - No description available
 
 
 * `unbind(binding?: any, source?: any): any` - 
