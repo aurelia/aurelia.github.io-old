@@ -258,7 +258,7 @@ State that is contained within the component is a good thing, as long as only th
   
   @<span class="token function">inject</span><span class="token punctuation">(</span>Store<span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-    <span class="token function">constructor</span><span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">this</span><span class="token punctuation">.</span>store <span class="token operator">=</span> store<span class="token punctuation">;</span> <span class="token punctuation">}</span>
   
     <span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>subscription <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>
@@ -990,6 +990,7 @@ You can create a &quot;shallow&quot; clone of the state by using <code>Object.as
   @<span class="token function">inject</span><span class="token punctuation">(</span>Store<span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
     <span class="token function">constructor</span><span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>store <span class="token operator">=</span> store<span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span><span class="token function">registerAction</span><span class="token punctuation">(</span><span class="token string">'DemoAction'</span><span class="token punctuation">,</span> demoAction<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
@@ -1037,6 +1038,7 @@ You can create a &quot;shallow&quot; clone of the state by using <code>Object.as
   @<span class="token function">inject</span><span class="token punctuation">(</span>Store<span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
     <span class="token function">constructor</span><span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>store <span class="token operator">=</span> store<span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span><span class="token function">registerAction</span><span class="token punctuation">(</span><span class="token string">'DemoAction'</span><span class="token punctuation">,</span> demoAction<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span><span class="token function">unregisterAction</span><span class="token punctuation">(</span>demoAction<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -1157,6 +1159,7 @@ Alternatively we can also provide the previously registered name instead.</p>
   @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
     <span class="token function">constructor</span><span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>store <span class="token operator">=</span> store<span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span><span class="token function">registerAction</span><span class="token punctuation">(</span><span class="token string">'DemoAction'</span><span class="token punctuation">,</span> demoAction<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
@@ -1342,7 +1345,7 @@ Yet exactly the later is what a two-way binding introduces if you bind your VM d
     <span class="token keyword">return</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> state<span class="token punctuation">,</span> model<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
-  @<span class="token function">autoinject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  @<span class="token function">inject</span><span class="token punctuation">(</span>Store<span class="token punctuation">)</span>
   @<span class="token function">inlineView</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`
     &lt;template>
       Firstname: &lt;input type="text" value.bind="model.firstName">
@@ -1351,7 +1354,8 @@ Yet exactly the later is what a two-way binding introduces if you bind your VM d
     &lt;/template>
   `</span></span><span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> store<span class="token punctuation">:</span> Store<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>store <span class="token operator">=</span> store<span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span><span class="token function">registerAction</span><span class="token punctuation">(</span><span class="token string">'updateUser'</span><span class="token punctuation">,</span> updateUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   

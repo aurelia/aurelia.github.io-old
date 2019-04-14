@@ -554,7 +554,7 @@ This is not a limitation of Aurelia. It is HTML5 who doesn't support self-closin
 <li><code>@useView(path)</code> - Specifies a different view to use.</li>
 <li><code>@noView(dependencies?)</code> - Indicates that this custom element does not have a view and that the author intends for the element to handle its own rendering internally. This is extremely useful when &quot;wrapping&quot; legacy JavaScript widgets that programatically create their markup</li>
 <li><code>@inlineView(markup, dependencies?)</code> - Allows the developer to provide a string that will be compiled into the view.</li>
-<li><code>@useShadowDOM()</code> - Causes the view to be rendered in the ShadowDOM. When an element is rendered to ShadowDOM, a special <code>DOMBoundary</code> instance can optionally be injected into the constructor. This represents the shadow root.</li>
+<li><code>@useShadowDOM(options?: { mode: 'open' | 'closed' })</code> - Causes the view to be rendered in the ShadowDOM. When an element is rendered to ShadowDOM, a special <code>DOMBoundary</code> instance can optionally be injected into the constructor. This represents the shadow root.</li>
 <li><code>@containerless()</code> - Causes the element's view to be rendered without the custom element container wrapping it. This cannot be used in conjunction with <code>@child</code>, <code>@children</code> or <code>@useShadowDOM</code> decorators. It also cannot be used with surrogate behaviors. Use sparingly.</li>
 <li><code>@viewResources(...dependencies)</code> - Adds dependencies to the underlying View. Same as: <code>&lt;require from=&quot;...&quot;&gt;&lt;/require&gt;</code>, but declared in the ViewModel. Arguments can either be strings with <code>moduleId</code>s, <code>Object</code>s with <code>src</code> and optionally <code>as</code> properties, or classes of the module to be included.</li>
 </ul>
@@ -1090,6 +1090,84 @@ This is not a limitation of Aurelia. It is HTML5 who doesn't support self-closin
 <div class="info"><div class="icon"> <i></i> </div><p>
 Have you noted that you can register the control with a different name and use that while creating the element? So, it is possible to alias your <code>tab-header</code> as <code>zaphod-beeblebrox</code>. Fancy that!</p>
 </div>
+<h4>Using shadow dom</h4>
+<p>A simple hello-world example showing how to scope your styles to your custom element using shadow dom.</p>
+
+<code-listing heading="hello-world.html">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./hello-world.css<span class="token punctuation">"</span></span> <span class="token attr-name">as</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>scoped<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>${message}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing heading="hello-world.css">
+  
+<source-code lang="CSS">
+  <pre class="language-javascript">
+    <code>
+  h1 <span class="token punctuation">{</span>
+    color<span class="token punctuation">:</span> green<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing heading="hello-world.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> useShadowDOM <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">useShadowDOM</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">HelloWorld</span> <span class="token punctuation">{</span>
+    message <span class="token operator">=</span> <span class="token string">'Hello World!'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> useShadowDOM <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">useShadowDOM</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">HelloWorld</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> message<span class="token punctuation">:</span> <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">'Hello World!'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<h5>Using shadow dom in a HTML only custom component</h5>
+
+<code-listing heading="hello-world.html">
+  
+<source-code lang="HTML">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">use-shadow-dom</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./hello-world.css<span class="token punctuation">"</span></span> <span class="token attr-name">as</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>scoped<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>Hello World!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
 </section>
 
   </article>

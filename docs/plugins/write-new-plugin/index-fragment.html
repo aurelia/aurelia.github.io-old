@@ -1,11 +1,11 @@
 <section class="article">
   <header>
     <h1>Write New Plugin</h1>
-    <h2>The tutorial on how to write a new Aurelia plugin.</h2>
+    <h2>A tutorial on how to write a new Aurelia plugin.</h2>
   </header>
 
   <article class="markdown">
-    <section><h2 id="introduction">Introduction</h2><p>Thank for Aurelia coding convention, writing an new Aurelia Plugin is not difficult. However the setup of a new plugin project was difficult, but now you can generate a new plugin project effortlessly using Aurelia-CLI.</p>
+    <section><h2 id="introduction">Introduction</h2><p>Thanks to Aurelia coding convention, writing a new Aurelia Plugin is not difficult. However the setup of a new plugin project was difficult, but now you can generate a new plugin project effortlessly using Aurelia-CLI.</p>
 </section>
 <section><h2 id="setup">Setup</h2><p>In this tutorial, we will use <a href="/docs/cli">Aurelia-CLI</a> to create a plugin project.</p>
 <p>First, make sure you installed the latest Aurelia-CLI.</p>
@@ -25,14 +25,14 @@
 </section>
 <section><h2 id="structure-of-plugin">Structure of Plugin</h2><p>The plugin project created by Aurelia-CLI provides not only the plugin source itself, but also a dev app (with CLI built-in bundler and RequireJS) to simplify the development of the plugin.</p>
 <div class="info"><div class="icon"> <i></i> </div><p>
-We don't provide plugin skeleton with dev-app in webpack setup, not yet. We use CLI built-in bundler because it allows us to share some setup to transpile plugin resoruces (js/html/css).</p>
+We don't provide plugin skeleton with dev-app in webpack setup, not yet. We use CLI built-in bundler because it allows us to share some setup to transpile plugin resources (js/html/css).</p>
 </div>
 <ol>
 <li>The local <code>src/</code> folder, is the source code for the plugin.</li>
 <li>The local <code>dev-app/</code> folder, is the code for the dev app, just like a normal app bootstrapped by aurelia-cli.</li>
 <li>You can use normal <code>au run</code> and <code>au test</code> in development just like developing an app.</li>
 <li>You can use aurelia-testing to test your plugin, just like developing an app.</li>
-<li>To ensure compatibility to other apps, always use <code>PLATFORM.moduleName()</code> wrapper in files inside <code>src/</code>. You don't need to use the wrapper in <code>dev-app/</code> folder as CLI built-in bundler supports module name without the wrapper.</li>
+<li>To ensure compatibility with other apps, always use <code>PLATFORM.moduleName()</code> wrapper in files inside <code>src/</code>. You don't need to use the wrapper in <code>dev-app/</code> folder as CLI built-in bundler supports module name without the wrapper.</li>
 </ol>
 <h3>Plugin Entry</h3>
 <p>The plugin entry file is <code>src/index.js</code> (or <code>src/index.ts</code> if using TypeScript). It exports only one function called &quot;configure&quot;.</p>
@@ -70,7 +70,7 @@ We don't provide plugin skeleton with dev-app in webpack setup, not yet. We use 
 </source-code>
   
 </code-listing>
-<p>The configure function is called by Aurelia when end users who use your plugin in their app like this:</p>
+<p>The configure function is called by Aurelia when end users use your plugin in their app like this:</p>
 
 <code-listing heading="main.js">
   
@@ -92,12 +92,12 @@ We don't provide plugin skeleton with dev-app in webpack setup, not yet. We use 
 </source-code>
   
 </code-listing>
-<p>The methods you can use inside the configure function is listed in <a href="/docs/api/framework/class/FrameworkConfiguration">FrameworkConfiguration</a>. <code>globalResources</code> can register custom elements, custom attributes, value converters, and binding behaviors to be globally available in end users' app.</p>
+<p>The methods you can use inside the configure function are listed in <a href="/docs/api/framework/class/FrameworkConfiguration">FrameworkConfiguration</a>. <code>globalResources</code> can register custom elements, custom attributes, value converters, and binding behaviors to be globally available in end users' app.</p>
 <div class="info"><div class="icon"> <i></i> </div><p>
-Note <code>globalResources</code> isn't the only method you can use. You can use other methods to bring in additional plugins, register objects to Aurelia DI container, and more. We will show some of those usage later in this tutorial.</p>
+Note <code>globalResources</code> isn't the only method you can use. You can use other methods to bring in additional plugins, register objects to Aurelia DI container, and more. We will show some of those usages later in this tutorial.</p>
 </div>
 <h3>Create New Resources</h3>
-<p>You can create new custom element, custom attribute, value converter or binding behavior manually, or use command <code>au generate</code> to help.</p>
+<p>You can create a new custom element, custom attribute, value converter or binding behavior manually, or use command <code>au generate</code> to help.</p>
 
 <code-listing>
   
@@ -113,7 +113,7 @@ Note <code>globalResources</code> isn't the only method you can use. You can use
 </source-code>
   
 </code-listing>
-<p>By default, the cli generates command generates files in following folders:</p>
+<p>By default, the cli generate command generates files in following folders:</p>
 
 <code-listing>
   
@@ -129,7 +129,7 @@ Note <code>globalResources</code> isn't the only method you can use. You can use
 </source-code>
   
 </code-listing>
-<p>Note the folder structure is only to help you organizing the files, it's not a requirement of Aurelia. You can manually create new element (or other thing) anywhere in <code>src/</code>.</p>
+<p>Note the folder structure is only to help you with organizing the files, it's not a requirement of Aurelia. You can manually create new element (or other thing) anywhere in <code>src/</code>.</p>
 <p>After you added some new file, you need to register it in <code>src/index.js</code> (or <code>src/index.ts</code>. Like this:</p>
 
 <code-listing>
@@ -146,21 +146,60 @@ Note <code>globalResources</code> isn't the only method you can use. You can use
 </source-code>
   
 </code-listing>
+<h3>Resource import within the dev app</h3>
+<p>In dev app, when you need to import something from the inner plugin (for example, importing a class for dependency injection), use special name <code>&quot;resources&quot;</code> to reference the inner plugin.</p>
+
+<code-listing heading="app.js">
+  
+<source-code lang="JavaScript">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  <span class="token comment">// "resources" refers the inner plugin src/index.js</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>MyService<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'resources'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">inject</span><span class="token punctuation">(</span>MyService<span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span>myService<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>myService <span class="token operator">=</span> myService<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  <span class="token comment">// "resources" refers the inner plugin src/index.ts</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>MyService<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'resources'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">autoinject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>myService<span class="token punctuation">:</span> MyService<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
 </section>
 <section><h2 id="develop-plugin">Develop Plugin</h2><h3>Run Dev App</h3>
 <p>Run the built-in dev app with command <code>au run --open</code>, it will automatically open the browser to show you the example custom element <code>hello-world</code>.</p>
 <div class="info"><div class="icon"> <i></i> </div><p>
-If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugin</code>, the final question will provide you to choose a &quot;Basic&quot; scaffolding instead of &quot;None&quot;. The &quot;Basic&quot; will give you additional examples in custom attribute, value converter, and binding behavior.</p>
+If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugin</code>, the final question will allow you to choose a &quot;Basic&quot; scaffolding instead of &quot;None&quot;. The &quot;Basic&quot; will give you additional examples in custom attribute, value converter, and binding behavior.</p>
 </div>
 <h3>Tests</h3>
 <p>Terminate the running dev app before running tests. Run <code>au test</code> to run unit tests. Depending on your choice of unit testing framework (karma/jest), the way to write unit tests is slightly different, please follow the existing example in <code>test/unit/</code>.</p>
 <p>For the quality of your plugin, we recommend using karma, as we really want testing against a real browser. Jest runs tests in NodeJS with a simulated browser environment. Jest is much faster but it does not really test your plugin inside browser.</p>
 <h3>Manage dependencies</h3>
-<p>By default, this plugin has no &quot;dependencies&quot; in package.json. Theoretically this plugin depends on at least <code>aurelia-pal</code> because <code>src/index.js</code> (or <code>src/index.ts</code>) imports it. It could also depends on more core Aurelia package like <code>aurelia-binding</code> or <code>aurelia-templating</code> if you build advanced components that reference them.</p>
+<p>By default, this plugin has no &quot;dependencies&quot; in package.json. Theoretically this plugin depends on at least <code>aurelia-pal</code> because <code>src/index.js</code> (or <code>src/index.ts</code>) imports it. It could also depend on more core Aurelia packages like <code>aurelia-binding</code> or <code>aurelia-templating</code> if you build advanced components that reference them.</p>
 <p>Ideally you need to carefully add those <code>aurelia-pal</code> (<code>aurelia-binding</code>...) to &quot;dependencies&quot; in package.json. But in practice you don't have to. Because every app that consumes this plugin will have full Aurelia core packages installed.</p>
 <p>Furthermore, there are two benefits by leaving those dependencies out of plugin's package.json.</p>
 <ol>
-<li>ensure this plugin doesn't bring in a duplicated Aurelia core package to consumers' app. This is mainly for app built with webpack. We had been hit with <code>aurelia-binding</code> v1 and v2 conflicts due to 3rd party plugin asks for <code>aurelia-binding</code> v1.</li>
+<li>ensure this plugin doesn't bring in a duplicated Aurelia core package to consumers' app. This is mainly for app built with webpack. We had been hit with <code>aurelia-binding</code> v1 and v2 conflicts due to 3rd party plugin asking for <code>aurelia-binding</code> v1.</li>
 <li>reduce the burden for npm/yarn when installing this plugin.</li>
 </ol>
 <p>If you are a perfectionist who could not stand leaving out dependencies, I recommend you to add <code>aurelia-pal</code> (<code>aurelia-binding</code>...) to &quot;peerDependencies&quot; in package.json. So at least it could not cause a duplicated Aurelia core package.</p>
@@ -210,7 +249,7 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
 <a href="https://github.com/yarnpkg/yarn/issues/5235" target="_blank">bug</a>
  that ignores <code>&quot;prepare&quot;</code> script. If you want to use yarn to consume your plugin through direct git reference, remove <code>/dist</code> from <code>.gitignore</code> and commit all the files. Note you don't need to commit <code>dist/</code> files if you only use yarn to consume this plugin through published npm package (<code>npm i your-plugin-name</code>).</p>
 <h3>Publish npm package</h3>
-<p>By default, <code>&quot;private&quot;</code> field in package.json has been turned on, this prevents you from accidentally publish a private plugin to npm.</p>
+<p>By default, <code>&quot;private&quot;</code> field in package.json has been turned on, this prevents you from accidentally publishing a private plugin to npm.</p>
 <p>To publish the plugin to npm for public assumption:</p>
 <ol>
 <li>
@@ -299,7 +338,7 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
 </ol>
 </section>
 <section><h2 id="advanced-usage">Advanced Usage</h2><h3>Wrap other plugins</h3>
-<p>You can use plugin to wrap other plugins without providing any additional functionality. This is practically useful to group a list of common plugins to be reused in your organization.</p>
+<p>You can use your plugin to wrap other plugins without providing any additional functionality. This is practically useful to group a list of common plugins to be reused in your organization.</p>
 
 <code-listing heading="index.js">
   
