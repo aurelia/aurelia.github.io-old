@@ -7,7 +7,7 @@
 
 ### ActivateNextStep
 
-No description available.
+A pipeline step responsible for finding and activating method &#x60;activate&#x60; on a view model of a route
 
 #### Properties
 
@@ -15,9 +15,9 @@ No description available.
 #### Methods
 
 
-* `run(navigationInstruction: NavigationInstruction, next: Function): any` - 
+* `run(navigationInstruction: NavigationInstruction, next: Next): Promise` - 
   * `navigationInstruction: NavigationInstruction` - No description available
-  * `next: Function` - No description available
+  * `next: Next` - No description available
 
 
 
@@ -28,11 +28,12 @@ The main application router.
 #### Properties
 
 * `baseUrl: string` - The [[Router]]&#x27;s current base URL, typically based on the [[Router.currentInstruction]].
-* `container: Container` - No description available.
+* `container: Container` - Container associated with this router. Also used to create child container for creating child router.
 * `couldDeactivate: boolean` - True if the previous instruction successfully completed the CanDeactivatePreviousStep in the current navigation.
 * `currentInstruction: NavigationInstruction` - The currently active navigation instruction.
 * `currentNavigationTracker: number` - The currently active navigation tracker.
-* `history: History` - No description available.
+* `events: EventAggregator` - No description available.
+* `history: History` - History instance of Aurelia abstract class for wrapping platform history global object
 * `isConfigured: boolean` - True if the [[Router]] has been configured.
 * `isExplicitNavigation: boolean` - True if the [[Router]] is navigating due to explicit call to navigate function(s).
 * `isExplicitNavigationBack: boolean` - True if the [[Router]] is navigating due to explicit call to navigateBack function.
@@ -46,20 +47,21 @@ The main application router.
 * `navigation: ` - The navigation models for routes that specified [[RouteConfig.nav]].
 * `options: any` - No description available.
 * `parent: Router` - The parent router, or null if this instance is not a child router.
-* `routes: ` - No description available.
+* `routes: ` - List of route configs registered with this router
 * `title: ` - If defined, used in generation of document title for [[Router]]&#x27;s routes.
 * `titleSeparator: ` - The separator used in the document title between [[Router]]&#x27;s routes.
 * `transformTitle: ` - Extension point to transform the document title before it is built and displayed.
 By default, child routers delegate to the parent router, and the app router
 returns the title unchanged.
-* `viewPortDefaults: any` - The defaults used when a viewport lacks specified content
-* `viewPorts: Object` - No description available.
+* `viewPortDefaults: Record` - The defaults used when a viewport lacks specified content
+* `viewPorts: Record` - A registry of registered viewport. Will be used to handle process navigation instruction route loading
+and dom swapping
 
 #### Methods
 
 
-* `activate(options: Object): void` - Activates the router. This instructs the router to begin listening for history changes and processing instructions.
-  * `options: Object` - No description available
+* `activate(options?: NavigationOptions): void` - Activates the router. This instructs the router to begin listening for history changes and processing instructions.
+  * `options?: NavigationOptions` - No description available
 
 
 * `addRoute(config: RouteConfig, navModel?: NavModel): void` - Registers a new route with the router.
@@ -88,14 +90,14 @@ returns the title unchanged.
 * `ensureConfigured(): Promise` - Returns a Promise that resolves when the router is configured.
 
 
-* `generate(name: string, params?: any, options?: any): string` - Generates a URL fragment matching the specified route pattern.
-  * `name: string` - The name of the route whose pattern should be used to generate the fragment.
+* `generate(nameOrRoute: , params?: any, options?: any): string` - Generates a URL fragment matching the specified route pattern.
+  * `nameOrRoute: ` - No description available
   * `params?: any` - The route params to be used to populate the route pattern.
   * `options?: any` - If options.absolute &#x3D; true, then absolute url will be generated; otherwise, it will be relative url.
 
 
-* `handleUnknownRoutes(config?: ): void` - Register a handler to use when the incoming URL fragment doesn&#x27;t match any registered routes.
-  * `config?: ` - The moduleId, or a function that selects the moduleId, or a [[RouteConfig]].
+* `handleUnknownRoutes(config?: RouteConfigSpecifier): void` - Register a handler to use when the incoming URL fragment doesn&#x27;t match any registered routes.
+  * `config?: RouteConfigSpecifier` - The moduleId, or a function that selects the moduleId, or a [[RouteConfig]].
 
 
 
@@ -109,12 +111,12 @@ returns the title unchanged.
 
 
 
-* `loadUrl(url?: any): Promise` - Loads the specified URL.
-  * `url?: any` - The URL fragment to load.
+* `loadUrl(url: string): Promise` - Loads the specified URL.
+  * `url: string` - The URL fragment to load.
 
 
 
-* `navigate(fragment: string, options?: NavigationOptions): Promise` - Navigates to a new location.
+* `navigate(fragment: string, options?: NavigationOptions): boolean` - Navigates to a new location.
   * `fragment: string` - The URL fragment to use as the navigation destination.
   * `options?: NavigationOptions` - The navigation options.
 
@@ -123,7 +125,7 @@ returns the title unchanged.
 * `navigateBack(): void` - Navigates back to the most recent location in history.
 
 
-* `navigateToRoute(route: string, params?: any, options?: NavigationOptions): Promise` - Navigates to a new location corresponding to the route and params specified. Equivallent to [[Router.generate]] followed
+* `navigateToRoute(route: string, params?: any, options?: NavigationOptions): boolean` - Navigates to a new location corresponding to the route and params specified. Equivallent to [[Router.generate]] followed
 by [[Router.navigate]].
   * `route: string` - The name of the route to use when generating the navigation location.
   * `params?: any` - The route parameters to be used when populating the route pattern.
@@ -135,32 +137,30 @@ by [[Router.navigate]].
 Note: This method will likely move to a plugin in a future release.
 
 
-* `registerViewPort(viewPort: any, name: string): Promise` - Registers a viewPort to be used as a rendering target for activated routes.
-  * `viewPort: any` - The viewPort.
-  * `name: string` - The name of the viewPort. &#x27;default&#x27; if unspecified.
+* `registerViewPort(viewPort: any, name?: string): Promise` - Registers a viewPort to be used as a rendering target for activated routes.
+  * `viewPort: any` - The viewPort. This is typically a &lt;router-view/&gt; element in Aurelia default impl
+  * `name?: string` - The name of the viewPort. &#x27;default&#x27; if unspecified.
 
 
 
-* `reset(): any` - Fully resets the router&#x27;s internal state. Primarily used internally by the framework when multiple calls to setRoot are made.
+* `reset(): void` - Fully resets the router&#x27;s internal state. Primarily used internally by the framework when multiple calls to setRoot are made.
 Use with caution (actually, avoid using this). Do not use this to simply change your navigation model.
 
 
 * `updateTitle(): void` - Updates the document title using the current navigation instruction.
 
 
-* `useViewPortDefaults(viewPortDefaults: any): any` - Sets the default configuration for the view ports. This specifies how to
+* `useViewPortDefaults($viewPortDefaults: Record): void` - Sets the default configuration for the view ports. This specifies how to
  populate a view port for which no module is specified. The default is
  an empty view/view-model pair.
-  * `viewPortDefaults: any` - No description available
-
-
-* `static inject(): any` - 
+  * `$viewPortDefaults: Record` - No description available
 
 
 
 ### BuildNavigationPlanStep
 
-No description available.
+Transform a navigation instruction into viewport plan record object,
+or a redirect request if user viewmodel demands
 
 #### Properties
 
@@ -168,15 +168,15 @@ No description available.
 #### Methods
 
 
-* `run(navigationInstruction: NavigationInstruction, next: Function): any` - 
+* `run(navigationInstruction: NavigationInstruction, next: Next): Promise` - 
   * `navigationInstruction: NavigationInstruction` - No description available
-  * `next: Function` - No description available
+  * `next: Next` - No description available
 
 
 
 ### CanActivateNextStep
 
-No description available.
+A pipeline step responsible for finding and activating method &#x60;canActivate&#x60; on a view model of a route
 
 #### Properties
 
@@ -184,15 +184,15 @@ No description available.
 #### Methods
 
 
-* `run(navigationInstruction: NavigationInstruction, next: Function): any` - 
+* `run(navigationInstruction: NavigationInstruction, next: Next): Promise` - 
   * `navigationInstruction: NavigationInstruction` - No description available
-  * `next: Function` - No description available
+  * `next: Next` - No description available
 
 
 
 ### CanDeactivatePreviousStep
 
-No description available.
+A pipeline step responsible for finding and activating method &#x60;canDeactivate&#x60; on a view model of a route
 
 #### Properties
 
@@ -200,15 +200,15 @@ No description available.
 #### Methods
 
 
-* `run(navigationInstruction: NavigationInstruction, next: Function): any` - 
+* `run(navigationInstruction: NavigationInstruction, next: Next): Promise` - 
   * `navigationInstruction: NavigationInstruction` - No description available
-  * `next: Function` - No description available
+  * `next: Next` - No description available
 
 
 
 ### CommitChangesStep
 
-No description available.
+A pipeline step for instructing a piepline to commit changes on a navigation instruction
 
 #### Properties
 
@@ -216,7 +216,7 @@ No description available.
 #### Methods
 
 
-* `run(navigationInstruction: NavigationInstruction, next: Function): any` - 
+* `run(navigationInstruction: NavigationInstruction, next: Function): Promise` - 
   * `navigationInstruction: NavigationInstruction` - No description available
   * `next: Function` - No description available
 
@@ -224,7 +224,7 @@ No description available.
 
 ### DeactivatePreviousStep
 
-No description available.
+A pipeline step responsible for finding and activating method &#x60;deactivate&#x60; on a view model of a route
 
 #### Properties
 
@@ -232,15 +232,15 @@ No description available.
 #### Methods
 
 
-* `run(navigationInstruction: NavigationInstruction, next: Function): any` - 
+* `run(navigationInstruction: NavigationInstruction, next: Next): Promise` - 
   * `navigationInstruction: NavigationInstruction` - No description available
-  * `next: Function` - No description available
+  * `next: Next` - No description available
 
 
 
 ### LoadRouteStep
 
-No description available.
+A pipeline step responsible for loading a route config of a navigation instruction
 
 #### Properties
 
@@ -248,12 +248,9 @@ No description available.
 #### Methods
 
 
-* `run(navigationInstruction: NavigationInstruction, next: Function): any` - 
+* `run(navigationInstruction: NavigationInstruction, next: Next): Promise` - Run the internal to load route config of a navigation instruction to prepare for next steps in the pipeline
   * `navigationInstruction: NavigationInstruction` - No description available
-  * `next: Function` - No description available
-
-
-* `static inject(): any` - 
+  * `next: Next` - No description available
 
 
 
@@ -266,6 +263,7 @@ Class for storing and interacting with a route&#x27;s navigation settings.
 * `config: RouteConfig` - The route config.
 * `href: string` - This nav item&#x27;s absolute href.
 * `isActive: boolean` - True if this nav item is currently active.
+* `order: ` - No description available.
 * `relativeHref: string` - This nav item&#x27;s relative href.
 * `router: Router` - The router associated with this navigation model.
 * `settings: any` - Data attached to the route at configuration time.
@@ -290,22 +288,23 @@ Class used to represent an instruction during a navigation.
 
 * `config: RouteConfig` - The route config for the route matching this instruction.
 * `fragment: string` - The URL fragment.
-* `options: Object` - No description available.
+* `options: Record` - No description available.
 * `params: any` - Parameters extracted from the route pattern.
+* `parentCatchHandler: any` - No description available.
 * `parentInstruction: NavigationInstruction` - The parent instruction, if this instruction was created by a child router.
-* `plan: Object` - No description available.
+* `plan: Record` - Current built viewport plan of this nav instruction
 * `previousInstruction: NavigationInstruction` - The instruction being replaced by this instruction in the current router.
 * `queryParams: any` - Parameters extracted from the query string.
 * `queryString: string` - The query string.
 * `router: Router` - The router instance.
-* `viewPortInstructions: any` - viewPort instructions to used activation.
+* `viewPortInstructions: Record` - viewPort instructions to used activation.
 
 #### Methods
 
 
-* `addViewPortInstruction(viewPortName: string, strategy: string, moduleId: string, component: any): any` - Adds a viewPort instruction.
-  * `viewPortName: string` - No description available
-  * `strategy: string` - No description available
+* `addViewPortInstruction(name: string, strategy: ActivationStrategyType, moduleId: string, component: any): any` - Adds a viewPort instruction. Returns the newly created instruction based on parameters
+  * `name: string` - No description available
+  * `strategy: ActivationStrategyType` - No description available
   * `moduleId: string` - No description available
   * `component: any` - No description available
 
@@ -334,13 +333,14 @@ The class responsible for managing and processing the navigation pipeline.
 
 #### Properties
 
-* `steps: Array` - The pipeline steps.
+* `steps: ` - The pipeline steps. And steps added via addStep will be converted to a function
+The actualy running functions with correct step contexts of this pipeline
 
 #### Methods
 
 
-* `addStep(step: PipelineStep): Pipeline` - Adds a step to the pipeline.
-  * `step: PipelineStep` - The pipeline step.
+* `addStep(step: ): Pipeline` - Adds a step to the pipeline.
+  * `step: ` - The pipeline step.
 
 
 
@@ -360,24 +360,21 @@ Class responsible for creating the navigation pipeline.
 #### Methods
 
 
-* `addStep(name: string, step: PipelineStep): void` - Adds a step into the pipeline at a known slot location.
+* `addStep(name: string, step: ): void` - Adds a step into the pipeline at a known slot location.
   * `name: string` - No description available
-  * `step: PipelineStep` - No description available
+  * `step: ` - No description available
 
 
 * `createPipeline(useCanDeactivateStep?: boolean): Pipeline` - Create the navigation pipeline.
   * `useCanDeactivateStep?: boolean` - No description available
 
 
-* `removeStep(name: string, step: PipelineStep): any` - Removes a step from a slot in the pipeline
+* `removeStep(name: string, step: PipelineStep): void` - Removes a step from a slot in the pipeline
   * `name: string` - No description available
   * `step: PipelineStep` - No description available
 
 
-* `reset(): any` - Resets all pipeline slots
-
-
-* `static inject(): any` - 
+* `reset(): void` - Resets all pipeline slots
 
 
 
@@ -387,6 +384,8 @@ Used during the activation lifecycle to cause a redirect.
 
 #### Properties
 
+* `router: any` - No description available.
+* `url: string` - No description available.
 
 #### Methods
 
@@ -408,6 +407,8 @@ Used during the activation lifecycle to cause a redirect to a named route.
 
 #### Properties
 
+* `params: any` - No description available.
+* `route: string` - No description available.
 
 #### Methods
 
@@ -425,7 +426,8 @@ Used during the activation lifecycle to cause a redirect to a named route.
 
 ### RouteLoader
 
-No description available.
+Abstract class that is responsible for loading view / view model from a route config
+The default implementation can be found in &#x60;aurelia-templating-router&#x60;
 
 #### Properties
 
@@ -433,10 +435,10 @@ No description available.
 #### Methods
 
 
-* `loadRoute(router: any, config: any, navigationInstruction: any): any` - 
-  * `router: any` - No description available
-  * `config: any` - No description available
-  * `navigationInstruction: any` - No description available
+* `loadRoute(router: Router, config: RouteConfig, navigationInstruction: NavigationInstruction): Promise` - Load a route config based on its viewmodel / view configuration
+  * `router: Router` - No description available
+  * `config: RouteConfig` - No description available
+  * `navigationInstruction: NavigationInstruction` - No description available
 
 
 
@@ -447,11 +449,11 @@ The primary class responsible for handling routing and navigation.
 #### Properties
 
 * `baseUrl: string` - The [[Router]]&#x27;s current base URL, typically based on the [[Router.currentInstruction]].
-* `container: Container` - No description available.
+* `container: Container` - Container associated with this router. Also used to create child container for creating child router.
 * `couldDeactivate: boolean` - True if the previous instruction successfully completed the CanDeactivatePreviousStep in the current navigation.
 * `currentInstruction: NavigationInstruction` - The currently active navigation instruction.
 * `currentNavigationTracker: number` - The currently active navigation tracker.
-* `history: History` - No description available.
+* `history: History` - History instance of Aurelia abstract class for wrapping platform history global object
 * `isConfigured: boolean` - True if the [[Router]] has been configured.
 * `isExplicitNavigation: boolean` - True if the [[Router]] is navigating due to explicit call to navigate function(s).
 * `isExplicitNavigationBack: boolean` - True if the [[Router]] is navigating due to explicit call to navigateBack function.
@@ -465,14 +467,15 @@ The primary class responsible for handling routing and navigation.
 * `navigation: ` - The navigation models for routes that specified [[RouteConfig.nav]].
 * `options: any` - No description available.
 * `parent: Router` - The parent router, or null if this instance is not a child router.
-* `routes: ` - No description available.
+* `routes: ` - List of route configs registered with this router
 * `title: ` - If defined, used in generation of document title for [[Router]]&#x27;s routes.
 * `titleSeparator: ` - The separator used in the document title between [[Router]]&#x27;s routes.
 * `transformTitle: ` - Extension point to transform the document title before it is built and displayed.
 By default, child routers delegate to the parent router, and the app router
 returns the title unchanged.
-* `viewPortDefaults: any` - The defaults used when a viewport lacks specified content
-* `viewPorts: Object` - No description available.
+* `viewPortDefaults: Record` - The defaults used when a viewport lacks specified content
+* `viewPorts: Record` - A registry of registered viewport. Will be used to handle process navigation instruction route loading
+and dom swapping
 
 #### Methods
 
@@ -500,14 +503,14 @@ returns the title unchanged.
 * `ensureConfigured(): Promise` - Returns a Promise that resolves when the router is configured.
 
 
-* `generate(name: string, params?: any, options?: any): string` - Generates a URL fragment matching the specified route pattern.
-  * `name: string` - The name of the route whose pattern should be used to generate the fragment.
+* `generate(nameOrRoute: , params?: any, options?: any): string` - Generates a URL fragment matching the specified route pattern.
+  * `nameOrRoute: ` - No description available
   * `params?: any` - The route params to be used to populate the route pattern.
   * `options?: any` - If options.absolute &#x3D; true, then absolute url will be generated; otherwise, it will be relative url.
 
 
-* `handleUnknownRoutes(config?: ): void` - Register a handler to use when the incoming URL fragment doesn&#x27;t match any registered routes.
-  * `config?: ` - The moduleId, or a function that selects the moduleId, or a [[RouteConfig]].
+* `handleUnknownRoutes(config?: RouteConfigSpecifier): void` - Register a handler to use when the incoming URL fragment doesn&#x27;t match any registered routes.
+  * `config?: RouteConfigSpecifier` - The moduleId, or a function that selects the moduleId, or a [[RouteConfig]].
 
 
 
@@ -521,7 +524,7 @@ returns the title unchanged.
 
 
 
-* `navigate(fragment: string, options?: NavigationOptions): Promise` - Navigates to a new location.
+* `navigate(fragment: string, options?: NavigationOptions): boolean` - Navigates to a new location.
   * `fragment: string` - The URL fragment to use as the navigation destination.
   * `options?: NavigationOptions` - The navigation options.
 
@@ -530,7 +533,7 @@ returns the title unchanged.
 * `navigateBack(): void` - Navigates back to the most recent location in history.
 
 
-* `navigateToRoute(route: string, params?: any, options?: NavigationOptions): Promise` - Navigates to a new location corresponding to the route and params specified. Equivallent to [[Router.generate]] followed
+* `navigateToRoute(route: string, params?: any, options?: NavigationOptions): boolean` - Navigates to a new location corresponding to the route and params specified. Equivallent to [[Router.generate]] followed
 by [[Router.navigate]].
   * `route: string` - The name of the route to use when generating the navigation location.
   * `params?: any` - The route parameters to be used when populating the route pattern.
@@ -548,17 +551,17 @@ Note: This method will likely move to a plugin in a future release.
 
 
 
-* `reset(): any` - Fully resets the router&#x27;s internal state. Primarily used internally by the framework when multiple calls to setRoot are made.
+* `reset(): void` - Fully resets the router&#x27;s internal state. Primarily used internally by the framework when multiple calls to setRoot are made.
 Use with caution (actually, avoid using this). Do not use this to simply change your navigation model.
 
 
 * `updateTitle(): void` - Updates the document title using the current navigation instruction.
 
 
-* `useViewPortDefaults(viewPortDefaults: any): any` - Sets the default configuration for the view ports. This specifies how to
+* `useViewPortDefaults($viewPortDefaults: Record): void` - Sets the default configuration for the view ports. This specifies how to
  populate a view port for which no module is specified. The default is
  an empty view/view-model pair.
-  * `viewPortDefaults: any` - No description available
+  * `$viewPortDefaults: Record` - No description available
 
 
 
@@ -573,8 +576,8 @@ Class used to configure a [[Router]] instance.
 * `pipelineSteps: Array` - No description available.
 * `title: string` - No description available.
 * `titleSeparator: string` - No description available.
-* `unknownRouteConfig: ` - No description available.
-* `viewPortDefaults: ` - No description available.
+* `unknownRouteConfig: RouteConfigSpecifier` - No description available.
+* `viewPortDefaults: Record` - No description available.
 
 #### Methods
 
@@ -617,13 +620,13 @@ Class used to configure a [[Router]] instance.
   * `config: RouteConfig` - No description available
 
 
-* `mapUnknownRoutes(config: ): RouterConfiguration` - Registers an unknown route handler to be run when the URL fragment doesn&#x27;t match any registered routes.
-  * `config: ` - A string containing a moduleId to load, or a [[RouteConfig]], or a function that takes the
+* `mapUnknownRoutes(config: RouteConfigSpecifier): RouterConfiguration` - Registers an unknown route handler to be run when the URL fragment doesn&#x27;t match any registered routes.
+  * `config: RouteConfigSpecifier` - A string containing a moduleId to load, or a [[RouteConfig]], or a function that takes the
  [[NavigationInstruction]] and selects a moduleId to load.
 
 
-* `useViewPortDefaults(viewPortConfig: ): RouterConfiguration` - Configures defaults to use for any view ports.
-  * `viewPortConfig: ` - a view port configuration object to use as a
+* `useViewPortDefaults(viewPortConfig: Record): RouterConfiguration` - Configures defaults to use for any view ports.
+  * `viewPortConfig: Record` - a view port configuration object to use as a
  default, of the form { viewPortName: { moduleId } }.
 
 
@@ -671,7 +674,40 @@ A basic interface for an Observable type
 #### Methods
 
 
-* `subscribe(): ISubscription` - 
+* `subscribe(sub?: IObservableConfig): ISubscription` - 
+  * `sub?: IObservableConfig` - No description available.
+
+
+
+### IObservableConfig
+
+No description available.
+
+#### Properties
+
+
+#### Methods
+
+
+* `complete(): void` - 
+
+
+* `error(err?: any): void` - 
+  * `err?: any` - No description available.
+
+
+* `next(): void` - 
+
+
+
+### IPipelineSlot
+
+A multi-step pipeline step that helps enable multiple hooks to the pipeline
+
+#### Properties
+
+
+#### Methods
 
 
 
@@ -697,28 +733,26 @@ command so it can determine the correct action.
 
 #### Properties
 
+* `navigate: ` - No description available.
 
 #### Methods
-
-
-* `navigate(router: Router): void` - 
-  * `router: Router` - No description available.
 
 
 
 ### NavigationInstructionInit
 
-No description available.
+Initialization options for a navigation instruction
 
 #### Properties
 
 * `config: RouteConfig` - No description available.
 * `fragment: string` - No description available.
 * `options: Object` - No description available.
-* `params: Object` - No description available.
+* `params: Record` - No description available.
 * `parentInstruction: NavigationInstruction` - No description available.
+* `plan: Record` - No description available.
 * `previousInstruction: NavigationInstruction` - No description available.
-* `queryParams: Object` - No description available.
+* `queryParams: Record` - No description available.
 * `queryString: string` - No description available.
 * `router: Router` - No description available.
 
@@ -733,20 +767,25 @@ or be aborted.
 
 #### Properties
 
+* `cancel: NextCompletionHandler` - Indicates that the pipeline should cancel processing.
+* `complete: NextCompletionHandler` - Indicates the successful completion of the entire pipeline.
+* `reject: NextCompletionHandler` - Indicates that pipeline processing has failed and should be stopped.
 
 #### Methods
 
 
-* `cancel(result?: any): Promise` - Indicates that the pipeline should cancel processing.
-  * `result?: any` - No description available.
 
+### NextCompletionResult
 
-* `complete(result?: any): Promise` - Indicates the successful completion of the entire pipeline.
-  * `result?: any` - No description available.
+Next Completion result. Comprises of final status, output (could be value/error) and flag &#x60;completed&#x60;
 
+#### Properties
 
-* `reject(result?: any): Promise` - Indicates that pipeline processing has failed and should be stopped.
-  * `result?: any` - No description available.
+* `completed: boolean` - No description available.
+* `output: T` - No description available.
+* `status: PipelineStatus` - No description available.
+
+#### Methods
 
 
 
@@ -780,6 +819,18 @@ next.cancel(), or next.reject() to allow the pipeline to continue.
   * `instruction: NavigationInstruction` - The navigation instruction.
   * `next: Next` - The next step in the pipeline.
 
+
+
+
+### RedirectConfig
+
+A configuration object that describes a route for redirection
+
+#### Properties
+
+* `redirect: string` - path that will be redirected to. This is relative to currently in process router
+
+#### Methods
 
 
 
@@ -826,13 +877,11 @@ An optional interface describing the canDeactivate convention.
 
 #### Properties
 
-
-#### Methods
-
-
-* `canDeactivate(): ` - Implement this hook if you want to control whether or not the router can navigate away from your
+* `canDeactivate: ` - Implement this hook if you want to control whether or not the router can navigate away from your
 view-model when moving to a new route. Return a boolean value, a promise for a boolean value,
 or a navigation command.
+
+#### Methods
 
 
 
@@ -842,13 +891,11 @@ An optional interface describing the deactivate convention.
 
 #### Properties
 
-
-#### Methods
-
-
-* `deactivate(): ` - Implement this hook if you want to perform custom logic when your view-model is being
+* `deactivate: ` - Implement this hook if you want to perform custom logic when your view-model is being
 navigated away from. You can optionally return a promise to tell the router to wait until
 after you finish your work.
+
+#### Methods
 
 
 
@@ -862,7 +909,7 @@ An optional interface describing the determineActivationStrategy convention.
 #### Methods
 
 
-* `determineActivationStrategy(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction): ` - Implement this hook if you want to give hints to the router about the activation strategy, when reusing
+* `determineActivationStrategy(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction): ActivationStrategyType` - Implement this hook if you want to give hints to the router about the activation strategy, when reusing
 a view model for different routes. Available values are &#x27;replace&#x27; and &#x27;invoke-lifecycle&#x27;.
   * `params: any` - No description available.
   * `routeConfig: RouteConfig` - No description available.
@@ -876,7 +923,7 @@ A configuration object that describes a route.
 
 #### Properties
 
-* `activationStrategy: ` - Add to specify an activation strategy if it is always the same and you do not want that
+* `activationStrategy: ActivationStrategyType` - Add to specify an activation strategy if it is always the same and you do not want that
 to be in your view-model code. Available values are &#x27;replace&#x27; and &#x27;invoke-lifecycle&#x27;.
 * `caseSensitive: boolean` - When true is specified, this route will be case sensitive.
 * `generationUsesHref: boolean` - Indicates that when route generation is done for this route, it should just take the literal value of the href property.
@@ -914,7 +961,6 @@ specifying the moduleId to load into that viewPort.  The values may optionally i
 ## Constants
 
 * `activationStrategy: ActivationStrategy` - The strategy to use when activating modules during navigation.
-* `pipelineStatus: any` - The status of a Pipeline.
 
 ## Functions
 
