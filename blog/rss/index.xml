@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Wed Apr 17 2019 21:36:37 GMT-0700 (Pacific Daylight Time)</lastBuildDate>
+    <lastBuildDate>Sun Apr 21 2019 20:50:21 GMT-0700 (Pacific Daylight Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[Case Study: Stellarport]]></title>
+      <link>http://aurelia.io/blog/2019/04/21/case-study-stellarport</link>
+      <description><![CDATA[Today, I'm pleased to introduce Ishai Strauss from Stellarport to talk about how they've built their product with Aurelia. Read on to hear from Ishai about Stellarport's experiences integrating Redux with Aurelia and leveraging decorator-based composition with Aurelia's Fetch client.]]></description>
+      <pubDate>Sun Apr 21 2019 20:50:19 GMT-0700 (Pacific Daylight Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia Release Notes - April 2019]]></title>
       <link>http://aurelia.io/blog/2019/04/02/aurelia-release-notes-april-2019</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2018/04/04/aurelia-realworld-app</link>
       <description><![CDATA[Thanks to the fantastic work of Moritz Hilberg and other community members, Aurelia is now available as part of the RealWorld project [https://github.com/gothinkster/realworld]. Here's Moritz to tell you more about it...]]></description>
       <pubDate>Wed Apr 04 2018 20:32:01 GMT-0700 (Pacific Daylight Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia 2018 Q1 Report]]></title>
-      <link>http://aurelia.io/blog/2018/04/02/aurelia-2018-q1-report</link>
-      <description><![CDATA[With the first quarter of 2018 now behind us, we wanted to take the time to provide an update on the progress the Aurelia team and community have made towards our 2018 roadmap goals [blog/2018/01/03/aurelia-2018-roadmap].]]></description>
-      <pubDate>Mon Apr 02 2018 07:10:40 GMT-0700 (Pacific Daylight Time)</pubDate>
     </item>
   </channel>
 </rss>

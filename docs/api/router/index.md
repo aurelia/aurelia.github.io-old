@@ -302,11 +302,8 @@ Class used to represent an instruction during a navigation.
 #### Methods
 
 
-* `addViewPortInstruction(name: string, strategy: ActivationStrategyType, moduleId: string, component: any): any` - Adds a viewPort instruction. Returns the newly created instruction based on parameters
-  * `name: string` - No description available
-  * `strategy: ActivationStrategyType` - No description available
-  * `moduleId: string` - No description available
-  * `component: any` - No description available
+* `addViewPortInstruction(initOptions: ViewPortInstructionInit): any` - Adds a viewPort instruction. Returns the newly created instruction based on parameters
+  * `initOptions: ViewPortInstructionInit` - No description available
 
 
 * `getAllInstructions(): Array` - Gets an array containing this instruction and all child instructions for the current navigation.
@@ -953,6 +950,37 @@ into the default viewPort (the viewPort with name &#x27;default&#x27;). The view
 whose property names correspond to names used by &lt;router-view&gt; elements. The values should be objects
 specifying the moduleId to load into that viewPort.  The values may optionally include properties related to layout:
 &#x60;layoutView&#x60;, &#x60;layoutViewModel&#x60; and &#x60;layoutModel&#x60;.
+
+#### Methods
+
+
+
+### ViewPortComponent
+
+The component responsible for routing
+
+#### Properties
+
+* `childContainer: Container` - No description available.
+* `childRouter: Router` - No description available.
+* `config: RouteConfig` - No description available.
+* `router: Router` - No description available.
+* `viewModel: any` - No description available.
+
+#### Methods
+
+
+
+### ViewPortInstructionInit
+
+No description available.
+
+#### Properties
+
+* `component: ViewPortComponent` - No description available.
+* `moduleId: string` - No description available.
+* `name: string` - No description available.
+* `strategy: ActivationStrategyType` - No description available.
 
 #### Methods
 
