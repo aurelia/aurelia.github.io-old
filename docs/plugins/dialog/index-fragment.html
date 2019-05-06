@@ -45,34 +45,6 @@
 </source-code>
   
 </code-listing>
-<p>If you use the <strong>Aurelia CLI</strong> RequireJS/SystemJS build add the following section in your <code>aurelia.json</code>:</p>
-
-<code-listing heading="aurelia.json">
-  
-<source-code lang="JSON">
-  <pre class="language-javascript">
-    <code>
-  <span class="token punctuation">{</span>
-    dependencies<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-    <span class="token comment">//...</span>
-      <span class="token punctuation">{</span>
-        <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"aurelia-dialog"</span><span class="token punctuation">,</span>
-        <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"../node_modules/aurelia-dialog/dist/amd"</span><span class="token punctuation">,</span>
-        <span class="token string">"main"</span><span class="token punctuation">:</span> <span class="token string">"aurelia-dialog"</span><span class="token punctuation">,</span>
-        <span class="token string">"resources"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"resources/*.js"</span><span class="token punctuation">]</span>
-      <span class="token punctuation">}</span>
-    <span class="token comment">//...</span>
-    <span class="token punctuation">]</span>
-  <span class="token punctuation">}</span>
-  </code>
-  </pre>
-</source-code>
-  
-</code-listing>
-<p>If you do not use any of the default resources(<code>&lt;ux-dialog&gt;</code>, <code>attach-focus</code>, etc.) just omit the <code>resources</code> entry. If you use just some, list those you are using.</p>
-<div class="info"><div class="icon"> <i></i> </div><p>
-Depending on you loader/bundler you may need aditional configuration, as with<code>aurelia-cli</code>, to include the default resources.</p>
-</div>
 <div class="info"><div class="icon"> <i></i> </div><p>
 If you use TypeScript and install <em>only</em> the <em>jspm</em> package, you can install the plugin's typings with the following command:</p>
 </div>

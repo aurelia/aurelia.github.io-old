@@ -11,7 +11,6 @@ An implementation of the basic history API.
 
 #### Properties
 
-* `static inject: any` - No description available.
 
 #### Methods
 

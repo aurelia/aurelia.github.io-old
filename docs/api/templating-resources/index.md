@@ -16,60 +16,60 @@ views.
 #### Methods
 
 
-* `addView(bindingContext?: any, overrideContext?: any): any` - Adds a view to the repeater, binding the view to the
+* `addView(bindingContext: any, overrideContext: any): void` - Adds a view to the repeater, binding the view to the
 provided contexts.
-  * `bindingContext?: any` - The binding context to bind the new view to.
-  * `overrideContext?: any` - A secondary binding context that can override the primary context.
+  * `bindingContext: any` - The binding context to bind the new view to.
+  * `overrideContext: any` - A secondary binding context that can override the primary context.
 
 
 
-* `insertView(index?: any, bindingContext?: any, overrideContext?: any): any` - Inserts a view to the repeater at a specific index, binding the view to the
+* `insertView(index: any, bindingContext: any, overrideContext: any): void` - Inserts a view to the repeater at a specific index, binding the view to the
 provided contexts.
-  * `index?: any` - The index at which to create the new view at.
-  * `bindingContext?: any` - The binding context to bind the new view to.
-  * `overrideContext?: any` - A secondary binding context that can override the primary context.
+  * `index: any` - The index at which to create the new view at.
+  * `bindingContext: any` - The binding context to bind the new view to.
+  * `overrideContext: any` - A secondary binding context that can override the primary context.
 
 
 
-* `matcher(): any` - Returns the matcher function to be used by the repeater, or null if strict matching is to be performed.
+* `matcher(): void` - Returns the matcher function to be used by the repeater, or null if strict matching is to be performed.
 
 
-* `moveView(sourceIndex?: any, targetIndex?: any): any` - Moves a view across the repeater.
-  * `sourceIndex?: any` - No description available
-  * `targetIndex?: any` - No description available
+* `moveView(sourceIndex: any, targetIndex: any): void` - Moves a view across the repeater.
+  * `sourceIndex: any` - No description available
+  * `targetIndex: any` - No description available
 
 
-* `removeAllViews(returnToCache?: boolean, skipAnimation?: boolean): any` - Removes all views from the repeater.
+* `removeAllViews(returnToCache?: boolean, skipAnimation?: boolean): void` - Removes all views from the repeater.
   * `returnToCache?: boolean` - Should the view be returned to the view cache?
   * `skipAnimation?: boolean` - Should the removal animation be skipped?
 
 
-* `removeView(index: number, returnToCache?: boolean, skipAnimation?: boolean): any` - Removes a view from the repeater at a specific index.
+* `removeView(index: number, returnToCache?: boolean, skipAnimation?: boolean): void` - Removes a view from the repeater at a specific index.
   * `index: number` - The index of the view to be removed.
   * `returnToCache?: boolean` - Should the view be returned to the view cache?
   * `skipAnimation?: boolean` - Should the removal animation be skipped?
 
 
-* `removeViews(viewsToRemove: Array, returnToCache?: boolean, skipAnimation?: boolean): any` - Removes an array of Views from the repeater.
+* `removeViews(viewsToRemove: Array, returnToCache?: boolean, skipAnimation?: boolean): void` - Removes an array of Views from the repeater.
   * `viewsToRemove: Array` - The array of views to be removed.
   * `returnToCache?: boolean` - Should the view be returned to the view cache?
   * `skipAnimation?: boolean` - Should the removal animation be skipped?
 
 
-* `updateBindings(view: View): any` - Forces a particular view to update it&#x27;s bindings, called as part of
+* `updateBindings(view: View): void` - Forces a particular view to update it&#x27;s bindings, called as part of
 an in-place processing of items for better performance
   * `view: View` - the target view for bindings updates
 
 
 
-* `view(index?: any): any` - Returns a single view from the repeater at the provided index.
-  * `index?: any` - The index of the requested view.
+* `view(index: any): any` - Returns a single view from the repeater at the provided index.
+  * `index: any` - The index of the requested view.
 
 
-* `viewCount(): any` - Returns the number of views the repeater knows about.
+* `viewCount(): number` - Returns the number of views the repeater knows about.
 
 
-* `views(): any` - Returns all of the repeaters views as an array.
+* `views(): ` - Returns all of the repeaters views as an array.
 
 
 
@@ -83,22 +83,22 @@ A strategy for repeating a template over an array.
 #### Methods
 
 
-* `getCollectionObserver(observerLocator?: any, items?: any): any` - Gets an observer for the specified collection.
-  * `observerLocator?: any` - The observer locator instance.
-  * `items?: any` - The items to be observed.
+* `getCollectionObserver(observerLocator: any, items: any): any` - Gets an observer for the specified collection.
+  * `observerLocator: any` - The observer locator instance.
+  * `items: any` - The items to be observed.
 
 
 
-* `instanceChanged(repeat?: any, items?: any): any` - Handle the repeat&#x27;s collection instance changing.
-  * `repeat?: any` - The repeater instance.
-  * `items?: any` - The new array instance.
+* `instanceChanged(repeat: any, items: any): void` - Handle the repeat&#x27;s collection instance changing.
+  * `repeat: any` - The repeater instance.
+  * `items: any` - The new array instance.
 
 
 
-* `instanceMutated(repeat?: any, array?: any, splices?: any): any` - Handle the repeat&#x27;s collection instance mutating.
-  * `repeat?: any` - The repeat instance.
-  * `array?: any` - The modified array.
-  * `splices?: any` - Records of array changes.
+* `instanceMutated(repeat: any, array: any, splices: any): void` - Handle the repeat&#x27;s collection instance mutating.
+  * `repeat: any` - The repeat instance.
+  * `array: any` - The modified array.
+  * `splices: any` - Records of array changes.
 
 
 
@@ -113,14 +113,14 @@ No description available.
 #### Methods
 
 
-* `bind(binding?: any, source?: any): any` - 
-  * `binding?: any` - No description available
-  * `source?: any` - No description available
+* `bind(binding: any, source: any): void` - 
+  * `binding: any` - No description available
+  * `source: any` - No description available
 
 
-* `unbind(binding?: any, source?: any): any` - 
-  * `binding?: any` - No description available
-  * `source?: any` - No description available
+* `unbind(binding: any, source: any): void` - 
+  * `binding: any` - No description available
+  * `source: any` - No description available
 
 
 
@@ -130,7 +130,7 @@ No description available.
 
 #### Properties
 
-* `signals: any` - No description available.
+* `signals: __type` - No description available.
 
 #### Methods
 
@@ -146,47 +146,44 @@ Used to compose a new view / view-model template or bind to an existing instance
 
 #### Properties
 
-* `model: any` - No description available.
-* `swapOrder: any` - No description available.
-* `view: any` - No description available.
-* `viewModel: any` - No description available.
+* `model: any` - Model to bind the custom element to.
+* `swapOrder: any` - SwapOrder to control the swapping order of the custom element&#x27;s view.
+* `view: any` - View to bind the custom element to.
+* `viewModel: any` - View-model to bind the custom element&#x27;s template to.
 
 #### Methods
 
 
-* `bind(bindingContext?: any, overrideContext?: any): any` - Used to set the bindingContext.
-  * `bindingContext?: any` - The context in which the view model is executed in.
-  * `overrideContext?: any` - The context in which the view model is executed in.
+* `bind(bindingContext: any, overrideContext: any): void` - Used to set the bindingContext.
+  * `bindingContext: any` - The context in which the view model is executed in.
+  * `overrideContext: any` - The context in which the view model is executed in.
 
 
 
-* `created(owningView: View): any` - Invoked when the component has been created.
+* `created(owningView: View): void` - Invoked when the component has been created.
   * `owningView: View` - The view that this component was created inside of.
 
 
 
-* `modelChanged(newValue?: any, oldValue?: any): any` - Invoked everytime the bound model changes.
-  * `newValue?: any` - The new value.
-  * `oldValue?: any` - The old value.
+* `modelChanged(newValue: any, oldValue: any): void` - Invoked everytime the bound model changes.
+  * `newValue: any` - The new value.
+  * `oldValue: any` - The old value.
 
 
 
-* `unbind(): any` - Unbinds the Compose.
+* `unbind(): void` - Unbinds the Compose.
 
 
-* `viewChanged(newValue?: any, oldValue?: any): any` - Invoked everytime the bound view changes.
-  * `newValue?: any` - The new value.
-  * `oldValue?: any` - The old value.
-
-
-
-* `viewModelChanged(newValue?: any, oldValue?: any): any` - Invoked everytime the bound view model changes.
-  * `newValue?: any` - The new value.
-  * `oldValue?: any` - The old value.
+* `viewChanged(newValue: any, oldValue: any): void` - Invoked everytime the bound view changes.
+  * `newValue: any` - The new value.
+  * `oldValue: any` - The old value.
 
 
 
-* `static inject(): any` - 
+* `viewModelChanged(newValue: any, oldValue: any): void` - Invoked everytime the bound view model changes.
+  * `newValue: any` - The new value.
+  * `oldValue: any` - The old value.
+
 
 
 
@@ -200,15 +197,15 @@ No description available.
 #### Methods
 
 
-* `bind(binding?: any, source?: any, delay?: any): any` - 
-  * `binding?: any` - No description available
-  * `source?: any` - No description available
-  * `delay?: any` - No description available
+* `bind(binding: any, source: any, delay?: number): void` - 
+  * `binding: any` - No description available
+  * `source: any` - No description available
+  * `delay?: number` - No description available
 
 
-* `unbind(binding?: any, source?: any): any` - 
-  * `binding?: any` - No description available
-  * `source?: any` - No description available
+* `unbind(binding: any, source: any): void` - 
+  * `binding: any` - No description available
+  * `source: any` - No description available
 
 
 
@@ -222,12 +219,12 @@ No description available.
 #### Methods
 
 
-* `bind(bindingContext?: any, overrideContext?: any): any` - 
-  * `bindingContext?: any` - No description available
-  * `overrideContext?: any` - No description available
+* `bind(bindingContext: any, overrideContext: any): void` - 
+  * `bindingContext: any` - No description available
+  * `overrideContext: any` - No description available
 
 
-* `unbind(): any` - 
+* `unbind(): void` - 
 
 
 
@@ -241,22 +238,19 @@ CustomAttribute that binds provided DOM element&#x27;s focus attribute with a pr
 #### Methods
 
 
-* `attached(): any` - Invoked when the attribute is attached to the DOM.
+* `attached(): void` - Invoked when the attribute is attached to the DOM.
 
 
-* `detached(): any` - Invoked when the attribute is detached from the DOM.
+* `detached(): void` - Invoked when the attribute is detached from the DOM.
 
 
-* `handleEvent(e?: any): any` - 
-  * `e?: any` - No description available
+* `handleEvent(e: any): void` - 
+  * `e: any` - No description available
 
 
-* `valueChanged(newValue?: any): any` - Invoked everytime the bound value changes.
-  * `newValue?: any` - The new value.
+* `valueChanged(newValue: any): void` - Invoked everytime the bound value changes.
+  * `newValue: any` - The new value.
 
-
-
-* `static inject(): any` - 
 
 
 
@@ -266,6 +260,7 @@ No description available.
 
 #### Properties
 
+* `mode: bindingMode` - No description available.
 
 #### Methods
 
@@ -281,8 +276,8 @@ Default Html Sanitizer to prevent script injection.
 #### Methods
 
 
-* `sanitize(input?: any): any` - Sanitizes the provided input.
-  * `input?: any` - The input to be sanitized.
+* `sanitize(input: any): any` - Sanitizes the provided input.
+  * `input: any` - The input to be sanitized.
 
 
 
@@ -298,19 +293,20 @@ Binding to conditionally show markup in the DOM based on the value.
 #### Methods
 
 
-* `bind(bindingContext?: any): any` - Binds the Hide attribute.
-  * `bindingContext?: any` - No description available
+* `bind(bindingContext: any): void` - Binds the Hide attribute.
+  * `bindingContext: any` - No description available
 
 
-* `created(): any` - Invoked when the behavior is created.
+* `created(): void` - Invoked when the behavior is created.
 
 
-* `valueChanged(newValue?: any): any` - Invoked everytime the bound value changes.
-  * `newValue?: any` - The new value.
+* `value(value: any): void` - 
+  * `value: any` - No description available
 
 
+* `valueChanged(newValue: any): void` - Invoked everytime the bound value changes.
+  * `newValue: any` - The new value.
 
-* `static inject(): any` - 
 
 
 
@@ -328,24 +324,24 @@ Binding to conditionally include or not include template logic depending on retu
 #### Methods
 
 
-* `bind(bindingContext?: any, overrideContext?: any): any` - Binds the if to the binding context and override context
-  * `bindingContext?: any` - The binding context
-  * `overrideContext?: any` - An override context for binding.
+* `bind(bindingContext: any, overrideContext: any): void` - Binds the if to the binding context and override context
+  * `bindingContext: any` - The binding context
+  * `overrideContext: any` - An override context for binding.
 
 
 
-* `conditionChanged(newValue?: any): any` - Invoked everytime value property changes.
-  * `newValue?: any` - The new value
+* `conditionChanged(newValue: any): void` - Invoked everytime value property changes.
+  * `newValue: any` - The new value
 
 
 
-* `unbind(): any` - 
+* `unbind(): void` - 
 
 
 
 ### IfCore
 
-For internal use only. May change without warning.
+No description available.
 
 #### Properties
 
@@ -353,12 +349,12 @@ For internal use only. May change without warning.
 #### Methods
 
 
-* `bind(bindingContext?: any, overrideContext?: any): any` - 
-  * `bindingContext?: any` - No description available
-  * `overrideContext?: any` - No description available
+* `bind(bindingContext: any, overrideContext: any): void` - 
+  * `bindingContext: any` - No description available
+  * `overrideContext: any` - No description available
 
 
-* `unbind(): any` - 
+* `unbind(): void` - 
 
 
 
@@ -372,22 +368,22 @@ A strategy for repeating a template over a Map.
 #### Methods
 
 
-* `getCollectionObserver(observerLocator?: any, items?: any): any` - Gets a Map observer.
-  * `observerLocator?: any` - No description available
-  * `items?: any` - The items to be observed.
+* `getCollectionObserver(observerLocator: any, items: any): any` - Gets a Map observer.
+  * `observerLocator: any` - No description available
+  * `items: any` - The items to be observed.
 
 
 
-* `instanceChanged(repeat?: any, items?: any): any` - Process the provided Map entries.
-  * `repeat?: any` - No description available
-  * `items?: any` - The entries to process.
+* `instanceChanged(repeat: any, items: any): void` - Process the provided Map entries.
+  * `repeat: any` - No description available
+  * `items: any` - The entries to process.
 
 
 
-* `instanceMutated(repeat?: any, map?: any, records?: any): any` - Handle changes in a Map collection.
-  * `repeat?: any` - No description available
-  * `map?: any` - The underlying Map collection.
-  * `records?: any` - The change records.
+* `instanceMutated(repeat: any, map: any, records: any): void` - Handle changes in a Map collection.
+  * `repeat: any` - No description available
+  * `map: any` - The underlying Map collection.
+  * `records: any` - The change records.
 
 
 
@@ -402,14 +398,14 @@ A strategy for repeating a template over null or undefined (does nothing)
 #### Methods
 
 
-* `getCollectionObserver(observerLocator?: any, items?: any): any` - 
-  * `observerLocator?: any` - No description available
-  * `items?: any` - No description available
+* `getCollectionObserver(observerLocator: any, items: any): void` - 
+  * `observerLocator: any` - No description available
+  * `items: any` - No description available
 
 
-* `instanceChanged(repeat?: any, items?: any): any` - 
-  * `repeat?: any` - No description available
-  * `items?: any` - No description available
+* `instanceChanged(repeat: any, items: any): void` - 
+  * `repeat: any` - No description available
+  * `items: any` - No description available
 
 
 
@@ -426,9 +422,9 @@ A strategy for repeating a template over a number.
 * `getCollectionObserver(): any` - Return the strategies collection observer. In this case none.
 
 
-* `instanceChanged(repeat?: any, value?: any): any` - Process the provided Number.
-  * `repeat?: any` - No description available
-  * `value?: any` - The Number of how many time to iterate.
+* `instanceChanged(repeat: any, value: any): void` - Process the provided Number.
+  * `repeat: any` - No description available
+  * `value: any` - The Number of how many time to iterate.
 
 
 
@@ -439,6 +435,7 @@ No description available.
 
 #### Properties
 
+* `mode: bindingMode` - No description available.
 
 #### Methods
 
@@ -450,6 +447,7 @@ No description available.
 
 #### Properties
 
+* `mode: bindingMode` - No description available.
 
 #### Methods
 
@@ -461,83 +459,83 @@ Binding to iterate over iterable objects (Array, Map and Number) to genereate a 
 
 #### Properties
 
-* `items: any` - No description available.
-* `key: any` - No description available.
-* `local: any` - No description available.
-* `value: any` - No description available.
+* `items: any` - List of items to bind the repeater to.
+* `key: any` - Key when iterating over Maps.
+* `local: any` - Local variable which gets assigned on each iteration.
+* `value: any` - Value when iterating over Maps.
 
 #### Methods
 
 
-* `addView(bindingContext?: any, overrideContext?: any): any` - 
-  * `bindingContext?: any` - No description available
-  * `overrideContext?: any` - No description available
+* `addView(bindingContext: any, overrideContext: any): void` - 
+  * `bindingContext: any` - No description available
+  * `overrideContext: any` - No description available
 
 
-* `bind(bindingContext?: any, overrideContext?: any): any` - Binds the repeat to the binding context and override context.
-  * `bindingContext?: any` - The binding context.
-  * `overrideContext?: any` - An override context for binding.
+* `bind(bindingContext: any, overrideContext: any): void` - Binds the repeat to the binding context and override context.
+  * `bindingContext: any` - The binding context.
+  * `overrideContext: any` - An override context for binding.
 
 
 
-* `call(context?: any, changes?: any): any` - 
-  * `context?: any` - No description available
-  * `changes?: any` - No description available
+* `call(context: any, changes: any): void` - 
+  * `context: any` - No description available
+  * `changes: any` - No description available
 
 
-* `handleCollectionMutated(collection?: any, changes?: any): any` - Invoked when the underlying collection changes.
-  * `collection?: any` - No description available
-  * `changes?: any` - No description available
+* `handleCollectionMutated(collection: any, changes: any): void` - Invoked when the underlying collection changes.
+  * `collection: any` - No description available
+  * `changes: any` - No description available
 
 
-* `handleInnerCollectionMutated(collection?: any, changes?: any): any` - Invoked when the underlying inner collection changes.
-  * `collection?: any` - No description available
-  * `changes?: any` - No description available
+* `handleInnerCollectionMutated(collection: any, changes: any): void` - Invoked when the underlying inner collection changes.
+  * `collection: any` - No description available
+  * `changes: any` - No description available
 
 
-* `insertView(index?: any, bindingContext?: any, overrideContext?: any): any` - 
-  * `index?: any` - No description available
-  * `bindingContext?: any` - No description available
-  * `overrideContext?: any` - No description available
+* `insertView(index: any, bindingContext: any, overrideContext: any): void` - 
+  * `index: any` - No description available
+  * `bindingContext: any` - No description available
+  * `overrideContext: any` - No description available
 
 
-* `itemsChanged(): any` - Invoked everytime the item property changes.
+* `itemsChanged(): void` - Invoked everytime the item property changes.
 
 
 * `matcher(): any` - 
 
 
-* `moveView(sourceIndex?: any, targetIndex?: any): any` - 
-  * `sourceIndex?: any` - No description available
-  * `targetIndex?: any` - No description available
+* `moveView(sourceIndex: any, targetIndex: any): void` - 
+  * `sourceIndex: any` - No description available
+  * `targetIndex: any` - No description available
 
 
-* `removeAllViews(returnToCache?: any, skipAnimation?: any): any` - 
-  * `returnToCache?: any` - No description available
-  * `skipAnimation?: any` - No description available
+* `removeAllViews(returnToCache: any, skipAnimation: any): any` - 
+  * `returnToCache: any` - No description available
+  * `skipAnimation: any` - No description available
 
 
-* `removeView(index?: any, returnToCache?: any, skipAnimation?: any): any` - 
-  * `index?: any` - No description available
-  * `returnToCache?: any` - No description available
-  * `skipAnimation?: any` - No description available
+* `removeView(index: any, returnToCache: any, skipAnimation: any): any` - 
+  * `index: any` - No description available
+  * `returnToCache: any` - No description available
+  * `skipAnimation: any` - No description available
 
 
-* `removeViews(viewsToRemove?: any, returnToCache?: any, skipAnimation?: any): any` - 
-  * `viewsToRemove?: any` - No description available
-  * `returnToCache?: any` - No description available
-  * `skipAnimation?: any` - No description available
+* `removeViews(viewsToRemove: any, returnToCache: any, skipAnimation: any): any` - 
+  * `viewsToRemove: any` - No description available
+  * `returnToCache: any` - No description available
+  * `skipAnimation: any` - No description available
 
 
-* `unbind(): any` - Unbinds the repeat
+* `unbind(): void` - Unbinds the repeat
 
 
-* `updateBindings(view: View): any` - 
+* `updateBindings(view: View): void` - 
   * `view: View` - No description available
 
 
-* `view(index?: any): any` - 
-  * `index?: any` - No description available
+* `view(index: any): any` - 
+  * `index: any` - No description available
 
 
 * `viewCount(): any` - 
@@ -558,7 +556,7 @@ Custom strategies can be plugged in as well.
 #### Methods
 
 
-* `addStrategy(matcher: , strategy: RepeatStrategy): any` - Adds a repeat strategy to be located when repeating a template over different collection types.
+* `addStrategy(matcher: , strategy: RepeatStrategy): void` - Adds a repeat strategy to be located when repeating a template over different collection types.
   * `matcher: ` - No description available
   * `strategy: RepeatStrategy` - A repeat strategy that can iterate a specific collection type.
 
@@ -579,13 +577,13 @@ Marks any part of a view to be replacable by the consumer.
 #### Methods
 
 
-* `bind(bindingContext?: any, overrideContext?: any): any` - Binds the replaceable to the binding context and override context.
-  * `bindingContext?: any` - The binding context.
-  * `overrideContext?: any` - An override context for binding.
+* `bind(bindingContext: any, overrideContext: any): void` - Binds the replaceable to the binding context and override context.
+  * `bindingContext: any` - The binding context.
+  * `overrideContext: any` - An override context for binding.
 
 
 
-* `unbind(): any` - Unbinds the replaceable.
+* `unbind(): void` - Unbinds the replaceable.
 
 
 
@@ -599,8 +597,8 @@ Simple html sanitization converter to preserve whitelisted elements and attribut
 #### Methods
 
 
-* `toView(untrustedMarkup?: any): any` - Process the provided markup that flows to the view.
-  * `untrustedMarkup?: any` - The untrusted markup to be sanitized.
+* `toView(untrustedMarkup: any): any` - Process the provided markup that flows to the view.
+  * `untrustedMarkup: any` - The untrusted markup to be sanitized.
 
 
 
@@ -615,14 +613,14 @@ No description available.
 #### Methods
 
 
-* `bind(binding?: any, source?: any): any` - 
-  * `binding?: any` - No description available
-  * `source?: any` - No description available
+* `bind(binding: any, source: any): void` - 
+  * `binding: any` - No description available
+  * `source: any` - No description available
 
 
-* `unbind(binding?: any, source?: any): any` - 
-  * `binding?: any` - No description available
-  * `source?: any` - No description available
+* `unbind(binding: any, source: any): void` - 
+  * `binding: any` - No description available
+  * `source: any` - No description available
 
 
 
@@ -636,22 +634,22 @@ A strategy for repeating a template over a Set.
 #### Methods
 
 
-* `getCollectionObserver(observerLocator?: any, items?: any): any` - Gets a Set observer.
-  * `observerLocator?: any` - No description available
-  * `items?: any` - The items to be observed.
+* `getCollectionObserver(observerLocator: any, items: any): any` - Gets a Set observer.
+  * `observerLocator: any` - No description available
+  * `items: any` - The items to be observed.
 
 
 
-* `instanceChanged(repeat?: any, items?: any): any` - Process the provided Set entries.
-  * `repeat?: any` - No description available
-  * `items?: any` - The entries to process.
+* `instanceChanged(repeat: any, items: any): void` - Process the provided Set entries.
+  * `repeat: any` - No description available
+  * `items: any` - The entries to process.
 
 
 
-* `instanceMutated(repeat?: any, set?: any, records?: any): any` - Handle changes in a Set collection.
-  * `repeat?: any` - The repeat instance.
-  * `set?: any` - The underlying Set collection.
-  * `records?: any` - The change records.
+* `instanceMutated(repeat: any, set: any, records: any): void` - Handle changes in a Set collection.
+  * `repeat: any` - The repeat instance.
+  * `set: any` - The underlying Set collection.
+  * `records: any` - The change records.
 
 
 
@@ -663,23 +661,21 @@ Binding to conditionally show markup in the DOM based on the value.
 
 #### Properties
 
+* `value: any` - No description available.
 
 #### Methods
 
 
-* `bind(bindingContext?: any): any` - Binds the Show attribute.
-  * `bindingContext?: any` - No description available
+* `bind(bindingContext: any): void` - Binds the Show attribute.
+  * `bindingContext: any` - No description available
 
 
-* `created(): any` - Invoked when the behavior is created.
+* `created(): void` - Invoked when the behavior is created.
 
 
-* `valueChanged(newValue?: any): any` - Invoked everytime the bound value changes.
-  * `newValue?: any` - The new value.
+* `valueChanged(newValue: any): void` - Invoked everytime the bound value changes.
+  * `newValue: any` - The new value.
 
-
-
-* `static inject(): any` - 
 
 
 
@@ -694,18 +690,15 @@ No description available.
 #### Methods
 
 
-* `bind(binding?: any, source?: any, names: ): any` - 
-  * `binding?: any` - No description available
-  * `source?: any` - No description available
+* `bind(binding: any, source: any, names: ): void` - 
+  * `binding: any` - No description available
+  * `source: any` - No description available
   * `names: ` - No description available
 
 
-* `unbind(binding?: any, source?: any): any` - 
-  * `binding?: any` - No description available
-  * `source?: any` - No description available
-
-
-* `static inject(): any` - 
+* `unbind(binding: any, source: any): void` - 
+  * `binding: any` - No description available
+  * `source: any` - No description available
 
 
 
@@ -719,15 +712,15 @@ No description available.
 #### Methods
 
 
-* `bind(binding?: any, source?: any, delay?: any): any` - 
-  * `binding?: any` - No description available
-  * `source?: any` - No description available
-  * `delay?: any` - No description available
+* `bind(binding: any, source: any, delay?: number): void` - 
+  * `binding: any` - No description available
+  * `source: any` - No description available
+  * `delay?: number` - No description available
 
 
-* `unbind(binding?: any, source?: any): any` - 
-  * `binding?: any` - No description available
-  * `source?: any` - No description available
+* `unbind(binding: any, source: any): void` - 
+  * `binding: any` - No description available
+  * `source: any` - No description available
 
 
 
@@ -737,6 +730,7 @@ No description available.
 
 #### Properties
 
+* `mode: bindingMode` - No description available.
 
 #### Methods
 
@@ -748,6 +742,7 @@ No description available.
 
 #### Properties
 
+* `mode: bindingMode` - No description available.
 
 #### Methods
 
@@ -763,15 +758,15 @@ No description available.
 #### Methods
 
 
-* `bind(binding?: any, source?: any, events: ): any` - 
-  * `binding?: any` - No description available
-  * `source?: any` - No description available
+* `bind(binding: any, source: any, events: ): void` - 
+  * `binding: any` - No description available
+  * `source: any` - No description available
   * `events: ` - No description available
 
 
-* `unbind(binding?: any, source?: any): any` - 
-  * `binding?: any` - No description available
-  * `source?: any` - No description available
+* `unbind(binding: any, source: any): void` - 
+  * `binding: any` - No description available
+  * `source: any` - No description available
 
 
 
@@ -781,21 +776,22 @@ Creates a binding context for decandant elements to bind to.
 
 #### Properties
 
+* `value: any` - No description available.
 
 #### Methods
 
 
-* `bind(bindingContext?: any, overrideContext?: any): any` - Binds the With with provided binding context and override context.
-  * `bindingContext?: any` - The binding context.
-  * `overrideContext?: any` - An override context for binding.
+* `bind(bindingContext: any, overrideContext: any): void` - Binds the With with provided binding context and override context.
+  * `bindingContext: any` - The binding context.
+  * `overrideContext: any` - An override context for binding.
 
 
 
-* `unbind(): any` - Unbinds With
+* `unbind(): void` - Unbinds With
 
 
-* `valueChanged(newValue?: any): any` - Invoked everytime the bound value changes.
-  * `newValue?: any` - The new value.
+* `valueChanged(newValue: any): void` - Invoked everytime the bound value changes.
+  * `newValue: any` - The new value.
 
 
 
@@ -832,74 +828,47 @@ A strategy is for repeating a template over an iterable or iterable-like object.
 
 ## Constants
 
-* `aureliaHideClassName: any` - No description available.
-* `lifecycleOptionalBehaviors: any` - Behaviors that do not require the composition lifecycle callbacks when replacing
-their binding context.
 
 ## Functions
 
 
-* `configure(config?: any): any` - 
-  * `config?: any` - No description available.
+* `configure(config: any): void` - 
+  * `config: any` - No description available.
 
 
-* `createFullOverrideContext(repeat?: any, data?: any, index?: any, length?: any, key?: any): any` - Creates a complete override context.
-  * `repeat?: any` - No description available.
-  * `data?: any` - The item&#x27;s value.
-  * `index?: any` - The item&#x27;s index.
-  * `length?: any` - The collections total length.
-  * `key?: any` - The key in a key/value pair.
-
-
-
-* `getElementName(address?: any): any` - 
-  * `address?: any` - No description available.
-
-
-* `getItemsSourceExpression(instruction?: any, attrName?: any): any` - Gets a repeat instruction&#x27;s source expression.
-  * `instruction?: any` - No description available.
-  * `attrName?: any` - No description available.
-
-
-* `indexOf(array?: any, item?: any, matcher?: any, startIndex?: any): any` - Returns the index of the element in an array, optionally using a matcher function.
-  * `array?: any` - No description available.
-  * `item?: any` - No description available.
-  * `matcher?: any` - No description available.
-  * `startIndex?: any` - No description available.
-
-
-* `injectAureliaHideStyleAtBoundary(domBoundary?: any): any` - 
-  * `domBoundary?: any` - No description available.
-
-
-* `injectAureliaHideStyleAtHead(): any` - 
-
-
-* `isOneTime(expression?: any): any` - Returns whether an expression has the OneTimeBindingBehavior applied.
-  * `expression?: any` - No description available.
-
-
-* `unwrapExpression(expression?: any): any` - Unwraps an expression to expose the inner, pre-converted / behavior-free expression.
-  * `expression?: any` - No description available.
-
-
-* `updateOneTimeBinding(binding?: any): any` - Forces a binding instance to reevaluate.
-  * `binding?: any` - No description available.
-
-
-* `updateOverrideContext(overrideContext?: any, index?: any, length?: any): any` - Updates the override context.
-  * `overrideContext?: any` - No description available.
-  * `index?: any` - The context&#x27;s index.
-  * `length?: any` - The collection&#x27;s length.
+* `createFullOverrideContext(repeat: any, data: any, index: any, length: any, key?: string): OverrideContext` - Creates a complete override context.
+  * `repeat: any` - No description available.
+  * `data: any` - The item&#x27;s value.
+  * `index: any` - The item&#x27;s index.
+  * `length: any` - The collections total length.
+  * `key?: string` - The key in a key/value pair.
 
 
 
-* `updateOverrideContexts(views?: any, startIndex?: any): any` - Update the override context.
-  * `views?: any` - No description available.
-  * `startIndex?: any` - index in collection where to start updating.
+* `getItemsSourceExpression(instruction: any, attrName: any): any` - Gets a repeat instruction&#x27;s source expression.
+  * `instruction: any` - No description available.
+  * `attrName: any` - No description available.
+
+
+* `isOneTime(expression: any): boolean` - Returns whether an expression has the OneTimeBindingBehavior applied.
+  * `expression: any` - No description available.
+
+
+* `unwrapExpression(expression: any): any` - Unwraps an expression to expose the inner, pre-converted / behavior-free expression.
+  * `expression: any` - No description available.
+
+
+* `updateOneTimeBinding(binding: any): void` - Forces a binding instance to reevaluate.
+  * `binding: any` - No description available.
+
+
+* `updateOverrideContext(overrideContext: any, index: any, length: any): void` - Updates the override context.
+  * `overrideContext: any` - No description available.
+  * `index: any` - The context&#x27;s index.
+  * `length: any` - The collection&#x27;s length.
 
 
 
-* `viewsRequireLifecycle(viewFactory?: any): any` - 
-  * `viewFactory?: any` - No description available.
+* `viewsRequireLifecycle(viewFactory: any): any` - 
+  * `viewFactory: any` - No description available.
 

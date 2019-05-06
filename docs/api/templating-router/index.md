@@ -7,86 +7,78 @@
 
 ### RouteHref
 
-No description available.
+Helper custom attribute to help associate an element with a route by name
 
 #### Properties
 
+* `attribute: string` - Target property on a custom element if this attribute is put on a custom element
+OR an attribute if this attribute is put on a normal element
+* `element: Element` - Element this attribute is associated with
+* `params: Record` - Parameters of this attribute to generate URL.
+* `route: string` - Name of the route this attribute refers to. This name should exist in the current router hierarchy
+* `router: Router` - Current router of this attribute
 
 #### Methods
 
 
-* `attributeChanged(value?: any, previous?: any): any` - 
-  * `value?: any` - No description available
-  * `previous?: any` - No description available
+* `attributeChanged(value: any, previous: any): Promise` - 
+  * `value: any` - No description available
+  * `previous: any` - No description available
 
 
-* `bind(): any` - 
+* `bind(): void` - 
 
 
-* `processChange(): any` - 
+* `processChange(): Promise` - 
 
 
-* `unbind(): any` - 
-
-
-* `static inject(): any` - 
+* `unbind(): void` - 
 
 
 
 ### RouterView
 
-No description available.
+Implementation of Aurelia Router ViewPort. Responsible for loading route, composing and swapping routes views
 
 #### Properties
 
-* `element: any` - No description available.
-* `layoutModel: any` - No description available.
-* `layoutView: any` - No description available.
-* `layoutViewModel: any` - No description available.
-* `swapOrder: any` - No description available.
+* `container: Container` - Container at this &lt;router-view/&gt; level
+* `element: Element` - Element associated with this &lt;router-view/&gt; custom element
+* `layoutModel: any` - Layout model used to activate layout view model, if specified with &#x60;layoutViewModel&#x60;
+* `layoutView: any` - Layout view used for this router-view layout, if no layout-viewmodel specified
+* `layoutViewModel: any` - Layout view model used as binding context for this router-view layout
+Actual type would be {string | Constructable | object}
+* `router: Router` - Current router associated with this &lt;router-view/&gt;
+* `swapOrder: string` - Swapping order when going to a new route. By default, supports 3 value: before, after, with
+- before &#x3D; new in -&gt; old out
+- after &#x3D; old out -&gt; new in
+- with &#x3D; new in + old out
 
 #### Methods
 
 
-* `bind(bindingContext?: any, overrideContext?: any): any` - 
-  * `bindingContext?: any` - No description available
-  * `overrideContext?: any` - No description available
+* `bind(bindingContext: any, overrideContext: OverrideContext): void` - 
+  * `bindingContext: any` - No description available
+  * `overrideContext: OverrideContext` - No description available
 
 
-* `created(owningView?: any): any` - 
-  * `owningView?: any` - No description available
+* `created(owningView: View): void` - 
+  * `owningView: View` - No description available
 
 
-* `process(viewPortInstruction?: any, waitToSwap?: any): any` - 
-  * `viewPortInstruction?: any` - No description available
-  * `waitToSwap?: any` - No description available
+* `process($viewPortInstruction: any, waitToSwap?: boolean): Promise` - Implementation of &#x60;aurelia-router&#x60; ViewPort interface, responsible for templating related part in routing Pipeline
+  * `$viewPortInstruction: any` - No description available
+  * `waitToSwap?: boolean` - No description available
 
 
-* `swap(viewPortInstruction?: any): any` - 
-  * `viewPortInstruction?: any` - No description available
-
-
-* `static inject(): any` - 
-
-
-
-### RouterViewLocator
-
-Locator which finds the nearest RouterView, relative to the current dependency injection container.
-
-#### Properties
-
-
-#### Methods
-
-
-* `findNearest(): Promise` - Finds the nearest RouterView instance.
+* `swap($viewPortInstruction: any): ` - 
+  * `$viewPortInstruction: any` - No description available
 
 
 
 ### TemplatingRouteLoader
 
-No description available.
+Default implementation of &#x60;RouteLoader&#x60; used for loading component based on a route config
 
 #### Properties
 
@@ -94,17 +86,42 @@ No description available.
 #### Methods
 
 
-* `loadRoute(router?: any, config?: any): any` - 
-  * `router?: any` - No description available
-  * `config?: any` - No description available
+* `loadRoute(router: Router, config: RouteConfig, _navInstruction: NavigationInstruction): Promise` - Load corresponding component of a route config of a navigation instruction
+  * `router: Router` - No description available
+  * `config: RouteConfig` - No description available
+  * `_navInstruction: NavigationInstruction` - No description available
 
 
 
 ## Interfaces
 
 
+### IFrameworkConfiguration
+
+No description available.
+
+#### Properties
+
+* `container: Container` - No description available.
+
+#### Methods
+
+
+* `globalResources(args: ): this` - 
+  * `args: ` - No description available.
+
+
+* `singleton(args: ): this` - 
+  * `args: ` - No description available.
+
+
+
 ## Constants
 
 
 ## Functions
+
+
+* `configure(config: IFrameworkConfiguration): void` - 
+  * `config: IFrameworkConfiguration` - No description available.
 
