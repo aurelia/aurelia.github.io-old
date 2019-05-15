@@ -5,7 +5,7 @@
   </header>
 
   <article class="markdown">
-    <section><h2 id="introduction">Introduction</h2><p>Animations are a the way we bring our applications to life. An animation lets an element gradually change from one style to another, giving it the ability to smoothly alter its size, color, etc. over time.</p>
+    <section><h2 id="introduction">Introduction</h2><p>Animations are the way we bring our applications to life. An animation lets an element gradually change from one style to another, giving it the ability to smoothly alter its size, color, etc. over time.</p>
 <p>A key goal in building animation support for Aurelia was to enable a flexible solution that allows you to choose whatever animation library you like. As a result, you're neither limited to a proprietary API nor to a certain style for how to implement your animations. To enable this flexibility, Aurelia's animation system is built around 
 <a href="https://github.com/aurelia/templating/blob/master/src/animator.js" target="_blank">a simple animation interface</a>
 , which is part of its templating library.</p>
@@ -16,7 +16,7 @@
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   npm install aurelia<span class="token operator">-</span>animator<span class="token operator">-</span>css <span class="token operator">--</span>save
@@ -29,7 +29,7 @@
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   yarn add aurelia<span class="token operator">-</span>animator<span class="token operator">-</span>css
@@ -42,7 +42,7 @@
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   jspm install aurelia<span class="token operator">-</span>animator<span class="token operator">-</span>css
@@ -62,7 +62,7 @@ If you are using an older version of <strong>Aurelia CLI</strong>, prior to 1.0,
 
 <code-listing heading="main.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="main.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
@@ -96,7 +96,7 @@ Don't forget to add the appropriate vendor prefixes if you target old browsers.<
 
 <code-listing heading="animations.css">
   
-<source-code lang="CSS">
+<source-code lang="CSS" heading="animations.css">
   <pre class="language-javascript">
     <code>
   @keyframes SlideInRight <span class="token punctuation">{</span>
@@ -168,7 +168,7 @@ Don't forget to add the appropriate vendor prefixes if you target old browsers.<
 
 <code-listing heading="animations.css">
   
-<source-code lang="CSS">
+<source-code lang="CSS" heading="animations.css">
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">.</span>animate<span class="token operator">-</span>slide<span class="token operator">-</span><span class="token keyword">in</span><span class="token operator">-</span>right<span class="token punctuation">.</span>au<span class="token operator">-</span>enter <span class="token punctuation">{</span>
@@ -246,11 +246,11 @@ Don't forget to add the appropriate vendor prefixes if you target old browsers.<
 </table>
 </section>
 <section><h2 id="working-with-default-animation-triggers">Working with Default Animation Triggers</h2><p>We need to give our elements the class <code>au-animate</code> to tell Aurelia that those elements can be animated. Additionally, we should apply a specific animation from the ones we have created above (i.e <code>animate-fade-in</code>). Once that's done, every time the element enters or leaves the DOM, the animation will kick-in.</p>
-<p>As an example example, we may have multiple <code>li</code> elements rendering in a repeater and we would like them to animate in and out using the fading effect we declared above. We can declare that like this:</p>
+<p>As an example, we may have multiple <code>li</code> elements rendering in a repeater and we would like them to animate in and out using the fading effect we declared above. We can declare that like this:</p>
 
 <code-listing heading="todos.html">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="todos.html">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>au-stagger<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -274,7 +274,7 @@ Don't forget to add the appropriate vendor prefixes if you target old browsers.<
 
 <code-listing heading="animations.css">
   
-<source-code lang="CSS">
+<source-code lang="CSS" heading="animations.css">
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">.</span>au<span class="token operator">-</span>stagger <span class="token punctuation">{</span>
@@ -289,7 +289,7 @@ Don't forget to add the appropriate vendor prefixes if you target old browsers.<
 
 <code-listing heading="todos.html">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="todos.html">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>

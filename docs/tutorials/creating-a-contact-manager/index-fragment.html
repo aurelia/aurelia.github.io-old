@@ -32,7 +32,7 @@ When installing Git for Windows, there is an option to <code>use git bash only</
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   npm install aurelia<span class="token operator">-</span><span class="token function">cli</span> <span class="token operator">-</span>g
@@ -74,7 +74,7 @@ Before proceeding any further, please make sure you are familiar with the concep
 
 <code-listing heading="app.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="app.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
@@ -95,7 +95,7 @@ Before proceeding any further, please make sure you are familiar with the concep
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="app.ts">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>Router<span class="token punctuation">,</span> RouterConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-router'</span><span class="token punctuation">;</span>
@@ -132,7 +132,7 @@ Did you notice the calls to <code>PLATFORM.moduleName(....)</code>? This is a sp
 
 <code-listing heading="app.html">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="app.html">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -165,7 +165,7 @@ Did you notice the calls to <code>PLATFORM.moduleName(....)</code>? This is a sp
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   npm install bootstrap <span class="token operator">--</span>save
@@ -179,7 +179,7 @@ Did you notice the calls to <code>PLATFORM.moduleName(....)</code>? This is a sp
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token string">'bootstrap/dist/css/bootstrap.css'</span><span class="token punctuation">;</span>
@@ -197,7 +197,7 @@ Whenever you install new dependencies used in your app, make sure to restart the
 
 <code-listing>
   
-<source-code lang="Output">
+<source-code lang="Output" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token constant">ERROR</span> <span class="token keyword">in</span> <span class="token punctuation">.</span><span class="token operator">/</span>src<span class="token operator">/</span>app<span class="token punctuation">.</span>js
@@ -211,7 +211,7 @@ Whenever you install new dependencies used in your app, make sure to restart the
 
 <code-listing heading="no-selection.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="no-selection.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">NoSelection</span> <span class="token punctuation">{</span>
@@ -224,7 +224,7 @@ Whenever you install new dependencies used in your app, make sure to restart the
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="no-selection.ts">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">NoSelection</span> <span class="token punctuation">{</span>
@@ -239,7 +239,7 @@ Whenever you install new dependencies used in your app, make sure to restart the
 
 <code-listing heading="no-selection.html">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="no-selection.html">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -257,7 +257,7 @@ Whenever you install new dependencies used in your app, make sure to restart the
 
 <code-listing heading="contact-detail.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="contact-detail.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ContactDetail</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
@@ -274,7 +274,7 @@ Whenever you install new dependencies used in your app, make sure to restart the
 
 <code-listing heading="contact-list.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="contact-list.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>WebAPI<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./web-api'</span><span class="token punctuation">;</span>
@@ -301,7 +301,7 @@ Whenever you install new dependencies used in your app, make sure to restart the
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="contact-list.ts">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>WebAPI<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./web-api'</span><span class="token punctuation">;</span>
@@ -337,7 +337,7 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
 
 <code-listing heading="contact-list.html">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="contact-list.html">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -363,7 +363,7 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
 
 <code-listing heading="app.html">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="app.html">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -397,7 +397,7 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
 
 <code-listing>
   
-<source-code lang="Output">
+<source-code lang="Output" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token constant">ERROR</span> <span class="token punctuation">[</span>app<span class="token operator">-</span>router<span class="token punctuation">]</span> Error<span class="token punctuation">:</span> Unable to find module <span class="token keyword">with</span> <span class="token constant">ID</span><span class="token punctuation">:</span> contact<span class="token operator">-</span>detail<span class="token punctuation">.</span>html
@@ -410,7 +410,7 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
 
 <code-listing heading="contact-detail.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="contact-detail.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -458,7 +458,7 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="contact-detail.ts">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -524,7 +524,7 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
 
 <code-listing heading="contact-detail.html">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="contact-detail.html">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -587,7 +587,7 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
 
 <code-listing heading="message.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="message.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ContactUpdated</span> <span class="token punctuation">{</span>
@@ -606,7 +606,7 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="message.ts">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ContactUpdated</span> <span class="token punctuation">{</span>
@@ -625,7 +625,7 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
 
 <code-listing heading="contact-detail.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="contact-detail.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -684,7 +684,7 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="contact-detail.ts">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -755,7 +755,7 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
 
 <code-listing heading="contact-list.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="contact-list.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>EventAggregator<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-event-aggregator'</span><span class="token punctuation">;</span>
@@ -791,7 +791,7 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="contact-list.ts">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>EventAggregator<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-event-aggregator'</span><span class="token punctuation">;</span>
@@ -835,7 +835,7 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   npm install nprogress <span class="token operator">--</span>save
@@ -851,7 +851,7 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
 
 <code-listing heading="loading-indicator.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="loading-indicator.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> nprogress <span class="token keyword">from</span> <span class="token string">'nprogress'</span><span class="token punctuation">;</span>
@@ -875,7 +875,7 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="loading-indicator.ts">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> nprogress <span class="token keyword">from</span> <span class="token string">'nprogress'</span><span class="token punctuation">;</span>
@@ -905,7 +905,7 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
 
 <code-listing heading="resources/index.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="resources/index.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -918,7 +918,7 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="resources/index.ts">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>FrameworkConfiguration<span class="token punctuation">,</span> <span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -935,7 +935,7 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
 
 <code-listing heading="app.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="app.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">,</span> <span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -962,7 +962,7 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="app.ts">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>Router<span class="token punctuation">,</span> RouterConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-router'</span><span class="token punctuation">;</span>
@@ -994,7 +994,7 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
 
 <code-listing heading="app.html">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="app.html">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>

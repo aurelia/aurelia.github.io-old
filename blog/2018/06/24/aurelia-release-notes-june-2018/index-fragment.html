@@ -33,7 +33,7 @@
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token function">process</span><span class="token punctuation">(</span>strings<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -49,7 +49,7 @@
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token function">process</span><span class="token punctuation">(</span>strings<span class="token punctuation">,</span> <span class="token operator">...</span>expressions<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -72,7 +72,7 @@
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>Enabled: ${item.enabled ? '[X]' : '[ ]'}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
@@ -85,7 +85,7 @@
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>Enabled: ${mark`${item.enabled}`}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
@@ -97,7 +97,7 @@
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token function">mark</span><span class="token punctuation">(</span>_<span class="token punctuation">,</span> enabled<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -113,7 +113,7 @@
 
 <code-listing heading="Doesn't work - value converters cannot be nested in expressions">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Doesn't work - value converters cannot be nested in expressions">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>${displayDate ? (date | formatDate:'YYYYMMDD') : 'N/A'}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>  
@@ -126,7 +126,7 @@
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>${displayDate ? formatDate`${date}YYYYMMDD` : 'N/A'}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
@@ -138,7 +138,7 @@
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token function">formatDate</span><span class="token punctuation">(</span>parts<span class="token punctuation">,</span> date<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -155,7 +155,7 @@
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>address-details</span> <span class="token attr-name">if.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>person.address instanceof addressCtor<span class="token punctuation">"</span></span> <span class="token attr-name">address.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>person.address<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -168,7 +168,7 @@
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -184,7 +184,7 @@
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>prop of optionalProperties<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -205,7 +205,7 @@
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -226,7 +226,7 @@
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>some-element</span> <span class="token attr-name">if.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>model.requiredProp ? true : void message = <span class="token punctuation">'</span>RequiredProp is missing<span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -241,7 +241,7 @@
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Straße<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -258,7 +258,7 @@
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CheckBox</span> <span class="token punctuation">{</span>
@@ -300,7 +300,7 @@ The <code>name</code> resource metadata can be omitted if minification is config
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -315,7 +315,7 @@ The <code>name</code> resource metadata can be omitted if minification is config
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ContactsPage</span> <span class="token punctuation">{</span>
@@ -349,7 +349,7 @@ You can also use <code>dependencies: () =&gt; [import('/path/to/check-box')]</co
 
 <code-listing>
   
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CheckBox</span> <span class="token punctuation">{</span>
@@ -370,7 +370,7 @@ You can also use <code>dependencies: () =&gt; [import('/path/to/check-box')]</co
 
 <code-listing>
   
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span> view<span class="token punctuation">,</span> resource <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -394,7 +394,7 @@ You can also use <code>dependencies: () =&gt; [import('/path/to/check-box')]</co
 
 <code-listing>
   
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">:</span> Aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -409,7 +409,7 @@ You can also use <code>dependencies: () =&gt; [import('/path/to/check-box')]</co
 
 <code-listing>
   
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span> App <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'path/to/app-root'</span><span class="token punctuation">;</span>
@@ -426,7 +426,7 @@ You can also use <code>dependencies: () =&gt; [import('/path/to/check-box')]</co
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>compose</span> <span class="token attr-name">view-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>path/to/${selectedViewModel}-editor<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>compose</span><span class="token punctuation">></span></span>
@@ -438,7 +438,7 @@ You can also use <code>dependencies: () =&gt; [import('/path/to/check-box')]</co
 
 <code-listing>
   
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Editor</span> <span class="token punctuation">{</span>
@@ -457,7 +457,7 @@ You can also use <code>dependencies: () =&gt; [import('/path/to/check-box')]</co
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>compose</span> <span class="token attr-name">view-model.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>selectedViewModel<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>compose</span><span class="token punctuation">></span></span>
@@ -469,7 +469,7 @@ You can also use <code>dependencies: () =&gt; [import('/path/to/check-box')]</co
 
 <code-listing>
   
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span> TimeEditor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'path/to/time-editor'</span><span class="token punctuation">;</span>
@@ -492,7 +492,7 @@ You can also use <code>dependencies: () =&gt; [import('/path/to/check-box')]</co
 
 <code-listing>
   
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// main.js</span>
@@ -517,7 +517,7 @@ You can also use <code>dependencies: () =&gt; [import('/path/to/check-box')]</co
 
 <code-listing>
   
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// main.js</span>

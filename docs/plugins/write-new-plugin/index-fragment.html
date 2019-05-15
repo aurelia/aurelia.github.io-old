@@ -12,7 +12,7 @@
 
 <code-listing>
   
-<source-code lang="shell">
+<source-code lang="shell" heading="">
   <pre class="language-powershell">
     <code>
   npm i <span class="token operator">-</span>g aurelia<span class="token operator">-</span><span class="token function">cli</span>
@@ -39,7 +39,7 @@ We don't provide plugin skeleton with dev-app in webpack setup, not yet. We use 
 
 <code-listing heading="index.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="index.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
@@ -54,7 +54,7 @@ We don't provide plugin skeleton with dev-app in webpack setup, not yet. We use 
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="index.ts">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>FrameworkConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -74,7 +74,7 @@ We don't provide plugin skeleton with dev-app in webpack setup, not yet. We use 
 
 <code-listing heading="main.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="main.js">
   <pre class="language-javascript">
     <code>
   aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'your-plugin-name'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -83,7 +83,7 @@ We don't provide plugin skeleton with dev-app in webpack setup, not yet. We use 
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="main.ts">
   <pre class="language-typescript">
     <code>
   aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'your-plugin-name'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -101,7 +101,7 @@ Note <code>globalResources</code> isn't the only method you can use. You can use
 
 <code-listing>
   
-<source-code lang="shell">
+<source-code lang="shell" heading="">
   <pre class="language-powershell">
     <code>
   au generate element some<span class="token operator">-</span>name
@@ -117,7 +117,7 @@ Note <code>globalResources</code> isn't the only method you can use. You can use
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   src<span class="token operator">/</span>elements
@@ -134,7 +134,7 @@ Note <code>globalResources</code> isn't the only method you can use. You can use
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   config<span class="token punctuation">.</span><span class="token function">globalResources</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
@@ -151,7 +151,7 @@ Note <code>globalResources</code> isn't the only method you can use. You can use
 
 <code-listing heading="app.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="app.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -169,7 +169,7 @@ Note <code>globalResources</code> isn't the only method you can use. You can use
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="app.ts">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -214,7 +214,7 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
 
 <code-listing>
   
-<source-code lang="shell">
+<source-code lang="shell" heading="">
   <pre class="language-powershell">
     <code>
   npm i github:your_github_username<span class="token operator">/</span>your<span class="token operator">-</span>plugin<span class="token operator">-</span>name
@@ -233,7 +233,7 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
 
 <code-listing>
   
-<source-code lang="js">
+<source-code lang="js" heading="">
   <pre class="language-javascript">
     <code>
   aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'your-plugin-name'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -262,7 +262,7 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
 
 <code-listing>
   
-<source-code lang="shell">
+<source-code lang="shell" heading="">
   <pre class="language-powershell">
     <code>
   npm version patch <span class="token comment"># or minor or major</span>
@@ -277,7 +277,7 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
 
 <code-listing>
   
-<source-code lang="shell">
+<source-code lang="shell" heading="">
   <pre class="language-powershell">
     <code>
   git push &amp;&amp; git push <span class="token operator">--</span>tags
@@ -292,7 +292,7 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
 
 <code-listing>
   
-<source-code lang="shell">
+<source-code lang="shell" heading="">
   <pre class="language-powershell">
     <code>
   npm publish
@@ -320,7 +320,7 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token string">"scripts"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
@@ -342,7 +342,7 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
 
 <code-listing heading="index.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="index.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -358,7 +358,7 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="index.ts">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>FrameworkConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -383,7 +383,7 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
 
 <code-listing heading="index.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="index.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>MyAwesomeService<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./my-awesome-service'</span><span class="token punctuation">;</span>
@@ -399,7 +399,7 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="index.ts">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>FrameworkConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>

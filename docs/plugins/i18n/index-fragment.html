@@ -34,7 +34,7 @@ We'll discuss TypeScript specifics in a later section.</p>
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   npm install aurelia<span class="token operator">-</span>i18n <span class="token operator">--</span>save
@@ -48,7 +48,7 @@ As an example we're going to leverage the i18next-xhr-backend:</p>
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   npm install i18next i18next<span class="token operator">-</span>xhr<span class="token operator">-</span>backend <span class="token operator">--</span>save
@@ -62,7 +62,7 @@ As an example we're going to leverage the i18next-xhr-backend:</p>
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   jspm install aurelia<span class="token operator">-</span>i18n
@@ -75,7 +75,7 @@ As an example we're going to leverage the i18next-xhr-backend:</p>
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   jspm install npm:i18next<span class="token operator">-</span>xhr<span class="token operator">-</span>backend
@@ -92,7 +92,7 @@ You can skip this part if you're planning to use the built-in aurelia-i18n-loade
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   npm install aurelia<span class="token operator">-</span>i18n <span class="token operator">--</span>save
@@ -105,7 +105,7 @@ You can skip this part if you're planning to use the built-in aurelia-i18n-loade
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   yarn add aurelia<span class="token operator">-</span>i18n
@@ -118,7 +118,7 @@ You can skip this part if you're planning to use the built-in aurelia-i18n-loade
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   npm install i18next<span class="token operator">-</span>xhr<span class="token operator">-</span>backend <span class="token operator">--</span>save
@@ -131,7 +131,7 @@ You can skip this part if you're planning to use the built-in aurelia-i18n-loade
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   yarn add i18next<span class="token operator">-</span>xhr<span class="token operator">-</span>backend
@@ -148,7 +148,7 @@ You can skip this part if you're planning to use the built-in aurelia-i18n-loade
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">const</span> coreBundles <span class="token operator">=</span> <span class="token punctuation">{</span>
@@ -169,7 +169,7 @@ You can skip this part if you're planning to use the built-in aurelia-i18n-loade
 
 <code-listing heading="Setting up Aurelia Bootstrapping">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Setting up Aurelia Bootstrapping">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span> <span class="token attr-name">aurelia-app</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>main<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -195,7 +195,7 @@ If you're using one of the
 
 <code-listing>
   
-<source-code lang="JSON">
+<source-code lang="JSON" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">{</span>
@@ -219,7 +219,7 @@ Notice that Aurelia I18N makes use of a non-standard attributes option, which is
 
 <code-listing heading="Registering the Plugin - using the built-in aurelia loader backed">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Registering the Plugin - using the built-in aurelia loader backed">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">,</span> Backend<span class="token punctuation">,</span> TCustomAttribute<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
@@ -259,7 +259,7 @@ Notice that Aurelia I18N makes use of a non-standard attributes option, which is
 
 <code-listing heading="Registering the Plugin - using the i18next-xhr-backend">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Registering the Plugin - using the i18next-xhr-backend">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">,</span> TCustomAttribute<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
@@ -305,7 +305,7 @@ Notice that Aurelia I18N makes use of a non-standard attributes option, which is
 
 <code-listing heading="Copy translation files for webpack and i18next-xhr-backend">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Copy translation files for webpack and i18next-xhr-backend">
   <pre class="language-javascript">
     <code>
   plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span>
@@ -326,7 +326,7 @@ defaultNS. For example <code>t='nav:profile'</code> would access the <code>profi
 
 <code-listing heading="Setting up Multiple Namespaces">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Setting up Multiple Namespaces">
   <pre class="language-javascript">
     <code>
   instance<span class="token punctuation">.</span><span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
@@ -348,7 +348,7 @@ defaultNS. For example <code>t='nav:profile'</code> would access the <code>profi
 
 <code-listing heading="Ensuring reflect-metadata is loaded first">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Ensuring reflect-metadata is loaded first">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
@@ -374,7 +374,7 @@ along with the instructions. The command is</p>
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev @types<span class="token operator">/</span>i18next
@@ -387,7 +387,7 @@ along with the instructions. The command is</p>
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   yarn add <span class="token operator">--</span>dev @types<span class="token operator">/</span>i18next
@@ -405,7 +405,7 @@ Alternatively, you can find this file in the plugins repository doc folder: <cod
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev @types<span class="token operator">/</span>i18next<span class="token operator">-</span>xhr<span class="token operator">-</span>backend
@@ -418,7 +418,7 @@ Alternatively, you can find this file in the plugins repository doc folder: <cod
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   yarn add <span class="token operator">--</span>dev @types<span class="token operator">/</span>i18next<span class="token operator">-</span>xhr<span class="token operator">-</span>backend
@@ -435,7 +435,7 @@ Alternative, you can find this file in the plugins repository doc folder: <code>
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev github:aurelia<span class="token operator">/</span>i18n
@@ -448,7 +448,7 @@ Alternative, you can find this file in the plugins repository doc folder: <code>
 
 <code-listing heading="Configuring custom typings in tsconfig.json">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Configuring custom typings in tsconfig.json">
   <pre class="language-javascript">
     <code>
   <span class="token operator">...</span> existing configuration code
@@ -466,7 +466,7 @@ Alternative, you can find this file in the plugins repository doc folder: <code>
 
 <code-listing heading="Configuring custom typings in tsconfig.json">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Configuring custom typings in tsconfig.json">
   <pre class="language-javascript">
     <code>
   <span class="token operator">...</span> existing configuration code
@@ -488,7 +488,7 @@ TypeScript will throw errors like <code>Module xxx not found</code> either for a
 
 <code-listing heading="Setting the active locale with setLocale">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Setting the active locale with setLocale">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
@@ -515,7 +515,7 @@ TypeScript will throw errors like <code>Module xxx not found</code> either for a
 
 <code-listing heading="Getting the active locale using getLocale">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Getting the active locale using getLocale">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
@@ -540,7 +540,7 @@ TypeScript will throw errors like <code>Module xxx not found</code> either for a
 
 <code-listing heading="Translating using the i18n.tr function">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Translating using the i18n.tr function">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
@@ -565,7 +565,7 @@ property plugin <code>instance.setup</code> function parameter.</p>
 
 <code-listing heading="Configuring translation attributes">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Configuring translation attributes">
   <pre class="language-javascript">
     <code>
   <span class="token operator">...</span>
@@ -595,7 +595,7 @@ about trying to update an element without a matching key.</p>
 
 <code-listing heading="Attribute based translation with the TCustomAttribute">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Attribute based translation with the TCustomAttribute">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>title<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
@@ -609,7 +609,7 @@ Other attributes, specified in the <code>attributes</code> option, may be used a
 
 <code-listing heading="Attribute based translation with optionally registered I18NCustomAttribute">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Attribute based translation with optionally registered I18NCustomAttribute">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">i18n</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>home.title<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
@@ -622,7 +622,7 @@ Other attributes, specified in the <code>attributes</code> option, may be used a
 
 <code-listing heading="Nested object translation">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Nested object translation">
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">{</span>
@@ -641,7 +641,7 @@ Other attributes, specified in the <code>attributes</code> option, may be used a
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   //translation
@@ -661,7 +661,7 @@ To allow html-markup to be used, the <code>[html]</code> attribute needs to be a
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>[html]title<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
@@ -683,7 +683,7 @@ be updated.</p>
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   // Custom Element ViewModel
@@ -713,7 +713,7 @@ The following example will not change the content of the element, but will set i
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>[alt]title<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
@@ -730,7 +730,7 @@ The following example will not change the content of the element, but will set i
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>[placeholder,aria-placeholder]placeholder<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -744,7 +744,7 @@ The following example will not change the content of the element, but will set i
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>[html]title;[class]title-class<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
@@ -759,7 +759,7 @@ The following example will not change the content of the element, but will set i
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>$t(title) $t(subtitle)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Title subtitle<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
@@ -772,7 +772,7 @@ The following example will not change the content of the element, but will set i
 
 <code-listing heading="Nested combined translations">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Nested combined translations">
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">{</span>
@@ -790,7 +790,7 @@ The following example will not change the content of the element, but will set i
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>nested_referencing<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Nested text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
@@ -804,7 +804,7 @@ The following example will not change the content of the element, but will set i
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>home.image<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -818,7 +818,7 @@ The following example will not change the content of the element, but will set i
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">data-src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>path/to/image.jpg<span class="token punctuation">"</span></span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>home.image<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -834,7 +834,7 @@ Also note that for whatever attribute you registered, the corresponding *-params
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// Translation file</span>
@@ -849,7 +849,7 @@ Also note that for whatever attribute you registered, the corresponding *-params
 
 <code-listing heading="View for parameter passing to attributes">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="View for parameter passing to attributes">
   <pre class="language-markup">
     <code>
   <span class="token comment">&lt;!-- View --></span>
@@ -862,7 +862,7 @@ Also note that for whatever attribute you registered, the corresponding *-params
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// ViewModel</span>
@@ -887,7 +887,7 @@ The object passed to <code>t-params</code> is a complex object explained <a href
 
 <code-listing heading="Declarative translation using the TValueConverter">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Declarative translation using the TValueConverter">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -932,7 +932,7 @@ The object passed to <code>t-params</code> is a complex object explained <a href
 
 <code-listing heading="TBindingBehavior Example">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="TBindingBehavior Example">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>list-group-item<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -948,7 +948,7 @@ The object passed to <code>t-params</code> is a complex object explained <a href
 
 <code-listing heading="Signaling a change to the TBindingBehavior">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Signaling a change to the TBindingBehavior">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>BindingSignaler<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-templating-resources'</span><span class="token punctuation">;</span>
@@ -979,7 +979,7 @@ Now we could easily pass min and max as separate variables but on the other hand
 
 <code-listing heading="Complex objects for variables">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Complex objects for variables">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">var</span> resources <span class="token operator">=</span> <span class="token punctuation">{</span>
@@ -999,7 +999,7 @@ You can also mix and match it with simple variables.</p>
 
 <code-listing heading="Mixing complex and simple variables">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Mixing complex and simple variables">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">var</span> options <span class="token operator">=</span> <span class="token punctuation">{</span>
@@ -1026,7 +1026,7 @@ You can also mix and match it with simple variables.</p>
 
 <code-listing heading="Number formatting via Code">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Number formatting via Code">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
@@ -1064,7 +1064,7 @@ You can also mix and match it with simple variables.</p>
 
 <code-listing heading="Declarative formatting of numbers with the NfValueConverter">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Declarative formatting of numbers with the NfValueConverter">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>col-md-3<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -1100,7 +1100,7 @@ Below you'll find an example how to use those via code:</p>
 
 <code-listing heading="Formatting Dates via Code">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Formatting Dates via Code">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
@@ -1146,7 +1146,7 @@ Remember that if you pass in <code>undefined</code> for the options parameter yo
 
 <code-listing heading="Declarative formatting of dates with the DfValueConverter">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Declarative formatting of dates with the DfValueConverter">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>col-md-3<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -1177,7 +1177,7 @@ To use it via code get hold of the service via injection and call the method as 
 
 <code-listing heading="Rendering relative time via Code">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Rendering relative time via Code">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>RelativeTime<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
@@ -1208,7 +1208,7 @@ translations. If you're missing yours, I welcome you to provide a PR so everybod
 
 <code-listing heading="Declarative relative time using the RtValueConverter">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Declarative relative time using the RtValueConverter">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>col-md-3<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -1230,7 +1230,7 @@ translations. If you're missing yours, I welcome you to provide a PR so everybod
 
 <code-listing>
   
-<source-code lang="JSON">
+<source-code lang="JSON" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token string">"loader"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
@@ -1259,7 +1259,7 @@ translations. If you're missing yours, I welcome you to provide a PR so everybod
 
 <code-listing>
   
-<source-code lang="JSON">
+<source-code lang="JSON" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token string">"bundles"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
@@ -1285,7 +1285,7 @@ translations. If you're missing yours, I welcome you to provide a PR so everybod
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   npm install i18next<span class="token operator">-</span>resource<span class="token operator">-</span>store<span class="token operator">-</span>loader <span class="token operator">--</span>save
@@ -1298,7 +1298,7 @@ translations. If you're missing yours, I welcome you to provide a PR so everybod
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   └── src
@@ -1319,7 +1319,7 @@ translations. If you're missing yours, I welcome you to provide a PR so everybod
 
 <code-listing heading="Configuring the i18next-resource-store-loader">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Configuring the i18next-resource-store-loader">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
@@ -1366,7 +1366,7 @@ have to opt-in and bundle the Polyfill manually.</p>
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   npm install intl <span class="token operator">--</span>save
@@ -1379,7 +1379,7 @@ have to opt-in and bundle the Polyfill manually.</p>
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token string">'intl'</span><span class="token punctuation">;</span>
@@ -1393,7 +1393,7 @@ have to opt-in and bundle the Polyfill manually.</p>
 
 <code-listing heading="Using the polyfill with Webpack">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Using the polyfill with Webpack">
   <pre class="language-javascript">
     <code>
   <span class="token function">bootstrap</span><span class="token punctuation">(</span>aurelia <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -1434,7 +1434,7 @@ to properly recognize the plugins. With that change, the example code looks like
 
 <code-listing heading="Using the polyfill with Webpack">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Using the polyfill with Webpack">
   <pre class="language-javascript">
     <code>
   <span class="token function">bootstrap</span><span class="token punctuation">(</span>aurelia <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -1472,7 +1472,7 @@ to properly recognize the plugins. With that change, the example code looks like
 
 <code-listing heading="Using the polyfill with Webpack">
   
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Using the polyfill with Webpack">
   <pre class="language-typescript">
     <code>
   aurelia<span class="token punctuation">.</span>use
@@ -1496,7 +1496,7 @@ to properly recognize the plugins. With that change, the example code looks like
 
 <code-listing heading="Manually requiring the Intl Polyfill">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Manually requiring the Intl Polyfill">
   <pre class="language-javascript">
     <code>
   <span class="token comment">//main.js</span>

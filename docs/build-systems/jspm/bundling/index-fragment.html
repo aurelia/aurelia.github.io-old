@@ -24,7 +24,7 @@
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   npm install aurelia<span class="token operator">-</span>bundler <span class="token operator">--</span>save<span class="token operator">-</span>dev
@@ -37,7 +37,7 @@
 
 <code-listing heading="bundle.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="bundle.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">var</span> gulp <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'gulp'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -96,7 +96,7 @@ The bundle function returns a Promise for proper integration into async task eng
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   gulp bundle
@@ -122,7 +122,7 @@ The bundle function returns a Promise for proper integration into async task eng
 
 <code-listing heading="bundle.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="bundle.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">var</span> config <span class="token operator">=</span> <span class="token punctuation">{</span>
@@ -157,7 +157,7 @@ The bundle function returns a Promise for proper integration into async task eng
 
 <code-listing heading="a.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="a.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> b <span class="token keyword">from</span> <span class="token string">'./b'</span><span class="token punctuation">;</span>
@@ -170,7 +170,7 @@ The bundle function returns a Promise for proper integration into async task eng
 
 <code-listing heading="b.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="b.js">
   <pre class="language-javascript">
     <code>
   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Hi, I am module B'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -184,7 +184,7 @@ The bundle function returns a Promise for proper integration into async task eng
 
 <code-listing heading="Includes">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Includes">
   <pre class="language-javascript">
     <code>
   bundles<span class="token punctuation">:</span> <span class="token punctuation">{</span>
@@ -203,7 +203,7 @@ The bundle function returns a Promise for proper integration into async task eng
 
 <code-listing heading="users.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="users.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -240,7 +240,7 @@ The bundle function returns a Promise for proper integration into async task eng
 
 <code-listing heading="Includes">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Includes">
   <pre class="language-javascript">
     <code>
   bundles<span class="token punctuation">:</span> <span class="token punctuation">{</span>
@@ -263,7 +263,7 @@ The bundle function returns a Promise for proper integration into async task eng
 
 <code-listing heading="Typical Bundle Configuration">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Typical Bundle Configuration">
   <pre class="language-javascript">
     <code>
   <span class="token string">"dist/app-build"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
@@ -298,7 +298,7 @@ The bundle function returns a Promise for proper integration into async task eng
 
 <code-listing heading="Excludes">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Excludes">
   <pre class="language-javascript">
     <code>
   excludes <span class="token punctuation">:</span> <span class="token punctuation">[</span>
@@ -326,7 +326,7 @@ Exclusion of files that are being used in the project but are not part of it (e.
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
    jspm install aurelia<span class="token operator">-</span>html<span class="token operator">-</span>import<span class="token operator">-</span>template<span class="token operator">-</span>loader
@@ -339,7 +339,7 @@ Exclusion of files that are being used in the project but are not part of it (e.
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-html-import-template-loader'</span><span class="token punctuation">)</span>
@@ -352,7 +352,7 @@ Exclusion of files that are being used in the project but are not part of it (e.
 
 <code-listing heading="main.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="main.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token string">'bootstrap'</span><span class="token punctuation">;</span>
@@ -375,7 +375,7 @@ Exclusion of files that are being used in the project but are not part of it (e.
 
 <code-listing heading="HTML Import Config">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="HTML Import Config">
   <pre class="language-javascript">
     <code>
   <span class="token string">"dist/view-bundle"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
@@ -397,7 +397,7 @@ Exclusion of files that are being used in the project but are not part of it (e.
 
 <code-listing heading="Full HTML Import Bundle Config">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Full HTML Import Bundle Config">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">var</span> gulp <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'gulp'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -455,7 +455,7 @@ Exclusion of files that are being used in the project but are not part of it (e.
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
    gulp serve
@@ -480,7 +480,7 @@ The order in which the tasks are run is important. The <code>build</code> remove
 
 <code-listing heading="Glob Patterns">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Glob Patterns">
   <pre class="language-javascript">
     <code>
   includes <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'dist/**/*.html'</span><span class="token punctuation">,</span> <span class="token string">'!dist/movie/*.html'</span><span class="token punctuation">]</span>
@@ -496,7 +496,7 @@ The order in which the tasks are run is important. The <code>build</code> remove
 
 <code-listing heading="HTML Import Injection Options">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="HTML Import Injection Options">
   <pre class="language-javascript">
     <code>
   indexFile<span class="token punctuation">:</span> <span class="token string">'index.html'</span><span class="token punctuation">,</span>

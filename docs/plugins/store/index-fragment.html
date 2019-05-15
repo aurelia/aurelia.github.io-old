@@ -40,7 +40,7 @@
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   npm install aurelia<span class="token operator">-</span>store
@@ -55,7 +55,7 @@
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   yarn add aurelia<span class="token operator">-</span>store
@@ -71,7 +71,7 @@ If you're not using RxJS at all so far it is recommended to run <code>npm instal
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   au import aurelia<span class="token operator">-</span>store
@@ -84,7 +84,7 @@ If you're not using RxJS at all so far it is recommended to run <code>npm instal
 
 <code-listing>
   
-<source-code lang="JSON">
+<source-code lang="JSON" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token operator">...</span>
@@ -128,7 +128,7 @@ With the recent release of RxJS v.6, which this plugin depends on, quite a lot h
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// object.entries.polyfill.js</span>
@@ -160,7 +160,7 @@ State that is contained within the component is a good thing, as long as only th
 
 <code-listing heading="Defining the State entity and initialState">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Defining the State entity and initialState">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// there is no need for a dedicated entity in JavaScript</span>
@@ -174,7 +174,7 @@ State that is contained within the component is a good thing, as long as only th
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Defining the State entity and initialState">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// state.ts</span>
@@ -195,7 +195,7 @@ State that is contained within the component is a good thing, as long as only th
 
 <code-listing heading="Registering the plugin">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Registering the plugin">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// main.js</span>
@@ -218,7 +218,7 @@ State that is contained within the component is a good thing, as long as only th
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Registering the plugin">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// main.ts</span>
@@ -247,7 +247,7 @@ State that is contained within the component is a good thing, as long as only th
 
 <code-listing heading="Injecting the store and creating a subscription">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Injecting the store and creating a subscription">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -275,7 +275,7 @@ State that is contained within the component is a good thing, as long as only th
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Injecting the store and creating a subscription">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -314,7 +314,7 @@ Note that in the TypeScript version we didn't have to type-cast the state variab
 
 <code-listing heading="Subscribing to the state property">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Subscribing to the state property">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -339,7 +339,7 @@ What it does is to connect your store's state automatically to a class property 
 
 <code-listing heading="Using the connectTo decorator">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Using the connectTo decorator">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -355,7 +355,7 @@ What it does is to connect your store's state automatically to a class property 
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Using the connectTo decorator">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -380,7 +380,7 @@ Notice how we've declared the public state property of type <code>State</code> i
 
 <code-listing heading="Sub-state selection">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Sub-state selection">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -396,7 +396,7 @@ Notice how we've declared the public state property of type <code>State</code> i
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Sub-state selection">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -416,7 +416,7 @@ Notice how we've declared the public state property of type <code>State</code> i
 
 <code-listing heading="Defining the selector and target">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Defining the selector and target">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -435,7 +435,7 @@ Notice how we've declared the public state property of type <code>State</code> i
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Defining the selector and target">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -458,7 +458,7 @@ Notice how we've declared the public state property of type <code>State</code> i
 
 <code-listing heading="Defining multiple selectors">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Defining multiple selectors">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -479,7 +479,7 @@ Notice how we've declared the public state property of type <code>State</code> i
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Defining multiple selectors">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -504,7 +504,7 @@ Notice how we've declared the public state property of type <code>State</code> i
 
 <code-listing heading="Defining multiple selectors with a target">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Defining multiple selectors with a target">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -529,7 +529,7 @@ Notice how we've declared the public state property of type <code>State</code> i
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Defining multiple selectors with a target">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -558,7 +558,7 @@ Notice how we've declared the public state property of type <code>State</code> i
 
 <code-listing heading="Overriding the default setup and teardown methods">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Overriding the default setup and teardown methods">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -578,7 +578,7 @@ Notice how we've declared the public state property of type <code>State</code> i
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Overriding the default setup and teardown methods">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -608,7 +608,7 @@ The provided action names for setup and teardown don't necessarily have to be on
 
 <code-listing heading="Default change stateChanged handling">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Default change stateChanged handling">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -634,7 +634,7 @@ The provided action names for setup and teardown don't necessarily have to be on
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Default change stateChanged handling">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -664,7 +664,7 @@ The provided action names for setup and teardown don't necessarily have to be on
 
 <code-listing heading="Default change handling with target">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Default change handling with target">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -685,7 +685,7 @@ The provided action names for setup and teardown don't necessarily have to be on
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Default change handling with target">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -710,7 +710,7 @@ The provided action names for setup and teardown don't necessarily have to be on
 
 <code-listing heading="Default change handling with multiple selectors">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Default change handling with multiple selectors">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -739,7 +739,7 @@ The provided action names for setup and teardown don't necessarily have to be on
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Default change handling with multiple selectors">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -772,7 +772,7 @@ The provided action names for setup and teardown don't necessarily have to be on
 
 <code-listing heading="Default change handling with multiple selectors and target">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Default change handling with multiple selectors and target">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -802,7 +802,7 @@ The provided action names for setup and teardown don't necessarily have to be on
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Default change handling with multiple selectors and target">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -836,7 +836,7 @@ The provided action names for setup and teardown don't necessarily have to be on
 
 <code-listing heading="Define an onChanged handler">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Define an onChanged handler">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -859,7 +859,7 @@ The provided action names for setup and teardown don't necessarily have to be on
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Define an onChanged handler">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -886,7 +886,7 @@ The provided action names for setup and teardown don't necessarily have to be on
 
 <code-listing heading="Default change handling with propertyChanged">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Default change handling with propertyChanged">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -906,7 +906,7 @@ The provided action names for setup and teardown don't necessarily have to be on
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Default change handling with propertyChanged">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -947,7 +947,7 @@ You can create a &quot;shallow&quot; clone of the state by using <code>Object.as
 
 <code-listing heading="A simple action">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="A simple action">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">const</span> <span class="token function-variable function">demoAction</span> <span class="token operator">=</span> <span class="token punctuation">(</span>state<span class="token punctuation">,</span> frameworkName<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -961,7 +961,7 @@ You can create a &quot;shallow&quot; clone of the state by using <code>Object.as
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="A simple action">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">const</span> <span class="token function-variable function">demoAction</span> <span class="token operator">=</span> <span class="token punctuation">(</span>state<span class="token punctuation">:</span> State<span class="token punctuation">,</span> frameworkName<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -979,7 +979,7 @@ You can create a &quot;shallow&quot; clone of the state by using <code>Object.as
 
 <code-listing heading="Registering an action">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Registering an action">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -1001,7 +1001,7 @@ You can create a &quot;shallow&quot; clone of the state by using <code>Object.as
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Registering an action">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -1029,7 +1029,7 @@ You can create a &quot;shallow&quot; clone of the state by using <code>Object.as
 
 <code-listing heading="Unregistering an action">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Unregistering an action">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -1050,7 +1050,7 @@ You can create a &quot;shallow&quot; clone of the state by using <code>Object.as
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Unregistering an action">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -1079,7 +1079,7 @@ You can create a &quot;shallow&quot; clone of the state by using <code>Object.as
 
 <code-listing heading="An async action">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="An async action">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">function</span> <span class="token function">validateAsync</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -1107,7 +1107,7 @@ You can create a &quot;shallow&quot; clone of the state by using <code>Object.as
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="An async action">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">function</span> <span class="token function">validateAsync</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -1146,7 +1146,7 @@ Alternatively we can also provide the previously registered name instead.</p>
 
 <code-listing heading="Dispatching an action">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Dispatching an action">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -1175,7 +1175,7 @@ Alternatively we can also provide the previously registered name instead.</p>
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Dispatching an action">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -1220,7 +1220,7 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
 
 <code-listing heading="Forwarding a dispatchable function as argument to child-elements">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Forwarding a dispatchable function as argument to child-elements">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// framework-list.js</span>
@@ -1264,7 +1264,7 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Forwarding a dispatchable function as argument to child-elements">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// framework-list.ts</span>
@@ -1328,7 +1328,7 @@ Yet exactly the later is what a two-way binding introduces if you bind your VM d
 
 <code-listing heading="Using binding models instead of the state">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Using binding models instead of the state">
   <pre class="language-javascript">
     <code>
   <span class="token comment">/*
@@ -1375,7 +1375,7 @@ Yet exactly the later is what a two-way binding introduces if you bind your VM d
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Using binding models instead of the state">
   <pre class="language-typescript">
     <code>
   <span class="token comment">/*
@@ -1430,7 +1430,7 @@ Yet exactly the later is what a two-way binding introduces if you bind your VM d
 
 <code-listing heading="Registering the plugin with history support">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Registering the plugin with history support">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// main.js</span>
@@ -1458,7 +1458,7 @@ Yet exactly the later is what a two-way binding introduces if you bind your VM d
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Registering the plugin with history support">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// main.ts</span>
@@ -1490,7 +1490,7 @@ Yet exactly the later is what a two-way binding introduces if you bind your VM d
 
 <code-listing>
   
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// aurelia-store -> history.ts</span>
@@ -1507,7 +1507,7 @@ Yet exactly the later is what a two-way binding introduces if you bind your VM d
 
 <code-listing heading="Subscribing to the state history">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Subscribing to the state history">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -1532,7 +1532,7 @@ Yet exactly the later is what a two-way binding introduces if you bind your VM d
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Subscribing to the state history">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -1563,7 +1563,7 @@ You can use the <code>nextStateHistory</code> helper function to easily push you
 
 <code-listing heading="A StateHistory-aware action">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="A StateHistory-aware action">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -1593,7 +1593,7 @@ You can use the <code>nextStateHistory</code> helper function to easily push you
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="A StateHistory-aware action">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -1629,7 +1629,7 @@ You can use the <code>nextStateHistory</code> helper function to easily push you
 
 <code-listing heading="Time-travelling states">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Time-travelling states">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -1664,7 +1664,7 @@ You can use the <code>nextStateHistory</code> helper function to easily push you
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Time-travelling states">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -1706,7 +1706,7 @@ That means your past and future arrays can hold only a maximum of the provided <
 
 <code-listing heading="Registering the plugin with history overflow limits">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Registering the plugin with history overflow limits">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// main.js</span>
@@ -1735,7 +1735,7 @@ That means your past and future arrays can hold only a maximum of the provided <
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Registering the plugin with history overflow limits">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// main.ts</span>
@@ -1777,7 +1777,7 @@ As soon as you have one async middleware registered, essentially all action disp
 
 <code-listing heading="Registering a middleware">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Registering a middleware">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -1791,7 +1791,7 @@ As soon as you have one async middleware registered, essentially all action disp
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Registering a middleware">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -1813,7 +1813,7 @@ You can call the <code>store.registerMiddleware</code> function whenever you wan
 
 <code-listing heading="Accessing the original state">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Accessing the original state">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -1828,7 +1828,7 @@ You can call the <code>store.registerMiddleware</code> function whenever you wan
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Accessing the original state">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -1849,7 +1849,7 @@ These are passed in as the third argument to the middleware function and are reg
 
 <code-listing heading="Passing settings to middlewares">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Passing settings to middlewares">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -1862,7 +1862,7 @@ These are passed in as the third argument to the middleware function and are reg
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Passing settings to middlewares">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -1881,7 +1881,7 @@ In here you get an object containing the action's <code>name</code> and the prov
 
 <code-listing heading="Reference to the calling action in middlewares">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Reference to the calling action in middlewares">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -1899,7 +1899,7 @@ In here you get an object containing the action's <code>name</code> and the prov
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Reference to the calling action in middlewares">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -1922,7 +1922,7 @@ In here you get an object containing the action's <code>name</code> and the prov
 
 <code-listing heading="Registering the plugin with active error propagation">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Registering the plugin with active error propagation">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// main.js</span>
@@ -1948,7 +1948,7 @@ In here you get an object containing the action's <code>name</code> and the prov
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Registering the plugin with active error propagation">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// main.ts</span>
@@ -1981,7 +1981,7 @@ In here you get an object containing the action's <code>name</code> and the prov
 
 <code-listing heading="Registering the Logging middleware">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Registering the Logging middleware">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -1996,7 +1996,7 @@ In here you get an object containing the action's <code>name</code> and the prov
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Registering the Logging middleware">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -2019,7 +2019,7 @@ In here you get an object containing the action's <code>name</code> and the prov
 
 <code-listing heading="Registering the LocalStorage middleware">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Registering the LocalStorage middleware">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -2034,7 +2034,7 @@ In here you get an object containing the action's <code>name</code> and the prov
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Registering the LocalStorage middleware">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -2053,7 +2053,7 @@ In here you get an object containing the action's <code>name</code> and the prov
 
 <code-listing heading="Dispatching the localStorage rehydration action">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Dispatching the localStorage rehydration action">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// app.js</span>
@@ -2069,7 +2069,7 @@ In here you get an object containing the action's <code>name</code> and the prov
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Dispatching the localStorage rehydration action">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// app.ts</span>
@@ -2096,7 +2096,7 @@ Keep in mind that the store starts with an <code>initialState</code>. If the <co
 
 <code-listing heading="Tracking performance data">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Tracking performance data">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// main.js</span>
@@ -2107,7 +2107,7 @@ Keep in mind that the store starts with an <code>initialState</code>. If the <co
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Tracking performance data">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// main.ts</span>
@@ -2139,7 +2139,7 @@ Keep in mind that the store starts with an <code>initialState</code>. If the <co
 
 <code-listing heading="Initializing the DevTools extension with custom options">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Initializing the DevTools extension with custom options">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// main.js</span>
@@ -2156,7 +2156,7 @@ Keep in mind that the store starts with an <code>initialState</code>. If the <co
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Initializing the DevTools extension with custom options">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// main.ts</span>
@@ -2178,7 +2178,7 @@ Keep in mind that the store starts with an <code>initialState</code>. If the <co
 
 <code-listing heading="Dispatch logs to console.debug">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Dispatch logs to console.debug">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// main.js</span>
@@ -2195,7 +2195,7 @@ Keep in mind that the store starts with an <code>initialState</code>. If the <co
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Dispatch logs to console.debug">
   <pre class="language-typescript">
     <code>
   <span class="token comment">// main.ts</span>

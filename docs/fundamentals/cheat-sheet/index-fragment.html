@@ -8,7 +8,7 @@
     <section><h2 id="configuration-and-startup">Configuration and Startup</h2>
 <code-listing heading="Bootstrapping Older Browsers">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Bootstrapping Older Browsers">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>jspm_packages/system.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
@@ -33,7 +33,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 
 <code-listing heading="Standard Startup Configuration">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Standard Startup Configuration">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -48,7 +48,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Standard Startup Configuration">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>Aurelia<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -68,7 +68,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 
 <code-listing heading="Explicit Startup Configuration">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Explicit Startup Configuration">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>LogManager<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -92,7 +92,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Explicit Startup Configuration">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>LogManager<span class="token punctuation">,</span> Aurelia<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -119,7 +119,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 
 <code-listing heading="Configuring A Feature">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Configuring A Feature">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -135,7 +135,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Configuring A Feature">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>Aurelia<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -156,7 +156,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 
 <code-listing heading="Installing a Plugin">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Installing a Plugin">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -172,7 +172,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Installing a Plugin">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>Aurelia<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -195,7 +195,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 
 <code-listing heading="Explicit Configuration">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Explicit Configuration">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>useView<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -209,7 +209,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Explicit Configuration">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>useView<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -237,7 +237,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 <section><h2 id="dependency-injection">Dependency Injection</h2>
 <code-listing heading="Declaring Dependencies">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Declaring Dependencies">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -256,7 +256,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Declaring Dependencies">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -275,7 +275,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 
 <code-listing heading="Using Resolvers">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Using Resolvers">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>Lazy<span class="token punctuation">,</span> inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -292,7 +292,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Using Resolvers">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>Lazy<span class="token punctuation">,</span> inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -343,7 +343,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 
 <code-listing heading="Explicit Registration">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Explicit Registration">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>transient<span class="token punctuation">,</span> inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -361,7 +361,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Explicit Registration">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>transient<span class="token punctuation">,</span> autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -381,7 +381,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 <section><h2 id="templating-basics">Templating Basics</h2>
 <code-listing heading="A Simple Template">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="A Simple Template">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -395,7 +395,7 @@ Currently, the Edge browser has a serious performance problem with its Promise i
 
 <code-listing heading="Requiring Resources">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Requiring Resources">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -422,7 +422,7 @@ Dynamic compose as used below does not work when using webpack. It is suggested 
 
 <code-listing heading="Compose an existing object instance with a view.">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Compose an existing object instance with a view.">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -439,7 +439,7 @@ Dynamic compose as used below does not work when using webpack. It is suggested 
 
 <code-listing heading="template_A.html">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="template_A.html">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -453,7 +453,7 @@ Dynamic compose as used below does not work when using webpack. It is suggested 
 
 <code-listing heading="template_B.html">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="template_B.html">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -468,7 +468,7 @@ Dynamic compose as used below does not work when using webpack. It is suggested 
 
 <code-listing heading="Illegal Table Code">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Illegal Table Code">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -488,7 +488,7 @@ Dynamic compose as used below does not work when using webpack. It is suggested 
 
 <code-listing heading="Correct Table Code">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Correct Table Code">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -506,7 +506,7 @@ Dynamic compose as used below does not work when using webpack. It is suggested 
 
 <code-listing heading="Illegal Select Code">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Illegal Select Code">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -524,7 +524,7 @@ Dynamic compose as used below does not work when using webpack. It is suggested 
 
 <code-listing heading="Correct Select Code">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Correct Select Code">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -549,7 +549,7 @@ Dynamic compose as used below does not work when using webpack. It is suggested 
 
 <code-listing heading="Data Binding Examples">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Data Binding Examples">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -578,7 +578,7 @@ The <code>$event</code> value can be passed as an argument to a <code>delegate</
 
 <code-listing heading="Event Binding Examples">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Event Binding Examples">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -595,7 +595,7 @@ The <code>$event</code> value can be passed as an argument to a <code>delegate</
 
 <code-listing heading="Call Example">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Call Example">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -618,7 +618,7 @@ The <code>$event</code> value can be passed as an argument to a <code>delegate</
 
 <code-listing heading="Ref Example">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Ref Example">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -634,7 +634,7 @@ The <code>$event</code> value can be passed as an argument to a <code>delegate</
 
 <code-listing heading="String Interpolation  Example">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="String Interpolation  Example">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -651,7 +651,7 @@ The <code>$event</code> value can be passed as an argument to a <code>delegate</
 
 <code-listing heading="Basic Select">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Basic Select">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -668,7 +668,7 @@ The <code>$event</code> value can be passed as an argument to a <code>delegate</
 
 <code-listing heading="Select with Object Array">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Select with Object Array">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -685,7 +685,7 @@ The <code>$event</code> value can be passed as an argument to a <code>delegate</
 
 <code-listing heading="Select with Object Id Sync">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Select with Object Id Sync">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -702,7 +702,7 @@ The <code>$event</code> value can be passed as an argument to a <code>delegate</
 
 <code-listing heading="Basic Multi-Select">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Basic Multi-Select">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -718,7 +718,7 @@ The <code>$event</code> value can be passed as an argument to a <code>delegate</
 
 <code-listing heading="Multi-Select with Object Array">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Multi-Select with Object Array">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -735,7 +735,7 @@ The <code>$event</code> value can be passed as an argument to a <code>delegate</
 
 <code-listing heading="Basic Radios">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Basic Radios">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -752,7 +752,7 @@ The <code>$event</code> value can be passed as an argument to a <code>delegate</
 
 <code-listing heading="Radios with Object Arrays">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Radios with Object Arrays">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -769,7 +769,7 @@ The <code>$event</code> value can be passed as an argument to a <code>delegate</
 
 <code-listing heading="Radios with a Boolean">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Radios with a Boolean">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -789,7 +789,7 @@ You cannot use a <code>click.delegate</code> on checkboxes if you want to attach
 
 <code-listing heading="Checkboxes with an Array">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Checkboxes with an Array">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -806,7 +806,7 @@ You cannot use a <code>click.delegate</code> on checkboxes if you want to attach
 
 <code-listing heading="Checkboxes with an Array of Objects">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Checkboxes with an Array of Objects">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -823,7 +823,7 @@ You cannot use a <code>click.delegate</code> on checkboxes if you want to attach
 
 <code-listing heading="Checkboxes with Booleans">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Checkboxes with Booleans">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -840,7 +840,7 @@ You cannot use a <code>click.delegate</code> on checkboxes if you want to attach
 
 <code-listing heading="Binding innerHTML">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Binding innerHTML">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -863,7 +863,7 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 
 <code-listing heading="Binding textContent">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Binding textContent">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -878,7 +878,7 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 
 <code-listing heading="Two-Way Editable textContent">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Two-Way Editable textContent">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -894,7 +894,7 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 
 <code-listing heading="Style Binding Data">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Style Binding Data">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">StyleData</span> <span class="token punctuation">{</span>
@@ -912,7 +912,7 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Style Binding Data">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">StyleData</span> <span class="token punctuation">{</span>
@@ -936,7 +936,7 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 
 <code-listing heading="Style Binding View">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Style Binding View">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -951,7 +951,7 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 
 <code-listing heading="Illegal Style Interpolation">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Illegal Style Interpolation">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -965,7 +965,7 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 
 <code-listing heading="Legal Style Interpolation">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Legal Style Interpolation">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -980,7 +980,7 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 
 <code-listing heading="Computed Properties">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Computed Properties">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>computedFrom<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -999,7 +999,7 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Computed Properties">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>computedFrom<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -1022,7 +1022,7 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 <section><h2 id="templating-view-resources">Templating View Resources</h2>
 <code-listing heading="Conditionally displays an HTML element.">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Conditionally displays an HTML element.">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -1036,7 +1036,7 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 
 <code-listing heading="Conditionally add/remove an HTML element">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Conditionally add/remove an HTML element">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -1050,7 +1050,7 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 
 <code-listing heading="Conditionally add/remove a group of elements">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Conditionally add/remove a group of elements">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -1069,7 +1069,7 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 
 <code-listing heading="creating new component instance every time condition changes">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="creating new component instance every time condition changes">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -1083,7 +1083,7 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 
 <code-listing heading="Render an array with a template">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Render an array with a template">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -1099,7 +1099,7 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 
 <code-listing heading="Render a map with a template">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Render a map with a template">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -1115,7 +1115,7 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 
 <code-listing heading="Render a template N times">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Render a template N times">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -1142,7 +1142,7 @@ The <code>if</code> and <code>repeat</code> attributes are usually placed on the
 
 <code-listing heading="Dynamically render UI into the DOM based on data">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Dynamically render UI into the DOM based on data">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>item of items<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -1156,7 +1156,7 @@ The <code>if</code> and <code>repeat</code> attributes are usually placed on the
 
 <code-listing heading="Composing a view only, inheriting the parent binding context">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Composing a view only, inheriting the parent binding context">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>item of items<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -1170,7 +1170,7 @@ The <code>if</code> and <code>repeat</code> attributes are usually placed on the
 
 <code-listing heading="Compose an existing object instance with a view">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Compose an existing object instance with a view">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -1187,7 +1187,7 @@ The <code>if</code> and <code>repeat</code> attributes are usually placed on the
 <section><h2 id="routing">Routing</h2>
 <code-listing heading="Basic Route Configuration">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Basic Route Configuration">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -1207,7 +1207,7 @@ The <code>if</code> and <code>repeat</code> attributes are usually placed on the
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Basic Route Configuration">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>RouterConfiguration<span class="token punctuation">,</span> Router<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-router'</span><span class="token punctuation">;</span>
@@ -1262,7 +1262,7 @@ However this can also be used to implement logic for <em>attaching the component
 
 <code-listing heading="Route Params and NavModel">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Route Params and NavModel">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -1286,7 +1286,7 @@ However this can also be used to implement logic for <em>attaching the component
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Route Params and NavModel">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -1312,7 +1312,7 @@ However this can also be used to implement logic for <em>attaching the component
 
 <code-listing heading="Conventional Routing">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Conventional Routing">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -1328,7 +1328,7 @@ However this can also be used to implement logic for <em>attaching the component
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Conventional Routing">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>RouterConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-router'</span><span class="token punctuation">;</span>
@@ -1349,7 +1349,7 @@ However this can also be used to implement logic for <em>attaching the component
 
 <code-listing heading="Customizing the Navigation Pipeline">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Customizing the Navigation Pipeline">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>Redirect<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-router'</span><span class="token punctuation">;</span>
@@ -1384,7 +1384,7 @@ However this can also be used to implement logic for <em>attaching the component
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Customizing the Navigation Pipeline">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>Redirect<span class="token punctuation">,</span> NavigationInstruction<span class="token punctuation">,</span> RouterConfiguration<span class="token punctuation">,</span> Next<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-router'</span><span class="token punctuation">;</span>
@@ -1426,7 +1426,7 @@ However this can also be used to implement logic for <em>attaching the component
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -1447,7 +1447,7 @@ However this can also be used to implement logic for <em>attaching the component
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>Redirect<span class="token punctuation">,</span> NavigationInstruction<span class="token punctuation">,</span> RouterConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-router'</span><span class="token punctuation">;</span>
@@ -1478,7 +1478,7 @@ PushState requires server-side support. Don't forget to configure your server ap
 
 <code-listing heading="Router View Model Activation Control">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Router View Model Activation Control">
   <pre class="language-javascript">
     <code>
   <span class="token comment">//app.js</span>
@@ -1507,7 +1507,7 @@ PushState requires server-side support. Don't forget to configure your server ap
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Router View Model Activation Control">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>RouterConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-router'</span><span class="token punctuation">;</span>
@@ -1548,7 +1548,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Multi-ViewPort View">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Multi-ViewPort View">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -1567,7 +1567,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Multi-ViewPort View-Model">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Multi-ViewPort View-Model">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -1590,7 +1590,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Multi-ViewPort View-Model">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>RouterConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-router'</span><span class="token punctuation">;</span>
@@ -1619,7 +1619,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Generate Route URLs in Code">">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Generate Route URLs in Code">">
   <pre class="language-javascript">
     <code>
   router<span class="token punctuation">.</span><span class="token function">generate</span><span class="token punctuation">(</span><span class="token string">'routeName'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">123</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1631,7 +1631,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Navigating to a Generated Route">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Navigating to a Generated Route">
   <pre class="language-javascript">
     <code>
   router<span class="token punctuation">.</span><span class="token function">navigateToRoute</span><span class="token punctuation">(</span><span class="token string">'routeName'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">123</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
@@ -1643,7 +1643,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Rendering an Anchor for a Route">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Rendering an Anchor for a Route">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -1657,7 +1657,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Bypassing the Router for a Link">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Bypassing the Router for a Link">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -1672,7 +1672,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 <section><h2 id="custom-attributes">Custom Attributes</h2>
 <code-listing heading="Simple Attribute Declaration">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Simple Attribute Declaration">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">,</span> customAttribute<span class="token punctuation">,</span> <span class="token constant">DOM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -1693,7 +1693,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Simple Attribute Declaration">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">,</span> customAttribute<span class="token punctuation">,</span> <span class="token constant">DOM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -1715,7 +1715,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Simple Attribute Use">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Simple Attribute Use">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -1730,7 +1730,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Options Attribute Declaration">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Options Attribute Declaration">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>customAttribute<span class="token punctuation">,</span> bindable<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -1749,7 +1749,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Options Attribute Declaration">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>customAttribute<span class="token punctuation">,</span> bindable<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -1771,7 +1771,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Options Attribute Use">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Options Attribute Use">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -1785,7 +1785,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Dynamic Option Attribute Declaration">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Dynamic Option Attribute Declaration">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>customAttribute<span class="token punctuation">,</span> dynamicOptions<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -1800,7 +1800,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Dynamic Option Attribute Declaration">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>customAttribute<span class="token punctuation">,</span> dynamicOptions<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -1818,7 +1818,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Dynamic Option Attribute Use">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Dynamic Option Attribute Use">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -1832,7 +1832,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Bindable Signature (Showing Defaults)">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Bindable Signature (Showing Defaults)">
   <pre class="language-javascript">
     <code>
   <span class="token function">bindable</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
@@ -1850,7 +1850,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Template Controller Attribute Declaration">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Template Controller Attribute Declaration">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>BoundViewFactory<span class="token punctuation">,</span> ViewSlot<span class="token punctuation">,</span> customAttribute<span class="token punctuation">,</span> templateController<span class="token punctuation">,</span> inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -1878,7 +1878,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Template Controller Attribute Declaration">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>BoundViewFactory<span class="token punctuation">,</span> ViewSlot<span class="token punctuation">,</span> customAttribute<span class="token punctuation">,</span> templateController<span class="token punctuation">,</span> autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -1906,7 +1906,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Template Controller Attribute Use">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Template Controller Attribute Use">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -1926,7 +1926,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 <section><h2 id="custom-elements">Custom Elements</h2>
 <code-listing heading="Custom Element View-Model Declaration">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Custom Element View-Model Declaration">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>customElement<span class="token punctuation">,</span> bindable<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -1944,7 +1944,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Custom Element View-Model Declaration">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>customElement<span class="token punctuation">,</span> bindable<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -1965,7 +1965,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Custom Element View Declaration">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Custom Element View Declaration">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -1979,7 +1979,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Custom Element Use">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Custom Element Use">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -1998,7 +1998,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Declare Custom Element Without View-Model With Binding">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Declare Custom Element Without View-Model With Binding">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">bindable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>greeting,name<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -2012,7 +2012,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Add Global Custom Element Without View-Model">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Add Global Custom Element Without View-Model">
   <pre class="language-javascript">
     <code>
   aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">globalResources</span><span class="token punctuation">(</span><span class="token string">'./js-less-component.html'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -2024,7 +2024,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Use Custom Element Without View-Model">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Use Custom Element Without View-Model">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./js-less-component.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
@@ -2040,7 +2040,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Custom Element View-Model Declaration">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Custom Element View-Model Declaration">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -2058,7 +2058,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Custom Element View-Model Declaration">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -2079,7 +2079,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Custom Element Use">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Custom Element Use">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -2109,7 +2109,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="SVG Custom Element View-Model Declaration">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="SVG Custom Element View-Model Declaration">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>containerless<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -2123,7 +2123,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="SVG Custom Element View-Model Declaration">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>containerless<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -2140,7 +2140,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="SVG Custom Element View">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="SVG Custom Element View">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -2156,7 +2156,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="SVG Custom Element Use">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="SVG Custom Element Use">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -2175,7 +2175,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Custom Element View with Replaceable Parts">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Custom Element View with Replaceable Parts">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -2195,7 +2195,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Custom Element Use with Replacement">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Custom Element Use with Replacement">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -2215,7 +2215,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Surrogate Behavior Use">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Surrogate Behavior Use">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">role</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>progress-bar<span class="token punctuation">"</span></span> <span class="token attr-name">aria-valuenow.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>progress<span class="token punctuation">"</span></span> <span class="token attr-name">aria-valuemin</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0<span class="token punctuation">"</span></span> <span class="token attr-name">aria-valuemax</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>100<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -2233,7 +2233,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Correct observable usage">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Correct observable usage">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>observable<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -2249,7 +2249,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Correct observable usage">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>observable<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -2269,7 +2269,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Correct observable usage with configured change handler">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Correct observable usage with configured change handler">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>observable<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -2285,7 +2285,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Correct observable usage with configured change handler">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>observable<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -2306,7 +2306,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Publishing on a Channel">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Publishing on a Channel">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -2328,7 +2328,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Publishing on a Channel">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -2351,7 +2351,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Subscribing to a Channel">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Subscribing to a Channel">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -2374,7 +2374,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Subscribing to a Channel">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -2398,7 +2398,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Publishing a Message">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Publishing a Message">
   <pre class="language-javascript">
     <code>
   <span class="token comment">//some-message.js</span>
@@ -2424,7 +2424,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Publishing a Message">
   <pre class="language-typescript">
     <code>
   <span class="token comment">//some-message.ts</span>
@@ -2451,7 +2451,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 
 <code-listing heading="Subscribing to a Message Type">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Subscribing to a Message Type">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -2475,7 +2475,7 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Subscribing to a Message Type">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>

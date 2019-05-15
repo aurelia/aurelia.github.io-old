@@ -17,7 +17,7 @@
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   @<span class="token function">customElement</span><span class="token punctuation">(</span><span class="token string">'ag-grid-aurelia'</span><span class="token punctuation">)</span>
@@ -35,7 +35,7 @@
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   @<span class="token function">children</span><span class="token punctuation">(</span><span class="token string">'ag-grid-column'</span><span class="token punctuation">)</span>
@@ -50,7 +50,7 @@
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   ComponentUtil<span class="token punctuation">.</span><span class="token constant">EVENTS</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span>eventName<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -67,7 +67,7 @@
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">this</span><span class="token punctuation">.</span>gridOptions <span class="token operator">=</span> ComponentUtil<span class="token punctuation">.</span><span class="token function">copyAttributesToGridOptions</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>gridOptions<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -84,7 +84,7 @@
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>columns <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>columns<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -102,7 +102,7 @@
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">new</span> <span class="token class-name">Grid</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_nativeElement<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>gridOptions<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>gridParams<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -119,7 +119,7 @@
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   @<span class="token function">autoinject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -162,7 +162,7 @@
 
 <code-listing>
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ag-grid-column</span> <span class="token attr-name">header-name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Mood<span class="token punctuation">"</span></span> <span class="token attr-name">field</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>mood<span class="token punctuation">"</span></span> <span class="token attr-name">width.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>250<span class="token punctuation">"</span></span> <span class="token attr-name">editable.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>

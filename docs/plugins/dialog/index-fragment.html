@@ -10,7 +10,7 @@
 <section><h2 id="installing-the-plugin">Installing The Plugin</h2>
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   npm install aurelia<span class="token operator">-</span>dialog <span class="token operator">--</span>save
@@ -23,7 +23,7 @@
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   yarn add aurelia<span class="token operator">-</span>dialog
@@ -36,7 +36,7 @@
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   jspm install aurelia<span class="token operator">-</span>dialog
@@ -51,7 +51,7 @@ If you use TypeScript and install <em>only</em> the <em>jspm</em> package, you c
 
 <code-listing>
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
   typings install github:aurelia<span class="token operator">/</span>dialog <span class="token operator">--</span>save
@@ -69,7 +69,7 @@ If you use TypeScript and install <em>only</em> the <em>jspm</em> package, you c
 
 <code-listing heading="index.html">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="index.html">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span> <span class="token attr-name">aurelia-app</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>main<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
@@ -84,7 +84,7 @@ If you use TypeScript and install <em>only</em> the <em>jspm</em> package, you c
 
 <code-listing heading="main.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="main.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
@@ -116,7 +116,7 @@ When the <code>&lt;body&gt;</code> is marked with the <code>aurelia-app</code> a
 
 <code-listing heading="welcome.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="welcome.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>DialogService<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-dialog'</span><span class="token punctuation">;</span>
@@ -151,7 +151,7 @@ When the <code>&lt;body&gt;</code> is marked with the <code>aurelia-app</code> a
 
 <code-listing heading="welcome.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="welcome.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>EditPerson<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./edit-person'</span><span class="token punctuation">;</span>
@@ -183,7 +183,7 @@ When the <code>&lt;body&gt;</code> is marked with the <code>aurelia-app</code> a
 
 <code-listing heading="edit-person.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="edit-person.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>DialogController<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-dialog'</span><span class="token punctuation">;</span>
@@ -207,7 +207,7 @@ When the <code>&lt;body&gt;</code> is marked with the <code>aurelia-app</code> a
 
 <code-listing heading="edit-person.html">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="edit-person.html">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -234,7 +234,7 @@ If you are not using them provide a configuration callback so they do not get re
 
 <code-listing heading="main.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="main.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
@@ -256,7 +256,7 @@ If you are not using them provide a configuration callback so they do not get re
 
 <code-listing heading="main.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="main.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
@@ -280,7 +280,7 @@ If you are not using them provide a configuration callback so they do not get re
 
 <code-listing heading="edit-person.html">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="edit-person.html">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -300,7 +300,7 @@ If you are not using them provide a configuration callback so they do not get re
 
 <code-listing heading="edit-person.html">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="edit-person.html">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">attach-focus.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>isNewPerson<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>person.email<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -319,7 +319,7 @@ Logic is executed during <code>attach</code> - hence the attribute name. Any cha
 
 <code-listing heading="main.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="main.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
@@ -354,7 +354,7 @@ Logic is executed during <code>attach</code> - hence the attribute name. Any cha
 
 <code-listing heading="System">
   
-<source-code lang="File">
+<source-code lang="File" heading="System">
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">.</span>
@@ -426,7 +426,7 @@ Plugin authors are advised to be explicit with settings that change behavior (<c
 
 <code-listing heading="prompt.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="prompt.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Prompt</span> <span class="token punctuation">{</span>
@@ -450,7 +450,7 @@ Plugin authors are advised to be explicit with settings that change behavior (<c
 
 <code-listing heading="welcome.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="welcome.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>EditPerson<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./edit-person'</span><span class="token punctuation">;</span>
@@ -492,7 +492,7 @@ Plugin authors are advised to be explicit with settings that change behavior (<c
 
 <code-listing>
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">public</span> <span class="token function">useDefaults</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">this</span> <span class="token punctuation">{</span>
@@ -509,7 +509,7 @@ Plugin authors are advised to be explicit with settings that change behavior (<c
 
 <code-listing heading="main.js">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="main.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
@@ -536,7 +536,7 @@ Plugin authors are advised to be explicit with settings that change behavior (<c
 
 <code-listing>
   
-<source-code lang="CSS">
+<source-code lang="CSS" heading="">
   <pre class="language-javascript">
     <code>
   ux<span class="token operator">-</span>dialog<span class="token operator">-</span>overlay<span class="token punctuation">.</span>active <span class="token punctuation">{</span>

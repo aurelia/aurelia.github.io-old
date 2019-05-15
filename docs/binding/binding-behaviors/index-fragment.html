@@ -16,7 +16,7 @@
 
 <code-listing heading="Updating a property, at most, every 200ms">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Updating a property, at most, every 200ms">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>query &amp; throttle<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -35,7 +35,7 @@
 
 <code-listing heading="Updating a property, at most, every 850ms">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Updating a property, at most, every 850ms">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>query &amp; throttle:850<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -48,7 +48,7 @@
 
 <code-listing heading="Handling an event, at most, every 200ms">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Handling an event, at most, every 200ms">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">mousemove.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>mouseMove($event) &amp; throttle<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
@@ -66,7 +66,7 @@
 
 <code-listing heading="Update after typing stopped for 200ms">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Update after typing stopped for 200ms">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>query &amp; debounce<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -78,7 +78,7 @@
 
 <code-listing heading="Update after typing stopped for 850ms">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Update after typing stopped for 850ms">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>query &amp; debounce:850<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -91,7 +91,7 @@
 
 <code-listing heading="Call mouseMove after mouse stopped moving for 500ms">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Call mouseMove after mouse stopped moving for 500ms">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">mousemove.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>mouseMove($event) &amp; debounce:500<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
@@ -109,7 +109,7 @@
 
 <code-listing heading="Update on blur">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Update on blur">
   <pre class="language-markup">
     <code>
   &lt;input value.bind="firstName &amp; updateTrigger:'blur'>
@@ -122,7 +122,7 @@
 
 <code-listing heading="Update with multiple events">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Update with multiple events">
   <pre class="language-markup">
     <code>
   &lt;input value.bind="firstName &amp; updateTrigger:'blur':'paste'>
@@ -142,7 +142,7 @@
 
 <code-listing heading="Using a Signal">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Using a Signal">
   <pre class="language-markup">
     <code>
   posted ${postDateTime | timeAgo &amp; signal:'my-signal'}
@@ -156,7 +156,7 @@
 
 <code-listing heading="Signaling Bindings">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Signaling Bindings">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>BindingSignaler<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-templating-resources'</span><span class="token punctuation">;</span>
@@ -173,7 +173,7 @@
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Signaling Bindings">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>BindingSignaler<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-templating-resources'</span><span class="token punctuation">;</span>
@@ -198,7 +198,7 @@
 
 <code-listing heading="One-time String Interpolation">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="One-time String Interpolation">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>${foo &amp; oneTime}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
@@ -212,7 +212,7 @@
 
 <code-listing heading="To-view and two-way binding behaviours">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="To-view and two-way binding behaviours">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foo &amp; toView<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -234,7 +234,7 @@ The casing for binding modes is different depending on whether they appear as a 
 
 <code-listing heading="Self binding behavior">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Self binding behavior">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>panel</span><span class="token punctuation">></span></span>
@@ -255,7 +255,7 @@ some modification:</p>
 
 <code-listing heading="Handler without self binding behavior">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Handler without self binding behavior">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// inside component's view model class</span>
@@ -275,7 +275,7 @@ you achieve the same goal without filling up your methods with unnecessary code:
 
 <code-listing heading="Using self binding behavior">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Using self binding behavior">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>panel</span><span class="token punctuation">></span></span>
@@ -292,7 +292,7 @@ you achieve the same goal without filling up your methods with unnecessary code:
 
 <code-listing heading="Using self binding behavior">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Using self binding behavior">
   <pre class="language-javascript">
     <code>
   <span class="token comment">// inside component's view model class</span>
@@ -313,7 +313,7 @@ you achieve the same goal without filling up your methods with unnecessary code:
 
 <code-listing heading="Creating a Custom Binding Behavior">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Creating a Custom Binding Behavior">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">const</span> interceptMethods <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'updateTarget'</span><span class="token punctuation">,</span> <span class="token string">'updateSource'</span><span class="token punctuation">,</span> <span class="token string">'callSource'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -352,7 +352,7 @@ you achieve the same goal without filling up your methods with unnecessary code:
 
 <code-listing heading="Using a Custom Binding Behavior">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Using a Custom Binding Behavior">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>

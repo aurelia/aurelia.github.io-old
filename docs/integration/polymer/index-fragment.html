@@ -11,7 +11,7 @@
 
 <code-listing heading="Bower Config">
   
-<source-code lang="JSON">
+<source-code lang="JSON" heading="Bower Config">
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">{</span>
@@ -33,7 +33,7 @@
 
 <code-listing heading="Bower Package Installation">
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="Bower Package Installation">
   <pre class="language-powershell">
     <code>
   $ npm install <span class="token operator">-</span>g bower
@@ -47,7 +47,7 @@
 
 <code-listing heading="Plugin Installation">
   
-<source-code lang="Shell">
+<source-code lang="Shell" heading="Plugin Installation">
   <pre class="language-powershell">
     <code>
   $ jspm install aurelia<span class="token operator">-</span>html<span class="token operator">-</span>import<span class="token operator">-</span>template<span class="token operator">-</span>loader
@@ -61,7 +61,7 @@
 
 <code-listing heading="Loading Web Components and Polymer">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Loading Web Components and Polymer">
   <pre class="language-markup">
     <code>
   <span class="token doctype">&lt;!DOCTYPE html></span>
@@ -82,7 +82,7 @@
 
 <code-listing heading="Bootstrapping Aurelia">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Bootstrapping Aurelia">
   <pre class="language-markup">
     <code>
   <span class="token doctype">&lt;!DOCTYPE html></span>
@@ -100,7 +100,7 @@
 
 <code-listing heading="Configuring Aurelia">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Configuring Aurelia">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -118,7 +118,7 @@
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Configuring Aurelia">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>Aurelia<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
@@ -144,7 +144,7 @@
 
 <code-listing heading="Using HTML Imports">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Using HTML Imports">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>import<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/bower_components/paper-drawer-panel/paper-drawer-panel.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -168,7 +168,7 @@
 
 <code-listing heading="Using Polymer Elements">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Using Polymer Elements">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -211,7 +211,7 @@ defined by Polymer are also supported by Aurelia.</p>
 
 <code-listing heading="Using Polymer in a Form">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Using Polymer in a Form">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>import<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../bower_components/paper-input/paper-input.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -254,7 +254,7 @@ use a <code>click.delegate</code> on a Polymer button instead.</p>
 
 <code-listing heading="Polymer Element with Event Delegation">
   
-<source-code lang="HTML">
+<source-code lang="HTML" heading="Polymer Element with Event Delegation">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>paper-button</span> <span class="token attr-name">raised</span> <span class="token attr-name">click.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Submit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>paper-button</span><span class="token punctuation">></span></span>
@@ -274,7 +274,7 @@ so that the Aurelia binding engine will register event listeners properly.</p>
 
 <code-listing heading="Element Registration">
   
-<source-code lang="JavaScript">
+<source-code lang="JavaScript" heading="Element Registration">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">var</span> propertyConfig <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'bind-value'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'change'</span><span class="token punctuation">,</span> <span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token comment">// Not explicitly listed for all elements that use it</span>
@@ -302,7 +302,7 @@ so that the Aurelia binding engine will register event listeners properly.</p>
 </source-code>
   
 
-<source-code lang="TypeScript">
+<source-code lang="TypeScript" heading="Element Registration">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">var</span> propertyConfig <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'bind-value'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'change'</span><span class="token punctuation">,</span> <span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token comment">// Not explicitly listed for all elements that use it</span>
