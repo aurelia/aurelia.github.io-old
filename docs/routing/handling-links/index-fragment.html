@@ -7,7 +7,7 @@
   <article class="markdown">
     <section><h2 id="basic-concept">Basic Concept</h2><p>When you use Aurelia router in your app, most links (in <code>&lt;a&gt;</code> elements) are processed by Aurelia without triggering a traditional full page reload. This is a fundamental feature of any SPA (Single Page Application) framework.</p>
 <p>Aurelia achieves this with 
-<a href="https://github.com/aurelia/history-browser/blob/master/src/link-handler.js" target="_blank">DefaultLinkHandler</a>
+<a href="https://github.com/aurelia/history-browser/blob/master/src/link-handler.ts" target="_blank">DefaultLinkHandler</a>
  in <code>aurelia-history-browser</code>.</p>
 <p>It basically registered a global <code>click</code> event handler to hijack click on <code>&lt;a&gt;</code> elements, then does front-end navigation instead of default browser behavior which is a full page reload.</p>
 </section>

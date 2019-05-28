@@ -67,55 +67,10 @@
 <div class="info"><div class="icon"> <i></i> </div><p>
 If you're not using RxJS at all so far it is recommended to run <code>npm install rxjs</code> which should install the latest available rxjs (currently 6.x.x) version as a project dependency.</p>
 </div>
-<p>If your app is based on the Aurelia CLI and the build is based on RequireJS or SystemJS, you can setup the plugin using the following automatic dependency import:</p>
-
-<code-listing>
-  
-<source-code lang="Shell" heading="">
-  <pre class="language-powershell">
-    <code>
-  au import aurelia<span class="token operator">-</span>store
-  </code>
-  </pre>
-</source-code>
-  
-</code-listing>
-<p>alternatively, you can manually add these dependencies to your vendor bundle:</p>
-
-<code-listing>
-  
-<source-code lang="JSON" heading="">
-  <pre class="language-javascript">
-    <code>
-  <span class="token operator">...</span>
-  <span class="token string">"dependencies"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"aurelia-store"</span><span class="token punctuation">,</span>
-      <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"../node_modules/aurelia-store/dist/amd"</span><span class="token punctuation">,</span>
-      <span class="token string">"main"</span><span class="token punctuation">:</span> <span class="token string">"aurelia-store"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"rxjs"</span><span class="token punctuation">,</span>
-      <span class="token string">"main"</span><span class="token punctuation">:</span> <span class="token string">"./index.js"</span><span class="token punctuation">,</span>
-      <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"../node_modules/rxjs"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"rxjs/operators"</span><span class="token punctuation">,</span>
-      <span class="token string">"main"</span><span class="token punctuation">:</span> <span class="token string">"./index.js"</span><span class="token punctuation">,</span>
-      <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"../node_modules/rxjs/operators"</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">]</span>
-  </code>
-  </pre>
-</source-code>
-  
-</code-listing>
 <div class="info"><div class="icon"> <i></i> </div><p>
 With the recent release of RxJS v.6, which this plugin depends on, quite a lot has changed. There are new ways to import dependencies and ways to keep compatibility with previous API versions. Take a look at the 
 <a href="https://github.com/ReactiveX/rxjs/blob/master/docs_app/content/guide/v6/migration.md" target="_blank">following upgrade instructions</a>
- for further details. In case you're using a classic Require.js based Aurelia CLI project setup, make sure to 
-<a href="https://www.npmjs.com/package/rxjs-compat" target="_blank">configure rxjs-compat</a>
- in aurelia.json as a dependency and use it as the main include file. If you do on the other hand already use the newest APIs you'll have to adjust your <code>aurelia.json</code> or do a fresh new <code>au import aurelia-store</code> to get the rxjs dependencies properly auto-setup.</p>
+ for further details.</p>
 </div>
 </section>
 <section><h2 id="bring-your-own-polyfills-byop">Bring your own polyfills (BYOP)</h2><p>This plugin depends on the 
