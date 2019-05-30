@@ -41,12 +41,15 @@
   
 </code-listing>
 <div class="info"><div class="icon"> <i></i> </div><p>
-Always run commands from a Bash prompt. Depending on your environment, you may need to use <code>sudo</code> when executing npm global installs.</p>
+Depending on your environment, you may need to use <code>sudo</code> when executing npm global installs.</p>
 </div>
 </section>
 <section><h2 id="creating-a-new-aurelia-project">Creating A New Aurelia Project</h2><p>To create a new project, you can run <code>au new</code>. You will be presented with a number of options. If you aren't sure what you want, you can select one of the defaults. Otherwise, you can create a custom project. Simply follow the prompts.</p>
 <p>Once you've made your choice, the CLI will show you your selections and ask if you'd like to create the file structure. After that, you'll be asked if you would like to install your new project's dependencies.</p>
 <p>Once the dependencies are installed, your project is ready to go.</p>
+<div class="warning"><div class="icon"> <i></i> </div><h4>Git BASH on Windows</h4><p>
+Aurelia CLI commands do not work properly in Git BASH emulator on Windows. Windows users please use CMD or PowerShell to run Aurelia CLI commands.</p>
+</div>
 </section>
 <section><h2 id="creating-a-new-aurelia-plugin-project">Creating A New Aurelia Plugin Project</h2><p>To create a new plugin project, run <code>au new --plugin</code>. More details in tutorial on <a href="/docs/plugins/write-new-plugin">write new plugin</a>.</p>
 </section>
