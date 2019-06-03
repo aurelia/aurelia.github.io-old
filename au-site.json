@@ -140,7 +140,7 @@
       {
         "name": "Dialog",
         "package": "../dialog/package.json",
-        "src": "../dialog/dist/es2015/aurelia-dialog.d.ts",
+        "src": "../dialog/dist/types/aurelia-dialog.d.ts",
         "dest": "docs/api/dialog"
       },
       {

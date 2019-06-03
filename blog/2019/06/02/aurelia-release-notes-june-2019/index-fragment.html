@@ -1,0 +1,156 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia Release Notes - June 2019</h1>
+    <h2>Posted by <span class="author">Rob Eisenberg</span> on <span class="date">June 2, 2019</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>Today, we're pleased to share with you the 1.0 release of the Aurelia CLI!</p>
+<p>Many of you have been using, testing, and helping to expand and improve the Aurelia CLI since we first introduced it in its earliest alpha, almost four years ago. It's been a long and winding road, but thanks to the community and core team, we're very happy with where we've landed.</p>
+<p>If you haven't used the Aurelia CLI before, it's the best way to get up and running with a new Aurelia project. To install the CLI, from your command prompt, simply run <code>npm install aurelia-cli -g</code>. With the CLI installed, you can create a new project by running <code>au new</code>. The CLI will then ask you a few questions, create your project, and install its dependencies. Once completed, you can execute <code>au run</code> to immediately start your new app.</p>
+<p>Thanks to the contributions of our community, the CLI supports all the most popular bundlers, testing tools, CSS frameworks, and more. As a result, you don't have to deal with the hassle of figuring out how to get your preferred set of tools working together; the CLI already has that worked out. Here's what we support out of the box:</p>
+<ul>
+<li><strong>Bundlers and Loaders</strong> - Webpack (HTTP/1.1 and HTTP/2 optimizations), Require.js, System.js</li>
+<li><strong>Transpilers</strong> - Babel, TypeScript</li>
+<li><strong>CSS Pre/Post Processors</strong> - Less, Sass, Stylus, PostCSS</li>
+<li><strong>Unit Testing</strong> - Karma+Jasmine, Jest</li>
+<li><strong>Integration Testing</strong> - Protractor, Cypress</li>
+<li><strong>Package Managers</strong> - NPM, Yarn</li>
+<li><strong>And more...</strong> - .NET project support, HTML minification, VS Code setup, etc.</li>
+</ul>
+<p>If all these options seem overwhelming, never fear! When you run the CLI, you can also select a default Babel or TypeScript configuration. Also, if you've got a specific combination that you always use, the CLI now supports an &quot;unattended&quot; mode, which allows you to specify all your choices on the command prompt, without having to go through the wizard. The CLI will even teach you how to do this after you create your first project :)</p>
+<p>In addition to project creation, the CLI allows you to run your app in &quot;watch&quot; mode, refreshing the browser as you make changes, and build for production, automatically handling environment-specific configuration and code injection. To further enhance the development experience, the CLI also ships with a default set of generators to assist you in quickly creating custom elements, custom attributes, and more. Naturally, you can create your own generators, as well as extend the CLI with your own commands.</p>
+<p>We hope you enjoy using the Aurelia CLI as much as we did building it. As always, we're not stopping here. We'll be bringing the CLI tech forward, continuing to enhance it for Aurelia vNext as well.</p>
+<h3>Other Releases</h3>
+<p>We've had a number of other releases in addition to the Aurelia CLI. All the nitty gritty details can be found below. Of particular interest is:</p>
+<ul>
+<li><strong>Aurelia UX</strong> - We've added a new Slider control!</li>
+<li><strong>Aurelia Dialog</strong> - This is the planned, final 2.x beta, which stabilizes the API.</li>
+<li><strong>Aurelia Web Components</strong> - We've done more standardization work and bug fixes, enabling you to use your Aurelia custom elements as W3C Standard Web Components.</li>
+</ul>
+<section><h2 id="major-releases">Major Releases</h2><p>Major updates may include breaking changes, new features, fixes to bugs, and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/cli/compare/1.0.0-beta.15...1.0.0" target="_blank">aurelia-cli 1.0.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>bundler:</strong> avoid appending alias after comment (sourceMap line). (
+<a href="https://github.com/aurelia/cli/commit/621bda7" target="_blank">621bda7</a>
+)</li>
+<li><strong>bundler:</strong> fix missing json watch (
+<a href="https://github.com/aurelia/cli/commit/2f5f0cd" target="_blank">2f5f0cd</a>
+)</li>
+<li><strong>bundler:</strong> fix sourceMap source file path and sourceRoot (
+<a href="https://github.com/aurelia/cli/commit/d8a04c0" target="_blank">d8a04c0</a>
+)</li>
+<li><strong>CLI-Bundler, Aliases:</strong> improve alias support (
+<a href="https://github.com/aurelia/cli/commit/19ea1ec" target="_blank">19ea1ec</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1093" target="_blank">#1093</a>
+</li>
+<li><strong>release-check:</strong> avoid duplicated e2e processes (
+<a href="https://github.com/aurelia/cli/commit/615096a" target="_blank">615096a</a>
+)</li>
+<li><strong>skeleton:</strong> allows TS plugin skeleton to support <code>import {...} from &quot;resources&quot;</code> (
+<a href="https://github.com/aurelia/cli/commit/eeb59c8" target="_blank">eeb59c8</a>
+)</li>
+<li><strong>skeleton:</strong> fix missing .gitignore file in aurelia-cli npm package (
+<a href="https://github.com/aurelia/cli/commit/d13c437" target="_blank">d13c437</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1102" target="_blank">#1102</a>
+</li>
+<li><strong>skeleton:</strong> fix Promise polyfill on IE (
+<a href="https://github.com/aurelia/cli/commit/bc377dc" target="_blank">bc377dc</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1079" target="_blank">#1079</a>
+</li>
+<li><strong>skeleton:</strong> fix ts-loader option for webpack+karma setup (
+<a href="https://github.com/aurelia/cli/commit/beca7f3" target="_blank">beca7f3</a>
+)</li>
+<li><strong>skeleton:</strong> TS plugin skeleton to generate d.ts files (
+<a href="https://github.com/aurelia/cli/commit/22075c1" target="_blank">22075c1</a>
+)</li>
+<li><strong>skeleton:</strong> upgrade karma to v4 to get rid of deprecated circular-json (
+<a href="https://github.com/aurelia/cli/commit/6501a57" target="_blank">6501a57</a>
+)</li>
+<li><strong>webpack:</strong> fix TypeScript error on unneeded test code when running webpack (
+<a href="https://github.com/aurelia/cli/commit/36d384e" target="_blank">36d384e</a>
+)</li>
+<li><strong>webpack:</strong> use typeRoots to avoid TS typing issue when cssnano and protractor are selected (
+<a href="https://github.com/aurelia/cli/commit/d85ca5c" target="_blank">d85ca5c</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1090" target="_blank">#1090</a>
+</li>
+</ul>
+</section>
+<section><h2 id="minor-releases">Minor Releases</h2><p>Minor updates include new features, updates to bugs, and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/dialog/compare/2.0.0-rc.5...2.0.0-rc.6" target="_blank">aurelia-dialog 2.0.0-rc.6</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>build:</strong> adjust umd build, add umd-es2015 (
+<a href="https://github.com/aurelia/dialog/commit/342c023" target="_blank">342c023</a>
+)</li>
+<li><strong>package.json:</strong> fix package.json (
+<a href="https://github.com/aurelia/dialog/commit/5ae0d3a" target="_blank">5ae0d3a</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>dialog-renderer:</strong> add native dialog renderer close 
+<a href="https://github.com/aurelia/dialog/issues/338" target="_blank">#338</a>
+ (
+<a href="https://github.com/aurelia/dialog/commit/9da52fe" target="_blank">9da52fe</a>
+)</li>
+<li><strong>keyboard:</strong> allow to configure keyevent type (
+<a href="https://github.com/aurelia/dialog/commit/2f57949" target="_blank">2f57949</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/templating-resources/compare/1.10.0...1.11.0" target="_blank">aurelia-templating-resources 1.11.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>typings:</strong> explicit return typings for createFullOverrideContext (
+<a href="https://github.com/aurelia/templating-resources/commit/abe97d3" target="_blank">abe97d3</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/history-browser/compare/1.3.2...1.4.0" target="_blank">aurelia-history-browser 1.4.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>browser-history:</strong> decode fragment, add tests (
+<a href="https://github.com/aurelia/history-browser/commit/957532d" target="_blank">957532d</a>
+)</li>
+</ul>
+<h3>Aurelia UX 0.16</h3>
+<h4>Features</h4>
+<ul>
+<li>New Slider Component!</li>
+</ul>
+<h3>aurelia-web-components 1.0.0-beta.3</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li>Delay creation of child elements to follow w3c guidelines</li>
+<li>Build, packaging, and source map improvements.</li>
+</ul>
+</section>
+<section><h2 id="patch-releases">Patch Releases</h2><p>Patch updates include only fixes to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/store/compare/1.3.4...1.3.5" target="_blank">aurelia-store 1.3.5</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li>Add additional type-safety for the optional settings parameter of the localStorageMiddleware.</li>
+</ul>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%20Release%20Notes%20-%20June%202019" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2019%2F06%2F02%2Faurelia-release-notes-june-2019"></blog-footer>
+</section>
