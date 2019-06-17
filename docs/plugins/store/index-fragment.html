@@ -73,40 +73,6 @@ With the recent release of RxJS v.6, which this plugin depends on, quite a lot h
  for further details.</p>
 </div>
 </section>
-<section><h2 id="bring-your-own-polyfills-byop">Bring your own polyfills (BYOP)</h2><p>This plugin depends on the 
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries#Polyfill" target="_blank">Object.entries feature</a>
- which is not available in Internet Explorer out of the box.</p>
-<p>Since it's not actually needed for the core of Aurelia, it won't be part of 
-<a href="https://github.com/aurelia/polyfills" target="_blank">aurelia-polyfills</a>
- and you should add the following polyfill by yourself.</p>
-<p>In case of the Aurelia CLI with RequireJS/SystemJS you can either create a new <code>object.entries.polyfill.js</code> file in the root of your project and add it into the configuration file <code>aurelia.json</code> in the prepend section.</p>
-
-<code-listing>
-  
-<source-code lang="JavaScript" heading="">
-  <pre class="language-javascript">
-    <code>
-  <span class="token comment">// object.entries.polyfill.js</span>
-  
-  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>Object<span class="token punctuation">.</span>entries<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    Object<span class="token punctuation">.</span><span class="token function-variable function">entries</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">var</span> ownProps <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">,</span>
-        i <span class="token operator">=</span> ownProps<span class="token punctuation">.</span>length<span class="token punctuation">,</span>
-        resArray <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// preallocate the Array</span>
-      <span class="token keyword">while</span> <span class="token punctuation">(</span>i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        resArray<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>ownProps<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> obj<span class="token punctuation">[</span>ownProps<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-  
-      <span class="token keyword">return</span> resArray<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-  </code>
-  </pre>
-</source-code>
-  
-</code-listing>
-<p>Alternatively you can include the file via a script tag as one of the first scripts in your <code>index.html</code>.</p>
-</section>
 <section><h2 id="what-is-the-state">What is the State?</h2><p>A typical application consists of multiple components, which render various data. Besides actual data though, your components also contain various statuses. An &quot;active&quot; status for a toggle button for example, but also high-level statuses like the selected theme or the current page.
 State that is contained within the component is a good thing, as long as only that single component instance cares about it. But the moment you reference that state from another component, you're going to need a way to communicate about that state, like service classes. Pub-sub mechanisms like the EventAggregator are another example of inter-component communication.</p>
 <p>In contrast to that, the Store plugin operates on a single overall application state. Think of it as a large object containing all the sub-states reflecting your applications condition at a specific moment in time. This state object needs to only contain serializable properties. With that you gain the benefit of having snapshots of your app, which allow all kinds of cool features like time-traveling, save/reload and so on.</p>
@@ -1169,6 +1135,80 @@ it. On the other hand using the actual function is a helpful mechanism to make s
 Dispatching non-registered actions will result in an error.</p>
 </div>
 </section>
+<section><h2 id="piping-multiple-actions-as-one">Piping multiple actions as one</h2><p>Being able to dispatch an action is great but what if you want to dispatch multiple actions at once? Of course you could call <code>dispatch</code> multiple times but that would result in perhaps unnecessary roundtrips and moreover either distort your history or fill up your DevTools entries. In such cases the piped dispatch might come in handly.</p>
+<p>You call that using <code>store.pipe(reducer, params)</code> which returns a <code>PipedDispatch</code> object. That one allows to chain more steps into itself and to finally dispatch the aggregated action.</p>
+
+<code-listing heading="Dispatching multiple piped actions as one">
+  
+<source-code lang="JavaScript" heading="Dispatching multiple piped actions as one">
+  <pre class="language-javascript">
+    <code>
+  <span class="token comment">// app.js</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> inject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-dependency-injection'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> Store<span class="token punctuation">,</span> connectTo <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-store'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> State <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./state'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">inject</span><span class="token punctuation">(</span>Store<span class="token punctuation">)</span>
+  @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>store <span class="token operator">=</span> store<span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span><span class="token function">registerAction</span><span class="token punctuation">(</span><span class="token string">'ActionA'</span><span class="token punctuation">,</span> actionA<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span><span class="token function">registerAction</span><span class="token punctuation">(</span><span class="token string">'ActionB'</span><span class="token punctuation">,</span> actionB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token keyword">public</span> <span class="token function">pipedDispatchDemo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      store
+        <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>actionA<span class="token punctuation">,</span> <span class="token string">"foo"</span><span class="token punctuation">,</span> <span class="token number">42</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>actionB<span class="token punctuation">,</span> <span class="token string">"bar"</span><span class="token punctuation">,</span> <span class="token number">1337</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+
+<source-code lang="TypeScript" heading="Dispatching multiple piped actions as one">
+  <pre class="language-typescript">
+    <code>
+  <span class="token comment">// app.ts</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> autoinject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-dependency-injection'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> Store<span class="token punctuation">,</span> connectTo <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-store'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> State <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./state'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">autoinject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+  
+    <span class="token keyword">public</span> state<span class="token punctuation">:</span> State<span class="token punctuation">;</span>
+  
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> store<span class="token punctuation">:</span> Store<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span><span class="token function">registerAction</span><span class="token punctuation">(</span><span class="token string">'ActionA'</span><span class="token punctuation">,</span> actionA<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span><span class="token function">registerAction</span><span class="token punctuation">(</span><span class="token string">'ActionB'</span><span class="token punctuation">,</span> actionB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token keyword">public</span> <span class="token function">pipedDispatchDemo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      store
+        <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>actionA<span class="token punctuation">,</span> <span class="token string">"foo"</span><span class="token punctuation">,</span> <span class="token number">42</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>actionB<span class="token punctuation">,</span> <span class="token string">"bar"</span><span class="token punctuation">,</span> <span class="token number">1337</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<div class="info"><div class="icon"> <i></i> </div><p>
+<code>pipe()</code> accepts only registered reducers, same as <code>dispatch</code>, and will otherwise throw an error.</p>
+</div>
+<p>A piped dispatch will only trigger a single state transition.
+When only a single reducer is piped and dispatched right away, the behavior is identical to using the <code>dispatch</code> method.</p>
+<p>Looking at the DevTools, you'll notice that piped actions show up in the format <code>actionA-&gt;actionB</code>.</p>
+</section>
 <section><h2 id="using-the-dispatchify-higher-order-function">Using the dispatchify higher order function</h2><p>Perhaps you don't want to or can't obtain a reference to the store, but you'd still like to dispatch your actions.
 This is especially useful if you don't want your child-elements to have any knowledge of the actual logic and just receive actions via attributes. Children can then call this method directly in the template.
 In order to do so, you can leverage the higher order function <code>dispatchify</code>. What it does is return a wrapped new function which will obtain the store by itself and forward the provided arguments directly to <code>store.dispatch</code>.</p>
@@ -1872,6 +1912,7 @@ In here you get an object containing the action's <code>name</code> and the prov
 </source-code>
   
 </code-listing>
+<p>In case of piped actions, the <code>action.name</code> will show these in the format <code>actionA-&gt;actionB</code>, just like they are displayed in the Redux Devtools. The <code>action.params</code> on the other hand, will contain all the piped parameters in a single array. Additionally, you will be able to access details of all individual actions from within the pipeline via <code>action.pipedActions</code>.</p>
 </section>
 <section><h2 id="error-propagation-with-middlewares">Error propagation with middlewares</h2><p>By default errors thrown by middlewares will be swallowed in order to guarantee continued states. If you would like to stop state propagation you need to set the <code>propagateError</code> option of the plugin to <code>true</code>:</p>
 
