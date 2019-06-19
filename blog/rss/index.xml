@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Tue Jun 18 2019 10:09:04 GMT-0700 (Pacific Daylight Time)</lastBuildDate>
+    <lastBuildDate>Tue Jun 18 2019 23:55:36 GMT-0700 (Pacific Daylight Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[Case Study: Evolution Software&#x27;s Hazelnut Monitor]]></title>
+      <link>http://aurelia.io/blog/2019/06/18/case-study-evolution-software-aurelia</link>
+      <description><![CDATA[Today, I'm pleased to introduce you to Michael Gerfen and Andy Gray from Evolution Software, sharing a bit about their company and the Hazelnut Monitor product. Take it away Michael and Andy!]]></description>
+      <pubDate>Tue Jun 18 2019 23:55:35 GMT-0700 (Pacific Daylight Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia Release Notes - June 2019]]></title>
       <link>http://aurelia.io/blog/2019/06/02/aurelia-release-notes-june-2019</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2018/05/16/financing-changes-to-aurelia</link>
       <description><![CDATA[Announcing some major changes to Aurelia's financial ecosystem that will accelerate the future of the Aurelia framework.]]></description>
       <pubDate>Wed May 16 2018 21:15:12 GMT-0700 (Pacific Daylight Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Release Notes - Early May 2018]]></title>
-      <link>http://aurelia.io/blog/2018/05/10/aurelia-release-notes-early-may-2018</link>
-      <description><![CDATA[We're excited to be working on a number of great new improvements to Aurelia's templating and binding engines. Just this week we've released the first set of improvements to the binding engine, which merge the Lexer and the Parser. By doing this we were able to increase the performance of binding parsing by 10x in some cases!]]></description>
-      <pubDate>Thu May 10 2018 23:34:44 GMT-0700 (Pacific Daylight Time)</pubDate>
     </item>
   </channel>
 </rss>
