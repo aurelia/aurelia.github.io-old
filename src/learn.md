@@ -24,7 +24,7 @@ There are a number of books available to help you get started learning Modern Ja
 
 If you are looking for online video courses to help you get started learning Modern JavaScript and Aurelia, there are several great options to choose from:
 
-* [Waterford Institute of Technology Computer Science Diploma Curriculum](https://wit-hdip-computer-science.github.io/semester-2-ent-web-development/index.html)
+* [Waterford Institute of Technology Computer Science Diploma Curriculum](https://tutors.design/course/wit-hdip-comp-sci-2018.github.io/ent-web/)
 * [Introduction to Aurelia Framework](https://www.udemy.com/introduction-to-aurelia-framework/) by Jon Bonso via Udemy
 * [Modern JavaScript Development](https://vimeo.com/ondemand/modernjavascript) by Rob Eisenberg via Vimeo on Demand
 * [Beginning Aurelia Development](https://vimeo.com/ondemand/beginningaurelia) by Rob Eisenberg via Vimeo on Demand
