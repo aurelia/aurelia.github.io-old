@@ -29,6 +29,7 @@ If you are looking for online video courses to help you get started learning Mod
 * [Modern JavaScript Development](https://vimeo.com/ondemand/modernjavascript) by Rob Eisenberg via Vimeo on Demand
 * [Beginning Aurelia Development](https://vimeo.com/ondemand/beginningaurelia) by Rob Eisenberg via Vimeo on Demand
 * [Intermediate Aurelia Development](https://vimeo.com/ondemand/intermediateaurelia) by Rob Eisenberg via Vimeo on Demand
+* [Aurelia For Beginners: The New Age JS Framework](https://www.packtpub.com/application-development/aurelia-beginners-new-age-js-framework-video) by Eduonix via Packt
 * [Aurelia Web Development - Part 1](https://www.packtpub.com/web-development/aurelia-web-development-part-1-video) by Raja Mani via Packt
 * [Aurelia Fundamentals](https://www.pluralsight.com/courses/aurelia-fundamentals) by Bryan Noyes via Pluralsight
 * [Building Applications with Aurelia](https://app.pluralsight.com/library/courses/building-applications-aurelia/table-of-contents) by K. Scott Allen via Pluralsight
