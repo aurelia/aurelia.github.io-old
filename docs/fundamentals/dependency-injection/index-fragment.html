@@ -59,7 +59,7 @@ Typically, you would use Decorators, an ES Next feature supported by both Babel 
 </source-code>
   
 </code-listing>
-<p>Notice that we use the <code>inject</code> decorator and that the constructor signature matches the list of dependencies in the <code>inject</code> decorator. This tells the DI that any time it wants to create an instance of <code>CustomerEditScreen</code> it must first obtain an instance of <code>CustomerService</code> which it can <em>inject</em> into the constructor of <code>CustomerEditScreen</code> during instantiation. You can have as many injected dependencies as you need. Simply ensure that the <code>inject</code> decorator and the constructor match one another. Here's a quick example of multiple dependencies:</p>
+<p>Notice that we use the <code>inject</code> decorator and that the constructor signature matches the list of dependencies in the <code>inject</code> decorator. This tells the DI that any time it wants to create an instance of <code>CustomerEditScreen</code> it must first obtain an instance of <code>CustomerService</code> which it can <em>inject</em> into the constructor of <code>CustomerEditScreen</code> during instantiation. You can have as many injected dependencies as you need. Simply ensure that the <code>inject</code> decorator and the constructor match one another, including the order of the dependencies. Here's a quick example of multiple dependencies:</p>
 
 <code-listing heading="CustomerEditScreen Multiple Injection">
   

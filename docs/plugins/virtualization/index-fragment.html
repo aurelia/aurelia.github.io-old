@@ -219,7 +219,7 @@ The rows being repeated <strong>need</strong> a fixed height and only one item p
 </section>
 <section><h2 id="caveats">Caveats</h2><ol>
 <li><code>&lt;template&gt;&lt;/template&gt;</code> is not supported as a root element of a virtual repeat template, because virtualization requires item heights to be calculatable. With <code>&lt;template&gt;&lt;/template&gt;</code>, there is no easy and performant way to acquire this value.</li>
-<li>Similar to (1), other template controllers cannot be used in conjunction with 1virtual-repeat1, unlike repeat i.e: built-in template controllers: <code>with</code>, <code>if</code>, <code>replaceable</code> cannot be used with <code>virtual-repeat</code>. You can easily work around this constraint by nesting other template controllers inside the repeated element, with <code>&lt;template&gt;&lt;/template&gt;</code> element, for example:</li>
+<li>Similar to (1), other template controllers cannot be used in conjunction with <code>virtual-repeat</code>, unlike repeat i.e: built-in template controllers: <code>with</code>, <code>if</code>, <code>replaceable</code> cannot be used with <code>virtual-repeat</code>. You can easily work around this constraint by nesting other template controllers inside the repeated element, with <code>&lt;template&gt;&lt;/template&gt;</code> element, for example:</li>
 </ol>
 
 <code-listing heading="app.html">

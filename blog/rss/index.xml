@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Tue Jun 18 2019 23:55:36 GMT-0700 (Pacific Daylight Time)</lastBuildDate>
+    <lastBuildDate>Sun Aug 04 2019 15:38:25 GMT-0700 (Pacific Daylight Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[Advanced i18n with Aurelia and Net at Work GmbH]]></title>
+      <link>http://aurelia.io/blog/2019/08/04/advanced-i18n-with-aurelia-and-net-at-work-gmbh</link>
+      <description><![CDATA[Net at Work GmbH [https://www.netatwork.de/] is a product-based consultancy company with a glowing feather in its cap: NoSpamProxy [https://www.nospamproxy.de/en/]. NoSpamProxy is a multi-faceted secure email gateway solution aimed at providing powerful anti-spam and anti-malware capabilities. Moreover, it provides a number of other functionalities such as email encryption, large file transmission, and email disclaimer management.]]></description>
+      <pubDate>Sun Aug 04 2019 15:38:23 GMT-0700 (Pacific Daylight Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Case Study: Evolution Software&#x27;s Hazelnut Monitor]]></title>
       <link>http://aurelia.io/blog/2019/06/18/case-study-evolution-software-aurelia</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2018/06/17/aurelia-store-released</link>
       <description><![CDATA[Announcing the release of the Aurelia Store state management plugin!]]></description>
       <pubDate>Sun Jun 17 2018 23:28:50 GMT-0700 (Pacific Daylight Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Financing Changes to Aurelia]]></title>
-      <link>http://aurelia.io/blog/2018/05/16/financing-changes-to-aurelia</link>
-      <description><![CDATA[Announcing some major changes to Aurelia's financial ecosystem that will accelerate the future of the Aurelia framework.]]></description>
-      <pubDate>Wed May 16 2018 21:15:12 GMT-0700 (Pacific Daylight Time)</pubDate>
     </item>
   </channel>
 </rss>

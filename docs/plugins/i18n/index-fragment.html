@@ -1,7 +1,7 @@
 <section class="article">
   <header>
     <h1>I18N</h1>
-    <h2>Getting Started with I18N in your Aurelia App.</h2>
+    <h2>Getting started with I18N in your Aurelia app.</h2>
   </header>
 
   <article class="markdown">
@@ -493,7 +493,7 @@ TypeScript will throw errors like <code>Module xxx not found</code> either for a
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
   
-  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoVM</span> <span class="token punctuation">{</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoViewModel</span> <span class="token punctuation">{</span>
     <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token constant">I18N</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token function">constructor</span><span class="token punctuation">(</span>i18n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>i18n <span class="token operator">=</span> i18n<span class="token punctuation">;</span>
@@ -520,7 +520,7 @@ TypeScript will throw errors like <code>Module xxx not found</code> either for a
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
   
-  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoVM</span> <span class="token punctuation">{</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoViewModel</span> <span class="token punctuation">{</span>
     <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token constant">I18N</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token function">constructor</span><span class="token punctuation">(</span>i18n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>i18n <span class="token operator">=</span> i18n<span class="token punctuation">;</span>
@@ -545,7 +545,7 @@ TypeScript will throw errors like <code>Module xxx not found</code> either for a
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
   
-  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoVM</span> <span class="token punctuation">{</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoViewModel</span> <span class="token punctuation">{</span>
     <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token constant">I18N</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token function">constructor</span><span class="token punctuation">(</span>i18n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>i18n <span class="token operator">=</span> i18n<span class="token punctuation">;</span>
@@ -866,7 +866,7 @@ Also note that for whatever attribute you registered, the corresponding *-params
   <pre class="language-javascript">
     <code>
   <span class="token comment">// ViewModel</span>
-  <span class="token keyword">class</span> <span class="token class-name">MyVM</span> <span class="token punctuation">{</span>
+  <span class="token keyword">class</span> <span class="token class-name">MyViewModel</span> <span class="token punctuation">{</span>
     params <span class="token operator">=</span> <span class="token punctuation">{</span> content<span class="token punctuation">:</span> <span class="token string">'ABC'</span> <span class="token punctuation">}</span>
   
     <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span>
@@ -877,7 +877,7 @@ Also note that for whatever attribute you registered, the corresponding *-params
   
 </code-listing>
 <div class="info"><div class="icon"> <i></i> </div><p>
-The object passed to <code>t-params</code> is a complex object explained <a href="/doc/article/aurelia/i18n/latest/i18n-with-aurelia/5">in the next section</a>. To use it via code, see <a href="/doc/article/en-US/i18n-with-aurelia.md#complex-objects-for-variables">Complex objects for variables via code</a>.</p>
+The object passed to <code>t-params</code> is a complex object explained in the next section. To use it via code, refer to the upcoming part 'Complex objects for variables via code'.</p>
 </div>
 <h3>Translating with the TValueConverter</h3>
 <p>In order to do translations in a more declarative way from within your HTML markup you can use a custom ValueConverter named <code>t</code>. It takes exactly the same <code>options</code> as the code translation method <code>tr</code> but of course provides the key automatically. Performance-wise this is the cheapest binding, together with <code>one-time</code>, and thus suitable for large amounts of once rendered data.</p>
@@ -1031,7 +1031,7 @@ You can also mix and match it with simple variables.</p>
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
   
-  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoVM</span> <span class="token punctuation">{</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoViewModel</span> <span class="token punctuation">{</span>
     <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token constant">I18N</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token function">constructor</span><span class="token punctuation">(</span>i18n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>i18n <span class="token operator">=</span> i18n<span class="token punctuation">;</span>
@@ -1090,7 +1090,7 @@ You can also mix and match it with simple variables.</p>
   
 </code-listing>
 <div class="info"><div class="icon"> <i></i> </div><p>
-If you provide the active locale as a bound VM property, the ValueConverter will be re-evaluated as soon as the property value changes, resulting in automatic re-formatting of your number.</p>
+If you provide the active locale as a bound ViewModel property, the ValueConverter will be re-evaluated as soon as the property value changes, resulting in automatic re-formatting of your number.</p>
 </div>
 <h3>Formatting dates via code</h3>
 <p>The Intl. API provides means to 
@@ -1105,7 +1105,7 @@ Below you'll find an example how to use those via code:</p>
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">I18N</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
   
-  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoVM</span> <span class="token punctuation">{</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoViewModel</span> <span class="token punctuation">{</span>
     <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token constant">I18N</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token function">constructor</span><span class="token punctuation">(</span>i18n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>i18n <span class="token operator">=</span> i18n<span class="token punctuation">;</span>
@@ -1142,7 +1142,7 @@ Below you'll find an example how to use those via code:</p>
 Remember that if you pass in <code>undefined</code> for the options parameter you'll get the default formatting options</p>
 </div>
 <h3>Formatting dates with DfValueConverter</h3>
-<p>A more declarative way is to use the <code>df</code> ValueConverter from within your HTML markup. It essentially works the same way as the code version. Take a look at the following example, which defines a VM property myDate:</p>
+<p>A more declarative way is to use the <code>df</code> ValueConverter from within your HTML markup. It essentially works the same way as the code version. Take a look at the following example, which defines a ViewModel property myDate:</p>
 
 <code-listing heading="Declarative formatting of dates with the DfValueConverter">
   
@@ -1182,7 +1182,7 @@ To use it via code get hold of the service via injection and call the method as 
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>RelativeTime<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-i18n'</span><span class="token punctuation">;</span>
   
-  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoVM</span> <span class="token punctuation">{</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyDemoViewModel</span> <span class="token punctuation">{</span>
     <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span>RelativeTime<span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token function">constructor</span><span class="token punctuation">(</span>relativeTime<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>rt <span class="token operator">=</span> relativeTime<span class="token punctuation">;</span>

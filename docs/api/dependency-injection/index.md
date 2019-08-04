@@ -7,7 +7,7 @@
 
 ### All
 
-Used to allow functions/classes to specify resolution of all matches to a key.
+No description available.
 
 #### Properties
 
@@ -15,24 +15,24 @@ Used to allow functions/classes to specify resolution of all matches to a key.
 #### Methods
 
 
-* `get(container: Container): ` - Called by the container to resolve all matching dependencies as an array of instances.
-  * `container: Container` - The container to resolve from.
+* `get(container: Container): ` - 
+  * `container: Container` - No description available
 
 
-* `static of(key: any): All` - Creates an All Resolver for the supplied key.
-  * `key: any` - The key to resolve all instances for.
+* `static of(key: PrimitiveOrDependencyCtor): All` - 
+  * `key: PrimitiveOrDependencyCtor` - No description available
 
 
 
 ### Container
 
-A lightweight, extensible dependency injection container.
+No description available.
 
 #### Properties
 
-* `parent: Container` - The parent container in the DI hierarchy.
-* `root: Container` - The root container in the DI hierarchy.
-* `static instance: Container` - The global root Container instance. Available if makeGlobal() has been called. Aurelia Framework calls makeGlobal().
+* `parent: Container` - No description available.
+* `root: Container` - No description available.
+* `static instance: Container` - No description available.
 
 #### Methods
 
@@ -45,89 +45,85 @@ A lightweight, extensible dependency injection container.
   * `key: any` - No description available
 
 
-* `autoRegister(key: any, fn?: Function): Resolver` - Registers a type (constructor function) by inspecting its registration annotations. If none are found, then the default singleton registration is used.
-  * `key: any` - The key that identifies the dependency at resolution time; usually a constructor function.
-  * `fn?: Function` - The constructor function to use when the dependency needs to be instantiated. This defaults to the key value when fn is not supplied.
+* `autoRegister(key: string, fn: DependencyCtorOrFunctor): Resolver` - 
+  * `key: string` - No description available
+  * `fn: DependencyCtorOrFunctor` - No description available
 
 
-
-* `autoRegisterAll(fns: ): void` - Registers an array of types (constructor functions) by inspecting their registration annotations. If none are found, then the default singleton registration is used.
-  * `fns: ` - The constructor function to use when the dependency needs to be instantiated.
-
+* `autoRegisterAll(fns: ): void` - 
+  * `fns: ` - No description available
 
 
-* `createChild(): Container` - Creates a new dependency injection container whose parent is the current container.
+* `createChild(): Container` - 
 
 
-* `get(key: any): any` - Resolves a single instance based on the provided key.
-  * `key: any` - The key that identifies the object to resolve.
+* `get(key: PrimitiveOrDependencyCtor): ImplOrAny` - 
+  * `key: PrimitiveOrDependencyCtor` - No description available
 
 
-* `getAll(key: any): ` - Resolves all instance registered under the provided key.
-  * `key: any` - The key that identifies the objects to resolve.
+* `getAll(key: PrimitiveOrDependencyCtor): ` - 
+  * `key: PrimitiveOrDependencyCtor` - No description available
 
 
-* `getResolver(key: any): any` - Gets the resolver for the particular key, if it has been registered.
-  * `key: any` - The key that identifies the dependency at resolution time; usually a constructor function.
+* `getResolver(key: PrimitiveOrDependencyCtorOrFunctor): any` - 
+  * `key: PrimitiveOrDependencyCtorOrFunctor` - No description available
 
 
-* `hasResolver(key: any, checkParent?: boolean): boolean` - Inspects the container to determine if a particular key has been registred.
-  * `key: any` - The key that identifies the dependency at resolution time; usually a constructor function.
-  * `checkParent?: boolean` - Indicates whether or not to check the parent container hierarchy.
+* `hasResolver(key: PrimitiveOrDependencyCtor, checkParent?: boolean): boolean` - 
+  * `key: PrimitiveOrDependencyCtor` - No description available
+  * `checkParent?: boolean` - No description available
 
 
-* `invoke(fn: , dynamicDependencies?: ): any` - Invokes a function, recursively resolving its dependencies.
-  * `fn: ` - The function to invoke with the auto-resolved dependencies.
-  * `dynamicDependencies?: ` - Additional function dependencies to use during invocation.
+* `invoke(fn: DependencyCtorOrFunctor, dynamicDependencies?: ): ImplOrAny` - 
+  * `fn: DependencyCtorOrFunctor` - No description available
+  * `dynamicDependencies?: ` - No description available
 
 
-* `makeGlobal(): Container` - Makes this container instance globally reachable through Container.instance.
+* `makeGlobal(): Container` - 
 
 
-* `registerAlias(originalKey: any, aliasKey: any): Resolver` - Registers an additional key that serves as an alias to the original DI key.
-  * `originalKey: any` - The key that originally identified the dependency; usually a constructor function.
-  * `aliasKey: any` - An alternate key which can also be used to resolve the same dependency  as the original.
+* `registerAlias(originalKey: PrimitiveOrDependencyCtor, aliasKey: PrimitiveOrDependencyCtor): Resolver` - 
+  * `originalKey: PrimitiveOrDependencyCtor` - No description available
+  * `aliasKey: PrimitiveOrDependencyCtor` - No description available
 
 
-* `registerHandler(key: any, handler: ): Resolver` - Registers a custom resolution function such that the container calls this function for each request to obtain the instance.
-  * `key: any` - The key that identifies the dependency at resolution time; usually a constructor function.
-  * `handler: ` - The resolution function to use when the dependency is needed.
+* `registerHandler(key: PrimitiveOrDependencyCtor, handler: ): Resolver` - 
+  * `key: PrimitiveOrDependencyCtor` - No description available
+  * `handler: ` - No description available
 
 
-* `registerInstance(key: any, instance?: any): Resolver` - Registers an existing object instance with the container.
-  * `key: any` - The key that identifies the dependency at resolution time; usually a constructor function.
-  * `instance?: any` - The instance that will be resolved when the key is matched. This defaults to the key value when instance is not supplied.
+* `registerInstance(key: PrimitiveOrDependencyCtor, instance?: TImpl): Resolver` - 
+  * `key: PrimitiveOrDependencyCtor` - No description available
+  * `instance?: TImpl` - No description available
 
 
-* `registerResolver(key: any, resolver: Resolver): Resolver` - Registers a custom resolution function such that the container calls this function for each request to obtain the instance.
-  * `key: any` - The key that identifies the dependency at resolution time; usually a constructor function.
-  * `resolver: Resolver` - The resolver to use when the dependency is needed.
+* `registerResolver(key: PrimitiveOrDependencyCtor, resolver: Resolver): Resolver` - 
+  * `key: PrimitiveOrDependencyCtor` - No description available
+  * `resolver: Resolver` - No description available
 
 
-* `registerSingleton(key: any, fn?: Function): Resolver` - Registers a type (constructor function) such that the container always returns the same instance for each request.
-  * `key: any` - The key that identifies the dependency at resolution time; usually a constructor function.
-  * `fn?: Function` - The constructor function to use when the dependency needs to be instantiated. This defaults to the key value when fn is not supplied.
+* `registerSingleton(key: any, fn?: DependencyCtorOrFunctor): Resolver` - 
+  * `key: any` - No description available
+  * `fn?: DependencyCtorOrFunctor` - No description available
 
 
-* `registerTransient(key: any, fn?: Function): Resolver` - Registers a type (constructor function) such that the container returns a new instance for each request.
-  * `key: any` - The key that identifies the dependency at resolution time; usually a constructor function.
-  * `fn?: Function` - The constructor function to use when the dependency needs to be instantiated. This defaults to the key value when fn is not supplied.
+* `registerTransient(key: string, fn: DependencyCtorOrFunctor): Resolver` - 
+  * `key: string` - No description available
+  * `fn: DependencyCtorOrFunctor` - No description available
 
 
-* `setHandlerCreatedCallback(onHandlerCreated: ): void` - Sets an invocation handler creation callback that will be called when new InvocationsHandlers are created (called once per Function).
-  * `onHandlerCreated: ` - The callback to be called when an InvocationsHandler is created.
+* `setHandlerCreatedCallback(onHandlerCreated: ): void` - 
+  * `onHandlerCreated: ` - No description available
 
 
-
-* `unregister(key: any): void` - Unregisters based on key.
-  * `key: any` - The key that identifies the dependency at resolution time; usually a constructor function.
-
+* `unregister(key: any): void` - 
+  * `key: any` - No description available
 
 
 
 ### Factory
 
-Used to allow injecting dependencies but also passing data to the constructor.
+No description available.
 
 #### Properties
 
@@ -135,62 +131,62 @@ Used to allow injecting dependencies but also passing data to the constructor.
 #### Methods
 
 
-* `get(container: Container): any` - Called by the container to pass the dependencies to the constructor.
-  * `container: Container` - The container to invoke the constructor with dependencies and other parameters.
+* `get(container: Container): DependencyFunctor` - 
+  * `container: Container` - No description available
 
 
-* `static of(key: any): Factory` - Creates a Factory Resolver for the supplied key.
-  * `key: any` - The key to resolve.
+* `static of(key: DependencyCtor): Factory` - 
+  * `key: DependencyCtor` - No description available
 
 
 
 ### FactoryInvoker
 
-An Invoker that is used to invoke a factory method.
+No description available.
 
 #### Properties
 
-* `static instance: FactoryInvoker` - The singleton instance of the FactoryInvoker.
+* `static instance: FactoryInvoker` - No description available.
 
 #### Methods
 
 
-* `invoke(container: Container, fn: Function, dependencies: ): any` - Invokes the function with the provided dependencies.
-  * `container: Container` - The calling container.
-  * `fn: Function` - The constructor or factory function.
-  * `dependencies: ` - The dependencies of the function call.
+* `invoke(container: Container, fn: DependencyCtorOrFunctor, dependencies: TArgs): ImplOrAny` - 
+  * `container: Container` - No description available
+  * `fn: DependencyCtorOrFunctor` - No description available
+  * `dependencies: TArgs` - No description available
 
 
-* `invokeWithDynamicDependencies(container: Container, fn: Function, staticDependencies: , dynamicDependencies: ): any` - Invokes the function with the provided dependencies.
-  * `container: Container` - The calling container.
-  * `fn: Function` - The constructor or factory function.
-  * `staticDependencies: ` - The static dependencies of the function.
-  * `dynamicDependencies: ` - Additional dependencies to use during invocation.
+* `invokeWithDynamicDependencies(container: Container, fn: DependencyCtorOrFunctor, staticDependencies: , dynamicDependencies: ): ImplOrAny` - 
+  * `container: Container` - No description available
+  * `fn: DependencyCtorOrFunctor` - No description available
+  * `staticDependencies: ` - No description available
+  * `dynamicDependencies: ` - No description available
 
 
 
 ### InvocationHandler
 
-Stores the information needed to invoke a function.
+No description available.
 
 #### Properties
 
-* `dependencies: ` - The statically known dependencies of this function invocation.
-* `fn: Function` - The function to be invoked by this handler.
-* `invoker: Invoker` - The invoker implementation that will be used to actually invoke the function.
+* `dependencies: TArgs` - No description available.
+* `fn: DependencyCtorOrFunctor` - No description available.
+* `invoker: Invoker` - No description available.
 
 #### Methods
 
 
-* `invoke(container: Container, dynamicDependencies?: ): any` - Invokes the function.
-  * `container: Container` - The calling container.
-  * `dynamicDependencies?: ` - Additional dependencies to use during invocation.
+* `invoke(container: Container, dynamicDependencies?: ): any` - 
+  * `container: Container` - No description available
+  * `dynamicDependencies?: ` - No description available
 
 
 
 ### Lazy
 
-Used to allow functions/classes to specify lazy resolution logic.
+No description available.
 
 #### Properties
 
@@ -198,20 +194,18 @@ Used to allow functions/classes to specify lazy resolution logic.
 #### Methods
 
 
-* `get(container: Container): any` - Called by the container to lazily resolve the dependency into a lazy locator function.
-  * `container: Container` - The container to resolve from.
+* `get(container: Container): ` - 
+  * `container: Container` - No description available
 
 
-* `static of(key: any): Lazy` - Creates a Lazy Resolver for the supplied key.
-  * `key: any` - The key to lazily resolve.
+* `static of(key: PrimitiveOrDependencyCtor): Lazy` - 
+  * `key: PrimitiveOrDependencyCtor` - No description available
 
 
 
 ### NewInstance
 
-Used to inject a new instance of a dependency, without regard for existing
-instances in the container. Instances can optionally be registered in the container
-under a different key by supplying a key using the &#x60;as&#x60; method.
+No description available.
 
 #### Properties
 
@@ -219,24 +213,23 @@ under a different key by supplying a key using the &#x60;as&#x60; method.
 #### Methods
 
 
-* `as(key: any): this` - Instructs the NewInstance resolver to register the resolved instance using the supplied key.
-  * `key: any` - The key to register the instance with.
+* `as(key: PrimitiveOrDependencyCtorOrFunctor): this` - 
+  * `key: PrimitiveOrDependencyCtorOrFunctor` - No description available
 
 
-* `get(container: any): any` - Called by the container to instantiate the dependency and potentially register
-as another key if the &#x60;as&#x60; method was used.
-  * `container: any` - The container to resolve the parent from.
+* `get(container: Container): ImplOrAny` - 
+  * `container: Container` - No description available
 
 
-* `static of(key: any, dynamicDependencies: ): NewInstance` - Creates an NewInstance Resolver for the supplied key.
-  * `key: any` - The key to resolve/instantiate.
-  * `dynamicDependencies: ` - An optional list of dynamic dependencies.
+* `static of(key: PrimitiveOrDependencyCtorOrFunctor, dynamicDependencies: ): NewInstance` - 
+  * `key: PrimitiveOrDependencyCtorOrFunctor` - No description available
+  * `dynamicDependencies: ` - No description available
 
 
 
 ### Optional
 
-Used to allow functions/classes to specify an optional dependency, which will be resolved only if already registred with the container.
+No description available.
 
 #### Properties
 
@@ -244,19 +237,19 @@ Used to allow functions/classes to specify an optional dependency, which will be
 #### Methods
 
 
-* `get(container: Container): any` - Called by the container to provide optional resolution of the key.
-  * `container: Container` - The container to resolve from.
+* `get(container: Container): any` - 
+  * `container: Container` - No description available
 
 
-* `static of(key: any, checkParent?: boolean): Optional` - Creates an Optional Resolver for the supplied key.
-  * `key: any` - The key to optionally resolve for.
+* `static of(key: PrimitiveOrDependencyCtor, checkParent?: boolean): Optional` - 
+  * `key: PrimitiveOrDependencyCtor` - No description available
   * `checkParent?: boolean` - No description available
 
 
 
 ### Parent
 
-Used to inject the dependency from the parent container instead of the current one.
+No description available.
 
 #### Properties
 
@@ -264,18 +257,18 @@ Used to inject the dependency from the parent container instead of the current o
 #### Methods
 
 
-* `get(container: Container): any` - Called by the container to load the dependency from the parent container
-  * `container: Container` - The container to resolve the parent from.
+* `get(container: Container): any` - 
+  * `container: Container` - No description available
 
 
-* `static of(key: any): Parent` - Creates a Parent Resolver for the supplied key.
-  * `key: any` - The key to resolve.
+* `static of(key: PrimitiveOrDependencyCtor): Parent` - 
+  * `key: PrimitiveOrDependencyCtor` - No description available
 
 
 
 ### SingletonRegistration
 
-Used to allow functions/classes to indicate that they should be registered as singletons with the container.
+No description available.
 
 #### Properties
 
@@ -283,16 +276,16 @@ Used to allow functions/classes to indicate that they should be registered as si
 #### Methods
 
 
-* `registerResolver(container: Container, key: any, fn: Function): Resolver` - Called by the container to register the resolver.
-  * `container: Container` - The container the resolver is being registered with.
-  * `key: any` - The key the resolver should be registered as.
-  * `fn: Function` - The function to create the resolver for.
+* `registerResolver(container: Container, key: PrimitiveOrDependencyCtor, fn: DependencyCtorOrFunctor): Resolver` - 
+  * `container: Container` - No description available
+  * `key: PrimitiveOrDependencyCtor` - No description available
+  * `fn: DependencyCtorOrFunctor` - No description available
 
 
 
 ### StrategyResolver
 
-Used to resolve instances, singletons, transients, aliases
+No description available.
 
 #### Properties
 
@@ -302,15 +295,15 @@ Used to resolve instances, singletons, transients, aliases
 #### Methods
 
 
-* `get(container: Container, key: any): any` - Called by the container to allow custom resolution of dependencies for a function/class.
-  * `container: Container` - The container to resolve from.
-  * `key: any` - The key that the resolver was registered as.
+* `get(container: Container, key: PrimitiveOrDependencyCtor): TImpl` - 
+  * `container: Container` - No description available
+  * `key: PrimitiveOrDependencyCtor` - No description available
 
 
 
 ### TransientRegistration
 
-Used to allow functions/classes to indicate that they should be registered as transients with the container.
+No description available.
 
 #### Properties
 
@@ -318,10 +311,10 @@ Used to allow functions/classes to indicate that they should be registered as tr
 #### Methods
 
 
-* `registerResolver(container: Container, key: any, fn: Function): Resolver` - Called by the container to register the resolver.
-  * `container: Container` - The container the resolver is being registered with.
-  * `key: any` - The key the resolver should be registered as.
-  * `fn: Function` - The function to create the resolver for.
+* `registerResolver(container: Container, key: PrimitiveOrDependencyCtor, fn: DependencyCtorOrFunctor): Resolver` - 
+  * `container: Container` - No description available
+  * `key: PrimitiveOrDependencyCtor` - No description available
+  * `fn: DependencyCtorOrFunctor` - No description available
 
 
 
@@ -330,12 +323,12 @@ Used to allow functions/classes to indicate that they should be registered as tr
 
 ### ContainerConfiguration
 
-Used to configure a Container instance.
+No description available.
 
 #### Properties
 
 * `handlers: Map` - No description available.
-* `onHandlerCreated: ` - An optional callback which will be called when any function needs an InvocationHandler created (called once per Function).
+* `onHandlerCreated: ` - No description available.
 
 #### Methods
 
@@ -343,7 +336,7 @@ Used to configure a Container instance.
 
 ### Invoker
 
-A strategy for invoking a function, resulting in an object instance.
+No description available.
 
 #### Properties
 
@@ -351,23 +344,23 @@ A strategy for invoking a function, resulting in an object instance.
 #### Methods
 
 
-* `invoke(container: Container, fn: Function, dependencies: ): any` - Invokes the function with the provided dependencies.
+* `invoke(container: Container, fn: DependencyCtorOrFunctor, dependencies: TArgs): ImplOrAny` - 
   * `container: Container` - No description available.
-  * `fn: Function` - The constructor or factory function.
-  * `dependencies: ` - The dependencies of the function call.
+  * `fn: DependencyCtorOrFunctor` - No description available.
+  * `dependencies: TArgs` - No description available.
 
 
-* `invokeWithDynamicDependencies(container: Container, fn: Function, staticDependencies: , dynamicDependencies: ): any` - Invokes the function with the provided dependencies.
+* `invokeWithDynamicDependencies(container: Container, fn: DependencyCtorOrFunctor, staticDependencies: , dynamicDependencies: ): ImplOrAny` - 
   * `container: Container` - No description available.
-  * `fn: Function` - The constructor or factory function.
-  * `staticDependencies: ` - The static dependencies of the function.
-  * `dynamicDependencies: ` - Additional dependencies to use during invocation.
+  * `fn: DependencyCtorOrFunctor` - No description available.
+  * `staticDependencies: ` - No description available.
+  * `dynamicDependencies: ` - No description available.
 
 
 
 ### Registration
 
-Customizes how a particular function is resolved by the Container.
+No description available.
 
 #### Properties
 
@@ -375,16 +368,16 @@ Customizes how a particular function is resolved by the Container.
 #### Methods
 
 
-* `registerResolver(container: Container, key: any, fn: Function): Resolver` - Called by the container to register the resolver.
-  * `container: Container` - The container the resolver is being registered with.
-  * `key: any` - The key the resolver should be registered as.
-  * `fn: Function` - The function to create the resolver for.
+* `registerResolver(container: Container, key: PrimitiveOrDependencyCtor, fn: DependencyCtorOrFunctor): Resolver` - 
+  * `container: Container` - No description available.
+  * `key: PrimitiveOrDependencyCtor` - No description available.
+  * `fn: DependencyCtorOrFunctor` - No description available.
 
 
 
 ### Resolver
 
-Used to allow functions/classes to specify custom dependency resolution logic.
+No description available.
 
 #### Properties
 
@@ -392,77 +385,87 @@ Used to allow functions/classes to specify custom dependency resolution logic.
 #### Methods
 
 
-* `get(container: Container, key: any): any` - Called by the container to allow custom resolution of dependencies for a function/class.
-  * `container: Container` - The container to resolve from.
-  * `key: any` - The key that the resolver was registered as.
+* `get(container: Container, key: any): any` - 
+  * `container: Container` - No description available.
+  * `key: any` - No description available.
+
+
+
+### StrategyState
+
+No description available.
+
+#### Properties
+
+* `__computed: any` - No description available.
+
+#### Methods
 
 
 
 ## Constants
 
 * `_emptyParameters: ` - No description available.
-* `resolver: ` - Decorator: Indicates that the decorated class/object is a custom resolver.
+* `resolver: ` - No description available.
 
 ## Functions
 
 
-* `all(keyValue: any): ` - Decorator: Specifies the dependency should load all instances of the given key.
+* `all(keyValue: any): ` - 
   * `keyValue: any` - No description available.
 
 
-* `autoinject(potentialTarget?: any): any` - Decorator: Directs the TypeScript transpiler to write-out type metadata for the decorated class.
-  * `potentialTarget?: any` - No description available.
+* `autoinject(potentialTarget?: DependencyCtor): any` - 
+  * `potentialTarget?: DependencyCtor` - No description available.
 
 
-* `factory(keyValue: any): ` - Decorator: Specifies the dependency to create a factory method, that can accept optional arguments
+* `factory(keyValue: any): ` - 
   * `keyValue: any` - No description available.
 
 
-* `getDecoratorDependencies(target: any): any` - Used by parameter decorators to call autoinject for the target and retrieve the target&#x27;s inject property.
-  * `target: any` - The target class.
+* `getDecoratorDependencies(target: ): ` - 
+  * `target: ` - No description available.
 
 
-* `inject(rest: ): any` - Decorator: Specifies the dependencies that should be injected by the DI Container into the decorated class/function.
+* `inject(rest: ): any` - 
   * `rest: ` - No description available.
 
 
-* `invokeAsFactory(potentialTarget?: any): any` - Decorator: Specifies that the decorated item should be called as a factory function, rather than a constructor.
+* `invokeAsFactory(potentialTarget?: any): any` - 
   * `potentialTarget?: any` - No description available.
 
 
-* `invoker(value: Invoker): any` - Decorator: Specifies a custom Invoker for the decorated item.
+* `invoker(value: Invoker): any` - 
   * `value: Invoker` - No description available.
 
 
-* `lazy(keyValue: any): ` - Decorator: Specifies the dependency should be lazy loaded
+* `lazy(keyValue: any): ` - 
   * `keyValue: any` - No description available.
 
 
-* `newInstance(asKeyOrTarget?: any, dynamicDependencies: ): ` - Decorator: Specifies the dependency as a new instance. Instances can optionally be registered in the container
-under a different key and/or use dynamic dependencies
-  * `asKeyOrTarget?: any` - No description available.
+* `newInstance(asKeyOrTarget?: , dynamicDependencies: ): ` - 
+  * `asKeyOrTarget?: ` - No description available.
   * `dynamicDependencies: ` - No description available.
 
 
-* `optional(checkParentOrTarget?: boolean): ` - Decorator: Specifies the dependency as optional
+* `optional(checkParentOrTarget?: boolean): ` - 
   * `checkParentOrTarget?: boolean` - No description available.
 
 
-* `parent(target: any, key: any, index: any): void` - Decorator: Specifies the dependency to look at the parent container for resolution
-  * `target: any` - No description available.
-  * `key: any` - No description available.
-  * `index: any` - No description available.
+* `parent(target: , _key: any, index: number): void` - 
+  * `target: ` - No description available.
+  * `_key: any` - No description available.
+  * `index: number` - No description available.
 
 
-* `registration(value: Registration): any` - Decorator: Specifies a custom registration strategy for the decorated class/function.
+* `registration(value: Registration): any` - 
   * `value: Registration` - No description available.
 
 
-* `singleton(keyOrRegisterInChild?: any, registerInChild?: boolean): any` - Decorator: Specifies to register the decorated item with a &quot;singleton&quot; lifetime.
-  * `keyOrRegisterInChild?: any` - No description available.
+* `singleton(registerInChild?: boolean): any` - 
   * `registerInChild?: boolean` - No description available.
 
 
-* `transient(key?: any): any` - Decorator: Specifies to register the decorated item with a &quot;transient&quot; lifetime.
-  * `key?: any` - No description available.
+* `transient(key?: PrimitiveOrDependencyCtor): any` - 
+  * `key?: PrimitiveOrDependencyCtor` - No description available.
 

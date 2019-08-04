@@ -585,9 +585,9 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
 </ul>
 <p>The reason for these issues is that we have two separate components, our <code>contact-list</code> and our <code>contact-detail</code> which both have their own internal data structures and behaviors, but which do have an affect on each other. The router is controlling the contact detail screen, so it's the ultimate source of truth and the contact list should sync with it. To handle this, we're going to increase the amount of information in our system by introducing pub/sub. Let's create a couple of messages that our <code>contact-detail</code> component can publish and then let the <code>contact-list</code> subscribe to those and respond appropriately.</p>
 
-<code-listing heading="message.js">
+<code-listing heading="messages.js">
   
-<source-code lang="JavaScript" heading="message.js">
+<source-code lang="JavaScript" heading="messages.js">
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ContactUpdated</span> <span class="token punctuation">{</span>
@@ -606,7 +606,7 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
 </source-code>
   
 
-<source-code lang="TypeScript" heading="message.ts">
+<source-code lang="TypeScript" heading="messages.ts">
   <pre class="language-typescript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ContactUpdated</span> <span class="token punctuation">{</span>

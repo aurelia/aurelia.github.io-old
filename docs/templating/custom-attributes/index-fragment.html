@@ -83,7 +83,7 @@
   
 </code-listing>
 </section>
-<section><h2 id="single-value-binding">Single Value Binding</h2><p>Aurelia custom attributes support three different types of binding: single value binding, options binding, and dynamic options binding. The simplest of the three binding types is single value binding. Aurelia will automatically set the <code>value</code> property on the attribute's view-model. Note that this property is not set until databinding is complete. This means the <code>value</code> property will not be set in the custom attribute's constructor or in its <code>created</code> lifecycle event. It is available in the <code>bind</code> and later lifecycle events.</p>
+<section><h2 id="single-value-binding">Single Value Binding</h2><p>Aurelia custom attributes support three different types of binding: single value binding, options binding, and dynamic options binding. The simplest of the three binding types is single value binding. Aurelia will automatically set the <code>value</code> property on the attribute's ViewModel. Note that this property is not set until databinding is complete. This means the <code>value</code> property will not be set in the custom attribute's constructor or in its <code>created</code> lifecycle event. It is available in the <code>bind</code> and later lifecycle events.</p>
 
 <code-listing heading="square.js">
   
@@ -145,7 +145,7 @@
 </source-code>
   
 </code-listing>
-<p>Note that in the above code sample, the color of the square will not be updated, even if the bound value is changed. This is because the attribute is not notified when the <code>value</code> property changes. Aurelia can notify a custom attribute when its value has changed, via the <code>valueChanged(newValue, oldValue)</code> callback function. The <code>valueChanged</code> callback function, if implemented on the view-model, will be called whenever the attribute's value changes. This function has two optional parameters, <code>newValue</code> and <code>oldValue</code>. These parameters will be set to the new value of the attribute and old value of the attribute, respectively. The <code>value</code> property is still set by Aurelia even if the <code>valueChanged</code> function is implemented. Note that if you implement both the <code>bind</code> and <code>valueChanged</code> callbacks, only <code>bind</code> will be called when the value is initially bound. If you implement only the <code>valueChanged</code> function, then it will be called when the value is initially bound.</p>
+<p>Note that in the above code sample, the color of the square will not be updated, even if the bound value is changed. This is because the attribute is not notified when the <code>value</code> property changes. Aurelia can notify a custom attribute when its value has changed, via the <code>valueChanged(newValue, oldValue)</code> callback function. The <code>valueChanged</code> callback function, if implemented on the ViewModel, will be called whenever the attribute's value changes. This function has two optional parameters, <code>newValue</code> and <code>oldValue</code>. These parameters will be set to the new value of the attribute and old value of the attribute, respectively. The <code>value</code> property is still set by Aurelia even if the <code>valueChanged</code> function is implemented. Note that if you implement both the <code>bind</code> and <code>valueChanged</code> callbacks, only <code>bind</code> will be called when the value is initially bound. If you implement only the <code>valueChanged</code> function, then it will be called when the value is initially bound.</p>
 
 <code-listing heading="square.js">
   
@@ -211,7 +211,7 @@
 </code-listing>
 <p>When the user updates the value of the <code>color</code> property via the textbox, Aurelia will call the <code>valueChanged</code> method on the custom attribute to alert the custom attribute to the change.</p>
 </section>
-<section><h2 id="options-binding">Options Binding</h2><p>Options binding provides a custom attribute the ability to have multiple bindable properties. Each bindable property must be specified using the <code>bindable</code> decorator. The attribute view-model may implement an optional <code>\${propertyName}Changed(newValue, oldValue)</code> callback function for each bindable property. When binding to these options, separate each option with a semicolon and supply a binding command or literal value as in the example below. It is important to note that bindable properties are converted to dash-case when used in the DOM, while the VM property they are bound to are kept with their original casing.</p>
+<section><h2 id="options-binding">Options Binding</h2><p>Options binding provides a custom attribute the ability to have multiple bindable properties. Each bindable property must be specified using the <code>bindable</code> decorator. The attribute ViewModel may implement an optional <code>\${propertyName}Changed(newValue, oldValue)</code> callback function for each bindable property. When binding to these options, separate each option with a semicolon and supply a binding command or literal value as in the example below. It is important to note that bindable properties are converted to dash-case when used in the DOM, while the ViewModel property they are bound to are kept with their original casing.</p>
 
 <code-listing heading="square.js">
   
@@ -367,7 +367,7 @@
   
 </code-listing>
 </section>
-<section><h2 id="dynamic-options-binding">Dynamic Options Binding</h2><p>Utilizing dynamic options, a custom attribute may deal with bindable properties where the name of the property is not known when creating the attribute. Simply decorate the attribute's view-model with the <code>dynamicOptions</code> decorator and implement the <code>propertyChanged(name, newValue, oldValue)</code> callback function. Aurelia will provide the name of the option that has changed along with new and old values for the option. Binding to a dynamic options attribute works exactly the same as binding to an options attribute in the DOM.</p>
+<section><h2 id="dynamic-options-binding">Dynamic Options Binding</h2><p>Utilizing dynamic options, a custom attribute may deal with bindable properties where the name of the property is not known when creating the attribute. Simply decorate the attribute's ViewModel with the <code>dynamicOptions</code> decorator and implement the <code>propertyChanged(name, newValue, oldValue)</code> callback function. Aurelia will provide the name of the option that has changed along with new and old values for the option. Binding to a dynamic options attribute works exactly the same as binding to an options attribute in the DOM.</p>
 
 <code-listing heading="square.js">
   

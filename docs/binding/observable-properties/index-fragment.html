@@ -158,15 +158,15 @@ The <code>@observable</code> <em>only</em> tracks changes to the value of a prop
 <source-code lang="JavaScript" heading="Configuring a Collection Observer">
   <pre class="language-javascript">
     <code>
-  <span class="token keyword">import</span> <span class="token punctuation">{</span>BindingEngine<span class="token punctuation">,</span> autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>BindingEngine<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
   
   @<span class="token function">inject</span><span class="token punctuation">(</span>BindingEngine<span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
   
     myCollection <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"foo"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
   
-    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> bindingEngine<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">let</span> subscription <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>bindingEngine<span class="token punctuation">.</span><span class="token function">collectionObserver</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>myCollection<span class="token punctuation">)</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span>bindingEngine<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> subscription <span class="token operator">=</span> bindingEngine<span class="token punctuation">.</span><span class="token function">collectionObserver</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>myCollection<span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>collectionChanged<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   

@@ -175,8 +175,6 @@ State that is contained within the component is a good thing, as long as only th
   <span class="token keyword">import</span> <span class="token punctuation">{</span> inject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-dependency-injection'</span><span class="token punctuation">;</span>
   <span class="token keyword">import</span> <span class="token punctuation">{</span> Store <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-store'</span><span class="token punctuation">;</span>
   
-  <span class="token keyword">import</span> <span class="token punctuation">{</span> State <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./state'</span><span class="token punctuation">;</span>
-  
   @<span class="token function">inject</span><span class="token punctuation">(</span>Store<span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
     <span class="token function">constructor</span><span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">this</span><span class="token punctuation">.</span>store <span class="token operator">=</span> store<span class="token punctuation">;</span> <span class="token punctuation">}</span>
@@ -265,8 +263,6 @@ What it does is to connect your store's state automatically to a class property 
     <code>
   <span class="token comment">// app.js</span>
   <span class="token keyword">import</span> <span class="token punctuation">{</span> connectTo <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-store'</span><span class="token punctuation">;</span>
-  
-  <span class="token keyword">import</span> <span class="token punctuation">{</span> State <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./state'</span><span class="token punctuation">;</span>
   
   @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -906,7 +902,6 @@ You can create a &quot;shallow&quot; clone of the state by using <code>Object.as
   <span class="token comment">// app.js</span>
   <span class="token keyword">import</span> <span class="token punctuation">{</span> inject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-dependency-injection'</span><span class="token punctuation">;</span>
   <span class="token keyword">import</span> <span class="token punctuation">{</span> Store <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-store'</span><span class="token punctuation">;</span>
-  <span class="token keyword">import</span> <span class="token punctuation">{</span> State <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./state'</span><span class="token punctuation">;</span>
   
   @<span class="token function">inject</span><span class="token punctuation">(</span>Store<span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -1074,8 +1069,6 @@ Alternatively we can also provide the previously registered name instead.</p>
   <span class="token keyword">import</span> <span class="token punctuation">{</span> inject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-dependency-injection'</span><span class="token punctuation">;</span>
   <span class="token keyword">import</span> <span class="token punctuation">{</span> Store<span class="token punctuation">,</span> connectTo <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-store'</span><span class="token punctuation">;</span>
   
-  <span class="token keyword">import</span> <span class="token punctuation">{</span> State <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./state'</span><span class="token punctuation">;</span>
-  
   @<span class="token function">inject</span><span class="token punctuation">(</span>Store<span class="token punctuation">)</span>
   @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -1147,8 +1140,6 @@ Dispatching non-registered actions will result in an error.</p>
   <span class="token keyword">import</span> <span class="token punctuation">{</span> inject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-dependency-injection'</span><span class="token punctuation">;</span>
   <span class="token keyword">import</span> <span class="token punctuation">{</span> Store<span class="token punctuation">,</span> connectTo <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-store'</span><span class="token punctuation">;</span>
   
-  <span class="token keyword">import</span> <span class="token punctuation">{</span> State <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./state'</span><span class="token punctuation">;</span>
-  
   @<span class="token function">inject</span><span class="token punctuation">(</span>Store<span class="token punctuation">)</span>
   @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -1218,26 +1209,58 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
 <source-code lang="JavaScript" heading="Forwarding a dispatchable function as argument to child-elements">
   <pre class="language-javascript">
     <code>
-  <span class="token comment">// framework-list.js</span>
-  <span class="token keyword">import</span> <span class="token punctuation">{</span> inlineView <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
-  <span class="token keyword">import</span> <span class="token punctuation">{</span> dispatchify <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-store'</span><span class="token punctuation">;</span>
-  
-  <span class="token keyword">const</span> <span class="token function-variable function">addFramework</span> <span class="token operator">=</span> <span class="token punctuation">(</span>state<span class="token punctuation">,</span> frameworkName<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token comment">// actions.js</span>
+  <span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">addFramework</span> <span class="token operator">=</span> <span class="token punctuation">(</span>state<span class="token punctuation">,</span> frameworkName<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     <span class="token keyword">const</span> newState <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> state<span class="token punctuation">)</span><span class="token punctuation">;</span>
     newState<span class="token punctuation">.</span>frameworks <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">...</span>newState<span class="token punctuation">.</span>frameworks<span class="token punctuation">,</span> frameworkName<span class="token punctuation">]</span><span class="token punctuation">;</span>
-  
+    
     <span class="token keyword">return</span> newState<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
+  <span class="token comment">// app.html</span>
+  <span class="token operator">&lt;</span>template<span class="token operator">></span>
+    <span class="token operator">&lt;</span>require <span class="token keyword">from</span><span class="token operator">=</span><span class="token string">"./framework-list"</span> <span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>require<span class="token operator">></span>
+  
+    <span class="token operator">&lt;</span>framework<span class="token operator">-</span>list<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>framework<span class="token operator">-</span>list<span class="token operator">></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
+  
+  <span class="token comment">// app.js</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> inject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-dependency-injection'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> Store <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-store'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> actions <span class="token keyword">from</span> <span class="token string">'./actions'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">inject</span><span class="token punctuation">(</span>Store<span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>store <span class="token operator">=</span> store<span class="token punctuation">;</span>
+  
+      store<span class="token punctuation">.</span><span class="token function">registerAction</span><span class="token punctuation">(</span><span class="token string">'Add framework'</span><span class="token punctuation">,</span> actions<span class="token punctuation">.</span>addFramework<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+  <span class="token punctuation">}</span>
+  
+  <span class="token comment">// framework-list.js</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> bindable<span class="token punctuation">,</span> inlineView <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> connectTo<span class="token punctuation">,</span> dispatchify <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-store'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> actions <span class="token keyword">from</span> <span class="token string">'./actions'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   @<span class="token function">inlineView</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`
     &lt;template>
       &lt;require from="./framework-item">&lt;/require>
       &lt;framework-item add.bind="addFramework">&lt;/framework-item>
+      &lt;ul>
+        &lt;li repeat.for="framework of state.frameworks">\</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>framework<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&lt;/li>
+      &lt;/ul>
     &lt;/template>
   `</span></span><span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">FrameworkList</span> <span class="token punctuation">{</span>
+    @bindable state<span class="token punctuation">;</span>
+  
     <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>addFramework <span class="token operator">=</span> <span class="token function">dispatchify</span><span class="token punctuation">(</span>addFramework<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>addFramework <span class="token operator">=</span> <span class="token function">dispatchify</span><span class="token punctuation">(</span>actions<span class="token punctuation">.</span>addFramework<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   
@@ -1262,10 +1285,7 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
 <source-code lang="TypeScript" heading="Forwarding a dispatchable function as argument to child-elements">
   <pre class="language-typescript">
     <code>
-  <span class="token comment">// framework-list.ts</span>
-  <span class="token keyword">import</span> <span class="token punctuation">{</span> inlineView <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
-  <span class="token keyword">import</span> <span class="token punctuation">{</span> dispatchify <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-store'</span><span class="token punctuation">;</span>
-  
+  <span class="token comment">// actions.js</span>
   <span class="token keyword">const</span> <span class="token function-variable function">addFramework</span> <span class="token operator">=</span> <span class="token punctuation">(</span>state<span class="token punctuation">:</span> State<span class="token punctuation">,</span> frameworkName<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     <span class="token keyword">const</span> newState <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> state<span class="token punctuation">)</span><span class="token punctuation">;</span>
     newState<span class="token punctuation">.</span>frameworks <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">...</span>newState<span class="token punctuation">.</span>frameworks<span class="token punctuation">,</span> frameworkName<span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -1273,14 +1293,50 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
     <span class="token keyword">return</span> newState<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
+  <span class="token comment">// app.html</span>
+  <span class="token operator">&lt;</span>template<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token keyword">require</span> <span class="token keyword">from</span><span class="token operator">=</span><span class="token string">"./framework-list"</span> <span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span><span class="token keyword">require</span><span class="token operator">></span>
+  
+    <span class="token operator">&lt;</span>framework<span class="token operator">-</span>list<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>framework<span class="token operator">-</span>list<span class="token operator">></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
+  
+  <span class="token comment">// app.ts</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> autoinject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-dependency-injection'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> Store <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-store'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> actions <span class="token keyword">from</span> <span class="token string">'./actions'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">autoinject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+  
+    <span class="token keyword">public</span> state<span class="token punctuation">:</span> State<span class="token punctuation">;</span>
+  
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> store<span class="token punctuation">:</span> Store<span class="token operator">&lt;</span>State<span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span><span class="token function">registerAction</span><span class="token punctuation">(</span><span class="token string">'Add framework'</span><span class="token punctuation">,</span> actions<span class="token punctuation">.</span>addFramework<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+  <span class="token punctuation">}</span>
+  
+  <span class="token comment">// framework-list.ts</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> bindable<span class="token punctuation">,</span> inlineView <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> dispatchify <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-store'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> actions <span class="token keyword">from</span> <span class="token string">'./actions'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">connectTo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   @<span class="token function">inlineView</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`
     &lt;template>
       &lt;require from="./framework-item">&lt;/require>
       &lt;framework-item add.bind="addFramework">&lt;/framework-item>
+      &lt;ul>
+        &lt;li repeat.for="framework of state.frameworks">\</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>framework<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&lt;/li>
+      &lt;/ul>
     &lt;/template>
   `</span></span><span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">FrameworkList</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> addFramework <span class="token operator">=</span> <span class="token function">dispatchify</span><span class="token punctuation">(</span>addFramework<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    @bindable state<span class="token punctuation">;</span>
+  
+    <span class="token keyword">public</span> addFramework <span class="token operator">=</span> <span class="token function">dispatchify</span><span class="token punctuation">(</span>actions<span class="token punctuation">.</span>addFramework<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
   <span class="token comment">// framework-item.ts</span>
@@ -1305,19 +1361,19 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
 <a href="http://pragmatic-coder.net/using-a-state-container-with-aurelia/" target="_blank">this article</a>
 .</p>
 </section>
-<section><h2 id="resetting-the-store-to-a-specific-state">Resetting the store to a specific state</h2><p>Occasionally it might be necessary to <em>reset</em> the store to a specific state, without running through it built-in queue and thus without notifying middlewares.
+<section><h2 id="resetting-the-store-to-a-specific-state">Resetting the store to a specific state</h2><p>Occasionally it might be necessary to <em>reset</em> the store to a specific state, without running through the built-in queue and thus without notifying middlewares.
 A use case for this can be restoring the initial state or time-travelling with the Redux-DevTools extension. To do so use the method <code>resetToState</code> and pass in the desired state.
 The result will be that a new state is emitted and your subscriptions will receive it.</p>
 <blockquote>
 <p>Keep in mind that this feature should be used with caution as it might introduce unintended side effects, especially in collaboration with the Redux DevTools, as the reset states are not tracked by it.</p>
 </blockquote>
 </section>
-<section><h2 id="two-way-binding-and-state-management">Two-way binding and state management</h2><p>Two-way binding definitely has its merits when it comes to easily develop applications. By having Aurelia take care of synchronizing of the View and ViewModel a lot of work gets done for free.
+<section><h2 id="two-way-binding-and-state-management">Two-way binding and state management</h2><p>Two-way binding definitely has its merits when it comes to easily developing applications. By having Aurelia take care of synchronizing of the View and ViewModel a lot of work gets done for free.
 This behavior though becomes troublesome when working with a central state management. Remember, the primary vision is to do state modifications only via dispatching actions. This way we guarantee a single source of truth and no side-effects.
-Yet exactly the later is what a two-way binding introduces if you bind your VM directly to state objects. So instead of two-way binding to state objects you should:</p>
+Yet exactly the later is what a two-way binding introduces if you bind your ViewModel directly to state objects. So instead of two-way binding to state objects you should:</p>
 <ul>
 <li>Create a new property, reflecting the state part you'd like to modify and bind to that.</li>
-<li>When changes are made, persist the changes by dispatching an action which uses the binding models values</li>
+<li>When changes are made, persist the changes by dispatching an action which uses the binding model's values</li>
 <li>After dispatching make sure to update the binding model to match any updates to the object happening during dispatch</li>
 </ul>
 
@@ -1327,14 +1383,14 @@ Yet exactly the later is what a two-way binding introduces if you bind your VM d
   <pre class="language-javascript">
     <code>
   <span class="token comment">/*
-    * state: {
-    *  firstName: string,
-    *  lastName: string
-    * }
-    */</span>
-  
-  <span class="token comment">// app.js</span>
-  <span class="token operator">...</span>
+   * state: {
+   *  firstName: string,
+   *  lastName: string
+   * }
+   */</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> inlineView <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> inject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-dependency-injection'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> Store <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-store'</span><span class="token punctuation">;</span>
   
   <span class="token keyword">function</span> <span class="token function">updateUser</span><span class="token punctuation">(</span>state<span class="token punctuation">,</span> model<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> state<span class="token punctuation">,</span> model<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1346,6 +1402,12 @@ Yet exactly the later is what a two-way binding introduces if you bind your VM d
       Firstname: &lt;input type="text" value.bind="model.firstName">
       Lastname: &lt;input type="text" value.bind="model.lastName">
       &lt;button click.delegate="updateUser()">Update&lt;/button>
+      &lt;div>
+        &lt;b>Model&lt;/b> Firstname = '\</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>model<span class="token punctuation">.</span>firstName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">', Lastname = '\</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>model<span class="token punctuation">.</span>lastName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'
+      &lt;/div>
+      &lt;div>
+        &lt;b>State&lt;/b> Firstname = '\</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>state<span class="token punctuation">.</span>firstName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">', Lastname = '\</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>state<span class="token punctuation">.</span>lastName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'
+      &lt;/div>
     &lt;/template>
   `</span></span><span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
@@ -1373,15 +1435,17 @@ Yet exactly the later is what a two-way binding introduces if you bind your VM d
 <source-code lang="TypeScript" heading="Using binding models instead of the state">
   <pre class="language-typescript">
     <code>
+  <span class="token comment">// app.ts</span>
   <span class="token comment">/*
     * state: {
     *  firstName: string,
     *  lastName: string
     * }
     */</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> inlineView <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> autoinject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-dependency-injection'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> Store <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-store'</span><span class="token punctuation">;</span>
   
-  <span class="token comment">// app.ts</span>
-  <span class="token operator">...</span>
   
   <span class="token keyword">function</span> <span class="token function">updateUser</span><span class="token punctuation">(</span>state<span class="token punctuation">:</span> State<span class="token punctuation">,</span> model<span class="token punctuation">:</span> State<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> state<span class="token punctuation">,</span> model<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1393,6 +1457,12 @@ Yet exactly the later is what a two-way binding introduces if you bind your VM d
       Firstname: &lt;input type="text" value.bind="model.firstName">
       Lastname: &lt;input type="text" value.bind="model.lastName">
       &lt;button click.delegate="updateUser()">Update&lt;/button>
+      &lt;div>
+        &lt;b>Model&lt;/b> Firstname = '\</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>model<span class="token punctuation">.</span>firstName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">', Lastname = '\</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>model<span class="token punctuation">.</span>lastName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'
+      &lt;/div>
+      &lt;div>
+        &lt;b>State&lt;/b> Firstname = '\</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>state<span class="token punctuation">.</span>firstName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">', Lastname = '\</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>state<span class="token punctuation">.</span>lastName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'
+      &lt;/div>
     &lt;/template>
   `</span></span><span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>

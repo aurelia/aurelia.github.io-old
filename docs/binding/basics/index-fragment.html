@@ -7,15 +7,15 @@
   <article class="markdown">
     <section><h2 id="introduction">Introduction</h2><p>This article covers the basics of data-binding with Aurelia. You'll learn how to bind to HTML attributes, DOM Events and element content. You'll also see how to give your view-models references to DOM elements, making it easy work with elements directly.</p>
 </section>
-<section><h2 id="html-and-svg-attributes">HTML and SVG Attributes</h2><p>Aurelia supports binding HTML and SVG attributes to JavaScript expressions. Attribute binding declarations have three parts: <code>attribute.command=&quot;expression&quot;</code>.</p>
+<section><h2 id="html-and-svg-attributes">HTML and SVG Attributes</h2><p>Aurelia supports binding HTML and SVG attributes to JavaScript expressions. Attribute binding declarations have three parts and take the form <code>attribute.command=&quot;expression&quot;</code>.</p>
 <ul>
 <li><code>attribute</code>:  an HTML or SVG attribute name.</li>
 <li><code>command</code>: one of Aurelia's attribute binding commands:
 <ul>
-<li><code>one-time</code>: flows data one direction: from the view-model to the view, <strong>once</strong>.</li>
-<li><code>to-view</code> / <code>one-way</code>: flows data one direction: from the view-model to the view.</li>
-<li><code>from-view</code>: flows data one direction: from the view to the view-model.</li>
-<li><code>two-way</code>: flows data both ways: from view-model to view and from view to view-model.</li>
+<li><code>one-time</code>: flows data one direction, from the view-model to the view, <strong>once</strong>.</li>
+<li><code>to-view</code> / <code>one-way</code>: flows data one direction, from the view-model to the view.</li>
+<li><code>from-view</code>: flows data one direction, from the view to the view-model.</li>
+<li><code>two-way</code>: flows data both ways, from view-model to view and from view to view-model.</li>
 <li><code>bind</code>: automically chooses the binding mode. Uses two-way binding for form controls and to-view binding for almost everything else.</li>
 </ul>
 </li>
@@ -151,8 +151,8 @@
 </code-listing>
 <p>The first span uses the <code>bind</code> command. The second uses string interpolation.  The interpolated version is much easier to read and easy to remember because the syntax matches the 
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals" target="_blank">template literal</a>
- syntax standardized in ES2015/ES6.</p>
-<p>String interpolation can be used within html attributes as an alternative to to-view binding. By default, the mode of an interpolation binding is <code>to-view</code> and the result of the expression is always coerced to a string. Results that are <code>null</code> or <code>undefined</code> will result in empty string.</p>
+ syntax standardized in ES2015.</p>
+<p>String interpolation can be used within HTML attributes as an alternative to <code>to-view</code> binding. By default, the mode of an interpolation binding is <code>to-view</code> and the result of the expression is always coerced to a string. Results that are <code>null</code> or <code>undefined</code> will result in an empty string.</p>
 </section>
 <section><h2 id="element-content">Element Content</h2><p>The previous example compared string interpolation binding with <code>textcontent.bind</code>. Interpolation is easier to read but <code>textcontent.bind</code> can come in handy when you need to two-bind a <code>contenteditable</code> element:</p>
 
@@ -168,7 +168,7 @@
 </source-code>
   
 </code-listing>
-<p>You may also need to bind html text to an element's <code>innerHTML</code> property:</p>
+<p>You may also need to bind HTML text to an element's <code>innerHTML</code> property:</p>
 
 <code-listing heading="Binding innerHTML">
   
@@ -207,7 +207,7 @@ Binding using the <code>innerhtml</code> attribute simply sets the element's <co
 </section>
 <section><h2 id="expression-syntax">Expression Syntax</h2><p>Aurelia's expression parser implements a subset of 
 <a href="https://tc39.github.io/ecma262/#sec-ecmascript-language-expressions" target="_blank">ECMAScript Expressions</a>
-. For the features that are supported, you can typically expect the JavaScript in your view to work the same way as it would in your view model, or in the browser console. In addition there are two adjustments:</p>
+. For the features that are supported, you can typically expect the JavaScript in your view to work the same way as it would in your view-model, or in the browser console. In addition there are two adjustments:</p>
 <ul>
 <li>The Ampersand <code>&amp;</code> represents a <code>BindingBehavior</code> (instead of Bitwise AND)</li>
 <li>The Bar <code>|</code> represents a <code>ValueConverter</code> (instead of a Bitwise OR)</li>

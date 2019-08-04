@@ -1,0 +1,102 @@
+<section class="article">
+  <header>
+    <h1>Binding: The Binding Engine</h1>
+    <h2>How data-binding works in Aurelia.</h2>
+  </header>
+
+  <article class="markdown">
+    <section><h2 id="introduction">Introduction</h2><p>The binding engine is an utility export of <code>aurelia-binding</code> module, which gives some higher level APIs for dealing with observation, which leverages aurelia binding system primitives under the hood.</p>
+</section>
+<section><h2 id="how-to-install">How to install</h2><p>Retrieving an instance of the <code>BindingEngine</code> by injecting it to any of your class inside an Aurelia application:</p>
+
+<code-listing>
+  
+<source-code lang="js" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> BindingEngine <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span> <span class="token comment">// or 'aurelia-binding'</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyViewModel</span> <span class="token punctuation">{</span>
+  
+    <span class="token keyword">static</span> <span class="token function">inject</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">[</span>BindingEngine<span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token function">constructor</span><span class="token punctuation">(</span>bindingEngine<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">//</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<blockquote>
+<p>Note: you can also construct the <code>BindingEngine</code> instance directly, or get it from a container. The example goes with simplest code.</p>
+</blockquote>
+<p>Now let's use it to observe changes on objects (arrays are objects too). Generally, we will use <code>propertyObserver(obj, propertyName)</code> for object property value changes and <code>collectionObserver(collection)</code> for collection mutation.</p>
+</section>
+<section><h2 id="observing-a-property-on-an-object">Observing a property on an object</h2><ul>
+<li><code>propertyObserver(obj, propertyName)</code> returns a <code>PropertyObserver</code> object, with a public method <code>subscribe</code> that can be used like the following example:</li>
+</ul>
+
+<code-listing>
+  
+<source-code lang="js" heading="">
+  <pre class="language-javascript">
+    <code>
+    bindingEngine
+      <span class="token punctuation">.</span><span class="token function">propertyObserver</span><span class="token punctuation">(</span>myObject<span class="token punctuation">,</span> <span class="token string">'myObjectPropertyName'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span>newValue<span class="token punctuation">,</span> oldValue<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+        <span class="token comment">// handle value change here</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+</section>
+<section><h2 id="observing-a-collection-mutation">Observing a collection mutation</h2><ul>
+<li><code>collectionObserver(collection)</code> returns a <code>CollectionObserver</code> object, with a public method <code>subscribe</code> that can be used like the following example:</li>
+</ul>
+
+<code-listing>
+  
+<source-code lang="js" heading="">
+  <pre class="language-javascript">
+    <code>
+    bindingEngine
+      <span class="token punctuation">.</span><span class="token function">collectionObserver</span><span class="token punctuation">(</span>myCollection<span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span>splice<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+        <span class="token comment">// do something with the mutated collection</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p><code>splice</code> is an object with <code>ICollectionObserverSplice</code> interface, source code 
+<a href="https://github.com/aurelia/binding/blob/b42630b9ef94f84f39e450d959ddaa721d82e5d5/src/aurelia-binding.d.ts#L148" target="_blank">here</a>
+</p>
+</section>
+<section><h2 id="observing-an-expression-on-an-object">Observing an expression on an object</h2><p>Often times you would want to observe a chain of property accesses (or a path), binding engine also has an API to support this. You can use <code>expressionObserver(obj, expressionString)</code> to create an observer, that will notify you when any property within the path of <code>expressionString</code> has been changed, like the following example:</p>
+
+<code-listing>
+  
+<source-code lang="js" heading="">
+  <pre class="language-javascript">
+    <code>
+    bindingEngine
+      <span class="token punctuation">.</span><span class="token function">expressionObserver</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token string">'project.name'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span>newProjectName<span class="token punctuation">,</span> oldProjectName<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+        <span class="token comment">// do something with the new project name value</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+</section>
+
+  </article>
+</section>
