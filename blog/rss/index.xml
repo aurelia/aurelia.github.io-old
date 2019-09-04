@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Sun Aug 04 2019 15:38:25 GMT-0700 (Pacific Daylight Time)</lastBuildDate>
+    <lastBuildDate>Tue Sep 03 2019 22:52:22 GMT-0700 (Pacific Daylight Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[Case Study: Tutors]]></title>
+      <link>http://aurelia.io/blog/2019/09/03/case-study-tutors</link>
+      <description><![CDATA[Today, I'm pleased to introduce you to Eamonn de Leastar from the Waterford Institute of Technology. He's built an impressive set of learning technologies for the institute using Aurelia. Here he is to tell you all about it and provide some opportunities to get involved as well.]]></description>
+      <pubDate>Tue Sep 03 2019 22:48:25 GMT-0700 (Pacific Daylight Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Advanced i18n with Aurelia and Net at Work GmbH]]></title>
       <link>http://aurelia.io/blog/2019/08/04/advanced-i18n-with-aurelia-and-net-at-work-gmbh</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2018/06/24/aurelia-release-notes-june-2018</link>
       <description><![CDATA[June is a significant month for Aurelia. Our latest set of releases adds some great new features for our templating engine, allowing more seamless Webpack builds and an even more unobtrusive programming model. We've also made huge improvements to our binding engine, including adding new keywords and beefing up performance. Finally, the Aurelia Store plugin was released! Read on to get the details from the Aurelia Core Team.]]></description>
       <pubDate>Sun Jun 24 2018 23:03:59 GMT-0700 (Pacific Daylight Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Store Released!]]></title>
-      <link>http://aurelia.io/blog/2018/06/17/aurelia-store-released</link>
-      <description><![CDATA[Announcing the release of the Aurelia Store state management plugin!]]></description>
-      <pubDate>Sun Jun 17 2018 23:28:50 GMT-0700 (Pacific Daylight Time)</pubDate>
     </item>
   </channel>
 </rss>
