@@ -146,6 +146,8 @@ Used to compose a new view / view-model template or bind to an existing instance
 
 #### Properties
 
+* `activationStrategy: ActivationStrategy` - Strategy to activate the view-model. Default is &quot;invoke-lifecycle&quot;.
+Bind &quot;replace&quot; to recreate the view/view-model when the model changes.
 * `model: any` - Model to bind the custom element to.
 * `swapOrder: any` - SwapOrder to control the swapping order of the custom element&#x27;s view.
 * `view: any` - View to bind the custom element to.
@@ -463,6 +465,8 @@ Binding to iterate over iterable objects (Array, Map and Number) to genereate a 
 * `key: any` - Key when iterating over Maps.
 * `local: any` - Local variable which gets assigned on each iteration.
 * `value: any` - Value when iterating over Maps.
+* `static useInnerMatcher: boolean` - Setting this to &#x60;true&#x60; to enable legacy behavior, where a repeat would take first &#x60;matcher&#x60; binding
+any where inside its view if there&#x27;s no &#x60;matcher&#x60; binding on the repeated element itself.
 
 #### Methods
 

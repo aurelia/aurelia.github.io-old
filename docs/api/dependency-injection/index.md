@@ -45,8 +45,8 @@ No description available.
   * `key: any` - No description available
 
 
-* `autoRegister(key: string, fn: DependencyCtorOrFunctor): Resolver` - 
-  * `key: string` - No description available
+* `autoRegister(key: Primitive, fn: DependencyCtorOrFunctor): Resolver` - 
+  * `key: Primitive` - No description available
   * `fn: DependencyCtorOrFunctor` - No description available
 
 
@@ -65,7 +65,7 @@ No description available.
   * `key: PrimitiveOrDependencyCtor` - No description available
 
 
-* `getResolver(key: PrimitiveOrDependencyCtorOrFunctor): any` - 
+* `getResolver(key: PrimitiveOrDependencyCtorOrFunctor): StrategyResolver` - 
   * `key: PrimitiveOrDependencyCtorOrFunctor` - No description available
 
 
@@ -102,13 +102,13 @@ No description available.
   * `resolver: Resolver` - No description available
 
 
-* `registerSingleton(key: any, fn?: DependencyCtorOrFunctor): Resolver` - 
-  * `key: any` - No description available
-  * `fn?: DependencyCtorOrFunctor` - No description available
+* `registerSingleton(key: Primitive, fn: DependencyCtorOrFunctor): Resolver` - 
+  * `key: Primitive` - No description available
+  * `fn: DependencyCtorOrFunctor` - No description available
 
 
-* `registerTransient(key: string, fn: DependencyCtorOrFunctor): Resolver` - 
-  * `key: string` - No description available
+* `registerTransient(key: Primitive, fn: DependencyCtorOrFunctor): Resolver` - 
+  * `key: Primitive` - No description available
   * `fn: DependencyCtorOrFunctor` - No description available
 
 
@@ -178,7 +178,7 @@ No description available.
 #### Methods
 
 
-* `invoke(container: Container, dynamicDependencies?: ): any` - 
+* `invoke(container: Container, dynamicDependencies?: ): TImpl` - 
   * `container: Container` - No description available
   * `dynamicDependencies?: ` - No description available
 
@@ -237,7 +237,7 @@ No description available.
 #### Methods
 
 
-* `get(container: Container): any` - 
+* `get(container: Container): TImpl` - 
   * `container: Container` - No description available
 
 
@@ -257,7 +257,7 @@ No description available.
 #### Methods
 
 
-* `get(container: Container): any` - 
+* `get(container: Container): TImpl` - 
   * `container: Container` - No description available
 
 
@@ -415,8 +415,8 @@ No description available.
   * `keyValue: any` - No description available.
 
 
-* `autoinject(potentialTarget?: DependencyCtor): any` - 
-  * `potentialTarget?: DependencyCtor` - No description available.
+* `autoinject(potentialTarget?: TPotential): TPotential extends Injectable ? void : (target: Injectable) &#x3D;&gt; void` - 
+  * `potentialTarget?: TPotential` - No description available.
 
 
 * `factory(keyValue: any): ` - 
@@ -431,11 +431,11 @@ No description available.
   * `rest: ` - No description available.
 
 
-* `invokeAsFactory(potentialTarget?: any): any` - 
-  * `potentialTarget?: any` - No description available.
+* `invokeAsFactory(potentialTarget?: DependencyCtor): ` - 
+  * `potentialTarget?: DependencyCtor` - No description available.
 
 
-* `invoker(value: Invoker): any` - 
+* `invoker(value: Invoker): ` - 
   * `value: Invoker` - No description available.
 
 
@@ -458,7 +458,7 @@ No description available.
   * `index: number` - No description available.
 
 
-* `registration(value: Registration): any` - 
+* `registration(value: Registration): ` - 
   * `value: Registration` - No description available.
 
 
@@ -466,6 +466,6 @@ No description available.
   * `registerInChild?: boolean` - No description available.
 
 
-* `transient(key?: PrimitiveOrDependencyCtor): any` - 
+* `transient(key?: PrimitiveOrDependencyCtor): ` - 
   * `key?: PrimitiveOrDependencyCtor` - No description available.
 

@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Tue Sep 03 2019 22:52:22 GMT-0700 (Pacific Daylight Time)</lastBuildDate>
+    <lastBuildDate>Tue Sep 10 2019 16:40:17 GMT-0700 (Pacific Daylight Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia Release Notes - September 2019]]></title>
+      <link>http://aurelia.io/blog/2019/09/10/aurelia-release-notes-september-2019</link>
+      <description><![CDATA[This month, we've got a number of improvements and fixes to the Aurelia CLI, as well as a number of smaller updates to various parts of Aurelia's core and its plugins. Stay tuned for our upcoming blog post on Aurelia vNext!]]></description>
+      <pubDate>Tue Sep 10 2019 16:40:15 GMT-0700 (Pacific Daylight Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Case Study: Tutors]]></title>
       <link>http://aurelia.io/blog/2019/09/03/case-study-tutors</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2018/07/24/aurelia-release-notes-late-july-2018</link>
       <description><![CDATA[This month we've a fixed number of issues in the routing and templating engines, including a few regressions that cropped up in the previous round of releases. Additionally, we've moved the aurelia-dialog plugin to a 1.0.0 release and have begun work on 2.0.0.]]></description>
       <pubDate>Tue Jul 24 2018 21:21:54 GMT-0700 (Pacific Daylight Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Release Notes - June 2018]]></title>
-      <link>http://aurelia.io/blog/2018/06/24/aurelia-release-notes-june-2018</link>
-      <description><![CDATA[June is a significant month for Aurelia. Our latest set of releases adds some great new features for our templating engine, allowing more seamless Webpack builds and an even more unobtrusive programming model. We've also made huge improvements to our binding engine, including adding new keywords and beefing up performance. Finally, the Aurelia Store plugin was released! Read on to get the details from the Aurelia Core Team.]]></description>
-      <pubDate>Sun Jun 24 2018 23:03:59 GMT-0700 (Pacific Daylight Time)</pubDate>
     </item>
   </channel>
 </rss>

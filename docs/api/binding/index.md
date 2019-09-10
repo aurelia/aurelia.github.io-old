@@ -403,6 +403,7 @@ This is an internal API and is subject to change without notice in future releas
 
 #### Properties
 
+* `escapeShadowRoot: boolean` - No description available.
 
 #### Methods
 

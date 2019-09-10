@@ -2095,13 +2095,13 @@ If you don't name a <code>router-view</code>, it will be available under the nam
 </code-listing>
 <h3>Custom Element Options</h3>
 <ul>
-<li><code>@children(selector)</code> - Decorates a property to create an array on your class that has its items automatically synchronized based on a query selector against the element's immediate child content.</li>
-<li><code>@child(selector)</code> - Decorates a property to create a reference to a single immediate child content element.</li>
+<li><code>@children(selector)</code> - Decorates a property to create an array on your class that has its items automatically synchronized based on a query selector against the element's immediate child content. Does not work with <code>@containerless()</code>, see below.</li>
+<li><code>@child(selector)</code> - Decorates a property to create a reference to a single immediate child content element. Does not work with <code>@containerless()</code>, see below.</li>
 <li><code>@processContent(false|Function)</code> - Tells the compiler that the element's content requires special processing. If you provide <code>false</code> to the decorator, the compiler will not process the content of your custom element. It is expected that you will do custom processing yourself. But, you can also supply a custom function that lets you process the content during the view's compilation. That function can then return true/false to indicate whether or not the compiler should also process the content. The function takes the following form <code>function(compiler, resources, node, instruction):boolean</code></li>
 <li><code>@useView(path)</code> - Specifies a different view to use.</li>
 <li><code>@noView()</code> - Indicates that this custom element does not have a view and that the author intends for the element to handle its own rendering internally.</li>
 <li><code>@inlineView(markup, dependencies?)</code> - Allows the developer to provide a string that will be compiled into the view.</li>
-<li><code>@useShadowDOM(options?: { mode: 'open' | 'closed' })</code> - Causes the view to be rendered in the ShadowDOM. When an element is rendered to ShadowDOM, a special <code>DOMBoundary</code> instance can optionally be injected into the constructor. This represents the shadow root.</li>
+<li><code>@useShadowDOM(options?: { mode: 'open' | 'closed' })</code> - Causes the view to be rendered in the ShadowDOM. When an element is rendered to ShadowDOM, a special <code>DOMBoundary</code> instance can optionally be injected into the constructor. This represents the shadow root.  Does not work with <code>@containerless()</code>, see below.</li>
 <li><code>@containerless()</code> - Causes the element's view to be rendered without the custom element container wrapping it. This cannot be used in conjunction with <code>@child</code>, <code>@children</code> or <code>@useShadowDOM</code> decorators. It also cannot be uses with surrogate behaviors. Use sparingly.</li>
 </ul>
 <h3>SVG Elements</h3>

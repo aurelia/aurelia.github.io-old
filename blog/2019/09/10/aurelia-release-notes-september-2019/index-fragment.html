@@ -1,0 +1,277 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia Release Notes - September 2019</h1>
+    <h2>Posted by <span class="author">Rob Eisenberg</span> on <span class="date">September 10, 2019</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>This month, we've got a number of improvements and fixes to the Aurelia CLI, as well as a number of smaller updates to various parts of Aurelia's core and its plugins. Stay tuned for our upcoming blog post on Aurelia vNext!</p>
+<section><h2 id="major-releases">Major Releases</h2><p>Major updates may include breaking changes, new features, fixes to bugs, and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/dependency-injection/compare/1.4.2...1.5.0" target="_blank">aurelia-dependency-injection 1.5.0</a>
+</h3>
+<p>This release of the DI library has no breaking changes in terms of functionality, but does update many of its TypeScript type definitions to be more accurate for TypeScript users. To reflect this, we've bumped the minor version but added this special note for TypeScript users, as their projects may require some fixup if they were directly accessing DI library APIs in ways not compatible with the type system.</p>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>ci:</strong> add dev dep jspm (
+<a href="https://github.com/aurelia/dependency-injection/commit/ad4be00" target="_blank">ad4be00</a>
+)</li>
+<li><strong>ci:</strong> take our circle ci (
+<a href="https://github.com/aurelia/dependency-injection/commit/9899197" target="_blank">9899197</a>
+)</li>
+</ul>
+<h4>Breaking Changes</h4>
+<ul>
+<li>Added typings to a majority of the framework. Previously all instances
+retrieved from a container or functor were cast to any. Now they're typed by
+inference to the key. If the key is a class the instance will be typed to an
+instance of that class. If the key is a functor, it will be resolved to the
+return type of the functor. All other keys will be typed to any.</li>
+</ul>
+<p>(
+<a href="http://github.com/aurelia/dependency-injection/commit/e5e277dfa74d99ee9952f0b731eae4ec30e628ea" target="_blank">e5e277df</a>
+)</p>
+</section>
+<section><h2 id="minor-releases">Minor Releases</h2><p>Minor updates include new features, updates to bugs, and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/store/compare/1.3.5...1.4.0" target="_blank">aurelia-store 1.4.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>dispatch:</strong> piped dispatch (
+<a href="https://github.com/aurelia/store/commit/4a78ad5" target="_blank">4a78ad5</a>
+)</li>
+<li><strong>polyfills:</strong> ship with object.entries polyfill (
+<a href="https://github.com/aurelia/store/commit/8ee1156" target="_blank">8ee1156</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/hot-module-reload/compare/0.2.1...0.3.0" target="_blank">aurelia-hot-module-reload 0.3.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li>Missing resolvers when reloading a view</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/binding/compare/2.4.0...2.5.0" target="_blank">aurelia-binding 2.5.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>event-manager:</strong> shadow dom event bubbling (
+<a href="https://github.com/aurelia/binding/commit/7563566" target="_blank">7563566</a>
+), closes 
+<a href="https://github.com/aurelia/binding/issues/755" target="_blank">#755</a>
+</li>
+<li><strong>event-manager:</strong> update d.ts (
+<a href="https://github.com/aurelia/binding/commit/a6e6330" target="_blank">a6e6330</a>
+), closes 
+<a href="https://github.com/aurelia/binding/issues/758" target="_blank">#758</a>
+ 
+<a href="https://github.com/aurelia/binding/issues/755" target="_blank">#755</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/binding/compare/2.3.1...2.4.0" target="_blank">aurelia-binding 2.4.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>all:</strong> change es2015 back to native-modules (
+<a href="https://github.com/aurelia/binding/commit/13dd661" target="_blank">13dd661</a>
+)</li>
+<li><strong>build:</strong> don't build declaration (
+<a href="https://github.com/aurelia/binding/commit/d359e83" target="_blank">d359e83</a>
+)</li>
+<li><strong>connectable-binding:</strong> remove the silent limit of 100 observers per expression (
+<a href="https://github.com/aurelia/binding/commit/56ba36d" target="_blank">56ba36d</a>
+), closes 
+<a href="https://github.com/aurelia/binding/issues/742" target="_blank">#742</a>
+</li>
+<li><strong>typing:</strong> Make parentOverrideContext optional</li>
+<li><strong>event-manager:</strong> fix captured/delegated event decrement</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/templating-resources/compare/1.11.0...1.12.0" target="_blank">aurelia-templating-resources 1.12.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>repeat:</strong> ensure backward compat, fix tests (
+<a href="https://github.com/aurelia/templating-resources/commit/62958e5" target="_blank">62958e5</a>
+)</li>
+<li><strong>repeat:</strong> properly find matcher binding (
+<a href="https://github.com/aurelia/templating-resources/commit/a579644" target="_blank">a579644</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>compose:</strong> 
+<a href="https://github.com/bindable" target="_blank">@bindable</a>
+ activation-strategy (
+<a href="https://github.com/aurelia/templating-resources/commit/4078883" target="_blank">4078883</a>
+), closes 
+<a href="https://github.com/aurelia/templating-resources/issues/381" target="_blank">#381</a>
+</li>
+<li><strong>compose:</strong> activation strategy hook in VM (
+<a href="https://github.com/aurelia/templating-resources/commit/3aa3020" target="_blank">3aa3020</a>
+), closes 
+<a href="https://github.com/aurelia/templating-resources/issues/381" target="_blank">#381</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/validation/compare/1.4.0...1.5.0" target="_blank">aurelia-validation 1.5.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li>Update type definitions for compatibility with latest dependency-injection release.</li>
+</ul>
+</section>
+<section><h2 id="patch-releases">Patch Releases</h2><p>Patch updates include only fixes to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/cli/compare/1.1.0...1.1.1" target="_blank">aurelia-cli 1.1.1</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>webpack:</strong> avoid unnecessary breaking change on argument (
+<a href="https://github.com/aurelia/cli/commit/f73c4ea" target="_blank">f73c4ea</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/cli/compare/1.0.2...1.1.0" target="_blank">aurelia-cli 1.1.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>--open:</strong> resolved 
+<a href="https://github.com/aurelia/cli/issues/1129" target="_blank">#1129</a>
+ (
+<a href="https://github.com/aurelia/cli/commit/4aded24" target="_blank">4aded24</a>
+)</li>
+<li><strong>browser-sync:</strong> update the mechanism to stop the server (
+<a href="https://github.com/aurelia/cli/commit/3ffc7ec" target="_blank">3ffc7ec</a>
+)</li>
+<li><strong>build:</strong> remove prompt confirmation on windows (
+<a href="https://github.com/aurelia/cli/commit/6850804" target="_blank">6850804</a>
+)</li>
+<li><strong>cli-bundler:</strong> fix missing refresh in less/scss/styl watch mode (
+<a href="https://github.com/aurelia/cli/commit/1d61223" target="_blank">1d61223</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1138" target="_blank">#1138</a>
+</li>
+<li><strong>cli-bundler:</strong> revision should be turned on for production build by default (
+<a href="https://github.com/aurelia/cli/commit/055a912" target="_blank">055a912</a>
+)</li>
+<li><strong>protractor:</strong> updated protractor demo.e2e.ts files to use baseUrl (
+<a href="https://github.com/aurelia/cli/commit/7aaa38e" target="_blank">7aaa38e</a>
+)</li>
+<li><strong>protractor:</strong> updated protractor demo.e2e.ts files to use baseUrl (
+<a href="https://github.com/aurelia/cli/commit/81cb28a" target="_blank">81cb28a</a>
+)</li>
+<li><strong>webpack:</strong> Duplicated args for --port (
+<a href="https://github.com/aurelia/cli/commit/d666176" target="_blank">d666176</a>
+)</li>
+<li><strong>webpack:</strong> fix overlooked refactoring (
+<a href="https://github.com/aurelia/cli/commit/3b224dd" target="_blank">3b224dd</a>
+)</li>
+<li><strong>webpack:</strong> new release check (
+<a href="https://github.com/aurelia/cli/commit/a217fec" target="_blank">a217fec</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>base-package-manager:</strong> updated  to keep track of child process (
+<a href="https://github.com/aurelia/cli/commit/3496c13" target="_blank">3496c13</a>
+)</li>
+<li><strong>build-plugin:</strong> add sourcemaps and watch support for plugin development (
+<a href="https://github.com/aurelia/cli/commit/391c5f0" target="_blank">391c5f0</a>
+)</li>
+<li><strong>cli-bundler:</strong> add <code>shutdownAppServer</code> method to CLI-Bundler (
+<a href="https://github.com/aurelia/cli/commit/b832ed1" target="_blank">b832ed1</a>
+)</li>
+<li><strong>cypress:</strong> update cypress to reflect changes for running with custom port &amp; host (
+<a href="https://github.com/aurelia/cli/commit/50c7de5" target="_blank">50c7de5</a>
+)</li>
+<li><strong>protractor:</strong> update protractor to reflect changes for running with custom port &amp; host (
+<a href="https://github.com/aurelia/cli/commit/770fd87" target="_blank">770fd87</a>
+)</li>
+<li><strong>webpack:</strong> use: host &amp; port &amp;&amp; add: shutdownAppServer (
+<a href="https://github.com/aurelia/cli/commit/d665ef1" target="_blank">d665ef1</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/cli/compare/1.0.1...1.0.2" target="_blank">aurelia-cli 1.0.2</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>cli-bundler:</strong> fix source map path for local source file (
+<a href="https://github.com/aurelia/cli/commit/7deea6f" target="_blank">7deea6f</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1117" target="_blank">#1117</a>
+</li>
+<li><strong>release-check:</strong> adjust task for webpack hostname (
+<a href="https://github.com/aurelia/cli/commit/3f22fef" target="_blank">3f22fef</a>
+)</li>
+<li><strong>release-check:</strong> avoid duplicated task (
+<a href="https://github.com/aurelia/cli/commit/19f6547" target="_blank">19f6547</a>
+)</li>
+<li><strong>release-check:</strong> bypass win32 puppeteer error on 0.0.0.0 (
+<a href="https://github.com/aurelia/cli/commit/bcbe262" target="_blank">bcbe262</a>
+)</li>
+<li><strong>skeleton:</strong> don't overwrite user's editorconfig (
+<a href="https://github.com/aurelia/cli/commit/d896772" target="_blank">d896772</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1121" target="_blank">#1121</a>
+</li>
+<li><strong>skeleton:</strong> fix readonly environment files (
+<a href="https://github.com/aurelia/cli/commit/4ae1bba" target="_blank">4ae1bba</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1031" target="_blank">#1031</a>
+</li>
+<li><strong>webpack:</strong> allow webpack app to run inside docker container (
+<a href="https://github.com/aurelia/cli/commit/263b2c2" target="_blank">263b2c2</a>
+)</li>
+<li><strong>webpack:</strong> bring in &quot;open&quot; to cli deps to avoid breaking existing webpack apps (
+<a href="https://github.com/aurelia/cli/commit/1258f4f" target="_blank">1258f4f</a>
+)</li>
+<li><strong>webpack:</strong> use npm package &quot;open&quot; to replace deprecated &quot;opn&quot; (
+<a href="https://github.com/aurelia/cli/commit/112075f" target="_blank">112075f</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1120" target="_blank">#1120</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/cli/compare/1.0.0...1.0.1" target="_blank">aurelia-cli 1.0.1</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>skeleton:</strong> fix wrong vscode launch.json file name (
+<a href="https://github.com/aurelia/cli/commit/4007939" target="_blank">4007939</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1113" target="_blank">#1113</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/dependency-injection/compare/1.5.0...1.5.1" target="_blank">aurelia-dependency-injection 1.5.1</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>all:</strong> change package.json module from es2015 back to native-modules (
+<a href="https://github.com/aurelia/dependency-injection/commit/86e2699" target="_blank">86e2699</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/path/compare/1.1.2...1.1.4" target="_blank">aurelia-path 1.1.4</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li>Improve relative path join for local plugin dev</li>
+<li><strong>all:</strong> change es2015 back to native-modules (
+<a href="https://github.com/aurelia/path/commit/3a13e2f" target="_blank">3a13e2f</a>
+)</li>
+</ul>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%20Release%20Notes%20-%20September%202019" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2019%2F09%2F10%2Faurelia-release-notes-september-2019"></blog-footer>
+</section>
