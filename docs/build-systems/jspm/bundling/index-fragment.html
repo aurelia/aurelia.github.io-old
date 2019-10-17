@@ -27,7 +27,7 @@
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm install aurelia<span class="token operator">-</span>bundler <span class="token operator">--</span>save<span class="token operator">-</span>dev
+  npm install <span class="token operator">-</span>D aurelia<span class="token operator">-</span>bundler
   </code>
   </pre>
 </source-code>
@@ -52,7 +52,7 @@
         includes<span class="token punctuation">:</span> <span class="token punctuation">[</span>
           <span class="token string">'[*.js]'</span><span class="token punctuation">,</span>
           <span class="token string">'*.html!text'</span><span class="token punctuation">,</span>
-          <span class="token string">'*.css!text'</span>        
+          <span class="token string">'*.css!text'</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
         options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
           inject<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
@@ -131,14 +131,14 @@ The bundle function returns a Promise for proper integration into async task eng
     configPath<span class="token punctuation">:</span> <span class="token punctuation">[</span>             <span class="token comment">// SystemJS/JSPM configuration files</span>
       <span class="token string">'./jspm.browser.js'</span><span class="token punctuation">,</span>
       <span class="token string">'./jspm.config.js'</span>
-    <span class="token punctuation">]</span><span class="token punctuation">,</span>        
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
     injectionConfigPath<span class="token punctuation">:</span> <span class="token string">'./jspm.config.js'</span><span class="token punctuation">,</span>  <span class="token comment">// Configuration file path where bundle and depCache meta will be injected.</span>
     bundles<span class="token punctuation">:</span> <span class="token punctuation">{</span>
       <span class="token string">"dist/app-build"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>     <span class="token comment">// bundle name/path. Must be within `baseURL`. Output path will look like: `baseURL/dist/app-build.js`.</span>
         includes<span class="token punctuation">:</span> <span class="token punctuation">[</span>
           <span class="token string">'[*.js]'</span><span class="token punctuation">,</span>
           <span class="token string">'*.html!text'</span><span class="token punctuation">,</span>
-          <span class="token string">'*.css!text'</span>        
+          <span class="token string">'*.css!text'</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
         options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
           inject<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
@@ -192,7 +192,7 @@ The bundle function returns a Promise for proper integration into async task eng
       includes<span class="token punctuation">:</span> <span class="token punctuation">[</span>
         <span class="token string">'[*.js]'</span><span class="token punctuation">,</span>
         <span class="token string">'*.html!text'</span><span class="token punctuation">,</span>
-        <span class="token string">'*.css!text'</span>        
+        <span class="token string">'*.css!text'</span>
       <span class="token punctuation">]</span><span class="token punctuation">,</span>
   </code>
   </pre>
@@ -248,7 +248,7 @@ The bundle function returns a Promise for proper integration into async task eng
       includes<span class="token punctuation">:</span> <span class="token punctuation">[</span>
         <span class="token string">'*.js'</span><span class="token punctuation">,</span>
         <span class="token string">'*.html!text'</span><span class="token punctuation">,</span>
-        <span class="token string">'*.css!text'</span>        
+        <span class="token string">'*.css!text'</span>
       <span class="token punctuation">]</span><span class="token punctuation">,</span>
   </code>
   </pre>

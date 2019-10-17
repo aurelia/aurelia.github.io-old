@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Tue Sep 10 2019 16:40:17 GMT-0700 (Pacific Daylight Time)</lastBuildDate>
+    <lastBuildDate>Thu Oct 17 2019 03:46:47 GMT-0700 (Pacific Daylight Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia Goes Full-time]]></title>
+      <link>http://aurelia.io/blog/2019/10/17/aurelia-goes-full-time</link>
+      <description><![CDATA[Last week we hit a major milestone in Aurelia's history: one of our core team members, Fred Kleuver, was funded to work full-time on Aurelia.]]></description>
+      <pubDate>Thu Oct 17 2019 03:42:22 GMT-0700 (Pacific Daylight Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia Release Notes - September 2019]]></title>
       <link>http://aurelia.io/blog/2019/09/10/aurelia-release-notes-september-2019</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2018/08/05/aurelia-2018-q2-report</link>
       <description><![CDATA[The second quarter of 2018 was an amazing time for the Aurelia team with some major progress towards key goals in our 2018 roadmap [blog/2018/01/03/aurelia-2018-roadmap/]. Read on to hear about what we've accomplished and what's in store next.]]></description>
       <pubDate>Sun Aug 05 2018 21:18:26 GMT-0700 (Pacific Daylight Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Release Notes - Late July 2018]]></title>
-      <link>http://aurelia.io/blog/2018/07/24/aurelia-release-notes-late-july-2018</link>
-      <description><![CDATA[This month we've a fixed number of issues in the routing and templating engines, including a few regressions that cropped up in the previous round of releases. Additionally, we've moved the aurelia-dialog plugin to a 1.0.0 release and have begun work on 2.0.0.]]></description>
-      <pubDate>Tue Jul 24 2018 21:21:54 GMT-0700 (Pacific Daylight Time)</pubDate>
     </item>
   </channel>
 </rss>

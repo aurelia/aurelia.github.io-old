@@ -6,184 +6,74 @@
 
   <article class="markdown">
     <section><h2 id="setup">Setup</h2><p>Aurelia is an amazing framework that embraces simple and clean code without sacrificing power. In this tutorial we'll introduce you to the simplicity of Aurelia through the construction of a &quot;Todo&quot; application. You'll see just how clean and simple your application code can be and you'll learn several of the basic concepts and capabilities of Aurelia.</p>
-<p>Before we start writing some code, you'll need to get setup with a basic project structure. There are several ways to setup Aurelia, including using our command line tools, Webpack, Yeoman or our skeletons. However, to start you out, we're going to show you a basic script-tag setup that requires no additional tools or build systems. Please begin by downloading the basic script setup by clicking the button below.</p>
-<div style="text-align: center; margin-bottom: 32px">
-  <a class="au-button" href="http://aurelia.io/downloads/basic-aurelia-project.zip" target="_blank">Download the Basic Aurelia Project Setup</a>
-</div>
-<p>With this setup, you can choose between two popular programming language options: ESNext and TypeScript. If you would like to stay strictly with spec-compliant next-generation ECMAScript, you will want to go with the ESNext option. However, if you like strong typing and rich compile-time verification and tooling for your language, you'll want to go with TypeScript.</p>
-<p>Once you've made your language choice, you'll need to do two things:</p>
+<p>For this tutorial, we're going to use the Aurelia CLI. If you've already setup your machine with the CLI, you can skip to the next section. If not, then please install the following CLI prerequisites:</p>
 <ul>
-<li>Configure this documentation to show all code samples in your preferred programming language.</li>
-<li>Configure your Aurelia project to use your preferred programming language.</li>
+<li>Install NodeJS version 10 or above.
+<ul>
+<li>You can 
+<a href="https://nodejs.org/en/" target="_blank">download it here</a>
+.</li>
 </ul>
-<p>Let's configure this documentation first. If you scroll down a bit and look to the right of any source-code example, you will see a dropdown for selecting your preferred programming language. Click that and be sure to select the language that matches your choice.</p>
-<p>Now let's setup your project. First, unzip the downloaded files on your hard drive. Doing so will provide you with the default folder structure and scripts needed to complete this tutorial and continue your learning and experimentation afterward. You'll also want to open the folder in your favorite text editor so you can navigate between files, make edits and add new files. The first file we need to look at is the <code>index.html</code>. This is what kicks off our app and it's also where we configure your programming language selection. You should see something like this in your <code>index.html</code>:</p>
+</li>
+<li>Install a Git Client
+<ul>
+<li>install 
+<a href="https://git-scm.com" target="_blank">the standard Git client</a>
+.</li>
+<li>optionally, install 
+<a href="https://desktop.github.com" target="_blank">a nice GUI client</a>
+.</li>
+</ul>
+</li>
+</ul>
+<div class="warning"><div class="icon"> <i></i> </div><p>
+When installing Git for Windows, there is an option to <code>use git bash only</code>, <code>run git from windows command prompt</code>, or <code>run git and included unix tools from windows command prompt</code>. You must choose <code>run git from windows command prompt</code> or <code>run git and included unix tools from windows command prompt</code> in order for the Aurelia CLI to work.</p>
+</div>
+<p>Once you have the prerequisites installed, you can install the Aurelia CLI itself. From the command line, use npm to install the CLI globally:</p>
 
-<code-listing heading="index.html">
+<code-listing>
   
-<source-code lang="HTML" heading="index.html">
-  <pre class="language-markup">
+<source-code lang="Shell" heading="">
+  <pre class="language-powershell">
     <code>
-  <span class="token doctype">&lt;!DOCTYPE html></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Aurelia<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span> <span class="token attr-name">aurelia-app</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>src/main<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>scripts/system.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>scripts/config-typescript.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>scripts/aurelia-core.min.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
-        System<span class="token punctuation">.</span><span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'aurelia-bootstrapper'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+  npm install <span class="token operator">-</span>g aurelia<span class="token operator">-</span><span class="token function">cli</span>
   </code>
   </pre>
 </source-code>
   
 </code-listing>
-<p>Before we explain what this does, let's adjust the programming language it's using. If you look at the second script tag, you will see its <code>src</code> pointing to <code>scripts/config-typescript.js</code>. This is the configuration for TypeScript. So, if you want to use TypeScript, you are all set and don't need to make any changes. If you want to use ESNext, you need to swap its <code>src</code> so that it points at <code>scripts/config-esnext.js</code>.</p>
+<div class="info"><div class="icon"> <i></i> </div><p>
+Always run commands from a Bash prompt. Depending on your environment, you may need to use <code>sudo</code> when executing npm global installs.</p>
+</div>
+</section>
+<section><h2 id="creating-a-new-aurelia-project">Creating A New Aurelia Project</h2><p>Now, that you've got your machine setup, we can create our todo app. To create the project, run <code>au new</code> from the command line. You will be presented with a number of options. Name the project &quot;todo&quot; and then select either the &quot;Default ESNext&quot; or &quot;Default TypeScript&quot; option depending on what is most comfortable for you. (Do not select &quot;Custom&quot; for this tutorial.)</p>
+<p>After that, you'll be asked if you would like to install your new project's dependencies. Press enter to select the default &quot;yes&quot; for this as well.</p>
+<p>Once the dependencies are installed (it will take a few minutes), your project is ready to go. Just change directory into the project folder and run it by typing <code>au run --open</code>. This will run the app, open a browser tab, and watch the project's source for changes. If you've got everything setup correctly, you should see the message &quot;Hello World!&quot; in the browser.</p>
+<p>Now you'll need to configure this documentation to show all code samples in your preferred programming language. If you scroll down a bit and look to the right of any source-code example, you will see a dropdown for selecting your preferred programming language, ESNext or TypeScript. Click that and be sure to select the language that matches your choice.</p>
 <p>That's it. Your language selection is now configured with these docs and with your new project.</p>
 </section>
-<section><h2 id="the-indexhtml-page">The Index.html Page</h2><p>If you've followed along this far, you now have everything set up to help you learn Aurelia. Let's start by taking a look at the <code>index.html</code> file in a bit more depth.</p>
+<section><h2 id="the-app-class">The App Class</h2><p>One of the amazing things you can do with Aurelia, that you can't with any other framework or library, is model your entire application using plain ${context.language.name}. We think you'll understand it when you see it.</p>
+<p>We're going to overwrite the <code>App</code> class provided by the skeleton.</p>
+<p>Our todo application contains a list of todo instances. It can add and remove todos. The todos are added by allowing the user to provide a todo description. Once they type a description and add the todo, the description is cleared so they can create another todo. Let's model these ideas.</p>
 
-<code-listing heading="index.html">
+<code-listing heading="src/app.js">
   
-<source-code lang="HTML" heading="index.html">
-  <pre class="language-markup">
-    <code>
-  <span class="token doctype">&lt;!DOCTYPE html></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Aurelia<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span> <span class="token attr-name">aurelia-app</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>src/main<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>scripts/system.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>scripts/config-typescript.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>scripts/aurelia-core.min.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
-        System<span class="token punctuation">.</span><span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'aurelia-bootstrapper'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
-  </code>
-  </pre>
-</source-code>
-  
-</code-listing>
-<p>Yes, that's it. This is the only HTML page in our application. With this in place you can use Aurelia to create almost any type of application you can imagine. Let's look at each element of this file to see what's going on.</p>
-<p>First, you can see that this document is setup as a standard HTML5 document with a doctype, html, head and body. The items of interest to us lie within (and on) the body tag. Let's look at each script tag in turn:</p>
-
-<code-listing>
-  
-<source-code lang="HTML" heading="">
-  <pre class="language-markup">
-    <code>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>scripts/system.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
-  </code>
-  </pre>
-</source-code>
-  
-</code-listing>
-<p>This tag is used to load SystemJS, a modern JavaScript module loader. Because Aurelia is a modern framework, it's written as modules and encourages you to create your code in a modular fashion. To use modules in ${context.language.name} you need a loader that understands modular code. That's what SystemJS does. It locates modules, understands their dependencies and ensures that everything is properly loaded at runtime. Aurelia supports a variety of module loaders. Besides SystemJS, Aurelia supports all AMD-based loaders such as RequireJS, Cajon and Dojo. Aurelia also supports module-based build systems like Webpack.</p>
-
-<code-listing>
-  
-<source-code lang="HTML" heading="">
-  <pre class="language-markup">
-    <code>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>scripts/config-typescript.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
-  </code>
-  </pre>
-</source-code>
-  
-</code-listing>
-<p>As discussed previously, this line of code configures the programming language you want to use. It's actually a configuration file for the SystemJS module loader that installs a <em>transpiler</em> into the loader. As a result, each time a module is loaded, it's able to take your ESNext or TypeScript code and automatically convert it to ES5 code that today's browsers fully understand. Pretty cool right?</p>
-<div class="info"><div class="icon"> <i></i> </div><p>
-In a production app, you wouldn't use a transpiler to transform code on-the-fly in the browser like we're doing here. That would perform quite poorly and require you to distribute an entire transpiler with your app. We're using this technique here to enable you to get started without any tooling or build setup needed. In a later guide, we'll show you how to use the CLI to setup a production-ready project, complete with automatic application builds and bundling.</p>
-</div>
-
-<code-listing>
-  
-<source-code lang="HTML" heading="">
-  <pre class="language-markup">
-    <code>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>scripts/aurelia-core.min.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
-  </code>
-  </pre>
-</source-code>
-  
-</code-listing>
-<p>This is the core of Aurelia itself, in a single script file. You need to add that to use the framework. That's what's going to enable all the cool capabilities we'll use in this guide.</p>
-
-<code-listing>
-  
-<source-code lang="JavaScript" heading="">
+<source-code lang="JavaScript" heading="src/app.js">
   <pre class="language-javascript">
     <code>
-  SystemJS<span class="token punctuation">.</span><span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'aurelia-bootstrapper'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  </code>
-  </pre>
-</source-code>
-  
-</code-listing>
-<p>The last script tag is a bit different. Instead of setting a <code>src</code>, it provides some code. The <code>SystemJS</code> object is being provided by the SystemJS module loader we mentioned above. Here, we're calling one of its APIs, <code>import</code>. This API tells the loader to load or &quot;import&quot; a module with the specified name. In this case, we're loading <code>aurelia-bootstrapper</code> which resides in the <code>aurelia-core.min.js</code> file linked above. This module contains Aurelia's &quot;bootstrap&quot; or &quot;startup&quot; code. This tells Aurelia to load the framework, configure it and run your application.</p>
-<p>There's one more thing to note. I wonder if you noticed it. On the <code>body</code> tag, there's an <code>aurelia-app</code> attribute. It's pointing to <code>src/main</code>. This is what tells Aurelia's bootstrapper what module contains the framework configuration as well as what HTML element is the &quot;host&quot; element where the application will be rendered. We'll look at creating that file a little bit later. Before we do that, we want to do something a bit non-traditional. We want to show you how you can build your entire Todo application in plain, vanilla ${context.language.name} without using any Aurelia APIs. Then, we'll use Aurelia to render our application to the screen, without changing any of our ${context.language.name} code.</p>
-<p>I know you're going to find this interesting, so let's get to it!</p>
-</section>
-<section><h2 id="the-todo-class">The Todo Class</h2><p>One of the amazing things you can do with Aurelia, that you can't with any other framework or library, is model your entire application using plain ${context.language.name}. We think you'll understand it when you see it.</p>
-<p>We're going to begin by creating a <code>Todo</code> class. Since we're making a Todo App, we'll need a class to model out an individual Todo item. In the <code>src</code> folder of your project, create the following file:</p>
-
-<code-listing heading="todo.js">
-  
-<source-code lang="JavaScript" heading="todo.js">
-  <pre class="language-javascript">
-    <code>
-  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Todo</span> <span class="token punctuation">{</span>
-    <span class="token function">constructor</span><span class="token punctuation">(</span>description<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>description <span class="token operator">=</span> description<span class="token punctuation">;</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>done <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-  </code>
-  </pre>
-</source-code>
-  
-
-<source-code lang="TypeScript" heading="todo.ts">
-  <pre class="language-typescript">
-    <code>
-  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Todo</span> <span class="token punctuation">{</span>
-    done <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">public</span> description<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-  </code>
-  </pre>
-</source-code>
-  
-</code-listing>
-<p>That's it. It's a plain class that models the todo's <code>description</code> text along with a boolean <code>done</code> to indicate if you've completed your todo.</p>
-</section>
-<section><h2 id="the-app-class">The App Class</h2><p>Our todo application contains a list of <code>Todo</code> instances. It can add and remove todos. The todos are added by allowing the user to provide a todo description. Once they type a description and add the todo, the description is cleared so they can create another todo. Let's model these ideas. Here's the <code>App</code> class:</p>
-
-<code-listing heading="app.js">
-  
-<source-code lang="JavaScript" heading="app.js">
-  <pre class="language-javascript">
-    <code>
-  <span class="token keyword">import</span> <span class="token punctuation">{</span>Todo<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./todo'</span><span class="token punctuation">;</span>
-  
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
     <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>heading <span class="token operator">=</span> <span class="token string">"Todos"</span><span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>heading <span class="token operator">=</span> <span class="token string">'Todos'</span><span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>todos <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
     <span class="token function">addTodo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Todo</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+          description<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">,</span>
+          done<span class="token punctuation">:</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
@@ -200,10 +90,13 @@ In a production app, you wouldn't use a transpiler to transform code on-the-fly 
 </source-code>
   
 
-<source-code lang="TypeScript" heading="app.ts">
+<source-code lang="TypeScript" heading="src/app.ts">
   <pre class="language-typescript">
     <code>
-  <span class="token keyword">import</span> <span class="token punctuation">{</span>Todo<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./todo'</span><span class="token punctuation">;</span>
+  <span class="token keyword">interface</span> <span class="token class-name">Todo</span> <span class="token punctuation">{</span>
+    description<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    done<span class="token punctuation">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
   
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
     heading <span class="token operator">=</span> <span class="token string">"Todos"</span><span class="token punctuation">;</span>
@@ -212,7 +105,10 @@ In a production app, you wouldn't use a transpiler to transform code on-the-fly 
   
     <span class="token function">addTodo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Todo</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+          description<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">,</span>
+          done<span class="token punctuation">:</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
@@ -232,58 +128,19 @@ In a production app, you wouldn't use a transpiler to transform code on-the-fly 
 <p>Again, it's that simple. Let's review the ideas we modeled:</p>
 <ul>
 <li>Our application has a <code>heading</code> of &quot;Todos&quot;.</li>
-<li>The todo list is modeled as an array of <code>Todo</code> instances represented by the <code>todos</code> property.</li>
+<li>The todo list is modeled as an array of todo instances represented by the <code>todos</code> property.</li>
 <li>Todo instances can be added (<code>addTodo</code>) or removed (<code>removeTodo</code>).</li>
-<li>When instances are added, they are given a description, provided by the user.</li>
-<li>After the Todo is added, the description is cleared to enable the next addition.</li>
+<li>When a new todo is added, it is given a description, with a done flag default to false.</li>
+<li>After a new todo is added, the todoDescription is cleared to enable the next addition.</li>
 </ul>
 <p>Here's what's amazing. This is all the ${context.language.name} code for the app. But where is Aurelia? Well, the answer is that Aurelia tries as hard as possible to stay out of your ${context.language.name} code. That's why you don't see it above. It's not needed. Aurelia has the ability to render plain ${context.language.name} objects.</p>
 </section>
-<section><h2 id="getting-ready-to-render">Getting Ready to Render</h2><p>Ok, now that we've modeled out our application in ${context.language.name}, we need to make Aurelia render it. We weren't completely honest when we said above that we had showed you all the ${context.language.name} code. There's one final piece that gets it all going.</p>
-<p>If you recall, when we looked at <code>index.html</code> there was an <code>aurelia-app</code> attribute on the <code>body</code> element. This attribute tells the <code>aurelia-bootstrapper</code> where to render the application and what main file to use to configure the app. The value of that attribute points to <code>src/main</code>. So, let's create that file in our <code>src</code> folder and see what it does.</p>
+<section><h2 id="rendering-the-app">Rendering the App</h2><p>As a brief recap, remember that almost nothing we've done so far is Aurelia-specific. Almost all the code we've written is just vanilla ${context.language.name}. There is <code>src/main${context.language.fileExtension}</code> file which is the starting point of your app, it conventionally use <code>src/app${context.language.fileExtension}</code> as the root UI component by default. For more information, read <a href="../fundamentals/app-configuration-and-startup">App Configuration and Startup</a>.</p>
+<p>In order to render, we need to create a view for the <code>app</code> component. This introduces the next convention of Aurelia. To create a view for any class, simply create an HTML file with the same name as the ${context.language.name} module but change the file extension to <code>.html</code>. Inside that view, you can place an HTML 5 template with <em>data binding expressions</em> declaring how the view should render an instance of the class. Let's start with a very basic view of our <code>app</code>, overwrite <code>src/app.html</code> provided by the skeleton.</p>
 
-<code-listing heading="main.js">
+<code-listing heading="src/app.html">
   
-<source-code lang="JavaScript" heading="main.js">
-  <pre class="language-javascript">
-    <code>
-  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">basicConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-  </code>
-  </pre>
-</source-code>
-  
-
-<source-code lang="TypeScript" heading="main.ts">
-  <pre class="language-typescript">
-    <code>
-  <span class="token keyword">import</span> <span class="token punctuation">{</span>Aurelia<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
-  
-  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">:</span> Aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">basicConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-  </code>
-  </pre>
-</source-code>
-  
-</code-listing>
-<div class="info"><div class="icon"> <i></i> </div><p>
-When working with TypeScript, in this simple setup, you may see some &quot;squigglies&quot; in your code editor. This results from the fact that this simple setup isn't configured in a way that the code editor can find the type definition files. It's nothing to worry about and everything will work correctly. In the next tutorial, when we set up a production-ready project, this issue will go away. If you have prior experience with this, you can use Typings to install the d.ts definitions yourself at any point.</p>
-</div>
-<p>When we provide a main file, like above, we are able to tell Aurelia how to configure itself by simply exporting a <code>configure</code> method. The framework will provide an instance of the <code>Aurelia</code> object which you can use in a variety of ways. There are many options, plugins and 3rd party extensions you can add, for example. In this case, we're configuring Aurelia with the &quot;basic configuration&quot;. After that, we tell the framework to &quot;start&quot;. Once it is started up we tell it to &quot;set root&quot;.</p>
-<p>So, what does &quot;set root&quot; mean? If you think of your UI as a hierarchy of components, what we're doing is configuring the &quot;root&quot; component of that hierarchy. This is the root of the UI component tree that Aurelia needs to render.</p>
-<p>The next thought you might have is &quot;but you didn't say what component to render!&quot; That's a great point. One of the ways that Aurelia is able to stay out of the way is by having some basic conventions. In this case, we have a very simple convention. The root, by default, is <code>app.js</code>, relative to the <code>main.js</code> file. If you don't like that, as with all Aurelia conventions, you can override it with explicit configuration. For now, let's stick to the conventions.</p>
-<p>Ok, we're almost ready to run our app. The next piece is to tell Aurelia <em>how</em> it should render <code>app.js</code>;</p>
-</section>
-<section><h2 id="rendering-the-app">Rendering the App</h2><p>As a brief recap, remember that almost nothing we've done so far is Aurelia-specific. Almost all the code we've written is just vanilla ${context.language.name}. Now that we've added a <code>main</code> file to our project and have specified which module exports the root component of our UI hierarchy, Aurelia is ready to render.</p>
-<p>In order to render, we need to create a view for the <code>app</code> component. This introduces the next convention of Aurelia. To create a view for any class, simply create an HTML file with the same name as the ${context.language.name} module but change the file extension to <code>.html</code>. Inside that view, you can place an HTML 5 template with <em>data binding expressions</em> declaring how the view should render an instance of the class. Let's start with a very basic view of our <code>app</code>.</p>
-
-<code-listing heading="app.html">
-  
-<source-code lang="HTML" heading="app.html">
+<source-code lang="HTML" heading="src/app.html">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -298,14 +155,7 @@ When working with TypeScript, in this simple setup, you may see some &quot;squig
 <div class="info"><div class="icon"> <i></i> </div><h4>Presentation Patterns</h4><p>
 We call a View's associated class its <em>View-Model</em> because it's a model for, or a model of the View. Most Aurelia development leverages the Model - View - View-Model pattern. However, Aurelia is flexible enough to enable also using patterns like Supervising Controller, Passive View and Model - View - Controller if desired.</p>
 </div>
-<p>Ok, now that we have a view, we're ready to run our app. To do that, we'll need to start a web server to serve up your index.html page, so we can view it in a browser. How you go about doing that depends on which server-side technology you want to use. Below are instructions for a couple of common scenarios:</p>
-<ul>
-<li><strong>Visual Studio</strong> - Open Visual Studio 2015. Using the main menu, select File &gt; Open &gt; Web site... In the resulting dialog, choose the project folder then click the Open button. The folder contents will be displayed in the Visual Studio Solution Explorer window. Right click on index.html in Solution Explorer and select &quot;View in Browser&quot;. This will fire up the development web server and serve index.html.</li>
-<li><strong>NodeJS with npm</strong> - To start up a simple web server in the project folder, first globally install the http-server command with <code>npm install http-server -g</code>. (In some environments you may need to use <code>sudo</code>). Once that is installed, change directory to the project folder. You can now spin up the server from within the folder with the following command <code>http-server -o -c-1</code>.</li>
-<li><strong>NodeJS with yarn</strong> - First install the http-server with <code>yarn add http-server</code>. Then use <code>yarn run http-server -o -c-1</code> to run the server.</li>
-<li><strong>Firefox</strong> - If you don't want to worry about setting up a web server, Firefox is flexible enough to serve the app directly from your hard drive. Simply open the <code>index.html</code> file with Firefox.</li>
-</ul>
-<p>When you run the app, you should see the app render out the <code>heading</code> property, something like this:</p>
+<p>Run <code>au run --open</code> if you haven't done that. When you run the app, you should see the app render out the <code>heading</code> property, something like this:</p>
 <p><img src="docs/tutorials/creating-a-todo-app/img/todo-app-with-heading.png" alt="Todo App With Heading" /></p>
 <p>Rendering properties in HTML seems simple enough, but what about working with user input? Let's add some markup that enables us to take input from the user to create our todos:</p>
 
@@ -319,7 +169,7 @@ We call a View's associated class its <em>View-Model</em> because it's a model f
   
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">submit.trigger</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>addTodo()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>todoDescription<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Add Todo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">disabled.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>!todoDescription<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Add Todo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code>
@@ -329,13 +179,14 @@ We call a View's associated class its <em>View-Model</em> because it's a model f
 </code-listing>
 <p>Now, we've added a <code>form</code> to our view. We're using this to collect the todo name from the user. Take a look at the <code>input</code>. By appending <code>.bind</code> to the <code>value</code> attribute, we've told Aurelia that we want it to be bound to the <code>todoDescription</code> on our view-model. In Aurelia, you can bind <em>any</em> HTML attribute to its view model with a simple property expression like this, just by appending <code>.bind</code>.</p>
 <p>Here, we have another convention that it's important to point out. When we use <code>.bind</code> Aurelia works on your behalf to pick the most sensible &quot;binding mode&quot; based on the element and attribute you are binding. For example, since this is an <code>input</code> and you are binding its <code>value</code> then <code>.bind</code> will cause Aurelia to set up a two-way binding. This means that any time the view-model's <code>todoDescription</code> changes, it will be updated in the input's <code>value</code> property but also any time the input's <code>value</code> property changes, the view-model will have its <code>todoDescription</code> updated as well.</p>
+<p>The other binding <code>disabled.bind=&quot;!todoDescription&quot;</code> set <code>&lt;button&gt;</code> to disabled when <code>todoDescription</code> is empty. It is a one-way binding, as there is no user input to sync back.</p>
 <p>There's something else of note in this markup though. We can not only bind properties, but you can attach to events. Take a look at the <code>form</code> element itself. In Aurelia, you can take <em>any</em> DOM event and append <code>.trigger</code> to it. This means that when that event fires, it will trigger the associated expression to be evaluated. In this case, the <code>submit</code> event causes the <code>addTodo()</code> method to be invoked. Because we've used the <code>submit</code> event, it means that the todo will be added either by pressing the submit button or by pressing enter while inside the input.</p>
 <div class="info"><div class="icon"> <i></i> </div><h4>Binding Commands</h4><p>
 Aurelia will use two-way binding for all form control value bindings and one-way binding for everything else. However, you can always override this by using an explicit binding command. For example, instead of using <code>.bind</code> you can use <code>.one-way</code>, <code>.two-way</code> or <code>.one-time</code>. Similarly, you can use <code>.delegate</code> for event delegation in place of <code>.trigger</code>.</p>
 </div>
 <p>If you run the app now, you should see something like this:</p>
 <p><img src="docs/tutorials/creating-a-todo-app/img/todo-app-with-form.png" alt="Todo App With Form" /></p>
-<p>Try typing into the input box and adding the todo. You should notice that the input box gets cleared out each time you do that. The reason for this is that the <code>value</code> of the <code>input</code> has two way binding and our original code cleared out the <code>todoDescription</code> after adding a new Todo instance. Here's our <code>addTodo()</code> implementation for reference:</p>
+<p>Try typing into the input box and adding the todo. You should notice that the input box gets cleared out each time you do that. The reason for this is that the <code>value</code> of the <code>input</code> has two way binding and our original code cleared out the <code>todoDescription</code> after adding a new todo instance. Here's our <code>addTodo()</code> implementation for reference:</p>
 
 <code-listing heading="The Add Todo Implementation">
   
@@ -344,7 +195,10 @@ Aurelia will use two-way binding for all form control value bindings and one-way
     <code>
   <span class="token function">addTodo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Todo</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        description<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">,</span>
+        done<span class="token punctuation">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
@@ -358,7 +212,10 @@ Aurelia will use two-way binding for all form control value bindings and one-way
     <code>
   <span class="token function">addTodo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Todo</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        description<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">,</span>
+        done<span class="token punctuation">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
@@ -369,9 +226,9 @@ Aurelia will use two-way binding for all form control value bindings and one-way
 </code-listing>
 <p>Well, we can now add todos, but we can't see them! Let's remedy that by looking at how Aurelia handles lists of data. Change your markup to match this new version:</p>
 
-<code-listing heading="app.html">
+<code-listing heading="src/app.html">
   
-<source-code lang="HTML" heading="app.html">
+<source-code lang="HTML" heading="src/app.html">
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
@@ -379,7 +236,7 @@ Aurelia will use two-way binding for all form control value bindings and one-way
   
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">submit.trigger</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>addTodo()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>todoDescription<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Add Todo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">disabled.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>!todoDescription<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Add Todo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
   
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">></span></span>
@@ -389,7 +246,7 @@ Aurelia will use two-way binding for all form control value bindings and one-way
           ${todo.description}
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">click.trigger</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>removeTodo(todo)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Remove<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>    
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code>
@@ -397,7 +254,7 @@ Aurelia will use two-way binding for all form control value bindings and one-way
 </source-code>
   
 </code-listing>
-<p>To generate HTML based on an Array, Map or Set, we use the <code>repeat.for=&quot;local of collection&quot;</code> syntax. This syntax is derived from the <code>for...of</code> loop of ${context.language.name} itself. As you can see above, we want to generate one <code>li</code> for each item in our <code>todos</code> array. So, we place a <code>repeat.for</code> attribute on the <code>li</code> we want to be generated and we specify the <code>todos</code> collection and that we want the local loop variable to be named <code>todo</code>. With this we can bind to any property of the <code>todo</code> instance. So, you can see how we're just re-applying all the same techniques from above now. We're binding the <code>checked</code> attribute to the todo's <code>done</code> property and its <code>description</code> property is being injected into the content of the <code>span</code>. Finally, we're adding a <code>trigger</code> on the button's <code>click</code> event so that we can remove the todo. Notice that the <code>removeTodo</code> is still in scope. Just like in ${context.language.name}, inside a loop, you still have access to the variable in the outer block. This allows us to call the <code>removeTodo</code> method on the App class, passing in the particular <code>Todo</code> instance that we want to remove.</p>
+<p>To generate HTML based on an Array, Map or Set, we use the <code>repeat.for=&quot;local of collection&quot;</code> syntax. This syntax is derived from the <code>for...of</code> loop of ${context.language.name} itself. As you can see above, we want to generate one <code>li</code> for each item in our <code>todos</code> array. So, we place a <code>repeat.for</code> attribute on the <code>li</code> we want to be generated and we specify the <code>todos</code> collection and that we want the local loop variable to be named <code>todo</code>. With this we can bind to any property of the <code>todo</code> instance. So, you can see how we're just re-applying all the same techniques from above now. We're binding the <code>checked</code> attribute to the todo's <code>done</code> property and its <code>description</code> property is being injected into the content of the <code>span</code>. Finally, we're adding a <code>trigger</code> on the button's <code>click</code> event so that we can remove the todo. Notice that the <code>removeTodo</code> is still in scope. Just like in ${context.language.name}, inside a loop, you still have access to the variable in the outer block. This allows us to call the <code>removeTodo</code> method on the App class, passing in the particular todo instance that we want to remove.</p>
 <p>If you run the application again, you should now see something like this:</p>
 <p><img src="docs/tutorials/creating-a-todo-app/img/todo-app-with-list.png" alt="Todo App With List" /></p>
 <p>We're almost there! There's one thing that's missing. Notice that if you check and uncheck the boxes, nothing happens. We would like to have some user feedback in this case. Perhaps crossing out the todo item? Let's make one final version of our view to add that in:</p>
@@ -412,7 +269,7 @@ Aurelia will use two-way binding for all form control value bindings and one-way
   
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">submit.trigger</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>addTodo()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>todoDescription<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Add Todo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">disabled.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>!todoDescription<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Add Todo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
   
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">></span></span>
@@ -422,7 +279,7 @@ Aurelia will use two-way binding for all form control value bindings and one-way
           ${todo.description}
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">click.trigger</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>removeTodo(todo)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Remove<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>    
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code>

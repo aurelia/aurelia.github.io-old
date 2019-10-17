@@ -1,0 +1,212 @@
+<section class="article">
+  <header>
+    <h1>Setup Docker</h1>
+    <h2>If you&#x27;re interested in getting started with Docker to build projects, this article will take you through setting up both your machine and a production quality starter project.</h2>
+  </header>
+
+  <article class="markdown">
+    <section><h2 id="introduction">Introduction</h2><p>The emergence of containers has been changing the software culture; developers and companies are embracing DevOps and CI/CD to automate build, test, and deployment of their products. If you're interested in how you can containerize your Aurelia application, you are in the right place.</p>
+<p>The tendency towards 
+<a href="https://martinfowler.com/articles/microservices.html" target="_blank">microservices</a>
+ and the culture of 
+<a href="https://martinfowler.com/bliki/DevOpsCulture.html" target="_blank">DevOps</a>
+ brings collaboration to development and operational teams, breaking down a huge system into lightweight, independently-deployable parts. Besides, it helps us to run our applications on the production, stage, and test machines the same way we run them on our very own laptop or computer. Moreover, it would be desirable to be able to deliver releases of our services, back or front-end, with ease and confidence by taking advantage of <code>CI/CD</code> pipelines.</p>
+<p>Let's deep dive into Aurelia and containerization.</p>
+</section>
+<section><h2 id="configuring-your-environment">Configuring Your Environment</h2><p>Thus far you may have learned how to build your application using Webpack and the CLI-Bundler. To build an Aurelia application inside a Docker container, you first need to have Docker installed on your machine. Please 
+<a href="https://docs.docker.com/v18.03/install/" target="_blank">see the Docker docs</a>
+ to get Docker installed on your machine before proceeding to the next section.</p>
+</section>
+<section><h2 id="basic-sample">Basic Sample</h2><p>To start let's create an Aurelia application. Then inside the root folder create a Dockerfile with the name <code>Dockerfile</code> like the following:</p>
+
+<code-listing>
+  
+<source-code lang="Dockerfile" heading="">
+  <pre class="language-javascript">
+    <code>
+  # use latest version <span class="token keyword">of</span> nodejs
+  <span class="token constant">FROM</span> node<span class="token punctuation">:</span>lts<span class="token operator">-</span>alpine
+  
+  # install aurelia<span class="token operator">-</span>cli to build the app <span class="token operator">&amp;</span> http<span class="token operator">-</span>server to serve <span class="token keyword">static</span> contents
+  <span class="token constant">RUN</span> npm i <span class="token operator">-</span>g http<span class="token operator">-</span>server
+  <span class="token constant">RUN</span> npm i <span class="token operator">-</span>g aurelia<span class="token operator">-</span>cli
+  
+  # <span class="token keyword">set</span> working directory to app
+  # henceforth all commands will run inside <span class="token keyword">this</span> folder
+  <span class="token constant">WORKDIR</span> <span class="token operator">/</span>app
+  
+  # copy <span class="token keyword">package</span><span class="token punctuation">.</span>json related files first and install all required dependencies
+  <span class="token constant">COPY</span> <span class="token keyword">package</span><span class="token operator">*</span><span class="token punctuation">.</span>json <span class="token punctuation">.</span><span class="token operator">/</span>
+  <span class="token constant">RUN</span> npm install
+  
+  # copy the rest <span class="token keyword">of</span> the files and folders <span class="token operator">&amp;</span> install dependencies
+  <span class="token constant">COPY</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token operator">/</span>
+  <span class="token constant">RUN</span> npm run build
+  
+  # by <span class="token keyword">default</span> http<span class="token operator">-</span>server will serve contents on port <span class="token number">8080</span>
+  # so we expose <span class="token keyword">this</span> port to host machine
+  <span class="token constant">EXPOSE</span> <span class="token number">8080</span>
+  
+  <span class="token constant">CMD</span> <span class="token punctuation">[</span> <span class="token string">"http-server"</span> <span class="token punctuation">,</span> <span class="token string">"dist"</span> <span class="token punctuation">]</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>If you are new to Docker, hopefully the comments above each step help explain what is happening. However, you might have a question regarding why we have separated the <code>copy</code> steps into two separate steps. That's due mainly to the cache mechanism of the docker engine. Read 
+<a href="https://blog.docker.com/2019/07/intro-guide-to-dockerfile-best-practices/" target="_blank">this</a>
+ article and 
+<a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/" target="_blank">the documentation</a>
+ for a better understanding.</p>
+<p>Well, it's time to build our first Aurelia application image by running a <code>docker</code> command:</p>
+
+<code-listing>
+  
+<source-code lang="Shell" heading="">
+  <pre class="language-powershell">
+    <code>
+  docker build <span class="token operator">-</span>t aurelia<span class="token operator">-</span>basic<span class="token operator">-</span>docker<span class="token operator">-</span>app:1 <span class="token punctuation">.</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>After the image is built successfully, it's time to run our application inside a container:</p>
+
+<code-listing>
+  
+<source-code lang="Shell" heading="">
+  <pre class="language-powershell">
+    <code>
+  docker run <span class="token operator">-</span>it <span class="token operator">--</span><span class="token function">rm</span> <span class="token operator">-</span>p 8080:8080 aurelia<span class="token operator">-</span>basic<span class="token operator">-</span>docker<span class="token operator">-</span>app:1
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Open a browser and navigate to 
+<a href="http://localhost:8080" target="_blank">http://localhost:8080</a>
+. Awesome! You now have a running app.</p>
+</section>
+<section><h2 id="a-more-real-world-scenario">A More Real World Scenario</h2><p>There are some flaws with the previous approach. It is too simple for production; no one uses <code>http-server</code> for their production environment, hopefully. Also, it is recommended that you separate the build stage and the publish stage in order to reduce both the dependency count and the final image size. If you are interested in Multi-staged builds with docker, checkout the documentation 
+<a href="https://docs.docker.com/develop/develop-images/multistage-build/" target="_blank">here</a>
+.</p>
+<p>Let's change our <code>Dockerfile</code> a bit. Ready?</p>
+
+<code-listing>
+  
+<source-code lang="Dockerfile" heading="">
+  <pre class="language-javascript">
+    <code>
+  # use latest version <span class="token keyword">of</span> nodejs
+  <span class="token constant">FROM</span> node<span class="token punctuation">:</span>lts<span class="token operator">-</span>alpine <span class="token keyword">as</span> build<span class="token operator">-</span>stage
+  
+  # install aurelia<span class="token operator">-</span>cli to build the app <span class="token operator">&amp;</span> http<span class="token operator">-</span>server to serve <span class="token keyword">static</span> contents
+  <span class="token constant">RUN</span> npm i <span class="token operator">-</span>g http<span class="token operator">-</span>server
+  <span class="token constant">RUN</span> npm i <span class="token operator">-</span>g aurelia<span class="token operator">-</span>cli
+  
+  # <span class="token keyword">set</span> working directory to app
+  # henceforth all commands will run inside <span class="token keyword">this</span> folder
+  <span class="token constant">WORKDIR</span> <span class="token operator">/</span>app
+  
+  # copy <span class="token keyword">package</span><span class="token punctuation">.</span>json related files first and install all required dependencies
+  <span class="token constant">COPY</span> <span class="token keyword">package</span><span class="token operator">*</span><span class="token punctuation">.</span>json <span class="token punctuation">.</span><span class="token operator">/</span>
+  <span class="token constant">RUN</span> npm install
+  
+  # copy the rest <span class="token keyword">of</span> files and folders <span class="token operator">&amp;</span> install dependencies
+  <span class="token constant">COPY</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token operator">/</span>
+  <span class="token constant">RUN</span> npm run build
+  
+  # use nginx <span class="token keyword">as</span> the http server to serve contents
+  <span class="token constant">FROM</span> nginx<span class="token punctuation">:</span>alpine <span class="token keyword">as</span> production<span class="token operator">-</span>stage
+  <span class="token constant">WORKDIR</span> <span class="token operator">/</span>usr<span class="token operator">/</span>share<span class="token operator">/</span>nginx<span class="token operator">/</span>html
+  # copy files <span class="token keyword">from</span> previous container<span class="token operator">/</span>stage into the <span class="token keyword">new</span> <span class="token class-name">one</span>
+  # <span class="token keyword">from</span> <span class="token operator">/</span>app<span class="token operator">/</span>dist to working directory
+  <span class="token constant">COPY</span> <span class="token operator">--</span><span class="token keyword">from</span><span class="token operator">=</span>build<span class="token operator">-</span>stage <span class="token operator">/</span>app<span class="token operator">/</span>dist <span class="token punctuation">.</span><span class="token operator">/</span>
+  <span class="token constant">EXPOSE</span> <span class="token number">80</span>
+  <span class="token constant">CMD</span> <span class="token punctuation">[</span><span class="token string">"nginx"</span><span class="token punctuation">,</span> <span class="token string">"-g"</span><span class="token punctuation">,</span> <span class="token string">"daemon off;"</span><span class="token punctuation">]</span>" <span class="token punctuation">]</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>You already know how to create your docker image. As a reminder, it's this command:</p>
+
+<code-listing>
+  
+<source-code lang="Shell" heading="">
+  <pre class="language-powershell">
+    <code>
+  docker build <span class="token operator">-</span>t aurelia<span class="token operator">-</span>prod<span class="token operator">-</span>docker<span class="token operator">-</span>app:1 <span class="token punctuation">.</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>After the image is built successfully, it's time to run our application inside a container:</p>
+
+<code-listing>
+  
+<source-code lang="Shell" heading="">
+  <pre class="language-powershell">
+    <code>
+  docker run <span class="token operator">-</span>it <span class="token operator">--</span><span class="token function">rm</span> <span class="token operator">-</span>p 8080:80 aurelia<span class="token operator">-</span>prod<span class="token operator">-</span>docker<span class="token operator">-</span>app:1
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Using separation of concerns, we give each stage/step its own responsibility: the first stage will build our application and has its own dependencies and the second one uses the output provided by the previous one to serve the requests coming to the http server, in this case nginx. In your browser, navigate to 
+<a href="http://localhost:8080" target="_blank">http://localhost:8080</a>
+ to see the result.</p>
+<div class="info"><div class="icon"> <i></i> </div><p>
+Don't forget to read the official documentation of docker for 
+<a href="https://docs.docker.com/develop/develop-images/multistage-build/" target="_blank">multi-staged builds</a>
+ and the 
+<a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/" target="_blank">docker file best practices</a>
+. You'll find a wealth of fruitful articles around the subject matter.</p>
+</div>
+<p>The most intriguing thing to know is that the <code>aurelia-cli</code> will generate a <code>Dockerfile</code> based on your chosen configuration, if you go through the <code>Custom App</code> installation. If you do so, there is a simple command to build an image:</p>
+
+<code-listing>
+  
+<source-code lang="Shell" heading="">
+  <pre class="language-powershell">
+    <code>
+  npm run docker:build
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>That will build a production-ready docker image for you and you can bring up a container on your local machine by simply running:</p>
+
+<code-listing>
+  
+<source-code lang="Shell" heading="">
+  <pre class="language-powershell">
+    <code>
+  npm run docker:<span class="token function">start</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Here's the command to stop the container:</p>
+
+<code-listing>
+  
+<source-code lang="bash" heading="">
+  <pre class="language-javascript">
+    <code>
+  npm run docker<span class="token punctuation">:</span>stop
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Now, your front-end Aurelia applications, not only can be deployed to production easier and with more confidence, but at a rapid pace and frequency.</p>
+</section>
+
+  </article>
+</section>
