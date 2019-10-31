@@ -1,0 +1,273 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia vNext - 2019 Fall Update</h1>
+    <h2>Posted by <span class="author">Rob Eisenberg</span> on <span class="date">October 30, 2019</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>As we approach the first major release of Aurelia vNext, we've got a special treat for you. It's time to announce the official framework name and provided a more in-depth look into the work that's been done so far and what's next to come.</p>
+<p>Earlier this year we queried our community regarding what we should name the next major version of Aurelia. Overwhelmingly, our community said &quot;keep things simple&quot; and so we decided that the most appropriate name for Aurelia vNext is &quot;Aurelia 2&quot;. While there will be a few breaking changes, Aurelia 2 is still the same Aurelia that our community is familiar with. It has the same component model, the same templating and binding syntax, the same DI capabilities, compositional approaches, vanilla JS and standards emphasis, and so forth. With Aurelia 2 we've taken all the great capabilities of today's Aurelia and made them significantly better.</p>
+<p>Let's dive in and look at what's in store...</p>
+<div class="info"><div class="icon"> <i></i> </div><p>
+Aurelia 2 has too many features to cover in a single post (already at an estimated reading time of 20min). So, we've picked a few in each category to highlight today. You'll notice that they are tagged with (NEW) for features that are completely new in Aurelia 2, (ENH) for features that exist in Aurelia 1 but have been significantly enhanced in Aurelia 2, and (WIP) for features that are new to Aurelia 2 but aren't quite finished yet.</p>
+</div>
+<section><h2 id="tooling">Tooling</h2><p>For a framework to be viable today, it needs a rich tooling experience. A good number of the changes we've introduced with Aurelia 2 are designed around helping Aurelia to grow in this area. We're excited to share that solid progress on new Aurelia tooling is underway.</p>
+<h3>New or Enhanced Tooling</h3>
+<ul>
+<li><strong>Bundlers and Loaders (ENH)</strong> - Aurelia 2 has been designed to work better with bundlers and the latest module loading standard. We've already got several bundle/build tools in place based on a shared vanilla JS core.</li>
+<li><strong>VS Code Intellisense (WIP)</strong> - We have a new core team member working on VS Code integration for improved view intellisense (e.g. autocomplete of binding expressions, attributes, etc). Because of the non-breaking nature of our templating syntax, this tooling feature is going to work for both Aurelia 1 and Aurelia 2.</li>
+<li><strong>Storybook (WIP)</strong> - As a project grows, you want solid documentation of your design language, its components, and proper component usage. To meet that need, we're working on Storybook support for Aurelia 2.</li>
+<li><strong>Makes and CLI 2 (WIP)</strong> - We want getting started with Aurelia 2 to be as friction-free as possible. To support that we're taking a new approach to project scaffolding which does not rely on the installation of a global Aurelia-specific CLI tool. Anyone with a recent version of Node.js installed on their machine can simply run <code>npx makes aurelia</code> right now to generate a new project ready to deploy. There's no need to install anything special.</li>
+<li><strong>Debugging (ENH)</strong> - Improved logging, tracing, error messages, stack traces, and general debugging.</li>
+</ul>
+<p><strong>VSCode Autocomplete</strong></p>
+<p><img src="../styles/images/blog/aurelia-vnext-2019-fall-update/autocomplete.gif" alt="VSCode Binding Autocomplete" /></p>
+<p><strong>VSCode Goto Element Definition</strong></p>
+<p><img src="../styles/images/blog/aurelia-vnext-2019-fall-update/goto-element.gif" alt="VSCode Goto Element Definition" /></p>
+<p>
+<a href="https://github.com/aurelia/vscode-extension/pull/104" target="_blank">See the VSCode tooling PR</a>
+ for a few more demos.</p>
+</section>
+<section><h2 id="performance">Performance</h2><p>For the last 4 years, Aurelia 1 has led the pack, outperforming other major players in industry-standardized, front-end framework benchmarks. So far, work on Aurelia 2 is yielding even greater performance. For example, Aurelia 2 startup performance compared to Aurelia 1 has been improved by a factor of 10x-100x (depending on app size and JIT vs. AOT usage; a smaller app in JIT mode will be closer to 10x while a larger app in AOT mode will be closer to 100x).</p>
+<p>How is this accomplished?</p>
+<p>With Aurelia 2, the framework is able to run in Just-In-Time (JIT) mode, Ahead-Of-Time (AOT) mode, or a hybrid of the two. In JIT mode, there is no ahead-of-time optimization. All templates are compiled at runtime in-browser and no special optimizations are made based on static analysis. Current benchmarking shows that Aurelia 2’s JIT mode is consistently faster than Aurelia 1 in nearly every area, thanks to many optimizations across all aspects of the framework. However, evolving beyond Aurelia 1, Aurelia 2 adds an AOT mode in which template compilation and code optimizations are applied ahead-of-time as part of the build process. When run in AOT mode, Aurelia 2 performance is on par with hand-crafted and highly optimized vanilla JS code.</p>
+<h3>New or Enhanced Performance Features</h3>
+<p>Aurelia 2 has several new features and architectural improvements that are explicitly oriented around performance. The unique combination of these capabilities enables Aurelia 2 apps to outperform those built with other frameworks, while also not overburdening engineers with endless performance optimization work.</p>
+<ul>
+<li><strong>Multiple Observation Strategies (NEW)</strong> – On a per-binding, per-component, per-component subtree, or app basis, easily choose between different model observation and update strategies, with different performance characteristics, allowing for maximum control in performance-intensive situations.</li>
+<li><strong>Most Granular Update Possible (ENH)</strong> – With VDom-based frameworks (React/Vue/etc), a change in a single property causes a re-render of the entire potentially affected component sub-tree. Then the framework must take the new VDom tree and compare it to the old, deriving which aspects of the view have changed. Finally, the changeset must then be applied to the real DOM. With Aurelia, observers hold direct connections between your model and the affected parts of the DOM, so that they only need to compare scalar values and pass the changed values directly to the DOM. There’s no need to create an intermediary VDom or perform expensive diffs between multiple VDom instances.</li>
+<li><strong>Update Batching (ENH)</strong> – Not only does Aurelia know what part of the DOM is affected by any model change, it’s able to batch together all changes that happen in user code at any given time and allows you to easily batch reads and writes so that actual updates to the DOM don’t cause unnecessary layout or paint operations.</li>
+<li><strong>Task Scheduler (NEW)</strong> – Aurelia’s rendering and binding engines are built on a brand new task scheduler. This allows the framework to prioritize more important work, like user input, above less important tasks, ensuring that the user interface always remains responsive.</li>
+<li><strong>Time Slicing (NEW)</strong> – In high-load, performance intensive rendering scenarios, Aurelia is able to spread work across multiple frames, based on simple configuration properties. This allows the app to stay responsive and functional no matter how much work is being done on the main thread.</li>
+<li><strong>High Performance/Memory-Efficient Class-based Runtime (ENH)</strong> – Aurelia’s internal architecture and development paradigm take advantage of the optimizations inherent in modern JavaScript runtimes. Objects instantiated from a class take less memory at runtime than plain objects. Our avoidance of inheritance and a focus on monomorphic call-sites means faster execution overall.</li>
+<li><strong>AOT Compilation (WIP)</strong> – All the above features focus on our runtime performance capabilities. Together they enable Aurelia 2’s JIT mode to outperform other major frameworks. With AOT however, Aurelia’s build-time process analyzes app-specific code, functioning as a sort of build-time VM that optimizes as many aspects of your app as possible. By doing this, various pieces of the runtime no longer need to be deployed and code that would need to execute at runtime in JIT mode is no longer needed. The end result is highly optimized JavaScript that is not only much smaller but also faster than just about anything.</li>
+</ul>
+<p>To see a number of these features in action, 
+<a href="https://dist-jwje7o9x6.now.sh/" target="_blank">check out Aurelia</a>
+ compared to 
+<a href="https://infernojs.github.io/inferno/1kcomponents/" target="_blank">the same demo with Inferno</a>
+. Note: The effects of time-slicing become more visible with a higher number of points.</p>
+</section>
+<section><h2 id="extensibility">Extensibility</h2><p>Ambitious applications require a framework that can be customized, extended, and adjusted to face the unique demands encountered by developers. Aurelia 2 stands out as the most extensible framework today, as nearly every part can be extended, from the kernel and DI, to the compiler, to the runtime. In fact, increased focus on extensibility for Aurelia 2 has made it so extensible that it can even emulate other frameworks. As an example, the template syntax for Angular, Knockout, Vue, etc. can all easily be implemented in Aurelia 2 by simply registering a few classes in the dependency injection container.</p>
+<p>Here's what it looks like to implement Vue's short-hand syntax:</p>
+
+<code-listing>
+  
+<source-code lang="TypeScript" heading="">
+  <pre class="language-typescript">
+    <code>
+  @attributePattern
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ColonPrefixedBindAttributePattern</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span><span class="token string">':PART'</span><span class="token punctuation">]</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> value<span class="token punctuation">,</span> <span class="token punctuation">[</span>target<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">AttrSyntax</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> value<span class="token punctuation">,</span> target<span class="token punctuation">,</span> <span class="token string">'bind'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  
+  @attributePattern
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AtPrefixedTriggerAttributePattern</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span><span class="token string">'@PART'</span><span class="token punctuation">]</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> value<span class="token punctuation">,</span> <span class="token punctuation">[</span>target<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">AttrSyntax</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> value<span class="token punctuation">,</span> target<span class="token punctuation">,</span> <span class="token string">'trigger'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Once those two classes are registered with the DI container, then you can do this:</p>
+
+<code-listing>
+  
+<source-code lang="HTML" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">:value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>value<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>handleClick()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>And here's how you would implement Angular's two-way binding syntax:</p>
+
+<code-listing>
+  
+<source-code lang="TypeScript" heading="">
+  <pre class="language-typescript">
+    <code>
+  @attributePattern
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">BananaInBoxAttributePattern</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span><span class="token string">'[(PART)]'</span><span class="token punctuation">]</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> value<span class="token punctuation">,</span> <span class="token punctuation">[</span>target<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">AttrSyntax</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> value<span class="token punctuation">,</span> target<span class="token punctuation">,</span> <span class="token string">'two-way'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>And then you can do this:</p>
+
+<code-listing>
+  
+<source-code lang="HTML" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">[(value)]</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>value<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>That's all there is to it. All of Aurelia’s own syntax and behaviors are implemented in terms of these same extensibility points.</p>
+<h3>New or Enhanced Extensibility Features</h3>
+<ul>
+<li><strong>Resolvers and Registrations (ENH)</strong> - Extend the core dependency injection container with new service registration rules and new ways to resolve instances.</li>
+<li><strong>Metadata (ENH)</strong> - An improved, standards-based mechanism for associating arbitrary metadata with classes, used consistently throughout Aurelia 2.</li>
+<li><strong>Startup Tasks (NEW)</strong> - Improvements to app startup that enable any plugin to easily hook into application startup to ensure code is run at the appropriate time before creation or rendering of components.</li>
+<li><strong>Attribute Pattern (NEW)</strong> - A JIT extension point. Define custom patterns for interpreting attributes and turn them into the desired pair of value, target, and command.</li>
+<li><strong>Binding Command (NEW)</strong> - A JIT extension point. Associates the aforementioned command with built-in or custom rendering instructions. A rendering instruction instructs the renderer at runtime to produce, for example, a certain type of binding.</li>
+<li><strong>Instruction Renderer (NEW)</strong> - A runtime extensibility point that takes a specified rendering instruction and returns a built-in or custom binding, attribute, or component.</li>
+</ul>
+</section>
+<section><h2 id="web-standards">Web Standards</h2><p>Aurelia has always prided itself on its adherence to and adoption of web standards. When a software engineer works with Aurelia, the bulk of their time involves using web standards, rather than framework-specific APIs. Over the years, we have found that Aurelia developers tend to grow into excellent general web developers, producing better long-term career and technical growth. As a result, we're continuing this focus with Aurelia 2 by adding even stronger web standard support.</p>
+<h3>New or Enhanced Web Standards Support</h3>
+<ul>
+<li><strong>Shadow DOM (ENH)</strong> - Shadow DOM enables DOM and CSS encapsulation in a standards-compliant way. We've always supported this with Aurelia, but we've improved our implementation in Aurelia 2.</li>
+<li><strong>Adopted Stylesheets (NEW)</strong> - This improvement to ShadowRoots enables sharing of CSS across Shadow DOM boundaries. Aurelia's CSS support makes using adopted stylesheets effortless, even if your browser doesn't yet support the standard.</li>
+<li><strong>CSS Shadow Parts (NEW)</strong> - A CSS feature that enables styling of the inner parts of Shadow DOM content from the outside, when elements are marked with a <code>part</code> attribute. Aurelia's new template part syntax enables decoupling template part replacement from CSS parts.</li>
+<li><strong>CSS Modules (NEW)</strong> - The upcoming standard for importing CSS through the ES Module system is already supported with Aurelia 2's new adopted stylesheets feature.</li>
+<li><strong>Decorators (ENH)</strong> - This upcoming JavaScript feature has been evolving over the years. We've contributed to the spec and made updates in Aurelia 2 to prepare for the final version.</li>
+<li><strong>Scheduler (NEW)</strong> - A new task scheduling API has been in the works for standardization. The Aurelia team has been involved and we've implemented our new framework scheduler to take advantage of the new standard.</li>
+</ul>
+<p>The Aurelia team takes web standards very seriously and continues to participate regularly in standard body meetings and spec discussions, providing use cases, and preparing for the future. We believe this is an important part of being a good citizen of the web and that it benefits our entire community, their businesses, and their products.</p>
+</section>
+<section><h2 id="developer-experience">Developer Experience</h2><p>With Aurelia 2 we're increasing our commitment to vanilla JS and an unobtrusive approach, making it the only framework in the industry that enables using vanilla JS to build screens and components. Aurelia stays out of the way, allowing you to focus on your application code, rather than the framework. With Aurelia 2, creating a component or a screen is as simple as writing an ES2015 class and creating a matching HTML file for its view. Components don’t need to be created with special framework-specific factory functions. They don’t need to inherit from a special base class. They don’t require the use of framework-specific data structures, helpers, etc. Most of the time they don’t even require a decorator. <strong>The result is that developers write less code, debug less code, and maintain less code.</strong> Their apps are more extensible and are able to adapt with greater agility to the business because developers aren’t caught up in the framework all day. Instead they focus much more on their application and its architecture.</p>
+<h3>New or Enhanced Developer Experience Features</h3>
+<p>Over the last few years, we've gathered tons of feedback on Aurelia 1. We're very happy to share that nearly all long-standing Aurelia 1 feature requests have either already been implemented, or are about to be implemented in Aurelia 2.</p>
+<ul>
+<li><strong>App Startup (ENH)</strong> - We've got a new API for configuring and starting an Aurelia 2 app that removes boilerplate a simplifies code.</li>
+<li><strong>Lifecycle Hooks (ENH)</strong> - We've added several new lifecycle hooks based on requests over the years. All hooks are much more useful due to their more deterministic timings. Now that binding is synchronous, there's usually no more need for <code>queueMicroTask</code>.</li>
+<li><strong>Router (WIP)</strong> - The Aurelia 1 router is powerful and feature rich but has lacked in a few ways that have built up over the years. We're building a new router for Aurelia 2 that takes into account all the use cases we've gathered, while also adding some new and innovative ideas we haven't seen elsewhere.</li>
+<li><strong>JSX/TSX Support (WIP)</strong> - While we think HTML is the best way to build component views, we recognize that there are other viable approaches that our community is looking for. To meet that need, we're working on adding JSX/TSX support for Aurelia 2.</li>
+<li><strong>Functional APIs (NEW)</strong> - Our new declarative decorator APIs are all built on top of an underlying functional API. As a result, you can use these functional APIs directly as well, if you prefer an alternative approach to building components.</li>
+<li><strong>Shared Shadow DOM CSS (NEW)</strong> - Native CSS and HTML encapsulation for components is an amazing feature of the standard web, but it's been hard to use in the real-world due to the difficulty in sharing styles across components. We've solved this issue for Aurelia 2, making it just as simple as importing a shared stylesheet.</li>
+<li><strong>CSS Modules (NEW)</strong> - We mentioned above our support for the upcoming CSS Modules web standard. However, we also now have official support for the CSS Modules post-processor. Configure Aurelia 2 with a simple flag, and it just works.</li>
+</ul>
+<p>Here's a quick sample of Aurelia 2's new simplified startup.</p>
+
+<code-listing>
+  
+<source-code lang="TypeScript" heading="">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> Aurelia <span class="token keyword">from</span> <span class="token string">'aurelia'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> MyApp <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./my-app'</span><span class="token punctuation">;</span>
+  
+  Aurelia<span class="token punctuation">.</span><span class="token function">app</span><span class="token punctuation">(</span>MyApp<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+</section>
+<section><h2 id="integration">Integration</h2><p>A natural consequence of Aurelia 2’s powerful extensibility and strong support for web standards is that it can easily integrate with any other framework or library. Many other frameworks have thousands of special plugins which exist for no reason other than to address the complexities of their integration with 3rd parties. With Aurelia 2, none of this is needed.</p>
+<p>Beyond 3rd party integration, Aurelia 2 also easily integrates incrementally into existing applications.</p>
+<h3>New or Enhanced Integration Scenarios</h3>
+<ul>
+<li><strong>Framework Nesting (ENH)</strong> -	Run Aurelia inside another, pre-existing framework, letting Aurelia own only a small portion of the DOM without conflict.</li>
+<li><strong>Library Integration (ENH)</strong> -	Leverage Aurelia’s extensibility to enable it to understand other frameworks natively. e.g. Enable Aurelia to bind directly to Knockout or RxJS observables.</li>
+<li><strong>Custom DSLs (NEW)</strong> -	Use Aurelia’s extensibility points to build up custom components and a templating DSL facilitating more rapid development of features in a particular domain. Emulate other frameworks (e.g. re-implement Angular/Knockout/Vue binding syntax as a plugin to Aurelia 2).</li>
+<li><strong>Multiple DOMs (NEW)</strong> -	Run Aurelia inside an iframe or share same-origin DI services or DOMs across iframe boundaries.</li>
+<li><strong>Multiple Aurelias (ENH)</strong> -	Run any number of Aurelia apps on the same page, allowing disparate parts of a large architecture to incrementally adopt Aurelia without affecting one another or needing to converge on a single timeline.</li>
+<li><strong>Multiple Environments (ENH)</strong> -	Run Aurelia in non-DOM environments, such as Node.js and Web Workers. Using WorkerDOM, an entire Aurelia app can run in a Web Worker and simply send update instructions to the render thread.</li>
+<li><strong>Multiple Tools (ENH)</strong> - A focus on vanilla JS makes Aurelia 2 seamlessly integrate with all build/bundler tools.</li>
+</ul>
+</section>
+<section><h2 id="testability">Testability</h2><p>We've been hard at work to make Aurelia 2 one of the most well-tested and verified frameworks available. That means that not only does Aurelia 2 have great breadth test coverage, at over 80%, but it also has great depth coverage, with over 75k unit, integration, and e2e tests. All these tests run in our CI/CD infrastructure against Node.js and all major browsers.</p>
+<p>Testing a framework like Aurelia 2 presents challenges on its own, such as how to create, maintain, and run such a large test suite. We've heard that many of you experience these same challenges. As a result, we’ve created some new tools to facilitate scale out of testing.</p>
+<h3>New or Enhanced Testing Features</h3>
+<ul>
+<li><strong>Assertion Library (NEW)</strong> - A faster universal assertion library based on the Node.js assertion API.</li>
+<li><strong>Assertion Helpers (ENH)</strong> - A standard set of assertion helpers for common UI component scenarios as well as visual correctness validation.</li>
+<li><strong>Test Spies and Contexts (NEW)</strong> - Helpers for creating test spies and test application contexts.</li>
+<li><strong>Quick Setups (NEW)</strong> - Pre-fab setups for running the same tests in both Node.js and browser.</li>
+<li><strong>Depth Testing Tools (NEW)</strong> - Helpers for combinatorial testing, enabling a few breadth tests to be multiplied into hundreds or thousands for greater depth coverage.</li>
+<li><strong>Test Generation (NEW)</strong> - TypeScript code-generation of tests for increased depth testing, while reducing maintenance of many hand-authored tests.</li>
+</ul>
+<p>Any test library can be used with Aurelia 2; however, we have made all the above tools available as an official option for testing Aurelia 2 apps as well. This makes it much easier for app developers to fully test components, views, bindings, view-models, app startup, DI, etc. and to do it in the same way that Aurelia 2 itself is tested.</p>
+</section>
+<section><h2 id="scalability">Scalability</h2><p>It’s easy to build a framework for small apps and small teams that works for a short period. It’s much harder to build one that scales along with the size of your codebase and your team over years and through industry changes. Aurelia 2’s modular design, extensibility, standards compliance, developer experience, and testability all work together to produce a framework that can support systems with hundreds of thousands to millions of lines of code and teams with hundreds of engineers. Its design and ability to do this has been refined over and over during the course of many years and is proven across a number of industries.</p>
+<h3>New or Enhanced Scalability Features</h3>
+<ul>
+<li><strong>Package Organization (ENH)</strong> - We've reduced the number of packages and re-organized them better along the lines of how people use and deploy Aurelia in the real world. All Aurelia 2 packages are now in 
+<a href="https://github.com/aurelia/aurelia" target="_blank">a single GitHub monorepo</a>
+ and are published under the <code>@aurelia</code> organization 
+<a href="https://www.npmjs.com/org/aurelia" target="_blank">on NPM</a>
+ with synchronized versioning.</li>
+<li><strong>TypeScript (ENH)</strong> - All of Aurelia 2 is written in TypeScript, helping us to provide clearer and more consistent APIs to end users. Developers can easily use ECMAScript instead of TypeScript, but everyone using modern tooling will gain the extra benefits of improved intellisense, type checking, and API documentation.</li>
+<li><strong>S.O.L.I.D. (ENH)</strong> - Every aspect of Aurelia 2 is laser-focused in its purpose and the system as a whole was designed for extension without required modification or monkey-patching. Interfaces are small and simple while being separated from their implementations. All interactions between components and systems are limited to what the interface describes and components do not take dependencies on concrete implementations. Everything is designed for dependency injection with the underlying container constructing the runtime behavior by combining the framework's implementations with your own implementations at runtime, allowing Aurelia 2 to be the exact set of features that you need to build your particular app in the best way possible.</li>
+<li><strong>Total Isolation (NEW)</strong> - Every Aurelia 2 app is completely isolated by default. There is no shared global state within the framework. This enables multiple Aurelia apps to safely run on the same page without knowledge of or conflict with one another. It also enables Aurelia 2 to more easily run inside other frameworks without conflicting.</li>
+</ul>
+</section>
+<section><h2 id="documentation">Documentation</h2><p>We're putting a lot of work into documentation for Aurelia 2. We want to have the best docs of any framework. To that end, we've hired a technical writer who is helping us to re-organize and re-write all our core documentation. We've also expanded our core team to include more people focused on documentation.</p>
+<h3>New or Enhanced Documentation Features</h3>
+<ul>
+<li>Newly organized documentation (WIP).</li>
+<li>Improved documentation navigation across and within docs (ENH).</li>
+<li>Improved full-text documentation search (ENH).</li>
+<li>Quick links to docs source on GitHub for community contributions (NEW).</li>
+<li>&quot;Last Updated&quot; date for every docs page (NEW).</li>
+<li>All contributors displayed for each article (ENH).</li>
+<li>The ability to rate articles as helpful or not (NEW).</li>
+<li>An improved mobile reading experience (ENH).</li>
+<li>CI/CD documentation publication (NEW).</li>
+<li>Greatly enhanced reference documentation (WIP).</li>
+<li>Plenty of new content and examples (WIP).</li>
+</ul>
+</section>
+<section><h2 id="team">Team</h2><p>The alpha of Aurelia 1 was published in early 2015, after several months of a single person working to build the original implementation. Since then we've assembled quite an amazing Aurelia team from all over the world. I'm happy to say that Aurelia 2 is the work of many great individuals who have been involved from the very beginning.</p>
+<h3>Major Aurelia 2 Contributors</h3>
+<p>Here are a few of the people from the Aurelia core team who have been making major contributions to Aurelia 2:</p>
+<ul>
+<li><strong>Bas Bosman</strong> - Any project with the size or scope of Aurelia can benefit from someone who helps to ensure code quality and consistency. Bas has done amazing work defining our style rules and helping to keep our entire codebase in order.</li>
+<li><strong>Binh Vo</strong> - One of our JIT and runtime experts, Binh has contributed to almost every aspect of Aurelia 2 at some point and has made particular contributions around ensuring feature parity with Aurelia 1 and implementing many long-requested features.</li>
+<li><strong>Brandon Seydel</strong> - While most of our team has been using Aurelia 2 on real projects, Brandon has made it his goal to dogfood the new product thoroughly and drive out missing features and fill in important gaps. While doing this, he's contributed to various parts of the runtime. He's also working on our Storybook support and improved .NET integration.</li>
+<li><strong>Chunpeng Huo</strong> - One of our tooling experts, Chunpeng has built the <code>makes</code> tool, our build-time conventions support, and our bundler plugins. He's also contributed a number of other innovations related to testing and tools that we'll be incorporating more of in the future.</li>
+<li><strong>Dwayne Charrington</strong> - We've spoken mostly about the core of Aurelia, but we've also got a rich set of plugins. Dwayne is focused on porting and updating our Store plugin. He'll also continue to contribute by producing content on 
+<a href="https://ilikekillnerds.com/" target="_blank">his excellent blog</a>
+.</li>
+<li><strong>Fred Kleuver</strong> - As Aurelia 2's technical lead, Fred oversees all engineering work and architecture while contributing many of the core performance enhancements and designs mentioned above, including AOT. He's also our first core team member to go full-time on Aurelia, just a few weeks ago.</li>
+<li><strong>Hamed Fathi</strong> - Documentation is a key part of any open source and Hamed has joined to focus generally on API documentation generation, and also more specifically on documentation tools for plugins and component authors.</li>
+<li><strong>Hieu Duc Nguyen</strong> - Everyone loves autocomplete in their HTML templates. Hieu has been making great contributions in this area. Soon, you'll have binding expression and component attribute completion directly in your HTML for both Aurelia 1 and Aurelia 2.</li>
+<li><strong>Jürgen Wenzel</strong> - Aurelia 2's Router technical lead, Jürgen works closely with Fred to integrate key aspects of routing with Aurelia's new runtime while implementing long-time router feature requests and contributing a host of new ideas and innovations of his own.</li>
+<li><strong>Matt Davis</strong> - Matt regularly works with many customers, gathering and clarifying use cases for Aurelia in the real world. He's contributing all this back in the form of RFCs and design critique for Aurelia 2.</li>
+<li><strong>Sayan Pal</strong> - Sayan has completely ported our i18n plugin to Aurelia 2, updating it to take advantage of all the new features and performance improvements. Additionally, Sayan is working hard on our e2e test coverage and e2e testing infrastructure.</li>
+<li><strong>Saeed Ganji</strong> - Partnering with Hamed, Saeed is also focusing on documentation tooling.</li>
+</ul>
+<p>We recently shared how excited we were to have Fred working fulltime on Aurelia 2. We're grateful for the way the community has provided the financial support to make this possible. As we move forward, we'd love to transition more people to fulltime Aurelia development. To make that happen, we need your help. Please 
+<a href="https://opencollective.com/aurelia" target="_blank">consider backing Aurelia on Open Collective</a>
+ and stay tuned for upcoming announcements with new ways to sponsor Aurelia and its team members.</p>
+</section>
+<section><h2 id="what">What</h2><p>With all the great things listed above, you may be wondering &quot;why aren't you releasing an official alpha or beta today?&quot; There are a few reasons:</p>
+<ul>
+<li><strong>We have a very high bar.</strong> - When we released the Aurelia 1 alpha years ago, many people went to production right away and even experienced few breaking changes between then and the final release. We're not quite sure we can guarantee that level of quality experience just yet.</li>
+<li><strong>We want even more tests.</strong> - We've got about 75k unit, integration, and e2e tests, which is more than most projects, open or closed source. But, we're not happy with that. We'd like to have several tens of thousands more at least before release if we can, just to make sure that we've covered enough real scenarios and feature usage combinations to feel confident.</li>
+<li><strong>We want you to have a smooth migration experience.</strong> - For those who are current users of Aurelia 1, you may find a few important things still missing from Aurelia 2. We'd like to get those areas shored up and have a migration guide in place before you jump in to update.</li>
+<li><strong>We want you to have a smooth first-time experience.</strong> - For those who haven't used Aurelia before and will be trying it for the first time, or if it's been a long time since you previously investigated Aurelia, we want you to have an amazing encounter with how a standards-based, high-performance, unobtrusive framework should be. There are a few more details we'd like to get worked out first, including having a bit more of the new documentation in place for you.</li>
+</ul>
+<p>With all that said, if you love being on the bleeding edge or want to contribute early towards making Aurelia 2 the best framework in the industry, we invite you to 
+<a href="https://github.com/aurelia/aurelia" target="_blank">try things out</a>
+. We can't provide detailed support at present, but if you're willing to help us find bugs, add missing tests, and build up great documentation samples, now is the time to get involved.</p>
+</section>
+<section><h2 id="wrapping-up">Wrapping Up</h2><p>With over 18 months of engineering by a talented and dedicated team, Aurelia 2 is shaping up to be an amazing framework to help you build your business and products. Our fulltime engineering resources and dedicated technical writer have taken the project to a new level over the last month and we're continually excited by the possibilities ahead. Thank you for being part of the journey so far. When next we discuss Aurelia 2, there will be an official, major release waiting for you to jump into.</p>
+<p>See You Space Cowboy...</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%20vNext%20-%202019%20Fall%20Update" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2019%2F10%2F30%2Faurelia-vnext-2019-fall-update"></blog-footer>
+</section>

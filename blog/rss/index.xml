@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Thu Oct 17 2019 03:46:47 GMT-0700 (Pacific Daylight Time)</lastBuildDate>
+    <lastBuildDate>Wed Oct 30 2019 23:06:54 GMT-0700 (Pacific Daylight Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia vNext - 2019 Fall Update]]></title>
+      <link>http://aurelia.io/blog/2019/10/31/aurelia-vnext-2019-fall-update</link>
+      <description><![CDATA[As we approach the first major release of Aurelia vNext, we've got a special treat for you. It's time to announce the official framework name and provided a more in-depth look into the work that's been done so far and what's next to come.]]></description>
+      <pubDate>Thu Oct 31 2019 00:01:32 GMT-0700 (Pacific Daylight Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia Goes Full-time]]></title>
       <link>http://aurelia.io/blog/2019/10/17/aurelia-goes-full-time</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2018/08/05/aurelia-vnext</link>
       <description><![CDATA[The codebase of today's Aurelia is approaching 4 years old. Much has changed in the industry since 2014, with advances in JavaScript, TypeScript, module loading, packaging, browsers, tooling, and much more. We've worked hard over the years to maintain full backwards compatibility and minimal-to-no breaking changes. We're one of the only frameworks that has managed to achieve this. Most other frameworks have several major breaking change releases every year. Aurelia's stability is something we know our community appreciates, and it's something we're very proud of. That said, it has been almost four years and the time has finally come to think about Aurelia's next major version.]]></description>
       <pubDate>Sun Aug 05 2018 21:18:48 GMT-0700 (Pacific Daylight Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia 2018 Q2 Report]]></title>
-      <link>http://aurelia.io/blog/2018/08/05/aurelia-2018-q2-report</link>
-      <description><![CDATA[The second quarter of 2018 was an amazing time for the Aurelia team with some major progress towards key goals in our 2018 roadmap [blog/2018/01/03/aurelia-2018-roadmap/]. Read on to hear about what we've accomplished and what's in store next.]]></description>
-      <pubDate>Sun Aug 05 2018 21:18:26 GMT-0700 (Pacific Daylight Time)</pubDate>
     </item>
   </channel>
 </rss>
