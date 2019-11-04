@@ -45,21 +45,6 @@
             "imageSrc": "styles/images/logos/hogia.svg"
           }
         ]
-      },
-      {
-        "name": "Silver Sponsors",
-        "sponsors": [
-          {
-            "name": "Haselt",
-            "href": "https://www.haselt.com/",
-            "imageSrc": "styles/images/logos/haselt.png"
-          },
-          {
-            "name": "Symbiosys",
-            "href": "https://www.smbsol.com/",
-            "imageSrc": "styles/images/logos/symbiosys.jpeg"
-          }
-        ]
       }
     ],
     "migration": {
