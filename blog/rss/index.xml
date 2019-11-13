@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Sun Nov 03 2019 16:09:07 GMT-0800 (Pacific Standard Time)</lastBuildDate>
+    <lastBuildDate>Wed Nov 13 2019 10:31:55 GMT-0800 (Pacific Standard Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia on GitHub Sponsored Organizations]]></title>
+      <link>http://aurelia.io/blog/2019/11/13/aurelia-on-github-sponsored-organizations</link>
+      <description><![CDATA[Today, we're pleased to share that Aurelia was selected by GitHub to be one of the first open source organizations to participate in their new GitHub Sponsored Organizations program!]]></description>
+      <pubDate>Wed Nov 13 2019 10:31:53 GMT-0800 (Pacific Standard Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia vNext - 2019 Fall Update]]></title>
       <link>http://aurelia.io/blog/2019/10/31/aurelia-vnext-2019-fall-update</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2018/08/19/coinmesh-litecoin-bitcoin-aurelia-dapps</link>
       <description><![CDATA[Today, we're thrilled to invite former core team member and long-time Aurelia community member, Patrick Walters, to share a special announcement regarding the exciting, new project he's been working on. Let's hear what Patrick has been up to...]]></description>
       <pubDate>Sun Aug 19 2018 21:08:35 GMT-0700 (Pacific Daylight Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia vNext]]></title>
-      <link>http://aurelia.io/blog/2018/08/05/aurelia-vnext</link>
-      <description><![CDATA[The codebase of today's Aurelia is approaching 4 years old. Much has changed in the industry since 2014, with advances in JavaScript, TypeScript, module loading, packaging, browsers, tooling, and much more. We've worked hard over the years to maintain full backwards compatibility and minimal-to-no breaking changes. We're one of the only frameworks that has managed to achieve this. Most other frameworks have several major breaking change releases every year. Aurelia's stability is something we know our community appreciates, and it's something we're very proud of. That said, it has been almost four years and the time has finally come to think about Aurelia's next major version.]]></description>
-      <pubDate>Sun Aug 05 2018 21:18:48 GMT-0700 (Pacific Daylight Time)</pubDate>
     </item>
   </channel>
 </rss>
