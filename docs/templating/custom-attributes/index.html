@@ -97,9 +97,9 @@
 </source-code>
   
 </code-listing>
-<p>The attribute name is inferred via an Aurelia convention. This convention is <code>\${Name}CustomAttribute</code> for the ECMAScript class name. The class name is in &quot;init caps&quot; format. Aurelia converts this to &quot;dash-case&quot; format for use in HTML. Thus, <code>RedSquareCustomAttribute</code> becomes <code>red-square</code>.</p>
+<p>The attribute name is inferred via an Aurelia convention. This convention is <code>\${Name}CustomAttribute</code> for the ECMAScript class name. The class name is in &quot;init caps&quot; format. <strong>Aurelia converts this to &quot;dash-case&quot; format for use in HTML</strong>. Thus, <code>RedSquareCustomAttribute</code> becomes <code>red-square</code>.</p>
 </section>
-<section><h2 id="explicit-attribute-naming">Explicit Attribute Naming</h2><p>Overriding the default naming convention is possible by utilizing the <code>@customAttribute</code> decorator. Provide this decorator with the exact name for your attribute as below. Note that Aurelia does not convert from &quot;init caps&quot; to &quot;dash-case&quot; when using this decorator. It uses the exact value passed to the decorator.</p>
+<section><h2 id="explicit-attribute-naming">Explicit Attribute Naming</h2><p>Overriding the default naming convention is possible by utilizing the <code>@customAttribute</code> decorator. Provide this decorator with the exact name for your attribute as below. <strong>Note that Aurelia does not convert from &quot;init caps&quot; to &quot;dash-case&quot; when using this decorator</strong>. It uses the exact value passed to the decorator.</p>
 
 <code-listing heading="red-square.js">
   
@@ -246,7 +246,7 @@
 </code-listing>
 <p>When the user updates the value of the <code>color</code> property via the textbox, Aurelia will call the <code>valueChanged</code> method on the custom attribute to alert the custom attribute to the change.</p>
 </section>
-<section><h2 id="options-binding">Options Binding</h2><p>Options binding provides a custom attribute the ability to have multiple bindable properties. Each bindable property must be specified using the <code>bindable</code> decorator. The attribute ViewModel may implement an optional <code>\${propertyName}Changed(newValue, oldValue)</code> callback function for each bindable property. When binding to these options, separate each option with a semicolon and supply a binding command or literal value as in the example below. It is important to note that bindable properties are converted to dash-case when used in the DOM, while the ViewModel property they are bound to are kept with their original casing.</p>
+<section><h2 id="options-binding">Options Binding</h2><p>Options binding provides a custom attribute the ability to have multiple bindable properties. Each bindable property must be specified using the <code>bindable</code> decorator. The attribute ViewModel may implement an optional <code>\${propertyName}Changed(newValue, oldValue)</code> callback function for each bindable property. When binding to these options, separate each option with a semicolon and supply a binding command or literal value as in the example below. It is important to note that <strong>bindable properties are converted to dash-case when used in the DOM</strong>, while the ViewModel property they are bound to are kept with their original casing.</p>
 
 <code-listing heading="square.js">
   
