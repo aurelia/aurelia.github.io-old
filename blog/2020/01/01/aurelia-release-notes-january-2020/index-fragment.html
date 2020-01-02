@@ -1,0 +1,214 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia Release Notes - January 2020</h1>
+    <h2>Posted by <span class="author">Rob Eisenberg</span> on <span class="date">January 1, 2020</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>Happy New Year! And with the new year, we've got new tools. Today we're excited to share a major upgrade to Aurelia's VS Code Extension.</p>
+<p>With the latest version of Aurelia's VS Code Extension, you can now leverage enhanced view intelligence. Here are four features you can take advantage of today:</p>
+<h4>Binding Autocomplete</h4>
+<p>VS Code can now provide binding expression autocompletion inside HTML attributes and content. There's no more need to try to remember your data model or switch back and forth between files.</p>
+<p><img src="../styles/images/blog/aurelia-release-notes-january-2020/autocompletebinding.gif" alt="Binding Autocomplete" /></p>
+<h4>Element Autocomplete</h4>
+<p>VS Code can now autocomplete custom element names and their bindable properties in templates. With this update, there's no more need to remember element names. The extension will help you out by providing a completion list.</p>
+<p><img src="../styles/images/blog/aurelia-release-notes-january-2020/autocompletename.gif" alt="Binding Autocomplete" /></p>
+<h4>Goto Component Definition</h4>
+<p>When working inside a template, you can now jump to the code for custom elements used within that template.</p>
+<p><img src="../styles/images/blog/aurelia-release-notes-january-2020/gotodefinition.gif" alt="Binding Autocomplete" /></p>
+<h4>Open Related Files</h4>
+<p>Are you working on components that span several files, such as JS, HTML, CSS, and tests? The Aurelia VS Code extension now provides a command to automatically open related files for a component. This works out of the box for people using TypeScript or JavaScript and can be configured using the setting &quot;aurelia.relatedFiles&quot; if you want a different setup. e.g. Using ASP.NET views '.aspx' instead of '.html'.</p>
+<p><img src="../styles/images/blog/aurelia-release-notes-january-2020/openrelated.gif" alt="Binding Autocomplete" /></p>
+<p>Along with the VS Code Extension release, we've had a number of additional fixes and improvements made to other Aurelia libraries recently. As usual, you can find the release notes below.</p>
+<p>We're off to a great start for 2020! Stay tuned for even bigger announcements in the coming months :)</p>
+<section><h2 id="minor-releases">Minor Releases</h2><p>Minor updates include new features, updates to bugs, and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/vscode-extension/compare/1.0.4...1.0.5" target="_blank">VS Code Extension</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>autocomplete:</strong> custom elements in view (
+<a href="https://github.com/aurelia/vscode-extension/issues/111" target="_blank">#111</a>
+) (
+<a href="https://github.com/aurelia/vscode-extension/commit/25b123f" target="_blank">25b123f</a>
+)</li>
+<li><strong>relatedFiles:</strong> Add more open related files support (
+<a href="https://github.com/aurelia/vscode-extension/issues/102" target="_blank">#102</a>
+) (
+<a href="https://github.com/aurelia/vscode-extension/commit/1caecb9" target="_blank">1caecb9</a>
+)</li>
+<li><strong>smartAutocomplete:</strong> Go to Definition (
+<a href="https://github.com/aurelia/vscode-extension/issues/104" target="_blank">#104</a>
+) (
+<a href="https://github.com/aurelia/vscode-extension/commit/f49cea9" target="_blank">f49cea9</a>
+)
+When the smartAutocomplete feature toggle is set to true you are able to use F12 goto definition in your view to jump to the code behind.
+For more information see https://github.com/aurelia/vscode-extension/pull/104</li>
+<li><strong>smartAutocomplete:</strong> View data update on file change (
+<a href="https://github.com/aurelia/vscode-extension/issues/103" target="_blank">#103</a>
+) (
+<a href="https://github.com/aurelia/vscode-extension/commit/26dcb05" target="_blank">26dcb05</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/cli/compare/1.2.2...1.2.3" target="_blank">aurelia-cli 1.2.3</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>cli-bundler:</strong> avoid passing empty source map to concat-with-sourcemaps (
+<a href="https://github.com/aurelia/cli/commit/160a817" target="_blank">160a817</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1157" target="_blank">#1157</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/cli/compare/1.2.1...1.2.2" target="_blank">aurelia-cli 1.2.2</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>webpack:</strong> deal with host option before webpack config (
+<a href="https://github.com/aurelia/cli/commit/fe322c6" target="_blank">fe322c6</a>
+)</li>
+<li><strong>webpack:</strong> fix missing postcss in less/scss/styl processing (
+<a href="https://github.com/aurelia/cli/commit/c246d66" target="_blank">c246d66</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1152" target="_blank">#1152</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/cli/compare/1.2.0...1.2.1" target="_blank">aurelia-cli 1.2.1</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>Dockerfile:</strong> use aurelia-cli@1.2.0 (
+<a href="https://github.com/aurelia/cli/commit/ec9234b" target="_blank">ec9234b</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>Dockerfile:</strong> update aurelia-cli inside docker to support minor versions ^1.2.0 (
+<a href="https://github.com/aurelia/cli/commit/57583fa" target="_blank">57583fa</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/cli/compare/1.1.1...1.2.0" target="_blank">aurelia-cli 1.2.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>Dockerfile:</strong> better integration with cli-bundler &amp; dotnet template (
+<a href="https://github.com/aurelia/cli/commit/8fa9ee6" target="_blank">8fa9ee6</a>
+)</li>
+<li><strong>linter:</strong> add .dockerignore file &amp; fixed failed build due to linter (
+<a href="https://github.com/aurelia/cli/commit/966f55f" target="_blank">966f55f</a>
+)</li>
+<li><strong>linter:</strong> issues with linter (
+<a href="https://github.com/aurelia/cli/commit/2a42ded" target="_blank">2a42ded</a>
+)</li>
+<li><strong>protractor:</strong> does not start app server when running in e2e:headless (
+<a href="https://github.com/aurelia/cli/commit/61f3ada" target="_blank">61f3ada</a>
+)</li>
+<li><strong>protractor:</strong> to run application before e2e tests in headless mode (
+<a href="https://github.com/aurelia/cli/commit/79c9585" target="_blank">79c9585</a>
+)</li>
+<li><strong>webpack:</strong> bring back au run --env prod (
+<a href="https://github.com/aurelia/cli/commit/eeebdc8" target="_blank">eeebdc8</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>docker:</strong> add Dockerfile &amp;&amp; docker-compose file (
+<a href="https://github.com/aurelia/cli/commit/4ed59ab" target="_blank">4ed59ab</a>
+)</li>
+<li><strong>docker:</strong> add initila docker files &amp; setup for the cli (
+<a href="https://github.com/aurelia/cli/commit/9ea4c54" target="_blank">9ea4c54</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/dialog/compare/2.0.0-rc.7...2.0.0-rc.8" target="_blank">aurelia-dialog 2.0.0-rc.8</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>settings:</strong> add missing types (
+<a href="https://github.com/aurelia/dialog/commit/0a518f1" target="_blank">0a518f1</a>
+), closes 
+<a href="https://github.com/aurelia/dialog/issues/382" target="_blank">#382</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/dialog/compare/2.0.0-rc.6...2.0.0-rc.7" target="_blank">aurelia-dialog 2.0.0-rc.7</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>renderers:</strong> don't store a reference to last active element if it (
+<a href="https://github.com/aurelia/dialog/commit/12a892d" target="_blank">12a892d</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>keyboard:</strong> allow to configure keyevent type (
+<a href="https://github.com/aurelia/dialog/commit/1cfdd58" target="_blank">1cfdd58</a>
+)</li>
+<li><strong>renderers:</strong> add restoreFocus setting (
+<a href="https://github.com/aurelia/dialog/commit/c5f4ad4" target="_blank">c5f4ad4</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/validation/compare/1.5.0...1.6.0" target="_blank">aurelia-validation 1.6.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>all:</strong> update binding library and fix TS errors (
+<a href="https://github.com/aurelia/validation/commit/33c91a1120c0cc41a3a1bb093aca7fd682d56e34" target="_blank">33c91a1</a>
+)</li>
+<li><strong>ExpressionVisitor:</strong> not redeclare imports (
+<a href="https://github.com/aurelia/validation/commit/15109b3a82f0d0ecebaf19c7b1490c4373731c13" target="_blank">15109b3</a>
+), closes 
+<a href="https://github.com/aurelia/validation/issues/537" target="_blank">#537</a>
+</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>config:</strong> make config constructor param optional and place default trigger in static property (
+<a href="https://github.com/aurelia/validation/commit/a52f4c403bb68ed895fd0b7a3ea217c67ce22e2d" target="_blank">a52f4c4</a>
+)</li>
+<li><strong>config:</strong> make the setters chainable (
+<a href="https://github.com/aurelia/validation/commit/bd118a61c9cb283cbb9db36712660a0362f5994c" target="_blank">bd118a6</a>
+)</li>
+<li><strong>config:</strong> rename global config class (
+<a href="https://github.com/aurelia/validation/commit/c4e5fe29e2a9bcd11cfdaba0f70050ef9c894be6" target="_blank">c4e5fe2</a>
+)</li>
+<li><strong>config:</strong> support global config option for default validation trigger (
+<a href="https://github.com/aurelia/validation/commit/39a4e679513e3fa716b46cedce24931b3b57028f" target="_blank">39a4e67</a>
+)</li>
+</ul>
+</section>
+<section><h2 id="patch-releases">Patch Releases</h2><p>Patch updates include only fixes to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/dependency-injection/compare/1.5.1...1.5.2" target="_blank">aurelia-dependency-injection 1.5.2</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>typings:</strong> dont use const enum (
+<a href="https://github.com/aurelia/dependency-injection/commit/28bad61" target="_blank">28bad61</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/binding/compare/2.5.0...2.5.2" target="_blank">aurelia-binding 2.5.2</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>event-manager:</strong> Firefox shadow dom event handling (
+<a href="https://github.com/aurelia/binding/commit/7a6cc3b" target="_blank">7a6cc3b</a>
+), closes 
+<a href="https://github.com/aurelia/binding/issues/765" target="_blank">#765</a>
+</li>
+</ul>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%20Release%20Notes%20-%20January%202020" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2020%2F01%2F01%2Faurelia-release-notes-january-2020"></blog-footer>
+</section>
