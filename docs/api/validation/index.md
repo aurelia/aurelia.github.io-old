@@ -5,26 +5,6 @@
 ## Classes
 
 
-### AureliaValidationConfiguration
-
-Aurelia Validation Configuration API
-
-#### Properties
-
-* `validatorType: any` - No description available.
-
-#### Methods
-
-
-* `apply(container: Container): void` - Applies the configuration.
-  * `container: Container` - No description available
-
-
-* `customValidator(type: ): void` - Use a custom Validator implementation.
-  * `type: ` - No description available
-
-
-
 ### ExpressionVisitor
 
 No description available.
@@ -48,12 +28,12 @@ No description available.
   * `access: AccessScope` - No description available
 
 
-* `visitAccessThis(access: AccessThis): void` - 
-  * `access: AccessThis` - No description available
+* `visitAccessThis(access: any): void` - 
+  * `access: any` - No description available
 
 
-* `visitAssign(assign: Assign): void` - 
-  * `assign: Assign` - No description available
+* `visitAssign(assign: any): void` - 
+  * `assign: any` - No description available
 
 
 * `visitBinary(binary: Binary): void` - 
@@ -64,32 +44,32 @@ No description available.
   * `behavior: BindingBehavior` - No description available
 
 
-* `visitCallFunction(call: CallFunction): void` - 
-  * `call: CallFunction` - No description available
+* `visitCallFunction(call: any): void` - 
+  * `call: any` - No description available
 
 
 * `visitCallMember(call: CallMember): void` - 
   * `call: CallMember` - No description available
 
 
-* `visitCallScope(call: CallScope): void` - 
-  * `call: CallScope` - No description available
+* `visitCallScope(call: any): void` - 
+  * `call: any` - No description available
 
 
-* `visitChain(chain: Chain): void` - 
-  * `chain: Chain` - No description available
+* `visitChain(chain: any): void` - 
+  * `chain: any` - No description available
 
 
 * `visitConditional(conditional: Conditional): void` - 
   * `conditional: Conditional` - No description available
 
 
-* `visitLiteralArray(literal: LiteralArray): void` - 
-  * `literal: LiteralArray` - No description available
+* `visitLiteralArray(literal: any): void` - 
+  * `literal: any` - No description available
 
 
-* `visitLiteralObject(literal: LiteralObject): void` - 
-  * `literal: LiteralObject` - No description available
+* `visitLiteralObject(literal: any): void` - 
+  * `literal: any` - No description available
 
 
 * `visitLiteralPrimitive(literal: LiteralPrimitive): void` - 
@@ -100,8 +80,8 @@ No description available.
   * `literal: LiteralString` - No description available
 
 
-* `visitPrefix(prefix: PrefixNot): void` - 
-  * `prefix: PrefixNot` - No description available
+* `visitPrefix(prefix: any): void` - 
+  * `prefix: any` - No description available
 
 
 * `visitValueConverter(converter: ValueConverter): void` - 
@@ -148,7 +128,6 @@ Part of the fluent rule API. Enables customizing property rules.
 * `fluentRules: any` - No description available.
 * `parsers: any` - No description available.
 * `rule: any` - No description available.
-* `rules: ` - Rules that have been defined using the fluent API.
 
 #### Methods
 
@@ -370,6 +349,35 @@ Should return a boolean or a Promise that resolves to a boolean.
 
 
 
+### GlobalValidationConfiguration
+
+Aurelia Validation Configuration API
+
+#### Properties
+
+* `validationTrigger: any` - No description available.
+* `validatorType: any` - No description available.
+* `static DEFAULT_VALIDATION_TRIGGER: validateTrigger` - No description available.
+
+#### Methods
+
+
+* `apply(container: Container): void` - Applies the configuration.
+  * `container: Container` - No description available
+
+
+* `customValidator(type: ValidatorCtor): this` - Use a custom Validator implementation.
+  * `type: ValidatorCtor` - No description available
+
+
+* `defaultValidationTrigger(trigger: validateTrigger): this` - 
+  * `trigger: validateTrigger` - No description available
+
+
+* `getDefaultValidationTrigger(): validateTrigger` - 
+
+
+
 ### MessageExpressionValidator
 
 No description available.
@@ -393,12 +401,12 @@ No description available.
   * `access: AccessScope` - No description available
 
 
-* `visitAccessThis(access: AccessThis): void` - 
-  * `access: AccessThis` - No description available
+* `visitAccessThis(access: any): void` - 
+  * `access: any` - No description available
 
 
-* `visitAssign(assign: Assign): void` - 
-  * `assign: Assign` - No description available
+* `visitAssign(assign: any): void` - 
+  * `assign: any` - No description available
 
 
 * `visitBinary(binary: Binary): void` - 
@@ -409,32 +417,32 @@ No description available.
   * `behavior: BindingBehavior` - No description available
 
 
-* `visitCallFunction(call: CallFunction): void` - 
-  * `call: CallFunction` - No description available
+* `visitCallFunction(call: any): void` - 
+  * `call: any` - No description available
 
 
 * `visitCallMember(call: CallMember): void` - 
   * `call: CallMember` - No description available
 
 
-* `visitCallScope(call: CallScope): void` - 
-  * `call: CallScope` - No description available
+* `visitCallScope(call: any): void` - 
+  * `call: any` - No description available
 
 
-* `visitChain(chain: Chain): void` - 
-  * `chain: Chain` - No description available
+* `visitChain(chain: any): void` - 
+  * `chain: any` - No description available
 
 
 * `visitConditional(conditional: Conditional): void` - 
   * `conditional: Conditional` - No description available
 
 
-* `visitLiteralArray(literal: LiteralArray): void` - 
-  * `literal: LiteralArray` - No description available
+* `visitLiteralArray(literal: any): void` - 
+  * `literal: any` - No description available
 
 
-* `visitLiteralObject(literal: LiteralObject): void` - 
-  * `literal: LiteralObject` - No description available
+* `visitLiteralObject(literal: any): void` - 
+  * `literal: any` - No description available
 
 
 * `visitLiteralPrimitive(literal: LiteralPrimitive): void` - 
@@ -445,8 +453,8 @@ No description available.
   * `literal: LiteralString` - No description available
 
 
-* `visitPrefix(prefix: PrefixNot): void` - 
-  * `prefix: PrefixNot` - No description available
+* `visitPrefix(prefix: any): void` - 
+  * `prefix: any` - No description available
 
 
 * `visitValueConverter(converter: ValueConverter): void` - 

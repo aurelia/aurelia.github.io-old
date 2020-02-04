@@ -83,6 +83,19 @@ If you are using an older version of <strong>Aurelia CLI</strong>, prior to 1.0,
 <div class="warning"><div class="icon"> <i></i> </div><p>
 <code>PLATFORM.moduleName</code> should <em>not</em> be omitted if you are using <em>Webpack</em>.</p>
 </div>
+<p>You could also configure plugin to explicitly handle enter/leave animation ending (will be described below):</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+      <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-animator-css"</span><span class="token punctuation">,</span> cfg <span class="token operator">=></span> cfg<span class="token punctuation">.</span>useAnimationDoneClasses <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
 </section>
 <section><h2 id="demo">Demo</h2><p>Before we get started setting up the animations themselves, take a look at a demo of what we'll build out.</p>
 <p>
@@ -100,61 +113,53 @@ Don't forget to add the appropriate vendor prefixes if you target old browsers.<
   <pre class="language-javascript">
     <code>
   @keyframes SlideInRight <span class="token punctuation">{</span>
-    <span class="token number">0</span><span class="token operator">%</span> <span class="token punctuation">{</span>
+    <span class="token keyword">from</span> <span class="token punctuation">{</span>
       transform<span class="token punctuation">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
-    <span class="token number">100</span><span class="token operator">%</span> <span class="token punctuation">{</span>
+    to <span class="token punctuation">{</span>
       transform<span class="token punctuation">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   
   @keyframes SlideOutRight <span class="token punctuation">{</span>
-    <span class="token number">0</span><span class="token operator">%</span> <span class="token punctuation">{</span>
+    <span class="token keyword">from</span> <span class="token punctuation">{</span>
       transform<span class="token punctuation">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
-    <span class="token number">100</span><span class="token operator">%</span> <span class="token punctuation">{</span>
+    to <span class="token punctuation">{</span>
       transform<span class="token punctuation">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   
   @keyframes SlideInLeft <span class="token punctuation">{</span>
-    <span class="token number">0</span><span class="token operator">%</span> <span class="token punctuation">{</span>
+    <span class="token keyword">from</span> <span class="token punctuation">{</span>
       transform<span class="token punctuation">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
-    <span class="token number">100</span><span class="token operator">%</span> <span class="token punctuation">{</span>
+    to <span class="token punctuation">{</span>
       transform<span class="token punctuation">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   
   @keyframes SlideOutLeft <span class="token punctuation">{</span>
-    <span class="token number">0</span><span class="token operator">%</span> <span class="token punctuation">{</span>
+    <span class="token keyword">from</span> <span class="token punctuation">{</span>
       transform<span class="token punctuation">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
-    <span class="token number">100</span><span class="token operator">%</span> <span class="token punctuation">{</span>
+    to <span class="token punctuation">{</span>
       transform<span class="token punctuation">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   
   @keyframes FadeIn <span class="token punctuation">{</span>
-    <span class="token number">0</span><span class="token operator">%</span> <span class="token punctuation">{</span>
-      opacity<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-  
-    <span class="token number">100</span><span class="token operator">%</span> <span class="token punctuation">{</span>
+    to <span class="token punctuation">{</span>
       opacity<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   
   @keyframes FadeOut <span class="token punctuation">{</span>
-    <span class="token number">0</span><span class="token operator">%</span> <span class="token punctuation">{</span>
-      opacity<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-  
-    <span class="token number">100</span><span class="token operator">%</span> <span class="token punctuation">{</span>
+    to <span class="token punctuation">{</span>
       opacity<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
@@ -206,6 +211,10 @@ Don't forget to add the appropriate vendor prefixes if you target old browsers.<
   <span class="token punctuation">.</span>animate<span class="token operator">-</span>fade<span class="token operator">-</span>out<span class="token punctuation">.</span>au<span class="token operator">-</span>leave<span class="token operator">-</span>active <span class="token punctuation">{</span>
     animation<span class="token punctuation">:</span> FadeOut <span class="token number">1</span>s<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
+  
+  <span class="token punctuation">.</span>animate<span class="token operator">-</span>fade<span class="token operator">-</span>out<span class="token punctuation">.</span>au<span class="token operator">-</span>left <span class="token punctuation">{</span>
+    opacity<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
   </code>
   </pre>
 </source-code>
@@ -217,33 +226,43 @@ Don't forget to add the appropriate vendor prefixes if you target old browsers.<
     <th>Method</th>
     <th>Description</th>
     <th>Preparation</th>
-    <th>Activation</th>
+    <th>Animation activation</th>
+    <th>Animation ended</th>
   </tr>
   <tr>
     <td>Enter</td>
     <td>Element enters the DOM</td>
     <td>au-enter</td>
     <td>au-enter-active</td>
+    <td>au-entered</td>
   </tr>
   <tr>
     <td>Leave</td>
     <td>Element leaves the DOM</td>
     <td>au-leave</td>
     <td>au-leave-active</td>
+    <td>au-left</td>
   </tr>
   <tr>
     <td>addClass</td>
     <td>Adds a CSS class</td>
-    <td>n/a</td>
+    <td></td>
     <td>[className]-add</td>
+    <td>[className]</td>
   </tr>
   <tr>
     <td>removeClass</td>
     <td>Removes a CSS class</td>
-    <td>n/a</td>
+    <td></td>
     <td>[className]-remove</td>
+    <td></td>
   </tr>
 </table>
+<p>Classes <code>au-entered</code> and <code>au-left</code> are only added if <code>useAnimationDoneClasses</code> property has been configured. <code>au-left</code> class could be usefull in case of animating disappearing of an element as between <code>au-leave-active</code> class removal and dom node removal, the frame could be rendered, that could make the element to flicker (
+<a href="https://github.com/aurelia/animator-css/issues/70" target="_blank">more details</a>
+).</p>
+<p>Methods <a href="/docs/api/templating/class/Animator/method/addClass"><code>addClass</code></a> and <a href="/docs/api/templating/class/Animator/method/removeClass"><code>removeClass</code></a> are belong to <a href="/docs/api/templating/class/Animator"><code>Animator</code></a>.</p>
+<p><code>removeClass</code> animation does not trigger if an element does not have either <code>[className]</code> or <code>[className]-add</code> (pending <code>addClass</code> animation) CSS class.</p>
 </section>
 <section><h2 id="working-with-default-animation-triggers">Working with Default Animation Triggers</h2><p>We need to give our elements the class <code>au-animate</code> to tell Aurelia that those elements can be animated. Additionally, we should apply a specific animation from the ones we have created above (i.e <code>animate-fade-in</code>). Once that's done, every time the element enters or leaves the DOM, the animation will kick-in.</p>
 <p>As an example, we may have multiple <code>li</code> elements rendering in a repeater and we would like them to animate in and out using the fading effect we declared above. We can declare that like this:</p>

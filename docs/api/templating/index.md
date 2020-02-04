@@ -564,7 +564,7 @@ No description available.
 
 #### Properties
 
-* `needsFallbackRendering: any` - No description available.
+* `needsFallbackRendering: any` - Indicate whether this slot should render fallback default slot content
 
 #### Methods
 
@@ -573,46 +573,54 @@ No description available.
   * `view?: any` - No description available
   * `node?: any` - No description available
   * `projectionSource?: any` - No description available
-  * `index?: any` - No description available
+  * `index?: any` - 
+
 
 
 * `attached(): any` - 
 
 
 * `bind(view?: any): any` - 
-  * `view?: any` - No description available
+  * `view?: any` - 
+
 
 
 * `created(ownerView?: any): any` - 
-  * `ownerView?: any` - No description available
+  * `ownerView?: any` - 
+
 
 
 * `detached(): any` - 
 
 
 * `passThroughTo(destinationSlot?: any): any` - 
-  * `destinationSlot?: any` - No description available
+  * `destinationSlot?: any` - 
+
 
 
 * `projectFrom(view?: any, projectionSource?: any): any` - 
   * `view?: any` - No description available
-  * `projectionSource?: any` - No description available
+  * `projectionSource?: any` - 
+
 
 
 * `removeAll(projectionSource?: any): any` - 
-  * `projectionSource?: any` - No description available
+  * `projectionSource?: any` - 
+
 
 
 * `removeView(view?: any, projectionSource?: any): any` - 
   * `view?: any` - No description available
-  * `projectionSource?: any` - No description available
+  * `projectionSource?: any` - 
+
 
 
 * `renderFallbackContent(view?: any, nodes?: any, projectionSource?: any, index?: any): any` - 
   * `view?: any` - No description available
   * `nodes?: any` - No description available
   * `projectionSource?: any` - No description available
-  * `index?: any` - No description available
+  * `index?: any` - 
+
 
 
 * `unbind(): any` - 
@@ -728,13 +736,14 @@ No description available.
 #### Methods
 
 
-* `static distributeNodes(view?: any, nodes?: any, slots?: any, projectionSource?: any, index?: any, destinationOverride?: any): any` - 
+* `static distributeNodes(view?: any, nodes?: any, slots?: any, projectionSource?: any, index?: any, destinationOverride?: any): any` - Distrbiute nodes of a projected view based on
   * `view?: any` - No description available
   * `nodes?: any` - No description available
   * `slots?: any` - No description available
   * `projectionSource?: any` - No description available
   * `index?: any` - No description available
-  * `destinationOverride?: any` - No description available
+  * `destinationOverride?: any` - 
+
 
 
 * `static distributeView(view?: any, slots?: any, projectionSource?: any, index?: any, destinationOverride?: any): any` - 
@@ -742,7 +751,8 @@ No description available.
   * `slots?: any` - No description available
   * `projectionSource?: any` - No description available
   * `index?: any` - No description available
-  * `destinationOverride?: any` - No description available
+  * `destinationOverride?: any` - 
+
 
 
 * `static getSlotName(node?: any): any` - 
@@ -751,13 +761,15 @@ No description available.
 
 * `static undistributeAll(slots?: any, projectionSource?: any): any` - 
   * `slots?: any` - No description available
-  * `projectionSource?: any` - No description available
+  * `projectionSource?: any` - 
+
 
 
 * `static undistributeView(view?: any, slots?: any, projectionSource?: any): any` - 
   * `view?: any` - No description available
   * `slots?: any` - No description available
-  * `projectionSource?: any` - No description available
+  * `projectionSource?: any` - 
+
 
 
 
@@ -777,18 +789,21 @@ No description available.
   * `node?: any` - No description available
   * `projectionSource?: any` - No description available
   * `index?: any` - No description available
-  * `destination?: any` - No description available
+  * `destination?: any` - 
+
 
 
 * `attached(): any` - 
 
 
 * `bind(view?: any): any` - 
-  * `view?: any` - No description available
+  * `view?: any` - 
+
 
 
 * `created(ownerView?: any): any` - 
-  * `ownerView?: any` - No description available
+  * `ownerView?: any` - 
+
 
 
 * `detached(): any` - 
@@ -796,27 +811,32 @@ No description available.
 
 * `projectFrom(view?: any, projectionSource?: any): any` - 
   * `view?: any` - No description available
-  * `projectionSource?: any` - No description available
+  * `projectionSource?: any` - 
+
 
 
 * `projectTo(slots?: any): any` - 
-  * `slots?: any` - No description available
+  * `slots?: any` - 
+
 
 
 * `removeAll(projectionSource?: any): any` - 
-  * `projectionSource?: any` - No description available
+  * `projectionSource?: any` - 
+
 
 
 * `removeView(view?: any, projectionSource?: any): any` - 
   * `view?: any` - No description available
-  * `projectionSource?: any` - No description available
+  * `projectionSource?: any` - 
+
 
 
 * `renderFallbackContent(view?: any, nodes?: any, projectionSource?: any, index?: any): any` - 
   * `view?: any` - No description available
   * `nodes?: any` - No description available
   * `projectionSource?: any` - No description available
-  * `index?: any` - No description available
+  * `index?: any` - 
+
 
 
 * `unbind(): any` - 
@@ -1054,6 +1074,9 @@ Compiles html templates, dom fragments and strings into ViewFactory instances, c
   * `compileInstruction?: ViewCompileInstruction` - A set of instructions that customize how compilation occurs.
 
 
+* `static inject(): any` - 
+
+
 
 ### ViewEngine
 
@@ -1097,6 +1120,9 @@ Controls the view resource loading pipeline.
   * `compileInstruction?: ViewCompileInstruction` - Instructions detailing how the factory should be compiled.
   * `loadContext?: ResourceLoadContext` - The load context if this factory load is happening within the context of a larger load operation.
   * `target?: any` - A class from which to extract metadata of additional resources to load.
+
+
+* `static inject(): any` - 
 
 
 
@@ -1544,7 +1570,7 @@ No description available.
 
 #### Properties
 
-* `bindables: ` - List of bindable properties of this custom element / custom attribute, by name or full config object
+* `bindables: Array` - List of bindable properties of this custom element / custom attribute, by name or full config object
 * `containerless: boolean` - Flag a custom element as containerless. Which will remove their render target
 * `defaultBindingMode: ` - Used to set default binding mode of default custom attribute view model &quot;value&quot; property
 * `hasDynamicOptions: boolean` - Flags a custom attribute has dynamic options

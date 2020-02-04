@@ -75,9 +75,7 @@ Server Side Rendering is a new feature of the Aurelia framework, intended for us
 </source-code>
   
 </code-listing>
-<p>Please refer to the API documentation of the 
-<a href="http://aurelia.io/docs/api/pal" target="_blank">Platform Abstraction Layer</a>
- to find out what functions are available.</p>
+<p>Please refer to the API documentation of the <a href="/docs/api/pal">Platform Abstraction Layer</a> to find out what functions are available.</p>
 </section>
 <section><h2 id="memory-management">Memory Management</h2><p>Since the application will be executed on the server a lot of times, you'll want to do some memory management. There are a few things to keep in mind.</p>
 <p>Using timers like <code>setTimeout</code> or <code>setInterval</code> should be avoided. If you do need to use them, take care to dispose of them properly and as soon as possible. Otherwise Node.js won't able to unload the application because timers are callbacks to application code, and as long as the timer is active the application can't be garbage collected.</p>
