@@ -1,0 +1,501 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia Release Notes - March 2020</h1>
+    <h2>Posted by <span class="author">Rob Eisenberg</span> on <span class="date">March 2, 2020</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>This month we've got major releases of <code>aurelia-i18n</code>, <code>aurelia-dialog</code>, and <code>aurelia-pal-nodejs</code>. However, the most significant release is a minor release of Aurelia UX, which includes many improvements to the components and styles.</p>
+<section><h2 id="major-releases">Major Releases</h2><p>Major updates may include breaking changes, new features, fixes to bugs, and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/i18n/compare/3.0.0-beta.7...3.0.0" target="_blank">aurelia-i18n 3.0.0</a>
+</h3>
+<h4>Breaking Changes</h4>
+<ul>
+<li><strong>t-attribute:</strong> undefined and null bound values (
+<a href="https://github.com/aurelia/i18n/issues/314" target="_blank">#314</a>
+) (
+<a href="https://github.com/aurelia/i18n/commit/2a61ee7" target="_blank">2a61ee7</a>
+)</li>
+</ul>
+<p>Note that if the <code>keyExpr</code> in <code>t=&quot;keyExpr&quot;</code> or <code>t.bind=&quot;keyExpression&quot;</code> is evaluated to be <code>null</code>, <code>undefined</code>, or <code>0</code>, the translation will now fallback to an empty string. This is different than the previous behavior in the sense that previously the original content was preserved.</p>
+<p>What does this mean?</p>
+<p><strong>Scenario#1:</strong> The key expression is changed to <code>null</code>, <code>undefined</code>, or <code>0</code>.</p>
+<p>Previously the old content was left untouched.</p>
+
+<code-listing>
+  
+<source-code lang="HTML" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">t.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>key.expr<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span> <span class="token comment">&lt;!-- assuming key.expr is a valid string value the span will show the matching translation--></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Now if you set <code>key.expr = undefined</code>, previously the old translated content was not removed. Now an empty string will shown instead.</p>
+<p><strong>Scenario#2:</strong> Fallback for <code>null</code>, or <code>undefined</code> key works differently.</p>
+<p>Consider the following example.</p>
+
+<code-listing>
+  
+<source-code lang="HTML" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>keyExpr<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${value}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Previously if the <code>keyExpr</code> is evaluated to <code>null</code>, or <code>undefined</code>, the evaluated value of <code>value</code> worked as fallback. With the new release, this fallback technique won't work. A similar fallback can be achieved by using the <code>defaultValue</code> parameter though.</p>
+
+<code-listing>
+  
+<source-code lang="HTML" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>keyExpr<span class="token punctuation">"</span></span> <span class="token attr-name">t-params.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{defaultValue: value}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<h3>
+<a href="https://github.com/aurelia/dialog/compare/2.0.0-rc.8...2.0.0" target="_blank">aurelia-dialog 2.0.0</a>
+</h3>
+<p><strong>See previous pre-releases for changes from version 1.x.</strong></p>
+<h4>Bug Fixes</h4>
+<ul>
+<li>Fix dialog mouse event bug</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/pal-nodejs/compare/1.2.0...2.0.0" target="_blank">aurelia-pal-nodejs 2.0.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>platform:</strong> type mismatch (
+<a href="https://github.com/aurelia/pal-nodejs/commit/c823413" target="_blank">c823413</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li>update jsdom v15.0.0 to improve compatibility of browser simulation (
+<a href="https://github.com/aurelia/pal-nodejs/commit/dfc8b36" target="_blank">dfc8b36</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/1019" target="_blank">aurelia/cli#1019</a>
+</li>
+</ul>
+</section>
+<section><h2 id="minor-releases">Minor Releases</h2><p>Minor updates include new features, updates to bugs, and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/ux/compare/v0.17.2...v0.18.0" target="_blank">aurelia-ux 0.18.0</a>
+</h3>
+<p>Thanks to our new core team member 
+<a href="https://github.com/ben-girardet" target="_blank">Ben Girardet</a>
+, we've recently shipped a set of major improvements to Aurelia UX focused on theming and consistency across components.</p>
+<h4>Core</h4>
+<p>New properties available in <code>ux.design</code> :</p>
+<ul>
+<li><code>surfaceBackground</code>: set main surface background, especially for cards</li>
+<li><code>surfaceForeground</code>: set main surface foreground, especially for cards</li>
+<li><code>controlLabelColor</code>: set the default label color for all controls</li>
+<li><code>disabledBackground</code>: set the default background for all disabled states</li>
+<li><code>disabledForeground</code>: set the default foreground for all disabled states</li>
+<li><code>error</code>: set here the default error color</li>
+<li><code>onError</code>: available for when you need to write text on top of a surface using the <code>error</code> color. It is currently not used in Aurelia UX components</li>
+</ul>
+<h4>Input Controls</h4>
+<p>Components that act as an input control are now more consistent and can be themed like Material Design components. Here's what's available:</p>
+<p><em>Themable properties (same for all input-like components)</em></p>
+<ul>
+<li><code>foreground</code></li>
+<li><code>foregroundLabel</code></li>
+<li><code>background</code></li>
+<li><code>backgroundHover</code></li>
+<li><code>activeColor</code></li>
+<li><code>fontSize</code></li>
+<li><code>letterSpacing</code></li>
+<li><code>labelFontSize</code></li>
+<li><code>labelLetterSpacing</code></li>
+<li><code>lineHeight</code></li>
+<li><code>labelLineHeight</code></li>
+<li><code>borderColor</code></li>
+<li><code>borderRadius</code></li>
+<li><code>borderWidth</code></li>
+<li><code>borderActiveWidth</code></li>
+<li><code>disabledForeground</code></li>
+<li><code>disabledBackground</code></li>
+<li><code>error</code></li>
+</ul>
+<p><em>Filled, Outline, Dense</em></p>
+<ul>
+<li>change the style of the input with <code>filled</code> or <code>outline</code> variants
+<ul>
+<li>example: <code>&lt;ux-input variant=&quot;outline&quot;&gt;&lt;/ux-input&gt;</code></li>
+</ul>
+</li>
+<li>Reduce the visual impact of the input with <code>dense</code>
+<ul>
+<li>example: <code>&lt;ux-input dense&gt;&lt;/ux-input&gt;</code></li>
+</ul>
+</li>
+</ul>
+<p><em>Floating Labels or Placeholder</em></p>
+<ul>
+<li>Floating labels are the default way, but you can choose from below.</li>
+<li>Use the <code>label</code> bindable for floating labels</li>
+<li>Use the <code>placeholder</code> bindable for labels that disappear when field has a value</li>
+<li>Use the <code>&lt;ux-field&gt;&lt;label&gt;...&lt;/label&gt;&lt;ux-input&gt;...&lt;/ux-input&gt;&lt;/ux-field&gt;</code> markup for labels that stay on top of the field all the time</li>
+</ul>
+<p><em>Leading and Trailing Icons</em></p>
+<ul>
+<li>All input controls host leading and trailing icons slots. The trailing icon is deactivated for <code>ux-select</code> and <code>ux-datepicker</code> due to the arrow and calendar icons present in the control by default</li>
+<li>Example: <code>&lt;ux-input&gt;&lt;ux-icon icon=&quot;person&quot; slot=&quot;leading-icon&quot;&gt;&lt;/ux-input&gt;</code></li>
+</ul>
+<p><em>Affected components:</em></p>
+<ul>
+<li><code>ux-input</code></li>
+<li><code>ux-textarea</code></li>
+<li><code>ux-select</code></li>
+<li><code>ux-datepicker</code></li>
+<li><code>ux-chip-input</code></li>
+</ul>
+<h4>Button</h4>
+<ul>
+<li>Removed some theme properties: <code>flatBackground</code>, <code>flatForeground</code>, <code>textBackground</code>, <code>textForeground</code>, <code>outlineBackground</code> and <code>outlineBorder</code>. Each of these colors is now derived from <code>background</code> and <code>foreground</code> or <code>accentBackground</code> and <code>accentForeground</code>.</li>
+<li>Renamed <code>backgroundDisabled</code> and <code>foregroundDisabled</code> in <code>disabledBackground</code> and <code>disabledForeground</code> .</li>
+</ul>
+<h4>Card</h4>
+<p>New <code>ux-card-separator</code> component.</p>
+<ul>
+<li>This component makes it easy to add separator in cards (see Material Design guidelines).</li>
+<li>By default it adds a vertical margin (up and down) of the separator. You can disable this margin with <code>no-margin</code> attribute.</li>
+<li>You can include the separator between card parts (header and content for example) or inside the content. It will adjust its width accordingly.</li>
+</ul>
+<p>Defaults to surface colors</p>
+<ul>
+<li>Cards default color properties are now defaulted with the new <code>surfaceBackground</code> and <code>surfaceForeground</code> design properties.</li>
+</ul>
+<p>New <code>.ux-card__thumnail</code> class.</p>
+<h4>Checkbox and Radio</h4>
+<ul>
+<li>Removed <code>disableBorder</code> theme property.</li>
+<li>Replaces <code>checkedBackground</code> and <code>checkmarkColor</code> by <code>activeColor</code>.</li>
+<li>Add the <code>indeterminate</code> state.</li>
+</ul>
+<h4>Chip-Input</h4>
+<ul>
+<li>New <code>ux-chip-list</code> component.</li>
+<li><code>ux-chip-input</code> theme supports now all the new control theme properties.</li>
+<li><code>ux-chip</code> now has a <code>selected</code> state (bindable).</li>
+<li><code>ux-chip</code> also supports variants such as <code>filled</code> or <code>outline</code>.</li>
+<li><code>ux-chip</code> now has a <code>thumbnail</code> slot for icon or avatar purposes.</li>
+</ul>
+<h4>Slider</h4>
+<ul>
+<li>Add new <code>trackHeight</code> theme property.</li>
+<li>Mobile-friendly: now works with touch gestures.</li>
+</ul>
+<h4>New Custom Attributes</h4>
+<p>The new <code>ux-choice-container</code> and <code>ux-choice-item</code> can be used to make any markup act as a <code>selector</code> component. It works particularly well with <code>ux-list</code> or <code>ux-chip-list</code> but you can use them anywhere. Here are two examples:</p>
+
+<code-listing>
+  
+<source-code lang="html" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token comment">&lt;!-- bind a property to the ux-choice-container attribute to get the value of the choice --></span>
+  <span class="token comment">&lt;!-- bind a property to the ux-choice attribute to give it its choice value --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ux-chip-list</span> <span class="token attr-name">ux-choice-container.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>labelPosition<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ux-chip</span> <span class="token attr-name">variant</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>outline<span class="token punctuation">"</span></span> <span class="token attr-name">ux-choice</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>floating<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Floating<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ux-chip</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ux-chip</span> <span class="token attr-name">variant</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>outline<span class="token punctuation">"</span></span> <span class="token attr-name">ux-choice</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>placeholder<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Placeholder<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ux-chip</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ux-chip</span> <span class="token attr-name">variant</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>outline<span class="token punctuation">"</span></span> <span class="token attr-name">ux-choice</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>top<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>On Top<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ux-chip</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ux-chip-list</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing>
+  
+<source-code lang="html" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token comment">&lt;!-- If the bound property in ux-choice-container is an array, then the selector will allow multiple choices --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ux-chip-list</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>inline<span class="token punctuation">"</span></span> <span class="token attr-name">ux-choice-container.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>region<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ux-chip</span> <span class="token attr-name">variant.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>variant<span class="token punctuation">"</span></span> <span class="token attr-name">ux-choice</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>basel<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Basel<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ux-chip</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ux-chip</span> <span class="token attr-name">variant.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>variant<span class="token punctuation">"</span></span> <span class="token attr-name">ux-choice</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bern<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Bern<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ux-chip</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ux-chip</span> <span class="token attr-name">variant.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>variant<span class="token punctuation">"</span></span> <span class="token attr-name">ux-choice</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>geneva<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Geneva<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ux-chip</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ux-chip</span> <span class="token attr-name">variant.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>variant<span class="token punctuation">"</span></span> <span class="token attr-name">ux-choice</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>lausanne<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Lausanne<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ux-chip</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ux-chip</span> <span class="token attr-name">variant.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>variant<span class="token punctuation">"</span></span> <span class="token attr-name">ux-choice</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>zurich<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Zürich<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ux-chip</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ux-chip-list</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<h4>Icons</h4>
+<p>This version does not automatically import any icons by default. From now on, you must decide on a per-project basis what icon sets you want to use.</p>
+<p>Here are a few examples of how you can prepare your icon sets:</p>
+<p><em>1. Import full set when configuring the plugin</em></p>
+<p>As a quick start, you can import the same icon sets that were previously shipped with the package by configuring the plugin as such in your <code>main.ts</code></p>
+
+<code-listing>
+  
+<source-code lang="TypeScript" heading="">
+  <pre class="language-typescript">
+    <code>
+  <span class="token comment">// main.ts</span>
+  
+  <span class="token comment">/* Add this line to import the full set into an `icons` variable */</span>
+  <span class="token keyword">import</span> icons <span class="token keyword">from</span> <span class="token string">'@aurelia-ux/icons/sets/full-array.min.json'</span><span class="token punctuation">;</span>
+  
+  <span class="token comment">/* When you initialize the plugin, you can pass on this `icons` variable */</span>
+  aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'@aurelia-ux/icons'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> icons <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p><em>2. Lazy loading later</em></p>
+
+<code-listing>
+  
+<source-code lang="TypeScript" heading="">
+  <pre class="language-typescript">
+    <code>
+  <span class="token comment">// app.ts</span>
+  
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> inject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> UxIconMap <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@aurelia-ux/icons'</span><span class="token punctuation">;</span>
+  <span class="token comment">// here we import the full set from @aurelia-ux/icon but you can define any</span>
+  <span class="token comment">// icon set in the proper format (see below)</span>
+  <span class="token keyword">import</span> icons <span class="token keyword">from</span> <span class="token string">'@aurelia-ux/icons/sets/full-array.min.json'</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">inject</span><span class="token punctuation">(</span>UxIconMap<span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> iconMap<span class="token punctuation">:</span> UxIconMap<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      iconMap<span class="token punctuation">.</span><span class="token function">registerIcons</span><span class="token punctuation">(</span>icons<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p><em>3. Import Font Awesome Icons</em></p>
+<p>If you want to use Font Awesome icons, you can use them inside the <code>&lt;ux-icon&gt;</code> component. First you need to install the icons like:</p>
+
+<code-listing>
+  
+<source-code lang="Shell" heading="">
+  <pre class="language-powershell">
+    <code>
+  npm install @fortawesome<span class="token operator">/</span>fontawesome<span class="token operator">-</span>free
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Then you can import them like so:</p>
+
+<code-listing>
+  
+<source-code lang="TypeScript" heading="">
+  <pre class="language-typescript">
+    <code>
+  <span class="token comment">// app.ts</span>
+  
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> inject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> UxIconMap<span class="token punctuation">,</span> UxIconRegArray <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@aurelia-ux/icons'</span><span class="token punctuation">;</span>
+  
+  <span class="token comment">// You can import any font awesome set like so.</span>
+  <span class="token comment">// They will all become available in the ux-icon component</span>
+  <span class="token keyword">import</span> <span class="token string">'@fortawesome/fontawesome-free/js/brands'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token string">'@fortawesome/fontawesome-free/js/regular'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">const</span> w <span class="token operator">=</span> <span class="token punctuation">(</span>window <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  @<span class="token function">inject</span><span class="token punctuation">(</span>UxIconMap<span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> uxIconMap<span class="token punctuation">:</span> UxIconMap<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>w<span class="token punctuation">.</span>___FONT_AWESOME___ <span class="token operator">&amp;&amp;</span> w<span class="token punctuation">.</span>___FONT_AWESOME___<span class="token punctuation">.</span>styles<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">type</span> FabIcon <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token builtin">number</span><span class="token punctuation">,</span> <span class="token builtin">number</span><span class="token punctuation">,</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">></span><span class="token punctuation">,</span> <span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">string</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> fKey <span class="token keyword">in</span> <span class="token punctuation">(</span>window <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span>___FONT_AWESOME___<span class="token punctuation">.</span>styles<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">let</span> fIcons<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">[</span>key<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">]</span><span class="token punctuation">:</span> FabIcon<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token punctuation">(</span>window <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span>___FONT_AWESOME___<span class="token punctuation">.</span>styles<span class="token punctuation">[</span>fKey<span class="token punctuation">]</span><span class="token punctuation">;</span>
+          <span class="token keyword">let</span> fSet<span class="token punctuation">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span>UxIconRegArray<span class="token operator">></span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+          <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> iconKey <span class="token keyword">in</span> fIcons<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> icon <span class="token operator">=</span> fIcons<span class="token punctuation">[</span>iconKey<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            fSet<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">[</span>iconKey<span class="token punctuation">,</span> <span class="token template-string"><span class="token string">`&lt;path d="</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>icon<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">"/>&lt;/svg>`</span></span><span class="token punctuation">,</span> icon<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> icon<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>uxIconMap<span class="token punctuation">.</span><span class="token function">registerIcons</span><span class="token punctuation">(</span>fSet<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p><em>Registered icon list</em></p>
+<p>You can get the list of all registered icons by calling <code>iconMap.getAllKeys()</code> which will return an <code>Array&lt;string&gt;</code> with all icon names. Knowing this, you could add the following code to your template to have a preview of all your registered icons with their names:</p>
+
+<code-listing>
+  
+<source-code lang="HTML" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ux-grid</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ux-card</span> <span class="token attr-name">sm</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>name of uxIconMap.getAllKeys()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ux-icon</span> <span class="token attr-name">icon</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>${name}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ux-icon</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">></span></span>${name}
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ux-card</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ux-grid</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p><em>Icon Set Format</em></p>
+<p>You can register icons in an <em>object</em> or <em>array</em> form. The array form is slightly lighter.</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token comment">// array form</span>
+  <span class="token punctuation">[</span>
+    <span class="token punctuation">[</span>
+      <span class="token string">"person"</span><span class="token punctuation">,</span> <span class="token comment">// icon name</span>
+      <span class="token string">"&lt;path d=\"M12 ...\">&lt;/path>"</span><span class="token punctuation">,</span> <span class="token comment">// svg path (without the svg tag)</span>
+      <span class="token number">24</span><span class="token punctuation">,</span> <span class="token comment">// optional (viewport width, default to 24)</span>
+      <span class="token number">24</span> <span class="token comment">// optional (viewport height, default to 24)</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span>
+      <span class="token string">"other-icon-name"</span><span class="token punctuation">,</span>
+      <span class="token string">"&lt;path>...&lt;/path"</span><span class="token operator">></span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token operator">...</span>
+  <span class="token punctuation">]</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token comment">// object form</span>
+  <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"person"</span><span class="token punctuation">,</span> <span class="token comment">// icon name</span>
+      <span class="token string">"svg"</span><span class="token punctuation">:</span> <span class="token string">"&lt;svg viewBox=\"0 0 24 24\">&lt;path d=\"M12 ...\">&lt;/path>&lt;/svg>"</span> <span class="token comment">// svg path (with the svg tag)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p><em>Importing JSON</em></p>
+<p>Note for TypeScript users: Make sure that your <code>tsconfig.json</code> is set to allow importing JSON files. This can be achieved by setting <code>&quot;resolveJsonModule&quot;: true</code> in the <code>compilerOptions</code> section.</p>
+<h3>
+<a href="https://github.com/aurelia/store/compare/1.5.0...1.6.0" target="_blank">aurelia-store 1.6.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>devtools:</strong> basic dispatcher support (
+<a href="https://github.com/aurelia/store/commit/ca97e85" target="_blank">ca97e85</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/store/compare/1.4.0...1.5.0" target="_blank">aurelia-store 1.5.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>devtools:</strong> implement redux devtools button handling (
+<a href="https://github.com/aurelia/store/issues/104" target="_blank">#104</a>
+) (
+<a href="https://github.com/aurelia/store/commit/86b7eda" target="_blank">86b7eda</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/templating-resources/compare/1.12.0...1.13.0" target="_blank">aurelia-templating-resources 1.13.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>all:</strong> change package.json module from es2015 back to native-modules (
+<a href="https://github.com/aurelia/templating-resources/commit/6a8f0c8" target="_blank">6a8f0c8</a>
+)</li>
+<li><strong>repeat:</strong> use utility fns for ie11 compat (
+<a href="https://github.com/aurelia/templating-resources/commit/a59a2de" target="_blank">a59a2de</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/cli/compare/1.2.3...1.3.0" target="_blank">aurelia-cli 1.3.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li>missing semicolon in ts skeleton (
+<a href="https://github.com/aurelia/cli/commit/5661b23" target="_blank">5661b23</a>
+)</li>
+<li><strong>cli-bundler:</strong> avoid writing out webpack env json files (
+<a href="https://github.com/aurelia/cli/commit/5893a67" target="_blank">5893a67</a>
+)</li>
+<li><strong>docker:</strong> only copy config folder for webpack projs (
+<a href="https://github.com/aurelia/cli/commit/d560a4d" target="_blank">d560a4d</a>
+)</li>
+<li><strong>protractor:</strong> fix chrome-driver issue on visible chrome too (
+<a href="https://github.com/aurelia/cli/commit/f45a7a9" target="_blank">f45a7a9</a>
+)</li>
+<li><strong>tasks:</strong> update-all-dependencies should mutate original file, not dist file (
+<a href="https://github.com/aurelia/cli/commit/ec3a743" target="_blank">ec3a743</a>
+)</li>
+<li><strong>webpack:</strong> clean-webpack-plugin changed export (
+<a href="https://github.com/aurelia/cli/commit/273a1f4" target="_blank">273a1f4</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>webpack:</strong> show aurelia-dialog patch for IE11 issue (
+<a href="https://github.com/aurelia/cli/commit/ff13245" target="_blank">ff13245</a>
+)</li>
+</ul>
+</section>
+<section><h2 id="patch-releases">Patch Releases</h2><p>Patch updates include only fixes to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/templating/compare/1.10.1...1.10.3" target="_blank">aurelia-templating 1.10.3</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>all:</strong> change es2015 back to native-modules (
+<a href="https://github.com/aurelia/templating/commit/ea50719" target="_blank">ea50719</a>
+)</li>
+<li><strong>ElementEvents:</strong> ElementEvents.defaultListenerOptions allows to set default options when subscribing to events (
+<a href="https://github.com/aurelia/templating/commit/f7e8e32" target="_blank">f7e8e32</a>
+), closes 
+<a href="https://github.com/aurelia/templating/issues/657" target="_blank">#657</a>
+</li>
+<li><strong>shadow-dom:</strong> prevent slot leak (
+<a href="https://github.com/aurelia/templating/issues/678" target="_blank">#678</a>
+) (
+<a href="https://github.com/aurelia/templating/commit/9241dca" target="_blank">9241dca</a>
+)</li>
+</ul>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%20Release%20Notes%20-%20March%202020" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2020%2F03%2F02%2Faurelia-release-notes-march-2020"></blog-footer>
+</section>

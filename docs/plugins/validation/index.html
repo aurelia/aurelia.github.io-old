@@ -417,6 +417,44 @@
 </source-code>
   
 </code-listing>
+<h4>Changing the default Validate Trigger</h4>
+<p>You can configure the default validation trigger that every controller uses without having to change each controller yourself. You can access the validation configuration when you register the validation plugin during bootstrapping.</p>
+
+<code-listing heading="Configuring the default validate trigger">
+  
+<source-code lang="JavaScript" heading="Configuring the default validate trigger">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>validateTrigger<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-validation"</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-validation"</span><span class="token punctuation">,</span> config <span class="token operator">=></span> <span class="token punctuation">{</span>
+      config<span class="token punctuation">.</span><span class="token function">defaultValidationTrigger</span><span class="token punctuation">(</span>validateTrigger<span class="token punctuation">.</span>manual<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing heading="Configuring the default validate trigger">
+  
+<source-code lang="TypeScript" heading="Configuring the default validate trigger">
+  <pre class="language-typescript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span>GlobalValidationConfiguration<span class="token punctuation">,</span> validateTrigger<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-validation"</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-validation"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>config<span class="token punctuation">:</span> GlobalValidationConfiguration<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      config<span class="token punctuation">.</span><span class="token function">defaultValidationTrigger</span><span class="token punctuation">(</span>validateTrigger<span class="token punctuation">.</span>manual<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
 <h3>validate &amp; reset</h3>
 <p>You can force the validation controller to run validation by invoking the <code>validate()</code> method. Validate will run the validation, render the results and return a <code>Promise</code> that resolves with a <code>ControllerValidateResult</code> instance. <em>The promise will only reject when there is an unexpected application error. Be sure to catch these rejections like you would any other unexpected application error.</em></p>
 <p>Invoking the validate method with no arguments will validate all bindings and objects registered with the controller. You can supply a validate instruction to limit the validation to a specific object, property and ruleset:</p>

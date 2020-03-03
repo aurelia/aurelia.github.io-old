@@ -143,6 +143,9 @@ When the <code>&lt;body&gt;</code> is marked with the <code>aurelia-app</code> a
 <div class="warning"><div class="icon"> <i></i> </div><p>
 <code>PLATFORM.moduleName</code> should <em>not</em> be omitted if you are using <em>Webpack</em>.</p>
 </div>
+<div class="warning"><div class="icon"> <i></i> </div><p>
+When using <em>Webpack</em> and <em>IE11</em> you will need this <em>alias</em> <code>'aurelia-dialog': path.resolve(__dirname, 'node_modules/aurelia-dialog/dist/umd/dialog-aurelia.js')</code> added to the <em>Resolve</em> section of your <code>webpack.config.js</code>.</p>
+</div>
 </section>
 <section><h2 id="using-the-plugin">Using The Plugin</h2><p>There are a few ways you can take advantage of the Aurelia dialog.</p>
 <ol>
