@@ -356,7 +356,7 @@
 <p>Both techniques create a new instance of a <code>ValidationController</code> and register the instance in the component's container enabling other components in the validation library to access the approriate controller instance without needing a lot of boilerplate code or markup.</p>
 <p>If you'd like to be completely explicit when wiring up controllers with view models and bindings, or if you need to use multiple controllers in your component, you can use the <code>Factory</code> resolver or the <code>ValidationControllerFactory</code>'s <code>create</code> method to create controller instances. Using these approaches will not automatically register the controller instance in the container which will prevent the automatic wire-up of controllers with bindings and renderers and will force you to specify the controller instance in your bindings and add renderers to the controller manually.</p>
 <h3>Setting the Validate Trigger</h3>
-<p>Once you've created a controller you can set its <code>validationTrigger</code> to either <code>blur</code>, <code>change</code>, <code>changeOrBlur</code> or <code>manual</code>. The default is <code>blur</code> which means the validation controller will validate the property accessed in a binding when the binding's associated element &quot;blurs&quot; (loses focus).</p>
+<p>Once you've created a controller you can set its <code>validationTrigger</code> to either <code>blur</code>, <code>focusout</code>, <code>change</code>, <code>changeOrBlur</code>, <code>changeOrFocusout</code>, or <code>manual</code>. The default is <code>blur</code> which means the validation controller will validate the property accessed in a binding when the binding's associated element &quot;blurs&quot; (loses focus).</p>
 <p>When the trigger is <code>change</code>, each change the binding makes to the model property will trigger validation of the property. Use the <code>throttle</code>, <code>debounce</code> and <code>updateTrigger</code> binding behaviors in conjunction with the <code>change</code> validate trigger to customize the behavior.</p>
 <p>Use the <code>manual</code> trigger to indicate the controller should not automatically validate properties used in bindings. Errors will only be displayed when you invoke the controller's <code>validate</code> method and will be cleared when you invoke the controller's <code>reset</code> method.</p>
 
@@ -538,13 +538,18 @@
 </source-code>
   
 </code-listing>
-<p>The <code>validate</code> binding behavior obeys the associated controller's <code>validateTrigger</code> (<code>blur</code>, <code>change</code>, <code>changeOrBlur</code>, <code>manual</code>). If you'd like to use a different <code>validateTrigger</code> in a particular binding use one of the following binding behaviors in place of <code>&amp; validate</code>:</p>
+<p>The <code>validate</code> binding behavior obeys the associated controller's <code>validateTrigger</code> (<code>blur</code>, <code>focusout</code>, <code>change</code>, <code>changeOrBlur</code>, <code>changeOrFocusout</code>, <code>manual</code>). If you'd like to use a different <code>validateTrigger</code> in a particular binding use one of the following binding behaviors in place of <code>&amp; validate</code>:</p>
 <ul>
 <li><code>&amp; validateOnBlur</code>: the DOM blur event triggers validation.</li>
+<li><code>&amp; validateOnFocusout</code>: the DOM focusout event triggers validation.</li>
 <li><code>&amp; validateOnChange</code>: data entry that changes the model triggers validation.</li>
 <li><code>&amp; validateOnChangeOrBlur</code>: DOM blur or data entry triggers validation.</li>
+<li><code>&amp; validateOnChangeOrFocusout</code>: DOM focusout or data entry triggers validation.</li>
 <li><code>&amp; validateManually</code>: the binding is not validated automatically when the associated element is blurred or changed by the user.</li>
 </ul>
+<blockquote>
+<p><strong>Note</strong>: As of v2.x of this plugin, there has been a change in the behavior of <code>validateOnchangeOrEVENT</code> triggers. The change-triggered validation is ineffective till the associated property is validated once, either by manually calling   <code>ValidationController#validate</code> or by event-triggered (blur or focusout) validation. This prevents showing validation failure message immediately in case of an incomplete input, which might be the case if validation is triggered for every change. Note the distinction made between <em>incomplete</em> and <em>invalid</em> input. The event-triggered validation is ineffective until the property is dirty; i.e. any changes were made to the property. This prevents showing a validation failure message when there is a blur or focusout event without changing the property.</p>
+</blockquote>
 </section>
 <section><h2 id="displaying-errors">Displaying Errors</h2><p>The controller exposes properties that are useful for creating error UIs using standard Aurelia templating techniques:</p>
 <ul>

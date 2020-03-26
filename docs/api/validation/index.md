@@ -739,6 +739,58 @@ a change to the model.
 
 
 
+### ValidateOnChangeOrFocusoutBindingBehavior
+
+No description available.
+
+#### Properties
+
+* `static inject: ` - No description available.
+
+#### Methods
+
+
+* `bind(binding: any, source: any, rulesOrController?: , rules?: any): void` - 
+  * `binding: any` - No description available
+  * `source: any` - No description available
+  * `rulesOrController?: ` - No description available
+  * `rules?: any` - No description available
+
+
+* `getValidateTrigger(): validateTrigger` - 
+
+
+* `unbind(binding: any): void` - 
+  * `binding: any` - No description available
+
+
+
+### ValidateOnFocusoutBindingBehavior
+
+No description available.
+
+#### Properties
+
+* `static inject: ` - No description available.
+
+#### Methods
+
+
+* `bind(binding: any, source: any, rulesOrController?: , rules?: any): void` - 
+  * `binding: any` - No description available
+  * `source: any` - No description available
+  * `rulesOrController?: ` - No description available
+  * `rules?: any` - No description available
+
+
+* `getValidateTrigger(): validateTrigger` - 
+
+
+* `unbind(binding: any): void` - 
+  * `binding: any` - No description available
+
+
+
 ### ValidateResult
 
 The result of validating an individual validation rule.
