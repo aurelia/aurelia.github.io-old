@@ -270,7 +270,7 @@
   },
   "search": true,
   "footer": {
-    "copyright": "Copyright © 2010 - 2019 <a href=\"http://www.bluespire.com\">Blue Spire Inc.</a> Code licensed under the MIT License. Content licensed under CC0.",
+    "copyright": "Copyright © 2010 - 2020 <a href=\"http://www.bluespire.com\">Blue Spire Inc.</a> Code licensed under the MIT License. Content licensed under CC0.",
     "columns": [
       {
         "name":"Resources",
