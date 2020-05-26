@@ -100,170 +100,170 @@
     ]
   },
   "docs": {
-    "articleSrc": "../documentation/current/en-us",
+    "articleSrc": "./dep_repos/documentation/current/en-us",
     "api": [
       {
-        "name": "Binding",
-        "package": "../binding/package.json",
-        "src": "../binding/dist/aurelia-binding.d.ts",
+        "name": "aurelia-binding",
+        "package": "./node_modules/aurelia-binding/package.json",
+        "src": "./node_modules/aurelia-binding/dist/aurelia-binding.d.ts",
         "dest": "docs/api/binding",
-        "exampleSrc": "../binding/doc/example-dist",
+        "exampleSrc": "./node_modules/aurelia-binding/doc/example-dist",
         "exampleDest": "example"
       },
       {
-        "name": "Bootstrapper",
-        "package": "../bootstrapper/package.json",
-        "src": "../bootstrapper/dist/aurelia-bootstrapper.d.ts",
+        "name": "aurelia-bootstrapper",
+        "package": "./node_modules/aurelia-bootstrapper/package.json",
+        "src": "./node_modules/aurelia-bootstrapper/dist/aurelia-bootstrapper.d.ts",
         "dest": "docs/api/bootstrapper"
       },
       {
-        "name": "Dependency Injection",
-        "package": "../dependency-injection/package.json",
-        "src": "../dependency-injection/dist/aurelia-dependency-injection.d.ts",
+        "name": "aurelia-dependency-injection",
+        "package": "./node_modules/aurelia-dependency-injection/package.json",
+        "src": "./node_modules/aurelia-dependency-injection/dist/aurelia-dependency-injection.d.ts",
         "dest": "docs/api/dependency-injection"
       },
       {
-        "name": "Dialog",
-        "package": "../dialog/package.json",
-        "src": "../dialog/dist/types/aurelia-dialog.d.ts",
+        "name": "aurelia-dialog",
+        "package": "./node_modules/aurelia-dialog/package.json",
+        "src": "./node_modules/aurelia-dialog/dist/types/aurelia-dialog.d.ts",
         "dest": "docs/api/dialog"
       },
       {
-        "name": "Event Aggregator",
-        "package": "../event-aggregator/package.json",
-        "src": "../event-aggregator/dist/aurelia-event-aggregator.d.ts",
+        "name": "aurelia-event-aggregator",
+        "package": "./node_modules/aurelia-event-aggregator/package.json",
+        "src": "./node_modules/aurelia-event-aggregator/dist/aurelia-event-aggregator.d.ts",
         "dest": "docs/api/event-aggregator"
       },
       {
-        "name": "Fetch",
-        "package": "../fetch-client/package.json",
-        "src": "../fetch-client/dist/aurelia-fetch-client.d.ts",
+        "name": "aurelia-fetch-client",
+        "package": "./node_modules/aurelia-fetch-client/package.json",
+        "src": "./node_modules/aurelia-fetch-client/dist/aurelia-fetch-client.d.ts",
         "dest": "docs/api/fetch-client"
       },
       {
-        "name": "Framework",
-        "package": "../framework/package.json",
-        "src": "../framework/dist/aurelia-framework.d.ts",
+        "name": "aurelia-framework",
+        "package": "./node_modules/aurelia-framework/package.json",
+        "src": "./node_modules/aurelia-framework/dist/aurelia-framework.d.ts",
         "dest": "docs/api/framework"
       },
       {
-        "name": "History",
-        "package": "../history/package.json",
-        "src": "../history/dist/aurelia-history.d.ts",
+        "name": "aurelia-history",
+        "package": "./node_modules/aurelia-history/package.json",
+        "src": "./node_modules/aurelia-history/dist/aurelia-history.d.ts",
         "dest": "docs/api/history"
       },
       {
-        "name": "History-Browser",
-        "package": "../history-browser/package.json",
-        "src": "../history-browser/dist/aurelia-history-browser.d.ts",
+        "name": "aurelia-history-browser",
+        "package": "./node_modules/aurelia-history-browser/package.json",
+        "src": "./node_modules/aurelia-history-browser/dist/aurelia-history-browser.d.ts",
         "dest": "docs/api/history-browser"
       },
       {
-        "name": "I18N",
-        "package": "../i18n/package.json",
-        "src": "../i18n/dist/aurelia-i18n.d.ts",
+        "name": "aurelia-i18n",
+        "package": "./node_modules/aurelia-i18n/package.json",
+        "src": "./node_modules/aurelia-i18n/dist/aurelia-i18n.d.ts",
         "dest": "docs/api/i18n"
       },
       {
-        "name": "Loader",
-        "package": "../loader/package.json",
-        "src": "../loader/dist/aurelia-loader.d.ts",
+        "name": "aurelia-loader",
+        "package": "./node_modules/aurelia-loader/package.json",
+        "src": "./node_modules/aurelia-loader/dist/aurelia-loader.d.ts",
         "dest": "docs/api/loader"
       },
       {
-        "name": "Loader-Default",
-        "package": "../loader-default/package.json",
-        "src": "../loader-default/dist/aurelia-loader-default.d.ts",
+        "name": "aurelia-loader-default",
+        "package": "./node_modules/aurelia-loader-default/package.json",
+        "src": "./node_modules/aurelia-loader-default/dist/aurelia-loader-default.d.ts",
         "dest": "docs/api/loader-default"
       },
       {
-        "name": "Logging",
-        "package": "../logging/package.json",
-        "src": "../logging/dist/aurelia-logging.d.ts",
+        "name": "aurelia-logging",
+        "package": "./node_modules/aurelia-logging/package.json",
+        "src": "./node_modules/aurelia-logging/dist/aurelia-logging.d.ts",
         "dest": "docs/api/logging"
       },
       {
-        "name": "Logging-Console",
-        "package": "../logging-console/package.json",
-        "src": "../logging-console/dist/aurelia-logging-console.d.ts",
+        "name": "aurelia-logging-console",
+        "package": "./node_modules/aurelia-logging-console/package.json",
+        "src": "./node_modules/aurelia-logging-console/dist/aurelia-logging-console.d.ts",
         "dest": "docs/api/logging-console"
       },
       {
-        "name": "Metadata",
-        "package": "../metadata/package.json",
-        "src": "../metadata/dist/aurelia-metadata.d.ts",
+        "name": "aurelia-metadata",
+        "package": "./node_modules/aurelia-metadata/package.json",
+        "src": "./node_modules/aurelia-metadata/dist/aurelia-metadata.d.ts",
         "dest": "docs/api/metadata"
       },
       {
-        "name": "Platform Abstraction Layer (PAL)",
-        "package": "../pal/package.json",
-        "src": "../pal/dist/aurelia-pal.d.ts",
+        "name": "aurelia-pal",
+        "package": "./node_modules/aurelia-pal/package.json",
+        "src": "./node_modules/aurelia-pal/dist/aurelia-pal.d.ts",
         "dest": "docs/api/pal"
       },
       {
-        "name": "PAL-Browser",
-        "package": "../pal-browser/package.json",
-        "src": "../pal-browser/dist/aurelia-pal-browser.d.ts",
+        "name": "aurelia-pal-browser",
+        "package": "./node_modules/aurelia-pal-browser/package.json",
+        "src": "./node_modules/aurelia-pal-browser/dist/aurelia-pal-browser.d.ts",
         "dest": "docs/api/pal-browser"
       },
       {
-        "name": "Path",
-        "package": "../path/package.json",
-        "src": "../path/dist/aurelia-path.d.ts",
+        "name": "aurelia-path",
+        "package": "./node_modules/aurelia-path/package.json",
+        "src": "./node_modules/aurelia-path/dist/aurelia-path.d.ts",
         "dest": "docs/api/path"
       },
       {
-        "name": "Route Recognizer",
-        "package": "../route-recognizer/package.json",
-        "src": "../route-recognizer/dist/aurelia-route-recognizer.d.ts",
+        "name": "aurelia-route-recognizer",
+        "package": "./node_modules/aurelia-route-recognizer/package.json",
+        "src": "./node_modules/aurelia-route-recognizer/dist/aurelia-route-recognizer.d.ts",
         "dest": "docs/api/route-recognizer"
       },
       {
-        "name": "Router",
-        "package": "../router/package.json",
-        "src": "../router/dist/aurelia-router.d.ts",
+        "name": "aurelia-router",
+        "package": "./node_modules/aurelia-router/package.json",
+        "src": "./node_modules/aurelia-router/dist/aurelia-router.d.ts",
         "dest": "docs/api/router"
       },
       {
-        "name": "Task Queue",
-        "package": "../task-queue/package.json",
-        "src": "../task-queue/dist/aurelia-task-queue.d.ts",
+        "name": "aurelia-task-queue",
+        "package": "./node_modules/aurelia-task-queue/package.json",
+        "src": "./node_modules/aurelia-task-queue/dist/aurelia-task-queue.d.ts",
         "dest": "docs/api/task-queue"
       },
       {
-        "name": "Templating",
-        "package": "../templating/package.json",
-        "src": "../templating/dist/aurelia-templating.d.ts",
+        "name": "aurelia-templating",
+        "package": "./node_modules/aurelia-templating/package.json",
+        "src": "./node_modules/aurelia-templating/dist/aurelia-templating.d.ts",
         "dest": "docs/api/templating"
       },
       {
-        "name": "Templating-Binding",
-        "package": "../templating-binding/package.json",
-        "src": "../templating-binding/dist/aurelia-templating-binding.d.ts",
+        "name": "aurelia-templating-binding",
+        "package": "./node_modules/aurelia-templating-binding/package.json",
+        "src": "./node_modules/aurelia-templating-binding/dist/aurelia-templating-binding.d.ts",
         "dest": "docs/api/templating-binding"
       },
       {
-        "name": "Templating-Resources",
-        "package": "../templating-resources/package.json",
-        "src": "../templating-resources/dist/aurelia-templating-resources.d.ts",
+        "name": "aurelia-templating-resources",
+        "package": "./node_modules/aurelia-templating-resources/package.json",
+        "src": "./node_modules/aurelia-templating-resources/dist/aurelia-templating-resources.d.ts",
         "dest": "docs/api/templating-resources"
       },
       {
-        "name": "Templating-Router",
-        "package": "../templating-router/package.json",
-        "src": "../templating-router/dist/aurelia-templating-router.d.ts",
+        "name": "aurelia-templating-router",
+        "package": "./node_modules/aurelia-templating-router/package.json",
+        "src": "./node_modules/aurelia-templating-router/dist/aurelia-templating-router.d.ts",
         "dest": "docs/api/templating-router"
       },
       {
-        "name": "Testing",
-        "package": "../testing/package.json",
-        "src": "../testing/dist/commonjs/aurelia-testing.d.ts",
+        "name": "aurelia-testing",
+        "package": "./node_modules/aurelia-testing/package.json",
+        "src": "./node_modules/aurelia-testing/dist/commonjs/aurelia-testing.d.ts",
         "dest": "docs/api/testing"
       },
       {
-        "name": "Validation",
-        "package": "../validation/package.json",
-        "src": "../validation/dist/aurelia-validation.d.ts",
+        "name": "aurelia-validation",
+        "package": "./node_modules/aurelia-validation/package.json",
+        "src": "./node_modules/aurelia-validation/dist/aurelia-validation.d.ts",
         "dest": "docs/api/validation"
       }
     ]
