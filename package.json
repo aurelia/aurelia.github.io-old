@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "aurelia-site-generator": "aurelia/site-generator",
+    "aurelia-binding": "latest",
+    "aurelia-bootstrapper": "latest",
+    "aurelia-dependency-injection": "latest",
+    "aurelia-dialog": "latest",
+    "aurelia-event-aggregator": "latest",
+    "aurelia-fetch-client": "latest",
+    "aurelia-framework": "latest",
+    "aurelia-history": "latest",
+    "aurelia-history-browser": "latest",
+    "aurelia-i18n": "latest",
+    "aurelia-loader": "latest",
+    "aurelia-loader-default": "latest",
+    "aurelia-logging": "latest",
+    "aurelia-logging-console": "latest",
+    "aurelia-metadata": "latest",
+    "aurelia-pal": "latest",
+    "aurelia-pal-browser": "latest",
+    "aurelia-path": "latest",
+    "aurelia-route-recognizer": "latest",
+    "aurelia-router": "latest",
+    "aurelia-task-queue": "latest",
+    "aurelia-templating": "latest",
+    "aurelia-templating-binding": "latest",
+    "aurelia-templating-resources": "latest",
+    "aurelia-templating-router": "latest",
+    "aurelia-testing": "latest",
+    "aurelia-validation": "latest"
+  }
+}
