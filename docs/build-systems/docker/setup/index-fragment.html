@@ -25,7 +25,7 @@
   <pre class="language-javascript">
     <code>
   # use latest version <span class="token keyword">of</span> nodejs
-  <span class="token constant">FROM</span> node<span class="token punctuation">:</span>lts<span class="token operator">-</span>alpine
+  <span class="token constant">FROM</span> node<span class="token operator">:</span>lts<span class="token operator">-</span>alpine
   
   # install aurelia<span class="token operator">-</span>cli to build the app <span class="token operator">&amp;</span> http<span class="token operator">-</span>server to serve <span class="token keyword">static</span> contents
   <span class="token constant">RUN</span> npm i <span class="token operator">-</span>g http<span class="token operator">-</span>server
@@ -99,7 +99,7 @@
   <pre class="language-javascript">
     <code>
   # use latest version <span class="token keyword">of</span> nodejs
-  <span class="token constant">FROM</span> node<span class="token punctuation">:</span>lts<span class="token operator">-</span>alpine <span class="token keyword">as</span> build<span class="token operator">-</span>stage
+  <span class="token constant">FROM</span> node<span class="token operator">:</span>lts<span class="token operator">-</span>alpine <span class="token keyword">as</span> build<span class="token operator">-</span>stage
   
   # install aurelia<span class="token operator">-</span>cli to build the app <span class="token operator">&amp;</span> http<span class="token operator">-</span>server to serve <span class="token keyword">static</span> contents
   <span class="token constant">RUN</span> npm i <span class="token operator">-</span>g http<span class="token operator">-</span>server
@@ -118,7 +118,7 @@
   <span class="token constant">RUN</span> npm run build
   
   # use nginx <span class="token keyword">as</span> the http server to serve contents
-  <span class="token constant">FROM</span> nginx<span class="token punctuation">:</span>alpine <span class="token keyword">as</span> production<span class="token operator">-</span>stage
+  <span class="token constant">FROM</span> nginx<span class="token operator">:</span>alpine <span class="token keyword">as</span> production<span class="token operator">-</span>stage
   <span class="token constant">WORKDIR</span> <span class="token operator">/</span>usr<span class="token operator">/</span>share<span class="token operator">/</span>nginx<span class="token operator">/</span>html
   # copy files <span class="token keyword">from</span> previous container<span class="token operator">/</span>stage into the <span class="token keyword">new</span> <span class="token class-name">one</span>
   # <span class="token keyword">from</span> <span class="token operator">/</span>app<span class="token operator">/</span>dist to working directory
@@ -199,7 +199,7 @@ Don't forget to read the official documentation of docker for
 <source-code lang="bash" heading="">
   <pre class="language-javascript">
     <code>
-  npm run docker<span class="token punctuation">:</span>stop
+  npm run docker<span class="token operator">:</span>stop
   </code>
   </pre>
 </source-code>

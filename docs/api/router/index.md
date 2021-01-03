@@ -1,4 +1,4 @@
-# Router Module
+# aurelia-router Module
 
 > A powerful client-side router.
 

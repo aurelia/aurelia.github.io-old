@@ -1,4 +1,4 @@
-# Event Aggregator Module
+# aurelia-event-aggregator Module
 
 > A lightweight pub/sub messaging system for app-wide or per-object loosely coupled events.
 

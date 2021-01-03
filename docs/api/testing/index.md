@@ -1,4 +1,4 @@
-# Testing Module
+# aurelia-testing Module
 
 > A collection of helpers for testing Aurelia apps and components.
 

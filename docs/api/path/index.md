@@ -1,4 +1,4 @@
-# Path Module
+# aurelia-path Module
 
 > Utilities for path manipulation.
 

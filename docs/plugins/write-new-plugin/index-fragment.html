@@ -44,7 +44,7 @@ We don't provide plugin skeleton with dev-app in webpack setup, not yet. We use 
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
   
-  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     config<span class="token punctuation">.</span><span class="token function">globalResources</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
       <span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'./elements/hello-world'</span><span class="token punctuation">)</span>
     <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -60,7 +60,7 @@ We don't provide plugin skeleton with dev-app in webpack setup, not yet. We use 
   <span class="token keyword">import</span> <span class="token punctuation">{</span>FrameworkConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
   
-  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token punctuation">:</span> FrameworkConfiguration<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token operator">:</span> FrameworkConfiguration<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     config<span class="token punctuation">.</span><span class="token function">globalResources</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
       <span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'./elements/hello-world'</span><span class="token punctuation">)</span>
     <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -160,7 +160,7 @@ Note <code>globalResources</code> isn't the only method you can use. You can use
   
   @<span class="token function">inject</span><span class="token punctuation">(</span>MyService<span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-    <span class="token function">constructor</span><span class="token punctuation">(</span>myService<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">myService</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>myService <span class="token operator">=</span> myService<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
@@ -178,7 +178,7 @@ Note <code>globalResources</code> isn't the only method you can use. You can use
   
   @<span class="token function">autoinject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span>myService<span class="token punctuation">:</span> MyService<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>myService<span class="token operator">:</span> MyService<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -323,10 +323,10 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
 <source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"scripts"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  <span class="token string">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token comment">// ...</span>
-    <span class="token string">"version"</span><span class="token punctuation">:</span> <span class="token string">"standard-changelog &amp;&amp; git add CHANGELOG.md"</span><span class="token punctuation">,</span>
-    <span class="token string">"postversion"</span><span class="token punctuation">:</span> <span class="token string">"git push &amp;&amp; git push --tags &amp;&amp; npm publish"</span>
+    <span class="token string">"version"</span><span class="token operator">:</span> <span class="token string">"standard-changelog &amp;&amp; git add CHANGELOG.md"</span><span class="token punctuation">,</span>
+    <span class="token string">"postversion"</span><span class="token operator">:</span> <span class="token string">"git push &amp;&amp; git push --tags &amp;&amp; npm publish"</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   </code>
   </pre>
@@ -345,9 +345,9 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
 <source-code lang="JavaScript" heading="index.js">
   <pre class="language-javascript">
     <code>
-  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     config<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-animator-css'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    config<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-dialog'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> config <span class="token operator">=></span> <span class="token punctuation">{</span>
+    config<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-dialog'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token parameter">config</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
       config<span class="token punctuation">.</span><span class="token function">useDefaults</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>lock <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
       config<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>ignoreTransitions <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
@@ -364,7 +364,7 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
   <span class="token keyword">import</span> <span class="token punctuation">{</span>FrameworkConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
   <span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
   
-  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token punctuation">:</span> FrameworkConfiguration<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token operator">:</span> FrameworkConfiguration<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     config<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-animator-css'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     config<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-dialog'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> config <span class="token operator">=></span> <span class="token punctuation">{</span>
       config<span class="token punctuation">.</span><span class="token function">useDefaults</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -388,7 +388,7 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>MyAwesomeService<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./my-awesome-service'</span><span class="token punctuation">;</span>
   
-  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment">// new instance for every injection of MyAwesomeService</span>
     config<span class="token punctuation">.</span><span class="token function">transient</span><span class="token punctuation">(</span>MyAwesomeService<span class="token punctuation">,</span> MyAwesomeService<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
@@ -405,7 +405,7 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
   <span class="token keyword">import</span> <span class="token punctuation">{</span>FrameworkConfiguration<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>MyAwesomeService<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./my-awesome-service'</span><span class="token punctuation">;</span>
   
-  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token punctuation">:</span> FrameworkConfiguration<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token operator">:</span> FrameworkConfiguration<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment">// new instance for every injection of MyAwesomeService</span>
     config<span class="token punctuation">.</span><span class="token function">transient</span><span class="token punctuation">(</span>MyAwesomeService<span class="token punctuation">,</span> MyAwesomeService<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
