@@ -1,4 +1,4 @@
-# I18N Module
+# aurelia-i18n Module
 
 > A plugin that provides i18n support.
 

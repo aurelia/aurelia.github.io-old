@@ -94,7 +94,7 @@ Server Side Rendering is a new feature of the Aurelia framework, intended for us
   <span class="token keyword">import</span> <span class="token punctuation">{</span> <span class="token constant">PLATFORM</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
   <span class="token keyword">import</span> bootstrapper <span class="token keyword">from</span> <span class="token string">'./ssr-bootstrapper-webpack'</span><span class="token punctuation">;</span>
   
-  <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">:</span> Aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token parameter">aurelia<span class="token operator">:</span> Aurelia</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     aurelia<span class="token punctuation">.</span>use
       <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
@@ -115,8 +115,8 @@ Server Side Rendering is a new feature of the Aurelia framework, intended for us
 <source-code lang="JSON" heading="Alternative Entry Point in Webpack">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"entry"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    <span class="token string">"server"</span><span class="token punctuation">:</span> <span class="token string">"./src/server-main"</span>
+  <span class="token string">"entry"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"server"</span><span class="token operator">:</span> <span class="token string">"./src/server-main"</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   </code>
   </pre>
@@ -132,9 +132,9 @@ Server Side Rendering is a new feature of the Aurelia framework, intended for us
   <pre class="language-javascript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-    router<span class="token punctuation">:</span> Router<span class="token punctuation">;</span>
+    router<span class="token operator">:</span> Router<span class="token punctuation">;</span>
   
-    <span class="token function">configureRouter</span><span class="token punctuation">(</span>config<span class="token punctuation">:</span> RouterConfiguration<span class="token punctuation">,</span> router<span class="token punctuation">:</span> Router<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">configureRouter</span><span class="token punctuation">(</span><span class="token parameter">config<span class="token operator">:</span> RouterConfiguration<span class="token punctuation">,</span> router<span class="token operator">:</span> Router</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       config<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string">'Aurelia'</span><span class="token punctuation">;</span>
       config<span class="token punctuation">.</span>options<span class="token punctuation">.</span>pushState <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
       config<span class="token punctuation">.</span>options<span class="token punctuation">.</span>root <span class="token operator">=</span> <span class="token string">'/'</span><span class="token punctuation">;</span>

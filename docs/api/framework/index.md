@@ -1,4 +1,4 @@
-# Framework Module
+# aurelia-framework Module
 
 > The aurelia framework brings together all the required core aurelia libraries into a ready-to-go application-building platform.
 
@@ -138,6 +138,7 @@ No description available.
 
 ## Constants
 
+* `LogManager: &quot;/Users/huocp/aurelia/aurelia.github.io/node_modules/aurelia-logging/dist/aurelia-logging&quot;` - The log manager.
 
 ## Functions
 

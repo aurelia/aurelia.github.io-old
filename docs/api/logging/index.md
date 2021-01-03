@@ -1,4 +1,4 @@
-# Logging Module
+# aurelia-logging Module
 
 > A minimal but effective logging mechanism with support for log levels and pluggable log appenders.
 

@@ -1,4 +1,4 @@
-# PAL-Browser Module
+# aurelia-pal-browser Module
 
 > The browser-specific implementation of Aurelia&#x27;s platform abstraction layer.
 

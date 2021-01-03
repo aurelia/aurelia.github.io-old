@@ -13,9 +13,9 @@
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foo ${isActive ? <span class="token punctuation">'</span>active<span class="token punctuation">'</span> : <span class="token punctuation">'</span><span class="token punctuation">'</span>} bar<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>isActive ? <span class="token punctuation">'</span>active<span class="token punctuation">'</span> : <span class="token punctuation">'</span><span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class.one-time</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>isActive ? <span class="token punctuation">'</span>active<span class="token punctuation">'</span> : <span class="token punctuation">'</span><span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>foo ${isActive ? <span class="token punctuation">'</span>active<span class="token punctuation">'</span> : <span class="token punctuation">'</span><span class="token punctuation">'</span>} bar<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>isActive ? <span class="token punctuation">'</span>active<span class="token punctuation">'</span> : <span class="token punctuation">'</span><span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class.one-time</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>isActive ? <span class="token punctuation">'</span>active<span class="token punctuation">'</span> : <span class="token punctuation">'</span><span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code>
   </pre>
@@ -39,8 +39,8 @@ If you don't use interpolation in <code>css</code> - it won't get processed, so 
       <span class="token keyword">this</span><span class="token punctuation">.</span>styleString <span class="token operator">=</span> <span class="token string">'color: red; background-color: blue'</span><span class="token punctuation">;</span>
   
       <span class="token keyword">this</span><span class="token punctuation">.</span>styleObject <span class="token operator">=</span> <span class="token punctuation">{</span>
-        color<span class="token punctuation">:</span> <span class="token string">'red'</span><span class="token punctuation">,</span>
-        <span class="token string">'background-color'</span><span class="token punctuation">:</span> <span class="token string">'blue'</span>
+        color<span class="token operator">:</span> <span class="token string">'red'</span><span class="token punctuation">,</span>
+        <span class="token string">'background-color'</span><span class="token operator">:</span> <span class="token string">'blue'</span>
       <span class="token punctuation">}</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
@@ -53,15 +53,15 @@ If you don't use interpolation in <code>css</code> - it won't get processed, so 
   <pre class="language-typescript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">StyleData</span> <span class="token punctuation">{</span>
-    styleString<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
-    styleObject<span class="token punctuation">:</span> <span class="token builtin">any</span><span class="token punctuation">;</span>
+    styleString<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    styleObject<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">;</span>
   
     <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>styleString <span class="token operator">=</span> <span class="token string">'color: red; background-color: blue'</span><span class="token punctuation">;</span>
   
       <span class="token keyword">this</span><span class="token punctuation">.</span>styleObject <span class="token operator">=</span> <span class="token punctuation">{</span>
-        color<span class="token punctuation">:</span> <span class="token string">'red'</span><span class="token punctuation">,</span>
-        <span class="token string">'background-color'</span><span class="token punctuation">:</span> <span class="token string">'blue'</span>
+        color<span class="token operator">:</span> <span class="token string">'red'</span><span class="token punctuation">,</span>
+        <span class="token string">'background-color'</span><span class="token operator">:</span> <span class="token string">'blue'</span>
       <span class="token punctuation">}</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
@@ -77,8 +77,8 @@ If you don't use interpolation in <code>css</code> - it won't get processed, so 
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">style.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>styleString<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">style.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>styleObject<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">style.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>styleString<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">style.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>styleObject<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code>
   </pre>
@@ -92,7 +92,7 @@ If you don't use interpolation in <code>css</code> - it won't get processed, so 
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>width: ${width}px; height: ${height}px;<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width: ${width}px; height: ${height}px;<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code>
   </pre>
@@ -106,7 +106,7 @@ If you don't use interpolation in <code>css</code> - it won't get processed, so 
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">css</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>width: ${width}px; height: ${height}px;<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">css</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width: ${width}px; height: ${height}px;<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code>
   </pre>
@@ -120,7 +120,7 @@ If you don't use interpolation in <code>css</code> - it won't get processed, so 
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">css</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>width: 100px; height: 100px;<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">css</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width: 100px; height: 100px;<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code>
   </pre>

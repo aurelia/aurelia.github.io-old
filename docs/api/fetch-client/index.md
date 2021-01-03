@@ -1,4 +1,4 @@
-# Fetch Module
+# aurelia-fetch-client Module
 
 > A simple client based on the Fetch standard.
 

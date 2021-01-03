@@ -37,16 +37,16 @@ Webpack projects that are generated using the Aurelia-CLI require a relatively h
   <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
   <span class="token comment">// router config</span>
-  <span class="token function">configureRouter</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> router<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">configureRouter</span><span class="token punctuation">(</span><span class="token parameter">config<span class="token punctuation">,</span> router</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">this</span><span class="token punctuation">.</span>router <span class="token operator">=</span> router<span class="token punctuation">;</span>
     config<span class="token punctuation">.</span><span class="token function">mapUnknownRoutes</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'./not-found'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     config<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
       <span class="token punctuation">{</span>
-        route<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
-        name<span class="token punctuation">:</span> <span class="token string">'home'</span><span class="token punctuation">,</span>
-        title<span class="token punctuation">:</span> <span class="token string">'Home'</span>
-        nav<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-        moduleId<span class="token punctuation">:</span> <span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'./home'</span><span class="token punctuation">)</span>
+        route<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+        name<span class="token operator">:</span> <span class="token string">'home'</span><span class="token punctuation">,</span>
+        title<span class="token operator">:</span> <span class="token string">'Home'</span>
+        nav<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        moduleId<span class="token operator">:</span> <span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'./home'</span><span class="token punctuation">)</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
@@ -73,13 +73,13 @@ This section does not apply for ASP.NET JavascriptServices</p>
 <source-code lang="JavaScript" heading="Platform options">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"platform"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    <span class="token string">"id"</span><span class="token punctuation">:</span> <span class="token string">"web"</span><span class="token punctuation">,</span>
-    <span class="token string">"displayName"</span><span class="token punctuation">:</span> <span class="token string">"Web"</span><span class="token punctuation">,</span>
-    <span class="token string">"port"</span><span class="token punctuation">:</span> <span class="token number">8080</span><span class="token punctuation">,</span>
-    <span class="token string">"hmr"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-    <span class="token string">"open"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-    <span class="token string">"output"</span><span class="token punctuation">:</span> <span class="token string">"dist"</span>
+  <span class="token string">"platform"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"id"</span><span class="token operator">:</span> <span class="token string">"web"</span><span class="token punctuation">,</span>
+    <span class="token string">"displayName"</span><span class="token operator">:</span> <span class="token string">"Web"</span><span class="token punctuation">,</span>
+    <span class="token string">"port"</span><span class="token operator">:</span> <span class="token number">8080</span><span class="token punctuation">,</span>
+    <span class="token string">"hmr"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token string">"open"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token string">"output"</span><span class="token operator">:</span> <span class="token string">"dist"</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   </code>
   </pre>
@@ -108,7 +108,7 @@ This webpack simplification only applies to new apps. You can still use latest a
 <source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
-  module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>production<span class="token punctuation">,</span> server<span class="token punctuation">,</span> extractCss<span class="token punctuation">,</span> coverage<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+  module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span>production<span class="token punctuation">,</span> server<span class="token punctuation">,</span> extractCss<span class="token punctuation">,</span> coverage<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
   </code>
   </pre>
 </source-code>
@@ -122,11 +122,11 @@ This webpack simplification only applies to new apps. You can still use latest a
 <source-code lang="JavaScript" heading="Build options">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"build"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"options"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token string">"server"</span><span class="token punctuation">:</span> <span class="token string">"dev"</span><span class="token punctuation">,</span>
-        <span class="token string">"extractCss"</span><span class="token punctuation">:</span> <span class="token string">"prod"</span><span class="token punctuation">,</span>
-        <span class="token string">"coverage"</span><span class="token punctuation">:</span> <span class="token boolean">false</span>
+  <span class="token string">"build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"options"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"server"</span><span class="token operator">:</span> <span class="token string">"dev"</span><span class="token punctuation">,</span>
+        <span class="token string">"extractCss"</span><span class="token operator">:</span> <span class="token string">"prod"</span><span class="token punctuation">,</span>
+        <span class="token string">"coverage"</span><span class="token operator">:</span> <span class="token boolean">false</span>
       <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   </code>

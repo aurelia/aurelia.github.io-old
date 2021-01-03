@@ -1,4 +1,4 @@
-# Templating-Binding Module
+# aurelia-templating-binding Module
 
 > An implementation of the templating engine&#x27;s Binding Language abstraction which uses a pluggable command syntax.
 

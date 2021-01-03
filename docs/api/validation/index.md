@@ -1,4 +1,4 @@
-# Validation Module
+# aurelia-validation Module
 
 > Validation for Aurelia applications
 

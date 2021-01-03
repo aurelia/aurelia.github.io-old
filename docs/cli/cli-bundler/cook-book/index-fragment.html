@@ -43,7 +43,7 @@ Note all following recipes are not for using <code>prepend</code>.</p>
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>normalize.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>normalize.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code>
   </pre>
@@ -83,7 +83,7 @@ Note all following recipes are not for using <code>prepend</code>.</p>
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bootstrap/css/bootstrap.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bootstrap/css/bootstrap.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code>
   </pre>
@@ -153,7 +153,7 @@ Note all following recipes are not for using <code>prepend</code>.</p>
   <span class="token comment">// customize bootstrap to use 24 columns</span>
   <span class="token comment">// check node_modules/bootstrap/scss/_variables.scss</span>
   <span class="token comment">// for all possible customization</span>
-  $grid<span class="token operator">-</span>columns<span class="token punctuation">:</span> <span class="token number">24</span><span class="token punctuation">;</span>
+  $grid<span class="token operator">-</span>columns<span class="token operator">:</span> <span class="token number">24</span><span class="token punctuation">;</span>
   <span class="token comment">// compile node_modules/bootstrap/scss/bootstrap.scss</span>
   @<span class="token keyword">import</span> <span class="token string">'../node_modules/bootstrap/scss/bootstrap'</span><span class="token punctuation">;</span>
   </code>
@@ -168,7 +168,7 @@ Note all following recipes are not for using <code>prepend</code>.</p>
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./app.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>./app.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code>
   </pre>
@@ -188,24 +188,24 @@ Webpack behaves differently, it controls the whole scss compilation. With Webpac
 <source-code lang="JSON" heading="aurelia_project/aurelia.json">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"bundles"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+  <span class="token string">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token comment">// ...</span>
     <span class="token punctuation">{</span>
-      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
-      <span class="token string">"prepend"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token string">"dependencies"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
+      <span class="token string">"prepend"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
         <span class="token comment">// ...</span>
         <span class="token punctuation">{</span>
-          <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"bootstrap"</span><span class="token punctuation">,</span>
-          <span class="token string">"deps"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"jquery"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"../node_modules/bootstrap"</span><span class="token punctuation">,</span>
-          <span class="token string">"main"</span><span class="token punctuation">:</span> <span class="token string">"dist/js/bootstrap.min"</span>
+          <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"bootstrap"</span><span class="token punctuation">,</span>
+          <span class="token string">"deps"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"jquery"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token string">"path"</span><span class="token operator">:</span> <span class="token string">"../node_modules/bootstrap"</span><span class="token punctuation">,</span>
+          <span class="token string">"main"</span><span class="token operator">:</span> <span class="token string">"dist/js/bootstrap.min"</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token string">"copyFiles"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    <span class="token string">"node_modules/bootstrap/dist/fonts/*"</span><span class="token punctuation">:</span> <span class="token string">"bootstrap/fonts"</span>
+  <span class="token string">"copyFiles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"node_modules/bootstrap/dist/fonts/*"</span><span class="token operator">:</span> <span class="token string">"bootstrap/fonts"</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -240,7 +240,7 @@ Webpack behaves differently, it controls the whole scss compilation. With Webpac
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bootstrap/css/bootstrap.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bootstrap/css/bootstrap.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code>
   </pre>
@@ -279,11 +279,11 @@ Webpack behaves differently, it controls the whole scss compilation. With Webpac
 <source-code lang="JSON" heading="aurelia_project/aurelia.json">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"bundles"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+  <span class="token string">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token comment">// ...</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token string">"copyFiles"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    <span class="token string">"node_modules/@fortawesome/fontawesome-free/webfonts/*"</span><span class="token punctuation">:</span> <span class="token string">"@fortawesome/fontawesome-free/webfonts"</span>
+  <span class="token string">"copyFiles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"node_modules/@fortawesome/fontawesome-free/webfonts/*"</span><span class="token operator">:</span> <span class="token string">"@fortawesome/fontawesome-free/webfonts"</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -297,10 +297,10 @@ Webpack behaves differently, it controls the whole scss compilation. With Webpac
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@fortawesome/fontawesome-free/css/all.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>@fortawesome/fontawesome-free/css/all.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
     optional v4-shims
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@fortawesome/fontawesome-free/css/v4-shims.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fas fa-cube<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>@fortawesome/fontawesome-free/css/v4-shims.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fas fa-cube<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code>
   </pre>
@@ -315,11 +315,11 @@ Webpack behaves differently, it controls the whole scss compilation. With Webpac
 <source-code lang="JSON" heading="aurelia_project/aurelia.json">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"bundles"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+  <span class="token string">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token comment">// ...</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token string">"copyFiles"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    <span class="token string">"node_modules/font-awesome/fonts/*"</span><span class="token punctuation">:</span> <span class="token string">"font-awesome/fonts"</span>
+  <span class="token string">"copyFiles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"node_modules/font-awesome/fonts/*"</span><span class="token operator">:</span> <span class="token string">"font-awesome/fonts"</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -333,8 +333,8 @@ Webpack behaves differently, it controls the whole scss compilation. With Webpac
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>font-awesome/css/font-awesome.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fa fa-cube<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>font-awesome/css/font-awesome.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fa fa-cube<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code>
   </pre>
@@ -403,7 +403,7 @@ Webpack behaves differently, it controls the whole scss compilation. With Webpac
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
     <span class="token function">attached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token comment">// using ref="demo" in html template</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>tooltip <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Foundation<span class="token punctuation">.</span>Tooltip</span><span class="token punctuation">(</span><span class="token function">$</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>demo<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>tooltip <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Foundation</span><span class="token punctuation">.</span><span class="token function">Tooltip</span><span class="token punctuation">(</span><span class="token function">$</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>demo<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token comment">// for better reuse, wrap foundation js features</span>
       <span class="token comment">// behind Aurelia custom elements or attributes.</span>
     <span class="token punctuation">}</span>
@@ -426,8 +426,8 @@ Webpack behaves differently, it controls the whole scss compilation. With Webpac
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foundation-sites/css/foundation.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>demo<span class="token punctuation">"</span></span> <span class="token attr-name">data-tooltip</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>top<span class="token punctuation">"</span></span> <span class="token attr-name">tabindex</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Fancy word for a beetle.<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>demo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>foundation-sites/css/foundation.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>demo<span class="token punctuation">"</span></span> <span class="token attr-name">data-tooltip</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>top<span class="token punctuation">"</span></span> <span class="token attr-name">tabindex</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Fancy word for a beetle.<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>demo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
   </code>
   </pre>
@@ -490,15 +490,15 @@ Webpack behaves differently, it controls the whole scss compilation. With Webpac
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>materialize-css/css/materialize.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>waves-effect waves-light btn modal-trigger<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#modal1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Modal<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal1<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal-content<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>require</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>materialize-css/css/materialize.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>require</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>waves-effect waves-light btn modal-trigger<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#modal1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Modal<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>modal<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>modal1<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>modal<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>modal-content<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h4</span><span class="token punctuation">></span></span>Modal Header<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h4</span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>A bunch of text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal-footer<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#!<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>modal-close waves-effect waves-green btn-flat<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Agree<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>modal-footer<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#!<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>modal-close waves-effect waves-green btn-flat<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Agree<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
@@ -516,24 +516,24 @@ Webpack behaves differently, it controls the whole scss compilation. With Webpac
 <source-code lang="JSON" heading="aurelia_project/aurelia.json">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"bundles"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+  <span class="token string">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token comment">// ...</span>
     <span class="token punctuation">{</span>
-      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
-      <span class="token string">"prepend"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token string">"dependencies"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
+      <span class="token string">"prepend"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
         <span class="token comment">// ...</span>
         <span class="token punctuation">{</span>
-          <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"typeorm"</span><span class="token punctuation">,</span>
-          <span class="token string">"path"</span><span class="token punctuation">:</span> <span class="token string">"../node_modules/typeorm"</span><span class="token punctuation">,</span>
-          <span class="token string">"main"</span><span class="token punctuation">:</span> <span class="token string">"typeorm-model-shim"</span>
+          <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"typeorm"</span><span class="token punctuation">,</span>
+          <span class="token string">"path"</span><span class="token operator">:</span> <span class="token string">"../node_modules/typeorm"</span><span class="token punctuation">,</span>
+          <span class="token string">"main"</span><span class="token operator">:</span> <span class="token string">"typeorm-model-shim"</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token string">"paths"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  <span class="token string">"paths"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token operator">...</span>
-    <span class="token string">"entities"</span><span class="token punctuation">:</span> <span class="token string">"../../server/src/entity"</span>
+    <span class="token string">"entities"</span><span class="token operator">:</span> <span class="token string">"../../server/src/entity"</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -552,12 +552,12 @@ Webpack behaves differently, it controls the whole scss compilation. With Webpac
     <code>
   <span class="token punctuation">{</span>
     <span class="token operator">...</span>
-    <span class="token string">"compilerOptions"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"compilerOptions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
       <span class="token operator">...</span>
-      <span class="token string">"paths"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token string">"entities/*"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"../../server/src/entity/*"</span><span class="token punctuation">]</span>
+      <span class="token string">"paths"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"entities/*"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"../../server/src/entity/*"</span><span class="token punctuation">]</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token string">"baseUrl"</span><span class="token punctuation">:</span> <span class="token string">"src"</span>
+      <span class="token string">"baseUrl"</span><span class="token operator">:</span> <span class="token string">"src"</span>
     <span class="token punctuation">}</span>
     <span class="token operator">...</span>
   <span class="token punctuation">}</span>

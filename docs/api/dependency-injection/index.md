@@ -1,4 +1,4 @@
-# Dependency Injection Module
+# aurelia-dependency-injection Module
 
 > A lightweight, extensible dependency injection container for JavaScript.
 

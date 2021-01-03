@@ -57,13 +57,13 @@
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span> <span class="token constant">PLATFORM</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-pal'</span><span class="token punctuation">;</span>
   
-  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token parameter">aurelia</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     aurelia<span class="token punctuation">.</span>use
       <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
       <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
       <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-ui-virtualization'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//&lt;-- add this</span>
   
-    aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>a <span class="token operator">=></span> a<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">a</span> <span class="token operator">=></span> a<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -87,7 +87,7 @@ The rows being repeated <strong>need</strong> a fixed height and only one item p
   <pre class="language-javascript">
     <code>
   <span class="token operator">&lt;</span>template<span class="token operator">></span>
-    <span class="token operator">&lt;</span>div virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"item of items"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>div virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span>for<span class="token operator">=</span><span class="token string">"item of items"</span><span class="token operator">></span>
       $<span class="token punctuation">{</span>$index<span class="token punctuation">}</span> $<span class="token punctuation">{</span>item<span class="token punctuation">}</span>
     <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
   <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
@@ -105,7 +105,7 @@ The rows being repeated <strong>need</strong> a fixed height and only one item p
     <code>
   <span class="token operator">&lt;</span>template<span class="token operator">></span>
     <span class="token operator">&lt;</span>ul<span class="token operator">></span>
-      <span class="token operator">&lt;</span>li virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"item of items"</span><span class="token operator">></span>
+      <span class="token operator">&lt;</span>li virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span>for<span class="token operator">=</span><span class="token string">"item of items"</span><span class="token operator">></span>
         $<span class="token punctuation">{</span>$index<span class="token punctuation">}</span> $<span class="token punctuation">{</span>item<span class="token punctuation">}</span>
       <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
     <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
@@ -124,7 +124,7 @@ The rows being repeated <strong>need</strong> a fixed height and only one item p
     <code>
   <span class="token operator">&lt;</span>template<span class="token operator">></span>
     <span class="token operator">&lt;</span>table<span class="token operator">></span>
-      <span class="token operator">&lt;</span>tr virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"item of items"</span><span class="token operator">></span>
+      <span class="token operator">&lt;</span>tr virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span>for<span class="token operator">=</span><span class="token string">"item of items"</span><span class="token operator">></span>
         <span class="token operator">&lt;</span>td<span class="token operator">></span>$<span class="token punctuation">{</span>$index<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>td<span class="token operator">></span>
         <span class="token operator">&lt;</span>td<span class="token operator">></span>$<span class="token punctuation">{</span>item<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>td<span class="token operator">></span>
       <span class="token operator">&lt;</span><span class="token operator">/</span>tr<span class="token operator">></span>
@@ -149,7 +149,7 @@ The rows being repeated <strong>need</strong> a fixed height and only one item p
   <pre class="language-javascript">
     <code>
   <span class="token operator">&lt;</span>template<span class="token operator">></span>
-    <span class="token operator">&lt;</span>div virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"item of items"</span> infinite<span class="token operator">-</span>scroll<span class="token operator">-</span>next<span class="token operator">=</span><span class="token string">"getMore"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>div virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span>for<span class="token operator">=</span><span class="token string">"item of items"</span> infinite<span class="token operator">-</span>scroll<span class="token operator">-</span>next<span class="token operator">=</span><span class="token string">"getMore"</span><span class="token operator">></span>
       $<span class="token punctuation">{</span>$index<span class="token punctuation">}</span> $<span class="token punctuation">{</span>item<span class="token punctuation">}</span>
     <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
   <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
@@ -167,7 +167,7 @@ The rows being repeated <strong>need</strong> a fixed height and only one item p
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
       items <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'Foo'</span><span class="token punctuation">,</span> <span class="token string">'Bar'</span><span class="token punctuation">,</span> <span class="token string">'Baz'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
   
-      <span class="token function">getMore</span><span class="token punctuation">(</span>topIndex<span class="token punctuation">,</span> isAtBottom<span class="token punctuation">,</span> isAtTop<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">getMore</span><span class="token punctuation">(</span><span class="token parameter">topIndex<span class="token punctuation">,</span> isAtBottom<span class="token punctuation">,</span> isAtTop</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
           <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
               <span class="token keyword">this</span><span class="token punctuation">.</span>items<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">'item'</span> <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
           <span class="token punctuation">}</span>
@@ -186,7 +186,7 @@ The rows being repeated <strong>need</strong> a fixed height and only one item p
   <pre class="language-javascript">
     <code>
   <span class="token operator">&lt;</span>template<span class="token operator">></span>
-    <span class="token operator">&lt;</span>div virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"item of items"</span> infinite<span class="token operator">-</span>scroll<span class="token operator">-</span>next<span class="token punctuation">.</span>call<span class="token operator">=</span><span class="token string">"getMore($scrollContext)"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>div virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span>for<span class="token operator">=</span><span class="token string">"item of items"</span> infinite<span class="token operator">-</span>scroll<span class="token operator">-</span>next<span class="token punctuation">.</span>call<span class="token operator">=</span><span class="token string">"getMore($scrollContext)"</span><span class="token operator">></span>
       $<span class="token punctuation">{</span>$index<span class="token punctuation">}</span> $<span class="token punctuation">{</span>item<span class="token punctuation">}</span>
     <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
   <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
@@ -204,7 +204,7 @@ The rows being repeated <strong>need</strong> a fixed height and only one item p
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
       items <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'Foo'</span><span class="token punctuation">,</span> <span class="token string">'Bar'</span><span class="token punctuation">,</span> <span class="token string">'Baz'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
   
-      <span class="token function">getMore</span><span class="token punctuation">(</span>scrollContext<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">getMore</span><span class="token punctuation">(</span><span class="token parameter">scrollContext</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
           <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
               <span class="token keyword">this</span><span class="token punctuation">.</span>items<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">'item'</span> <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
           <span class="token punctuation">}</span>
@@ -229,7 +229,7 @@ The rows being repeated <strong>need</strong> a fixed height and only one item p
     <code>
   <span class="token operator">&lt;</span>template<span class="token operator">></span>
     <span class="token operator">&lt;</span>h1<span class="token operator">></span>$<span class="token punctuation">{</span>message<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
-    <span class="token operator">&lt;</span>div virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"person of persons"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>div virtual<span class="token operator">-</span>repeat<span class="token punctuation">.</span>for<span class="token operator">=</span><span class="token string">"person of persons"</span><span class="token operator">></span>
       <span class="token operator">&lt;</span>template <span class="token keyword">with</span><span class="token punctuation">.</span>bind<span class="token operator">=</span><span class="token string">"person"</span><span class="token operator">></span>
         $<span class="token punctuation">{</span>Name<span class="token punctuation">}</span>
       <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
@@ -250,7 +250,7 @@ The rows being repeated <strong>need</strong> a fixed height and only one item p
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">virtual-repeat.for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>person of persons<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>${$odd ? <span class="token punctuation">'</span>odd<span class="token punctuation">'</span> : <span class="token punctuation">'</span>even<span class="token punctuation">'</span>}-row<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">virtual-repeat.for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>person of persons<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>${$odd ? <span class="token punctuation">'</span>odd<span class="token punctuation">'</span> : <span class="token punctuation">'</span>even<span class="token punctuation">'</span>}-row<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
       ${person.name}
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
