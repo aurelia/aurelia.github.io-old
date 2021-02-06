@@ -1,0 +1,310 @@
+<section class="article blog">
+  <header>
+    <h1>How do we React? - Part 2</h1>
+    <h2>Posted by <span class="author">Rob Eisenberg</span> on <span class="date">March 1, 2019</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>This is part 2 of 3 in a series titled &quot;How do we React?&quot; in which I discuss how Aurelia handles common React scenarios.</p>
+<p>The other week 
+<a href="https://twitter.com/sebmarkbage" target="_blank">Sebastian Markbåge</a>
+ posted 
+<a href="https://twitter.com/sebmarkbage/status/1098310123796062209" target="_blank">the following tweet</a>
+:</p>
+<blockquote>
+<p>You may have noticed that most other frameworks don't have HoCs, render props or anything like React.Children. These account for a lot the differences between React and other frameworks. How would you solve these use cases if you had to switch to [other framework]?</p>
+</blockquote>
+<p><strong>In this post, we'll cover Render Props.</strong> For a discussion of how Aurelia handles typical HoC scenarios, <a href="blog/2019/02/21/how-do-we-react-part-1">please see part 1</a> or for information on how we handle React.Children, <a href="blog/2019/03/12/how-do-we-react-part-3">see part 3</a>.</p>
+<section><h2 id="render-props">Render Props</h2><p>The React site 
+<a href="https://reactjs.org/docs/render-props.html" target="_blank">defines render prop</a>
+ as follows:</p>
+<blockquote>
+<p>The term &quot;render prop&quot; refers to a technique for sharing code between React components using a prop whose value is a function.</p>
+</blockquote>
+<p>In React practice, the consumer of a component passes a function along to the component which will later be called by that component to customize rendering inside that component. Ultimately, this is a functional technique similar to the OOP 
+<a href="https://www.oodesign.com/template-method-pattern.html" target="_blank">template method pattern</a>
+ that is used to allow end users to customize how a component renders.</p>
+<p><strong>So, how does Aurelia support templatization of component rendering?</strong></p>
+</section>
+<section><h2 id="slots">Slots</h2><p>In Aurelia, a component is typically made up of two parts: a plain JS class that forms the view-model of the component and a web standards-based HTML template that forms its view. Because Aurelia adopts and champions the use of web standards wherever possible, its templates support Shadow DOM slots.</p>
+<p>In case you aren't familiar with or haven't worked with slot-based composition before, I'll provide a brief explanation. Let's say you want to create a &quot;dialog&quot; component. It's a simple component that displays a modal dialog UI, wrapping arbitrary content, and providing an optional header. Our view model might look something like this:</p>
+
+<code-listing heading="modal-dialog.js">
+  
+<source-code lang="JavaScript" heading="modal-dialog.js">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> bindable <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ModalDialog</span> <span class="token punctuation">{</span>
+    @bindable title<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>This view model would be paired with the following view:</p>
+
+<code-listing heading="modal-dialog.html">
+  
+<source-code lang="HTML" heading="modal-dialog.html">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">if.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>title<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${title}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>content<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slot</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slot</span><span class="token punctuation">></span></span>    
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>And you would use it like this:</p>
+
+<code-listing heading="app.html">
+  
+<source-code lang="HTML" heading="app.html">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>modal-dialog</span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Aurelia<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>Any HTML you want goes here, including custom components.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>modal-dialog</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Now, when I use <code>modal-dialog</code>, the content of the element, in this case the <code>span</code>, will be rendered at the location of the <code>slot</code>. The two DOM trees are affectively composed together into the following visual tree:</p>
+
+<code-listing heading="The Composed Light and Shadow DOMs">
+  
+<source-code lang="HTML" heading="The Composed Light and Shadow DOMs">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>modal-dialog</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>Aurelia<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>content<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>Any HTML you want goes here, including custom components.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>  
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>modal-dialog</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>If you're familiar with React, then you know that one way this type of thing can be accomplished is through a Render prop. In React's case, the <code>modal-dialog</code> component would expect a function-type prop to be passed which it would then invoke during its render method, to provide the custom content. With Aurelia, it's all declarative HTML. Simply use a <code>slot</code> element to mark the location where the consumer's content should be rendered, and the consumer just uses your element like a normal HTML element. Any content placed inside its tag automatically gets &quot;projected&quot; to the slot's location.</p>
+<div class="info"><div class="icon"> <i></i> </div><p>
+In React, an alternative approach to handling this scenario is through <code>props.children</code>. We'll be covering that in part 3 of this series.</p>
+</div>
+<p>Shadow DOM slots (and thus Aurelia) can do much more than this though. What if we wanted the end user to be able to provide arbitrary HTML for the <code>title</code> as well, but still allow for a simple text property to be set? We just change the template to use a named slot with fallback content.</p>
+
+<code-listing heading="modal-dialog.html">
+  
+<source-code lang="HTML" heading="modal-dialog.html">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slot</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>title<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">if.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>title<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${title}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slot</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>content<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slot</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slot</span><span class="token punctuation">></span></span>    
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>We could then use it like this:</p>
+
+<code-listing heading="app.html">
+  
+<source-code lang="HTML" heading="app.html">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>modal-dialog</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>title<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Any HTML for the title goes here.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+    Any HTML for the content goes here, including custom components.
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>modal-dialog</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>With the above, we can render custom HTML content into the &quot;title&quot; slot. However, if we don't provide &quot;title&quot; slot HTML, the Aurelia template will fallback to rendering the default title <code>div</code> which has its content bound to the <code>title</code> property.</p>
+<p>All of this is standards-based, accomplishable through declarative HTML, and merely scratches the surface of what slots can do. By combining default and named slots, fallback content, and even the ability to project slots through to other slots, the possibilities are virtually limitless.</p>
+<h3>Influences</h3>
+<p>It's not quite correct to say that Aurelia is influenced by Shadow DOM. Rather, Aurelia has adopted the Shadow DOM standard as a core feature of its component composition model. We've worked hard to provide slots in their pure form, not altering their behavior from the standard as a couple other frameworks do. This means that if you learn how slots work in Aurelia, you're also correctly learning web standards, investing in your long-term technical knowledge and growth, which is great for your career, even if you aren't working with Aurelia yet in your day job.</p>
+<p>It's worth mentioning Xaml-based UI frameworks, such as Windows Presentation Foundation, Silverlight, and Microsoft's UWP platform, have an earlier manifestation of this same concept. The Xaml 
+<a href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.contentpresenter" target="_blank">ContentPresenter</a>
+ functions almost like a default slot, designating where in the visual tree any element content should be rendered. It even has the notion of a <code>ContentSource</code>, which provides a mechanism similar to named slots. Similarly, the 
+<a href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.itemspresenter" target="_blank">ItemsPresenter</a>
+ handles rendering multiple content elements, including the ability to determine their layout and even wrap them with custom wrapper templates. The Web's Shadow DOM spec doesn't have something quite like this, but Aurelia does, which leads me to <em>template parts</em>...</p>
+</section>
+<section><h2 id="template-parts">Template Parts</h2><p>Shadow DOM slot projection is powerful, but it doesn't handle all the scenarios an app might require. For example, imagine that instead of projecting content, you want to pass a template through to another element, so that this other element can use your template to render conditionally or repeatedly. This is something that React uses render props for, but Aurelia accomplishes this with declarative template parts.</p>
+<p>As an example, let's imagine we're building a custom drop-down component. This component will display a list of items, based on data, and then track which item is selected by the user. To make things reusable, we want the consumer of our drop-down to be able to provide a template that can be used to render each item in the list. Here's an abbreviated version of what our drop-down component's view-model might look like:</p>
+
+<code-listing heading="drop-down.js">
+  
+<source-code lang="JavaScript" heading="drop-down.js">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">DropDown</span> <span class="token punctuation">{</span>
+    @bindable items<span class="token punctuation">;</span>
+    @bindable selectedItem<span class="token punctuation">;</span>
+    listIsOpen <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+  
+    <span class="token comment">// behavior elided</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>We pair that with this HTML view:</p>
+
+<code-listing heading="drop-down.html">
+  
+<source-code lang="HTML" heading="drop-down.html">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
+      ..elided...
+  
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">if.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>listIsOpen<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>options<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>item of items<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">replaceable</span> <span class="token attr-name">part</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>list-item-template<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+              ${item.toString()}
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Now, if we wanted to use this to render a drop down list of people, we would do it like this:</p>
+
+<code-listing heading="app.html">
+  
+<source-code lang="HTML" heading="app.html">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>drop-down</span> <span class="token attr-name">items.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>people<span class="token punctuation">"</span></span>
+             <span class="token attr-name">selected-item.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>selectedPerson<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">replace-part</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>list-item-template<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>${item.lastName}, ${item.firstName}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>drop-down</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Normally, the drop-down list would render a <code>div</code> for each person, with that <code>div</code>'s content set to whatever <code>toString()</code> resulted in for each person. However, because we marked the <code>div</code> with the attribute <code>replaceable</code> and then gave it a <code>part</code> name, the consumer of the drop-down can easily provide their own replacement for that part of the component's view by specifying a template and telling it to replace the part with the same name. Nice!</p>
+<p>You can have any number of template parts in an Aurelia component, as long as you give each a unique name. Furthermore, each template part gets access to the binding scope of the part it's replacing (e.g. the current item during a list render) along with the lexical scope in which the replacement part is declared. This allows for providing list item templates that have interaction behaviors that are also supplied by the consumer. All that's required is a couple of HTML attributes.</p>
+<h3>Influences</h3>
+<p>The chief inspiration for this again comes from Xaml. It's partially inspired by what the above-mentioned <code>ItemsPresenter</code> can do, but also by a feature of the same name, template parts, in Xaml itself, which was designed to enable designers to completely re-skin components with a new view, without having to re-write all the behavior.</p>
+<p>Collectively, Shadow DOM slots and Aurelia template parts handle nearly all the scenarios that Render props are typically used for. But, Aurelia has a few more related items that are worth mentioning.</p>
+</section>
+<section><h2 id="the-call-binding">The Call Binding</h2><p>As it turns out, you can always directly pass a function into an Aurelia component as well, to do just about anything you need. We do this with the <code>call</code> binding. One interesting use case for this can be seen in Aurelia's 
+<a href="https://aurelia.io/docs/plugins/virtualization#infinite-scroll" target="_blank">virtual repeater</a>
+. This is an official Aurelia plugin that enables efficient rendering of hundreds of thousands of data elements, by utilizing UI virtualization techniques. This plugin can also handle infinite scrolling scenarios. All you have to do is provide it with a function to &quot;call&quot; whenever it needs to load your next set of data elements. Here's how it's used:</p>
+
+<code-listing heading="app.html">
+  
+<source-code lang="HTML" heading="app.html">
+  <pre class="language-markup">
+    <code>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">virtual-repeat.for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>person of people<span class="token punctuation">"</span></span> <span class="token attr-name">infinite-scroll-next.call</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>getMore($scrollContext)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      ${$index}. ${person.lastName}, ${person.firstName}
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>In this case, we display the index of each person, along with their last and first names. We may have thousands of elements in our database, but we probably only want to load the first few dozen to populate the <code>people</code> list. However, as the user scrolls, we want to load successive pages. The <code>virtual-repeat</code> handles all the complexities and the <code>call</code> binding enables the consumer to pass a function reference to the <code>virtual-repeat</code> which it can then <em>call</em> whenever it needs the next set of items. Notice also that the <code>virtual-repeat</code> can define custom variables, such as <code>$scrollContext</code> which it can pass to your function, to give you the proper contextual information you need to load the right page of data.</p>
+</section>
+<section><h2 id="the-compose-element">The Compose Element</h2><p>I wanted to share one more related feature of Aurelia: the <code>compose</code> element. This feature could have been discussed in our post on <a href="blog/2019/02/21/how-do-we-react-part-1">how Aurelia handles React HoC scenarios</a>, but I wanted to wait until now, so our readers could see how <code>compose</code> can enable both HoC and Render Prop scenarios.</p>
+<p>So, what is this <code>compose</code> thing? Well, it's a special component that Aurelia ships with out-of-the-box, that enables dynamic rendering of other components, based on data. Over the years, I've sometimes referred to this as &quot;polymorphic UI composition&quot;.</p>
+<p>Imagine that you've got a heterogeneous list of data items that you want to render, but each one of them needs to be rendered with a different component. Perhaps which component renders each item is dependent on the type of the data. For many programmers, their first inclination is to reach for an if/else or switch/case, but that leads to a system that isn't naturally open for extension. What this means is that any time you add a new type to your data model, you've got to go modify the existing set of if/else or switch/case statements. Generally speaking, you should build systems that enable you to avoid ever modifying working code. Making changes to things that work is a fantastic way to introduce bugs and regressions.</p>
+<p>With compose, you can simply loop over the heterogeneous list, &quot;composing&quot; each item in the list, which allows it to polymorphically render itself, based on type and convention. Let's say we have an app with a list of shapes like this:</p>
+
+<code-listing heading="app.js">
+  
+<source-code lang="JavaScript" heading="app.js">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
+    shapes <span class="token operator">=</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        type<span class="token operator">:</span> <span class="token string">'circle'</span><span class="token punctuation">,</span>
+        radius<span class="token operator">:</span> <span class="token string">'10px'</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        type<span class="token operator">:</span> <span class="token string">'rectangle'</span><span class="token punctuation">,</span>
+        width<span class="token operator">:</span> <span class="token string">'10px'</span><span class="token punctuation">,</span>
+        height<span class="token operator">:</span> <span class="token string">'5px'</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>We could render it polymorphically by using <code>compose</code> in its view, like this:</p>
+
+<code-listing heading="app.html">
+  
+<source-code lang="HTML" heading="app.html">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>shape of shapes<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>compose</span> <span class="token attr-name">view-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>shapes/${shape.type}<span class="token punctuation">"</span></span> <span class="token attr-name">model.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>shape<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>compose</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Now, if we've got a shape with type &quot;circle&quot; we'll render it with the &quot;circle&quot; component in the &quot;shapes&quot; folder. If we've got a shape with a type of &quot;rectangle&quot;, then that gets rendered with a &quot;rectangle&quot; component. Each component also gets passed the shape data model instance. To extend the system, we never need to modify this code; we only need to add new components for new types. Hopefully you can see this as a nice example of 
+<a href="https://en.wikipedia.org/wiki/Open%E2%80%93closed_principle" target="_blank">the open-closed principle</a>
+. It's particularly handy for building dashboard apps, where the user has a configurable set of &quot;widgets&quot; which are loaded from a database, but I've found this to be an elegant solution for many seeming complex challenges.</p>
+<h3>Influences</h3>
+<p>Aurelia's <code>compose</code> element is based on a feature from an earlier framework of mine called Caliburn, which I first started working on in 2005. Caliburn was a WPF framework that had a special Xaml attached property called <code>View.Model</code> which you could bind to any object. Based on the object's type, it would polymorphically render the data using the correct view or view/view-model pair. It was at this time that I started to leverage the MVVM pattern extensively by composing view models upon view models. The net effect of this was that you could write your entire application in a &quot;headless&quot; way, with no dependency on the front-end framework or UI toolkit. You would end up with a plain set of classes/objects that represented everything the app could do, all composed together. I've sometimes referred to this as &quot;hierarchical view models&quot; or &quot;composite presentation model&quot;. A side benefit of this approach is that it's amazingly easy to test and you wind up with a full automation API and plugin model for your app as a side-effect. The architecture also scales linearly to any application and team size. The <code>View.Model</code> property of Caliburn and the <code>compose</code> element of Aurelia are the primary framework features that have enabled this architectural style over the years. Discovering these patterns in the early days of WPF completely changed the way I think about building front-ends.</p>
+</section>
+<section><h2 id="wrapping-up">Wrapping Up</h2><p>Shadow DOM slots, template parts, the <code>call</code> binding, and the <code>compose</code> element are all tools that enable Aurelia developers to handle the same scenarios as React render props (and HoCs too). I've consistently used these and similar techniques for over a decade (along with thousands of other engineers) to build countless front-ends, both simple and extremely complex, and they've held up time and time again.</p>
+<p>I hope you've enjoyed seeing how Aurelia provides its own approaches to the scenarios typically handled by React render props. If you did, <a href="blog/2019/03/12/how-do-we-react-part-3">check out Part 3 of this series</a>, where we discuss Aurelia's approach to React.Children. I think you'll enjoy it.</p>
+<p>See ya next time!</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="How%20do%20we%20React%3F%20-%20Part%202" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2019%2F3%2F1%2Fhow-do-we-react-part-2"></blog-footer>
+</section>

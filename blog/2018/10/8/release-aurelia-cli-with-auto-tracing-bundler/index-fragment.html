@@ -1,0 +1,176 @@
+<section class="article blog">
+  <header>
+    <h1>The New Aurelia-CLI Auto-tracing Bundler</h1>
+    <h2>Posted by <span class="author">Chunpeng Huo</span> on <span class="date">October 8, 2018</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>Today, we're pleased to announce the Aurelia-CLI v1.0.0-beta.1 release! The official beta of our CLI now features a new built-in &quot;auto-tracing&quot; bundler, which greatly improves the capability, performance, and usability of the built-in bundler.</p>
+<div class="info"><div class="icon"> <i></i> </div><p>
+The CLI's setup for Webpack remains the same as before. This new bundler provides an alternative to Webpack by combining a new auto-tracing bundler with RequireJS or SystemJS.</p>
+</div>
+<p>The auto-tracing bundler replaces the 
+<a href="https://github.com/amodrojs/amodro-trace" target="_blank">amodro-trace</a>
+ based bundler. The implementation is totally new, but on the surface, we maintain maximum backward compatibility.</p>
+<p>A couple of major improvements of the new bundler include:</p>
+<ol>
+<li>It removes the burden of maintaining dependencies in <code>aurelia.json</code>.</li>
+<li>It greatly improves compatibility with many NPM packages.</li>
+<li><a href="docs/cli/cli-bundler">It has extensive documentation</a>.</li>
+</ol>
+<p>Technically, the new bundler behaves very similar to our Webpack/aurelia-webpack-plugin setup. For example:</p>
+<ol>
+<li>It auto-traces JavaScript dependencies and supports NPM packages in CommonJS, AMD, UMD, and Native ES Module format.</li>
+<li>It auto-stubs core Node.js modules for running in browser, using the exact same stubs that Webpack and Browserify use.</li>
+<li>It auto-traces JS/HTML/CSS dependencies in Aurelia view templates. e.g. <code>&lt;require from=&quot;...&quot;&gt;&lt;/require&gt;</code>.</li>
+</ol>
+<p>The new bundler also provides features above and beyond Webpack:</p>
+<ol>
+<li>Wrapping <code>&quot;moduleName&quot;</code> with <code>PLATFORM.moduleName(&quot;moduleName&quot;)</code> is NOT required. The new bundler understands all Aurelia's conventions without the need for a helper.</li>
+<li>In ESNext apps (not TypeScript apps), <code>au run --auto-install</code> can be used to help you install NPM packages. You can keep writing code and the CLI will install missing NPM packages, bundle them, and refresh you browser automatically.</li>
+</ol>
+<section><h2 id="upgrading-to-the-new-bundler">Upgrading to the New Bundler</h2><p>To upgrade your existing RequireJS/SystemJS based app:</p>
+<ol>
+<li>Make sure you are running on Node.js v8.9.0+.</li>
+<li>Update <code>aurelia-cli</code> in your app's <code>package.json</code> and then run <code>npm install</code> or <code>yarn</code>.</li>
+<li>Most existing apps should work without any need to update the <code>aurelia.json</code> file. However, you could be caught with one breaking change: the way to reference a non-JS main file has changed. The non-JS main (or missing main) is used by some pure CSS NPM packages like font-awesome v4 and normalize.css. For example, if using font-awesome v4, you should remove the explicit dependency configuration <code>{&quot;name&quot;: &quot;font-awesome&quot;, ...</code> from <code>aurelia.json</code>. Have a look at our <a href="docs/cli/cli-bundler/cook-book">CLI Bundler Cookbook</a> on how to use font-awesome v4 and normalize.css with the latest CLI bundler. It is only easier :)</li>
+</ol>
+<p>Once your app works, you should start to clean up the <code>aurelia.json</code> vendor-bundle dependencies to take advantages of auto-tracing. The following are the minimum required dependencies:</p>
+
+<code-listing>
+  
+<source-code lang="JSON" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token string">"aurelia-bootstrapper"</span><span class="token punctuation">,</span>
+  <span class="token string">"aurelia-loader-default"</span><span class="token punctuation">,</span>
+  <span class="token string">"aurelia-pal-browser"</span><span class="token punctuation">,</span>
+  <span class="token comment">// note all other aurelia-* packages are gone</span>
+  <span class="token punctuation">{</span>
+    <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"aurelia-testing"</span><span class="token punctuation">,</span>
+    <span class="token string">"env"</span><span class="token operator">:</span> <span class="token string">"dev"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment">// for requirejs</span>
+  <span class="token string">"text"</span><span class="token punctuation">,</span>
+  <span class="token comment">// or for systemjs</span>
+  <span class="token comment">// {</span>
+  <span class="token comment">//   "name": "text",</span>
+  <span class="token comment">//   "path": "../node_modules/systemjs-plugin-text",</span>
+  <span class="token comment">//   "main": "text"</span>
+  <span class="token comment">// }</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>For any 3rd party dependency, if it's not a shim (has <code>&quot;deps&quot;</code> or <code>&quot;exports&quot;</code> or both), not a custom local package (not in node_modules folder), and not a package alias, you can remove its config. Auto-tracing bundles NPM packages automatically without manual configuration in <code>aurelia.json</code>.</p>
+</section>
+<section><h2 id="enabling-caching">Enabling Caching</h2><p>The new bundler also uses a cache to speed up consecutive builds. To turn it on, update the <code>aurelia.json</code> file. You can use <code>&quot;cache&quot;: true</code> to turn it on for all environments:</p>
+
+<code-listing>
+  
+<source-code lang="JSON" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token string">"options"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"minify"</span><span class="token operator">:</span> <span class="token string">"stage &amp; prod"</span><span class="token punctuation">,</span>
+    <span class="token string">"sourcemaps"</span><span class="token operator">:</span> <span class="token string">"dev &amp; stage"</span><span class="token punctuation">,</span>
+    <span class="token string">"rev"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token string">"cache"</span><span class="token operator">:</span> <span class="token string">"dev &amp; stage"</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>You will need the task file to enable the new command <code>au clear-cache</code>. To get it, use the latest CLI to create a new app, choosing the built-in bundler. Then, copy the following files from the new app to your existing app:</p>
+
+<code-listing>
+  
+<source-code lang="Shell" heading="">
+  <pre class="language-powershell">
+    <code>
+  aurelia_project<span class="token operator">/</span>tasks<span class="token operator">/</span><span class="token function">clear-cache</span><span class="token punctuation">.</span>js <span class="token punctuation">(</span>or <span class="token punctuation">.</span>ts<span class="token punctuation">)</span>
+  aurelia_project<span class="token operator">/</span>tasks<span class="token operator">/</span><span class="token function">clear-cache</span><span class="token punctuation">.</span>json
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Only for ESNext apps (not TypeScript), do <code>npm install --save-dev gulp-cache</code> or <code>yarn add -D gulp-cache</code>, and copy the new <code>aurelia_project/tasks/transpile.js</code> file which further improves performance using gulp-cache to cache transpilation results.</p>
+</section>
+<section><h2 id="updates-for-plugin-authors">Updates for Plugin Authors</h2><p>For all Aurelia plugin authors, please update your installation guides to remove any dedicated CLI bundler instructions. The installation of any Aurelia plugin is now the same for Webpack and CLI bundler users: just run <code>npm install your-plugin</code>.</p>
+<p>For more information, read <a href="docs/cli/cli-bundler">the CLI Built-in Bundler</a> chapter of the Aurelia guides. For any issue/bug, please ask a question on 
+<a href="https://discourse.aurelia.io/" target="_blank">the Aurelia Discourse Forum</a>
+ or create an issue on 
+<a href="https://github.com/aurelia/cli/issues" target="_blank">the aurelia-cli GitHub repo</a>
+, and we will help you out.</p>
+<p>Happy Bundling!</p>
+</section>
+<section><h2 id="full-cli-changelog">Full CLI Changelog</h2><h3>Bug Fixes</h3>
+<ul>
+<li>fix exception on &quot;au new&quot; when running directly in root directory (
+<a href="https://github.com/aurelia/cli/commit/8037eef" target="_blank">8037eef</a>
+)</li>
+</ul>
+<h3>Features</h3>
+<ul>
+<li><strong>bundler:</strong> auto tracing for requirejs/systemjs (
+<a href="https://github.com/aurelia/cli/commit/c4ce02c" target="_blank">c4ce02c</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/831" target="_blank">#831</a>
+ 
+<a href="https://github.com/aurelia/cli/issues/853" target="_blank">#853</a>
+ 
+<a href="https://github.com/aurelia/cli/issues/842" target="_blank">#842</a>
+ 
+<a href="https://github.com/aurelia/cli/issues/831" target="_blank">#831</a>
+</li>
+<li><strong>bundler:</strong> build.options.cache turn on tracing cache and transpile cache (
+<a href="https://github.com/aurelia/cli/commit/15af83f" target="_blank">15af83f</a>
+)</li>
+<li><strong>bundler:</strong> fully support package.json browser field (
+<a href="https://github.com/aurelia/cli/commit/5bb81d4" target="_blank">5bb81d4</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/579" target="_blank">#579</a>
+ 
+<a href="https://github.com/aurelia/cli/issues/581" target="_blank">#581</a>
+</li>
+<li><strong>bundler:</strong> stub core Node.js modules just like browserify and webpack (
+<a href="https://github.com/aurelia/cli/commit/19aafee" target="_blank">19aafee</a>
+)</li>
+<li><strong>bundler:</strong> support both 'json!f.json' and 'f.json' module id. (
+<a href="https://github.com/aurelia/cli/commit/ea005fe" target="_blank">ea005fe</a>
+)</li>
+<li><strong>bundler:</strong> support Node.js direct json loading require(&quot;foo.json&quot;) (
+<a href="https://github.com/aurelia/cli/commit/8fa8800" target="_blank">8fa8800</a>
+)</li>
+<li><strong>bundler:</strong> support npm package shipped in native es module (
+<a href="https://github.com/aurelia/cli/commit/1669a6f" target="_blank">1669a6f</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/872" target="_blank">#872</a>
+</li>
+<li><strong>bundler:</strong> support onRequiringModule(moduleId) callback (
+<a href="https://github.com/aurelia/cli/commit/fd49eb1" target="_blank">fd49eb1</a>
+)</li>
+<li><strong>bundler:</strong> support per package wrapShim setting on dependency config (
+<a href="https://github.com/aurelia/cli/commit/3c796ac" target="_blank">3c796ac</a>
+)</li>
+<li><strong>bundler:</strong> use package.json &quot;module&quot; (es module format) over &quot;main&quot; (
+<a href="https://github.com/aurelia/cli/commit/a3bc63a" target="_blank">a3bc63a</a>
+)</li>
+</ul>
+<h3>BREAKING CHANGES</h3>
+<ul>
+<li><strong>bundler:</strong> require minor user code change to support non-js main, like &quot;main&quot;: &quot;font-awesome.css&quot;</li>
+<li><strong>bundler:</strong> remove support of undocumented &quot;main&quot;: false, replace with generic &quot;lazyMain&quot;: true. But this is handled transparently without breaking user's existing app.</li>
+</ul>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="The%20New%20Aurelia-CLI%20Auto-tracing%20Bundler" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2018%2F10%2F8%2Frelease-aurelia-cli-with-auto-tracing-bundler"></blog-footer>
+</section>

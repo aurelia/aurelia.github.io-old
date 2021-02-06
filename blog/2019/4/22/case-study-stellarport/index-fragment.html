@@ -1,0 +1,261 @@
+<section class="article blog">
+  <header>
+    <h1>Case Study: Stellarport</h1>
+    <h2>Posted by <span class="author">Ishai Strauss</span> on <span class="date">April 22, 2019</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>Today, I'm pleased to introduce Ishai Strauss from Stellarport to talk about how they've built their product with Aurelia. Read on to hear from Ishai about Stellarport's experiences integrating Redux with Aurelia and leveraging decorator-based composition with Aurelia's Fetch client.</p>
+<section><h2 id="what-is-stellarport">What is Stellarport?</h2><p>
+<a href="https://stellarport.io" target="_blank">Stellarport</a>
+ is a decentralized wallet and trading client, based on the 
+<a href="https://stellar.org" target="_blank">Stellar</a>
+ network. Users can create and manage wallets that they have cryptographic control over as well as trade in real time directly to and from the wallet. Trading on Stellarport is all done via blockchain technology (using the Stellar protocol). While the backend of Stellarport is written in a variety of languages and frameworks, the front end is written in just one (our favorite) - <strong>Aurelia</strong>.</p>
+</section>
+<section><h2 id="why-aurelia">Why Aurelia?</h2><p>We've been Aurelia fans for a long time, ever since the beta in fact. We'd already used Aurelia in production in conjunction with Redux with great success. Because Aurelia keeps it simple and focuses on doing its job simply, reliably, and in a modular way, plugging in Redux was easily done.</p>
+<p>When beginning work on Stellarport, we knew that state management and reliability were going to be important factors to be taken seriously from the get go. It was an easy choice to use Aurelia + Redux.</p>
+</section>
+<section><h2 id="using-aurelia">Using Aurelia</h2><p>Because Aurelia is so uncomplicated and modular, we've been able to customize it in a variety of very useful ways. Below, I will talk about some of the ways, we at Stellarport, have used Aurelia effectively.</p>
+<h3>Aurelia and Redux</h3>
+<p>As previously mentioned, one thing we focus on is state management. With a product like a real-time trading client, there is lots of data to keep track of and in sync. We wouldn't want different parts of the website showing different prices or market sizes for example. To ensure data synchronization, we store much of the data, especially in some of the more complicated parts of the website, in Redux.</p>
+<p>Because Aurelia's view models are just classes, integrating Redux with Aurelia can be done by using a custom <code>@connected</code> decorator. Here is an example:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> BigNumber <span class="token keyword">from</span> <span class="token string">'bignumber.js'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> computedFrom<span class="token punctuation">,</span> bindable <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> connected <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-redux-connect'</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">OrderbookCustomElement</span> <span class="token punctuation">{</span>
+      @<span class="token function">bindable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      currentTab<span class="token punctuation">;</span>
+  
+      @<span class="token function">connected</span><span class="token punctuation">(</span><span class="token string">'myAccount'</span><span class="token punctuation">)</span>
+      account<span class="token punctuation">;</span>
+  
+      @<span class="token function">connected</span><span class="token punctuation">(</span><span class="token string">'exchange.assetPair'</span><span class="token punctuation">)</span>
+      assetPair<span class="token punctuation">;</span>
+  
+      @<span class="token function">connected</span><span class="token punctuation">(</span><span class="token string">'exchange.orderbook'</span><span class="token punctuation">)</span>
+      orderbook<span class="token punctuation">;</span>
+  
+      @<span class="token function">computedFrom</span><span class="token punctuation">(</span><span class="token string">'orderbook'</span><span class="token punctuation">)</span>
+      <span class="token keyword">get</span> <span class="token function">bids</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>orderbook <span class="token operator">?</span> <span class="token keyword">this</span><span class="token punctuation">.</span>orderbook<span class="token punctuation">.</span>bids <span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+  
+      @<span class="token function">computedFrom</span><span class="token punctuation">(</span><span class="token string">'orderbook'</span><span class="token punctuation">)</span>
+      <span class="token keyword">get</span> <span class="token function">asks</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>orderbook <span class="token operator">?</span> <span class="token keyword">this</span><span class="token punctuation">.</span>orderbook<span class="token punctuation">.</span>asks <span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+  
+      @<span class="token function">computedFrom</span><span class="token punctuation">(</span><span class="token string">'orderbook'</span><span class="token punctuation">)</span>
+      <span class="token keyword">get</span> <span class="token function">spread</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>orderbook <span class="token operator">||</span> <span class="token keyword">this</span><span class="token punctuation">.</span>orderbook<span class="token punctuation">.</span>bids<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">0</span> <span class="token operator">||</span> <span class="token keyword">this</span><span class="token punctuation">.</span>orderbook<span class="token punctuation">.</span>asks<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+  
+          <span class="token keyword">const</span> topAsk <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">priceFromFraction</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>orderbook<span class="token punctuation">.</span>asks<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">const</span> topBid <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">priceFromFraction</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>orderbook<span class="token punctuation">.</span>bids<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+          <span class="token keyword">return</span> <span class="token punctuation">{</span>
+              raw<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">BigNumber</span><span class="token punctuation">(</span>topAsk<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">minus</span><span class="token punctuation">(</span>topBid<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+              percent<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">BigNumber</span><span class="token punctuation">(</span>topAsk<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">dividedBy</span><span class="token punctuation">(</span>topBid<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">minus</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">times</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+  
+      <span class="token function">priceFromFraction</span><span class="token punctuation">(</span><span class="token parameter">order</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> order <span class="token operator">?</span> <span class="token keyword">new</span> <span class="token class-name">BigNumber</span><span class="token punctuation">(</span>order<span class="token punctuation">.</span>priceNumerator<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">dividedBy</span><span class="token punctuation">(</span>order<span class="token punctuation">.</span>priceDenominator<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>In the example, there are a few things to note:</p>
+<ol>
+<li>Notice how simple this view model looks. All the properties are simply getters. The view model is just the glue between the view and the model. The code is clear, maintainable, and reliable.</li>
+<li>We use the <code>@connected</code> decorator to connect the view model to Redux (passing in the object path required to access the desired value). The connected decorator will update the view model when the store changes.</li>
+<li>Because Redux is a state store, it is best to store the state in a fairly normalized way. This results in often needing values that are derived from the stored values, rather than the raw stored values. With Aurelia, this is easy with <code>@computedFrom</code>. Aurelia will automatically update <code>@computedFrom</code> bindings when the <code>@connected</code> dependencies update.</li>
+</ol>
+<p>Our aurelia/redux integration is 
+<a href="https://www.npmjs.com/package/aurelia-redux-connect" target="_blank">available on npm</a>
+.</p>
+<h3>CRUD With Aurelia</h3>
+<p>Stellarport requires data from multiple data sources. One of Aurelia's strong points is its modular architecture. In our case, CRUD becomes easy with Aurelia's Fetch client. Because we are fetching data from multiple sources in different forms, we need multiple fetch clients each with a slightly different configuration. With Aurelia's DI, we can just inherit and then mixin functionality. Each inherited fetch client will be stored as a separate singleton inside of Aurelia's DI.</p>
+<p>To do this we start with some decorators we can mixin to our clients. Let's start with a decorator that adds a baseUrl to a client:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">withBaseUrl</span><span class="token punctuation">(</span><span class="token parameter">baseUrl</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">target</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">const</span> <span class="token function-variable function">addBaseUrl</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">return</span> config
+                  <span class="token punctuation">.</span><span class="token function">withBaseUrl</span><span class="token punctuation">(</span>baseUrl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  
+          <span class="token keyword">const</span> previousModifyConfiguation <span class="token operator">=</span> target<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>modifyConfiguration <span class="token operator">||</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> config<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  
+          target<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">modifyConfiguration</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">return</span> <span class="token function">addBaseUrl</span><span class="token punctuation">(</span>
+                  <span class="token function">previousModifyConfiguation</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> config<span class="token punctuation">)</span>
+              <span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>and then a decorator that adds the content type to the client's requests:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">sendJson</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">target</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">const</span> <span class="token function-variable function">addContentTypeJsonHeader</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">const</span> defaults <span class="token operator">=</span> config<span class="token punctuation">.</span>defaults <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  
+              <span class="token keyword">return</span> config
+                  <span class="token punctuation">.</span><span class="token function">withDefaults</span><span class="token punctuation">(</span>
+                      <span class="token function">_merge</span><span class="token punctuation">(</span>
+                          defaults<span class="token punctuation">,</span>
+                          <span class="token punctuation">{</span>
+                              headers<span class="token operator">:</span> <span class="token punctuation">{</span>
+                                  <span class="token string">'content-type'</span><span class="token operator">:</span> <span class="token string">'application/json'</span>
+                              <span class="token punctuation">}</span>
+                          <span class="token punctuation">}</span>
+                      <span class="token punctuation">)</span>
+                  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  
+          <span class="token keyword">const</span> previousModifyConfiguation <span class="token operator">=</span> target<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>modifyConfiguration <span class="token operator">||</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> config<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  
+          target<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">modifyConfiguration</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">return</span> <span class="token function">addContentTypeJsonHeader</span><span class="token punctuation">(</span>
+                  <span class="token function">previousModifyConfiguation</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> config<span class="token punctuation">)</span>
+              <span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Finally, let's add a (slightly more complicated) decorator that adds an authentication token to the request headers (JWT):</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">withBearerToken</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">target</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>target<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>acquireToken<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span>target<span class="token punctuation">.</span>name <span class="token operator">+</span> <span class="token string">' is decorated with @withBearerToken() but does not have an implemented acquireToken method.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+  
+          <span class="token keyword">const</span> <span class="token function-variable function">addBearerTokenInerceptor</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">context<span class="token punctuation">,</span> config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">return</span> config
+                  <span class="token punctuation">.</span><span class="token function">withInterceptor</span><span class="token punctuation">(</span><span class="token function">bearerTokenInterceptorFactory</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  
+          <span class="token keyword">const</span> previousModifyConfiguation <span class="token operator">=</span> target<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>modifyConfiguration <span class="token operator">||</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token keyword">return</span> config<span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  
+          target<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">modifyConfiguration</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">return</span> <span class="token function">addBearerTokenInerceptor</span><span class="token punctuation">(</span>
+                  <span class="token keyword">this</span><span class="token punctuation">,</span>
+                  <span class="token function">previousModifyConfiguation</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> config<span class="token punctuation">)</span>
+              <span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token keyword">function</span> <span class="token function">bearerTokenInterceptorFactory</span><span class="token punctuation">(</span><span class="token parameter">context</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+          <span class="token function-variable function">request</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">request</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">return</span> context<span class="token punctuation">.</span><span class="token function">acquireToken</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span>
+                  <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">token</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+                      <span class="token keyword">if</span> <span class="token punctuation">(</span>token<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                          request<span class="token punctuation">.</span>headers<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">'Authorization'</span><span class="token punctuation">,</span> <span class="token string">'Bearer '</span> <span class="token operator">+</span> token<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                      <span class="token punctuation">}</span>
+                      <span class="token keyword">return</span> request<span class="token punctuation">;</span>
+                  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+                  <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token parameter">err</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+                      <span class="token keyword">if</span> <span class="token punctuation">(</span>context<span class="token punctuation">.</span>acquireTokenError<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                          context<span class="token punctuation">.</span><span class="token function">acquireTokenError</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                      <span class="token punctuation">}</span>
+                      <span class="token keyword">throw</span> err<span class="token punctuation">;</span>
+                  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Now, we can use these to build up different HTTP clients:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  @<span class="token function">withBaseUrl</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span>stellarport<span class="token punctuation">.</span>urls<span class="token punctuation">.</span>aCoolAPI<span class="token punctuation">)</span>
+  @<span class="token function">acceptAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  @<span class="token function">sendJson</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  @<span class="token function">withBearerToken</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AuthCoolApiClient</span> <span class="token keyword">extends</span> <span class="token class-name">HttpClient</span> <span class="token punctuation">{</span>
+      <span class="token function">acquireToken</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token operator">...</span>
+      <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  
+  @<span class="token function">withBaseUrl</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span>stellarport<span class="token punctuation">.</span>urls<span class="token punctuation">.</span>anotherAPI<span class="token punctuation">)</span>
+  @<span class="token function">acceptAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  @<span class="token function">sendJson</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AnotherApiClient</span> <span class="token keyword">extends</span> <span class="token class-name">HttpClient</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Finally, we initialize our api clients on app startup like so:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  authCoolApiClient<span class="token punctuation">.</span><span class="token function">configure</span><span class="token punctuation">(</span><span class="token parameter">config</span> <span class="token operator">=></span> authCoolApiClient<span class="token punctuation">.</span><span class="token function">modifyConfiguration</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  anotherApiClient<span class="token punctuation">.</span><span class="token function">configure</span><span class="token punctuation">(</span><span class="token parameter">config</span> <span class="token operator">=></span> anotherApiClient<span class="token punctuation">.</span><span class="token function">modifyConfiguration</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Here we have different API clients, with different base urls, one authenticated and one not. Aurelia makes it super easy.</p>
+</section>
+<section><h2 id="conclusion">Conclusion</h2><p>Using Aurelia is a pleasure. It is simple, intuitive, and flexible. At Stellarport, we're sure we made the right choice building on Aurelia.</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Case%20Study%3A%20Stellarport" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2019%2F4%2F22%2Fcase-study-stellarport"></blog-footer>
+</section>

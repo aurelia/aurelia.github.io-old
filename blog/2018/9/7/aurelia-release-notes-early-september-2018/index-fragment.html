@@ -1,0 +1,253 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia Release Notes - Early September 2018</h1>
+    <h2>Posted by <span class="author">Rob Eisenberg</span> on <span class="date">September 7, 2018</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>This month we've had big releases for the Aurelia-CLI, the Aurelia Dialog plugin and the Aurelia i18n plugin. Read on to get the details...</p>
+<section><h2 id="aurelia-cli">Aurelia CLI</h2><p>We're excited to share that the CLI can now setup Protractor and Jest when choosing to use the Aurelia-CLI internal bundler. This option was already available for Webpack, but can now be used with the Aurelia-CLI bundler as well.</p>
+<p>New Webpack projects now use the mini-css-extract-plugin instead of the extract-text-webpack-plugin. This plugin works better with Webpack 4. The new mini-css-extract-plugin requires a higher version of Node.js, so make sure to update Node.js to at least v8.9.0.</p>
+<p>A great many improvements were made by the Aurelia community, which we are very grateful for. These improvements are listed in the changelog below.</p>
+</section>
+<section><h2 id="aurelia-dialog">Aurelia Dialog</h2><p>We released Aurelia Dialog 1.0.0, basically promoting <code>1.0.0-rc.2</code> to 1.0.0. It has been stable for more than a year and we felt it was time to make it official.</p>
+<p>Following up on that, we've also released Aurelia Dialog 2.0.0-rc.3, which has a few breaking changes:</p>
+<ul>
+<li>The <em>default resources</em> (<code>UxDialog</code>, <code>UxDialogHeader</code>, <code>UxDialogBody</code>, <code>UxDialogFooter</code>, <code>AttachFocus</code>) are no longer re-exported from the <em>main</em> module. So if you've been doing something like <code>import { UxDialog } from 'aurelia-dialog';</code>, it will no longer work.</li>
+<li>The <em>default resources</em> are no longer statically imported from any of the mandatory modules. Because they are optional, you can now choose not to register them, or just to register some of them using the configuration API. We import them using <code>import()</code>. As a result you may need to reconfigure your build setup differently. For example, if you are using the <code>aurelia-cli</code> <code>RequireJS</code>/<code>SystemJS</code> build setup and you are using the default resources, here's a sample configuration for the dialog:</li>
+</ul>
+
+<code-listing>
+  
+<source-code lang="JSON" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token punctuation">{</span>
+    <span class="token string">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token comment">//...</span>
+    <span class="token punctuation">{</span>
+        <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"aurelia-dialog"</span><span class="token punctuation">,</span>
+        <span class="token string">"path"</span><span class="token operator">:</span> <span class="token string">"../node_modules/aurelia-dialog/dist/amd"</span><span class="token punctuation">,</span>
+        <span class="token string">"main"</span><span class="token operator">:</span> <span class="token string">"aurelia-dialog"</span><span class="token punctuation">,</span>
+        <span class="token string">"resources"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"resources/*.js"</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">//...</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<ul>
+<li>All <em>default resources</em> are moved under the <code>resources</code> folder.</li>
+<li>The <code>native-modules</code> and <code>es2015</code> builds are now targeting <em>esnext</em> modules; they will contain dynamic imports in the form of <code>import()</code>.</li>
+</ul>
+<p>There are a couple of interesting improvements as well:</p>
+<ul>
+<li>Usage of <code>Origin.get</code> was removed; we now depend on the built-in support for <code>class</code> references from the <code>CompositionEngine</code>. What does this mean? Usage of <code>class</code> references for <em>.viewModel</em> should no longer cause issues with <em>Webpack</em> when <code>PLATFORM.moduleName()</code> is not used.</li>
+<li><em>default resources</em> are now registered using <code>class</code> references.</li>
+</ul>
+<p>Our plan is to promote <code>2.0.0-rc.x</code> to <code>2.0.0</code> after community feedback on the changes around the <em>default resources</em>. Also, since the API is the same as <code>1.0.0</code>, excluding the <em>default resources</em> re-export drop, we intend to ship fixes only for <code>2.x</code>. All work on new features is going on the <code>master</code> branch.</p>
+<ul>
+<li>New features (next major) branch - <code>master</code></li>
+<li>v2 maintenance branch - <code>v2.x</code></li>
+</ul>
+<p>You may see <em>Issues</em> and <em>Pull Requests</em> with the label <code>feedback wanted</code>. Please feel free to check them and drop your opinion if interested. We'd love for you to get involved in the next version of the dialog plugin.</p>
+</section>
+<section><h2 id="aurelia-i18n">Aurelia i18n</h2><p>The i18n plugin has been fully converted to TypeScript. We've bumped the major version for this release, so we're now at 3.0.0-beta.1. We've made a number of improvements to the core of the i18n plugin as part of this work, some of which resulted in a few breaking changes. Please find the detailed change list below for more information.</p>
+</section>
+<section><h2 id="major-releases">Major Releases</h2><p>Major updates may include breaking changes, new features, fixes to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/dialog/compare/1.0.0...2.0.0-rc.1" target="_blank">aurelia-dialog 2.0.0-rc.3</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>css:</strong> update styles to use ux- prefix instead of ai- (
+<a href="https://github.com/aurelia/dialog/commit/f29d8cb" target="_blank">f29d8cb</a>
+), closes 
+<a href="https://github.com/aurelia/dialog/issues/306" target="_blank">#306</a>
+</li>
+<li><strong>package.json:</strong> add missing dependency (
+<a href="https://github.com/aurelia/dialog/commit/ed9c5df" target="_blank">ed9c5df</a>
+)</li>
+<li><strong>attach-focus:</strong> AttachFocus must be the default export fix 
+<a href="https://github.com/aurelia/dialog/issues/358" target="_blank">#358</a>
+ (
+<a href="https://github.com/aurelia/dialog/commit/fb5e829" target="_blank">fb5e829</a>
+)</li>
+<li><strong>resources:</strong> use named exports instead of default (
+<a href="https://github.com/aurelia/dialog/commit/4033216" target="_blank">4033216</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>attach-focus:</strong> make work as boolean attr (
+<a href="https://github.com/aurelia/dialog/commit/f75abb4" target="_blank">f75abb4</a>
+), closes 
+<a href="https://github.com/aurelia/dialog/issues/349" target="_blank">#349</a>
+</li>
+<li><strong>resources:</strong> register resources by class (
+<a href="https://github.com/aurelia/dialog/issues/354" target="_blank">#354</a>
+) (
+<a href="https://github.com/aurelia/dialog/commit/ff55c80" target="_blank">ff55c80</a>
+)</li>
+</ul>
+<h4>BREAKING CHANGES</h4>
+<ul>
+<li><strong>resources:</strong> - default resources are no longer reexported, need to be explicitly included when bundling</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/i18n/compare/2.3.2...3.0.0-beta1" target="_blank">aurelia-i18n 3.0.0-beta.1</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li>switch to TypeScript (
+<a href="https://github.com/aurelia/i18n/commit/6a4c15f" target="_blank">6a4c15f</a>
+)</li>
+</ul>
+<h4>BREAKING CHANGES</h4>
+<ul>
+<li>Updated i18next to 11.x.x version</li>
+<li>removed deprecated df &amp; nf parameters</li>
+<li>removed auto-loading of Intl polyfill, no longer a dependency
+(make sure to add it by yourself if needed before the app start)</li>
+<li>removed BaseI18N class in favor of composition over inheritance</li>
+<li>typings are now distributed from dist/typings/...</li>
+<li>removed old custom typings for i18next and i18next-xhr-backend</li>
+</ul>
+</section>
+<section><h2 id="minor-releases">Minor Releases</h2><p>Minor updates include new features, updates to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/cli/compare/0.33.1...0.34.0" target="_blank">aurelia-cli 0.34.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>bundler:</strong> fix compatibility with source-map &gt;= v0.6 (
+<a href="https://github.com/aurelia/cli/commit/681a77d" target="_blank">681a77d</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/870" target="_blank">#870</a>
+</li>
+<li><strong>cli:</strong> default bundler is webpack, so move to position 1 (
+<a href="https://github.com/aurelia/cli/commit/d0ff2ee" target="_blank">d0ff2ee</a>
+)</li>
+<li><strong>cli:</strong> display meanful error when not installed locally (
+<a href="https://github.com/aurelia/cli/commit/71893be" target="_blank">71893be</a>
+)</li>
+<li><strong>cli:</strong> fail gracefully when installed in parent folder (
+<a href="https://github.com/aurelia/cli/commit/9407c87" target="_blank">9407c87</a>
+)</li>
+<li><strong>cli:</strong> no longer clear the terminal (
+<a href="https://github.com/aurelia/cli/commit/9644da8" target="_blank">9644da8</a>
+)</li>
+<li><strong>cli build:</strong> reassign global.define.amd after assigning karma override function (
+<a href="https://github.com/aurelia/cli/commit/9eee46f" target="_blank">9eee46f</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/71" target="_blank">#71</a>
+</li>
+<li><strong>importer:</strong> support nodejs module default main file &quot;index.js&quot; when &quot;main&quot; is missing in package.json (
+<a href="https://github.com/aurelia/cli/commit/e050868" target="_blank">e050868</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/831" target="_blank">#831</a>
+</li>
+<li><strong>install:</strong> leave yarn/npm up to the user (
+<a href="https://github.com/aurelia/cli/commit/cce5070" target="_blank">cce5070</a>
+)</li>
+<li><strong>jest:</strong> update usage of jest.runCli (
+<a href="https://github.com/aurelia/cli/commit/66799c0" target="_blank">66799c0</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/896" target="_blank">#896</a>
+</li>
+<li><strong>npm:</strong> update internal npm (
+<a href="https://github.com/aurelia/cli/commit/987cc68" target="_blank">987cc68</a>
+)</li>
+<li><strong>package-scripts:</strong> fix test.lint.fix task (
+<a href="https://github.com/aurelia/cli/commit/76816e9" target="_blank">76816e9</a>
+)</li>
+<li><strong>package.json:</strong> added missing deps (
+<a href="https://github.com/aurelia/cli/commit/54f14be" target="_blank">54f14be</a>
+)</li>
+<li><strong>requirejs/systemjs:</strong> fix duplicate index.html (
+<a href="https://github.com/aurelia/cli/commit/8bac73d" target="_blank">8bac73d</a>
+)</li>
+<li>enforce single aurelia-binding in webpack bundle (
+<a href="https://github.com/aurelia/cli/commit/911b3d7" target="_blank">911b3d7</a>
+)</li>
+<li>fix binary file copy on favicon.ico (
+<a href="https://github.com/aurelia/cli/commit/f7941f4" target="_blank">f7941f4</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/688" target="_blank">#688</a>
+</li>
+<li><strong>run-webpack.ts:</strong> copy the https property from devServer to opts (
+<a href="https://github.com/aurelia/cli/commit/118e441" target="_blank">118e441</a>
+)</li>
+<li><strong>stylus:</strong> don't stop watch on error (
+<a href="https://github.com/aurelia/cli/commit/4ad96fd" target="_blank">4ad96fd</a>
+)</li>
+<li><strong>tsconfig.template.json:</strong> fix incorrect files glob (
+<a href="https://github.com/aurelia/cli/commit/ca0ab4b" target="_blank">ca0ab4b</a>
+)</li>
+<li><strong>webpack:</strong> remove json loader from webpack config (
+<a href="https://github.com/aurelia/cli/commit/0ef0b84" target="_blank">0ef0b84</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/860" target="_blank">#860</a>
+</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>requirejs/systemjs:</strong> add protractor and jest support (
+<a href="https://github.com/aurelia/cli/commit/4648877" target="_blank">4648877</a>
+)</li>
+<li>check duplicated packages in webpack (
+<a href="https://github.com/aurelia/cli/commit/bd69e5e" target="_blank">bd69e5e</a>
+), closes 
+<a href="https://github.com/aurelia/binding/issues/702" target="_blank">aurelia/binding#702</a>
+</li>
+<li>use terser to replace uglifyjs for better es6 support (
+<a href="https://github.com/aurelia/cli/commit/588ce58" target="_blank">588ce58</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/883" target="_blank">#883</a>
+ 
+<a href="https://github.com/aurelia/cli/issues/490" target="_blank">#490</a>
+ 
+<a href="https://github.com/aurelia/cli/issues/864" target="_blank">#864</a>
+</li>
+</ul>
+</section>
+<section><h2 id="patch-releases">Patch Releases</h2><p>Patch updates include only fixes to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/i18n/compare/2.3.1...2.3.2" target="_blank">aurelia-i18n 2.3.2</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>service:</strong> provide params on updateTranslations (
+<a href="https://github.com/aurelia/i18n/commit/0f469ee" target="_blank">0f469ee</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/binding/compare/2.1.2...2.1.3" target="_blank">aurelia-binding 2.1.3</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>ArrayObservation:</strong> ensure patch applied only once (
+<a href="https://github.com/aurelia/binding/commit/72b5d6d" target="_blank">72b5d6d</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/templating/compare/1.8.2...1.8.3" target="_blank">aurelia-templating 1.8.3</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>StaticViewStrategy:</strong> set formal &quot;.moduleId&quot; (
+<a href="https://github.com/aurelia/templating/commit/86ea2fd" target="_blank">86ea2fd</a>
+)</li>
+</ul>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%20Release%20Notes%20-%20Early%20September%202018" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2018%2F9%2F7%2Faurelia-release-notes-early-september-2018"></blog-footer>
+</section>

@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "aurelia-site-generator": "aurelia/site-generator",
     "aurelia-binding": "latest",
     "aurelia-bootstrapper": "latest",
     "aurelia-dependency-injection": "latest",
@@ -21,6 +20,7 @@
     "aurelia-path": "latest",
     "aurelia-route-recognizer": "latest",
     "aurelia-router": "latest",
+    "aurelia-site-generator": "aurelia/site-generator",
     "aurelia-task-queue": "latest",
     "aurelia-templating": "latest",
     "aurelia-templating-binding": "latest",

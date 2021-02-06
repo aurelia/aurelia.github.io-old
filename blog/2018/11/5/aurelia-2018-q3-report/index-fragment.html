@@ -1,0 +1,184 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia 2018 Q3 Report</h1>
+    <h2>Posted by <span class="author">Rob Eisenberg</span> on <span class="date">November 5, 2018</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>The third quarter of 2018 was filled with major advances in our vNext Aurelia implementation along with a few cool new updates in today's Aurelia. Read on to hear about what we've accomplished and what's next as we round out 2018 and head into 2019.</p>
+<section><h2 id="platform-features-and-capabilities">Platform Features and Capabilities</h2><p>We continue to make significant enhancements in today's Aurelia. During the last few months, we've added some pretty major capabilities to our core platform.</p>
+<h3>Introducing Aurelia Script</h3>
+<p>Today, we're happy to introduce you to Aurelia Script. For the past several years, the only supported way to use Aurelia was with a module loader or bundler. This meant that Aurelia was more difficult to integrate into traditional, existing web projects and that the barrier for entry was high, because you had to master NPM, Webpack, CLIs, etc. just to get a &quot;Hello World&quot; Aurelia application up and running. With Aurelia Script, we now offer an official single-file build of Aurelia that you can reference from a normal <code>script</code> tag in your HTML. There's no need for any transpilers, bundlers, build process, or any tooling at all. Here's an example of how you might use Aurelia Script through CDN to startup an app:</p>
+
+<code-listing heading="index.html">
+  
+<source-code lang="HTML" heading="index.html">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Aurelia Script Tag App<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>https://cdn.jsdelivr.net/npm/aurelia-script@1.3.0<span class="token punctuation">'</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
+        <span class="token keyword">const</span> aurelia <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">au<span class="token punctuation">.</span>Aurelia</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        aurelia
+          <span class="token punctuation">.</span>use
+            <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        aurelia
+          <span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token string">'app.js'</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<div class="info"><div class="icon"> <i></i> </div><p>
+We'll be following up with a whole post devoted to Aurelia Script soon, providing more examples and details on how to use it.</p>
+</div>
+<h3>Introducing Aurelia's ESM Loader</h3>
+<p>You may have heard that browsers are now starting to support the <code>import()</code> API, which is the initial gateway to the browser's, standard, built-in module loader. Aurelia's original architecture was built in anticipation of this (4 years in the making) and so we're very happy to announce 
+<a href="https://github.com/aurelia/loader-esm" target="_blank">aurelia-loader-esm</a>
+. In much the way that we've supported RequireJS, SystemJS, Webpack, and others with loader plugins, we now support the new standard loader as well.</p>
+<p>In addition to supporting the standard loader as an option for existing apps, this new loader is built into Aurelia Script from the beginning.</p>
+<h3>Let Bindings Are Here</h3>
+<p>In the last few months, we were able to deliver a long-time requested feature to Aurelia's template engine: <code>let</code> bindings. This is an Aurelia vNext feature, which after working out the syntax and semantics in vNext, we were able to port back to the current version of Aurelia with the same behavior. The <code>let</code> element can be used to declare view-specific computed properties within a template. Here's an example of what you can do:</p>
+
+<code-listing heading="index.html">
+  
+<source-code lang="HTML" heading="index.html">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>let</span> <span class="token attr-name">fullname</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>${firstName} ${lastName}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>let</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
+    First name:
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>firstName<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    Last name:
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>lastName<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  
+  Full name is: "${fullname}"
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The <code>let</code> element turns its own attributes into computed properties that you can use anywhere within the view. Any time a dependent property of the <code>let</code> property changes, the <code>let</code> will automatically update relevant computed properties. This provides developers with a highly terse, very efficient, and maintainable way to create view-specific computed properties without needing to change the model or make performance tradeoffs.</p>
+<h3>Sandbox All The Things!</h3>
+<p>We've been working hard to make it easier for you to build Aurelia demos and share them with the community and the world. To that end, we're proud to share that Aurelia is now an official patron of CodeSandbox.io. Along with this announcement, we're launching two sandboxes that you can use to build demos with: a JavaScript sandbox and a TypeScript sandbox. You can fork these sandboxes to build and share Aurelia demos with everyone today!</p>
+<ul>
+<li>
+<a href="https://codesandbox.io/s/jnl6q85zq5" target="_blank">Aurelia JavaScript Sandbox</a>
+</li>
+<li>
+<a href="https://codesandbox.io/s/zw9zjy0683" target="_blank">Aurelia TypeScript Sandbox</a>
+</li>
+</ul>
+<h3>What's Next</h3>
+<h4>More CodeSandbox.io Integration</h4>
+<p>Now that we've got basic sandboxes set up, we're working with CodeSandbox.io to get official templates setup as well. Once that's done, you'll be able to create a new Aurelia app from a template rather than needing to fork an existing sandbox.</p>
+<h4>New Tutorials Are Coming</h4>
+<p>With the the new sandboxes and the availability of Aurelia Script, we believe we can rework our getting started tutorials to be simpler and easier to learn from. Watch for updated tutorials as we round out 2018.</p>
+</section>
+<section><h2 id="plugins">Plugins</h2><p>In addition to work on the core platform, we're continuing to invest in our official plugins. Several of our plugins have had notable updates in the last few months.</p>
+<h3>Aurelia Dialog</h3>
+<p>This quarter we released Aurelia Dialog 1.0.0 and then began working on 2.x which is currently released as Aurelia Dialog 2.0.0-rc.3. One of the main focuses of 2.x was to enable dialog scenarios based on new templating features, primarily <a href="blog/2018/08/05/aurelia-2018-q2-report">the ability to register resources using classes directly</a>. Our plan is to promote 2.0.0-rc.x to 2.0.0 after further community feedback on the changes.</p>
+<h3>Aurelia i18n</h3>
+<p>The i18n plugin was fully converted to TypeScript during the last quarter. We've bumped the major version for this release, so we're now at 3.0.0-beta.2. We've made a number of improvements to the core of the i18n plugin as part of this work as well.</p>
+<h3>Aurelia UX</h3>
+<p>Q3 was a light period for Aurelia UX, however, we have added a major new feature that enables easier, more-powerful theming. The updated style engine now allows UX Design Styles to be set through new <code>applyTheme</code> and <code>applyThemeGroup</code> APIs:</p>
+<p>Here's an example of what the configuration might look like for light and dark themes:</p>
+
+<code-listing>
+  
+<source-code lang="JSON" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token punctuation">{</span>
+    <span class="token string">"light"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token string">"themeKey"</span><span class="token operator">:</span> <span class="token string">"design"</span><span class="token punctuation">,</span>
+        <span class="token string">"controlBackground"</span><span class="token operator">:</span> <span class="token string">"#fff"</span><span class="token punctuation">,</span>
+        <span class="token string">"controlForeground"</span><span class="token operator">:</span> <span class="token string">"#212121"</span><span class="token punctuation">,</span>
+        <span class="token string">"appBackground"</span><span class="token operator">:</span> <span class="token string">"#fafafa"</span><span class="token punctuation">,</span>
+        <span class="token string">"appForeground"</span><span class="token operator">:</span> <span class="token string">"#212121"</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        <span class="token string">"themeKey"</span><span class="token operator">:</span> <span class="token string">"toolbar"</span><span class="token punctuation">,</span>
+        <span class="token string">"shadow"</span><span class="token operator">:</span> <span class="token string">"none"</span><span class="token punctuation">,</span>
+        <span class="token string">"background"</span><span class="token operator">:</span> <span class="token string">"transparent"</span><span class="token punctuation">,</span>
+        <span class="token string">"foreground"</span><span class="token operator">:</span> <span class="token string">"#333"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"dark"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token string">"themeKey"</span><span class="token operator">:</span> <span class="token string">"design"</span><span class="token punctuation">,</span>
+        <span class="token string">"controlBackground"</span><span class="token operator">:</span> <span class="token string">"#373740"</span><span class="token punctuation">,</span>
+        <span class="token string">"controlForeground"</span><span class="token operator">:</span> <span class="token string">"#fff"</span><span class="token punctuation">,</span>
+        <span class="token string">"appBackground"</span><span class="token operator">:</span> <span class="token string">"#33333d"</span><span class="token punctuation">,</span>
+        <span class="token string">"appForeground"</span><span class="token operator">:</span> <span class="token string">"#fff"</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span> 
+      <span class="token punctuation">{</span>
+        <span class="token string">"themeKey"</span><span class="token operator">:</span> <span class="token string">"toolbar"</span><span class="token punctuation">,</span>
+        <span class="token string">"shadow"</span><span class="token operator">:</span> <span class="token string">"none"</span><span class="token punctuation">,</span>
+        <span class="token string">"background"</span><span class="token operator">:</span> <span class="token string">"transparent"</span><span class="token punctuation">,</span>
+        <span class="token string">"foreground"</span><span class="token operator">:</span> <span class="token string">"inherit"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<h3>What's Next</h3>
+<h4>Aurelia Router</h4>
+<p>We've been doing a lot of work on our router during the last couple of months. We're close to a new release that fixes bugs, adds some new features, converts the source to TypeScript, and adds a host of new tests. Be on the look out for that soon.</p>
+<h4>i18n and Store vNext</h4>
+<p>Our i18n and Store plugins are some of our most used and most powerful plugins in our ecosystem. During the last quarter we've landed both in TypeScript, preparing the way for vNext. Over the next few months, we'll be porting these plugins to our vNext infrastructure so they are ready to go on day one when vNext releases.</p>
+</section>
+<section><h2 id="tooling">Tooling</h2><p>In the last month, we released what is probably the most significant update to the Aurelia CLI in a long time. This new update includes our own auto-tracing bundler which allows you to have all the runtime power of RequireJS or SystemJS, while leveraging a similar bundling capability to Webpack, but without the complexity. If you haven't had a chance to check it out yet, you can read <a href="blog/2018/10/08/release-aurelia-cli-with-auto-tracing-bundler">the release blog post</a> or head over to <a href="docs/cli/cli-bundler">the CLI docs</a> for more in-depth information. We're very excited about this new technology, how it will simplify development with Aurelia, and what we'll be able to do with it in the future.</p>
+<h3>What's Next</h3>
+<h4>Updated Skeletons</h4>
+<p>When we initially launched Aurelia, we launched with a number of skeleton projects that you could use to get started. Since then, our CLI has taken the center stage, providing many more options for developers building real apps. Unfortunately, while the CLI has been advancing, our skeleton projects have gone slightly out of date. To improve this, we're adding a new capability to the CLI that enables us to easily generate all the existing skeletons we have today. This will allow us to make the CLI the single source of truth while also providing up-to-date skeleton downloads for those who want them.</p>
+<h4>vNext Support</h4>
+<p>You'll find more information on vNext progress below, but we also wanted to mention here that we'll be working to add support for vNext to the CLI as one of our next tooling tasks.</p>
+</section>
+<section><h2 id="aurelia-vnext">Aurelia vNext</h2><p>Q3 has been an amazing time for 
+<a href="https://github.com/aurelia/aurelia" target="_blank">vNext development</a>
+. While we're still not quite ready for the community to start building with it, we've passed some major milestones and have made massive progress.</p>
+<h3>JIT Support</h3>
+<p>In <a href="blog/2018/08/05/aurelia-vnext">our vNext Announcement</a> we discussed how Aurelia vNext is composed of a 
+<a href="https://github.com/aurelia/aurelia/tree/master/packages" target="_blank">Kernel, Runtime, JIT, AOT, Debugger, and Plugins</a>
+. We're pleased to announce that during Q3 we got the JIT up and running with implementations of most of the compiler's features. This enabled us for the first time to build and run a simple Aurelia application without needing to hand-code the Aurelia runtime's equivalent of &quot;byte code&quot;.</p>
+<h3>JSX and createElement</h3>
+<p>We've added a powerful new API to Aurelia vNext called <code>createElement</code>. The <code>createElement</code> API matches the <code>React.createElement</code> function signature and enables Aurelia vNext to optionally use JSX for its views and support a <code>render</code> method. That said, most Aurelia developers will be more interested in the fact that the new <code>createElement</code> API is the supported, new, low-level API for dynamic UI composition and the basis for the vNext <code>compose</code> element. In vNext, <code>compose</code> (and <code>createElement</code>) can pass through arbitrary bindings, supports slotted composition and can more consistently compose custom elements and views, including views created on-the-fly. It can do all of this both synchronously and asynchronously, depending on your needs.</p>
+<h3>Lifecycle Improvements</h3>
+<p>In today's Aurelia, you might be surprised to see how large the separation between the binding and templating engines is. This was originally done in the spirit of ultra-modularity, but after almost four years, we have yet to see anyone use templating without binding or binding without templating. So, for vNext, we're integrating templating and binding more deeply. By doing this we can improve performance as well as create a more consistent component lifecycle. The new design also enables us to better handle the complex combinations of templating and binding behaviors that are present in real applications. We're pretty excited about the lifecycle work and what it will mean for Aurelia vNext.</p>
+<h3>Loaders and Bundlers</h3>
+<p>A core value of Aurelia has always been ease of integration with 3rd party libraries. Today's Aurelia is very good at this, better than any other framework, with one rather important exception. Due to early decisions in Aurelia's design, it requires a lot of work to support new module loaders and bundlers. This was most evident in the amount of work it took us to initially support Webpack. In vNext, we've made some different design decisions, which enable easier support of new loaders and bundlers. Beyond that, we've setup tests for vNext already, to ensure that it works properly with all the major players. Today we have vNext tests for 
+<a href="https://github.com/aurelia/aurelia/tree/master/examples" target="_blank">Aurelia CLI (RequireJS/SystemJS), Browserify, FuseBox, Parcel, and Webpack</a>
+. Also, in the same spirit of Aurelia Script for single-script tag development with today's Aurelia, vNext also supports 
+<a href="https://github.com/aurelia/aurelia/blob/master/examples/jit-iife-inline/index.html" target="_blank">single-script tag development</a>
+ from day one.</p>
+<h3>Testing and Publishing</h3>
+<p>We want our next major version of Aurelia to be the most stable, most validated, and most dependable front-end framework available, so we're investing heavily in testing and CI/CD infrastructure. As of this post, I'm pleased to share that Aurelia vNext is at 91% test coverage with over 48,000 unit and integration tests! We also have a series of e2e tests that we run against all the above-mentioned loaders and we're currently leveraging BrowserStack to ensure cross browser support. These tests are fully automated and run on every pull request. Additionally, we're now publishing automated nightly builds on NPM and making milestone-based pre-alpha releases as well.</p>
+<div class="warning"><div class="icon"> <i></i> </div><p>
+Remember, even though we're beginning to publish pre-release builds of vNext on NPM, Aurelia vNext is not yet ready for real use. It's still undergoing significant breaking changes and developer documentation is not yet ready. In other words, don't use it yet. We promise to make a big deal about it when it's ready.</p>
+</div>
+</section>
+<section><h2 id="wrapping-up">Wrapping Up</h2><p>The third quarter of 2018 was probably one of the most significant periods in the history of Aurelia's development. With major new scenarios being opened up by Aurelia Script and the amazing progress speeding forward on vNext, we're more energized and excited for the future than ever before. Thanks for joining us on this ride and if you're new here, we welcome you to one of the most exciting places in front-end.</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%202018%20Q3%20Report" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2018%2F11%2F5%2Faurelia-2018-q3-report"></blog-footer>
+</section>

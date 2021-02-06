@@ -1,0 +1,240 @@
+<section class="article blog">
+  <header>
+    <h1>Building Office 365/SharePoint Applications with Aurelia</h1>
+    <h2>Posted by <span class="author">Magnus Danielson</span> on <span class="date">March 21, 2018</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>This week, please welcome community member Magnus Danielson to share a little bit about Aurelia and Office 365. Take it away Magnus!</p>
+<section><h2 id="why-care-about-microsoft-office-365-anyway">Why care about Microsoft Office 365 anyway?</h2><p>Microsoft has been very successful in moving customers to their cloud offering: Microsoft Office 365. There are more than 100 million potential end users in the Microsoft cloud. All these users create, share, and collaborate on documents and information critical to their own success. They use Mac or PC on any web browser or any mobile device. The foundation is in place for building great business applications that help these customers to be even more productive, smarter and more agile. Microsoft provides ways to add functionality in many ways and an API to reach and interact with the user’s data. It is now up to you and your customers to build smart, snappy and sleek applications that live and run on top of Microsoft Office 365.</p>
+</section>
+<section><h2 id="what-are-my-options-and-how-can-it-be-done">What are my options and how can it be done?</h2><p>So now all you need is a way to build a great user experience and call back-end services. Since you are an expert on Aurelia, of course you know that it is the way forward.</p>
+<p>There are several ways of adding functionality to SharePoint online, the collaboration offering in Office 365. For simplicity the four choices below are the ones you will care about.</p>
+<ol>
+<li>Full immersive add-in running on your own hosted web server</li>
+<li>JavaScript injected into the SharePoint page itself</li>
+<li>Modern Client side webparts built with SPFx</li>
+<li>Adding UI commands</li>
+</ol>
+<p>Choices 1, 2 and 3 can be built with Aurelia. Adding UI commands, number 4, is only the means for opening your UI that is built via 1, 2 or 3. In this post I will focus on number 3, building modern client side webparts with SPFx and Aurelia.</p>
+</section>
+<section><h2 id="spfx-and-aurelia">SPFx and Aurelia</h2><p>The SharePoint Framework (SPFx) is a page and web part model that provides full support for client-side SharePoint development, easy integration with SharePoint data, and support for open source tooling. This means that your code runs in the browser in the context of the user. It is easy to call the SharePoint API and it is easy to build a modern responsive experience.</p>
+<p>The tooling you need on your local developer machine is Node, NPM and an editor of your choice. The code is written in TypeScript. SPFx is released to NPM and you use Yeoman to create your project. When you build your project, there is a gulp task that dynamically builds a WebPack configuration file that is then used by WebPack for building and bundling.</p>
+<p>Fortunately, Microsoft encourages developers to extend the build process, so I have adapted the build process for Aurelia developers. As always, my work stands on the shoulders of earlier work such as the Aurelia WebPack plugin.</p>
+</section>
+<section><h2 id="getting-started">Getting Started</h2><p>If you are eager just to try it out, download 
+<a href="https://github.com/magnusdanielson/spfx-aurelia" target="_blank">the Aurelia Navigation Skeleton from my GitHub</a>
+ It is important to verify your version of Node and NPM. These version dependencies are related to SPFx and not to Aurelia itself:</p>
+
+<code-listing>
+  
+<source-code lang="Shell" heading="">
+  <pre class="language-powershell">
+    <code>
+  npm <span class="token operator">--</span>v
+  3<span class="token punctuation">.</span>10<span class="token punctuation">.</span>8
+  
+  node <span class="token operator">-</span>v
+  v6<span class="token punctuation">.</span>11<span class="token punctuation">.</span>5
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>When you have verified your versions, just install everything you need with:</p>
+
+<code-listing>
+  
+<source-code lang="Shell" heading="">
+  <pre class="language-powershell">
+    <code>
+  npm install
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>You can then admire the beauty of Aurelia Navigation Skeleton in the SharePoint Workbench. Notice that the Office 365 top menu is hidden with the Bootstrap navigation menu. This is something you would never do in any real application but I wanted to stick as close as possible to the Aurelia Navigation Skeleton example, and therefor I did not touch the CSS in any way.</p>
+</section>
+<section><h2 id="the-details-of-aurelia-and-spfx">The Details of Aurelia and SPFx</h2><p>When you create your client-side webpart with SPFx, you get a complete project structure with all the things you need to build and run the app. To use Aurelia in the webpart there are a few things you need to do. First, run the Yeoman template with all default choices but most importantly 'No JavaScript framework'.</p>
+<p>Next, add dependencies to the following packages:</p>
+
+<code-listing>
+  
+<source-code lang="Shell" heading="">
+  <pre class="language-powershell">
+    <code>
+  npm install aurelia<span class="token operator">-</span>bootstrapper@2<span class="token punctuation">.</span>1<span class="token punctuation">.</span>1 <span class="token operator">--</span>save
+  npm install aurelia<span class="token operator">-</span>fetch<span class="token operator">-</span>client@1<span class="token punctuation">.</span>1<span class="token punctuation">.</span>2 <span class="token operator">--</span>save
+  npm install bluebird@3<span class="token punctuation">.</span>5<span class="token punctuation">.</span>0 <span class="token operator">--</span>save
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Aurelia fetch is needed if you want to talk to any back-end server, and since you always want that, you should include it. Bluebird is there to polyfill Promise functionality for IE and Edge.</p>
+<p>Then, add developer dependencies to the following packages:</p>
+
+<code-listing>
+  
+<source-code lang="Shell" heading="">
+  <pre class="language-powershell">
+    <code>
+  npm install aurelia<span class="token operator">-</span>webpack<span class="token operator">-</span>plugin@2<span class="token punctuation">.</span>0<span class="token punctuation">.</span>0<span class="token operator">-</span>rc<span class="token punctuation">.</span>5 <span class="token operator">--</span><span class="token function">save-dev</span>
+  npm install expose<span class="token operator">-</span>loader <span class="token operator">--</span><span class="token function">save-dev</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The Aurelia-WebPack plugin is there to make sure the dynamic nature of Aurelia works with WebPack's loaders. There are some configuration options that you can dive into about the plugin, but we won’t go into details about that now. We will save that for a later post. After this, add the following function to the gulp.js file that is already created in your project, just before the call to <code>build.initialize(gulp);</code>:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> AureliaPlugin <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"aurelia-webpack-plugin"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  build<span class="token punctuation">.</span>configureWebpack<span class="token punctuation">.</span><span class="token function">mergeConfig</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function-variable function">additionalConfiguration</span><span class="token operator">:</span> <span class="token parameter">generatedConfiguration</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token comment">//generatedConfiguration.resolve.modules.push("src");</span>
+      generatedConfiguration<span class="token punctuation">.</span>module<span class="token punctuation">.</span>rules<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>issuer <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token comment">// only when the issuer is a .js/.ts file, so the loaders are not applied inside templates</span>
+        test<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.[tj]s$</span><span class="token regex-delimiter">/</span><span class="token regex-flags">i</span></span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  
+      <span class="token keyword">var</span> rule1 <span class="token operator">=</span> <span class="token punctuation">{</span> test<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.css$</span><span class="token regex-delimiter">/</span><span class="token regex-flags">i</span></span><span class="token punctuation">,</span>issuer<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span> test<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.html$</span><span class="token regex-delimiter">/</span><span class="token regex-flags">i</span></span> <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span> use<span class="token operator">:</span> <span class="token string">"css-loader"</span><span class="token punctuation">}</span> <span class="token punctuation">;</span>
+      generatedConfiguration<span class="token punctuation">.</span>module<span class="token punctuation">.</span>rules<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>rule1<span class="token punctuation">)</span>
+  
+      <span class="token keyword">var</span> rule2 <span class="token operator">=</span> <span class="token punctuation">{</span> test<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.ts$</span><span class="token regex-delimiter">/</span><span class="token regex-flags">i</span></span><span class="token punctuation">,</span> use<span class="token operator">:</span> <span class="token string">"ts-loader"</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+      generatedConfiguration<span class="token punctuation">.</span>module<span class="token punctuation">.</span>rules<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>rule2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+      <span class="token keyword">var</span> rule3 <span class="token operator">=</span> <span class="token punctuation">{</span> test<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">[\/\\]node_modules[\/\\]bluebird[\/\\].+\.js$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> loader<span class="token operator">:</span> <span class="token string">'expose-loader?Promise'</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+      generatedConfiguration<span class="token punctuation">.</span>module<span class="token punctuation">.</span>rules<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>rule3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+      generatedConfiguration<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">AureliaPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        aureliaApp<span class="token operator">:</span> <span class="token keyword">undefined</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+      <span class="token keyword">return</span> generatedConfiguration<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The MergeConfig function is called from the WebPack gulp task when you run for example gulp serve. It is our chance to inject our custom configuration before WebPack starts.</p>
+<p>Add the setting below to the tsconfig.json file in the <code>compilerOptions</code> section. (I don’t really like this addition but is solves some problems with the TypeScript lint gulp task.)</p>
+
+<code-listing>
+  
+<source-code lang="javascript" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token string">"skipLibCheck"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Add the following imports to the HelloWorldWebPart.ts</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> Aurelia <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> <span class="token constant">PLATFORM</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"aurelia-pal"</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> Bluebird <span class="token keyword">from</span> <span class="token string">'bluebird'</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Next add a constructor to the same file to configure Bluebird as early as possible.</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Bluebird<span class="token punctuation">.</span><span class="token function">config</span><span class="token punctuation">(</span><span class="token punctuation">{</span> warnings<span class="token operator">:</span> <span class="token punctuation">{</span> wForgottenReturn<span class="token operator">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Replace the render() function with below:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>domElement<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;div id="</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>instanceId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">" class="</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>instanceId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">"  >Loading...&lt;/div></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+  
+    <span class="token function">require</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'aurelia-bootstrapper'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token parameter">au</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      au<span class="token punctuation">.</span><span class="token function">bootstrap</span><span class="token punctuation">(</span><span class="token parameter">aurelia</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+          aurelia<span class="token punctuation">.</span>use
+            <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+          <span class="token keyword">var</span> el <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>instanceId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          aurelia<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> aurelia<span class="token punctuation">.</span><span class="token function">setRoot</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'webparts/helloWorld/myapp'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> el<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Notice that we just add one div tag and no Aurelia-app attribute. We do that so we can control how Aurelia starts the app. If we would just inject an Aurelia-app attribute it would work but we would get in all sorts of problems when the next webpart of the same type is added. We now control the start by requiring Aurelia-bootstrapper and then manually start the app. InstanceId is unique for every webpart added to the page, so we are sure there is no conflict between them.</p>
+<p>Now add a simple myapp.ts file and a myapp.html file in the helloWorld folder.</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">myapp</span> <span class="token punctuation">{</span>
+    message <span class="token operator">=</span> <span class="token string">"World"</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+
+<code-listing>
+  
+<source-code lang="HTML" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    Hello ${message}
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+</section>
+<section><h2 id="summary">Summary</h2><p>Aurelia works great with modern SharePoint. My plan is to write more posts about both modern and old school SharePoint with Aurelia. Checkout [http://www.dunite.se] for more posts or my twitter account @magnusdanielson.</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Building%20Office%20365%2FSharePoint%20Applications%20with%20Aurelia" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2018%2F3%2F21%2Fbuilding-office-365sharepoint-applications-with-aurelia"></blog-footer>
+</section>

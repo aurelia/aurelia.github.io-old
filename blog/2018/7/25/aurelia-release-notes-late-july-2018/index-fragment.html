@@ -1,0 +1,83 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia Release Notes - Late July 2018</h1>
+    <h2>Posted by <span class="author">Rob Eisenberg</span> on <span class="date">July 25, 2018</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>This month we've a fixed number of issues in the routing and templating engines, including a few regressions that cropped up in the previous round of releases. Additionally, we've moved the <code>aurelia-dialog</code> plugin to a 1.0.0 release and have begun work on 2.0.0.</p>
+<p>Below, you can find further details on each of the releases.</p>
+<section><h2 id="major-releases">Major Releases</h2><p>Major updates may include breaking changes, new features, fixes to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/dialog/compare/1.0.0-rc.2.0.0...1.0.0" target="_blank">aurelia-dialog 1.0.0</a>
+</h3>
+<p><strong>No breaking changes from the RC.</strong> We've moved the RC build into an official 1.0.0 release.</p>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>DI:</strong> use static method for Element (
+<a href="https://github.com/aurelia/dialog/commit/700dd62" target="_blank">700dd62</a>
+)</li>
+<li><strong>doc:</strong> correct link from dialog to bootstraping (
+<a href="https://github.com/aurelia/dialog/commit/432533d" target="_blank">432533d</a>
+)</li>
+</ul>
+<div class="info"><div class="icon"> <i></i> </div><p>
+Future work on the dialog plugin is being done on the v2.x branch. Please submit all bug fixes and features there. Note that the new branch has a set of breaking changes which are designed to enable dialogs to work better with recent enhancements in the templating engine and in bundler support. Several breaking changes are focused around architectural improvements as well. Please expect the shelf-life of v1.x to be relatively short in light of the v2.x work that is currently underway.</p>
+</div>
+</section>
+<section><h2 id="patch-releases">Patch Releases</h2><p>Patch updates include only fixes to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/router/compare/1.6.1...1.6.2" target="_blank">aurelia-router 1.6.2</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>navigation-plan:</strong> Accept parameters in a redirect config (
+<a href="https://github.com/aurelia/router/commit/7172ed2" target="_blank">7172ed2</a>
+), closes 
+<a href="https://github.com/aurelia/router/issues/607" target="_blank">#607</a>
+</li>
+<li>Forward options argument to parent router.generate (
+<a href="https://github.com/aurelia/router/commit/78aad40" target="_blank">78aad40</a>
+), closes 
+<a href="https://github.com/aurelia/router/issues/606" target="_blank">#606</a>
+</li>
+<li>Update baseUrl when creating a navigation instruction (
+<a href="https://github.com/aurelia/router/commit/e801550" target="_blank">e801550</a>
+), closes 
+<a href="https://github.com/aurelia/router/issues/378" target="_blank">#378</a>
+ 
+<a href="https://github.com/aurelia/router/issues/605" target="_blank">#605</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/binding/compare/2.1.1...2.1.2" target="_blank">aurelia-binding 2.1.2</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>parser:</strong> allow PrimaryExpression on the lefthand side of CallMember (
+<a href="https://github.com/aurelia/binding/commit/c161c3a" target="_blank">c161c3a</a>
+), closes 
+<a href="https://github.com/aurelia/binding/issues/700" target="_blank">#700</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/templating/compare/1.8.1...1.8.2" target="_blank">aurelia-templating 1.8.2</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>composition-engine:</strong> align class and moduleId behaviour (
+<a href="https://github.com/aurelia/templating/commit/31aa677" target="_blank">31aa677</a>
+)</li>
+<li><strong>CompositionEngine:</strong> ensure bind() after finishing composition (
+<a href="https://github.com/aurelia/templating/commit/55a09dc" target="_blank">55a09dc</a>
+)</li>
+</ul>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%20Release%20Notes%20-%20Late%20July%202018" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2018%2F7%2F25%2Faurelia-release-notes-late-july-2018"></blog-footer>
+</section>
