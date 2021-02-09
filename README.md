@@ -13,6 +13,8 @@ project path is `my-projects/aurelia.github.io/`, the blog repo should be in `my
 
     ./generate-site.sh
 
+For Windows user, read the generate-site.sh content to find out what to run.
+
 ## Publish new blog
 
 First make sure your sibling `my-projectsblog/` repo is up to date.
