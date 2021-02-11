@@ -114,11 +114,11 @@
   <pre class="language-javascript">
     <code>
     <span class="token keyword">this</span><span class="token punctuation">.</span>loginSchema <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
-      type<span class="token punctuation">:</span> <span class="token string">'email'</span><span class="token punctuation">,</span>
-      key <span class="token punctuation">:</span> <span class="token string">'email'</span>
+      type<span class="token operator">:</span> <span class="token string">'email'</span><span class="token punctuation">,</span>
+      key <span class="token operator">:</span> <span class="token string">'email'</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
-      type<span class="token punctuation">:</span> <span class="token string">'password'</span><span class="token punctuation">,</span>
-      key <span class="token punctuation">:</span> <span class="token string">'password'</span>
+      type<span class="token operator">:</span> <span class="token string">'password'</span><span class="token punctuation">,</span>
+      key <span class="token operator">:</span> <span class="token string">'password'</span>
     <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     
     <span class="token keyword">this</span><span class="token punctuation">.</span>credentials <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
@@ -135,7 +135,7 @@
 <source-code lang="HTML" heading="">
   <pre class="language-markup">
     <code>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>schema-form</span> <span class="token attr-name">schema.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>schema<span class="token punctuation">"</span></span> <span class="token attr-name">model.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>credentials<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>schema-form</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>schema-form</span> <span class="token attr-name">schema.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>schema<span class="token punctuation">"</span></span> <span class="token attr-name">model.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>credentials<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>schema-form</span><span class="token punctuation">></span></span>
   
   </code>
   </pre>
@@ -232,21 +232,21 @@
     <code>
     <span class="token comment">// Example config</span>
     <span class="token keyword">let</span> appConfigOverwrites <span class="token operator">=</span> <span class="token punctuation">{</span>
-      <span class="token string">'aurelia-api'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        endpoints<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-          <span class="token punctuation">{</span>name<span class="token punctuation">:</span> <span class="token string">'api'</span><span class="token punctuation">,</span> url<span class="token punctuation">:</span> <span class="token string">'http://127.0.0.1:1337/'</span><span class="token punctuation">}</span>
+      <span class="token string">'aurelia-api'</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        endpoints<span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token punctuation">{</span>name<span class="token operator">:</span> <span class="token string">'api'</span><span class="token punctuation">,</span> url<span class="token operator">:</span> <span class="token string">'http://127.0.0.1:1337/'</span><span class="token punctuation">}</span>
         <span class="token punctuation">]</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token string">'aurelia-authentication'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        endpoint<span class="token punctuation">:</span> <span class="token string">'api'</span>
+      <span class="token string">'aurelia-authentication'</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        endpoint<span class="token operator">:</span> <span class="token string">'api'</span>
       <span class="token punctuation">}</span>
-      <span class="token string">'aurelia-notification'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        baseClass<span class="token punctuation">:</span> <span class="token string">'custom-notifications'</span>
+      <span class="token string">'aurelia-notification'</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        baseClass<span class="token operator">:</span> <span class="token string">'custom-notifications'</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">;</span>
     
     <span class="token comment">// Configure function</span>
-    <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token parameter">aurelia</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       aurelia<span class="token punctuation">.</span>use
         <span class="token punctuation">.</span><span class="token function">standardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-config'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>

@@ -1,4 +1,4 @@
-# Platform Abstraction Layer (PAL) Module
+# aurelia-pal Module
 
 > Aurelia&#x27;s platform abstraction layer (PAL).
 

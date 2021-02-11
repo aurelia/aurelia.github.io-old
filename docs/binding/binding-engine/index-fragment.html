@@ -22,7 +22,7 @@
       <span class="token keyword">return</span> <span class="token punctuation">[</span>BindingEngine<span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
   
-    <span class="token function">constructor</span><span class="token punctuation">(</span>bindingEngine<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">bindingEngine</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token comment">//</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
@@ -47,7 +47,7 @@
     <code>
     bindingEngine
       <span class="token punctuation">.</span><span class="token function">propertyObserver</span><span class="token punctuation">(</span>myObject<span class="token punctuation">,</span> <span class="token string">'myObjectPropertyName'</span><span class="token punctuation">)</span>
-      <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span>newValue<span class="token punctuation">,</span> oldValue<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">newValue<span class="token punctuation">,</span> oldValue</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
         <span class="token comment">// handle value change here</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code>
@@ -67,7 +67,7 @@
     <code>
     bindingEngine
       <span class="token punctuation">.</span><span class="token function">collectionObserver</span><span class="token punctuation">(</span>myCollection<span class="token punctuation">)</span>
-      <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span>splice<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">splice</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
         <span class="token comment">// do something with the mutated collection</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span>
   </code>
@@ -88,7 +88,7 @@
     <code>
     bindingEngine
       <span class="token punctuation">.</span><span class="token function">expressionObserver</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token string">'project.name'</span><span class="token punctuation">)</span>
-      <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span>newProjectName<span class="token punctuation">,</span> oldProjectName<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">newProjectName<span class="token punctuation">,</span> oldProjectName</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
         <span class="token comment">// do something with the new project name value</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code>

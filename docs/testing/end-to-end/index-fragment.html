@@ -43,7 +43,7 @@ The remainer of the article will use the BDD Testing Framework Jasmine. A nice t
     <code>
   <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'aurelia homepage'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should load page'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-      browser<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'http://www.aurelia.io'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      browser<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'http://www.aurelia.io'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token function">expect</span><span class="token punctuation">(</span>browser<span class="token punctuation">.</span><span class="token function">getTitle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toEqual</span><span class="token punctuation">(</span><span class="token string">'Home | Aurelia'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -84,7 +84,7 @@ The remainer of the article will use the BDD Testing Framework Jasmine. A nice t
     <code>
   <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'aurelia homepage'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-      browser<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'http://www.aurelia.io'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      browser<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'http://www.aurelia.io'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
     <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should have proper header text set'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -117,7 +117,7 @@ You can find a full list of <em>locators</em>
     <code>
   <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'google homepage'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-      browser<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'http://www.google.com'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      browser<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'http://www.google.com'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
     <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should load page'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -145,24 +145,24 @@ You can find a full list of <em>locators</em>
   <pre class="language-javascript">
     <code>
   exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
-    directConnect<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    directConnect<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
   
     <span class="token comment">// Capabilities to be passed to the webdriver instance.</span>
-    capabilities<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      <span class="token string">'browserName'</span><span class="token punctuation">:</span> <span class="token string">'chrome'</span>
+    capabilities<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string">'browserName'</span><span class="token operator">:</span> <span class="token string">'chrome'</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
   
     <span class="token comment">//seleniumAddress: 'http://0.0.0.0:4444',</span>
-    specs<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'test/e2e/dist/*.js'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    specs<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'test/e2e/dist/*.js'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
   
-    plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
-      path<span class="token punctuation">:</span> <span class="token string">'aurelia.protractor.js'</span>
+    plugins<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      path<span class="token operator">:</span> <span class="token string">'aurelia.protractor.js'</span>
     <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
   
     <span class="token comment">// Options to be passed to Jasmine-node.</span>
-    jasmineNodeOpts<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      showColors<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-      defaultTimeoutInterval<span class="token punctuation">:</span> <span class="token number">30000</span>
+    jasmineNodeOpts<span class="token operator">:</span> <span class="token punctuation">{</span>
+      showColors<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      defaultTimeoutInterval<span class="token operator">:</span> <span class="token number">30000</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
   </code>
@@ -233,7 +233,7 @@ You can find a full list of <em>locators</em>
       <span class="token keyword">return</span> browser<span class="token punctuation">.</span><span class="token function">getTitle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
-    <span class="token function">navigateTo</span><span class="token punctuation">(</span>href<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">navigateTo</span><span class="token punctuation">(</span><span class="token parameter">href</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token function">element</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'a[href="'</span> <span class="token operator">+</span> href <span class="token operator">+</span> <span class="token string">'"]'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token keyword">return</span> browser<span class="token punctuation">.</span><span class="token function">waitForRouterComplete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -256,11 +256,11 @@ You can find a full list of <em>locators</em>
       <span class="token keyword">return</span> <span class="token function">element</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">tagName</span><span class="token punctuation">(</span><span class="token string">'h2'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getText</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
-    <span class="token function">setFirstname</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">setFirstname</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">return</span> <span class="token function">element</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">valueBind</span><span class="token punctuation">(</span><span class="token string">'firstName'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sendKeys</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
-    <span class="token function">setLastname</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">setLastname</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">return</span> <span class="token function">element</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">valueBind</span><span class="token punctuation">(</span><span class="token string">'lastName'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sendKeys</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
@@ -277,7 +277,7 @@ You can find a full list of <em>locators</em>
         <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">pressSubmitButton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
         <span class="token keyword">return</span> browser<span class="token punctuation">.</span><span class="token function">switchTo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>
-          <span class="token keyword">function</span><span class="token punctuation">(</span>alert<span class="token punctuation">)</span> <span class="token punctuation">{</span> alert<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">alert</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> alert<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
           <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
         <span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>

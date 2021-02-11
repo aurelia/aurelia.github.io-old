@@ -1,4 +1,4 @@
-# Dialog Module
+# aurelia-dialog Module
 
 > A dialog plugin for Aurelia.
 

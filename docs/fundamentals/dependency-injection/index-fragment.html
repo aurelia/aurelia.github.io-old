@@ -22,14 +22,14 @@ Typically, you would use Decorators, an ES Next feature supported by both Babel 
   
   @<span class="token function">inject</span><span class="token punctuation">(</span>CustomerService<span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CustomerEditScreen</span> <span class="token punctuation">{</span>
-    <span class="token function">constructor</span><span class="token punctuation">(</span>customerService<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">customerService</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>customerService <span class="token operator">=</span> customerService<span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>customer <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
-    <span class="token function">activate</span><span class="token punctuation">(</span>params<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">activate</span><span class="token punctuation">(</span><span class="token parameter">params</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>customerService<span class="token punctuation">.</span><span class="token function">getCustomerById</span><span class="token punctuation">(</span>params<span class="token punctuation">.</span>customerId<span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>customer <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span>customer <span class="token operator">=</span> customer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">customer</span> <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span>customer <span class="token operator">=</span> customer<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   </code>
@@ -45,7 +45,7 @@ Typically, you would use Decorators, an ES Next feature supported by both Babel 
   
   @<span class="token function">inject</span><span class="token punctuation">(</span>CustomerService<span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CustomerEditScreen</span> <span class="token punctuation">{</span>
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> customerService<span class="token punctuation">:</span> CustomerService<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> customerService<span class="token operator">:</span> CustomerService<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>customer <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
@@ -73,17 +73,17 @@ Typically, you would use Decorators, an ES Next feature supported by both Babel 
   
   @<span class="token function">inject</span><span class="token punctuation">(</span>CustomerService<span class="token punctuation">,</span> CommonDialogs<span class="token punctuation">,</span> EventAggregator<span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CustomerEditScreen</span> <span class="token punctuation">{</span>
-    <span class="token function">constructor</span><span class="token punctuation">(</span>customerService<span class="token punctuation">,</span> dialogs<span class="token punctuation">,</span> ea<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">customerService<span class="token punctuation">,</span> dialogs<span class="token punctuation">,</span> ea</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>customerService <span class="token operator">=</span> customerService<span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>dialogs <span class="token operator">=</span> dialogs<span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>ea <span class="token operator">=</span> ea<span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>customer <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
-    <span class="token function">activate</span><span class="token punctuation">(</span>params<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">activate</span><span class="token punctuation">(</span><span class="token parameter">params</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>customerService<span class="token punctuation">.</span><span class="token function">getCustomerById</span><span class="token punctuation">(</span>params<span class="token punctuation">.</span>customerId<span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>customer <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span>customer <span class="token operator">=</span> customer<span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>customer <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span>ea<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span><span class="token string">'edit:begin'</span><span class="token punctuation">,</span> customer<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">customer</span> <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span>customer <span class="token operator">=</span> customer<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">customer</span> <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span>ea<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span><span class="token string">'edit:begin'</span><span class="token punctuation">,</span> customer<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   </code>
@@ -101,7 +101,7 @@ Typically, you would use Decorators, an ES Next feature supported by both Babel 
   
   @<span class="token function">inject</span><span class="token punctuation">(</span>CustomerService<span class="token punctuation">,</span> CommonDialogs<span class="token punctuation">,</span> EventAggregator<span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CustomerEditScreen</span> <span class="token punctuation">{</span>
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> customerService<span class="token punctuation">:</span> CustomerService<span class="token punctuation">,</span> <span class="token keyword">private</span> dialogs<span class="token punctuation">:</span> CommonDialogs<span class="token punctuation">,</span> <span class="token keyword">private</span> ea<span class="token punctuation">:</span> EventAggregator<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> customerService<span class="token operator">:</span> CustomerService<span class="token punctuation">,</span> <span class="token keyword">private</span> dialogs<span class="token operator">:</span> CommonDialogs<span class="token punctuation">,</span> <span class="token keyword">private</span> ea<span class="token operator">:</span> EventAggregator<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>customer <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
@@ -133,7 +133,7 @@ To use Decorators in Babel, you need the <code>babel-plugin-transform-decorators
   
   @autoinject
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CustomerEditScreen</span> <span class="token punctuation">{</span>
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> customerService<span class="token punctuation">:</span> CustomerService<span class="token punctuation">,</span> <span class="token keyword">private</span> dialogs<span class="token punctuation">:</span> CommonDialogs<span class="token punctuation">,</span> <span class="token keyword">private</span> ea<span class="token punctuation">:</span> EventAggregator<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> customerService<span class="token operator">:</span> CustomerService<span class="token punctuation">,</span> <span class="token keyword">private</span> dialogs<span class="token operator">:</span> CommonDialogs<span class="token punctuation">,</span> <span class="token keyword">private</span> ea<span class="token operator">:</span> EventAggregator<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>customer <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
@@ -165,17 +165,17 @@ Interestingly, you don't need to use our <code>autoinject</code> decorator at al
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CustomerEditScreen</span> <span class="token punctuation">{</span>
     <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span>CustomerService<span class="token punctuation">,</span> CommonDialogs<span class="token punctuation">,</span> EventAggregator<span class="token punctuation">]</span><span class="token punctuation">;</span>
   
-    <span class="token function">constructor</span><span class="token punctuation">(</span>customerService<span class="token punctuation">,</span> dialogs<span class="token punctuation">,</span> ea<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">customerService<span class="token punctuation">,</span> dialogs<span class="token punctuation">,</span> ea</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>customerService <span class="token operator">=</span> customerService<span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>dialogs <span class="token operator">=</span> dialogs<span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>ea <span class="token operator">=</span> ea<span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>customer <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
-    <span class="token function">activate</span><span class="token punctuation">(</span>params<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">activate</span><span class="token punctuation">(</span><span class="token parameter">params</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>customerService<span class="token punctuation">.</span><span class="token function">getCustomerById</span><span class="token punctuation">(</span>params<span class="token punctuation">.</span>customerId<span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>customer <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span>customer <span class="token operator">=</span> customer<span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>customer <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span>ea<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span><span class="token string">'edit:begin'</span><span class="token punctuation">,</span> customer<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">customer</span> <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span>customer <span class="token operator">=</span> customer<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">customer</span> <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span>ea<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span><span class="token string">'edit:begin'</span><span class="token punctuation">,</span> customer<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   </code>
@@ -194,14 +194,14 @@ Interestingly, you don't need to use our <code>autoinject</code> decorator at al
     <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span>CustomerService<span class="token punctuation">,</span> CommonDialogs<span class="token punctuation">,</span> EventAggregator<span class="token punctuation">]</span><span class="token punctuation">;</span>
   
     <span class="token keyword">constructor</span><span class="token punctuation">(</span>
-      <span class="token keyword">private</span> customerService<span class="token punctuation">:</span> CustomerService<span class="token punctuation">,</span>
-      <span class="token keyword">private</span> dialogs<span class="token punctuation">:</span> CommonDialogs<span class="token punctuation">,</span> 
-      <span class="token keyword">private</span> ea<span class="token punctuation">:</span> EventAggregator
+      <span class="token keyword">private</span> customerService<span class="token operator">:</span> CustomerService<span class="token punctuation">,</span>
+      <span class="token keyword">private</span> dialogs<span class="token operator">:</span> CommonDialogs<span class="token punctuation">,</span> 
+      <span class="token keyword">private</span> ea<span class="token operator">:</span> EventAggregator
     <span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>customer <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
-    <span class="token function">activate</span><span class="token punctuation">(</span>params<span class="token punctuation">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">activate</span><span class="token punctuation">(</span>params<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>customerService<span class="token punctuation">.</span><span class="token function">getCustomerById</span><span class="token punctuation">(</span>params<span class="token punctuation">.</span>customerId<span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>customer <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span>customer <span class="token operator">=</span> customer<span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>customer <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span>ea<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span><span class="token string">'edit:begin'</span><span class="token punctuation">,</span> customer<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -338,9 +338,9 @@ At present, the Decorators spec allows for decorators to use parens or not depen
   <span class="token keyword">import</span> <span class="token punctuation">{</span>Lazy<span class="token punctuation">,</span> inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>HttpClient<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-fetch-client'</span><span class="token punctuation">;</span>
   
-  @<span class="token function">inject</span><span class="token punctuation">(</span>Lazy<span class="token punctuation">.</span><span class="token keyword">of</span><span class="token punctuation">(</span>HttpClient<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  @<span class="token function">inject</span><span class="token punctuation">(</span>Lazy<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>HttpClient<span class="token punctuation">)</span><span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CustomerDetail</span> <span class="token punctuation">{</span>
-    <span class="token function">constructor</span><span class="token punctuation">(</span>getHTTP<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">getHTTP</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>getHTTP <span class="token operator">=</span> getHTTP<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
@@ -356,7 +356,7 @@ At present, the Decorators spec allows for decorators to use parens or not depen
   <span class="token keyword">import</span> <span class="token punctuation">{</span>HttpClient<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-fetch-client'</span><span class="token punctuation">;</span>
   
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CustomerDetail</span> <span class="token punctuation">{</span>
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span>@<span class="token function">lazy</span><span class="token punctuation">(</span>HttpClient<span class="token punctuation">)</span> <span class="token keyword">private</span> getHTTP<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> HttpClient<span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token punctuation">}</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>@<span class="token function">lazy</span><span class="token punctuation">(</span>HttpClient<span class="token punctuation">)</span> <span class="token keyword">private</span> <span class="token function-variable function">getHTTP</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> HttpClient<span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>

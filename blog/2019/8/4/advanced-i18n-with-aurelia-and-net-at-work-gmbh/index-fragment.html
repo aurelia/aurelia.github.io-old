@@ -1,0 +1,436 @@
+<section class="article blog">
+  <header>
+    <h1>Advanced i18n with Aurelia and Net at Work GmbH</h1>
+    <h2>Posted by <span class="author">Net at Work GmbH</span> on <span class="date">August 4, 2019</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>
+<a href="https://www.netatwork.de/" target="_blank">Net at Work GmbH</a>
+ is a product-based consultancy company with a glowing feather in its cap: 
+<a href="https://www.nospamproxy.de/en/" target="_blank">NoSpamProxy</a>
+. NoSpamProxy is a multi-faceted secure email gateway solution aimed at providing powerful anti-spam and anti-malware capabilities. Moreover, it provides a number of other functionalities such as email encryption, large file transmission, and email disclaimer management.</p>
+<section><h2 id="background">Background</h2><p>The 
+<a href="https://www.nospamproxy.de/en/" target="_blank">NoSpamProxy</a>
+ user interface was originally created using a WPF and XAML-based technology stack. As we have an international clientele, localization of the UI is of utmost importance to us.
+To localize WPF applications we had to translate all texts that were used in the C# code files as well as all texts that are displayed in the WPF UI.
+To achieve these goals we had to ensure that every piece of text used in the application ends up in the compiled assembly, along with a unique ID.
+To this end, all texts from the code files were placed into dedicated resource files of the project.
+Additionally, the 
+<a href="https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/how-to-localize-an-application" target="_blank">updateuid from MSBuild</a>
+, hooked into a pre-build step, ensures that each text in the UI has a unique ID too.
+Therefore, we can extract all properties of these texts from the compiled assembly and localize them as needed.
+An internal tool is then used to manage the translation.
+After all translations are done, the tool uses the original assemblies and the translations to build a new resource assembly for each locale.</p>
+<p>Currently we are in the process of migrating part of the solution to the cloud.
+For this, we also need to migrate part of the UI to a web-based solution, which is required to be multi-lingual.
+However, we quickly realized that we were missing the whole ecosystem of resource files, along with automatic resource ID generation, extraction, and compilation.
+As a result, we decided to create our own tools.</p>
+</section>
+<section><h2 id="localization-made-easy-aurelia-i18n-net-at-work-gmbh-toolchain">Localization Made Easy: aurelia-i18n + Net at Work GmbH Toolchain</h2><p>As we use Aurelia for the web app, we leverage the 
+<a href="https://aurelia.io/docs/plugins/i18n#introduction" target="_blank">aurelia-i18n plugin</a>
+ greatly to facilitate the localization of the app.
+Internally, the plugin uses 
+<a href="https://www.i18next.com/" target="_blank">i18next</a>
+ to provide the translation service.
+In very simple terms, using the plugin is a two-step process.
+Firstly, you need to mark the elements and attributes in the HTML templates that need to be translated, using the localization attributes such as <code>t</code>, and a unique value for the attribute.
+You then must initialize the <code>i18next</code> instance with the localization resource, which in this case is a JSON object, where the <code>key</code> is the value of the <code>t</code> attribute, and the <code>value</code> is the translation.</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  aurelia<span class="token punctuation">.</span>use
+    <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">"aurelia-i18n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">instance</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> aliases <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"t"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token comment">// ...rest</span>
+      <span class="token keyword">return</span> instance<span class="token punctuation">.</span><span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+          attributes<span class="token operator">:</span> aliases<span class="token punctuation">,</span>
+          lng<span class="token operator">:</span> <span class="token string">"en"</span><span class="token punctuation">,</span>
+          resources<span class="token operator">:</span> <span class="token punctuation">{</span>
+              en<span class="token operator">:</span> <span class="token punctuation">{</span> translation<span class="token operator">:</span> <span class="token punctuation">{</span> key<span class="token operator">:</span> <span class="token string">"value EN"</span><span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+              de<span class="token operator">:</span> <span class="token punctuation">{</span> translation<span class="token operator">:</span> <span class="token punctuation">{</span> key<span class="token operator">:</span> <span class="token string">"value DE"</span><span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+              <span class="token comment">//... other languages</span>
+          <span class="token punctuation">}</span>
+          <span class="token comment">// ...rest</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The code snippet above shows a very simplistic usage of the plugin, where the translation JSON objects are directly fed to the <code>i18next</code> instance.
+If you are using webpack, and supporting too many languages, the setup shown above can increase your bundle size unnecessarily.
+In that case, you are better off using a backend service as shown in the official documentation of the plugin.
+Such a service can also be helpful in pre-processing the resources, such as merging resources from different sources in runtime.
+Once these resources are fed to the plugin, Aurelia will update the translations on the fly, whenever the active locale is changed by calling <code>i18n.setLocale('...')</code>.</p>
+<p>Let us now focus on the fact that to use <code>aurelia-i18n</code> we need to have the resources marked with unique keys along with those JSON objects / files for every locale supported.
+You may attempt to create the keys by hand.
+However, that is an error-prone process as you have to ensure that keys are unique on a global level.
+Moreover, creating and maintaining the files manually is a tedious job that gets exponentially harder with the number of locales supported increasing.
+Therefore, the idea is to semi-automate the process as much as possible.</p>
+<p>In order to do that, let us first understand the steps involved in the process, which are as follows:</p>
+<ol>
+<li>Generating the <code>i18n</code> keys for the HTML templates.</li>
+<li>Extracting the keys, and values to a central external resource.</li>
+<li>Updating the central translation resource with the translations of the values for different languages.</li>
+<li>Compiling the translations to generate individual locale files for different languages that can be consumed by <code>i18next</code>.</li>
+</ol>
+<p>We strongly believe that the quality of expert human translation is still unmatched.
+Therefore, apart from the third step, all the other steps can be automated by using the toolchain offered by our company.
+Using these packages, a gulp task can be composed easily to automate the process.
+Let us take a look at these tools below.</p>
+<p>For the purpose of this example, assume that all of our HTML templates are under <code>src</code> directory.
+Additionally, JSON files can also be used as external resource files, which are distinguished in this example by the <code>.r.json</code> extension (more on this later).
+Using this information, first setup some constants which are used later by the tasks.</p>
+
+<code-listing heading="GulpFile.js">
+  
+<source-code lang="JavaScript" heading="GulpFile.js">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"path"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">const</span> src <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">"src"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      json <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> <span class="token string">"*.r.json"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      html <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> <span class="token string">"*.html"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<h3>ID Generation</h3>
+<p>This is the first step in the process.
+In this step, we identify and mark the text in the HTML templates that needs to be translated, using the 
+<a href="https://github.com/Netatwork-de/gulp-i18n-update-localization-ids" target="_blank">gulp-i18n-update-localization-ids</a>
+ package.
+This is done by using an array of whitelisted HTML tags as well as the attributes.
+The package then generates the <code>t</code> attributes (or the configured localization attributes) with unique values for the elements and the associated attributes as found in the HTML templates.
+These values act as <code>i18n</code> keys later.</p>
+
+<code-listing heading="GulpFile.js">
+  
+<source-code lang="JavaScript" heading="GulpFile.js">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">const</span> updateLocalizationIds <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'gulp-i18n-update-localization-ids'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">const</span> i18nGlobalPrefixes <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Map</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token function-variable function">generateI18nKeys</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> gulp<span class="token punctuation">.</span><span class="token function">src</span><span class="token punctuation">(</span>html<span class="token punctuation">,</span> <span class="token punctuation">{</span> since<span class="token operator">:</span> gulp<span class="token punctuation">.</span><span class="token function">lastRun</span><span class="token punctuation">(</span>generateI18nKeys<span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">updateLocalizationIds</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        emit<span class="token operator">:</span> <span class="token string">'onChangeOnly'</span><span class="token punctuation">,</span>
+        ignore<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+          <span class="token function-variable function">content</span><span class="token operator">:</span> <span class="token parameter">v</span> <span class="token operator">=></span> v<span class="token punctuation">.</span><span class="token function">startsWith</span><span class="token punctuation">(</span><span class="token string">'${'</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> v<span class="token punctuation">.</span><span class="token function">endsWith</span><span class="token punctuation">(</span><span class="token string">'}'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        idTemplate<span class="token operator">:</span> updateLocalizationIds<span class="token punctuation">.</span><span class="token function">prefixFilename</span><span class="token punctuation">(</span>i18nGlobalPrefixes<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        whitelist<span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token punctuation">{</span>
+            tagName<span class="token operator">:</span> <span class="token string">'h2'</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span>
+            tagName<span class="token operator">:</span> <span class="token string">'my-custom-el'</span><span class="token punctuation">,</span>
+            attrs<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'some-value'</span><span class="token punctuation">]</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>gulp<span class="token punctuation">.</span><span class="token function">dest</span><span class="token punctuation">(</span>src<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>A simplistic code snippet for generating the <code>i18n</code> keys is shown above (for the full set of options please refer to the documentation) .
+Let us assume that there are two HTML templates:</p>
+
+<code-listing>
+  
+<source-code lang="HTML" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token comment">&lt;!-- template1.html --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span><span class="token punctuation">></span></span>some text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- ... --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  
+  <span class="token comment">&lt;!-- template2.html --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-custom-el</span> <span class="token attr-name">some-value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>value for the property in my-custom-el<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-custom-el</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- ... --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The ID generation task transforms those templates into the following.</p>
+
+<code-listing>
+  
+<source-code lang="HTML" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token comment">&lt;!-- template1.html --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>template1.t0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>some text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- ... --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  
+  <span class="token comment">&lt;!-- template2.html --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-custom-el</span> <span class="token attr-name">some-value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>value for the property in my-custom-el<span class="token punctuation">"</span></span> <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>[some-value]template2.t0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-custom-el</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- ... --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<h3>Resource Extraction</h3>
+<p>In the next step, all the keys and the corresponding values need to be extracted to a central JSON file.
+This file needs to be updated with the translation for different languages.
+Hypothetically, you need to deal with this one file when you translate.
+The JSON file also includes various metadata that can be used to track whether a resource has been changed after the last translation update.</p>
+<p>Contextually, we want to emphasize that HTML files are not the sole source of translation resources.
+External JSON files can also be utilized to provide translation resources.
+This might look familiar if you are acquainted with the resource files in .NET.
+Some of the use cases for such files are as follows:</p>
+<ul>
+<li>Providing translation via code. For example, locale-specific validation failure message using 
+<a href="https://aurelia.io/docs/plugins/validation#defining-rules" target="_blank">withMessageKey</a>
+</li>
+<li>Providing context-specific translations
+<ul>
+<li>using <code>t=&quot;template2.r.Status&quot; t-params.bind=&quot;{context: item.status}&quot;</code>,</li>
+<li>using interpolation <code>t=&quot;template2.r.Status.${item.Status}&quot;</code>, or</li>
+<li>by 
+<a href="https://www.i18next.com/translation-function/plurals" target="_blank">pluralization</a>
+.</li>
+</ul>
+</li>
+</ul>
+<p>We use a convention to mark such external resource JSON files with <code>.r.json</code> extension (optional).
+Naturally, we also need to translate those resource files for every supported locale.</p>
+<p>Using 
+<a href="https://github.com/Netatwork-de/gulp-i18n-extract" target="_blank">gulp-i18n-extract</a>
+ the resources can be extracted from both the HTML templates and the JSON files.
+A minimalist code snippet is shown below.</p>
+
+<code-listing heading="GulpFile.js">
+  
+<source-code lang="javascript" heading="GulpFile.js">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">const</span> i18nExtract <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'gulp-i18n-extract'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token comment">// path to the central translation file</span>
+  <span class="token keyword">const</span> translations <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">"translations/i18n.json"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">const</span> i18nExtractOptions <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token comment">// here we are saying that we want to extract resources from both HTML and JSON files</span>
+    plugIns<span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token keyword">new</span> <span class="token class-name">i18nExtract<span class="token punctuation">.</span>html</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token keyword">new</span> <span class="token class-name">i18nExtract<span class="token punctuation">.</span>json</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    markUpdates<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    defaultLanguages<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'de'</span><span class="token punctuation">,</span> <span class="token string">"fr"</span><span class="token punctuation">]</span> <span class="token comment">// &lt;-- here goes the list of supported languages</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">const</span> <span class="token function-variable function">extractI18n</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> gulp<span class="token punctuation">.</span><span class="token function">src</span><span class="token punctuation">(</span><span class="token punctuation">[</span>html<span class="token punctuation">,</span> json<span class="token punctuation">]</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>i18nExtract<span class="token punctuation">.</span><span class="token function">extract</span><span class="token punctuation">(</span>translations<span class="token punctuation">,</span> i18nExtractOptions<span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>gulp<span class="token punctuation">.</span><span class="token function">dest</span><span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>This task generates a file that looks similiar to the file shown below:</p>
+
+<code-listing heading="i18n.json">
+  
+<source-code lang="JSON" heading="i18n.json">
+  <pre class="language-javascript">
+    <code>
+  <span class="token punctuation">{</span>
+    <span class="token string">"template1"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"content"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"template1.t0"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token string">"content"</span><span class="token operator">:</span> <span class="token string">"some text"</span><span class="token punctuation">,</span>
+          <span class="token string">"lastModified"</span><span class="token operator">:</span> <span class="token string">"2019-06-20T16:23:42.306Z"</span><span class="token punctuation">,</span>
+          <span class="token string">"needsUpdate"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+          <span class="token string">"translations"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token string">"de"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+              <span class="token string">"content"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+              <span class="token string">"lastModified"</span><span class="token operator">:</span> <span class="token string">""</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token string">"fr"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+              <span class="token string">"content"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+              <span class="token string">"lastModified"</span><span class="token operator">:</span> <span class="token string">""</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token string">"src"</span><span class="token operator">:</span> <span class="token string">"src\\template1.html"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">"template2"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"content"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"template2.t0"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"content"</span><span class="token operator">:</span> <span class="token string">"value for the property in my-custom-el"</span><span class="token punctuation">,</span>
+        <span class="token string">"lastModified"</span><span class="token operator">:</span> <span class="token string">"2019-06-20T16:23:42.316Z"</span><span class="token punctuation">,</span>
+        <span class="token string">"needsUpdate"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string">"translations"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token string">"de"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token string">"content"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+            <span class="token string">"lastModified"</span><span class="token operator">:</span> <span class="token string">""</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token string">"fr"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token string">"content"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+            <span class="token string">"lastModified"</span><span class="token operator">:</span> <span class="token string">""</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token string">"src"</span><span class="token operator">:</span> <span class="token string">"src\\template2.html"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">"template2.r"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"content"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"template2.r.external"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"content"</span><span class="token operator">:</span> <span class="token string">"this is an external resource"</span><span class="token punctuation">,</span>
+        <span class="token string">"lastModified"</span><span class="token operator">:</span> <span class="token string">"2019-06-20T16:23:42.318Z"</span><span class="token punctuation">,</span>
+        <span class="token string">"needsUpdate"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string">"translations"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token string">"de"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token string">"content"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+            <span class="token string">"lastModified"</span><span class="token operator">:</span> <span class="token string">""</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token string">"fr"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token string">"content"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+            <span class="token string">"lastModified"</span><span class="token operator">:</span> <span class="token string">""</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token string">"src"</span><span class="token operator">:</span> <span class="token string">"src\\template2.r.json"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>You can now update this file with the translation for various languages.
+This file needs to be put under source control to track the changes.
+It will later be used to generate the final translation files for every locale.</p>
+<h3>Compile</h3>
+<p>After the <code>i18n.json</code> file has been updated with translations, the last step is to compile the file to produce individual locale files.
+We do this using the 
+<a href="https://github.com/Netatwork-de/gulp-i18n-compile2" target="_blank">gulp-i18n-compile2</a>
+ package.</p>
+
+<code-listing heading="GulpFile.js">
+  
+<source-code lang="JavaScript" heading="GulpFile.js">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">const</span> i18nCompile <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'gulp-i18n-compile2'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token comment">// destination directory for the locale files</span>
+  <span class="token keyword">const</span> locales <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">"locales"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">const</span> compileOptions <span class="token operator">=</span> <span class="token punctuation">{</span>
+    fileName<span class="token operator">:</span> <span class="token string">"translation.json"</span><span class="token punctuation">,</span> <span class="token comment">// &lt;-- name of the file to generate</span>
+    defaultLanguage<span class="token operator">:</span> <span class="token string">"en"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">const</span> <span class="token function-variable function">compileI18n</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> gulp<span class="token punctuation">.</span><span class="token function">src</span><span class="token punctuation">(</span>translations<span class="token punctuation">)</span> <span class="token comment">// &lt;-- this is the path to the 'i18n.json' generated in the previous step</span>
+      <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">i18nCompile</span><span class="token punctuation">(</span>compileOptions<span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>gulp<span class="token punctuation">.</span><span class="token function">dest</span><span class="token punctuation">(</span>locales<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>This task produces the following result:</p>
+
+<code-listing>
+  
+<source-code lang="Shell" heading="">
+  <pre class="language-powershell">
+    <code>
+  <span class="token punctuation">.</span>
+  <span class="token operator">+</span>───locales
+  │   <span class="token operator">+</span>───de
+  │   │   <span class="token operator">+</span>───translation<span class="token punctuation">.</span>json
+  │   │
+  │   ├───en
+  │   │   <span class="token operator">+</span>───translation<span class="token punctuation">.</span>json
+  <span class="token punctuation">.</span>   │
+  <span class="token punctuation">.</span>   └───fr
+  <span class="token punctuation">.</span>       <span class="token operator">+</span>───translation<span class="token punctuation">.</span>json
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The content of these files looks as follows:</p>
+
+<code-listing>
+  
+<source-code lang="json" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token punctuation">{</span>
+    <span class="token string">"template1"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"t0"</span><span class="token operator">:</span> <span class="token string">"some text"</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">"template2"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"t0"</span><span class="token operator">:</span> <span class="token string">"value for the property in my-custom-el"</span><span class="token punctuation">,</span>
+      <span class="token string">"r"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"external"</span><span class="token operator">:</span> <span class="token string">"this is an external resource"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>These files can be directly fed to the <code>i18next</code> instance to provide the runtime translation resources.
+There is no need to source control these files as these can be produced every time you build.</p>
+<h3>Putting It All Together</h3>
+<p>Using the tasks described above, you can compose a gulp task like below and use it in your CI/CD.</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  gulp<span class="token punctuation">.</span><span class="token function">task</span><span class="token punctuation">(</span><span class="token string">"i18n"</span><span class="token punctuation">,</span> gulp<span class="token punctuation">.</span><span class="token function">series</span><span class="token punctuation">(</span>generateI18nKeys<span class="token punctuation">,</span> extractI18n<span class="token punctuation">,</span> compileI18n<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+</section>
+<section><h2 id="summary">Summary</h2><p>We at Net at Work GmbH consider localization to be an integral aspect of the user interface as it increases inclusion, broadens our client base, and helps to improve the general usability.
+Maintaining the localization correctly is a painstaking task, which is why feel pride in ourselves that we have contributed to make that task easier.
+As shown above, the packages can be easily used to compose a task to semi-automate the process of localization.</p>
+<p>Thank you for reading. We hope this will be useful for you.</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Advanced%20i18n%20with%20Aurelia%20and%20Net%20at%20Work%20GmbH" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2019%2F8%2F4%2Fadvanced-i18n-with-aurelia-and-net-at-work-gmbh"></blog-footer>
+</section>

@@ -1,0 +1,153 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia 2018 Year in Review</h1>
+    <h2>Posted by <span class="author">Rob Eisenberg</span> on <span class="date">January 2, 2019</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>2018 has been an amazing year for Aurelia! We've added long-time requested features and improvements, enabled new ways to deploy apps, shipped modern, no-hassle tooling, improved our documentation, built up financial backing, made huge advancements in our vNext implementation, and grown our core engineering team by adding six new amazing people! Wow!</p>
+<section><h2 id="aurelia-today">Aurelia Today</h2><p>The last year brought many improvements to our currently shipped implementation of Aurelia, continuing to pave the way into the future. Here are a few cool things that we launched, just in case you missed them.</p>
+<h3>Libraries and Tools</h3>
+<p>We started out last year's framework improvements with <a href="blog/2018/01/22/big-changes-in-the-aurelia-router-150-release">enhancements to the router</a>, designed to simplify building master/detail pages. We quickly followed up the next month with <a href="blog/2018/02/25/server-side-rendering">our early adopter server-side-rendering plugin</a> and <a href="blog/2018/03/04/aurelia-release-notes-early-march-2018">support for Webpack 4+</a>. With Webpack 4+ support in place, we were then able to <a href="blog/2018/03/29/aurelia-release-notes-late-march-2018">update the Aurelia CLI to generate Webpack projects</a>. By the end of the first quarter <a href="blog/2018/04/02/aurelia-2018-q1-report">Aurelia UX had also gained major new features</a> including simplified grid layout and a templatable select component. We also launched <a href="blog/2018/04/02/aurelia-2018-q1-report">basic support for view intellisense</a> in VS Code.</p>
+<p>As the second quarter rolled along, we worked with the community to ship <a href="blog/2018/04/04/aurelia-realworld-app/">Aurelia RealWorld App</a>, a great sample learning app for Aurelia. Still investing deeply in the core of Aurelia, we launched <a href="blog/2018/05/10/aurelia-release-notes-early-may-2018">re-written internals of the binding engine's parser</a>, improving parsing performance by up to 10x in some cases. Awesome! Towards the end of the second quarter <a href="blog/2018/06/17/aurelia-store-released/">we announced the release of one of the most powerful new Aurelia plugins so far, Aurelia Store</a>, a state management plugin with deep RxJS integration, built from extensive real-world scenarios and testing. In fact, last June turned out to not only be significant due to the release of Aurelia Store, but also due to <a href="blog/2018/06/24/aurelia-release-notes-june-2018">the addition of new features to our binding syntax</a>, including support for template literals, <code>instanceof</code>, <code>in</code>, <code>typeof</code> and <code>void</code>, and <a href="blog/2018/06/24/aurelia-release-notes-june-2018">the addition of new features to our templating engine</a>, including vanilla JS custom element configuration and <code>compose</code> enhancements.</p>
+<p>We didn't slow down in the third quarter either. We kicked it right off with <a href="blog/2018/07/24/aurelia-release-notes-late-july-2018">the official 1.0 release of the Aurelia Dialog plugin</a> and plans for 2.0 of the plugin. We also made a number of incremental improvements to Aurelia Store, Aurelia i18n and Aurelia UX, <a href="blog/2018/09/06/aurelia-release-notes-early-september-2018">including TypeScript conversions of Aurelia Store and Aurelia i18n</a>. Further <a href="blog/2018/09/06/aurelia-release-notes-early-september-2018">incremental improvements were made to the Aurelia CLI</a> to improve Webpack CSS support and add Protractor and Jest testing options.</p>
+<p>In the last quarter of the year, some of our biggest productivity boosts landed. We first added the new <code>let</code> binding <a href="blog/2018/10/01/aurelia-release-notes-early-october-2018">to the templating engine</a>, simplifying the use of computed values in templates and allowing for new performance optimizations. Second, we released a major update to the Aurelia CLI which added <a href="blog/2018/10/08/release-aurelia-cli-with-auto-tracing-bundler">our own, built-in, auto-tracing bundler</a>. This new option combined much of the tracing capabilities of Webpack with the dynamic loading capabilities of RequireJS, using a very simple configuration model, most of which is entirely automated by our tooling. It's a great choice for those new to modern JS or who want an all-in-one solution through our CLI. Finally, we rounded out the last quarter with 
+<a href="https://github.com/aurelia/script" target="_blank">the release of Aurelia Script</a>
+, a single script file version of Aurelia, requiring no build tooling or external dependencies. Just link it with a script tag in your HTML page and enjoy powerful progressive enhancement or full SPA development, whatever your app demands.</p>
+<h3>Documentation</h3>
+<p>While working on Aurelia's libraries and tools, we also wanted to continue to improve the state of our documentation. To this end, we've moved all our documentation source to 
+<a href="https://github.com/aurelia/documentation" target="_blank">a central documentation repo on GitHub</a>
+. We also worked to remove any obscure syntax from our documentation and adopted a few conventions, with the goal of making things easy to consume both on GitHub and on our site, enabling easier editing and collaboration with the community, and making deployment faster and simpler. Finally, we introduced 
+<a href="https://codesandbox.io/u/AureliaEffect" target="_blank">CodeSandbox</a>
+ into our homepage, blog, and core documentation, enabling richer interactions and learning experiences going forward. We've also been having some great conversations with the community which are helping to shape the future of our docs, including upcoming improvements to tutorials, search, and more.</p>
+<h3>Learning</h3>
+<p>If you're looking to augment our documentation with more learning materials, 2018 was a great year for both book and video resources. Here's a quick list of the new resources that landed in the last year:</p>
+<ul>
+<li>
+<a href="https://aureliacasts.com/" target="_blank">AureliaCasts</a>
+ - A collection of video tutorials hosted by Aurelia community member Nick Shallee.</li>
+<li>
+<a href="https://www.apress.com/us/book/9781484234013" target="_blank">Practical App Development with Aurelia</a>
+ - An Apress published book on Aurelia development, written by the developer behind 
+<a href="https://www.frontendcreator.com" target="_blank">FrontEnd Creator</a>
+, Matt Duffield.</li>
+<li>
+<a href="https://www.manning.com/books/aurelia-in-action" target="_blank">Aurelia in Action</a>
+ - A Manning published book by Aurelia community member Sean Hunter. Learn more on 
+<a href="https://devchat.tv/js-jabber/jsj-342-aurelia-in-action-with-sean-hunter/" target="_blank">his recent JavaScript Jabber appearance</a>
+.</li>
+<li>
+<a href="https://leanpub.com/mastering-aurelia-store" target="_blank">Mastering Aurelia Store</a>
+ - A Leanpub published book by core team member, Dwayne Charrington, also the author of 
+<a href="https://leanpub.com/aurelia-for-real-world-applications" target="_blank">Aurelia For Real World Web Applications</a>
+.</li>
+<li>
+<a href="https://vimeo.com/ondemand/beginningaurelia" target="_blank">Beginning Aurelia Development</a>
+ - Rob Eisenberg's beginning Aurelia training and workshop from 2016, now available to the community for free.</li>
+<li>
+<a href="https://vimeo.com/ondemand/intermediateaurelia" target="_blank">Intermediate Aurelia Development</a>
+ - Rob Eisenberg's intermediate Aurelia workshop from 2016, now available to the community for free.</li>
+</ul>
+<div class="info"><div class="icon"> <i></i> </div><h4>More Resources</h4><p>
+For a list of additional books and videos, or to sign up for information about the upcoming Aurelia University offering, 
+<a href="https://aurelia.io/learn" target="_blank">see the learning section of the Aurelia site</a>
+.</p>
+</div>
+</section>
+<section><h2 id="aurelia-tomorrow">Aurelia Tomorrow</h2><p>Not only was 2018 a great year for our current version of Aurelia, but it also saw the birth of what we've been referring to as &quot;Aurelia vNext&quot;, our next-generation implementation of Aurelia. Early in 2018, we started with some simple prototypes and proofs of concepts, trying to explore how a modernized version of Aurelia's runtime might work. We were encouraged by the results and so began to make broader plans for the next major version of Aurelia. We started the official process by revisiting TypeScript and thoroughly reviewing how it had evolved over recent years and what the future looked like. After this review, <a href="blog/2018/01/03/aurelia-2018-roadmap">we decided to move ahead with TypeScript</a> as well as adopt a monorepo approach and standardize on the use of a new <code>@aurelia</code> NPM scope for publishing. As the first quarter came to a close, we had a solid understanding of the direction we wanted to take and how we could get there.</p>
+<p>By the second quarter of 2018, <a href="blog/2018/08/05/aurelia-vnext">we had built enough to have a high-level plan for the packaging and distribution of vNext</a>, settling on separating out the kernel, runtime, JIT, AOT, and plugins. Strong progress had been made on the initial implementations of the kernel, runtime, and JIT, enough to well understand the benefits that we could offer the global community. Here are a few reminders of several benefits we'll be delivering in vNext:</p>
+<ul>
+<li><strong>Increased Team Agility</strong> - Use of Lerna 3 and TypeScript 3 projects has made it super easy to develop across packages, do cross-package refactoring, perform simpler integration testing, and have pain-free publishing. The entire Aurelia Core team is able to better maintain the code and assist our community by using the new setup and architecture.</li>
+<li><strong>Easier Community Contributions</strong> - With one repo, there's no confusion on where to post issues or how to find the code in question. Anyone who wants to help fix a bug or add a new feature can 
+<a href="https://github.com/aurelia/aurelia" target="_blank">checkout one repo</a>
+, run a couple of simple commands, and be able to test their contributions against the full Aurelia framework and plugin test suite. Our new setup also has improved CI, nightly dev builds, simpler release management, integrated documentation, and more.</li>
+<li><strong>Removal of Cruft</strong> - There are many parts of today's Aurelia which are no longer needed or which can be represented by simpler abstractions. We're removing all these bits, simplifying internals, and performing a major cleanup. This has resulted in code that is smaller, faster, easier to understand, and can more easily evolve to meet future needs.</li>
+<li><strong>Higher Quality, More Intuitive APIs</strong> - Over the last four years we've received a lot of feedback on Aurelia. While we've heard mostly great things about the base conventions and templating/binding language, it's clear that the low-level, imperative APIs for more advanced scenarios are not great. In vNext, we've already addressed the majority of these issues with new composition and resource APIs, more official extensibility points in the parsers and compilers, and an official renderer API.</li>
+<li><strong>Improved Documentation</strong> - Using TypeScript has enabled us to provide better baseline documentation of our APIs from the start. However, in addition to this, we're building up detailed engineering documentation on the implementation details and the reasoning behind various decisions. All of this documentation lives side-by-side with the code in our monorepo.</li>
+<li><strong>Smaller Framework</strong> - By removing unnecessary abstractions and cleaning up portions of the codebase that haven't aged as well, the core framework is being significantly reduced in size. Additionally, our new architecture, which allows developers to ship their apps without the JIT and Debug modules, and enables better tree-shaking, will result in even smaller bundle sizes. In the future, our AOT compiler will also produce customized builds that are even more streamlined.</li>
+<li><strong>Improved Performance</strong> - A smaller framework downloads faster and has less JavaScript for the browser to parse. This will result in faster load times on its own. However, this isn't the only change that's going to have a huge impact on performance. There are many improvements and design changes to the internals of templating, binding, application and component lifecycles, etc. which are contributing to not only faster startup time but also faster render and repaint time.</li>
+<li><strong>More Power and Flexibility</strong> - We're removing older, leaky abstractions and focusing on creating solid advanced APIs. The end result is that we're going to open up more powerful possibilities for developers. Additionally, we're standardizing new ways to plug into the framework to extend it, define your own conventions, and use other industry technologies with less fuss (e.g. simpler Webpack integration, easier CSS Module support, etc)</li>
+<li><strong>Many Requested Fixes and Improvements</strong> - Over the years we've had a number of requests for new features and even the discovery of various design flaws that we just couldn't address in the current version of Aurelia. Our vNext implementation has already been incorporating a number of these ideas, including things like additional component lifecycle callbacks, more predictable lifecycles in complex scenarios, binding and task queuing that's easier to reason about, better/simpler dynamic composition APIs, easier imperative component creation, etc.</li>
+</ul>
+<p>By the end of Q3, <a href="blog/2018/11/04/aurelia-2018-q3-report">we had our JIT up and running</a> with most of the major features functioning. We had also implemented richer dynamic composition support, support for JSX, major component lifecycle improvements, integration testing with every major bundler/loader, and 91% test coverage, approaching 50,000 unit and integration tests.</p>
+<p>Usually, the end of the year slows down a bit, but Q4 saw the most important advancement in vNext so far: the origin of our official renderer API. With vNext, we want to open up new opportunities to enable Aurelia to be used beyond the boundaries of HTML. To enable that, we spent the last few months building 8 proof-of-concept (PoC) renderers and one production-targeted renderer. We then analyzed them as a whole and extracted a core set of interfaces that enable Aurelia to render to virtually anything. Here's what we built:</p>
+<ul>
+<li><strong>HTML</strong> - We built a full HTML rendering engine for Aurelia. This mirrors the engine in today's Aurelia but adds more features, greater flexibility, enhanced performance, and increased power.</li>
+<li><strong>SSR</strong> - In order to ensure that we can support native server-side-rendering from day one, we built a PoC SSR implementation as part of our renderer design process.</li>
+<li><strong>PixiJS</strong> - One of the leading WebGL-based 2D game engines today is 
+<a href="http://www.pixijs.com/" target="_blank">PixiJS</a>
+. So, we built out an Aurelia PixiJS PoC renderer that renders 2D WebGL content. A simple demo 
+<a href="https://pixi-dftbdobavg.now.sh/" target="_blank">is available here</a>
+.</li>
+<li><strong>ThreeJS</strong> - A popular library for building out WebGL 3D content is 
+<a href="https://threejs.org/" target="_blank">three.js</a>
+. So, we built out an Aurelia three.js renderer that renders 3D WebGL content. A simple demo 
+<a href="https://threejs-elkpyiuuab.now.sh/" target="_blank">is available here</a>
+. Aurelia's being used to render both the HTML controls and the 3D content. Did we mention that you will be able to combine multiple renderers in the same app?</li>
+<li><strong>Fabric.js</strong> - If you're working a lot with 2D canvas in HTML, you might be using the 
+<a href="http://fabricjs.com/" target="_blank">Fabric.js</a>
+ library. We built out a PoC renderer that allows you to build Fabric apps with Aurelia. A simple demo 
+<a href="https://fabric-zgstftqbxi.now.sh/" target="_blank">is available here</a>
+.</li>
+<li><strong>Konva.js</strong> - Perhaps you're using 
+<a href="https://konvajs.github.io/" target="_blank">Konva.js</a>
+ for 2D Canvas programming? We built a PoC with Konva as well. A simple demo 
+<a href="https://konva-xzfczqomlu.now.sh/" target="_blank">is available here</a>
+.</li>
+<li><strong>Native Script</strong> - Moving outside of the browser itself, we built a PoC 
+<a href="https://www.nativescript.org/" target="_blank">Native Script</a>
+ renderer. Here's a quick picture for you:
+<img src="https://camo.githubusercontent.com/1ec6e7a5d96fa8660d920f06bf322b47a9729516/68747470733a2f2f692e696d6775722e636f6d2f766d547035787a2e676966" alt="Native Script Demo" /></li>
+<li><strong>LibUI</strong> - Perhaps you're interested in native desktop apps? You might be using 
+<a href="https://github.com/andlabs/libui" target="_blank">LibUI</a>
+. We built a PoC renderer for that.
+<img src="https://camo.githubusercontent.com/ceebd330f75389b154857d5857665e5cdac1aa80/68747470733a2f2f692e696d6775722e636f6d2f6467476261736a2e676966" alt="LibUI Demo" /></li>
+<li><strong>Blessed</strong> - Maybe you're only interested in terminal UI. No problem, we built a PoC renderer for 
+<a href="https://github.com/chjj/blessed" target="_blank">Blessed</a>
+ too.</li>
+</ul>
+<div class="info"><div class="icon"> <i></i> </div><h4>Renderers and Demos</h4><p>
+If you're looking for a full WebGL-based 3D engine, we're also working on a 
+<a href="https://www.babylonjs.com/" target="_blank">BabylonJS</a>
+ PoC. It's not quite ready yet but we'll share the demo when we've got it all working. We'll also follow up with future posts providing more examples of the renderers listed above.</p>
+</div>
+<p>As a result of this work, we believe we've come up with a set of interfaces and abstractions that allow us to make Aurelia's renderer completely pluggable and supported as an official extension point. The design is intended to provide both maximum performance and flexibility without introducing unnecessary or obscure abstractions. Our hope is that as we stabilize this API in the next few months, community members who are passionate about the renderers listed above (or others) will join us in turning these PoCs into production implementations.</p>
+<p>While pluggable rendering was a huge achievement towards the end of the year, it's not the only major work that happened on vNext. Besides continued refinement across the JIT and Runtime pieces, we also started work on our vNext router. With the router, we've been exploring what it might mean to apply Aurelia's convention-over-configuration philosophy more deeply. The results have been pretty amazing, as we're coming up with virtually effortless ways to compose complex app routing schemes with little to no configuration at all. Of course, there will always be a traditional routing API as well, but we're looking to open up newer, streamlined options too. Here's an early demo of fully convention-based, hierarchical and parameterized routing in action.</p>
+<p><img src="../styles/images/blog/aurelia-2018-year-in-review/early-vnext-router.gif" alt="Early vNext Router Demo" /></p>
+<p>While Aurelia vNext is not ready for production use yet, the progress we made in 2018 has us all very excited. We believe a lot of what we're doing is going to be a game changer for front-end engineering in the future and we can't wait to get it in your hands.</p>
+</section>
+<section><h2 id="the-core-team">The Core Team</h2><p>Over the last year, we've been honored to add six new stellar individuals to the Aurelia Core Team. 
+<a href="https://github.com/bigopon" target="_blank">bigopon</a>
+ joined us early in the year, contributing all the new templating features, the work on Aurelia Script, and our vNext alternative renderer PoCs. 
+<a href="https://github.com/Alexander-Taran" target="_blank">Alexander-Taran</a>
+ joined next, assisting with our GitHub issue triage, helping us to close out tons of issues and track features that we wanted to push into vNext. Not long after our vNext work kicked off, 
+<a href="https://github.com/fkleuver" target="_blank">fkleuver</a>
+ joined the team, starting by making all the above improvements to our vCurrent binding engine and eventually transitioning to our lead engineer on vNext, responsible for nearly all the innovations in our next-generation binding and templating engines, as well as the solid infrastructure and test strategy we now have in place. A short bit later, 
+<a href="https://github.com/huochunpeng" target="_blank">huochunpeng</a>
+ joined to focus on the Aurelia CLI, eventually resulting in the authoring of our new auto-tracing bundler. Towards the end of the year, 
+<a href="https://github.com/jwx" target="_blank">jwx</a>
+ joined us to focus on our vNext Router, working to build out the new version and exploring how Aurelia's convention-over-configuration approach can be extended to make routing and navigation both simpler and more powerful at the same time. And finally, 
+<a href="https://github.com/BBosman" target="_blank">BBosman</a>
+ joined to work on vNext, assisting by focusing on our code quality by improving linting, tightening down our TypeScript strictness settings, and fixing all related issues across the vNext codebase.</p>
+<p>A huge thanks to our new team members for their dedication and hard work in 2018!</p>
+</section>
+<section><h2 id="sponsorship">Sponsorship</h2><p>In 2018 we launched 
+<a href="https://opencollective.com/aurelia" target="_blank">our Open Collective</a>
+ to build up financial support for Aurelia and its ecosystem. We're ecstatic about the response we've had 
+<a href="https://github.com/aurelia/framework/blob/master/BACKERS.md" target="_blank">from businesses and community members around the world</a>
+. Thanks to your support, our project is now able to cover 100% of its operating expenses and we're going to be able to do some new things in 2019 that we've never been able to do before, which we believe will help to grow Aurelia to new heights.</p>
+<p>At this time, we'd like to extend a special thanks to our Gold Sponsor, 
+<a href="https://www.hogia.se/" target="_blank">Hogia</a>
+. The Hogia Group comprises 27 companies in Scandinavia and the United Kingdom. With software as a common denominator, the Hogia Group currently operates in the areas of finance and business systems, human resource systems and transport systems, and has shipped many Aurelia apps in these verticals over the years. Thank you Hogia!</p>
+</section>
+<section><h2 id="wrapping-up">Wrapping Up</h2><p>Wow! 2018 was a fantastic year for Aurelia. Our community grew, our team grew, and our technology grew. We believe the work that's happening on vNext is some of the most exciting in our industry and will set a standard for front-end frameworks in the future. We're looking forward to continuing to work together with you in the new year to build the best front-end tech with the most welcoming and open community.</p>
+<p>Happy New Year from the Aurelia Core Team! The best is yet to come.</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%202018%20Year%20in%20Review" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2019%2F1%2F2%2Faurelia-2018-year-in-review"></blog-footer>
+</section>

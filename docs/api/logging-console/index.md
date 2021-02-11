@@ -1,4 +1,4 @@
-# Logging-Console Module
+# aurelia-logging-console Module
 
 > A console log appender for the Aurelia logging library.
 

@@ -1,4 +1,4 @@
-# History-Browser Module
+# aurelia-history-browser Module
 
 > An implementation of the Aurelia history interface based on standard browser hash change and push state mechanisms.
 

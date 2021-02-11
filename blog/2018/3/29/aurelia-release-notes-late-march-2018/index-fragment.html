@@ -1,0 +1,258 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia Release Notes - Late March 2018</h1>
+    <h2>Posted by <span class="author">Rob Eisenberg</span> on <span class="date">March 29, 2018</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>We're excited to share that we've recently published a new version of the Aurelia CLI which is packed with bug fixes and new features.</p>
+<p>Based on popularity, we have decided to set Webpack as the default bundler for the <code>au new</code> command. Don't worry. The RequireJS and SystemJS loader options are still supported and can be found under the &quot;custom&quot; option.</p>
+<p>Speaking of Webpack 4, <strong>all Webpack projects are now using Webpack 4!</strong></p>
+<p>In addition to the above, we've also added a major new feature to the CLI, the Bundle Analyzer. New Webpack projects are now pre-configured to use the Webpack Bundle Analyzer. After starting <code>au run --analyze</code> your browser will open to the bundle analyzer page.</p>
+<p>If your project uses RequireJS or SystemJS, a similar option is available. In your <code>aurelia.json</code> file, configure the bundleReport build option as follows:</p>
+
+<code-listing>
+  
+<source-code lang="JSON" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token operator">...</span>
+  <span class="token string">"build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"options"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"minify"</span><span class="token operator">:</span> <span class="token string">"stage &amp; prod"</span><span class="token punctuation">,</span>
+      <span class="token string">"sourcemaps"</span><span class="token operator">:</span> <span class="token string">"dev &amp; stage"</span><span class="token punctuation">,</span>
+      <span class="token string">"bundleReport"</span><span class="token operator">:</span> <span class="token string">"prod"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token operator">...</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>After this is configured, run the build (<code>au build --env prod</code>) and the bundle report will show up in your project directory.</p>
+<p>In addition to the above, we've made tons of other improvements. You can read about those below along with the release notes for several other Aurelia libraries.</p>
+<p>As always, we'd like to send out a huge thanks to the community for helping with these improvements. Keep it coming!</p>
+<section><h2 id="major-releases">Major Releases</h2><p>Major updates may include breaking changes, new features, fixes to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/cli/compare/0.32.0...0.33.0" target="_blank">aurelia-cli 0.33.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>bundle:</strong> sort bundle files by path (
+<a href="https://github.com/aurelia/cli/commit/77697b1" target="_blank">77697b1</a>
+)</li>
+<li><strong>dependencies:</strong> add jest-matchers for karma tests using webpack (
+<a href="https://github.com/aurelia/cli/commit/83c8bcf" target="_blank">83c8bcf</a>
+)</li>
+<li><strong>gitignore:</strong> track vscode workspace files (
+<a href="https://github.com/aurelia/cli/commit/14f9bdd" target="_blank">14f9bdd</a>
+)</li>
+<li><strong>importer:</strong> support scoped packages (
+<a href="https://github.com/aurelia/cli/commit/859df5b" target="_blank">859df5b</a>
+)</li>
+<li><strong>javascriptservices:</strong> update configuration to set public path for static resources (
+<a href="https://github.com/aurelia/cli/commit/21e8a27" target="_blank">21e8a27</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/741" target="_blank">#741</a>
+</li>
+<li><strong>jest:</strong> update aurelia-pal-nodejs (
+<a href="https://github.com/aurelia/cli/commit/578f400" target="_blank">578f400</a>
+)</li>
+<li><strong>rjs-ts:</strong> add baseUrl to tsconfig (
+<a href="https://github.com/aurelia/cli/commit/ac020a1" target="_blank">ac020a1</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>build:</strong> add support for external modules (
+<a href="https://github.com/aurelia/cli/commit/fc5f197" target="_blank">fc5f197</a>
+), closes 
+<a href="https://github.com/aurelia/cli/issues/802" target="_blank">#802</a>
+</li>
+<li><strong>bundle:</strong> sort module ids (
+<a href="https://github.com/aurelia/cli/commit/5ed65ce" target="_blank">5ed65ce</a>
+)</li>
+<li><strong>cli-bundler:</strong> add --open flag (
+<a href="https://github.com/aurelia/cli/commit/23fc079" target="_blank">23fc079</a>
+)</li>
+<li><strong>new:</strong> switch default to webpack (
+<a href="https://github.com/aurelia/cli/commit/15b1f1f" target="_blank">15b1f1f</a>
+)</li>
+<li><strong>vscode:</strong> karma debug profile (
+<a href="https://github.com/aurelia/cli/commit/9911d4d" target="_blank">9911d4d</a>
+)</li>
+<li><strong>webpack:</strong> add analyze flag to enable webpack bundle analyzer (
+<a href="https://github.com/aurelia/cli/commit/6ac3260" target="_blank">6ac3260</a>
+)</li>
+<li><strong>webpack:</strong> update to webpack 4 (
+<a href="https://github.com/aurelia/cli/commit/5838e15" target="_blank">5838e15</a>
+)</li>
+</ul>
+</section>
+<section><h2 id="minor-releases">Minor Releases</h2><p>Minor updates include new features, updates to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/binding/compare/1.7.0...1.7.1" target="_blank">aurelia-binding 1.7.1</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>doc:</strong> css-attribute without interpolation explained (
+<a href="https://github.com/aurelia/binding/commit/3dcea9d" target="_blank">3dcea9d</a>
+)</li>
+<li><strong>EventManager:</strong> prevent stopPropagation stack overflow (
+<a href="https://github.com/aurelia/binding/commit/011eca0" target="_blank">011eca0</a>
+), closes 
+<a href="https://github.com/aurelia/binding/issues/649" target="_blank">#649</a>
+</li>
+<li><strong>EventManager:</strong> typing (
+<a href="https://github.com/aurelia/binding/commit/cb63a87" target="_blank">cb63a87</a>
+)</li>
+<li><strong>typings:</strong> add SelectValue/Checked Observers  (
+<a href="https://github.com/aurelia/binding/commit/b06cbc2" target="_blank">b06cbc2</a>
+)</li>
+<li><strong>typings:</strong> ICollectionObserverSplice support for Map and Set (
+<a href="https://github.com/aurelia/binding/commit/49f46ce" target="_blank">49f46ce</a>
+)</li>
+<li><strong>Unparser:</strong> fix typo in visitChain (
+<a href="https://github.com/aurelia/binding/commit/a90216c" target="_blank">a90216c</a>
+)</li>
+<li><strong>EventSubscriber:</strong> do nothing if disposed (
+<a href="https://github.com/aurelia/binding/commit/449e105" target="_blank">449e105</a>
+)</li>
+</ul>
+<h4>Features</h4>
+<ul>
+<li><strong>typescript:</strong> add getContextFor definition (
+<a href="https://github.com/aurelia/binding/commit/c7ab819" target="_blank">c7ab819</a>
+)</li>
+<li><strong>typescript:</strong> add ICollectionObserverSplice definition (
+<a href="https://github.com/aurelia/binding/commit/4e1244e" target="_blank">4e1244e</a>
+)</li>
+<li><strong>EventManager:</strong> Enable dispose() pattern for addEventListener</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/templating-resources/compare/1.5.4...1.6.0" target="_blank">aurelia-templating-resources 1.6.0</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>analyze-view-factory:</strong> add else to lifecycleOptionalBehaviors (
+<a href="https://github.com/aurelia/templating-resources/commit/5958a65" target="_blank">5958a65</a>
+)</li>
+<li><strong>analyze-view-factory:</strong> add hide to lifecycleOptionalBehaviors (
+<a href="https://github.com/aurelia/templating-resources/commit/cd8df6d" target="_blank">cd8df6d</a>
+), closes 
+<a href="https://github.com/aurelia/templating-resources/issues/334" target="_blank">#334</a>
+</li>
+<li><strong>debounce:</strong> debounce binding call instead updatesource (
+<a href="https://github.com/aurelia/templating-resources/commit/e9fb62c" target="_blank">e9fb62c</a>
+)</li>
+<li><strong>throttle-test:</strong> remove early return (
+<a href="https://github.com/aurelia/templating-resources/commit/b80ecc3" target="_blank">b80ecc3</a>
+)</li>
+<li><strong>UpdateTrigger:</strong> sync with binding (
+<a href="https://github.com/aurelia/templating-resources/commit/3969dc6" target="_blank">3969dc6</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/pal/compare/1.6.0...v1.7.0" target="_blank">aurelia-pal 1.7.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>performance:</strong> update to the performance API (
+<a href="https://github.com/aurelia/pal/commit/c5adba7" target="_blank">c5adba7</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/pal-browser/compare/1.6.0...v1.7.0" target="_blank">aurelia-pal-browser 1.7.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>performance:</strong> performance api update (
+<a href="https://github.com/aurelia/pal-browser/issues/32" target="_blank">#32</a>
+) (
+<a href="https://github.com/aurelia/pal-browser/commit/b1b488f" target="_blank">b1b488f</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/pal-nodejs/compare/1.0.0-beta.3.1.0...1.0.0-beta.3.2.0" target="_blank">aurelia-pal-nodejs 1.0.0-beta.3.2.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>performance:</strong> update performance API (
+<a href="https://github.com/aurelia/pal-nodejs/commit/1508a8b" target="_blank">1508a8b</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/pal-worker/compare/0.2.0...v0.3.0" target="_blank">aurelia-pal-worker 0.3.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>performance:</strong> update for the performance api (
+<a href="https://github.com/aurelia/pal-worker/commit/d21c33d" target="_blank">d21c33d</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/framework/compare/1.1.5...1.2.0" target="_blank">aurelia-framework 1.2.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>log:</strong> support optional log level param to developmentLogging(). (
+<a href="https://github.com/aurelia/framework/commit/7962912" target="_blank">7962912</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/ux/compare/v0.7.1...v0.8.0" target="_blank">aurelia-ux 0.8.0</a>
+</h3>
+<h3>Features</h3>
+<ul>
+<li>New Component: ux-select</li>
+<li>CSS Fallback properties</li>
+<li>events for two way binding</li>
+<li>better configuration API, add checkbox</li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul>
+<li>use Reflect instead Object</li>
+<li>add missing exports from aurelia-binding</li>
+<li>remove old style.inputinfo binding</li>
+<li>change event suppress timing</li>
+<li>various issues fixed for select, radio and checkbox</li>
+</ul>
+</section>
+<section><h2 id="patch-releases">Patch Releases</h2><p>Patch updates include only fixes to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/loader-default/compare/1.0.3...1.0.4" target="_blank">aurelia-loader-default 1.0.4</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li>fix commonjs build error in requirejs env (
+<a href="https://github.com/aurelia/loader-default/commit/04f6d60" target="_blank">04f6d60</a>
+), closes 
+<a href="https://github.com/aurelia/loader-default/issues/47" target="_blank">#47</a>
+</li>
+<li>improve compatibility with other AMD implementations. (
+<a href="https://github.com/aurelia/loader-default/commit/0f8b5e8" target="_blank">0f8b5e8</a>
+), closes 
+<a href="https://github.com/aurelia/loader-default/issues/48" target="_blank">#48</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/validation/compare/1.1.2...1.1.3" target="_blank">aurelia-validation 1.1.3</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>ValidateBindingBehavior:</strong> avoid conflicts (
+<a href="https://github.com/aurelia/validation/commit/e15b06b" target="_blank">e15b06b</a>
+), closes 
+<a href="https://github.com/aurelia/validation/issues/470" target="_blank">#470</a>
+</li>
+</ul>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%20Release%20Notes%20-%20Late%20March%202018" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2018%2F3%2F29%2Faurelia-release-notes-late-march-2018"></blog-footer>
+</section>

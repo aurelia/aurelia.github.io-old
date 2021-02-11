@@ -1,0 +1,81 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia RealWorld App</h1>
+    <h2>Posted by <span class="author">Moritz Hilberg</span> on <span class="date">April 5, 2018</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>Thanks to the fantastic work of Moritz Hilberg and other community members, Aurelia is now available as part of 
+<a href="https://github.com/gothinkster/realworld" target="_blank">the RealWorld project</a>
+. Here's Moritz to tell you more about it...</p>
+<section><h2 id="what-is-realworld">What Is RealWorld?</h2><p>
+<a href="https://github.com/gothinkster/realworld" target="_blank">gothinkster/realworld</a>
+ is a great place to learn new frameworks in the context of a more real-world scenario. It's also good if you want to learn best practices.</p>
+<p>The introduction to the realworld project on 
+<a href="https://medium.com/@ericsimons/introducing-realworld-6016654d36b5" target="_blank">medium</a>
+ states:</p>
+<blockquote>
+<p>RealWorld shows you how the exact same real world blogging platform is built using React/Angular/&amp; more on top of Node/Django/&amp; more. Yes, you can mix and match them, because they all adhere to the same API spec.</p>
+</blockquote>
+<h3>Functionality Overview</h3>
+<p>The example application is a social blogging site (i.e. a Medium.com clone) called &quot;Conduit&quot;. It uses a custom API for all requests, including authentication.</p>
+<h4>General Functionality</h4>
+<ul>
+<li>Authenticate users via JWT (login/signup pages + logout button on settings page)</li>
+<li>CRU* users (sign up &amp; settings page - no deleting required)</li>
+<li>CRUD Articles</li>
+<li>CR*D Comments on articles (no updating required)</li>
+<li>GET and display paginated lists of articles</li>
+<li>Favorite articles</li>
+<li>Follow other users</li>
+</ul>
+<h4>General Page Breakdown</h4>
+<ul>
+<li>Home page (URL: /#/ )
+<ul>
+<li>List of tags</li>
+<li>List of articles pulled from either Feed, Global, or by Tag</li>
+<li>Pagination for list of articles</li>
+</ul>
+</li>
+<li>Sign in/Sign up pages (URL: /#/login, /#/register )
+<ul>
+<li>Uses JWT (store the token in localStorage)</li>
+<li>Authentication can be easily switched to session/cookie based</li>
+</ul>
+</li>
+<li>Settings page (URL: /#/settings )</li>
+<li>Editor page to create/edit articles (URL: /#/editor, /#/editor/article-slug-here )</li>
+<li>Article page (URL: /#/article/article-slug-here )
+<ul>
+<li>Delete article button (only shown to article's author)</li>
+<li>Render markdown from server client side</li>
+<li>Comments section at bottom of page</li>
+<li>Delete comment button (only shown to comment's author)</li>
+</ul>
+</li>
+<li>Profile page (URL: /#/profile/:username, /#/profile/:username/favorites )
+<ul>
+<li>Show basic user info</li>
+<li>List of articles populated from author's created articles or author's favorited articles</li>
+</ul>
+</li>
+</ul>
+<p>As you can see, the app covers many basic and advanced topics like Routing, Fetch-API and Authentication.</p>
+</section>
+<section><h2 id="why-should-you-be-interested">Why Should You Be Interested?</h2><p>If you want to get involved with Aurelia, this project could provide a good starting point for you, whether you're just using Aurelia or if you want to contribute. As Jonathan Eckman has described in his 
+<a href="https://blog.jonathaneckman.io/contributing-to-aurelia/" target="_blank">blog post</a>
+, it is a goal worth achieving. As mentioned before, this project can also be a good place to discuss and showcase best practices. So far, the code has received quite a bit of review. Finally, this is a good sample if you want to compare different frameworks. Maybe your boss needs a decision on which framework to use, or you just want to learn something new.</p>
+</section>
+<section><h2 id="conclusion">Conclusion</h2><p>I want to thank all who participated in and supported this project: the RealWorld core-team, the Aurelia core-team, my team at <code>aurelia-realworld-example-app</code> and the Aurelia community. I can say that the Aurelia community is alive and very supportive!!! If you would love to join in the community in support of this effort, we're considering writing a full tutorial for the Aurelia RealWorld app. Please <strong>star</strong> and reach out to us at 
+<a href="https://github.com/gothinkster/aurelia-realworld-example-app" target="_blank">aurelia-realworld-example-app</a>
+.</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%20RealWorld%20App" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2018%2F4%2F5%2Faurelia-realworld-app"></blog-footer>
+</section>

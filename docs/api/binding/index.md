@@ -1,4 +1,4 @@
-# Binding Module
+# aurelia-binding Module
 
 > A modern databinding library for JavaScript and HTML.
 

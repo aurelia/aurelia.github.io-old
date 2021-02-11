@@ -1,0 +1,70 @@
+<section class="article blog">
+  <header>
+    <h1>Creating Reactive, Loosely Coupled Apps with Aurelia and Flux - Episode 1</h1>
+    <h2>Posted by <span class="author">AureliaEffect</span> on <span class="date">July 23, 2015</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>This week we're excited to feature another fantastic member of the Aurelia community: 
+<a href="https://github.com/tfrydrychewicz" target="_blank">Tomasz Frydrychewicz</a>
+. Thomas is a full stack developer in love with JavaScript and is always looking for an opportunity to spread that enthusiasm around. He's a big fan of reactive, event driven architectures and asynchronous programing. During the last five years he introduced Angular to different societies but is recently infatuated with Aurelia and its approach to modern JavaScript frameworks. Thomas is the author of the 
+<a href="https://github.com/tfrydrychewicz/aurelia-flux" target="_blank">aurelia-flux</a>
+ plugin, which you can hear about in his own words below.</p>
+<hr />
+<p>Why should we even bother with reactive programming? Well, we all do care about writing testable, loosely coupled code, but are our dependencies really loose? Imagine that you have a working piece of code implementing particular business logic, and you would like to connect a new feature into the flow. If your code isn't reactive yet, you would have to add more &quot;if-ology&quot; to it, causing you to have to change the existing code base - that is not what I believe loosely coupled dependencies look like.  How can the reactive, unidirectional 
+<a href="https://facebook.github.io/flux/docs/overview.html#content" target="_blank">Flux</a>
+ pattern help?</p>
+<p>The Flux approach is based on <strong>actions</strong>, which are the business information carriers, a central <strong>dispatcher</strong> responsible for controlling action flows and <strong>stores</strong>, which consume those actions and expose data from queries to views. If it reminds you of the 
+<a href="http://martinfowler.com/bliki/CQRS.html" target="_blank">CQRS pattern</a>
+, you got it.</p>
+<p><img src="/content/images/2015/07/flux-simple-f8-diagram-1300w.png" alt="flux flow diagram" />
+<em>Image used from http://facebook.github.io/flux/</em></p>
+<p>
+<a href="https://github.com/tfrydrychewicz/aurelia-flux" target="_blank">Aurelia-Flux</a>
+ is a small but useful library that brings the Flux dispatcher into Aurelia. As Aurelia's goal is to be as close to the programming language as possible, aurelia-flux doesn't require any special sort of inheritance chain, any configuration or conventions. It's ready to work out of the box and can be applied to any existing Aurelia application.</p>
+<h3>Installing</h3>
+<p>In order to start using 
+<a href="https://github.com/tfrydrychewicz/aurelia-flux" target="_blank">aurelia-flux</a>
+, just install it with jspm...</p>
+null
+<p>...load the plugin...</p>
+null
+<p>...and you're ready to go.</p>
+<h3>Basic Usage</h3>
+<p>Using aurelia-flux is as easy as falling off a log. You don't have to create any special types, just start using it with your ES6/7 classes. Create your store and decorate any method with the <code>@handle</code> decorator to make it start consuming the given action.</p>
+null
+<p>Then use your store in the view model, along with the dispatcher's <code>dispatch</code> method to make the dispatcher start processing your action and deliver it to all the handlers.</p>
+null
+<p>Create a standard Aurelia view and feed it with the store's data...</p>
+null
+<p>... and you have your application working in a reactive manner with aurelia-flux.</p>
+<h3>One-Timers</h3>
+<p>The defined <code>message.send</code> handler will be processing the <code>message.send</code> messages for the whole object life-cycle. If you want to control when it's being released, use the dispatcher's <code>handle</code> method. When invoked, it returns a release method, which will remove the callback from the dispatcher's registry.</p>
+null
+<h3>Promises</h3>
+<p>Aurelia-Flux is based on 
+<a href="https://github.com/petkaantonov/bluebird" target="_blank">BlueBird</a>
+ promises 
+<a href="https://promisesaplus.com/" target="_blank">A+</a>
+, therefore you can use it with any JavaScript promises. If your callback returns a promise, the flux dispatcher will not finish its current dispatching until the promise is resolved or rejected. If you don't want the dispatcher to wait for your asynchronous call to finish, just don't return the promise.</p>
+null
+<h3>WaitFor</h3>
+<p>As the order of handlers invoked when dispatching an action depends on the particular sequence of files you're loading into your app, you cannot rely on it. Luckily, 
+<a href="https://github.com/tfrydrychewicz/aurelia-flux" target="_blank">aurelia-flux</a>
+ comes with <code>waitFor</code> which facilitates and alleviates building sequential action processing. If you want the whole callback function to wait for another store to finish processing, use the <code>@waitFor</code> decorator.</p>
+null
+<p>If only a part of a handler needs to wait, use the dispatcher's <code>waitFor</code> method.</p>
+null
+<h3>Summary</h3>
+<p>Hopefully this short introduction to creating reactive applications with 
+<a href="https://github.com/tfrydrychewicz/aurelia-flux" target="_blank">aurelia-flux</a>
+ gave you a good starting point for your reactive adventure. Building applications in such a manner helps to maintain the loose coupling of dependencies, keeps code clean and avoids the excessive use of unnecessary branching.</p>
+<p>In the next episode I will walk you through en example, reactive application created with aurelia-flux.</p>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Creating%20Reactive%2C%20Loosely%20Coupled%20Apps%20with%20Aurelia%20and%20Flux%20-%20Episode%201" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2015%2F7%2F23%2Fcreating-reactive-loosely-coupled-apps-with-aurelia-and-flux-episode-1"></blog-footer>
+</section>

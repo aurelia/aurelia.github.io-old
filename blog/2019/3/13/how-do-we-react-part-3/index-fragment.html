@@ -1,0 +1,208 @@
+<section class="article blog">
+  <header>
+    <h1>How do we React? - Part 3</h1>
+    <h2>Posted by <span class="author">Rob Eisenberg</span> on <span class="date">March 13, 2019</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>This is part 3 of 3 in a series titled &quot;How do we React?&quot; in which I conclude our discussion of how Aurelia handles common React scenarios.</p>
+<p>The other week 
+<a href="https://twitter.com/sebmarkbage" target="_blank">Sebastian Markbåge</a>
+ posted 
+<a href="https://twitter.com/sebmarkbage/status/1098310123796062209" target="_blank">the following tweet</a>
+:</p>
+<blockquote>
+<p>You may have noticed that most other frameworks don't have HoCs, render props or anything like React.Children. These account for a lot the differences between React and other frameworks. How would you solve these use cases if you had to switch to [other framework]?</p>
+</blockquote>
+<p><strong>In this post, we'll cover React.Children</strong> For a discussion of how Aurelia handles typical HoC scenarios, <a href="blog/2019/02/21/how-do-we-react-part-1">please see part 1</a> or for information on how we handle render props, <a href="blog/2019/03/01/how-do-we-react-part-2">see part 2</a>.</p>
+<section><h2 id="reactchildren">React.Children</h2><p>From Sebastian's original tweet, it wasn't clear to me whether he was referring to the 
+<a href="https://reactjs.org/docs/react-api.html#reactchildren" target="_blank">React.Children</a>
+ helper or to a React component's 
+<a href="https://reactjs.org/docs/composition-vs-inheritance.html" target="_blank">props.children</a>
+. The utility seems less essential to me, so I'll focus primarily on 
+<a href="https://reactjs.org/docs/composition-vs-inheritance.html" target="_blank">props.children</a>
+ here, but I'll also make a few notes relating to <code>React.Children</code>.</p>
+<p>The React site 
+<a href="https://reactjs.org/docs/composition-vs-inheritance.html" target="_blank">states</a>
+:</p>
+<blockquote>
+<p>Some components don’t know their children ahead of time. This is especially common for components like <code>Sidebar</code> or <code>Dialog</code> that represent generic &quot;boxes&quot;. We recommend that such components use the special <code>children</code> prop to pass children elements directly into their output.</p>
+</blockquote>
+</section>
+<section><h2 id="slots">Slots</h2><p>If you've read <a href="blog/2019/03/01/how-do-we-react-part-2">part 2 of this series</a>, then you may have already realized that this is handled quite simply by Aurelia's adoption of the Shadow DOM web standard. As an example, the <code>FancyBorder</code> component shown on the React site can be authored in Aurelia like this:</p>
+
+<code-listing heading="fancy-border.html">
+  
+<source-code lang="HTML" heading="fancy-border.html">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">bindable</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>color<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fancy-border-${color}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slot</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slot</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>In fact, we don't even need to write any JavaScript at all to implement this. Because these types of container components are so common, Aurelia provides a mechanism for creating HTML-only components, which is what I've shown above. Here's how it's used:</p>
+
+<code-listing heading="app.html">
+  
+<source-code lang="HTML" heading="app.html">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>fancy-border</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>red<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    Hello from Aurelia!
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>fancy-border</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>As a reminder, or if you aren't familiar with Shadow DOM, the HTML child nodes of the <code>fancy-border</code> element will automatically be projected into the location of the <code>slot</code> element. That's all there is to it.</p>
+<p>Because we've adopted the Shadow DOM slot composition model, we can also declaratively use named slots, slot fallback content, and re-project children from a slot in one element to a slot in a nested component. All that comes for free.</p>
+<div class="info"><div class="icon"> <i></i> </div><h4>Web Standards</h4><p>
+A core value of Aurelia has always been to be as standards compliant as possible. Besides the natural benefit of working with browsers rather than against them, anyone who knows the standards already knows most of Aurelia. And those who are less familiar with the standards will learn many of them while using Aurelia, which is an excellent career side-effect for any front-end engineer.</p>
+</div>
+</section>
+<section><h2 id="the-children-decorator">The @children Decorator</h2><p>For the most part, something like 
+<a href="https://reactjs.org/docs/react-api.html#reactchildren" target="_blank">React.Children</a>
+ isn't needed in Aurelia, since developers are typically working with slot-based composition or simple collections of plain JavaScript objects.</p>
+<p>That said, you may wonder how a container component would gain access to its child components directly, so that it can manipulate them, query them, or build other UI based on them. If you have that scenario in Aurelia, all you need to do is decorate a property with the <code>@children</code> decorator. You can optionally specify a CSS selector, to filter which children you want to work with. For example, if you were building a tab control, you could do something like this:</p>
+
+<code-listing heading="tab-control.js">
+  
+<source-code lang="JavaScript" heading="tab-control.js">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">TabControl</span> <span class="token punctuation">{</span>
+    @<span class="token function">children</span><span class="token punctuation">(</span><span class="token string">'tab-item'</span><span class="token punctuation">)</span> items<span class="token punctuation">;</span>
+  
+    <span class="token function">selectTab</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// ellided</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>With this in place, you have a live list of all the component view models for <code>tab-item</code> components that are children of a <code>tab-control</code>. So, you could build a view for the <code>tab-control</code> like this:</p>
+
+<code-listing heading="tab-control.html">
+  
+<source-code lang="HTML" heading="tab-control.html">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tab-strip<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>item of items<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">click.trigger</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>selectTab(item)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${item.heading}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span>
+  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tab-items<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slot</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slot</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>With the view above, the <code>tab-item</code> components will be rendered at the location of the <code>slot</code>. However, in addition to that, an <code>li</code> will be rendered for every <code>tab-item</code> child, with the text content of the <code>a</code> set to the <code>heading</code> property of the item.</p>
+<p>In other words, you could write this...</p>
+
+<code-listing heading="app.html">
+  
+<source-code lang="HTML" heading="app.html">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tab-control</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tab-item</span> <span class="token attr-name">heading</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Tab 1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        Content of tab 1.
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tab-item</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tab-item</span> <span class="token attr-name">heading</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Tab 2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        Content of tab 2.
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tab-item</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tab-item</span> <span class="token attr-name">heading</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Tab 3<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        Content of tab 3.
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tab-item</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tab-control</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>And it would render something like this:</p>
+
+<code-listing heading="app.html">
+  
+<source-code lang="HTML" heading="app.html">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tab-control</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tab-strip<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span><span class="token punctuation">></span></span>Tab 1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span><span class="token punctuation">></span></span>Tab 2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span><span class="token punctuation">></span></span>Tab 3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span>
+  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tab-items<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tab-item</span> <span class="token attr-name">heading</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Tab 1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        Content of tab 1.
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tab-item</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tab-item</span> <span class="token attr-name">heading</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Tab 2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        Content of tab 2.
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tab-item</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tab-item</span> <span class="token attr-name">heading</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Tab 3<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        Content of tab 3.
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tab-item</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tab-control</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Because Aurelia's templating and binding systems are deeply integrated, you could drive the entire tab control with data also, like this:</p>
+
+<code-listing heading="app.html">
+  
+<source-code lang="HTML" heading="app.html">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tab-control</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tab-item</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>n of 3<span class="token punctuation">"</span></span> <span class="token attr-name">heading</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Tab ${n}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        Content of tab ${n}.
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tab-item</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tab-control</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>This would result in the same final HTML composition as the static version above.</p>
+</section>
+<section><h2 id="wrapping-up">Wrapping Up</h2><p>This post was quite a bit shorter than part 2, primarily because much of what we covered in part 2 also addresses the scenarios for <code>React.Children</code> and <code>props.children</code>. Aurelia's standards-based slot composition model, combined with powerful decorators like <code>@children</code> enable a very declarative model for what would otherwise be complex UI patterns.</p>
+<p>We hope you've enjoyed this three part series and now have a better idea of how Aurelia provides its own approaches to various React scenarios. If you're curious to see what Aurelia vNext has in store, or to learn more about Aurelia and how it compares to other frameworks, please subscribe to this blog. There's much more goodness to come.</p>
+<p>Cheers!</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="How%20do%20we%20React%3F%20-%20Part%203" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2019%2F3%2F13%2Fhow-do-we-react-part-3"></blog-footer>
+</section>

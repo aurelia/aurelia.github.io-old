@@ -1,0 +1,157 @@
+<section class="article blog">
+  <header>
+    <h1>Case Study: Tutors</h1>
+    <h2>Posted by <span class="author">Eamonn de Leastar</span> on <span class="date">September 4, 2019</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>Today, I'm pleased to introduce you to Eamonn de Leastar from the Waterford Institute of Technology. He's built an impressive set of learning technologies for the institute using Aurelia. Here he is to tell you all about it and provide some opportunities to get involved as well.</p>
+<hr />
+<p>Most developers have experience working though online tutorials, often complimented with videos and other resources. These types of online resources are central to how we build new skills and competencies in our discipline. The sequence in which the ‘labs’ or ‘lessons’ are presented, coupled with rich text formatting and code syntax highlighting, are essential enablers of the learning experience. Additionally, the wider context in which practical labs are embedded is also important, particularly if we are embarking on a complete course as opposed to short focussed lessons. For example, below is an hub site for a complete programme, consisting of multiple individual courses:</p>
+<p><img src="../styles/images/blog/case-study-tutors/module-example.png" alt="module example" /></p>
+<p>Preparing and structuring this content can be quite a challenge. For technical subjects, the educator has to consider carefully the organization, sequencing, and presentation of the material. Additionally, in a fast changing domain such as software development, an orderly and maintainable process for evolving the material is essential. Developing a complete course often requires very significant time investment. So the format, versioning, and publication pipelines need to be as seamless as possible. If the tools are efficiently organized, the educator is freed up to focus on the core content without battling the publication system. Also, the tools need to be resilient, sufficiently simple to have long life span, and as far as possible independent of specific platforms.</p>
+<p>In Higher Education, Content Management Systems (CMS), deployed within Virtual Learning Environments (VLE) have been the starting point for developing content of this type. However, Static Site Generators have emerged as strong candidates to complement - or even replace - CMSs for this type of work. Static Site Generators facilitate a more resilient, platform independent structure, and when coupled with configuration management platforms such as git, can yield a comprehensive tool set delivering mature versioning and release generation using the Continuous Integration techniques from conventional software production.</p>
+<p>At WIT, we have built a static site generator called Tutors - you can see it in action 
+<a href="https://tutors-design.netlify.com/course/wit-hdip-comp-sci-2019.netlify.com" target="_blank">here</a>
+. Tutors consists of two key tools: (1) a command line application which harvests a course from a prescribed folder structure and generates a static module package from the content and (2) an Aurelia application, the Tutors reader, which presents a course in a visually compelling manner. The command line application (
+<a href="https://github.com/edeleastar/tutors-js" target="_blank">tutors-json</a>
+) and the reader (
+<a href="https://github.com/edeleastar/tutors-design" target="_blank">tutors-design</a>
+) work together. 
+<a href="https://github.com/edeleastar/tutors-js" target="_blank">Tutors-json</a>
+ generates a course package (json content + images, pdfs and other assets) from a simple folder structure. This package (just a folder of content really) can be published to a static hosting service (gh-pages, bitbucket pages or Netlify). The Aurelia app - (
+<a href="https://github.com/edeleastar/tutors-design" target="_blank">tutors-design</a>
+) - can then render the module.</p>
+<section><h2 id="course-format">Course Format</h2><p>A 
+<a href="https://tutors-design.netlify.com/course/wit-hdip-comp-sci-2019-programming.netlify.com" target="_blank">typical course</a>
+ consists of topics, presentations, videos, pdfs, markdown encoded labs, videos, resources and other artifacts, laid out using simple naming conventions. It is presented with comprehensive imagery (chosen by the educator) and a consistent iconography and navigation system. The generated course is json encoded content, images, PDFs and other archives and artifacts.</p>
+<p><img src="../styles/images/blog/case-study-tutors/tutors-folder-layout.png" alt="Topic Structure" /></p>
+</section>
+<section><h2 id="tutors-ux">Tutors UX</h2><p>A 
+<a href="https://tutors-design.netlify.com/topic/wit-hdip-comp-sci-2018-ent-web.netlify.com/topic-12-aurelia-3" target="_blank">typical topic</a>
+ might have a main video, a series of pdf/video links + associated labs, structured with appropriate iconography and (educator chosen) imagery. The educator lays out the topic using simple file/folder naming and nesting conventions. A 
+<a href="https://tutors-design.netlify.com/lab/wit-hdip-comp-sci-2018-ent-web.netlify.com/topic-12-aurelia-3/unit-2/book-1-maps" target="_blank">Lab</a>
+ is a particularly important learning resource, so the conventions chosen need to represent a more sophisticated construct, but remain simple to compose. Lab instructions/steps are composed in markdown, with conventions for image and archive location + support for syntax highlighting.</p>
+<p>The card metaphor dominates the user experience, with appropriate icons indicating card type and purpose. These cards contains multiple clickable zones, which guide the student to different resources.</p>
+<p><img src="../styles/images/blog/case-study-tutors/card-example.png" alt="Card Example" /></p>
+<p>In addition to illustrations + iconography, unobtrusive navigation mechanisms allow the student to quickly move to different topics, lessons, labs, and videos.  There are multiple 'navigators' depending in the context - a master navigator for the entire course, navigators for different zones within a course, a navigator for a lab sequence, and a navigator within a topic:</p>
+<p><img src="../styles/images/blog/case-study-tutors/tutors-navigators.png" alt="Course Navigator" /></p>
+<p>Once the file/folder naming conventions are learned, and markdown mastered, then it is relatively easy to 'grow' a course over time - all the while preserving and enhancing the learning context. The navigators are automatically populated as the content expands.</p>
+</section>
+<section><h2 id="aurelia-implementation">Aurelia Implementation</h2><p>The architecture of Aurelia was the deciding factor in choosing it as the foundation for the reader application. Clear, concise, and relatively simple building blocks, a flexible router, an elegant binding mechanism, and predictable standards based behavior throughout the framework facilitated a clean, flexible implementation. We more or less followed a conventional project structure, trying to keep the components aligned with the tutors course structure as far as possible.</p>
+<p><img src="../styles/images/blog/case-study-tutors/tutors-components.png" alt="Course Navigator" /></p>
+<h3>Deep Links</h3>
+<p>A strong emphasis on ‘deep linking’ was essential - with the Aurelia Tutors Reader capable of rebuilding a course - and all of its content - from a deep link to any artifact within the course. For instance, this is a link to a course:</p>
+<ul>
+<li>
+<a href="https://tutors-design.netlify.com/course/wit-hdip-comp-sci-2018-ent-web.netlify.com" target="_blank">https://tutors-design.netlify.com/course/wit-hdip-comp-sci-2018-ent-web.netlify.com</a>
+</li>
+</ul>
+<p>Note that there is a url embedded within the link: wit-hdip-comp-sci-2018-ent-web.netlify.com. This is where the course is deployed - and can be manually inspected as json 'source' via this link:</p>
+<ul>
+<li>
+<a href="https://wit-hdip-comp-sci-2018-ent-web.netlify.com/tutors.json" target="_blank">https://wit-hdip-comp-sci-2018-ent-web.netlify.com/tutors.json</a>
+</li>
+</ul>
+<p>The Tutors reader will decode this url from the link that activated the app, ingest the json in a single fetch and render the Tutors UX.</p>
+<p>If the user navigates within the course, say to a specific lab, the url will be dynamically updated like this:</p>
+<ul>
+<li>
+<a href="https://tutors-design.netlify.com/lab/wit-hdip-comp-sci-2018-ent-web.netlify.com/topic-11-aurelia-2/unit-2-events/book-au-5" target="_blank">https://tutors-design.netlify.com/lab/wit-hdip-comp-sci-2018-ent-web.netlify.com/topic-11-aurelia-2/unit-2-events/book-au-5</a>
+</li>
+</ul>
+<p>This link can be sent to another user (or opened in a different browser session) and the reader will decode the path, extract the course url + the topic/lab to render the specific resources. It will also work for individual lab 'steps', as in:</p>
+<ul>
+<li>
+<a href="https://tutors-design.netlify.com/lab/wit-hdip-comp-sci-2018-ent-web.netlify.com/topic-11-aurelia-2/unit-2-events/book-au-5/03" target="_blank">https://tutors-design.netlify.com/lab/wit-hdip-comp-sci-2018-ent-web.netlify.com/topic-11-aurelia-2/unit-2-events/book-au-5/03</a>
+</li>
+</ul>
+<p>This also operates when we use the search facility:</p>
+<ul>
+<li>
+<a href="https://tutors-design.netlify.com/search/wit-hdip-comp-sci-2018-ent-web.netlify.com?searchTerm=event" target="_blank">https://tutors-design.netlify.com/search/wit-hdip-comp-sci-2018-ent-web.netlify.com?searchTerm=event</a>
+</li>
+</ul>
+<p>Search links can thus be shared or even embedded in the course material.</p>
+<h3>Publication Pipeline</h3>
+<p>With services like Netlify, the publication can be relatively seamless. A course repo can be created on Github or Bitbucket and associated with a Netlify project, for example:</p>
+<ul>
+<li>
+<a href="https://github.com/wit-tutors/tutors-starter" target="_blank">https://github.com/wit-tutors/tutors-starter</a>
+</li>
+</ul>
+<p>In the course repo, we provide a slimmed down package.json like this:</p>
+
+<code-listing>
+  
+<source-code lang="JSON" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token punctuation">{</span>
+    <span class="token string">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"tutors-json"</span><span class="token operator">:</span> <span class="token string">"^1"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>In the Netlify project configuration, it is just a matter of triggering the Tutors command whenever the repo is updated. This is set up in Netlify like this:</p>
+<p><img src="../styles/images/blog/case-study-tutors/deploy-settings.png" alt="Deploy Settings" /></p>
+<p>In the above deploy settings, tutors-json will be executed, generating the course package to the <code>json</code> folder - which will be published to the web. The Netlify project url:</p>
+<ul>
+<li>
+<a href="https://tutors-starter.netlify.com" target="_blank">https://tutors-starter.netlify.com</a>
+</li>
+</ul>
+<p>will redirect to the reader app - with the project url embedded:</p>
+<ul>
+<li>
+<a href="https://tutors-design.netlify.com/course/tutors-starter.netlify.com" target="_blank">https://tutors-design.netlify.com/course/tutors-starter.netlify.com</a>
+</li>
+</ul>
+<p>Once configured, the publication process is triggered by a simple git push to the source repo.</p>
+<h3>Testing</h3>
+<p>For testing, we have proceeded straight to e2e via Cypress. In fact, as the reader is consuming and presenting JSON based constructs, we can develop a set of cypress custom commands that directly feed from this JSON data.</p>
+<ul>
+<li>
+<a href="https://github.com/edeleastar/tutors-design/tree/development/cypress" target="_blank">https://github.com/edeleastar/tutors-design/tree/development/cypress</a>
+</li>
+</ul>
+<p>So, with a test case of a few lines - we can visit and verify an entire course reasonably easily, leveraging the JSON - which then becomes a comprehensive description of the system under test.</p>
+</section>
+<section><h2 id="static-vs-dynamic-tutors">Static vs Dynamic Tutors</h2><p>In fact, there are two different versions of Tutors in use currently. A purely 
+<a href="https://github.com/edeleastar/tutors-ts" target="_blank">static version</a>
+ - whereby a full static site is generated (without json or support for the Aurelia Tutor reader), and the hybrid version discussed above. Here is the same course published through both systems:</p>
+<ul>
+<li>
+<a href="https://wit-hdip-comp-sci-2019.github.io/programming/" target="_blank">Static Tutors Course Example (simple web site)</a>
+</li>
+<li>
+<a href="https://tutors-design.netlify.com/course/wit-hdip-comp-sci-2019-programming.netlify.com" target="_blank">Tutors Reader Course Example (Aurelia app)</a>
+</li>
+</ul>
+<p>It can be an interesting exercise comparing these two sites. The UX is similar - with some significant exceptions (discussed below). Initial load time is slightly slower for the Aurelia app - which is to be expected. However, subsequent navigation within the Aurelia app is significantly faster. This facilitates quick switches between labs/talks and other resources as students may cross check different aspects of a module.</p>
+<p>The Aurelia implementation, however, allows us to implement some new facilities that would be quite challenging to implement in the static version. Three features in particular are of interest: search, authentication, and analytics. Search is implemented as a client side feature, which can efficiently search the in-memory  course content. As noted above, we strive to ensure that the search urls can be shared, with the course url + search terms incorporated into the url as the search query is executed.</p>
+<p>Authentication is implemented via an integration with the Auth0 service. Each course can set its auth ‘level’, 1-4, which will initiate login based on how deep into a module the student is progressing (1, for instance, opens the complete course publicly, except for labs). This will allow a progressive opening up of a module. Analytics, our third key feature, is still to be tackled. In particular, we are very interested in tracking (with the students' consent) their progress though labs. This will enable us to offer more targeted support to students, and also help us to optimize the labs themselves, perhaps restructuring if we find progress is unbalanced or there are clear blockages emerging. All three of these features (and more to come) are greatly facilitated by Aurelia - which delivers a clean and comprehensive set of abstractions upon which to progressively implement powerful features.</p>
+</section>
+<section><h2 id="conclusion">Conclusion</h2><p>We would be delighted to receive any advice / feedback from the community - particularly on our Aurelia application structure. Our integration with Auth0 for instance, could be improved.  Our current approach seems to be a viable - although if you look at the code you will see we have side-stepped the Aurelia Authorization step mechanism (for the moment), until we can discover an elegant integration. Also, while we are happy with the lab look and feel, the implementation currently does not use Aurelia child routers - which will be nice win when we get around to it. Finally, our cypress test cases could do with some firming up / completion.</p>
+<p>Overall Aurelia has been a tremendous platform upon which to build this system. As someone remarked in the Aurelia discussion forums, with the right abstractions a developer can do the work of an army! When working with Aurelia one feels that the entire architecture can be held in mind comfortably - and new features can be piloted, evolved, and efficiently implemented with amazing productivity. We think this is JAMStack in action - all the benefits for static site generators, coupled with the power of client side frameworks, turbo charged by the elegance of Aurelia.</p>
+<hr />
+<p>Eamonn de Leastar (edeleastar at wit dot ie)</p>
+<p>Department of Computing &amp; Mathematics</p>
+<p>Telecommunications Software &amp; Systems Group</p>
+<p>Waterford Institute of Technology</p>
+<p>Ireland</p>
+<p>www.wit.ie</p>
+<p>www.tssg.org</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Case%20Study%3A%20Tutors" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2019%2F9%2F4%2Fcase-study-tutors"></blog-footer>
+</section>

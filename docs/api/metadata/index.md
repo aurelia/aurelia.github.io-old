@@ -1,4 +1,4 @@
-# Metadata Module
+# aurelia-metadata Module
 
 > Utilities for reading and writing the metadata of JavaScript functions.
 

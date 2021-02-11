@@ -1,0 +1,142 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia Release Notes - Early March 2018</h1>
+    <h2>Posted by <span class="author">Rob Eisenberg</span> on <span class="date">March 5, 2018</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>Last week we announced <a href="blog/2018/02/25/server-side-rendering">official support for Server-Side Rendering in Aurelia</a>. This week we're announcing an update to our Webpack tooling to support Webpack 4.0! We've also got a number of incremental fixes and small new features for other Aurelia libraries, detailed below.</p>
+<section><h2 id="major-releases">Major Releases</h2><p>Major updates may include breaking changes, new features, fixes to bugs and performance improvements.</p>
+<h3>aurelia-webpack-plugin 3.0.0-rc.1</h3>
+<p>We've updated our Webpack plugin to support Webpack 4.0! Please note that because of breaking changes in Webpack's plugin model, we cannot support Webpack 2.0/3.0 with this plugin. If you cannot migrate to Webpack 4.0, then you will need to continue using aurelia-webpack-plugin 2.0.0-rc.5.</p>
+</section>
+<section><h2 id="minor-releases">Minor Releases</h2><p>Minor updates include new features, updates to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/ui-virtualization/compare/1.0.0-beta.3.2.0...v1.0.0-beta.3.3.0" target="_blank">aurelia-ui-virtualization 1.0.0-beta.3.3.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>VirtualRepeat:</strong> handle null / undefined, empty collection (
+<a href="https://github.com/aurelia/ui-virtualization/commit/6f92c31" target="_blank">6f92c31</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/pal/compare/1.5.0...v1.6.0" target="_blank">aurelia-pal 1.6.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>dom:</strong> add NodeList to global (
+<a href="https://github.com/aurelia/pal/commit/701dc34" target="_blank">701dc34</a>
+)</li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>index:</strong> Fixed missing injectStyles param description (
+<a href="https://github.com/aurelia/pal/commit/8b0204d" target="_blank">8b0204d</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/pal-browser/compare/1.4.0...v1.6.0" target="_blank">aurelia-pal-browser 1.6.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>dom:</strong> add NodeList to global (
+<a href="https://github.com/aurelia/pal-browser/issues/31" target="_blank">#31</a>
+) (
+<a href="https://github.com/aurelia/pal-browser/commit/16cd315" target="_blank">16cd315</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/pal-nodejs/compare/1.0.0-beta.3.0.0...1.0.0-beta.3.1.0" target="_blank">aurelia-pal-nodejs 1.0.0-beta.3.1.0</a>
+</h3>
+<h4>Features</h4>
+<ul>
+<li><strong>dom:</strong> add NodeList to global (
+<a href="https://github.com/aurelia/pal-nodejs/commit/20ce260" target="_blank">20ce260</a>
+)</li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>global:</strong> add missing interface element to fix compile errors (
+<a href="https://github.com/aurelia/pal-nodejs/commit/fa2bbd3" target="_blank">fa2bbd3</a>
+)</li>
+</ul>
+</section>
+<section><h2 id="patch-releases">Patch Releases</h2><p>Patch updates include only fixes to bugs and performance improvements.</p>
+<h3>
+<a href="https://github.com/aurelia/templating-binding/compare/1.4.0...v1.4.1" target="_blank">aurelia-templating-binding 1.4.1</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>syntax-interpreter:</strong> use the hyphenated name (
+<a href="https://github.com/aurelia/templating-binding/commit/4e4c427" target="_blank">4e4c427</a>
+), closes 
+<a href="https://github.com/aurelia/templating-binding/issues/122" target="_blank">#122</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/history-browser/compare/1.1.0...v1.1.1" target="_blank">history-browser 1.1.1</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>history-browser:</strong> Add location.href to replaceState() call (
+<a href="https://github.com/aurelia/history-browser/commit/424c252" target="_blank">424c252</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/i18n/compare/2.1.1...2.1.2" target="_blank">aurelia-i18n 2.1.2</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>i18n:</strong> stop forcing lng option (
+<a href="https://github.com/aurelia/i18n/issues/259" target="_blank">#259</a>
+) (
+<a href="https://github.com/aurelia/i18n/commit/5692e30" target="_blank">5692e30</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/hot-module-reload/compare/0.2.0...v0.2.1" target="_blank">aurelia-hot-module-reload 0.2.1</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>hmr:</strong> modules from transpilers do not use the 'css-resource-plugin' (
+<a href="https://github.com/aurelia/hot-module-reload/issues/17" target="_blank">#17</a>
+) (
+<a href="https://github.com/aurelia/hot-module-reload/commit/c6475d8" target="_blank">c6475d8</a>
+), closes 
+<a href="https://github.com/aurelia/hot-module-reload/issues/16" target="_blank">#16</a>
+</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/middleware-koa/compare/0.1.0...0.1.1" target="_blank">aurelia-middleware-koa 0.1.1</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>typings:</strong> Correct typings file path (
+<a href="https://github.com/aurelia/middleware-koa/commit/ccffe36" target="_blank">ccffe36</a>
+)</li>
+</ul>
+<h3>
+<a href="https://github.com/aurelia/ssr-bootstrapper-webpack/compare/0.1.0...0.1.1" target="_blank">aurelia-ssr-bootstrapper-webpack 0.1.1</a>
+</h3>
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>README:</strong> Fix typos (
+<a href="https://github.com/aurelia/ssr-bootstrapper-webpack/commit/700af15" target="_blank">700af15</a>
+)</li>
+<li><strong>start:</strong> wait for two-way bindings (
+<a href="https://github.com/aurelia/ssr-bootstrapper-webpack/commit/5264e49" target="_blank">5264e49</a>
+)</li>
+<li><strong>typescript-metadata:</strong> declare Element types (
+<a href="https://github.com/aurelia/ssr-bootstrapper-webpack/commit/6030034" target="_blank">6030034</a>
+)</li>
+</ul>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%20Release%20Notes%20-%20Early%20March%202018" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2018%2F3%2F5%2Faurelia-release-notes-early-march-2018"></blog-footer>
+</section>
