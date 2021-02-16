@@ -10,6 +10,3 @@ git clone --depth 1 git@github.com:aurelia/documentation.git dep_repos/documenta
 
 echo -e "\nInstall aurelia npm packages for API doc ..."
 npm install
-
-echo -e "\nGenerate site ..."
-npx au-site generate

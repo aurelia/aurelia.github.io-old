@@ -2,35 +2,53 @@
 
 The web site for Aurelia.
 
-It collects API docs from installed Aurelia npm packages (check package.json).
 
-It collects documentation from a shallow cloned `git@github.com:aurelia/documentation.git` (handled by `./generate-site.sh` automatically).
-
-It assumes you have `aurelia/blog` repo cloned in sibling folder. If your current
+**It assumes you have `aurelia/blog` repo cloned in sibling folder.** If your current
 project path is `my-projects/aurelia.github.io/`, the blog repo should be in `my-projects/blog/`.
 
-## Generate new site
+# First, reload all dependencies
 
-    ./generate-site.sh
+    ./reload-deps.sh
 
-For Windows user, read the generate-site.sh content to find out what to run.
+> For Windows users, this shell script runs fine in Git Bash.
+
+The script,
+1. clean up existing `node_modules`, `package-lock.json` and `dep_repos/` folder.
+2. shadow clone https://github.com/aurelia/documentation into `./dep_repos/documentation`.
+3. use `npm instsall` to install (check `package.json`)
+  * all published Aurelia 1 core modules
+  * the latest https://github.com/aurelia/site-generator
+
+# Rebuild the site
+
+Note this is a static web site served through GitHub Pages, **you don't have to rebuild the site**
+unless you want to publish updated aurelia/documentation or latest APIs doc for core modules.
+
+    npx au-site generate
+
+> The `npx au-site` ensures it uses the local installed `aurelia/site-generator`.
+
 
 ## Publish new blog
 
-First make sure your sibling `my-projectsblog/` repo is up to date.
+This is the most common task.
+
+First make sure your sibling `my-projects/blog/` repo is up to date.
 
     npx au-site blog publish [file]
 
-Use `npx` to make sure running locally installed `au-site` provided by aurelia/site-generator.
+> Use `npx` to make sure running locally installed `au-site` provided by aurelia/site-generator.
+
 The "file" is a file name in `my-projects/blog/drafts/` folder.
 
 The above command will move the draft file from drafts folder to published folder. **Make sure to commit the change to aurelia/blog repo.**
 
 The above command will also build a new blog page in current project. Commit the change to publish to GitHub pages.
 
+
 ## Rebuild all blogs
 
-You rarely need to do this.
+You rarely need to do this. Use it only if you know what you are doing.
 
     # Remove all blog pages first.
     rm -rf blog/
