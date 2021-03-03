@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Fri Feb 12 2021 22:15:30 GMT+1100 (Australian Eastern Daylight Time)</lastBuildDate>
+    <lastBuildDate>Wed Mar 03 2021 20:42:17 GMT+1100 (Australian Eastern Daylight Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[The Aurelia 2 Alpha Release Is Now Available]]></title>
+      <link>http://aurelia.io/blog/2021/3/3/the-aurelia-2-alpha-release-is-now-available</link>
+      <description><![CDATA[We are excited to announce that the Aurelia 2 alpha is now ready for download]]></description>
+      <pubDate>Wed Mar 03 2021 20:42:13 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[The Aurelia 2 alpha is coming]]></title>
       <link>http://aurelia.io/blog/2021/2/12/the-aurelia-2-alpha-is-coming</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2019/1/2/aurelia-2018-year-in-review</link>
       <description><![CDATA[2018 has been an amazing year for Aurelia! We've added long-time requested features and improvements, enabled new ways to deploy apps, shipped modern, no-hassle tooling, improved our documentation, built up financial backing, made huge advancements in our vNext implementation, and grown our core engineering team by adding six new amazing people! Wow!]]></description>
       <pubDate>Thu Jan 03 2019 03:30:57 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Smoke House Project]]></title>
-      <link>http://aurelia.io/blog/2018/12/19/smoke-house-project</link>
-      <description><![CDATA[Today, I'm pleased to introduce you to Daryl Cober, a member of the Aurelia community who has been building out "Smoke House Project", a skeleton framework for desktop/web/mobile deployment using Aurelia, including a node Web API and a MongoDB. I'll let him share more about what he's working on and his journey to get there. Take it away Daryl!]]></description>
-      <pubDate>Wed Dec 19 2018 16:17:48 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
     </item>
   </channel>
 </rss>
