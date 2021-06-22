@@ -1,0 +1,93 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia 2 Update - Alpha 8</h1>
+    <h2>Posted by <span class="author">Dwayne Charrington</span> on <span class="date">June 22, 2021</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>Hi everyone, we hope you have been staying healthy and safe in these uncertain times we still find ourselves in. Unfortunately, things slowed down a bit in Aurelia land over the last few months due to unforeseen circumstances. We are happy to report that we've now been able to adapt to these changes, and you're going to see more releases and development work as we focus on completing Aurelia 2. We also realize that a lot of the work that has been done can easily be missed if you're not watching the 
+<a href="https://github.com/aurelia/aurelia" target="_blank">GitHub</a>
+, so make sure you keep an eye on that one too.</p>
+<p>We have just released Aurelia alpha version 8, and with it comes some small but significant changes, some fixing bugs you might have encountered in previous alpha versions of Aurelia 2. We will also be letting you know about all of the awesome things that Aurelia 2 alpha versions 7 and 6 introduced and fixed.</p>
+<p>On a related note, some of you might have missed the fact that Aurelia Store 
+<a href="https://github.com/aurelia/aurelia/pull/592" target="_blank">has now been ported over to Aurelia 2</a>
+ which has been available since alpha.4. In Aurelia 2 alpha 3, we also introduced support for a 
+<a href="https://github.com/aurelia/aurelia/commit/c6df35a" target="_blank">new promise template controller</a>
+, allowing you to work with promises inside of your views. We highly recommend you check out the docs 
+<a href="https://docs.aurelia.io/getting-started/conditional-rendering#promise" target="_blank">here</a>
+ on using the new promise template controller.</p>
+<section><h2 id="documentation">Documentation</h2><p>As many of you already know, the documentation for Aurelia 2 has been lagging behind the framework a little bit. While the documentation for version 2 is a lot better than version 1 (at least, we think so), with all of these new features and improvements over version 1, there is a lot more to document. Also, because we are still in alpha, things are often changing, and documentation needs to be updated accordingly.</p>
+<p>So the looming questions we have had as Aurelia 2 heads toward stable launch are: where do you put everything, and how do you organize it?</p>
+<p>We believe we have answered the above questions we asked ourselves and welcome honest feedback from the community regarding the direction we are taking.</p>
+<p>For example, you probably might not have even known about the 
+<a href="https://docs.aurelia.io/getting-started/conditional-rendering#promise" target="_blank">beautiful new promise template controller</a>
+ that allows you to work with promises inside of your views. Goodbye, promise handling in your view models (mostly).</p>
+<p>We know those of you wanting to dig into Aurelia 2 will be happy to know that concurrently to work being done on the framework code, documentation is being incrementally improved on an almost daily basis.</p>
+<p>What this means is over the coming weeks, you will notice Aurelia 2 docs changing. If you're eagle-eyed and have been paying attention, you might have already seen some changes. We are starting to add working code examples inside of the examples section. Our first pilot page was one for the repeater that you can see 
+<a href="https://docs.aurelia.io/examples/binding-and-templating/looping-with-repeat.for" target="_blank">here</a>
+.</p>
+<p>The &quot;Hello World&quot; tutorial 
+<a href="https://docs.aurelia.io/getting-started/quick-start-guide/running-our-app" target="_blank">now has a page with a working example</a>
+ that you can edit. It allows newcomers and even those wanting to brush up on their skills to interact and experience Aurelia right from within the docs.</p>
+</section>
+<section><h2 id="features">Features</h2><h3>2.0.0-alpha.8 (2021-06-22)</h3>
+<p>Some changes regarding compilation have been introduced, including a build method 
+<a href="https://github.com/aurelia/aurelia/commit/240692d" target="_blank">that allows more raw information</a>
+. We have also 
+<a href="https://github.com/aurelia/aurelia/commit/240692d" target="_blank">added two purer low-level primitives</a>
+ <code>isTwoWay</code> and <code>map</code>, allowing better compilation.</p>
+<p>
+<a href="https://github.com/aurelia/aurelia/commit/240692d" target="_blank">You can now use </a>
+. This will allow you to do this in your templates now:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token operator">&lt;</span>template repeat<span class="token punctuation">.</span>for<span class="token operator">=</span><span class="token string">"i of items"</span> au<span class="token operator">-</span>slot<span class="token operator">=</span><span class="token string">"myslot"</span><span class="token operator">></span>$<span class="token punctuation">{</span>i<span class="token punctuation">.</span>name<span class="token punctuation">}</span> <span class="token operator">--</span> $<span class="token punctuation">{</span>i<span class="token punctuation">.</span>value<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Some other minor bug fixes and refactorings mostly related to making templating and lower-level implementations cleaner were done. Which, if you're curious, you can read about more in the changelog 
+<a href="https://github.com/aurelia/aurelia/blob/master/docs/CHANGELOG.md#200-alpha8-2021-06-22" target="_blank">here</a>
+.</p>
+<h3>2.0.0-alpha.7 (2021-06-20)</h3>
+<p>In alpha 7, 
+<a href="https://github.com/aurelia/aurelia/commit/2145bbe" target="_blank">Aurelia 2 now supports Jest 27</a>
+ which closes off 
+<a href="https://github.com/aurelia/aurelia/issues/1175" target="_blank">bug 1175</a>
+. We had to change some configuration and API values for Jest 27 due to the changes in Jest. We plan on splitting up our tooling packages to make them easier to maintain in a future release.</p>
+<h3>2.0.0-alpha.6 (2021-06-11)</h3>
+<p>In Aurelia 2, the <code>&lt;au-compose&gt;</code> element allows you to compose parts of your UI dynamically, and while we have had compose support for quite some time, it didn't function the same way it did in Aurelia 1. For example, if you wanted to compose a view and not have to provide a view model, the v2 compose element did not support this until now. You can now pass in just a <code>view</code> as you could in Aurelia 1, amongst other familiar features of compose. The pull request for this work 
+<a href="https://github.com/aurelia/aurelia/pull/1184" target="_blank">here</a>
+ explains some changes and differences to v1. Please note that the parent binding scope inheritance feature for view-only composition can also be changed.</p>
+</section>
+<section><h2 id="bug-fixes">Bug Fixes</h2><h3>2.0.0-alpha.7 (2021-06-20)</h3>
+<p>There was an annoying router bug where links denoted as external would be hijacked by the router (sorry about that), which 
+<a href="https://github.com/aurelia/aurelia/commit/387c084" target="_blank">has now been fixed with accompanying tests</a>
+.</p>
+<p>Telling the Dependency Injection container that you want a new instance using either <code>@newInstanceOf</code> or <code>newInstanceForScope</code> 
+<a href="https://github.com/aurelia/aurelia/commit/8753b4e" target="_blank">now correctly invokes the registered interface</a>
+.</p>
+<h3>2.0.0-alpha.6 (2021-06-11)</h3>
+<p>When using the <code>attr</code> binding command, it wouldn't take precedence over custom attributes when binding. 
+<a href="https://github.com/aurelia/aurelia/commit/5ecd6a7" target="_blank">This bug has now been fixed</a>
+, so the <code>attr</code> binding command will always take precedence over custom attributes.</p>
+</section>
+<section><h2 id="until-next-time">Until next time</h2><p>We want to thank everyone for their continued support, especially those who have contributed to Aurelia 2 and helped get it to its current point. If you ever have any questions or issues, please don't hesitate to reach out to us. The best place to ask questions is on the 
+<a href="https://discourse.aurelia.io/" target="_blank">Aurelia Discourse</a>
+ and any bugs or feature requests on 
+<a href="https://github.com/aurelia/aurelia/issues" target="_blank">the Aurelia GitHub</a>
+.</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%202%20Update%20-%20Alpha%208" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2021%2F6%2F22%2Faurelia-2-update-alpha-8"></blog-footer>
+</section>
