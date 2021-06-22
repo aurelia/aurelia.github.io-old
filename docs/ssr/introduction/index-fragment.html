@@ -29,7 +29,7 @@ Server Side Rendering is a new feature of the Aurelia framework, intended for us
 <li><code>aurelia-ssr-engine</code></li>
 </ul>
 <p>The <code>aurelia-middleware-koa</code> library is a middleware for 
-<a href="http://koajs.com/" target="_blank">Koa</a>
+<a href="https://koajs.com/" target="_blank">Koa</a>
  which instructs the <code>aurelia-ssr-engine</code> to render the requested page and returns the fully rendered HTML.</p>
 <p>The <code>aurelia-ssr-bootstrapper-webpack</code> library exposes three functions: <code>initialize</code>, <code>start</code> and <code>stop</code>. These functions are called by the <code>aurelia-ssr-engine</code> for starting and stopping the application and must be the default export of the server bundle.</p>
 <p>When a request hits the web server and the middleware kicks off the <code>aurelia-ssr-engine</code>, the engine launches a new Aurelia instance. Before it starts the application, the request url is used to set the current URL on the server so that Aurelia renders the page that the user has requested. As soon as the page is rendered, the HTML is sent back to the client. After that, the application is stopped and released from memory.</p>

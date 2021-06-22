@@ -993,7 +993,7 @@ No description available.
 ## Functions
 
 
-* `isNavigationCommand(obj: any): boolean` - Determines if the provided object is a navigation command.
+* `isNavigationCommand(obj: any): obj` - Determines if the provided object is a navigation command.
 A navigation command is anything with a navigate method.
   * `obj: any` - The object to check.
 

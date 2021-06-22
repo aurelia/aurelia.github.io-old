@@ -6,7 +6,7 @@
 
   <article class="markdown">
     <section><h2 id="introduction">Introduction</h2><p>This article covers the Store plugin for Aurelia. It is built on top of two core features of 
-<a href="http://reactivex.io/rxjs/" target="_blank">RxJS</a>
+<a href="https://reactivex.io/rxjs/" target="_blank">RxJS</a>
 , namely Observables and the BehaviorSubject. You don't have to delve into the reactive universe - in fact, you'll barely notice it at the beginning. But you can certainly benefit from having some knowledge about RxJS in order to use it wisely.</p>
 <p>Various examples, demonstrating individual pieces of the plugin, can be found in the 
 <a href="https://github.com/zewa666/aurelia-store-examples" target="_blank">samples repository</a>
@@ -17,16 +17,16 @@
 <p>Leveraging a single store approach, there is only one source of truth for your data and all modifications happen in a predictable way, potentially leading to a <em>more</em> side-effect-free overall application.</p>
 <h3>Why is RxJS used for this plugin?</h3>
 <p>As mentioned in the intro this plugin uses RxJS as a foundation. The main idea is having a 
-<a href="http://reactivex.io/rxjs/manual/overview.html#behaviorsubject" target="_blank">BehaviorSubject</a>
+<a href="https://reactivex.io/rxjs/manual/overview.html#behaviorsubject" target="_blank">BehaviorSubject</a>
  <code>store._state</code> which will store the current state. It starts with some initial state and emits new states as they come. The BehaviorSubject cannot be accessed directly - it is defined as private - but instead a public Observable named <code>state</code> should be consumed. This way consumers only have reading access to streamed values but cannot directly manipulate the streaming queue through the Subjects <code>next</code> method.</p>
 <p>But besides these core features, RxJS itself can be described as <em>
-<a href="http://reactivex.io/rxjs/manual/overview.html#introduction" target="_blank">Lodash/Underscore for events</a>
+<a href="https://reactivex.io/rxjs/manual/overview.html#introduction" target="_blank">Lodash/Underscore for events</a>
 </em>. As such all of the operators and objects can be used to manipulate the state in whatever way necessary. As an example 
-<a href="http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-pluck" target="_blank">pluck</a>
+<a href="https://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-pluck" target="_blank">pluck</a>
  can be used to pierce into a sub-section of the state, whereas methods like 
-<a href="http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-skip" target="_blank">skip</a>
+<a href="https://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-skip" target="_blank">skip</a>
  and 
-<a href="http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-take" target="_blank">take</a>
+<a href="https://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-take" target="_blank">take</a>
  are great ways to unit test the stream of states over time.</p>
 <p>The main reason for using RxJS though is that observables are delivered over time. This promotes a reactive approach to how you'd design your application. Instead of pursuing an imperative approach like <strong>a click on button A</strong> should <strong>trigger a re-rendering on component B</strong>, we follow an 
 <a href="https://en.wikipedia.org/wiki/Observer_pattern" target="_blank">Observer Pattern</a>
@@ -517,7 +517,7 @@ Notice how we've declared the public state property of type <code>State</code> i
 </code-listing>
 <div class="info"><div class="icon"> <i></i> </div><p>
 The provided action names for setup and teardown don't necessarily have to be one of the official 
-<a href="http://aurelia.io/docs/fundamentals/components#the-component-lifecycle" target="_blank">lifecycle methods</a>
+<a href="https://aurelia.io/docs/fundamentals/components#the-component-lifecycle" target="_blank">lifecycle methods</a>
  but should be used as these get called automatically by Aurelia at the proper time.</p>
 </div>
 <p>Last but not least you can also handle changes from the state in multiple ways</p>
@@ -1213,7 +1213,7 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
   <span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">addFramework</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">state<span class="token punctuation">,</span> frameworkName</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     <span class="token keyword">const</span> newState <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> state<span class="token punctuation">)</span><span class="token punctuation">;</span>
     newState<span class="token punctuation">.</span>frameworks <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">...</span>newState<span class="token punctuation">.</span>frameworks<span class="token punctuation">,</span> frameworkName<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    
+  
     <span class="token keyword">return</span> newState<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
@@ -1358,7 +1358,7 @@ In order to do so, you can leverage the higher order function <code>dispatchify<
   
 </code-listing>
 <p>With this approach, you can design your custom elements to act either as presentational or container components. For further information take a look at 
-<a href="http://pragmatic-coder.net/using-a-state-container-with-aurelia/" target="_blank">this article</a>
+<a href="https://pragmatic-coder.net/using-a-state-container-with-aurelia/" target="_blank">this article</a>
 .</p>
 </section>
 <section><h2 id="resetting-the-store-to-a-specific-state">Resetting the store to a specific state</h2><p>Occasionally it might be necessary to <em>reset</em> the store to a specific state, without running through the built-in queue and thus without notifying middlewares.

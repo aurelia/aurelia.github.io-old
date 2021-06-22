@@ -43,7 +43,7 @@
     <section><h2 id="introduction">Introduction</h2><p>This documentation explains how to get up and running with Aurelia-I18N
 in order to provide localization and internationalization features with your app.</p>
 <p>Under the hood it uses 
-<a href="http://i18next.com/" target="_blank">i18next</a>
+<a href="https://i18next.com/" target="_blank">i18next</a>
 , which is a generalized
 open source library with an extensive set of features. By building on top of it
 not only can you reuse your work across various other platforms and frameworks
@@ -219,13 +219,13 @@ You can skip this part if you're planning to use the built-in aurelia-i18n-loade
 If you're using one of the 
 <a href="https://github.com/aurelia/skeleton-navigation" target="_blank">Aurelia Skeletons</a>
  as your base this is already done and you can safely skip this step. 
-<a href="http://aurelia.io/hub.html#/doc/article/aurelia/framework/latest/cheat-sheet/1" target="_blank">See here to learn more about manual bootstrapping.</a>
+<a href="https://aurelia.io/hub.html#/doc/article/aurelia/framework/latest/cheat-sheet/1" target="_blank">See here to learn more about manual bootstrapping.</a>
 .</p>
 </div>
 <p>Second, create a folder named <code>locales</code> in your project's src folder.</p>
 <p>Third, for each locale, create a new folder with it's name (e.g. <code>en</code>, <code>de</code>, ...).</p>
 <p>Fourth, in those subfolders create a file named <code>translation.json</code> which contains your language specific translations. Below you can find a sample <code>en-EN</code> translation file. The full potential of i18next is achieved through a specific translation-file schema. Consult the 
-<a href="http://i18next.com/docs/" target="_blank">i18next docs</a>
+<a href="https://i18next.com/docs/" target="_blank">i18next docs</a>
  to find out more about it.</p>
 
 <code-listing>
@@ -271,7 +271,7 @@ Notice that Aurelia I18N makes use of a non-standard attributes option, which is
         <span class="token comment">// register backend plugin</span>
         instance<span class="token punctuation">.</span>i18next<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>Backend<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>aurelia<span class="token punctuation">.</span>loader<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
-        <span class="token comment">// adapt options to your needs (see http://i18next.com/docs/options/)</span>
+        <span class="token comment">// adapt options to your needs (see https://i18next.com/docs/options/)</span>
         <span class="token comment">// make sure to return the promise of the setup method, in order to guarantee proper loading</span>
         <span class="token keyword">return</span> instance<span class="token punctuation">.</span><span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
           backend<span class="token operator">:</span> <span class="token punctuation">{</span>                                  <span class="token comment">// &lt;-- configure backend settings</span>
@@ -316,7 +316,7 @@ Notice that Aurelia I18N makes use of a non-standard attributes option, which is
         <span class="token comment">// register backend plugin</span>
         instance<span class="token punctuation">.</span>i18next<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>Backend<span class="token punctuation">)</span><span class="token punctuation">;</span>
   
-        <span class="token comment">// adapt options to your needs (see http://i18next.com/docs/options/)</span>
+        <span class="token comment">// adapt options to your needs (see https://i18next.com/docs/options/)</span>
         <span class="token comment">// make sure to return the promise of the setup method, in order to guarantee proper loading</span>
         <span class="token keyword">return</span> instance<span class="token punctuation">.</span><span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
           backend<span class="token operator">:</span> <span class="token punctuation">{</span>                                  <span class="token comment">// &lt;-- configure backend settings</span>
@@ -570,7 +570,7 @@ TypeScript will throw errors like <code>Module xxx not found</code> either for a
 </code-listing>
 <h3>Translating via code</h3>
 <p>Translating stuff via code works by using the method <code>tr</code>. You pass in the <code>key</code> as its first parameter, followed by the optional second parameter <code>options</code> to specify in detail how the translations should be performed. Please consult the 
-<a href="http://i18next.com/translate/#overrideoptions" target="_blank">i18next docs</a>
+<a href="https://i18next.com/translate/#overrideoptions" target="_blank">i18next docs</a>
  for a detailed list of those:</p>
 
 <code-listing heading="Translating using the i18n.tr function">
@@ -917,7 +917,7 @@ The object passed to <code>t-params</code> is a complex object explained in the 
 <h3>Translating with the TValueConverter</h3>
 <p>In order to do translations in a more declarative way from within your HTML markup you can use a custom ValueConverter named <code>t</code>. It takes exactly the same <code>options</code> as the code translation method <code>tr</code> but of course provides the key automatically. Performance-wise this is the cheapest binding, together with <code>one-time</code>, and thus suitable for large amounts of once rendered data.</p>
 <p>You will find below a few examples of the available 
-<a href="http://i18next.com/translate/" target="_blank">i18next features</a>
+<a href="https://i18next.com/translate/" target="_blank">i18next features</a>
 </p>
 
 <code-listing heading="Declarative translation using the TValueConverter">
