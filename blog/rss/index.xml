@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Wed Mar 03 2021 20:42:17 GMT+1100 (Australian Eastern Daylight Time)</lastBuildDate>
+    <lastBuildDate>Tue Jun 22 2021 15:44:16 GMT+1000 (Australian Eastern Standard Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia 2 Update - Alpha 8]]></title>
+      <link>http://aurelia.io/blog/2021/6/22/aurelia-2-update-alpha-8</link>
+      <description><![CDATA[Hi everyone, we hope you have been staying healthy and safe in these uncertain times we still find ourselves in. Unfortunately, things slowed down a bit in Aurelia land over the last few months due to unforeseen circumstances. We are happy to report that we've now been able to adapt to these changes, and you're going to see more releases and development work as we focus on completing Aurelia 2. We also realize that a lot of the work that has been done can easily be missed if you're not watching the GitHub [https://github.com/aurelia/aurelia], so make sure you keep an eye on that one too.]]></description>
+      <pubDate>Tue Jun 22 2021 15:44:14 GMT+1000 (Australian Eastern Standard Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[The Aurelia 2 Alpha Release Is Now Available]]></title>
       <link>http://aurelia.io/blog/2021/3/3/the-aurelia-2-alpha-release-is-now-available</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2019/1/23/aurelia-release-notes-late-january-2019</link>
       <description><![CDATA[2019 is off to a great start with another set of releases that address bugs and add new features to Aurelia. We're also continuing to enable more plugins for script-file deploy along the way. Of particular note is our recent improvements to the aurelia-ui-virtualization plugin for virtual and infinite scrolling. What? You didn't know there was an official plugin for that? Check out this demo to see what it can do [https://aurelia-ui-virtualization.now.sh/].]]></description>
       <pubDate>Wed Jan 23 2019 16:34:04 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia 2018 Year in Review]]></title>
-      <link>http://aurelia.io/blog/2019/1/2/aurelia-2018-year-in-review</link>
-      <description><![CDATA[2018 has been an amazing year for Aurelia! We've added long-time requested features and improvements, enabled new ways to deploy apps, shipped modern, no-hassle tooling, improved our documentation, built up financial backing, made huge advancements in our vNext implementation, and grown our core engineering team by adding six new amazing people! Wow!]]></description>
-      <pubDate>Thu Jan 03 2019 03:30:57 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
     </item>
   </channel>
 </rss>

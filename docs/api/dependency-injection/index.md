@@ -289,7 +289,7 @@ No description available.
 
 #### Properties
 
-* `state: any` - No description available.
+* `state: ` - No description available.
 * `strategy: ` - No description available.
 
 #### Methods
@@ -397,7 +397,12 @@ No description available.
 
 #### Properties
 
-* `__computed: any` - No description available.
+* `[Strategy.alias]: any` - No description available.
+* `[Strategy.array]: ` - No description available.
+* `[Strategy.function]: StrategyFunctor` - No description available.
+* `[Strategy.instance]: TImpl` - No description available.
+* `[Strategy.singleton]: DependencyCtorOrFunctor` - No description available.
+* `[Strategy.transient]: DependencyCtorOrFunctor` - No description available.
 
 #### Methods
 
@@ -415,7 +420,7 @@ No description available.
   * `keyValue: any` - No description available.
 
 
-* `autoinject(potentialTarget?: TPotential): TPotential extends Injectable ? void : (target: Injectable) &#x3D;&gt; void` - 
+* `autoinject(potentialTarget?: TPotential): ` - 
   * `potentialTarget?: TPotential` - No description available.
 
 

@@ -1000,7 +1000,7 @@ The renderer example uses <code>Element.closest</code>. You'll need to
 <p>In the forms above you can see that each <code>validation-errors</code> attribute and each <code>validateManually</code> binding behavior is bound to the appropriate validation controller. This needs to be specified each time, since by default the attribute and the binding behavior will ask the container for a <code>ValidationController</code> instance not knowing which one it will get.</p>
 </section>
 <section><h2 id="integration-with-other-libraries">Integration With Other Libraries</h2><p>In <code>aurelia-validation</code> the object and property validation work is handled by the <code>StandardValidator</code> class which is an implementation of the <code>Validator</code> interface. The <code>StandardValidator</code> is responsible for applying the rules created with aurelia-validation's fluent syntax. You may not need any of this machinery if you have your own custom validation engine or if you're using a client-side data management library like 
-<a href="http://www.getbreezenow.com/breezejs" target="_blank">Breeze</a>
+<a href="https://www.getbreezenow.com/breezejs" target="_blank">Breeze</a>
  which has its own validation logic. You can replace the <code>StandardValidator</code> with your own implementation when the plugin is installed. Here's an example using breeze:</p>
 
 <code-listing heading="breeze-validator">

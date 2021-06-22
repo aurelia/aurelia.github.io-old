@@ -14,23 +14,23 @@
 <p>Last but not least, there is a much higher test code maintenance cost, compared to unit tests. The reason is that now, not only one component is tested exclusively, but rather the whole system at once. Imagine trying to fill out an input element with the id <code>txtFirstname</code>, just to realize the next day your tests fail because your fellow front-end designer decided to change the name to <code>txtFirstName</code>. This makes it clear that you must treat your test code like general application logic and give it all the love it deserves.</p>
 </section>
 <section><h2 id="protractor">Protractor</h2><p>Although the previous section may sound depressing, there is hope for developers in 
-<a href="http://angular.github.io/protractor/#/" target="_blank">Protractor</a>
+<a href="https://angular.github.io/protractor/#/" target="_blank">Protractor</a>
 , an End-To-End testing framework. Under the hood it's actually a Node.js application, which supports a wide variety of assertion/test libraries like 
-<a href="http://jasmine.github.io/" target="_blank">Jasmine</a>
+<a href="https://jasmine.github.io/" target="_blank">Jasmine</a>
 , 
-<a href="http://mochajs.org/" target="_blank">Mocha</a>
+<a href="https://mochajs.org/" target="_blank">Mocha</a>
  or 
 <a href="https://github.com/cucumber/cucumber-js" target="_blank">Cucumber</a>
 .</p>
 <div class="info"><div class="icon"> <i></i> </div><h4>Jasmine</h4><p>
 The remainer of the article will use the BDD Testing Framework Jasmine. A nice tutorial on how to use Jasmine can be 
-<a href="http://code.tutsplus.com/tutorials/testing-your-javascript-with-jasmine--net-21229" target="_blank">found here</a>
+<a href="https://code.tutsplus.com/tutorials/testing-your-javascript-with-jasmine--net-21229" target="_blank">found here</a>
 .</p>
 </div>
 <p>Protractor acts as a wrapper on top of the WebDriverJS-API, which is used to communicate with a Selenium Server, either local (standalone) or remote. The picture below depicts the whole process. Protractor communicates via the WebDriverJS-API (the way to talk to Selenium's WebDriver API) which is used to translate user interactions into browser understandable instructions.</p>
 <p><img src="docs/testing/end-to-end/img/protractor.png" alt="Protractor Diagram" /></p>
 <p>Now the interesting thing is that instead of manually testing your application in each of the major browsers, automated Protractor tests can run on multiple browsers at the same time, saving you valuable time and money. Support is wide-spread and even includes headless browsers like 
-<a href="http://phantomjs.org/" target="_blank">PhantomJS</a>
+<a href="https://phantomjs.org/" target="_blank">PhantomJS</a>
 .</p>
 <p>Besides that, being a wrapper, it offers additional convenience features, not present in the vanilla WebDriverJS-API. One feature, perhaps the most important, is that it allows you to write asynchronous tests in a synchronous style. This means that Protractor will automatically execute the next task, the moment the previous pending tasks finish.</p>
 </section>
@@ -43,7 +43,7 @@ The remainer of the article will use the BDD Testing Framework Jasmine. A nice t
     <code>
   <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'aurelia homepage'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should load page'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-      browser<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'http://www.aurelia.io'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      browser<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'https://www.aurelia.io'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token function">expect</span><span class="token punctuation">(</span>browser<span class="token punctuation">.</span><span class="token function">getTitle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toEqual</span><span class="token punctuation">(</span><span class="token string">'Home | Aurelia'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -84,7 +84,7 @@ The remainer of the article will use the BDD Testing Framework Jasmine. A nice t
     <code>
   <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'aurelia homepage'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-      browser<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'http://www.aurelia.io'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      browser<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'https://www.aurelia.io'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
     <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should have proper header text set'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -104,7 +104,7 @@ The remainer of the article will use the BDD Testing Framework Jasmine. A nice t
 <p>You may have noticed the method <code>beforeEach</code> at the top of the describe block. This is a setup method, which will get called before each test in the current describe block. To perform <em>tear down</em> operations, you'd simply define a function <code>afterEach</code>, which gets called after each test.</p>
 <div class="info"><div class="icon"> <i></i> </div><h4>Protractor Locators</h4><p>
 You can find a full list of <em>locators</em> 
-<a href="http://angular.github.io/protractor/#/locators" target="_blank">here</a>
+<a href="https://angular.github.io/protractor/#/locators" target="_blank">here</a>
 . Just keep in mind that everything specific to AngularJS, like <code>binding</code> or <code>model</code> won't work with Aurelia Apps. We have our own helpers for that.</p>
 </div>
 </section>
@@ -117,7 +117,7 @@ You can find a full list of <em>locators</em>
     <code>
   <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'google homepage'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-      browser<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'http://www.google.com'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      browser<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'https://www.google.com'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
     <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should load page'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -152,7 +152,7 @@ You can find a full list of <em>locators</em>
       <span class="token string">'browserName'</span><span class="token operator">:</span> <span class="token string">'chrome'</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
   
-    <span class="token comment">//seleniumAddress: 'http://0.0.0.0:4444',</span>
+    <span class="token comment">//seleniumAddress: 'https://0.0.0.0:4444',</span>
     specs<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'test/e2e/dist/*.js'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
   
     plugins<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
