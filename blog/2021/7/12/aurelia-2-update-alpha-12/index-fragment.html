@@ -8,7 +8,7 @@
     <div class="content">
       <p>There have been a few improvements since our last update for Aurelia 2 alpha 8. The focus of our progress has been introducing various missing powerful features from v1, namely template compilation hooks, caching control of <code>[if]</code>/<code>[else]</code> and DI factory resolution.</p>
 <p>It's now possible to hook into compilation with <code>compiling</code>, there is also a powerful <code>@factory</code> decorator for instantiating services.
-An example of registering a <code>compiling</code> hook globally is as follow:</p>
+An example of registering a <code>compiling</code> hook globally is as follows:</p>
 
 <code-listing>
   
@@ -20,7 +20,7 @@ An example of registering a <code>compiling</code> hook globally is as follow:</
   @templateCompilerHooks
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">A11yScanner</span> <span class="token punctuation">{</span>
     <span class="token function">compiling</span><span class="token punctuation">(</span><span class="token parameter">template</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      template<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span><span class="token string">'img'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">img</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      template<span class="token punctuation">.</span>content<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span><span class="token string">'img'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">img</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>img<span class="token punctuation">.</span><span class="token function">hasAttribute</span><span class="token punctuation">(</span><span class="token string">'alt'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
           console<span class="token punctuation">.</span><span class="token function">warn</span><span class="token punctuation">(</span><span class="token string">'no alt on img'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
@@ -35,7 +35,7 @@ An example of registering a <code>compiling</code> hook globally is as follow:</
   
 </code-listing>
 <p>The hydration story of v2 also got better with the introduction of an injectable <code>IHydrationContext</code>, which allows an application to capture the hydration hierarchy, which helps components learn about the context of their usage, empowering devtool integration.</p>
-<p>Another v1 feature that is now in v2 is the caching control ability of <code>if</code>/<code>else</code>. An example is as follow:</p>
+<p>Another v1 feature that is now in v2 is the caching control ability of <code>if</code>/<code>else</code>. An example is as follows:</p>
 
 <code-listing>
   
@@ -53,7 +53,7 @@ An example of registering a <code>compiling</code> hook globally is as follow:</
 <a href="https://github.com/rzasinets" target="_blank">@rzasinets</a>
  for the issue at https://github.com/aurelia/aurelia/issues/1230</p>
 <p>In addition, <code>&lt;au-compose&gt;</code> got some ergonomic enhancement: <code>containerless</code> now works with <code>&lt;au-compose&gt;</code>, which should help remove unnecessary wrapper code while dynamically composing components.</p>
-<p><code>&lt;au-render&gt;</code> also got some new capability: it's now possible to use component name to render, instead of definition. An example is as follow:</p>
+<p><code>&lt;au-render&gt;</code> also got some new capability: it's now possible to use component name to render, instead of definition. An example is as follows:</p>
 
 <code-listing>
   
