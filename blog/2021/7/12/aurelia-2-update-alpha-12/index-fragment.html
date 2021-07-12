@@ -17,19 +17,19 @@ An example of registering a <code>compiling</code> hook globally is as follow:</
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span> templateCompilerHooks <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia'</span><span class="token punctuation">;</span>
 
-@templateCompilerHooks
-<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">A11yScanner</span> <span class="token punctuation">{</span>
-  <span class="token function">compiling</span><span class="token punctuation">(</span><span class="token parameter">template</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    template<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span><span class="token string">'img'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">img</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>img<span class="token punctuation">.</span><span class="token function">hasAttribute</span><span class="token punctuation">(</span><span class="token string">'alt'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        console<span class="token punctuation">.</span><span class="token function">warn</span><span class="token punctuation">(</span><span class="token string">'no alt on img'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  @templateCompilerHooks
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">A11yScanner</span> <span class="token punctuation">{</span>
+    <span class="token function">compiling</span><span class="token punctuation">(</span><span class="token parameter">template</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      template<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span><span class="token string">'img'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">img</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>img<span class="token punctuation">.</span><span class="token function">hasAttribute</span><span class="token punctuation">(</span><span class="token string">'alt'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">warn</span><span class="token punctuation">(</span><span class="token string">'no alt on img'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
 
-Aurelia<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>A11yScanner<span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code>
+  Aurelia<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>A11yScanner<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    </code>
   </pre>
 </source-code>
   
@@ -43,8 +43,8 @@ Aurelia<span class="token punctuation">.</span><span class="token function">regi
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-component</span> <span class="token attr-name">if</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>value.bind: condition; cache: false<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Created every time {condition} changes false -> true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-component</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-other-component</span> <span class="token attr-name">else</span><span class="token punctuation">></span></span>Created every time {condition} changes true -> false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-component</span><span class="token punctuation">></span></span>
-</code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-other-component</span> <span class="token attr-name">else</span><span class="token punctuation">></span></span>Created every time {condition} changes true -> false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-component</span><span class="token punctuation">></span></span>
+    </code>
   </pre>
 </source-code>
   
@@ -95,17 +95,9 @@ Select report:
   
 </code-listing>
 <p>The difference between the dist can be summarized per the following table:</p>
-<p>| name | error | warning | logging | sourcemap | minification | description |
-| - | - | - | - | - | - | - |
-| <strong>index.dev.js</strong> | full message | ✔ | ✔ | inlined | - | For development + bug reporting |
-| <strong>index.js</strong> | code | - | - | point to source | - | For application production build |
-| <strong>index.prod.js</strong> | code | - | - | - | ✔ | For online IDE, vanilla app, CDN usages |</p>
-<p>Because of this change, an application built for production should be much leaner as all debugging code will be out of the final bundle. At the same time, Aurelia can provide more descriptive &amp; comprehensive possible error messages without weighing down your application. Internal/private properties are also being considered mangled in non-dev builds to improve bundle size and performance.</p>
-<p>To accommodate these changes, coded error messages (https://docs.aurelia.io/reference/error-messages) have been introduced as a point of reference, with some possible resolution so that issues can be fixed quickly.</p>
-<section><h2 id="documentation">Documentation</h2><p>Last but not least, there is a new batch of tutorials, which can be seen in the tutorial section of our v2 doc at https://docs.aurelia.io. A simple example to get going is a crypto tracker at https://docs.aurelia.io/tutorials/building-a-realtime-cryptocurrency-price-tracker. An obligatory todo app, just in case :wink:, maybe come and check it out! https://docs.aurelia.io/tutorials/building-a-todo-application</p>
-<p>These new introductory learning resources are a continuation of the ongoing documentation effort, aiming to produce and grow useful educational materials to benefit everyone in our community.</p>
-<p>If you have any tutorials or learning resources you would like to contribute, all community contributions are welcomed to help others learn how to build applications with Aurelia 2.</p>
-</section>
+
+<img src="../styles/images/blog/aurelia-2-update-alpha-12/dist-comparison.png" alt="Aurelia distributable comparison table" />
+
 <section><h2 id="until-next-time">Until next time</h2><p>Thank you to everyone for their continued support, especially those who have contributed to Aurelia 2 and helped get it to its current point. If you ever have any questions or issues, please don't hesitate to reach out. The best place to ask questions is on the 
 <a href="https://discourse.aurelia.io/" target="_blank">Aurelia Discourse</a>
  and any bugs or feature requests on 
