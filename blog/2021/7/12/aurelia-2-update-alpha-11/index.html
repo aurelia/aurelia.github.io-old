@@ -10,13 +10,13 @@
   </script>
 
   <meta charset="utf-8">
-  <title>The Aurelia Blog - Page 14 | Aurelia</title>
+  <title>Aurelia 2 Update - Alpha 11 | Aurelia</title>
   <base href="/">
   <meta name="msapplication-tap-highlight" content="no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 
-  <meta name="description" content="The official blog of the Aurelia project and Core Team."/>
+  <meta name="description" content="A minor update on various improvements of Aurelia 2."/>
   <meta name="robots" content="index,follow"/>
 
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:200,400,700" rel="stylesheet">
@@ -33,70 +33,128 @@
 
   <main ref="main">
     <div screen-activator.bind="activeScreen" screen-activated.trigger="onScreenActivated()" class="screen-activator">
-      <section class="article-group blog">
+      <section class="article blog">
   <header>
-    <h1>The Aurelia Blog - Page 14</h1>
+    <h1>Aurelia 2 Update - Alpha 11</h1>
+    <h2>Posted by <span class="author">bigopon</span> on <span class="date">July 12, 2021</span></h2>
   </header>
 
-  <section>
-    <ul class="article-list">
-      <li>
-        <a href="blog/2016/11/17/aurelia-in-asp-net-javascriptservices">
-          <h3>Aurelia in ASP.NET JavaScriptServices</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">November 17, 2016</span>
-          <p>Today I&#x27;d like to introduce you to Aurelia community member Keith Katsma. Keith has been a software engineer and architect for almost 20 years. After a lot of work with ASP back in the early 2000s, he veered off into the design and development of service oriented architectures. However, a couple years ago he was reintroduced to UI development through AngularJS, and has recently spent a lot of time getting to know some of the latest JavaScript frameworks - Angular 2, React, and Aurelia. Of particular note, Keith has been doing some great work to improve the Aurelia experience for ASP.NET developers. I&#x27;ll let him tell you about it in his own words...</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/11/10/release-update-11-10-2016">
-          <h3>Release Update - 11/10/2016</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">November 10, 2016</span>
-          <p>Aurelia continues to push forward with regular releases that have fixes and improvements to various parts of the platform. Below are the release notes for this week.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/11/4/introducing-aurelia-ux">
-          <h3>Introducing Aurelia UX</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">November 4, 2016</span>
-          <p>In 2015 we first announced Aurelia, a modern frontend framework with an emphasis on convention over configuration, web standards and productivity. Aurelia provides the core capabilities you need to build apps, such as templating, binding, an application model, routing and dependency injection. We&#x27;ve also created tons of plugins for http, i18n, validation, etc. and partnered with various community groups to build even more. However, there&#x27;s always been something missing. Today we&#x27;re introducing Aurelia UX [https://github.com/aurelia/ux], a completely free, open source user experience framework with higher-level capabilities, designed to bring simplicity and elegance to building cross-device, rich experiences.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/10/25/introducing-spoonx-community-plugins-2">
-          <h3>Introducing SpoonX Community Plugins</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">October 25, 2016</span>
-          <p>Today, I&#x27;m happy to introduce to you another Aurelia community group that&#x27;s built at least a dozen amazing plugins for our community. Read on to learn more...</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/10/17/release-update-10-17-2016">
-          <h3>Release Update - 10/17/2016</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">October 17, 2016</span>
-          <p>Aurelia continues to make fixes and improvements throughout. Read below for the details of this week&#x27;s releases.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/10/11/introducing-the-aurelia-vs-code-plugin">
-          <h3>Introducing The Aurelia VS Code Plugin</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">October 11, 2016</span>
-          <p>Hello, everyone! My name is Erik Lieben [https://www.eriklieben.com], and I am a developer from the Netherlands working at Effectory [https://www.effectory.com] and co-organizer of the Aurelia Amsterdam [https://www.meetup.com/Aurelia-Amsterdam-meetup/] meetup. In my spare time, I will be working as a member of the Aurelia Core Team on the official vscode-extension [https://github.com/aurelia/vscode-extension/]. With this extension, we hope to provide you with a pleasant development experience when building Aurelia applications using Visual Studio Code [https://code.visualstudio.com].</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/10/6/release-update-10-6-2016">
-          <h3>Release Update - 10/6/2016</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">October 6, 2016</span>
-          <p>Day by day our amazing core team and community contributors continue to make improvements to Aurelia. Below are the notes for what we pushed out in this week&#x27;s releases.</p>
-        </a>
-      </li>
-    </ul>
-  </section>
+  <article class="markdown">
+    <div class="content">
+      <p>There have been a few improvements since our last update for Aurelia 2 alpha 8. The focus of our progress has been introducing various missing powerful features from v1, namely template compilation hooks, caching control of <code>[if]</code>/<code>[else]</code> and DI factory resolution.</p>
+<p>It's now possible to hook into compilation with <code>compiling</code>, there is also a powerful <code>@factory</code> decorator for instantiating services.
+An example of registering a <code>compiling</code> hook globally is as follow:</p>
 
-  <div class="button-bar">
-    <a class="prev" href="blog/page/13">Newer Posts</a>
+<code-listing>
+  
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> templateCompilerHooks <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia'</span><span class="token punctuation">;</span>
 
-    <a class="next" href="blog/page/15">Older Posts</a>
-  </div>
+@templateCompilerHooks
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">A11yScanner</span> <span class="token punctuation">{</span>
+  <span class="token function">compiling</span><span class="token punctuation">(</span><span class="token parameter">template</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    template<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span><span class="token string">'img'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">img</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>img<span class="token punctuation">.</span><span class="token function">hasAttribute</span><span class="token punctuation">(</span><span class="token string">'alt'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">warn</span><span class="token punctuation">(</span><span class="token string">'no alt on img'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+Aurelia<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>A11yScanner<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The hydration story of v2 also got better with the introduction of an injectable <code>IHydrationContext</code>, which allows an application to capture the hydration hierarchy, which helps components learn about the context of their usage, empowering devtool integration.</p>
+<p>Another v1 feature that is now in v2 is the caching control ability of <code>if</code>/<code>else</code>. An example is as follow:</p>
+
+<code-listing>
+  
+<source-code lang="html" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-component</span> <span class="token attr-name">if</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>value.bind: condition; cache: false<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Created every time {condition} changes false -> true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-component</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-other-component</span> <span class="token attr-name">else</span><span class="token punctuation">></span></span>Created every time {condition} changes true -> false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-component</span><span class="token punctuation">></span></span>
+</code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Thanks 
+<a href="https://github.com/rzasinets" target="_blank">@rzasinets</a>
+ for the issue at https://github.com/aurelia/aurelia/issues/1230</p>
+<p>In addition, <code>&lt;au-compose&gt;</code> got some ergonomic enhancement: <code>containerless</code> now works with <code>&lt;au-compose&gt;</code>, which should help remove unnecessary wrapper code while dynamically composing components.</p>
+<p><code>&lt;au-render&gt;</code> also got some new capability: it's now possible to use component name to render, instead of definition. An example is as follow:</p>
+
+<code-listing>
+  
+<source-code lang="html" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>import</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>./weekly-report<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>import</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>import</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>./monthly-report<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>import</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>import</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>./annually-report<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>import</span><span class="token punctuation">></span></span>
+
+Select report:
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">value.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>reportType<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span><span class="token punctuation">></span></span>weekly<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span><span class="token punctuation">></span></span>monthy<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span><span class="token punctuation">></span></span>yearly<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>au-render</span> <span class="token attr-name">if.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>reportType<span class="token punctuation">"</span></span> <span class="token attr-name">component</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>${reportType}-report<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+</code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>It's a small change that should improve the ergonomic and usefulness of the <code>&lt;au-render&gt;</code>. If you have a large Aurelia v1 app, this will make the migration a little easier if you currently rely on <code>compose</code>.</p>
+<p>Aside from the features, the core is also getting cleaned up to be leaner and faster. These updates also lead us to the following news about the distributable story: there are now three variants for development, production with bundler and vanilla usages.</p>
+<p>The dist files of each package now look like this:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  📁 esm
+  📜 index<span class="token punctuation">.</span>dev<span class="token punctuation">.</span>js
+  📜 index<span class="token punctuation">.</span>js
+  📜 index<span class="token punctuation">.</span>prod<span class="token punctuation">.</span>js
+</code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>The difference between the dist can be summarized per the following table:</p>
+<p>| name | error | warning | logging | sourcemap | minification | description |
+| - | - | - | - | - | - | - |
+| <strong>index.dev.js</strong> | full message | ✔ | ✔ | inlined | - | For development + bug reporting |
+| <strong>index.js</strong> | code | - | - | point to source | - | For application production build |
+| <strong>index.prod.js</strong> | code | - | - | - | ✔ | For online IDE, vanilla app, CDN usages |</p>
+<p>Because of this change, an application built for production should be much leaner as all debugging code will be out of the final bundle. At the same time, Aurelia can provide more descriptive &amp; comprehensive possible error messages without weighing down your application. Internal/private properties are also being considered mangled in non-dev builds to improve bundle size and performance.</p>
+<p>To accommodate these changes, coded error messages (https://docs.aurelia.io/reference/error-messages) have been introduced as a point of reference, with some possible resolution so that issues can be fixed quickly.</p>
+<section><h2 id="documentation">Documentation</h2><p>Last but not least, there is a new batch of tutorials, which can be seen in the tutorial section of our v2 doc at https://docs.aurelia.io. A simple example to get going is a crypto tracker at https://docs.aurelia.io/tutorials/building-a-realtime-cryptocurrency-price-tracker. An obligatory todo app, just in case :wink:, maybe come and check it out! https://docs.aurelia.io/tutorials/building-a-todo-application</p>
+<p>These new introductory learning resources are a continuation of the ongoing documentation effort, aiming to produce and grow useful educational materials to benefit everyone in our community.</p>
+<p>If you have any tutorials or learning resources you would like to contribute, all community contributions are welcomed to help others learn how to build applications with Aurelia 2.</p>
+</section>
+<section><h2 id="until-next-time">Until next time</h2><p>Thank you to everyone for their continued support, especially those who have contributed to Aurelia 2 and helped get it to its current point. If you ever have any questions or issues, please don't hesitate to reach out. The best place to ask questions is on the 
+<a href="https://discourse.aurelia.io/" target="_blank">Aurelia Discourse</a>
+ and any bugs or feature requests on 
+<a href="https://github.com/aurelia/aurelia/issues" target="_blank">the Aurelia GitHub</a>
+. Or maybe just come over to the 
+<a href="https://discord.gg/RBtyM6u" target="_blank">Aurelia Discord channel for some chat</a>
+</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%202%20Update%20-%20Alpha%2011" blog-url="http%3A%2F%2Faurelia.io%2Fblog%5C2021%5C7%5C12%5Caurelia-2-update-alpha-11"></blog-footer>
 </section>
 
     </div>

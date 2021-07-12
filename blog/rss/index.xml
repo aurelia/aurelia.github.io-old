@@ -5,7 +5,13 @@
     <link>http://aurelia.io\blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Fri Jul 02 2021 09:57:59 GMT+1000 (Australian Eastern Standard Time)</lastBuildDate>
+    <lastBuildDate>Mon Jul 12 2021 10:23:40 GMT+1000 (Australian Eastern Standard Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia 2 Update - Alpha 11]]></title>
+      <link>http://aurelia.io\blog\2021\7\12\aurelia-2-update-alpha-11</link>
+      <description><![CDATA[A minor update on various improvements of Aurelia 2.]]></description>
+      <pubDate>Mon Jul 12 2021 10:23:38 GMT+1000 (Australian Eastern Standard Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[An Update on Aurelia 2 Documentation and Tutorials]]></title>
       <link>http://aurelia.io\blog\2021\7\1\an-update-on-aurelia-2-documentation-and-tutorials</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io\blog\2019\2\10\case-study-codeline-aurelia</link>
       <description><![CDATA[Today we're please to introduce one of our Aurelia community members, Giray Temel, to share with you about Codeline's choice of and experience with Aurelia. Take it away Giray!]]></description>
       <pubDate>Mon Feb 11 2019 09:09:23 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Release Notes - Early February 2019]]></title>
-      <link>http://aurelia.io\blog\2019\2\5\aurelia-release-notes-early-february-2019</link>
-      <description><![CDATA[We've had a few new releases over the last few weeks. Among them are continued updates to the Aurelia CLI. In fact, we found an issue in the CLI that affected new Webpack projects, so be sure to update your CLI before starting anything new. More details concerning the various releases can be found below.]]></description>
-      <pubDate>Tue Feb 05 2019 15:38:53 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
     </item>
   </channel>
 </rss>
