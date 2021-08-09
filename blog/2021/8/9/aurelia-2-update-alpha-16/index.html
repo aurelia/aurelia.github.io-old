@@ -10,13 +10,13 @@
   </script>
 
   <meta charset="utf-8">
-  <title>The Aurelia Blog - Page 15 | Aurelia</title>
+  <title>Aurelia 2 Update - Alpha 16 | Aurelia</title>
   <base href="/">
   <meta name="msapplication-tap-highlight" content="no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 
-  <meta name="description" content="The official blog of the Aurelia project and Core Team."/>
+  <meta name="description" content="For the last month, since alpha-12, the focus of the Aurelia team has been v1 feature parity besides various bugs fixing, refactoring, performance &amp; documentation improvements."/>
   <meta name="robots" content="index,follow"/>
 
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:200,400,700" rel="stylesheet">
@@ -33,70 +33,90 @@
 
   <main ref="main">
     <div screen-activator.bind="activeScreen" screen-activated.trigger="onScreenActivated()" class="screen-activator">
-      <section class="article-group blog">
+      <section class="article blog">
   <header>
-    <h1>The Aurelia Blog - Page 15</h1>
+    <h1>Aurelia 2 Update - Alpha 16</h1>
+    <h2>Posted by <span class="author">bigopon</span> on <span class="date">August 9, 2021</span></h2>
   </header>
 
-  <section>
-    <ul class="article-list">
-      <li>
-        <a href="blog/2016/10/6/release-update-10-6-2016">
-          <h3>Release Update - 10/6/2016</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">October 6, 2016</span>
-          <p>Day by day our amazing core team and community contributors continue to make improvements to Aurelia. Below are the notes for what we pushed out in this week&#x27;s releases.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/10/3/introducing-monterey">
-          <h3>Introducing Monterey</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">October 3, 2016</span>
-          <p>One of Aurelia&#x27;s greatest strengths is the dedication and ingenuity of its community. Today we&#x27;d like to introduce you to a community group that is building all sorts of tools and extensions for Aurelia. Fittingly, they call themselves the Aurelia Tools Team. Read on to hear directly from their team lead, Adriatic, about the exciting new technology they are building for Aurelia developers.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/9/29/release-update-9-29-2016">
-          <h3>Release Update - 9/29/2016</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">September 29, 2016</span>
-          <p>This week we&#x27;ve got more improvements and fixes in the core. We&#x27;ve also got some sweet new features for the validation library.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/9/28/aurelia-q-a-with-bemyapp">
-          <h3>Aurelia Q&amp;A with BeMyApp</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">September 28, 2016</span>
-          <p>Recently BeMyApp [http://media.bemyapp.com] asked its community to send in a few questions about Aurelia. In response to those questions, Aurelia&#x27;s Team Lead recorded this video Q&amp;A [http://media.bemyapp.com/rob-eisenberg-answers-questions-aurelia/].</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/9/26/durandal-2-2-0-release">
-          <h3>Durandal 2.2.0 Release</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">September 26, 2016</span>
-          <p>Today we&#x27;re pleased to announce the release of Durandal 2.2.0. This release updates Durandal&#x27;s Knockout dependency and fixes a number of bugs.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/9/22/release-update-9-22-2016">
-          <h3>Release Update - 9/22/2016</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">September 22, 2016</span>
-          <p>Today&#x27;s release contains some new features for routing, path parsing and the cli, along with various bug fixes in other places.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/9/13/release-update-9-13-2016">
-          <h3>Release Update - 9/13/2016</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">September 13, 2016</span>
-          <p>This week we&#x27;ve pushed out several patch releases to polyfills, router and validation. You can read the full release notes below.</p>
-        </a>
-      </li>
-    </ul>
-  </section>
+  <article class="markdown">
+    <div class="content">
+      <p>For the last month, since alpha-12, the focus of the Aurelia team has been v1 feature parity besides various bugs fixing, refactoring, performance &amp; documentation improvements.</p>
+<p>The web-component plugin has been ported to v2. And web-components (WC) (custom)elements defined via Aurelia work independently with Aurelia components (elements), this enable mix-matching Aurelia components and WC elements together, enabling even more flexible, powerful &amp; dynamic composition. The plugin also supports built-in element extensions, allowing simple HTML DOM. For the plugin documentation, visit 
+<a href="https://docs.aurelia.io/developer-guides/web-components" target="_blank">https://docs.aurelia.io/developer-guides/web-components</a>
+.</p>
+<p>Another feature that is in this batch is <code>enhance</code>. HTML enhancement is now as simple and ceremony-free as it is in v1, as the way <code>enhance</code> works in v2 has been made similar to the way it does in v1. It's a realization that this usage of <code>enhance</code> is easier and more common than the previously experimented API. It can be as plain as the following:</p>
 
-  <div class="button-bar">
-    <a class="prev" href="blog/page/14">Newer Posts</a>
+<code-listing>
+  
+<source-code lang="typescript" heading="">
+  <pre class="language-typescript">
+    <code>
+  aurelia<span class="token punctuation">.</span><span class="token function">enhance</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  host<span class="token punctuation">,</span>
+  component<span class="token operator">:</span> <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'Aurelia'</span><span class="token punctuation">,</span> message<span class="token operator">:</span> <span class="token string">'world'</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>For <code>enhance</code> documentation, visit 
+<a href="https://docs.aurelia.io/getting-to-know-aurelia/app-configuration-and-startup#enhance" target="_blank">https://docs.aurelia.io/getting-to-know-aurelia/app-configuration-and-startup#enhance</a>
+.</p>
+<p>With some bugs around attribute parser fixed, <code>then</code>/<code>catch</code> syntaxes in <code>promise</code> are now available again. Which means it can be as simple as the following:</p>
 
-    <a class="next" href="blog/page/16">Older Posts</a>
-  </div>
+<code-listing>
+  
+<source-code lang="html" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">promise.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fetchUserProfile()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">then</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>data<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${data.name}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">catch</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>err<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${err.message}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>instead of having to write:</p>
+
+<code-listing>
+  
+<source-code lang="html" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">promise.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fetchUserProfile()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">then.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>data<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${data.name}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">catch.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>err<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${err.message}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>For attribute pattern documentation, visit 
+<a href="https://docs.aurelia.io/developer-guides/attributepattern" target="_blank">https://docs.aurelia.io/developer-guides/attributepattern</a>
+. For promise documentation, visit 
+<a href="https://docs.aurelia.io/getting-to-know-aurelia/introduction/built-in-template-features/promise.bind" target="_blank">https://docs.aurelia.io/getting-to-know-aurelia/introduction/built-in-template-features/promise.bind</a>
+.</p>
+<p>Another work related to syntax is the way binding command &amp; template compiler work together has been slightly changed, so that now binding commands will take care of the expression parsing. This is to prepare for our incoming features related to attribute transferring, (or spreading, sort of) which has been long requested.</p>
+<p>And finally, the way dist files are built has been improved around prop mangling. Now with a name cache configuration for Terser, it's guaranteed that a certain private property is always mangled to a certain letter. This may help if some applications need to work around something before an RFC to add a feature that was not anticipated in Alpha. There will be a section in the official documentation to list all of the private properties mapping.</p>
+<section><h2 id="until-next-time">Until next time</h2><p>Thank you to everyone for their continued support, especially those who have contributed to Aurelia 2 and helped get it to its current point. If you ever have any questions or issues, please don't hesitate to reach out. The best place to ask questions is on the 
+<a href="https://discourse.aurelia.io/" target="_blank">Aurelia Discourse</a>
+ and any bugs or feature requests on 
+<a href="https://github.com/aurelia/aurelia/issues" target="_blank">the Aurelia GitHub</a>
+. Or maybe just come over to the 
+<a href="https://discord.gg/RBtyM6u" target="_blank">Aurelia Discord channel for some chat</a>
+.</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%202%20Update%20-%20Alpha%2016" blog-url="http%3A%2F%2Faurelia.io%2Fblog%5C2021%5C8%5C9%5Caurelia-2-update-alpha-16"></blog-footer>
 </section>
 
     </div>

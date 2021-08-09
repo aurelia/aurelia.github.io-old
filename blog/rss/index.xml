@@ -5,7 +5,13 @@
     <link>http://aurelia.io\blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Mon Jul 12 2021 10:27:34 GMT+1000 (Australian Eastern Standard Time)</lastBuildDate>
+    <lastBuildDate>Tue Aug 10 2021 09:40:51 GMT+1000 (Australian Eastern Standard Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia 2 Update - Alpha 16]]></title>
+      <link>http://aurelia.io\blog\2021\8\9\aurelia-2-update-alpha-16</link>
+      <description><![CDATA[For the last month, since alpha-12, the focus of the Aurelia team has been v1 feature parity besides various bugs fixing, refactoring, performance & documentation improvements.]]></description>
+      <pubDate>Tue Aug 10 2021 09:40:49 GMT+1000 (Australian Eastern Standard Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia 2 Update - Alpha 12]]></title>
       <link>http://aurelia.io\blog\2021\7\12\aurelia-2-update-alpha-12</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io\blog\2019\2\22\how-do-we-react-part-1</link>
       <description><![CDATA[This is part 1 of 3 in a series titled "How do we React?" in which I discuss how Aurelia handles common React scenarios. In this post, we'll cover HoCs.]]></description>
       <pubDate>Fri Feb 22 2019 12:02:00 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Case Study: Codeline and Aurelia]]></title>
-      <link>http://aurelia.io\blog\2019\2\10\case-study-codeline-aurelia</link>
-      <description><![CDATA[Today we're please to introduce one of our Aurelia community members, Giray Temel, to share with you about Codeline's choice of and experience with Aurelia. Take it away Giray!]]></description>
-      <pubDate>Mon Feb 11 2019 09:09:23 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
     </item>
   </channel>
 </rss>
