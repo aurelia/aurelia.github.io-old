@@ -5,7 +5,13 @@
     <link>http://aurelia.io\blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Tue Aug 10 2021 09:40:51 GMT+1000 (Australian Eastern Standard Time)</lastBuildDate>
+    <lastBuildDate>Tue Sep 07 2021 20:45:57 GMT+1000 (Australian Eastern Standard Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia 2 Update - Alpha 20]]></title>
+      <link>http://aurelia.io\blog\2021\9\7\aurelia-2-update-alpha-20</link>
+      <description><![CDATA[Not wanting to spam you all every time we release a new alpha update for Aurelia 2, we have been consolidating multiple release notes (as you might have noticed the last couple of updates).]]></description>
+      <pubDate>Tue Sep 07 2021 20:45:55 GMT+1000 (Australian Eastern Standard Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia 2 Update - Alpha 16]]></title>
       <link>http://aurelia.io\blog\2021\8\9\aurelia-2-update-alpha-16</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io\blog\2019\3\1\how-do-we-react-part-2</link>
       <description><![CDATA[This is part 2 of 3 in a series titled "How do we React?" in which I discuss how Aurelia handles common React scenarios. In this post, we'll cover Render Props.]]></description>
       <pubDate>Sat Mar 02 2019 04:29:04 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[How do we React?]]></title>
-      <link>http://aurelia.io\blog\2019\2\22\how-do-we-react-part-1</link>
-      <description><![CDATA[This is part 1 of 3 in a series titled "How do we React?" in which I discuss how Aurelia handles common React scenarios. In this post, we'll cover HoCs.]]></description>
-      <pubDate>Fri Feb 22 2019 12:02:00 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
     </item>
   </channel>
 </rss>
