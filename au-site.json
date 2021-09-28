@@ -33,7 +33,7 @@
       "twitter": "https://twitter.com/aureliaeffect",
       "github": "https://github.com/aurelia/framework",
       "vimeo": "https://vimeo.com/channels/867847",
-      "gitter": "https://gitter.im/aurelia/Discuss"
+      "discord": "https://discord.gg/RBtyM6u"
     },
     "sponsorLevels": [
       {
@@ -307,8 +307,8 @@
             "text": "Discourse"
           },
           {
-            "href": "https://gitter.im/aurelia/Discuss",
-            "text": "Gitter"
+            "href": "https://discord.gg/RBtyM6u",
+            "text": "Discord"
           },
           {
             "href": "https://stackoverflow.com/search?q=aurelia",

@@ -6,7 +6,7 @@
 
   <article class="markdown">
     <div class="content">
-      <p>For the last month, since alpha-12, the focus of the Aurelia team has been v1 feature parity besides various bug fixing, refactoring, performance &amp; documentation improvement.</p>
+      <p>For the last month, since alpha-12, the focus of the Aurelia team has been v1 feature parity besides various bugs fixing, refactoring, performance &amp; documentation improvements.</p>
 <p>The web-component plugin has been ported to v2. And web-components (WC) (custom)elements defined via Aurelia work independently with Aurelia components (elements), this enable mix-matching Aurelia components and WC elements together, enabling even more flexible, powerful &amp; dynamic composition. The plugin also supports built-in element extensions, allowing simple HTML DOM. For the plugin documentation, visit 
 <a href="https://docs.aurelia.io/developer-guides/web-components" target="_blank">https://docs.aurelia.io/developer-guides/web-components</a>
 .</p>
@@ -21,8 +21,8 @@
     host<span class="token punctuation">,</span>
     component<span class="token operator">:</span> <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'Aurelia'</span><span class="token punctuation">,</span> message<span class="token operator">:</span> <span class="token string">'world'</span> <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">)</span>
-    </code>
-</pre>
+  </code>
+  </pre>
 </source-code>
   
 </code-listing>
@@ -40,7 +40,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">then</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>data<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${data.name}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">catch</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>err<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${err.message}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-      </code>
+  </code>
   </pre>
 </source-code>
   
@@ -56,7 +56,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">then.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>data<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${data.name}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">catch.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>err<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${err.message}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-    </code>
+  </code>
   </pre>
 </source-code>
   
@@ -67,7 +67,7 @@
 <a href="https://docs.aurelia.io/getting-to-know-aurelia/introduction/built-in-template-features/promise.bind" target="_blank">https://docs.aurelia.io/getting-to-know-aurelia/introduction/built-in-template-features/promise.bind</a>
 .</p>
 <p>Another work related to syntax is the way binding command &amp; template compiler work together has been slightly changed, so that now binding commands will take care of the expression parsing. This is to prepare for our incoming features related to attribute transferring, (or spreading, sort of) which has been long requested.</p>
-<p>And finally, the way dist files are built has been improved around prop mangling. Now with a name cache configuration for Terser, it's guaranteed that a certain private property is always mangled to a certain letter. This may help if some applications need to work around something before an RFC to add a feature that was not anticipated in Alpha. There will be a section in the official documentation to list all of the private property mapping.</p>
+<p>And finally, the way dist files are built has been improved around prop mangling. Now with a name cache configuration for Terser, it's guaranteed that a certain private property is always mangled to a certain letter. This may help if some applications need to work around something before an RFC to add a feature that was not anticipated in Alpha. There will be a section in the official documentation to list all of the private properties mapping.</p>
 <section><h2 id="until-next-time">Until next time</h2><p>Thank you to everyone for their continued support, especially those who have contributed to Aurelia 2 and helped get it to its current point. If you ever have any questions or issues, please don't hesitate to reach out. The best place to ask questions is on the 
 <a href="https://discourse.aurelia.io/" target="_blank">Aurelia Discourse</a>
  and any bugs or feature requests on 
@@ -81,5 +81,5 @@
     <blog-sidebar></blog-sidebar>
   </article>
 
-  <blog-footer blog-name="Aurelia%202%20Update%20-%20Alpha%2016" blog-url="http%3A%2F%2Faurelia.io%2Fblog%5C2021%5C8%5C9%5Caurelia-2-update-alpha-16"></blog-footer>
+  <blog-footer blog-name="Aurelia%202%20Update%20-%20Alpha%2016" blog-url="http%3A%2F%2Faurelia.io%2Fblog%2F2021%2F8%2F9%2Faurelia-2-update-alpha-16"></blog-footer>
 </section>
