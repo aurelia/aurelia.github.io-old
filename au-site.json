@@ -45,6 +45,16 @@
             "imageSrc": "styles/images/logos/hogia.svg"
           }
         ]
+      },
+      {
+        "name": "Silver Sponsors",
+        "sponsors": [
+          {
+            "name": "Movavi - Screen Recorder",
+            "href": "https://www.movavi.com/screen-recorder",
+            "imageSrc": "styles/images/logos/movavi-screen-recorder.svg"
+          }
+        ]
       }
     ],
     "migration": {
