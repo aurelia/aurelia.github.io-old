@@ -5,7 +5,13 @@
     <link>http://aurelia.io/blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Tue Sep 28 2021 21:02:46 GMT+1000 (Australian Eastern Standard Time)</lastBuildDate>
+    <lastBuildDate>Fri Oct 01 2021 13:01:14 GMT+1000 (Australian Eastern Standard Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia updates for November 2021]]></title>
+      <link>http://aurelia.io/blog/2021/10/1/aurelia-updates-for-november-2021</link>
+      <description><![CDATA[Updates on Aurelia v1 and sponsors]]></description>
+      <pubDate>Fri Oct 01 2021 13:01:12 GMT+1000 (Australian Eastern Standard Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia 2 Update - Alpha 20]]></title>
       <link>http://aurelia.io/blog/2021/9/7/aurelia-2-update-alpha-20</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io/blog/2019/3/13/how-do-we-react-part-3</link>
       <description><![CDATA[This is part 3 of 3 in a series titled "How do we React?" in which I conclude our discussion of how Aurelia handles common React scenarios.]]></description>
       <pubDate>Wed Mar 13 2019 15:03:31 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[How do we React? - Part 2]]></title>
-      <link>http://aurelia.io/blog/2019/3/1/how-do-we-react-part-2</link>
-      <description><![CDATA[This is part 2 of 3 in a series titled "How do we React?" in which I discuss how Aurelia handles common React scenarios. In this post, we'll cover Render Props.]]></description>
-      <pubDate>Sat Mar 02 2019 04:29:04 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
     </item>
   </channel>
 </rss>
