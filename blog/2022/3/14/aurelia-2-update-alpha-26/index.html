@@ -10,13 +10,13 @@
   </script>
 
   <meta charset="utf-8">
-  <title>The Aurelia Blog | Aurelia</title>
+  <title>Aurelia 2 update - alpha 26 | Aurelia</title>
   <base href="/">
   <meta name="msapplication-tap-highlight" content="no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 
-  <meta name="description" content="The official blog of the Aurelia project and Core Team."/>
+  <meta name="description" content="Since release alpha-20, there have been several features, fixes and refactoring."/>
   <meta name="robots" content="index,follow"/>
 
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:200,400,700" rel="stylesheet">
@@ -33,75 +33,89 @@
 
   <main ref="main">
     <div screen-activator.bind="activeScreen" screen-activated.trigger="onScreenActivated()" class="screen-activator">
-      <section class="article-group blog">
-  <div class="carousel slide">
-    <div class="carousel-inner" role="listbox">
-      <div class="carousel-item">
-        <h2>The Aurelia Blog</h2>
-        <p>The official blog of the Aurelia project and Core Team.</p>
-        <a href="blog/2022/3/14/aurelia-2-update-alpha-26">Read the Latest &#65515;</a>
-      </div>
+      <section class="article blog">
+  <header>
+    <h1>Aurelia 2 update - alpha 26</h1>
+    <h2>Posted by <span class="author">bigopon</span> on <span class="date">March 14, 2022</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <section><h2 id="alpha-26">Alpha 26</h2><p>There was an inconsistency in The template compiler where it ignores new attribute value when an attribute pattern transforms into a custom attribute without binding command. This is now fixed 
+<a href="https://github.com/aurelia/aurelia/commit/6a190b89ce7eb2d0eaad64619b9a7fa7ee8699a6" target="_blank">6a190b8</a>
+. With this fix, applications can employ custom attribute and attribute pattern combo to create short, expressive and powerful attribute expressions in templates.</p>
+</section>
+<section><h2 id="alpha-25">Alpha 25</h2><p>The <code>router</code> package has been renamed to <code>router-lite</code>. This is to prepare for the come back of the original router. Our plan forward is to have</p>
+<ul>
+<li>the original router with both configuration, and component based routing as the default router</li>
+<li>the router-lite as an alternative for configuration (v1 style) focused routing. This is suitable for v1 migration, and applications that require very light weight routing solution.</li>
+</ul>
+</section>
+<section><h2 id="alpha-24">Alpha 24</h2><p>There are a few small fixes in this release:</p>
+<ul>
+<li>A fix on the computed observer where it throws when used with multiple getter layers 
+<a href="https://github.com/aurelia/aurelia/commit/09971a2" target="_blank">09971a2</a>
+</li>
+<li>A fix on the <code>promise</code> controller where it's yielding rejection error confusingly while cancelling a stale rendering. 
+<a href="https://github.com/aurelia/aurelia/commit/0e5d75ddc0b40330e68bbab3a2b38ddcf969fd99" target="_blank">0e5d75d</a>
+</li>
+</ul>
+<p>Thanks to 
+<a href="https://github.com/jwx" target="_blank">jwx</a>
+ for reporting both of those bugs.</p>
+</section>
+<section><h2 id="alpha-23">Alpha 23</h2><p>A new feature to our <code>bindable</code> decorator: ability to recognize type via the <code>type</code> configuration. Please head to 
+<a href="https://docs.aurelia.io/getting-to-know-aurelia/components/bindable-properties#bindable-coercion" target="_blank">this section of the bindable doc</a>
+ for more information.</p>
+</section>
+<section><h2 id="alpha-22">Alpha 22</h2><p>The ability to destructure map in repeat templates is back, thanks to 
+<a href="https://github.com/sayan751" target="_blank">Sayan</a>
+.
+Now it can juts be <code>repeat.for=[k, v] of map</code> like v1.</p>
+<p>From</p>
+
+<code-listing>
+  
+<source-code lang="html" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>pair of map<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>key:${pair[0]} | value: ${pair[1]}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+</code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>to</p>
+
+<code-listing>
+  
+<source-code lang="html" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>[k,v] of map<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>key:${k} | value: ${v}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+</code>
+  </pre>
+</source-code>
+  
+</code-listing>
+</section>
+<section><h2 id="alpha-21">Alpha 21</h2><p>House keeping work mostly to trim the output size when minify the bundle.</p>
+</section>
+<section><h2 id="until-next-time">Until next time</h2><p>As always, we want to thank the community for their continued support, and we can't wait to finally get Aurelia 2 out there into the wild in its more completed form.</p>
+<p>If you ever have any questions or issues, please don't hesitate to reach out. The best place to ask questions is on the 
+<a href="https://discourse.aurelia.io/" target="_blank">Aurelia Discourse</a>
+ and any bugs or feature requests on 
+<a href="https://github.com/aurelia/aurelia/issues" target="_blank">the Aurelia GitHub</a>
+. Or maybe just come over to the 
+<a href="https://discord.gg/RBtyM6u" target="_blank">Aurelia Discord channel for some chat</a>
+.</p>
+</section>
+
     </div>
-  </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
 
-  <section>
-    <ul class="article-list">
-      <li>
-        <a href="blog/2022/3/14/aurelia-2-update-alpha-26">
-          <h3>Aurelia 2 update - alpha 26</h3>
-          <p class="group-item-count">Posted by <span class="author">bigopon</span> on <span class="date">March 14, 2022</span>
-          <p>Since release alpha-20, there have been several features, fixes and refactoring.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2021/9/7/aurelia-2-update-alpha-20">
-          <h3>Aurelia 2 Update - Alpha 20</h3>
-          <p class="group-item-count">Posted by <span class="author">Dwayne Charrington</span> on <span class="date">September 7, 2021</span>
-          <p>Not wanting to spam you all every time we release a new alpha update for Aurelia 2, we have been consolidating multiple release notes (as you might have noticed the last couple of updates).</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2021/8/9/aurelia-2-update-alpha-16">
-          <h3>Aurelia 2 Update - Alpha 16</h3>
-          <p class="group-item-count">Posted by <span class="author">bigopon</span> on <span class="date">August 9, 2021</span>
-          <p>For the last month, since alpha-12, the focus of the Aurelia team has been v1 feature parity besides various bugs fixing, refactoring, performance &amp; documentation improvements.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2021/7/12/aurelia-2-update-alpha-12">
-          <h3>Aurelia 2 Update - Alpha 12</h3>
-          <p class="group-item-count">Posted by <span class="author">bigopon</span> on <span class="date">July 12, 2021</span>
-          <p>A minor update on various improvements of Aurelia 2.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2021/7/1/an-update-on-aurelia-2-documentation-and-tutorials">
-          <h3>An Update on Aurelia 2 Documentation and Tutorials</h3>
-          <p class="group-item-count">Posted by <span class="author">Dwayne Charrington</span> on <span class="date">July 1, 2021</span>
-          <p>Here at Aurelia HQ, we have been busy beavers. Work on Aurelia 2 continues full steam ahead. We are doing more frequent development releases. You might have noticed we are engaging the community a little bit better after the noticeable silence.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2021/6/22/aurelia-2-update-alpha-8">
-          <h3>Aurelia 2 Update - Alpha 8</h3>
-          <p class="group-item-count">Posted by <span class="author">Dwayne Charrington</span> on <span class="date">June 22, 2021</span>
-          <p>Hi everyone, we hope you have been staying healthy and safe in these uncertain times we still find ourselves in. Unfortunately, things slowed down a bit in Aurelia land over the last few months due to unforeseen circumstances. We are happy to report that we&#x27;ve now been able to adapt to these changes, and you&#x27;re going to see more releases and development work as we focus on completing Aurelia 2. We also realize that a lot of the work that has been done can easily be missed if you&#x27;re not watching the GitHub [https://github.com/aurelia/aurelia], so make sure you keep an eye on that one too.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2021/3/3/the-aurelia-2-alpha-release-is-now-available">
-          <h3>The Aurelia 2 Alpha Release Is Now Available</h3>
-          <p class="group-item-count">Posted by <span class="author">Dwayne Charrington</span> on <span class="date">March 3, 2021</span>
-          <p>We are excited to announce that the Aurelia 2 alpha is now ready for download</p>
-        </a>
-      </li>
-    </ul>
-  </section>
-
-  <div class="button-bar">
-
-    <a class="next" href="blog/page/2">Older Posts</a>
-  </div>
+  <blog-footer blog-name="Aurelia%202%20update%20-%20alpha%2026" blog-url="http%3A%2F%2Faurelia.io%2Fblog%5C2022%5C3%5C14%5Caurelia-2-update-alpha-26"></blog-footer>
 </section>
 
     </div>
