@@ -5,7 +5,13 @@
     <link>http://aurelia.io\blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Mon Mar 14 2022 22:16:52 GMT+1100 (Australian Eastern Daylight Time)</lastBuildDate>
+    <lastBuildDate>Tue Apr 19 2022 11:42:01 GMT+1000 (Australian Eastern Standard Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia update notes - mid April 2022]]></title>
+      <link>http://aurelia.io\blog\2022\4\19\aurelia-update-notes-mid-april-2022</link>
+      <description><![CDATA[The original router is back to v2, along with a better tooling experience.]]></description>
+      <pubDate>Tue Apr 19 2022 11:41:59 GMT+1000 (Australian Eastern Standard Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia 2 update - alpha 26]]></title>
       <link>http://aurelia.io\blog\2022\3\14\aurelia-2-update-alpha-26</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io\blog\2019\4\2\aurelia-release-notes-april-2019</link>
       <description><![CDATA[Today, we're excited to announce the beta of Aurelia's Web Components plugin, enabling you to use your Aurelia custom elements as Web Component standard custom elements, easily inter-operating with other frameworks.]]></description>
       <pubDate>Tue Apr 02 2019 18:27:08 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[How do we React? - Part 3]]></title>
-      <link>http://aurelia.io\blog\2019\3\13\how-do-we-react-part-3</link>
-      <description><![CDATA[This is part 3 of 3 in a series titled "How do we React?" in which I conclude our discussion of how Aurelia handles common React scenarios.]]></description>
-      <pubDate>Wed Mar 13 2019 15:03:31 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
     </item>
   </channel>
 </rss>

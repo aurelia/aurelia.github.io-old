@@ -1,0 +1,160 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia update notes - mid April 2022</h1>
+    <h2>Posted by <span class="author">bigopon</span> on <span class="date">April 19, 2022</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>Since the last updates, there have been several features, fixes and refactoring.</p>
+<section><h2 id="alpha-28">Alpha 28</h2><p>With this release, the original v2 router is back in the core repo. Applications can start using this router via</p>
+
+<code-listing>
+
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+      <span class="token keyword">import</span> <span class="token punctuation">{</span> RouterConfiguration <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@aurelia/router'</span><span class="token punctuation">;</span>
+    </code>
+  </pre>
+</source-code>
+
+</code-listing>
+<p>Note that the existing as follows:</p>
+
+<code-listing>
+
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+      <span class="token keyword">import</span> <span class="token punctuation">{</span> RouterConfiguration <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia'</span><span class="token punctuation">;</span>
+    </code>
+  </pre>
+</source-code>
+
+</code-listing>
+<p>still points to the router lite, and is equivalent to:</p>
+
+<code-listing>
+
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+      <span class="token keyword">import</span> <span class="token punctuation">{</span> RouterConfiguration <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@aurelia/router-lite'</span><span class="token punctuation">;</span>
+    </code>
+  </pre>
+</source-code>
+
+</code-listing>
+<p>In a near future release (alpha 29 or alpha 30), the above values will be swapped, and it will be as follows:</p>
+
+<code-listing>
+
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+      <span class="token keyword">import</span> <span class="token punctuation">{</span> RouterConfiguration <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia'</span><span class="token punctuation">;</span>
+      <span class="token comment">// is the same with</span>
+      <span class="token keyword">import</span> <span class="token punctuation">{</span> RouterConfiguration <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@aurelia/router'</span><span class="token punctuation">;</span>
+    </code>
+  </pre>
+</source-code>
+
+</code-listing>
+<p>For existing applications that want to continue to use the <code>@aurelia/router-lite</code>, do:</p>
+
+<code-listing>
+
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+      <span class="token keyword">import</span> <span class="token punctuation">{</span> RouterConfiguration <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@aurelia/router-lite'</span><span class="token punctuation">;</span>
+    </code>
+  </pre>
+</source-code>
+
+</code-listing>
+<p>There's also a fix related to CSS modules and Tailwind in this release: previously, having a colon in class names while using css module will cause an exception to be thrown:</p>
+
+<code-listing>
+
+<source-code lang="html" heading="">
+  <pre class="language-markup">
+    <code>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>md:message<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${message}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    </code>
+  </pre>
+</source-code>
+
+</code-listing>
+<p>Now the above should work as expected.</p>
+</section>
+<section><h2 id="alpha-27">Alpha 27</h2><p>In this release, Parcel2 support is added, and the convention now works with <code>index.js</code> convention of Nodejs, thanks to 
+<a href="https://github.com/3cp" target="_blank">3cp</a>
+. With this, devs have more options to bundle and decide their component file names. This means for the following file structure:</p>
+
+<code-listing>
+
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+      FooBar
+      <span class="token operator">|</span> index<span class="token punctuation">.</span>js
+      <span class="token operator">|</span> index<span class="token punctuation">.</span>html
+    </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>the following html will work as expected:</p>
+
+<code-listing>
+
+<source-code lang="html" heading="">
+  <pre class="language-markup">
+    <code>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>import</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>FooBar<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Some other bug fixes are also packed in this release:</p>
+<ul>
+<li>local element should now able to see the owning element dependencies 
+<a href="https://github.com/aurelia/aurelia/issues/1375" target="_blank">#1375</a>
+, thank 
+<a href="https://github.com/michaelnero" target="_blank">michaelnero</a>
+ for reporting this.</li>
+<li><code>case</code> now only creates its view when it's actually matched with the value of the owning <code>switch</code> attribute 
+<a href="https://github.com/aurelia/aurelia/issues/1372" target="_blank">#1372</a>
+.</li>
+<li>the dev build should now have proper error message, so applications in development will see them in full. Previously there was a bug in the build script and it caused our dev dist to be almost the same with prod dist, making it difficult during development. Applications that were created before can do the 2 following steps to enable better error messages:
+<ul>
+<li>upgrade to <code>alpha 27</code> or later</li>
+<li>add the following <code>alias</code> to the webpack <code>resolve</code> configuration: https://github.com/aurelia/new/blob/614a3c4824bbb4ea2cf5166e3cc3473de775cec8/webpack/webpack.config.js#L102-L126</li>
+</ul>
+</li>
+</ul>
+</section>
+<section><h2 id="v1-updates">V1 updates</h2><p>There has been a series of new releases for v1 core packages to resolve a security issue reported at https://github.com/advisories/GHSA-m6j2-v3gq-45r5. Thanks to 
+<a href="https://github.com/josundt" target="_blank">josundt</a>
+ for creating an issue for it at https://github.com/aurelia/framework/issues/992. The stance used to be avoid throwing unnecessarily, and clear documentation insisting that applications must have an appropriate sanitizer of their owns to deal with arbitrary user input, though it's probably better throwing an error when the default HTML sanitizer is used instead. And thanks to this, a few v1 repos have received TS conversion, build &amp; pipeline upgrades, making them friendlier to contribution, and require smaller maintenance effort for future changes.</p>
+<p>While upgrading, you may experience some module duplications, if that is the case, best check and make sure that you only have 1 version of the core packages.</p>
+</section>
+<section><h2 id="until-next-time">Until next time</h2><p>As always, we want to thank the community for their continued support, and we can't wait to finally get Aurelia 2 out there into the wild in its more completed form.</p>
+<p>If you ever have any questions or issues, please don't hesitate to reach out. The best place to ask questions is on the 
+<a href="https://discourse.aurelia.io/" target="_blank">Aurelia Discourse</a>
+ and any bugs or feature requests on 
+<a href="https://github.com/aurelia/aurelia/issues" target="_blank">the Aurelia GitHub</a>
+. Or maybe just come over to the 
+<a href="https://discord.gg/RBtyM6u" target="_blank">Aurelia Discord channel for some chat</a>
+.</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%20update%20notes%20-%20mid%20April%202022" blog-url="http%3A%2F%2Faurelia.io%2Fblog%5C2022%5C4%5C19%5Caurelia-update-notes-mid-april-2022"></blog-footer>
+</section>

@@ -10,13 +10,13 @@
   </script>
 
   <meta charset="utf-8">
-  <title>The Aurelia Blog - Page 14 | Aurelia</title>
+  <title>Aurelia update notes - mid April 2022 | Aurelia</title>
   <base href="/">
   <meta name="msapplication-tap-highlight" content="no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 
-  <meta name="description" content="The official blog of the Aurelia project and Core Team."/>
+  <meta name="description" content="The original router is back to v2, along with a better tooling experience."/>
   <meta name="robots" content="index,follow"/>
 
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:200,400,700" rel="stylesheet">
@@ -33,70 +33,165 @@
 
   <main ref="main">
     <div screen-activator.bind="activeScreen" screen-activated.trigger="onScreenActivated()" class="screen-activator">
-      <section class="article-group blog">
+      <section class="article blog">
   <header>
-    <h1>The Aurelia Blog - Page 14</h1>
+    <h1>Aurelia update notes - mid April 2022</h1>
+    <h2>Posted by <span class="author">bigopon</span> on <span class="date">April 19, 2022</span></h2>
   </header>
 
-  <section>
-    <ul class="article-list">
-      <li>
-        <a href="blog/2016/12/24/aurelia-release-notes-12-24-2016">
-          <h3>Aurelia Release Notes - 12/24/2016</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">December 24, 2016</span>
-          <p>As always, we continue to make improvements to Aurelia. Below is a list of changes in this week&#x27;s set of updates.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/12/14/ag-grid-the-enterprise-datagrid-for-aurelia">
-          <h3>ag-Grid - The Enterprise Datagrid For Aurelia</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">December 14, 2016</span>
-          <p>Please let me introduce Sean Landsman, a developer on ag-Grid to share what he&#x27;s been working on. Sean, take it away...</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/12/8/big-aurelia-release-update">
-          <h3>Big Aurelia Release Update</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">December 8, 2016</span>
-          <p>We&#x27;ve had a huge set of releases this week, including everything from bug fixes, to performance improvements, new features and fundamentals work that prepares the way for what&#x27;s next. The full details are below...</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/11/23/aurelia-authentication-using-firebase">
-          <h3>Aurelia Authentication Using Firebase</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">November 23, 2016</span>
-          <p>As a recovering full-stack developer who went the specialised front-end route a few years ago, the one aspect I have always hated about building any feature-rich web application is authentication. Thankfully a lot of convenient options have popped up over the last couple of years like Auth0 [https://auth0.com/].</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/11/17/aurelia-in-asp-net-javascriptservices">
-          <h3>Aurelia in ASP.NET JavaScriptServices</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">November 17, 2016</span>
-          <p>Today I&#x27;d like to introduce you to Aurelia community member Keith Katsma. Keith has been a software engineer and architect for almost 20 years. After a lot of work with ASP back in the early 2000s, he veered off into the design and development of service oriented architectures. However, a couple years ago he was reintroduced to UI development through AngularJS, and has recently spent a lot of time getting to know some of the latest JavaScript frameworks - Angular 2, React, and Aurelia. Of particular note, Keith has been doing some great work to improve the Aurelia experience for ASP.NET developers. I&#x27;ll let him tell you about it in his own words...</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/11/10/release-update-11-10-2016">
-          <h3>Release Update - 11/10/2016</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">November 10, 2016</span>
-          <p>Aurelia continues to push forward with regular releases that have fixes and improvements to various parts of the platform. Below are the release notes for this week.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/11/4/introducing-aurelia-ux">
-          <h3>Introducing Aurelia UX</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">November 4, 2016</span>
-          <p>In 2015 we first announced Aurelia, a modern frontend framework with an emphasis on convention over configuration, web standards and productivity. Aurelia provides the core capabilities you need to build apps, such as templating, binding, an application model, routing and dependency injection. We&#x27;ve also created tons of plugins for http, i18n, validation, etc. and partnered with various community groups to build even more. However, there&#x27;s always been something missing. Today we&#x27;re introducing Aurelia UX [https://github.com/aurelia/ux], a completely free, open source user experience framework with higher-level capabilities, designed to bring simplicity and elegance to building cross-device, rich experiences.</p>
-        </a>
-      </li>
-    </ul>
-  </section>
+  <article class="markdown">
+    <div class="content">
+      <p>Since the last updates, there have been several features, fixes and refactoring.</p>
+<section><h2 id="alpha-28">Alpha 28</h2><p>With this release, the original v2 router is back in the core repo. Applications can start using this router via</p>
 
-  <div class="button-bar">
-    <a class="prev" href="blog/page/13">Newer Posts</a>
+<code-listing>
+  
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+      <span class="token keyword">import</span> <span class="token punctuation">{</span> RouterConfiguration <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@aurelia/router'</span><span class="token punctuation">;</span>
+    </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Note that the existing as follows:</p>
 
-    <a class="next" href="blog/page/15">Older Posts</a>
-  </div>
+<code-listing>
+
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+      <span class="token keyword">import</span> <span class="token punctuation">{</span> RouterConfiguration <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia'</span><span class="token punctuation">;</span>
+    </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>still points to the router lite, and is equivalent to:</p>
+
+<code-listing>
+
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+      <span class="token keyword">import</span> <span class="token punctuation">{</span> RouterConfiguration <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@aurelia/router-lite'</span><span class="token punctuation">;</span>
+    </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>In a near future release (alpha 29 or alpha 30), the above values will be swapped, and it will be as follows:</p>
+
+<code-listing>
+
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+      <span class="token keyword">import</span> <span class="token punctuation">{</span> RouterConfiguration <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia'</span><span class="token punctuation">;</span>
+      <span class="token comment">// is the same with</span>
+      <span class="token keyword">import</span> <span class="token punctuation">{</span> RouterConfiguration <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@aurelia/router'</span><span class="token punctuation">;</span>
+    </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>For existing applications that want to continue to use the <code>@aurelia/router-lite</code>, do:</p>
+
+<code-listing>
+
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+      <span class="token keyword">import</span> <span class="token punctuation">{</span> RouterConfiguration <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@aurelia/router-lite'</span><span class="token punctuation">;</span>
+    </code>
+  </pre>
+</source-code>
+
+</code-listing>
+<p>There's also a fix related to CSS modules and Tailwind in this release: previously, having a colon in class names while using css module will cause an exception to be thrown:</p>
+
+<code-listing>
+
+<source-code lang="html" heading="">
+  <pre class="language-markup">
+    <code>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>md:message<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>${message}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    </code>
+  </pre>
+</source-code>
+
+</code-listing>
+<p>Now the above should work as expected.</p>
+</section>
+<section><h2 id="alpha-27">Alpha 27</h2><p>In this release, Parcel2 support is added, and the convention now works with <code>index.js</code> convention of Nodejs, thanks to 
+<a href="https://github.com/3cp" target="_blank">3cp</a>
+. With this, devs have more options to bundle and decide their component file names. This means for the following file structure:</p>
+
+<code-listing>
+
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+      FooBar
+      <span class="token operator">|</span> index<span class="token punctuation">.</span>js
+      <span class="token operator">|</span> index<span class="token punctuation">.</span>html
+    </code>
+  </pre>
+</source-code>
+
+</code-listing>
+<p>the following html will work as expected:</p>
+
+<code-listing>
+
+<source-code lang="html" heading="">
+  <pre class="language-markup">
+    <code>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>import</span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>FooBar<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    </code>
+  </pre>
+</source-code>
+
+</code-listing>
+<p>Some other bug fixes are also packed in this release:</p>
+<ul>
+<li>local element should now able to see the owning element dependencies 
+<a href="https://github.com/aurelia/aurelia/issues/1375" target="_blank">#1375</a>
+, thank 
+<a href="https://github.com/michaelnero" target="_blank">michaelnero</a>
+ for reporting this.</li>
+<li><code>case</code> now only creates its view when it's actually matched with the value of the owning <code>switch</code> attribute 
+<a href="https://github.com/aurelia/aurelia/issues/1372" target="_blank">#1372</a>
+.</li>
+<li>the dev build should now have proper error message, so applications in development will see them in full. Previously there was a bug in the build script and it caused our dev dist to be almost the same with prod dist, making it difficult during development. Applications that were created before can do the 2 following steps to enable better error messages:
+<ul>
+<li>upgrade to <code>alpha 27</code> or later</li>
+<li>add the following <code>alias</code> to the webpack <code>resolve</code> configuration: https://github.com/aurelia/new/blob/614a3c4824bbb4ea2cf5166e3cc3473de775cec8/webpack/webpack.config.js#L102-L126</li>
+</ul>
+</li>
+</ul>
+</section>
+<section><h2 id="v1-updates">V1 updates</h2><p>There has been a series of new releases for v1 core packages to resolve a security issue reported at https://github.com/advisories/GHSA-m6j2-v3gq-45r5. Thanks to 
+<a href="https://github.com/josundt" target="_blank">josundt</a>
+ for creating an issue for it at https://github.com/aurelia/framework/issues/992. The stance used to be avoid throwing unnecessarily, and clear documentation insisting that applications must have an appropriate sanitizer of their owns to deal with arbitrary user input, though it's probably better throwing an error when the default HTML sanitizer is used instead. And thanks to this, a few v1 repos have received TS conversion, build &amp; pipeline upgrades, making them friendlier to contribution, and require smaller maintenance effort for future changes.</p>
+<p>While upgrading, you may experience some module duplications, if that is the case, best check and make sure that you only have 1 version of the core packages.</p>
+</section>
+<section><h2 id="until-next-time">Until next time</h2><p>As always, we want to thank the community for their continued support, and we can't wait to finally get Aurelia 2 out there into the wild in its more completed form.</p>
+<p>If you ever have any questions or issues, please don't hesitate to reach out. The best place to ask questions is on the 
+<a href="https://discourse.aurelia.io/" target="_blank">Aurelia Discourse</a>
+ and any bugs or feature requests on 
+<a href="https://github.com/aurelia/aurelia/issues" target="_blank">the Aurelia GitHub</a>
+. Or maybe just come over to the 
+<a href="https://discord.gg/RBtyM6u" target="_blank">Aurelia Discord channel for some chat</a>
+.</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%20update%20notes%20-%20mid%20April%202022" blog-url="http%3A%2F%2Faurelia.io%2Fblog%5C2022%5C4%5C19%5Caurelia-update-notes-mid-april-2022"></blog-footer>
 </section>
 
     </div>
