@@ -10,13 +10,13 @@
   </script>
 
   <meta charset="utf-8">
-  <title>The Aurelia Blog | Aurelia</title>
+  <title>Aurelia v1 updates for May 2022 | Aurelia</title>
   <base href="/">
   <meta name="msapplication-tap-highlight" content="no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 
-  <meta name="description" content="The official blog of the Aurelia project and Core Team."/>
+  <meta name="description" content="New versions for Aurelia v1 packages, &amp; upgrade notes"/>
   <meta name="robots" content="index,follow"/>
 
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:200,400,700" rel="stylesheet">
@@ -33,75 +33,64 @@
 
   <main ref="main">
     <div screen-activator.bind="activeScreen" screen-activated.trigger="onScreenActivated()" class="screen-activator">
-      <section class="article-group blog">
-  <div class="carousel slide">
-    <div class="carousel-inner" role="listbox">
-      <div class="carousel-item">
-        <h2>The Aurelia Blog</h2>
-        <p>The official blog of the Aurelia project and Core Team.</p>
-        <a href="blog/2022/5/10/aurelia-updates-for-may-2022">Read the Latest &#65515;</a>
-      </div>
+      <section class="article blog">
+  <header>
+    <h1>Aurelia updates for May 2022</h1>
+    <h2>Posted by <span class="author">bigopon</span> on <span class="date">May 10, 2022</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>Most of the v1 core packages have been updated to use latest dependency versions, resolve vulnverable dependency issues and produce smaller bundle output. We will be continuing our effort in this space for the rest of the core modules.</p>
+<p>One of the packages that recently got an update is <code>aurelia-testing</code>. A new version <code>1.1.0</code> has been released. With this, it'll be lighter weight and friendlier to bundler. Though if you had an existing application that was created with <code>aurelia-testing@1.0.0</code> and the following webpack configuration:</p>
+
+<code-listing>
+  
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">new</span> <span class="token class-name">ModuleDependenciesPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token string">'aurelia-testing'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'./compile-spy'</span><span class="token punctuation">,</span> <span class="token string">'./view-spy'</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>you will see an issue like this when upgrading:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  Module not found<span class="token operator">:</span> Error<span class="token operator">:</span> Can<span class="token string">'t resolve '</span><span class="token punctuation">.</span><span class="token operator">/</span>compile<span class="token operator">-</span>spy<span class="token string">' in '</span><span class="token operator">~</span>\app\node_modules\aurelia<span class="token operator">-</span>testing\dist\native<span class="token operator">-</span>modules'
+
+  Module not found<span class="token operator">:</span> Error<span class="token operator">:</span> Can<span class="token string">'t resolve '</span><span class="token punctuation">.</span><span class="token operator">/</span>view<span class="token operator">-</span>spy<span class="token string">' in '</span><span class="token operator">~</span>\app\node_modules\aurelia<span class="token operator">-</span>testing\dist\native<span class="token operator">-</span>modules'
+    </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>A simple way to resolve this is to remove those 3 configuration lines, as they are no longer needed for <code>aurelia-testing@1.1.0</code> onwards.</p>
+<p>Thanks to 
+<a href="https://github.com/steenburgh" target="_blank">steenburgh</a>
+ for helping with this issue.</p>
+<section><h2 id="until-next-time">Until next time</h2><p>As always, thank you for all the feedback and contribution on both v1 and v2. We can't wait to finally get Aurelia 2 out there into the wild in its more completed form.</p>
+<p>If you ever have any questions or issues, please don't hesitate to reach out. The best place to ask questions is on the 
+<a href="https://discourse.aurelia.io/" target="_blank">Aurelia Discourse</a>
+ and any bugs or feature requests on 
+<a href="https://github.com/aurelia/aurelia/issues" target="_blank">the Aurelia GitHub</a>
+. Or maybe just come over to the 
+<a href="https://discord.gg/RBtyM6u" target="_blank">Aurelia Discord channel for some chat</a>
+.</p>
+</section>
+
     </div>
-  </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
 
-  <section>
-    <ul class="article-list">
-      <li>
-        <a href="blog/2022/5/10/aurelia-updates-for-may-2022">
-          <h3>Aurelia updates for May 2022</h3>
-          <p class="group-item-count">Posted by <span class="author">bigopon</span> on <span class="date">May 10, 2022</span>
-          <p>New versions for Aurelia v1 packages, &amp; upgrade notes</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2022/4/19/aurelia-update-notes-mid-april-2022">
-          <h3>Aurelia update notes - mid April 2022</h3>
-          <p class="group-item-count">Posted by <span class="author">bigopon</span> on <span class="date">April 19, 2022</span>
-          <p>The original router is back to v2, along with a better tooling experience.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2022/3/14/aurelia-2-update-alpha-26">
-          <h3>Aurelia 2 update - alpha 26</h3>
-          <p class="group-item-count">Posted by <span class="author">bigopon</span> on <span class="date">March 14, 2022</span>
-          <p>Since release alpha-20, there have been several features, fixes and refactoring.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2021/9/7/aurelia-2-update-alpha-20">
-          <h3>Aurelia 2 Update - Alpha 20</h3>
-          <p class="group-item-count">Posted by <span class="author">Dwayne Charrington</span> on <span class="date">September 7, 2021</span>
-          <p>Not wanting to spam you all every time we release a new alpha update for Aurelia 2, we have been consolidating multiple release notes (as you might have noticed the last couple of updates).</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2021/8/9/aurelia-2-update-alpha-16">
-          <h3>Aurelia 2 Update - Alpha 16</h3>
-          <p class="group-item-count">Posted by <span class="author">bigopon</span> on <span class="date">August 9, 2021</span>
-          <p>For the last month, since alpha-12, the focus of the Aurelia team has been v1 feature parity besides various bugs fixing, refactoring, performance &amp; documentation improvements.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2021/7/12/aurelia-2-update-alpha-12">
-          <h3>Aurelia 2 Update - Alpha 12</h3>
-          <p class="group-item-count">Posted by <span class="author">bigopon</span> on <span class="date">July 12, 2021</span>
-          <p>A minor update on various improvements of Aurelia 2.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2021/7/1/an-update-on-aurelia-2-documentation-and-tutorials">
-          <h3>An Update on Aurelia 2 Documentation and Tutorials</h3>
-          <p class="group-item-count">Posted by <span class="author">Dwayne Charrington</span> on <span class="date">July 1, 2021</span>
-          <p>Here at Aurelia HQ, we have been busy beavers. Work on Aurelia 2 continues full steam ahead. We are doing more frequent development releases. You might have noticed we are engaging the community a little bit better after the noticeable silence.</p>
-        </a>
-      </li>
-    </ul>
-  </section>
-
-  <div class="button-bar">
-
-    <a class="next" href="blog/page/2">Older Posts</a>
-  </div>
+  <blog-footer blog-name="Aurelia%20updates%20for%20May%202022" blog-url="http%3A%2F%2Faurelia.io%2Fblog%5C2022%5C5%5C10%5Caurelia-updates-for-may-2022"></blog-footer>
 </section>
 
     </div>

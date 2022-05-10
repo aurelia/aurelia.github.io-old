@@ -1,0 +1,59 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia v1 updates for May 2022</h1>
+    <h2>Posted by <span class="author">bigopon</span> on <span class="date">May 10, 2022</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>Most of the v1 core packages have been updated to use latest dependency versions, resolve vulnverable dependency issues and produce smaller bundle output. We will be continuing our effort in this space for the rest of the core modules.</p>
+<p>One of the packages that recently got an update is <code>aurelia-testing</code>. A new version <code>1.1.0</code> has been released. With this, it'll be lighter weight and friendlier to bundler. Though if you had an existing application that was created with <code>aurelia-testing@1.0.0</code> and the following webpack configuration:</p>
+
+<code-listing>
+  
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">new</span> <span class="token class-name">ModuleDependenciesPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token string">'aurelia-testing'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'./compile-spy'</span><span class="token punctuation">,</span> <span class="token string">'./view-spy'</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>you will see an issue like this when upgrading:</p>
+
+<code-listing>
+  
+<source-code lang="JavaScript" heading="">
+  <pre class="language-javascript">
+    <code>
+  Module not found<span class="token operator">:</span> Error<span class="token operator">:</span> Can<span class="token string">'t resolve '</span><span class="token punctuation">.</span><span class="token operator">/</span>compile<span class="token operator">-</span>spy<span class="token string">' in '</span><span class="token operator">~</span>\app\node_modules\aurelia<span class="token operator">-</span>testing\dist\native<span class="token operator">-</span>modules'
+
+  Module not found<span class="token operator">:</span> Error<span class="token operator">:</span> Can<span class="token string">'t resolve '</span><span class="token punctuation">.</span><span class="token operator">/</span>view<span class="token operator">-</span>spy<span class="token string">' in '</span><span class="token operator">~</span>\app\node_modules\aurelia<span class="token operator">-</span>testing\dist\native<span class="token operator">-</span>modules'
+    </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>A simple way to resolve this is to remove those 3 configuration lines, as they are no longer needed for <code>aurelia-testing@1.1.0</code> onwards.</p>
+<p>Thanks to 
+<a href="https://github.com/steenburgh" target="_blank">steenburgh</a>
+ for helping with this issue.</p>
+<section><h2 id="until-next-time">Until next time</h2><p>As always, thank you for all the feedback and contribution on both v1 and v2. We can't wait to finally get Aurelia 2 out there into the wild in its more completed form.</p>
+<p>If you ever have any questions or issues, please don't hesitate to reach out. The best place to ask questions is on the 
+<a href="https://discourse.aurelia.io/" target="_blank">Aurelia Discourse</a>
+ and any bugs or feature requests on 
+<a href="https://github.com/aurelia/aurelia/issues" target="_blank">the Aurelia GitHub</a>
+. Or maybe just come over to the 
+<a href="https://discord.gg/RBtyM6u" target="_blank">Aurelia Discord channel for some chat</a>
+.</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%20updates%20for%20May%202022" blog-url="http%3A%2F%2Faurelia.io%2Fblog%5C2022%5C5%5C10%5Caurelia-updates-for-may-2022"></blog-footer>
+</section>

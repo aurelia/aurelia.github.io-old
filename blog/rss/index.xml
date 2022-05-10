@@ -5,7 +5,13 @@
     <link>http://aurelia.io\blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Tue Apr 19 2022 11:42:01 GMT+1000 (Australian Eastern Standard Time)</lastBuildDate>
+    <lastBuildDate>Tue May 10 2022 21:20:14 GMT+1000 (Australian Eastern Standard Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia updates for May 2022]]></title>
+      <link>http://aurelia.io\blog\2022\5\10\aurelia-updates-for-may-2022</link>
+      <description><![CDATA[New versions for Aurelia v1 packages, & upgrade notes]]></description>
+      <pubDate>Tue May 10 2022 21:20:13 GMT+1000 (Australian Eastern Standard Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia update notes - mid April 2022]]></title>
       <link>http://aurelia.io\blog\2022\4\19\aurelia-update-notes-mid-april-2022</link>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io\blog\2019\4\22\case-study-stellarport</link>
       <description><![CDATA[Today, I'm pleased to introduce Ishai Strauss from Stellarport to talk about how they've built their product with Aurelia. Read on to hear from Ishai about Stellarport's experiences integrating Redux with Aurelia and leveraging decorator-based composition with Aurelia's Fetch client.]]></description>
       <pubDate>Mon Apr 22 2019 13:50:19 GMT+1000 (Australian Eastern Standard Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Aurelia Release Notes - April 2019]]></title>
-      <link>http://aurelia.io\blog\2019\4\2\aurelia-release-notes-april-2019</link>
-      <description><![CDATA[Today, we're excited to announce the beta of Aurelia's Web Components plugin, enabling you to use your Aurelia custom elements as Web Component standard custom elements, easily inter-operating with other frameworks.]]></description>
-      <pubDate>Tue Apr 02 2019 18:27:08 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
     </item>
   </channel>
 </rss>
