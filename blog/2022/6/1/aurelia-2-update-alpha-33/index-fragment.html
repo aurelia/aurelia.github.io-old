@@ -1,0 +1,197 @@
+<section class="article blog">
+  <header>
+    <h1>Aurelia 2 Update - Alpha 33</h1>
+    <h2>Posted by <span class="author">bigopon</span> on <span class="date">June 1, 2022</span></h2>
+  </header>
+
+  <article class="markdown">
+    <div class="content">
+      <p>Since the last v2 update, the focus of the Aurelia team has been around the prepartion for beta, with testing tools improvement, better ergonomic in common templating use cases. Belows are the highlights of the features/improvements over the last few alpha versions.</p>
+<section><h2 id="alpha-33">Alpha 33</h2><p>The new 
+<a href="https://docs.aurelia.io/developer-guides/state" target="_blank">State plugin</a>
+ has been published and is ready to use and collect feedback. This is the intended to be the successor of the 
+<a href="http://aurelia.io/docs/plugins/store" target="_blank">v1 store plugin</a>
+. With this plugin, template bindings can be connected to the singleton state via a simple <code>.state</code> binding command, or <code>&amp; state</code> binding behavior:</p>
+
+<code-listing>
+  
+<source-code lang="html" heading="">
+  <pre class="language-markup">
+    <code>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.state</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>keywords<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Keywords in app state is: ${keywords &amp; state}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+    </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Mutation request can now also be done directly from the template, with a <code>.dispatch</code> binding command:</p>
+
+<code-listing>
+  
+<source-code lang="html" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.state</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>keywords<span class="token punctuation">"</span></span> <span class="token attr-name">input.dispatch</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>{ type: <span class="token punctuation">'</span>keywords<span class="token punctuation">'</span>, params: [$event.target.value] }<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Connecting templates to the global state isn't always the case, sometimes it's desirable to connect a view model property to the global state too, and the <code>@fromState</code> decorator can be used to simplify the task:</p>
+
+<code-listing>
+  
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> fromState <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@aurelia/state'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SearchAutoSuggest</span> <span class="token punctuation">{</span>
+  @<span class="token function">fromState</span><span class="token punctuation">(</span><span class="token parameter">state</span> <span class="token operator">=></span> state<span class="token punctuation">.</span>keywords<span class="token punctuation">)</span>
+  keywords
+<span class="token punctuation">}</span>
+    </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>With these tools, it is anticipated that applications employing singleton or v1 store like patterns will be able to greatly simplify their code, reducing a good amount of boilerplate.</p>
+</section>
+<section><h2 id="alpha-32">Alpha 32</h2><p>In this release, first core templating lifecycle hook <code>created</code> support is added. It is now simple to have shared logic that hooks into component <code>created</code> lifecycle:</p>
+
+<code-listing>
+  
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> lifecycleHooks <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia'</span><span class="token punctuation">;</span>
+
+@lifecycleHooks
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CreatedHook</span> <span class="token punctuation">{</span>
+  <span class="token function">created</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+    </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Beside this, <code>hydrating</code> and <code>hydrated</code> support also follows in <a href="#alpha-33">alpha 33</a>, and hooking into them is similar to <code>created</code> lifecycle:</p>
+
+<code-listing>
+  
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> lifecycleHooks <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia'</span><span class="token punctuation">;</span>
+
+@lifecycleHooks
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">HydratingHook</span> <span class="token punctuation">{</span>
+  <span class="token function">hydrating</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+@lifecycleHooks
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">HydratedHook</span> <span class="token punctuation">{</span>
+  <span class="token function">hydrated</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+    </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>It is also fine to combine all hooks into a single class:</p>
+
+<code-listing>
+  
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+@lifecycleHooks
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">LoggingHook</span> <span class="token punctuation">{</span>
+  <span class="token function">created</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token punctuation">{</span> viewModel<span class="token punctuation">,</span> controller <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">hydrating</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token punctuation">{</span> viewModel<span class="token punctuation">,</span> controller <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">hydrated</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token punctuation">{</span> viewModel<span class="token punctuation">,</span> controller <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+    </code>
+  </pre>
+</source-code>
+  
+</code-listing>
+</section>
+<section><h2 id="alpha-31">Alpha 31</h2><p>A new builder pattern added, assertion methods of a test fixture are returned together with other properties, makeing it a lot simpler, less boilerplate-y to write tests. This will be improved more in a near future with many of  helpers/shortcuts to make Aurelia application test authoring a pleasure experience.</p>
+</section>
+<section><h2 id="alpha-30">Alpha 30</h2><p>With a view model that looks like this</p>
+
+<code-listing>
+  
+<source-code lang="ts" heading="">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyButton</span> <span class="token punctuation">{</span>
+  <span class="token function">onClick</span><span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>In the template of this, it's sometimes desirable to have</p>
+
+<code-listing>
+  
+<source-code lang="html" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">click.trigger</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>onClick<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+</code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>rather than</p>
+
+<code-listing>
+  
+<source-code lang="html" heading="">
+  <pre class="language-markup">
+    <code>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">click.trigger</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>onClick($event)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+</code>
+  </pre>
+</source-code>
+  
+</code-listing>
+<p>Thanks to 
+<a href="https://github.com/brandonseydel" target="_blank">brandonseydel</a>
+, it is now possible to write event handler like the former.</p>
+<p>Another awesome contribution from Brandon in this release is Hot Module Reload (HMR). Support for HMR has also been added for webpack, HMR now works for all aurelia component including HTML only elements.</p>
+</section>
+<section><h2 id="until-next-time">Until next time</h2><p>Thank you to everyone for their continued support, especially those who have contributed to Aurelia 2 and helped get it to its current point. If you ever have any questions or issues, please don't hesitate to reach out. The best place to ask questions is on the 
+<a href="https://discourse.aurelia.io/" target="_blank">Aurelia Discourse</a>
+ and any bugs or feature requests on 
+<a href="https://github.com/aurelia/aurelia/issues" target="_blank">the Aurelia GitHub</a>
+. Or maybe just come over to the 
+<a href="https://discord.gg/RBtyM6u" target="_blank">Aurelia Discord channel for some chat</a>
+.</p>
+</section>
+
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
+
+  <blog-footer blog-name="Aurelia%202%20Update%20-%20Alpha%2033" blog-url="http%3A%2F%2Faurelia.io%2Fblog%5C2022%5C6%5C1%5Caurelia-2-update-alpha-33"></blog-footer>
+</section>
