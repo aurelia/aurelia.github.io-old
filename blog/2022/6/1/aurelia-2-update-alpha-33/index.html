@@ -53,8 +53,8 @@
 <source-code lang="html" heading="">
   <pre class="language-markup">
     <code>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.state</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>keywords<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Keywords in app state is: ${keywords &amp; state}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value.state</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>keywords<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Keywords in app state is: ${keywords &amp; state}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
     </code>
   </pre>
 </source-code>
@@ -80,12 +80,12 @@
 <source-code lang="ts" heading="">
   <pre class="language-javascript">
     <code>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> fromState <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@aurelia/state'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> fromState <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@aurelia/state'</span><span class="token punctuation">;</span>
 
-<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SearchAutoSuggest</span> <span class="token punctuation">{</span>
-  @<span class="token function">fromState</span><span class="token punctuation">(</span><span class="token parameter">state</span> <span class="token operator">=></span> state<span class="token punctuation">.</span>keywords<span class="token punctuation">)</span>
-  keywords
-<span class="token punctuation">}</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SearchAutoSuggest</span> <span class="token punctuation">{</span>
+    @<span class="token function">fromState</span><span class="token punctuation">(</span><span class="token parameter">state</span> <span class="token operator">=></span> state<span class="token punctuation">.</span>keywords<span class="token punctuation">)</span>
+    keywords
+  <span class="token punctuation">}</span>
     </code>
   </pre>
 </source-code>
@@ -102,12 +102,12 @@
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span> lifecycleHooks <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia'</span><span class="token punctuation">;</span>
 
-@lifecycleHooks
-<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CreatedHook</span> <span class="token punctuation">{</span>
-  <span class="token function">created</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token operator">...</span>
+  @lifecycleHooks
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CreatedHook</span> <span class="token punctuation">{</span>
+    <span class="token function">created</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>
+    <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
     </code>
   </pre>
 </source-code>
@@ -120,21 +120,21 @@
 <source-code lang="ts" heading="">
   <pre class="language-javascript">
     <code>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> lifecycleHooks <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> lifecycleHooks <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia'</span><span class="token punctuation">;</span>
 
-@lifecycleHooks
-<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">HydratingHook</span> <span class="token punctuation">{</span>
-  <span class="token function">hydrating</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token operator">...</span>
+  @lifecycleHooks
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">HydratingHook</span> <span class="token punctuation">{</span>
+    <span class="token function">hydrating</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>
+    <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
 
-@lifecycleHooks
-<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">HydratedHook</span> <span class="token punctuation">{</span>
-  <span class="token function">hydrated</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token operator">...</span>
+  @lifecycleHooks
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">HydratedHook</span> <span class="token punctuation">{</span>
+    <span class="token function">hydrated</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>
+    <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
     </code>
   </pre>
 </source-code>
@@ -147,18 +147,18 @@
 <source-code lang="ts" heading="">
   <pre class="language-javascript">
     <code>
-@lifecycleHooks
-<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">LoggingHook</span> <span class="token punctuation">{</span>
-  <span class="token function">created</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token punctuation">{</span> viewModel<span class="token punctuation">,</span> controller <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  @lifecycleHooks
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">LoggingHook</span> <span class="token punctuation">{</span>
+    <span class="token function">created</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token punctuation">{</span> viewModel<span class="token punctuation">,</span> controller <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">hydrating</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token punctuation">{</span> viewModel<span class="token punctuation">,</span> controller <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">hydrated</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token punctuation">{</span> viewModel<span class="token punctuation">,</span> controller <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-  <span class="token function">hydrating</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token punctuation">{</span> viewModel<span class="token punctuation">,</span> controller <span class="token punctuation">}</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span>
-  <span class="token function">hydrated</span><span class="token punctuation">(</span><span class="token parameter">viewModel<span class="token punctuation">,</span> controller</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token punctuation">{</span> viewModel<span class="token punctuation">,</span> controller <span class="token punctuation">}</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
     </code>
   </pre>
 </source-code>
