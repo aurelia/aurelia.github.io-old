@@ -11,6 +11,7 @@ An abstract class representing a mechanism for animating the DOM during various 
 
 #### Properties
 
+* `static instance: Animator` - No description available.
 
 #### Methods
 
@@ -33,9 +34,9 @@ An abstract class representing a mechanism for animating the DOM during various 
   * `element: HTMLElement` - Element to animate
 
 
-* `registerEffect(effectName: string, properties: Object): void` - Register an effect (for JS based animators)
+* `registerEffect(effectName: string, properties: object): void` - Register an effect (for JS based animators)
   * `effectName: string` - identifier of the effect
-  * `properties: Object` - Object with properties for the effect
+  * `properties: object` - Object with properties for the effect
 
 
 
@@ -115,10 +116,25 @@ An implementation of Aurelia&#x27;s Observer interface that is used to back bind
 #### Methods
 
 
+* `addSubscriber(context: any, callable: Function): void` - 
+  * `context: any` - No description available
+  * `callable: Function` - No description available
+
+
 * `call(): void` - Invoked by the TaskQueue to publish changes to subscribers.
 
 
+* `callSubscribers(newValue: any, oldValue: any): void` - 
+  * `newValue: any` - No description available
+  * `oldValue: any` - No description available
+
+
 * `getValue(): any` - Gets the property&#x27;s value.
+
+
+* `removeSubscriber(context: any, callable: Function): void` - 
+  * `context: any` - No description available
+  * `callable: Function` - No description available
 
 
 * `setValue(newValue: any): void` - Sets the property&#x27;s value.
@@ -145,6 +161,7 @@ Represents a bindable property on a behavior.
 
 #### Properties
 
+* `name: any` - No description available.
 
 #### Methods
 
@@ -177,11 +194,12 @@ An abstract base class for implementations of a binding language.
 #### Methods
 
 
-* `createAttributeInstruction(resources: ViewResources, element: Element, info: Object, existingInstruction?: Object): BehaviorInstruction` - Creates an attribute behavior instruction.
+* `createAttributeInstruction(resources: ViewResources, element: Element, info: Object, existingInstruction?: Object, context?: HtmlBehaviorResource): BehaviorInstruction` - Creates an attribute behavior instruction.
   * `resources: ViewResources` - The ViewResources for the view being compiled.
   * `element: Element` - The element that the attribute is defined on.
   * `info: Object` - The info object previously returned from inspectAttribute.
   * `existingInstruction?: Object` - A previously created instruction for this attribute.
+  * `context?: HtmlBehaviorResource` - HtmlBehaviorResource
 
 
 * `createLetExpressions(resources: ViewResources, element: Element): ` - Creates let expressions from a &lt;let/&gt; element
@@ -208,7 +226,7 @@ A factory capable of creating View instances, bound to a location within another
 
 #### Properties
 
-* `isCaching: any` - Indicates whether this factory is currently using caching.
+* `viewFactory: ViewFactory` - No description available.
 
 #### Methods
 
@@ -349,6 +367,8 @@ A view strategy based on naming conventions.
 
 #### Properties
 
+* `moduleId: string` - No description available.
+* `viewUrl: any` - No description available.
 
 #### Methods
 
@@ -412,12 +432,12 @@ Dispatches subscribets to and publishes events in the DOM.
 
 
 
-* `disposeAll(): any` - Removes all event handlers.
+* `disposeAll(): void` - Removes all event handlers.
 
 
-* `publish(eventName: string, detail?: Object, bubbles?: boolean, cancelable?: boolean): any` - Dispatches an Event on the context element.
+* `publish(eventName: string, detail?: object, bubbles?: boolean, cancelable?: boolean): void` - Dispatches an Event on the context element.
   * `eventName: string` - No description available
-  * `detail?: Object` - No description available
+  * `detail?: object` - No description available
   * `bubbles?: boolean` - No description available
   * `cancelable?: boolean` - 
 
@@ -452,10 +472,14 @@ attribute functionality.
 
 
 
-* `compile(compiler: ViewCompiler, resources: ViewResources, node: Node, instruction: BehaviorInstruction, parentNode?: Node): Node` - Plugs into the compiler and enables custom processing of the node on which this behavior is located.
+* `aliases(aliases: any): void` - 
+  * `aliases: any` - No description available
+
+
+* `compile(compiler: ViewCompiler, resources: ViewResources, node: Element, instruction: BehaviorInstruction, parentNode?: Node): Element` - Plugs into the compiler and enables custom processing of the node on which this behavior is located.
   * `compiler: ViewCompiler` - The compiler that is currently compiling the view that this behavior exists within.
   * `resources: ViewResources` - The resources for the view that this behavior exists within.
-  * `node: Node` - The node on which this behavior exists.
+  * `node: Element` - The node on which this behavior exists.
   * `instruction: BehaviorInstruction` - The behavior instruction created for this behavior.
   * `parentNode?: Node` - The parent node of the current node.
 
@@ -506,6 +530,11 @@ A view strategy that allows the component author to inline the html for the view
 
 #### Properties
 
+* `dependencies: ` - No description available.
+* `dependencyBaseUrl: string` - No description available.
+* `entry: any` - No description available.
+* `markup: string` - No description available.
+* `moduleId: any` - No description available.
 
 #### Methods
 
@@ -546,6 +575,10 @@ Typically used when the component author wishes to take over fine-grained render
 
 #### Properties
 
+* `dependencies: ` - No description available.
+* `dependencyBaseUrl: string` - No description available.
+* `entry: any` - No description available.
+* `moduleId: any` - No description available.
 
 #### Methods
 
@@ -564,66 +597,58 @@ No description available.
 
 #### Properties
 
-* `needsFallbackRendering: any` - Indicate whether this slot should render fallback default slot content
 
 #### Methods
 
 
-* `addNode(view?: any, node?: any, projectionSource?: any, index?: any): any` - 
-  * `view?: any` - No description available
-  * `node?: any` - No description available
-  * `projectionSource?: any` - No description available
-  * `index?: any` - 
+* `addNode(view: View, node: Node, projectionSource: , index: number): void` - 
+  * `view: View` - No description available
+  * `node: Node` - No description available
+  * `projectionSource: ` - No description available
+  * `index: number` - No description available
+
+
+* `attached(): void` - 
+
+
+* `bind(view: View): void` - 
+  * `view: View` - No description available
+
+
+* `created(ownerView: View): void` - 
+  * `ownerView: View` - No description available
+
+
+* `detached(): void` - 
+
+
+* `passThroughTo(destinationSlot: ): void` - 
+  * `destinationSlot: ` - No description available
+
+
+* `projectFrom(view: View, projectionSource: ): void` - 
+  * `view: View` - No description available
+  * `projectionSource: ` - No description available
+
+
+* `removeAll(projectionSource: ): void` - 
+  * `projectionSource: ` - No description available
+
+
+* `removeView(view: View, projectionSource: ): void` - 
+  * `view: View` - No description available
+  * `projectionSource: ` - No description available
+
+
+* `renderFallbackContent(view: View, nodes: , projectionSource: , index?: number): void` - 
+  * `view: View` - No description available
+  * `nodes: ` - No description available
+  * `projectionSource: ` - No description available
+  * `index?: number` - 
 
 
 
-* `attached(): any` - 
-
-
-* `bind(view?: any): any` - 
-  * `view?: any` - 
-
-
-
-* `created(ownerView?: any): any` - 
-  * `ownerView?: any` - 
-
-
-
-* `detached(): any` - 
-
-
-* `passThroughTo(destinationSlot?: any): any` - 
-  * `destinationSlot?: any` - 
-
-
-
-* `projectFrom(view?: any, projectionSource?: any): any` - 
-  * `view?: any` - No description available
-  * `projectionSource?: any` - 
-
-
-
-* `removeAll(projectionSource?: any): any` - 
-  * `projectionSource?: any` - 
-
-
-
-* `removeView(view?: any, projectionSource?: any): any` - 
-  * `view?: any` - No description available
-  * `projectionSource?: any` - 
-
-
-
-* `renderFallbackContent(view?: any, nodes?: any, projectionSource?: any, index?: any): any` - 
-  * `view?: any` - No description available
-  * `nodes?: any` - No description available
-  * `projectionSource?: any` - No description available
-  * `index?: any` - 
-
-
-
-* `unbind(): any` - 
+* `unbind(): void` - 
 
 
 
@@ -683,7 +708,7 @@ A context that flows through the view resource load process.
 
 #### Properties
 
-* `dependencies: Object` - No description available.
+* `dependencies: Record` - No description available.
 
 #### Methods
 
@@ -731,45 +756,44 @@ No description available.
 
 #### Properties
 
-* `static defaultSlotKey: any` - No description available.
+* `static defaultSlotKey: ` - No description available.
 
 #### Methods
 
 
-* `static distributeNodes(view?: any, nodes?: any, slots?: any, projectionSource?: any, index?: any, destinationOverride?: any): any` - Distrbiute nodes of a projected view based on
-  * `view?: any` - No description available
-  * `nodes?: any` - No description available
-  * `slots?: any` - No description available
-  * `projectionSource?: any` - No description available
-  * `index?: any` - No description available
-  * `destinationOverride?: any` - 
+* `static distributeNodes(view: View, nodes: , slots: Record, projectionSource?: , index?: number, destinationOverride?: string): void` - Distrbiute nodes of a projected view based on the given slots
+  * `view: View` - No description available
+  * `nodes: ` - No description available
+  * `slots: Record` - No description available
+  * `projectionSource?: ` - No description available
+  * `index?: number` - No description available
+  * `destinationOverride?: string` - 
 
 
 
-* `static distributeView(view?: any, slots?: any, projectionSource?: any, index?: any, destinationOverride?: any): any` - 
-  * `view?: any` - No description available
-  * `slots?: any` - No description available
-  * `projectionSource?: any` - No description available
-  * `index?: any` - No description available
-  * `destinationOverride?: any` - 
+* `static distributeView(view: View, slots: Record, projectionSource?: , index?: number, destinationOverride?: string): void` - Project the nodes of a view to a record of slots
+  * `view: View` - No description available
+  * `slots: Record` - No description available
+  * `projectionSource?: ` - No description available
+  * `index?: number` - No description available
+  * `destinationOverride?: string` - the override name of the slot to distribute to
 
 
 
-* `static getSlotName(node?: any): any` - 
-  * `node?: any` - No description available
+* `static getSlotName(node: any): any` - 
+  * `node: any` - No description available
 
 
-* `static undistributeAll(slots?: any, projectionSource?: any): any` - 
-  * `slots?: any` - No description available
-  * `projectionSource?: any` - 
+* `static undistributeAll(slots: Record, projectionSource: ): void` - 
+  * `slots: Record` - No description available
+  * `projectionSource: ` - 
 
 
 
-* `static undistributeView(view?: any, slots?: any, projectionSource?: any): any` - 
-  * `view?: any` - No description available
-  * `slots?: any` - No description available
-  * `projectionSource?: any` - 
-
+* `static undistributeView(view: View, slots: Record, projectionSource: ): void` - 
+  * `view: View` - No description available
+  * `slots: Record` - No description available
+  * `projectionSource: ` - No description available
 
 
 
@@ -779,67 +803,61 @@ No description available.
 
 #### Properties
 
-* `needsFallbackRendering: any` - No description available.
 
 #### Methods
 
 
-* `addNode(view?: any, node?: any, projectionSource?: any, index?: any, destination?: any): any` - 
-  * `view?: any` - No description available
-  * `node?: any` - No description available
-  * `projectionSource?: any` - No description available
-  * `index?: any` - No description available
-  * `destination?: any` - 
+* `addNode(view: View, node: Node, projectionSource: , index?: number, destination?: string): void` - 
+  * `view: View` - No description available
+  * `node: Node` - No description available
+  * `projectionSource: ` - No description available
+  * `index?: number` - No description available
+  * `destination?: string` - 
 
 
 
-* `attached(): any` - 
+* `attached(): void` - 
 
 
-* `bind(view?: any): any` - 
-  * `view?: any` - 
-
-
-
-* `created(ownerView?: any): any` - 
-  * `ownerView?: any` - 
+* `bind(view: View): void` - 
+  * `view: View` - 
 
 
 
-* `detached(): any` - 
-
-
-* `projectFrom(view?: any, projectionSource?: any): any` - 
-  * `view?: any` - No description available
-  * `projectionSource?: any` - 
+* `created(ownerView: View): void` - 
+  * `ownerView: View` - 
 
 
 
-* `projectTo(slots?: any): any` - 
-  * `slots?: any` - 
+* `detached(): void` - 
 
 
-
-* `removeAll(projectionSource?: any): any` - 
-  * `projectionSource?: any` - 
-
-
-
-* `removeView(view?: any, projectionSource?: any): any` - 
-  * `view?: any` - No description available
-  * `projectionSource?: any` - 
+* `projectFrom(view: View, projectionSource: ): void` - 
+  * `view: View` - No description available
+  * `projectionSource: ` - No description available
 
 
-
-* `renderFallbackContent(view?: any, nodes?: any, projectionSource?: any, index?: any): any` - 
-  * `view?: any` - No description available
-  * `nodes?: any` - No description available
-  * `projectionSource?: any` - No description available
-  * `index?: any` - 
+* `projectTo(slots: Record): void` - 
+  * `slots: Record` - No description available
 
 
+* `removeAll(projectionSource: ): void` - 
+  * `projectionSource: ` - No description available
 
-* `unbind(): any` - 
+
+* `removeView(view: View, projectionSource: ): void` - 
+  * `view: View` - No description available
+  * `projectionSource: ` - No description available
+
+
+* `renderFallbackContent(view: View, nodes: , projectionSource: , index?: number): void` - 
+  * `view: View` - No description available
+  * `nodes: ` - No description available
+  * `projectionSource: ` - No description available
+  * `index?: number` - No description available
+
+
+* `unbind(): void` - 
 
 
 
@@ -849,16 +867,15 @@ No description available.
 
 #### Properties
 
+* `element: any` - No description available.
+* `value: any` - No description available.
 
 #### Methods
 
 
-* `valueChanged(newValue?: any, oldValue?: any): any` - 
-  * `newValue?: any` - No description available
-  * `oldValue?: any` - No description available
-
-
-* `static inject(): any` - 
+* `valueChanged(newValue: any, oldValue: any): void` - 
+  * `newValue: any` - No description available
+  * `oldValue: any` - No description available
 
 
 
@@ -868,10 +885,10 @@ No description available.
 
 #### Properties
 
-* `dependencies: ` - No description available.
 * `factory: ViewFactory` - No description available.
 * `factoryIsReady: boolean` - No description available.
-* `template: ` - No description available.
+* `moduleId: string` - No description available.
+* `onReady: any` - No description available.
 
 #### Methods
 
@@ -901,17 +918,18 @@ Provides all the instructions for how a target element should be enhanced inside
 * `parentInjectorId: number` - No description available.
 * `providers: Array` - No description available.
 * `shadowSlot: boolean` - No description available.
+* `slotDestination: any` - No description available.
 * `slotFallbackFactory: any` - No description available.
 * `slotName: string` - No description available.
 * `values: Object` - No description available.
 * `viewFactory: ViewFactory` - No description available.
-* `static noExpressions: any` - An empty array used to represent a target with no binding expressions.
+* `static noExpressions: ` - An empty array used to represent a target with no binding expressions.
 
 #### Methods
 
 
-* `static contentExpression(expression?: any): TargetInstruction` - Creates an instruction that represents a binding expression in the content of an element.
-  * `expression?: any` - The binding expression.
+* `static contentExpression(expression: any): TargetInstruction` - Creates an instruction that represents a binding expression in the content of an element.
+  * `expression: any` - The binding expression.
 
 
 * `static letElement(expressions: Array): TargetInstruction` - Creates an instruction that represents an element with behaviors and bindings.
@@ -950,6 +968,8 @@ A view strategy created directly from the template registry entry.
 
 #### Properties
 
+* `entry: TemplateRegistryEntry` - No description available.
+* `moduleId: string` - No description available.
 
 #### Methods
 
@@ -1074,9 +1094,6 @@ Compiles html templates, dom fragments and strings into ViewFactory instances, c
   * `compileInstruction?: ViewCompileInstruction` - A set of instructions that customize how compilation occurs.
 
 
-* `static inject(): any` - 
-
-
 
 ### ViewEngine
 
@@ -1084,7 +1101,7 @@ Controls the view resource loading pipeline.
 
 #### Properties
 
-* `static viewModelRequireMetadataKey: any` - The metadata key for storing requires declared in a ViewModel.
+* `static viewModelRequireMetadataKey: string` - The metadata key for storing requires declared in a ViewModel.
 
 #### Methods
 
@@ -1095,9 +1112,9 @@ Controls the view resource loading pipeline.
 
 
 
-* `importViewModelResource(moduleImport: string, moduleMember: string): Promise` - Loads a view model as a resource.
+* `importViewModelResource(moduleImport: string, moduleMember?: string): Promise` - Loads a view model as a resource.
   * `moduleImport: string` - The module to import.
-  * `moduleMember: string` - The export from the module to generate the resource for.
+  * `moduleMember?: string` - The export from the module to generate the resource for.
 
 
 * `importViewResources(moduleIds: , names: , resources: ViewResources, compileInstruction?: ViewCompileInstruction, loadContext?: ResourceLoadContext): Promise` - Imports the specified resources with the specified names into the view resources object.
@@ -1122,9 +1139,6 @@ Controls the view resource loading pipeline.
   * `target?: any` - A class from which to extract metadata of additional resources to load.
 
 
-* `static inject(): any` - 
-
-
 
 ### ViewEngineHooksResource
 
@@ -1136,23 +1150,23 @@ No description available.
 #### Methods
 
 
-* `initialize(container?: any, target?: any): any` - 
-  * `container?: any` - No description available
-  * `target?: any` - No description available
+* `initialize(container: any, target: any): void` - 
+  * `container: any` - No description available
+  * `target: any` - No description available
 
 
-* `load(container?: any, target?: any): any` - 
-  * `container?: any` - No description available
-  * `target?: any` - No description available
+* `load(container: any, target: any): void` - 
+  * `container: any` - No description available
+  * `target: any` - No description available
 
 
-* `register(registry?: any, name?: any): any` - 
-  * `registry?: any` - No description available
-  * `name?: any` - No description available
+* `register(registry: any, name: any): void` - 
+  * `registry: any` - No description available
+  * `name: any` - No description available
 
 
-* `static convention(name?: any): any` - 
-  * `name?: any` - No description available
+* `static convention(name: any): ViewEngineHooksResource` - 
+  * `name: any` - No description available
 
 
 
@@ -1162,7 +1176,14 @@ A factory capable of creating View instances.
 
 #### Properties
 
-* `isCaching: any` - Indicates whether this factory is currently using caching.
+* `cache: any` - No description available.
+* `cacheSize: number` - No description available.
+* `instructions: Object` - No description available.
+* `isCaching: boolean` - Indicates whether this factory is currently using caching.
+* `part: any` - No description available.
+* `resources: ViewResources` - No description available.
+* `surrogateInstruction: any` - No description available.
+* `template: DocumentFragment` - No description available.
 
 #### Methods
 
@@ -1181,9 +1202,9 @@ A factory capable of creating View instances.
 
 
 
-* `setCacheSize(size: , doNotOverrideIfAlreadySet: boolean): void` - Sets the cache size for this factory.
+* `setCacheSize(size: , doNotOverrideIfAlreadySet?: boolean): void` - Sets the cache size for this factory.
   * `size: ` - The number of views to cache or &quot;*&quot; to cache all.
-  * `doNotOverrideIfAlreadySet: boolean` - Indicates that setting the cache should not override the setting if previously set.
+  * `doNotOverrideIfAlreadySet?: boolean` - Indicates that setting the cache should not override the setting if previously set.
 
 
 
@@ -1194,7 +1215,7 @@ Locates a view for an object.
 
 #### Properties
 
-* `static viewStrategyMetadataKey: any` - The metadata key for storing/finding view strategies associated with an class/object.
+* `static viewStrategyMetadataKey: string` - The metadata key for storing/finding view strategies associated with an class/object.
 
 #### Methods
 
@@ -1226,9 +1247,10 @@ Will optinally add information to an existing HtmlBehaviorResource if given
 #### Methods
 
 
-* `autoRegister(container?: any, impl?: any): any` - 
-  * `container?: any` - No description available
-  * `impl?: any` - No description available
+* `autoRegister(container: Container, impl: Function): ViewResourceType` - Not supported for public use. Can be changed without warning.
+  * `container: Container` - No description available
+  * `impl: Function` - 
+
 
 
 * `getAttribute(attribute: string): HtmlBehaviorResource` - Gets an HTML attribute behavior.
@@ -1304,8 +1326,8 @@ Will optinally add information to an existing HtmlBehaviorResource if given
   * `path: string` - The relative path.
 
 
-* `static convention(target: Function, existing?: HtmlBehaviorResource): ` - Checks whether the provided class contains any resource conventions
-  * `target: Function` - Target class to extract metadata based on convention
+* `static convention(target: IStaticResource, existing?: HtmlBehaviorResource): ViewResourceType` - Checks whether the provided class contains any resource conventions
+  * `target: IStaticResource` - Target class to extract metadata based on convention
   * `existing?: HtmlBehaviorResource` - If supplied, all custom element / attribute metadata extracted from convention will be apply to this instance
 
 
@@ -1351,9 +1373,9 @@ Manages the view lifecycle for its children.
   * `view: View` - The view to insert.
 
 
-* `move(sourceIndex?: any, targetIndex?: any): any` - Moves a view across the slot.
-  * `sourceIndex?: any` - The index the view is currently at.
-  * `targetIndex?: any` - The index to insert the view at.
+* `move(sourceIndex: any, targetIndex: any): void` - Moves a view across the slot.
+  * `sourceIndex: any` - The index the view is currently at.
+  * `targetIndex: any` - The index to insert the view at.
 
 
 
@@ -1462,6 +1484,23 @@ An optional interface describing the detached convention.
 
 
 
+### ComponentPropertyChanged
+
+An optional interface describing the &#x60;propertyChanged&#x60; convention for bindable properties
+
+#### Properties
+
+
+#### Methods
+
+
+* `propertyChanged(name: string, newValue: any, oldValue: any): void` - 
+  * `name: string` - No description available.
+  * `newValue: any` - No description available.
+  * `oldValue: any` - No description available.
+
+
+
 ### ComponentUnbind
 
 An optional interface describing the unbind convention.
@@ -1493,7 +1532,7 @@ It will be registered in the child container of this composition.
 * `skipActivation: boolean` - Should the composition system skip calling the &quot;activate&quot; hook on the view model.
 * `view: ` - The view url or view strategy to override the default view location convention.
 * `viewModel: any` - The view model url or instance for the component.
-* `viewModelResource: HtmlBehaviorResource` - The HtmlBehaviorResource for the component.
+* `viewModelResource: ResourceDescription` - The HtmlBehaviorResource for the component.
 * `viewResources: ViewResources` - The view resources for the view in which the component should be created.
 * `viewSlot: ViewSlot` - The slot to push the dynamically composed component into.
 
@@ -1622,6 +1661,8 @@ No description available.
 
 #### Properties
 
+* `isBound: boolean` - No description available.
+* `source: Scope` - No description available.
 * `sourceExpression: Expression` - The expression to access/assign/connect the binding source property.
 
 #### Methods
@@ -1689,6 +1730,7 @@ Represents a node in the view hierarchy.
 
 #### Properties
 
+* `children: ` - The children of this view node
 
 #### Methods
 
@@ -1715,6 +1757,7 @@ Implemented by classes that describe how a view factory should be loaded.
 
 #### Properties
 
+* `moduleId: string` - No description available.
 
 #### Methods
 
@@ -1727,13 +1770,34 @@ Implemented by classes that describe how a view factory should be loaded.
 
 
 
+### ViewStrategyDependencyConfig
+
+No description available.
+
+#### Properties
+
+* `as: string` - No description available.
+* `from: string` - No description available.
+
+#### Methods
+
+
+
 ## Constants
 
-* `SwapStrategies: any` - No description available.
-* `animationEvent: any` - List the events that an Animator should raise.
-* `viewStrategy: Function` - Decorator: Indicates that the decorated class/object is a view strategy.
+* `SwapStrategies: ` - No description available.
+* `animationEvent: ` - List the events that an Animator should raise.
+* `viewStrategy: ViewStrategyDecorator` - Decorator: Indicates that the decorated class/object is a view strategy.
 
 ## Functions
+
+
+* `_hyphenate(name: string): string` - 
+  * `name: string` - No description available.
+
+
+* `_isAllWhitespace(node: any): boolean` - 
+  * `node: any` - No description available.
 
 
 * `behavior(override: ): any` - Decorator: Specifies a custom HtmlBehaviorResource instance or an object that overrides various implementation details of the default HtmlBehaviorResource.
@@ -1836,7 +1900,7 @@ DOM. This decorator may change slightly when Aurelia updates to Shadow DOM v1.
 
 
 
-* `validateBehaviorName(name: string, type: string): any` - 
+* `validateBehaviorName(name: string, type: string): string` - 
   * `name: string` - No description available.
   * `type: string` - No description available.
 
@@ -1849,7 +1913,7 @@ DOM. This decorator may change slightly when Aurelia updates to Shadow DOM v1.
   * `target?: any` - No description available.
 
 
-* `viewResources(resources: ): any` - Decorator: Provides the ability to add resources to the related View
+* `viewResources(resources: ): ` - Decorator: Provides the ability to add resources to the related View
 Same as: &lt;require from&#x3D;&quot;...&quot;&gt;&lt;/require&gt;
   * `resources: ` - Either: strings with moduleIds, Objects with &#x27;src&#x27; and optionally &#x27;as&#x27; properties or one of the classes of the module to be included.
 

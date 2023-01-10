@@ -35,9 +35,9 @@
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
   
-  @autoinject
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">autoinject</span></span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">RedSquareCustomAttribute</span> <span class="token punctuation">{</span>
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> element<span class="token operator">:</span> Element<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> element<span class="token operator">:</span> Element<span class="token punctuation">)</span><span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>height <span class="token operator">=</span> <span class="token string">'100px'</span><span class="token punctuation">;</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>backgroundColor <span class="token operator">=</span> <span class="token string">'red'</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -112,9 +112,9 @@
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
   
-  @autoinject
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">autoinject</span></span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SquareCustomAttribute</span> <span class="token punctuation">{</span>
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> element<span class="token operator">:</span> Element<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> element<span class="token operator">:</span> Element<span class="token punctuation">)</span><span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>height <span class="token operator">=</span> <span class="token string">'100px'</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
@@ -174,9 +174,9 @@
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
   
-  @autoinject
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">autoinject</span></span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SquareCustomAttribute</span> <span class="token punctuation">{</span>
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> element<span class="token operator">:</span> Element<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> element<span class="token operator">:</span> Element<span class="token punctuation">)</span><span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>height <span class="token operator">=</span> <span class="token string">'100px'</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
@@ -247,12 +247,12 @@
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">,</span> autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
   
-  @autoinject
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">autoinject</span></span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SquareCustomAttribute</span> <span class="token punctuation">{</span>
-    @bindable sideLength<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
-    @bindable color<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    <span class="token decorator"><span class="token at operator">@</span><span class="token function">bindable</span></span> sideLength<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    <span class="token decorator"><span class="token at operator">@</span><span class="token function">bindable</span></span> color<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
   
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> element<span class="token operator">:</span> Element<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> element<span class="token operator">:</span> Element<span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token punctuation">}</span>
   
     <span class="token function">sideLengthChanged</span><span class="token punctuation">(</span>newValue<span class="token operator">:</span><span class="token builtin">string</span><span class="token punctuation">,</span> oldValue<span class="token operator">:</span><span class="token builtin">string</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
@@ -298,7 +298,7 @@
   @<span class="token function">inject</span><span class="token punctuation">(</span>Element<span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SquareCustomAttribute</span> <span class="token punctuation">{</span>
     @bindable sideLength<span class="token punctuation">;</span>
-    @<span class="token function">bindable</span><span class="token punctuation">(</span><span class="token punctuation">{</span> primaryProperty<span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> color<span class="token punctuation">;</span>
+    @<span class="token function">bindable</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">primaryProperty</span><span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> color<span class="token punctuation">;</span>
   
     <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">element</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>element <span class="token operator">=</span> element<span class="token punctuation">;</span>
@@ -314,12 +314,12 @@
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">,</span> autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
   
-  @autoinject
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">autoinject</span></span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SquareCustomAttribute</span> <span class="token punctuation">{</span>
-    @bindable sideLength<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
-    @<span class="token function">bindable</span><span class="token punctuation">(</span><span class="token punctuation">{</span> primaryProperty<span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> color<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    <span class="token decorator"><span class="token at operator">@</span><span class="token function">bindable</span></span> sideLength<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    <span class="token decorator"><span class="token at operator">@</span><span class="token function">bindable</span></span><span class="token punctuation">(</span><span class="token punctuation">{</span> primaryProperty<span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> color<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
   
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> element<span class="token operator">:</span> Element<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> element<span class="token operator">:</span> Element<span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   </code>
@@ -407,10 +407,10 @@
     <code>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>dynamicOptions<span class="token punctuation">,</span> autoinject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
   
-  @dynamicOptions
-  @autoinject
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">dynamicOptions</span></span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">autoinject</span></span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">RedSquareCustomAttribute</span> <span class="token punctuation">{</span>
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> element<span class="token operator">:</span> Element<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> element<span class="token operator">:</span> Element<span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token punctuation">}</span>
   
     <span class="token function">propertyChanged</span><span class="token punctuation">(</span>name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> newValue<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> oldValue<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token punctuation">{</span>

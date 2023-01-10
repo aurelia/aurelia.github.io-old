@@ -64,33 +64,33 @@ Same as Webpack and Browserify, not all core Node.js functionality can be replic
 <source-code lang="JSON" heading="">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token string-property property">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
-      <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"app-bundle.js"</span><span class="token punctuation">,</span>
-      <span class="token string">"source"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"app-bundle.js"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"source"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
         <span class="token string">"**/*.{js,css,html}"</span>
       <span class="token punctuation">]</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token punctuation">{</span>
-      <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
-      <span class="token string">"prepend"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token string">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"prepend"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
         <span class="token string">"aurelia-bootstrapper"</span><span class="token punctuation">,</span>
         <span class="token string">"aurelia-loader-default"</span><span class="token punctuation">,</span>
         <span class="token string">"aurelia-pal-browser"</span><span class="token punctuation">,</span>
         <span class="token punctuation">{</span>
-          <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"aurelia-testing"</span><span class="token punctuation">,</span>
+          <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"aurelia-testing"</span><span class="token punctuation">,</span>
           <span class="token comment">// conditional bundling for only dev environment</span>
-          <span class="token string">"env"</span><span class="token operator">:</span> <span class="token string">"dev"</span>
+          <span class="token string-property property">"env"</span><span class="token operator">:</span> <span class="token string">"dev"</span>
         <span class="token punctuation">}</span><span class="token punctuation">,</span>
         <span class="token comment">// text module is slightly different for app with SystemJS</span>
         <span class="token string">"text"</span>
       <span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token string">"loader"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token string">"type"</span><span class="token operator">:</span> <span class="token string">"require"</span><span class="token punctuation">,</span>
-    <span class="token string">"configTarget"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"loader"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"type"</span><span class="token operator">:</span> <span class="token string">"require"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"configTarget"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
     <span class="token comment">/* ... */</span>
   <span class="token punctuation">}</span>
   </code>
@@ -131,20 +131,20 @@ Same as Webpack and Browserify, not all core Node.js functionality can be replic
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">{</span>
-    <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
-    <span class="token string">"prepend"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"prepend"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
       <span class="token string">"node_modules/bluebird/js/browser/bluebird.core.js"</span><span class="token punctuation">,</span>
       <span class="token punctuation">{</span>
-        <span class="token string">"path"</span><span class="token operator">:</span> <span class="token string">"node_modules/aurelia-cli/lib/resources/scripts/configure-bluebird-no-long-stacktraces.js"</span><span class="token punctuation">,</span>
-        <span class="token string">"env"</span><span class="token operator">:</span> <span class="token string">"stage &amp; prod"</span>
+        <span class="token string-property property">"path"</span><span class="token operator">:</span> <span class="token string">"node_modules/aurelia-cli/lib/resources/scripts/configure-bluebird-no-long-stacktraces.js"</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"env"</span><span class="token operator">:</span> <span class="token string">"stage &amp; prod"</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
       <span class="token punctuation">{</span>
-        <span class="token string">"path"</span><span class="token operator">:</span> <span class="token string">"node_modules/aurelia-cli/lib/resources/scripts/configure-bluebird.js"</span><span class="token punctuation">,</span>
-        <span class="token string">"env"</span><span class="token operator">:</span> <span class="token string">"dev"</span>
+        <span class="token string-property property">"path"</span><span class="token operator">:</span> <span class="token string">"node_modules/aurelia-cli/lib/resources/scripts/configure-bluebird.js"</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"env"</span><span class="token operator">:</span> <span class="token string">"dev"</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
       <span class="token string">"node_modules/requirejs/require.js"</span>
     <span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token string">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token string-property property">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
       <span class="token comment">// ...</span>
     <span class="token punctuation">]</span>
   <span class="token punctuation">}</span>
@@ -160,9 +160,9 @@ Same as Webpack and Browserify, not all core Node.js functionality can be replic
 <source-code lang="JSON" heading="">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"loader"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token string">"type"</span><span class="token operator">:</span> <span class="token string">"require"</span><span class="token punctuation">,</span>
-    <span class="token string">"configTarget"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"loader"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"type"</span><span class="token operator">:</span> <span class="token string">"require"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"configTarget"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
     <span class="token comment">// ...</span>
   <span class="token punctuation">}</span>
   </code>
@@ -188,11 +188,11 @@ Same as Webpack and Browserify, not all core Node.js functionality can be replic
 <source-code lang="JSON" heading="">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token string-property property">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token comment">// ...</span>
     <span class="token punctuation">{</span>
-      <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
-      <span class="token string">"prepend"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"prepend"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
         <span class="token comment">/* ... omit bluebird stuff */</span>
         <span class="token string">"node_modules/jquery/dist/jquery.min.js"</span><span class="token punctuation">,</span>
         <span class="token string">"node_modules/moment/min/moment-with-locales.min.js"</span><span class="token punctuation">,</span>
@@ -202,12 +202,12 @@ Same as Webpack and Browserify, not all core Node.js functionality can be replic
         <span class="token string">"node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"</span><span class="token punctuation">,</span>
         <span class="token string">"node_modules/requirejs/require.js"</span>
       <span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token string">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span>
+      <span class="token string-property property">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token string">"copyFiles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+  <span class="token string-property property">"copyFiles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token comment">// need font-awesome v4 fonts files</span>
-    <span class="token string">"node_modules/font-awesome/fonts/*"</span><span class="token operator">:</span> <span class="token string">"font-awesome/fonts"</span>
+    <span class="token string-property property">"node_modules/font-awesome/fonts/*"</span><span class="token operator">:</span> <span class="token string">"font-awesome/fonts"</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   </code>
   </pre>
@@ -249,7 +249,7 @@ There is still a way to allow you to write <code>import $ from 'jquery'</code> w
       <span class="token comment">// for better reuse, wrap datetimepicker</span>
       <span class="token comment">// behind an Aurelia custom element.</span>
       <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-        date<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value
+        <span class="token literal-property property">date</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
       <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'change.datetimepicker'</span><span class="token punctuation">,</span> <span class="token parameter">e</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -336,8 +336,8 @@ There is still a way to allow you to write <code>import $ from 'jquery'</code> w
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">{</span>
-    <span class="token string">"path"</span><span class="token operator">:</span> <span class="token string">"node_modules/aurelia-cli/lib/resources/scripts/configure-bluebird-no-long-stacktraces.js"</span><span class="token punctuation">,</span>
-    <span class="token string">"env"</span><span class="token operator">:</span> <span class="token string">"stage &amp; prod"</span>
+    <span class="token string-property property">"path"</span><span class="token operator">:</span> <span class="token string">"node_modules/aurelia-cli/lib/resources/scripts/configure-bluebird-no-long-stacktraces.js"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"env"</span><span class="token operator">:</span> <span class="token string">"stage &amp; prod"</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -353,17 +353,17 @@ There is still a way to allow you to write <code>import $ from 'jquery'</code> w
   <pre class="language-javascript">
     <code>
   <span class="token comment">// remember to remove those jquery/moment... from your prepend</span>
-  <span class="token string">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token string-property property">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token comment">// ...</span>
     <span class="token punctuation">{</span>
-      <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"tempusdominus-bootstrap-4"</span><span class="token punctuation">,</span>
-      <span class="token string">"deps"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"tempusdominus-bootstrap-4"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"deps"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
         <span class="token string">"jquery"</span><span class="token punctuation">,</span>
         <span class="token string">"bootstrap"</span><span class="token punctuation">,</span>
         <span class="token string">"popper.js"</span><span class="token punctuation">,</span>
         <span class="token string">"moment"</span>
       <span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token string">"wrapShim"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+      <span class="token string-property property">"wrapShim"</span><span class="token operator">:</span> <span class="token boolean">true</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span>
   </code>
@@ -398,28 +398,28 @@ For anyone without much experience of AMD shim, this is quite hard to figure out
   <pre class="language-javascript">
     <code>
   <span class="token comment">// aurelia_project/aurelia.json</span>
-  <span class="token string">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token string-property property">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token comment">// ...</span>
     <span class="token punctuation">{</span>
-      <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
-      <span class="token string">"prepend"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token string">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"prepend"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
         <span class="token comment">// ...</span>
         <span class="token punctuation">{</span>
-          <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"tempusdominus-bootstrap-4"</span><span class="token punctuation">,</span>
-          <span class="token string">"deps"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"tempusdominus-bootstrap-4"</span><span class="token punctuation">,</span>
+          <span class="token string-property property">"deps"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
             <span class="token string">"jquery"</span><span class="token punctuation">,</span>
             <span class="token string">"bootstrap"</span><span class="token punctuation">,</span>
             <span class="token string">"popper.js"</span><span class="token punctuation">,</span>
             <span class="token string">"moment"</span>
           <span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token string">"wrapShim"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+          <span class="token string-property property">"wrapShim"</span><span class="token operator">:</span> <span class="token boolean">true</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token string">"copyFiles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token string">"node_modules/font-awesome/fonts/*"</span><span class="token operator">:</span> <span class="token string">"font-awesome/fonts"</span>
+  <span class="token string-property property">"copyFiles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"node_modules/font-awesome/fonts/*"</span><span class="token operator">:</span> <span class="token string">"font-awesome/fonts"</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -465,7 +465,7 @@ For anyone without much experience of AMD shim, this is quite hard to figure out
       <span class="token comment">// for better reuse, wrap datetimepicker</span>
       <span class="token comment">// behind an Aurelia custom element.</span>
       <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">datetimepicker</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-        date<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value
+        <span class="token literal-property property">date</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
       <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#datetimepicker1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'change.datetimepicker'</span><span class="token punctuation">,</span> <span class="token parameter">e</span> <span class="token operator">=></span> <span class="token punctuation">{</span>

@@ -37,7 +37,7 @@ We'll discuss TypeScript specifics in a later section.</p>
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm install aurelia<span class="token operator">-</span>i18n
+  npm install aurelia-i18n
   </code>
   </pre>
 </source-code>
@@ -51,7 +51,7 @@ As an example we're going to leverage the i18next-xhr-backend:</p>
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm install i18next i18next<span class="token operator">-</span>xhr<span class="token operator">-</span>backend
+  npm install i18next i18next-xhr-backend
   </code>
   </pre>
 </source-code>
@@ -65,7 +65,7 @@ As an example we're going to leverage the i18next-xhr-backend:</p>
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  jspm install aurelia<span class="token operator">-</span>i18n
+  jspm install aurelia-i18n
   </code>
   </pre>
 </source-code>
@@ -78,7 +78,7 @@ As an example we're going to leverage the i18next-xhr-backend:</p>
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  jspm install npm:i18next<span class="token operator">-</span>xhr<span class="token operator">-</span>backend
+  jspm install npm:i18next-xhr-backend
   </code>
   </pre>
 </source-code>
@@ -95,7 +95,7 @@ You can skip this part if you're planning to use the built-in aurelia-i18n-loade
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm install aurelia<span class="token operator">-</span>i18n
+  npm install aurelia-i18n
   </code>
   </pre>
 </source-code>
@@ -108,7 +108,7 @@ You can skip this part if you're planning to use the built-in aurelia-i18n-loade
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  yarn add aurelia<span class="token operator">-</span>i18n
+  yarn add aurelia-i18n
   </code>
   </pre>
 </source-code>
@@ -121,7 +121,7 @@ You can skip this part if you're planning to use the built-in aurelia-i18n-loade
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm install i18next<span class="token operator">-</span>xhr<span class="token operator">-</span>backend
+  npm install i18next-xhr-backend
   </code>
   </pre>
 </source-code>
@@ -134,7 +134,7 @@ You can skip this part if you're planning to use the built-in aurelia-i18n-loade
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  yarn add i18next<span class="token operator">-</span>xhr<span class="token operator">-</span>backend
+  yarn add i18next-xhr-backend
   </code>
   </pre>
 </source-code>
@@ -152,8 +152,8 @@ You can skip this part if you're planning to use the built-in aurelia-i18n-loade
   <pre class="language-javascript">
     <code>
   <span class="token keyword">const</span> coreBundles <span class="token operator">=</span> <span class="token punctuation">{</span>
-    bootstrap<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token comment">/* snip (to keep example short) */</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-    aurelia<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token literal-property property">bootstrap</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token comment">/* snip (to keep example short) */</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">aurelia</span><span class="token operator">:</span> <span class="token punctuation">[</span>
       <span class="token comment">/* snip (to keep example short) */</span>
       <span class="token string">'aurelia-i18n'</span> <span class="token comment">// add aurelia-i18n to the array</span>
     <span class="token punctuation">]</span>
@@ -199,12 +199,12 @@ If you're using one of the
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">{</span>
-    <span class="token string">"score"</span><span class="token operator">:</span> <span class="token string">"Score: {{score}}"</span><span class="token punctuation">,</span>
-    <span class="token string">"lives"</span><span class="token operator">:</span> <span class="token string">"{{count}} life remaining"</span><span class="token punctuation">,</span>
-    <span class="token string">"lives_plural"</span><span class="token operator">:</span> <span class="token string">"{{count}} lives remaining"</span><span class="token punctuation">,</span>
-    <span class="token string">"friend"</span><span class="token operator">:</span> <span class="token string">"A friend"</span><span class="token punctuation">,</span>
-    <span class="token string">"friend_male"</span><span class="token operator">:</span> <span class="token string">"A boyfriend"</span><span class="token punctuation">,</span>
-    <span class="token string">"friend_female"</span><span class="token operator">:</span> <span class="token string">"A girlfriend"</span>
+    <span class="token string-property property">"score"</span><span class="token operator">:</span> <span class="token string">"Score: {{score}}"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"lives"</span><span class="token operator">:</span> <span class="token string">"{{count}} life remaining"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"lives_plural"</span><span class="token operator">:</span> <span class="token string">"{{count}} lives remaining"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"friend"</span><span class="token operator">:</span> <span class="token string">"A friend"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"friend_male"</span><span class="token operator">:</span> <span class="token string">"A boyfriend"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"friend_female"</span><span class="token operator">:</span> <span class="token string">"A girlfriend"</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -239,13 +239,13 @@ Notice that Aurelia I18N makes use of a non-standard attributes option, which is
         <span class="token comment">// adapt options to your needs (see https://i18next.com/docs/options/)</span>
         <span class="token comment">// make sure to return the promise of the setup method, in order to guarantee proper loading</span>
         <span class="token keyword">return</span> instance<span class="token punctuation">.</span><span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-          backend<span class="token operator">:</span> <span class="token punctuation">{</span>                                  <span class="token comment">// &lt;-- configure backend settings</span>
-            loadPath<span class="token operator">:</span> <span class="token string">'./locales/{{lng}}/{{ns}}.json'</span><span class="token punctuation">,</span> <span class="token comment">// &lt;-- XHR settings for where to get the files from</span>
+          <span class="token literal-property property">backend</span><span class="token operator">:</span> <span class="token punctuation">{</span>                                  <span class="token comment">// &lt;-- configure backend settings</span>
+            <span class="token literal-property property">loadPath</span><span class="token operator">:</span> <span class="token string">'./locales/{{lng}}/{{ns}}.json'</span><span class="token punctuation">,</span> <span class="token comment">// &lt;-- XHR settings for where to get the files from</span>
           <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          attributes<span class="token operator">:</span> aliases<span class="token punctuation">,</span>
-          lng <span class="token operator">:</span> <span class="token string">'de'</span><span class="token punctuation">,</span>
-          fallbackLng <span class="token operator">:</span> <span class="token string">'en'</span><span class="token punctuation">,</span>
-          debug <span class="token operator">:</span> <span class="token boolean">false</span>
+          <span class="token literal-property property">attributes</span><span class="token operator">:</span> aliases<span class="token punctuation">,</span>
+          <span class="token literal-property property">lng</span> <span class="token operator">:</span> <span class="token string">'de'</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">fallbackLng</span> <span class="token operator">:</span> <span class="token string">'en'</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">debug</span> <span class="token operator">:</span> <span class="token boolean">false</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
@@ -284,13 +284,13 @@ Notice that Aurelia I18N makes use of a non-standard attributes option, which is
         <span class="token comment">// adapt options to your needs (see https://i18next.com/docs/options/)</span>
         <span class="token comment">// make sure to return the promise of the setup method, in order to guarantee proper loading</span>
         <span class="token keyword">return</span> instance<span class="token punctuation">.</span><span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-          backend<span class="token operator">:</span> <span class="token punctuation">{</span>                                  <span class="token comment">// &lt;-- configure backend settings</span>
-            loadPath<span class="token operator">:</span> <span class="token string">'./locales/{{lng}}/{{ns}}.json'</span><span class="token punctuation">,</span> <span class="token comment">// &lt;-- XHR settings for where to get the files from</span>
+          <span class="token literal-property property">backend</span><span class="token operator">:</span> <span class="token punctuation">{</span>                                  <span class="token comment">// &lt;-- configure backend settings</span>
+            <span class="token literal-property property">loadPath</span><span class="token operator">:</span> <span class="token string">'./locales/{{lng}}/{{ns}}.json'</span><span class="token punctuation">,</span> <span class="token comment">// &lt;-- XHR settings for where to get the files from</span>
           <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          attributes<span class="token operator">:</span> aliases<span class="token punctuation">,</span>
-          lng <span class="token operator">:</span> <span class="token string">'de'</span><span class="token punctuation">,</span>
-          fallbackLng <span class="token operator">:</span> <span class="token string">'en'</span><span class="token punctuation">,</span>
-          debug <span class="token operator">:</span> <span class="token boolean">false</span>
+          <span class="token literal-property property">attributes</span><span class="token operator">:</span> aliases<span class="token punctuation">,</span>
+          <span class="token literal-property property">lng</span> <span class="token operator">:</span> <span class="token string">'de'</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">fallbackLng</span> <span class="token operator">:</span> <span class="token string">'en'</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">debug</span> <span class="token operator">:</span> <span class="token boolean">false</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
@@ -308,10 +308,10 @@ Notice that Aurelia I18N makes use of a non-standard attributes option, which is
 <source-code lang="JavaScript" heading="Copy translation files for webpack and i18next-xhr-backend">
   <pre class="language-javascript">
     <code>
-  plugins<span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token literal-property property">plugins</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token comment">// ...</span>
     <span class="token keyword">new</span> <span class="token class-name">CopyWebpackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
-      <span class="token punctuation">{</span> <span class="token keyword">from</span><span class="token operator">:</span> <span class="token string">'src/locales/'</span><span class="token punctuation">,</span> to<span class="token operator">:</span> <span class="token string">'locales/'</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">{</span> <span class="token literal-property property">from</span><span class="token operator">:</span> <span class="token string">'src/locales/'</span><span class="token punctuation">,</span> <span class="token literal-property property">to</span><span class="token operator">:</span> <span class="token string">'locales/'</span> <span class="token punctuation">}</span>
     <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
     <span class="token comment">// ...</span>
   <span class="token punctuation">]</span>
@@ -331,8 +331,8 @@ defaultNS. For example <code>t='nav:profile'</code> would access the <code>profi
     <code>
   instance<span class="token punctuation">.</span><span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
     <span class="token operator">...</span>
-    ns<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'translation'</span><span class="token punctuation">,</span><span class="token string">'nav'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-    defaultNS<span class="token operator">:</span> <span class="token string">'translation'</span>
+    <span class="token literal-property property">ns</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'translation'</span><span class="token punctuation">,</span><span class="token string">'nav'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">defaultNS</span><span class="token operator">:</span> <span class="token string">'translation'</span>
   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code>
   </pre>
@@ -377,7 +377,7 @@ along with the instructions. The command is</p>
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm install <span class="token operator">-</span>D @types<span class="token operator">/</span>i18next
+  npm install <span class="token operator">-</span>D @types/i18next
   </code>
   </pre>
 </source-code>
@@ -390,7 +390,7 @@ along with the instructions. The command is</p>
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  yarn add <span class="token operator">-</span>D @types<span class="token operator">/</span>i18next
+  yarn add <span class="token operator">-</span>D @types/i18next
   </code>
   </pre>
 </source-code>
@@ -408,7 +408,7 @@ Alternatively, you can find this file in the plugins repository doc folder: <cod
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm install <span class="token operator">-</span>D @types<span class="token operator">/</span>i18next<span class="token operator">-</span>xhr<span class="token operator">-</span>backend
+  npm install <span class="token operator">-</span>D @types/i18next-xhr-backend
   </code>
   </pre>
 </source-code>
@@ -421,7 +421,7 @@ Alternatively, you can find this file in the plugins repository doc folder: <cod
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  yarn add <span class="token operator">-</span>D @types<span class="token operator">/</span>i18next<span class="token operator">-</span>xhr<span class="token operator">-</span>backend
+  yarn add <span class="token operator">-</span>D @types/i18next-xhr-backend
   </code>
   </pre>
 </source-code>
@@ -438,7 +438,7 @@ Alternative, you can find this file in the plugins repository doc folder: <code>
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm install <span class="token operator">-</span>D aurelia<span class="token operator">/</span>i18n
+  npm install <span class="token operator">-</span>D aurelia/i18n
   </code>
   </pre>
 </source-code>
@@ -452,7 +452,7 @@ Alternative, you can find this file in the plugins repository doc folder: <code>
   <pre class="language-javascript">
     <code>
   <span class="token operator">...</span> existing configuration code
-  <span class="token string">"filesGlob"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token string-property property">"filesGlob"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
       <span class="token string">"./typings/browser.d.ts"</span><span class="token punctuation">,</span>
       <span class="token string">"./your_custom_typings_folder_path/**/*.d.ts"</span><span class="token punctuation">,</span> <span class="token comment">// if you use both typings files from this repository (`doc/*.d.ts`)</span>
     <span class="token punctuation">]</span><span class="token punctuation">,</span>
@@ -470,7 +470,7 @@ Alternative, you can find this file in the plugins repository doc folder: <code>
   <pre class="language-javascript">
     <code>
   <span class="token operator">...</span> existing configuration code
-  <span class="token string">"types"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">"i18next"</span><span class="token punctuation">,</span> <span class="token string">"i18next-xhr-backend"</span> <span class="token punctuation">]</span>
+  <span class="token string-property property">"types"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">"i18next"</span><span class="token punctuation">,</span> <span class="token string">"i18next-xhr-backend"</span> <span class="token punctuation">]</span>
     <span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token operator">...</span> other existing configuration code
   </code>
@@ -576,7 +576,7 @@ property plugin <code>instance.setup</code> function parameter.</p>
     <span class="token operator">...</span>
     instance<span class="token punctuation">.</span><span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
     <span class="token operator">...</span>
-      attributes <span class="token operator">:</span> aliases<span class="token punctuation">,</span>
+      <span class="token literal-property property">attributes</span> <span class="token operator">:</span> aliases<span class="token punctuation">,</span>
     <span class="token operator">...</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token operator">...</span>
@@ -626,8 +626,8 @@ Other attributes, specified in the <code>attributes</code> option, may be used a
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">{</span>
-    <span class="token string">"home"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"title"</span><span class="token operator">:</span> <span class="token string">"Title"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"home"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string-property property">"title"</span><span class="token operator">:</span> <span class="token string">"Title"</span><span class="token punctuation">,</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   </code>
@@ -776,9 +776,9 @@ The following example will not change the content of the element, but will set i
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">{</span>
-    <span class="token string">"translation"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"title"</span><span class="token operator">:</span> <span class="token string">"Title"</span><span class="token punctuation">,</span>
-      <span class="token string">"nested_referencing"</span><span class="token operator">:</span> <span class="token string">'The $t(title) is the header'</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"translation"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string-property property">"title"</span><span class="token operator">:</span> <span class="token string">"Title"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"nested_referencing"</span><span class="token operator">:</span> <span class="token string">'The $t(title) is the header'</span><span class="token punctuation">,</span>
       <span class="token operator">...</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
@@ -839,7 +839,7 @@ Also note that for whatever attribute you registered, the corresponding *-params
     <code>
   <span class="token comment">// Translation file</span>
   <span class="token punctuation">{</span>
-    <span class="token string">"paramstest"</span><span class="token operator">:</span> <span class="token string">"Some text with &lt;strong>{{content}}&lt;/strong>"</span>
+    <span class="token string-property property">"paramstest"</span><span class="token operator">:</span> <span class="token string">"Some text with &lt;strong>{{content}}&lt;/strong>"</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -867,7 +867,7 @@ Also note that for whatever attribute you registered, the corresponding *-params
     <code>
   <span class="token comment">// ViewModel</span>
   <span class="token keyword">class</span> <span class="token class-name">MyViewModel</span> <span class="token punctuation">{</span>
-    params <span class="token operator">=</span> <span class="token punctuation">{</span> content<span class="token operator">:</span> <span class="token string">'ABC'</span> <span class="token punctuation">}</span>
+    params <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token literal-property property">content</span><span class="token operator">:</span> <span class="token string">'ABC'</span> <span class="token punctuation">}</span>
   
     <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span>
   <span class="token punctuation">}</span>
@@ -959,7 +959,7 @@ The object passed to <code>t-params</code> is a complex object explained in the 
     <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span> <span class="token parameter">resolve</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
       <span class="token keyword">let</span> oldLocale <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getLocale</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>i18next<span class="token punctuation">.</span><span class="token function">setLng</span><span class="token punctuation">(</span>locale<span class="token punctuation">,</span> <span class="token parameter">tr</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>ea<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span><span class="token string">'i18n:locale:changed'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> oldValue<span class="token operator">:</span> oldLocale<span class="token punctuation">,</span> newValue<span class="token operator">:</span> locale <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>ea<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span><span class="token string">'i18n:locale:changed'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">oldValue</span><span class="token operator">:</span> oldLocale<span class="token punctuation">,</span> <span class="token literal-property property">newValue</span><span class="token operator">:</span> locale <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>signaler<span class="token punctuation">.</span><span class="token function">signal</span><span class="token punctuation">(</span><span class="token string">'aurelia-translation-signal'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token function">resolve</span><span class="token punctuation">(</span>tr<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -983,9 +983,9 @@ Now we could easily pass min and max as separate variables but on the other hand
   <pre class="language-javascript">
     <code>
   <span class="token keyword">var</span> resources <span class="token operator">=</span> <span class="token punctuation">{</span>
-    en<span class="token operator">:</span> <span class="token punctuation">{</span>
-      translation<span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token string">"complex"</span><span class="token operator">:</span> <span class="token string">'{{field}} should be between {{threshold.min}} and {{threshold.max}}'</span>
+    <span class="token literal-property property">en</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">translation</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string-property property">"complex"</span><span class="token operator">:</span> <span class="token string">'{{field}} should be between {{threshold.min}} and {{threshold.max}}'</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
@@ -1003,11 +1003,11 @@ You can also mix and match it with simple variables.</p>
   <pre class="language-javascript">
     <code>
   <span class="token keyword">var</span> options <span class="token operator">=</span> <span class="token punctuation">{</span>
-    <span class="token string">'threshold'</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token string">'min'</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
-      <span class="token string">'max'</span><span class="token operator">:</span> <span class="token number">10</span>
+    <span class="token string-property property">'threshold'</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string-property property">'min'</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token string-property property">'max'</span><span class="token operator">:</span> <span class="token number">10</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token string">'field'</span><span class="token operator">:</span> <span class="token string">'Age'</span>
+    <span class="token string-property property">'field'</span><span class="token operator">:</span> <span class="token string">'Age'</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
   
   i18n<span class="token punctuation">.</span><span class="token function">tr</span><span class="token punctuation">(</span><span class="token string">'complex'</span><span class="token punctuation">,</span> options<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1045,7 +1045,7 @@ You can also mix and match it with simple variables.</p>
   
   
       <span class="token comment">// create a NumberFormat with currency options</span>
-      <span class="token keyword">var</span> nf <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>i18n<span class="token punctuation">.</span><span class="token function">NumberFormat</span><span class="token punctuation">(</span><span class="token punctuation">{</span> style<span class="token operator">:</span> <span class="token string">'currency'</span><span class="token punctuation">,</span> currency<span class="token operator">:</span> <span class="token string">'EUR'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token string">'de'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> nf <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>i18n<span class="token punctuation">.</span><span class="token function">NumberFormat</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">style</span><span class="token operator">:</span> <span class="token string">'currency'</span><span class="token punctuation">,</span> <span class="token literal-property property">currency</span><span class="token operator">:</span> <span class="token string">'EUR'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token string">'de'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
       <span class="token keyword">var</span> result <span class="token operator">=</span> nf<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token number">123456.123</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
@@ -1120,9 +1120,9 @@ Below you'll find an example how to use those via code:</p>
   
       <span class="token comment">// create a DateTime with time and 2-digit display</span>
       <span class="token keyword">var</span> options <span class="token operator">=</span> <span class="token punctuation">{</span>
-        year<span class="token operator">:</span> <span class="token string">'numeric'</span><span class="token punctuation">,</span> month<span class="token operator">:</span> <span class="token string">'2-digit'</span><span class="token punctuation">,</span> day<span class="token operator">:</span> <span class="token string">'2-digit'</span><span class="token punctuation">,</span>
-        hour<span class="token operator">:</span> <span class="token string">'2-digit'</span><span class="token punctuation">,</span> minute<span class="token operator">:</span> <span class="token string">'2-digit'</span><span class="token punctuation">,</span> second<span class="token operator">:</span> <span class="token string">'2-digit'</span><span class="token punctuation">,</span>
-        hour12<span class="token operator">:</span> <span class="token boolean">false</span>
+        <span class="token literal-property property">year</span><span class="token operator">:</span> <span class="token string">'numeric'</span><span class="token punctuation">,</span> <span class="token literal-property property">month</span><span class="token operator">:</span> <span class="token string">'2-digit'</span><span class="token punctuation">,</span> <span class="token literal-property property">day</span><span class="token operator">:</span> <span class="token string">'2-digit'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">hour</span><span class="token operator">:</span> <span class="token string">'2-digit'</span><span class="token punctuation">,</span> <span class="token literal-property property">minute</span><span class="token operator">:</span> <span class="token string">'2-digit'</span><span class="token punctuation">,</span> <span class="token literal-property property">second</span><span class="token operator">:</span> <span class="token string">'2-digit'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">hour12</span><span class="token operator">:</span> <span class="token boolean">false</span>
       <span class="token punctuation">}</span><span class="token punctuation">;</span>
       <span class="token keyword">var</span> df <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>i18n<span class="token punctuation">.</span><span class="token function">df</span><span class="token punctuation">(</span>options<span class="token punctuation">,</span> <span class="token string">'de'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
@@ -1233,19 +1233,19 @@ translations. If you're missing yours, I welcome you to provide a PR so everybod
 <source-code lang="JSON" heading="">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"loader"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-  	<span class="token string">"type"</span><span class="token operator">:</span> <span class="token string">"require"</span><span class="token punctuation">,</span>
-  	<span class="token string">"configTarget"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
-  	<span class="token string">"includeBundleMetadataInConfig"</span><span class="token operator">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
-  	<span class="token string">"plugins"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token string-property property">"loader"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+  	<span class="token string-property property">"type"</span><span class="token operator">:</span> <span class="token string">"require"</span><span class="token punctuation">,</span>
+  	<span class="token string-property property">"configTarget"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
+  	<span class="token string-property property">"includeBundleMetadataInConfig"</span><span class="token operator">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+  	<span class="token string-property property">"plugins"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
   		<span class="token punctuation">{</span>
-  			<span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"text"</span><span class="token punctuation">,</span>
-  			<span class="token string">"extensions"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  			<span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"text"</span><span class="token punctuation">,</span>
+  			<span class="token string-property property">"extensions"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
   				<span class="token string">".html"</span><span class="token punctuation">,</span>
   				<span class="token string">".css"</span><span class="token punctuation">,</span>
   				<span class="token string">".json"</span>
   			<span class="token punctuation">]</span><span class="token punctuation">,</span>
-  			<span class="token string">"stub"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+  			<span class="token string-property property">"stub"</span><span class="token operator">:</span> <span class="token boolean">true</span>
   		<span class="token punctuation">}</span>
   	<span class="token punctuation">]</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
@@ -1262,9 +1262,9 @@ translations. If you're missing yours, I welcome you to provide a PR so everybod
 <source-code lang="JSON" heading="">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token string">"dist/app-build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-     <span class="token string">"includes"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token string-property property">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"dist/app-build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+     <span class="token string-property property">"includes"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
        <span class="token string">"[*.js]"</span><span class="token punctuation">,</span>
        <span class="token string">"*.html!text"</span><span class="token punctuation">,</span>
        <span class="token string">"*.css!text"</span><span class="token punctuation">,</span>
@@ -1288,7 +1288,7 @@ translations. If you're missing yours, I welcome you to provide a PR so everybod
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm install i18next<span class="token operator">-</span>resource<span class="token operator">-</span>store<span class="token operator">-</span>loader
+  npm install i18next-resource-store-loader
   </code>
   </pre>
 </source-code>
@@ -1332,11 +1332,11 @@ translations. If you're missing yours, I welcome you to provide a PR so everybod
       <span class="token punctuation">.</span><span class="token function">developmentLogging</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
       <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'aurelia-i18n'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token parameter">instance</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span> instance<span class="token punctuation">.</span><span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-          resources  <span class="token operator">:</span> resBundle<span class="token punctuation">,</span> <span class="token comment">//&lt;-- configure aurelia-i18n to use your bundled translations</span>
-          lng        <span class="token operator">:</span> <span class="token string">'de'</span><span class="token punctuation">,</span>
-          attributes <span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'t'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-          fallbackLng<span class="token operator">:</span> <span class="token string">'en'</span><span class="token punctuation">,</span>
-          debug      <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">resources</span>  <span class="token operator">:</span> resBundle<span class="token punctuation">,</span> <span class="token comment">//&lt;-- configure aurelia-i18n to use your bundled translations</span>
+          <span class="token literal-property property">lng</span>        <span class="token operator">:</span> <span class="token string">'de'</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">attributes</span> <span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'t'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">fallbackLng</span><span class="token operator">:</span> <span class="token string">'en'</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">debug</span>      <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   

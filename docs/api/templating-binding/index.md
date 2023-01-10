@@ -13,25 +13,24 @@ No description available.
 
 * `allElements: any` - No description available.
 * `elements: any` - No description available.
-* `static inject: any` - No description available.
 
 #### Methods
 
 
-* `map(elementName?: any, attributeName?: any): any` - Returns the javascript property name for a particlar HTML attribute.
-  * `elementName?: any` - No description available
-  * `attributeName?: any` - No description available
+* `map(elementName: string, attributeName: string): any` - Returns the javascript property name for a particlar HTML attribute.
+  * `elementName: string` - No description available
+  * `attributeName: string` - No description available
 
 
-* `register(elementName?: any, attributeName?: any, propertyName?: any): any` - Maps a specific HTML element attribute to a javascript property.
-  * `elementName?: any` - No description available
-  * `attributeName?: any` - No description available
-  * `propertyName?: any` - No description available
+* `register(elementName: string, attributeName: string, propertyName: string): void` - Maps a specific HTML element attribute to a javascript property.
+  * `elementName: string` - No description available
+  * `attributeName: string` - No description available
+  * `propertyName: string` - No description available
 
 
-* `registerUniversal(attributeName?: any, propertyName?: any): any` - Maps an HTML attribute to a javascript property.
-  * `attributeName?: any` - No description available
-  * `propertyName?: any` - No description available
+* `registerUniversal(attributeName: string, propertyName: string): void` - Maps an HTML attribute to a javascript property.
+  * `attributeName: string` - No description available
+  * `propertyName: string` - No description available
 
 
 
@@ -45,22 +44,22 @@ No description available.
 #### Methods
 
 
-* `bind(source?: any): any` - 
-  * `source?: any` - No description available
+* `bind(source: any): void` - 
+  * `source: any` - No description available
 
 
-* `call(): any` - 
+* `call(): void` - 
 
 
-* `connect(evaluate?: any): any` - 
-  * `evaluate?: any` - No description available
+* `connect(evaluate: any): void` - 
+  * `evaluate: any` - No description available
 
 
-* `unbind(): any` - 
+* `unbind(): void` - 
 
 
-* `updateTarget(value?: any): any` - 
-  * `value?: any` - No description available
+* `updateTarget(value: any): void` - 
+  * `value: any` - No description available
 
 
 
@@ -74,17 +73,17 @@ No description available.
 #### Methods
 
 
-* `bind(source?: any): any` - 
-  * `source?: any` - No description available
+* `bind(source: any): void` - 
+  * `source: any` - No description available
 
 
-* `interpolate(): any` - 
+* `interpolate(): void` - 
 
 
-* `unbind(): any` - 
+* `unbind(): void` - 
 
 
-* `updateOneTimeBindings(): any` - 
+* `updateOneTimeBindings(): void` - 
 
 
 
@@ -98,8 +97,8 @@ No description available.
 #### Methods
 
 
-* `createBinding(target?: any): any` - 
-  * `target?: any` - No description available
+* `createBinding(target: any): ` - 
+  * `target: any` - No description available
 
 
 
@@ -113,22 +112,26 @@ No description available.
 #### Methods
 
 
-* `bind(source?: any): any` - 
-  * `source?: any` - Binding context
+* `bind(source: any): void` - 
+  * `source: any` - Binding context
 
 
 
-* `call(context?: any): any` - 
-  * `context?: any` - No description available
+* `call(context: any): void` - 
+  * `context: any` - No description available
 
 
-* `connect(): any` - 
+* `connect(): void` - 
 
 
-* `unbind(): any` - 
+* `unbind(): void` - 
 
 
-* `updateTarget(): any` - 
+* `unobserve(arg0: boolean): void` - 
+  * `arg0: boolean` - No description available
+
+
+* `updateTarget(): void` - 
 
 
 
@@ -142,7 +145,7 @@ No description available.
 #### Methods
 
 
-* `createBinding(): any` - 
+* `createBinding(): LetBinding` - 
 
 
 
@@ -156,15 +159,15 @@ No description available.
 #### Methods
 
 
-* `bind(source?: any): any` - 
-  * `source?: any` - 
+* `bind(source: any): void` - 
+  * `source: any` - 
 
 
 
-* `createInterpolationBinding(): any` - 
+* `createInterpolationBinding(): ` - 
 
 
-* `unbind(): any` - 
+* `unbind(): void` - 
 
 
 
@@ -178,7 +181,7 @@ No description available.
 #### Methods
 
 
-* `createBinding(): any` - 
+* `createBinding(): LetInterpolationBinding` - 
 
 
 
@@ -188,107 +191,107 @@ No description available.
 
 #### Properties
 
-* `static inject: any` - No description available.
+* `language: BindingLanguage` - No description available.
 
 #### Methods
 
 
-* `bind(resources?: any, element?: any, info?: any, existingInstruction?: any, context?: any): any` - 
-  * `resources?: any` - No description available
-  * `element?: any` - No description available
-  * `info?: any` - No description available
-  * `existingInstruction?: any` - No description available
-  * `context?: any` - No description available
+* `bind(resources: ViewResources, element: Element, info: AttributeInfo, existingInstruction: BehaviorInstruction, context: HtmlBehaviorResource): BehaviorInstruction` - 
+  * `resources: ViewResources` - No description available
+  * `element: Element` - No description available
+  * `info: AttributeInfo` - No description available
+  * `existingInstruction: BehaviorInstruction` - No description available
+  * `context: HtmlBehaviorResource` - No description available
 
 
-* `call(resources?: any, element?: any, info?: any, existingInstruction?: any): any` - 
-  * `resources?: any` - No description available
-  * `element?: any` - No description available
-  * `info?: any` - No description available
-  * `existingInstruction?: any` - No description available
+* `call(resources: ViewResources, element: any, info: AttributeInfo, existingInstruction: BehaviorInstruction): BehaviorInstruction` - 
+  * `resources: ViewResources` - No description available
+  * `element: any` - No description available
+  * `info: AttributeInfo` - No description available
+  * `existingInstruction: BehaviorInstruction` - No description available
 
 
-* `capture(resources?: any, element?: any, info?: any): any` - 
-  * `resources?: any` - No description available
-  * `element?: any` - No description available
-  * `info?: any` - No description available
+* `capture(resources: ViewResources, element: any, info: AttributeInfo): ListenerExpression` - 
+  * `resources: ViewResources` - No description available
+  * `element: any` - No description available
+  * `info: AttributeInfo` - No description available
 
 
-* `delegate(resources?: any, element?: any, info?: any): any` - 
-  * `resources?: any` - No description available
-  * `element?: any` - No description available
-  * `info?: any` - No description available
+* `delegate(resources: ViewResources, element: any, info: AttributeInfo): ListenerExpression` - 
+  * `resources: ViewResources` - No description available
+  * `element: any` - No description available
+  * `info: AttributeInfo` - No description available
 
 
-* `determineDefaultBindingMode(element?: any, attrName?: any, context?: any): any` - 
-  * `element?: any` - No description available
-  * `attrName?: any` - No description available
-  * `context?: any` - No description available
+* `determineDefaultBindingMode(element: Element, attrName: string, context: HtmlBehaviorResource): bindingMode` - 
+  * `element: Element` - No description available
+  * `attrName: string` - No description available
+  * `context: HtmlBehaviorResource` - No description available
 
 
-* `for(resources?: any, element?: any, info?: any, existingInstruction?: any): any` - 
-  * `resources?: any` - No description available
-  * `element?: any` - No description available
-  * `info?: any` - No description available
-  * `existingInstruction?: any` - No description available
+* `for(resources: ViewResources, element: Element, info: AttributeInfo, existingInstruction: BehaviorInstruction): ` - 
+  * `resources: ViewResources` - No description available
+  * `element: Element` - No description available
+  * `info: AttributeInfo` - No description available
+  * `existingInstruction: BehaviorInstruction` - No description available
 
 
-* `from-view(resources?: any, element?: any, info?: any, existingInstruction?: any): any` - 
-  * `resources?: any` - No description available
-  * `element?: any` - No description available
-  * `info?: any` - No description available
-  * `existingInstruction?: any` - No description available
+* `from-view(resources: ViewResources, element: Element, info: AttributeInfo, existingInstruction: BehaviorInstruction): BehaviorInstruction` - 
+  * `resources: ViewResources` - No description available
+  * `element: Element` - No description available
+  * `info: AttributeInfo` - No description available
+  * `existingInstruction: BehaviorInstruction` - No description available
 
 
-* `handleUnknownCommand(resources?: any, element?: any, info?: any, existingInstruction?: any, context?: any): any` - 
-  * `resources?: any` - No description available
-  * `element?: any` - No description available
-  * `info?: any` - No description available
-  * `existingInstruction?: any` - No description available
-  * `context?: any` - No description available
+* `handleUnknownCommand(resources: ViewResources, element: Element, info: AttributeInfo, existingInstruction: BehaviorInstruction, context: HtmlBehaviorResource): BehaviorInstruction` - 
+  * `resources: ViewResources` - No description available
+  * `element: Element` - No description available
+  * `info: AttributeInfo` - No description available
+  * `existingInstruction: BehaviorInstruction` - No description available
+  * `context: HtmlBehaviorResource` - No description available
 
 
-* `interpret(resources?: any, element?: any, info?: any, existingInstruction?: any, context?: any): any` - 
-  * `resources?: any` - No description available
-  * `element?: any` - No description available
-  * `info?: any` - No description available
-  * `existingInstruction?: any` - No description available
-  * `context?: any` - No description available
+* `interpret(resources: ViewResources, element: Element, info: AttributeInfo, existingInstruction?: BehaviorInstruction, context?: HtmlBehaviorResource): any` - 
+  * `resources: ViewResources` - No description available
+  * `element: Element` - No description available
+  * `info: AttributeInfo` - No description available
+  * `existingInstruction?: BehaviorInstruction` - No description available
+  * `context?: HtmlBehaviorResource` - No description available
 
 
-* `one-time(resources?: any, element?: any, info?: any, existingInstruction?: any): any` - 
-  * `resources?: any` - No description available
-  * `element?: any` - No description available
-  * `info?: any` - No description available
-  * `existingInstruction?: any` - No description available
+* `one-time(resources: ViewResources, element: Element, info: AttributeInfo, existingInstruction: BehaviorInstruction): BehaviorInstruction` - 
+  * `resources: ViewResources` - No description available
+  * `element: Element` - No description available
+  * `info: AttributeInfo` - No description available
+  * `existingInstruction: BehaviorInstruction` - No description available
 
 
-* `options(resources?: any, element?: any, info?: any, existingInstruction?: any, context?: any): any` - 
-  * `resources?: any` - No description available
-  * `element?: any` - No description available
-  * `info?: any` - No description available
-  * `existingInstruction?: any` - No description available
-  * `context?: any` - No description available
+* `options(resources: ViewResources, element: Element, info: AttributeInfo, existingInstruction: BehaviorInstruction, context: HtmlBehaviorResource): BehaviorInstruction` - 
+  * `resources: ViewResources` - No description available
+  * `element: Element` - No description available
+  * `info: AttributeInfo` - No description available
+  * `existingInstruction: BehaviorInstruction` - No description available
+  * `context: HtmlBehaviorResource` - No description available
 
 
-* `to-view(resources?: any, element?: any, info?: any, existingInstruction?: any): any` - 
-  * `resources?: any` - No description available
-  * `element?: any` - No description available
-  * `info?: any` - No description available
-  * `existingInstruction?: any` - No description available
+* `to-view(resources: ViewResources, element: Element, info: AttributeInfo, existingInstruction: BehaviorInstruction): BehaviorInstruction` - 
+  * `resources: ViewResources` - No description available
+  * `element: Element` - No description available
+  * `info: AttributeInfo` - No description available
+  * `existingInstruction: BehaviorInstruction` - No description available
 
 
-* `trigger(resources?: any, element?: any, info?: any): any` - 
-  * `resources?: any` - No description available
-  * `element?: any` - No description available
-  * `info?: any` - No description available
+* `trigger(resources: ViewResources, element: any, info: AttributeInfo): ListenerExpression` - 
+  * `resources: ViewResources` - No description available
+  * `element: any` - No description available
+  * `info: AttributeInfo` - No description available
 
 
-* `two-way(resources?: any, element?: any, info?: any, existingInstruction?: any): any` - 
-  * `resources?: any` - No description available
-  * `element?: any` - No description available
-  * `info?: any` - No description available
-  * `existingInstruction?: any` - No description available
+* `two-way(resources: ViewResources, element: Element, info: AttributeInfo, existingInstruction: BehaviorInstruction): BehaviorInstruction` - 
+  * `resources: ViewResources` - No description available
+  * `element: Element` - No description available
+  * `info: AttributeInfo` - No description available
+  * `existingInstruction: BehaviorInstruction` - No description available
 
 
 
@@ -298,44 +301,58 @@ No description available.
 
 #### Properties
 
-* `static inject: any` - No description available.
 
 #### Methods
 
 
-* `createAttributeInstruction(resources?: any, element?: any, theInfo?: any, existingInstruction?: any, context?: any): any` - 
-  * `resources?: any` - No description available
-  * `element?: any` - No description available
-  * `theInfo?: any` - No description available
-  * `existingInstruction?: any` - No description available
-  * `context?: any` - No description available
+* `createAttributeInstruction(resources: ViewResources, element: Element, theInfo: AttributeInfo, existingInstruction: BehaviorInstruction, context: HtmlBehaviorResource): any` - 
+  * `resources: ViewResources` - No description available
+  * `element: Element` - No description available
+  * `theInfo: AttributeInfo` - No description available
+  * `existingInstruction: BehaviorInstruction` - No description available
+  * `context: HtmlBehaviorResource` - No description available
 
 
-* `createLetExpressions(resources?: any, letElement?: any): any` - 
-  * `resources?: any` - No description available
-  * `letElement?: any` - 
+* `createLetExpressions(resources: ViewResources, letElement: Element): ` - 
+  * `resources: ViewResources` - No description available
+  * `letElement: Element` - No description available
 
 
-
-* `inspectAttribute(resources?: any, elementName?: any, attrName?: any, attrValue?: any): any` - 
-  * `resources?: any` - No description available
-  * `elementName?: any` - No description available
-  * `attrName?: any` - No description available
-  * `attrValue?: any` - No description available
-
-
-* `inspectTextContent(resources?: any, value?: any): any` - 
-  * `resources?: any` - No description available
-  * `value?: any` - No description available
+* `inspectAttribute(resources: ViewResources, elementName: string, attrName: string, attrValue: string): AttributeInfo` - 
+  * `resources: ViewResources` - No description available
+  * `elementName: string` - No description available
+  * `attrName: string` - No description available
+  * `attrValue: string` - No description available
 
 
-* `parseInterpolation(resources?: any, value?: any): any` - 
-  * `resources?: any` - No description available
-  * `value?: any` - No description available
+* `inspectTextContent(resources: ViewResources, value: string): InterpolationBindingExpression` - 
+  * `resources: ViewResources` - No description available
+  * `value: string` - No description available
+
+
+* `parseInterpolation(resources: ViewResources, value: string): any` - 
+  * `resources: ViewResources` - No description available
+  * `value: string` - No description available
 
 
 
 ## Interfaces
+
+
+### AttributeInfo
+
+An object describing information analyzed from an attribute in an Aurelia templates
+
+#### Properties
+
+* `attrName: string` - No description available.
+* `attrValue: string` - No description available.
+* `command: string` - No description available.
+* `defaultBindingMode: bindingMode` - No description available.
+* `expression: ` - No description available.
+
+#### Methods
+
 
 
 ## Constants
@@ -344,6 +361,6 @@ No description available.
 ## Functions
 
 
-* `configure(config?: any): any` - 
-  * `config?: any` - No description available.
+* `configure(config: any): void` - 
+  * `config: any` - No description available.
 

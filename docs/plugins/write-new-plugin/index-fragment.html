@@ -15,7 +15,7 @@
 <source-code lang="shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm i <span class="token operator">-</span>g aurelia<span class="token operator">-</span><span class="token function">cli</span>
+  npm i <span class="token operator">-</span>g aurelia-<span class="token function">cli</span>
   </code>
   </pre>
 </source-code>
@@ -104,10 +104,10 @@ Note <code>globalResources</code> isn't the only method you can use. You can use
 <source-code lang="shell" heading="">
   <pre class="language-powershell">
     <code>
-  au generate element some<span class="token operator">-</span>name
-  au generate attribute some<span class="token operator">-</span>name
-  au generate value<span class="token operator">-</span>converter some<span class="token operator">-</span>name
-  au generate binding<span class="token operator">-</span>behavior some<span class="token operator">-</span>name
+  au generate element some-name
+  au generate attribute some-name
+  au generate value-converter some-name
+  au generate binding-behavior some-name
   </code>
   </pre>
 </source-code>
@@ -176,9 +176,9 @@ Note <code>globalResources</code> isn't the only method you can use. You can use
   <span class="token comment">// "resources" refers the inner plugin src/index.ts</span>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>MyService<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'resources'</span><span class="token punctuation">;</span>
   
-  @<span class="token function">autoinject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">autoinject</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span>myService<span class="token operator">:</span> MyService<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span>myService<span class="token operator">:</span> MyService<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -217,13 +217,13 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
 <source-code lang="shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm i github:your_github_username<span class="token operator">/</span>your<span class="token operator">-</span>plugin<span class="token operator">-</span>name
+  npm i github:your_github_username/your-plugin-name
   <span class="token comment"># or if you use bitbucket</span>
-  npm i bitbucket:your_github_username<span class="token operator">/</span>your<span class="token operator">-</span>plugin<span class="token operator">-</span>name
+  npm i bitbucket:your_github_username/your-plugin-name
   <span class="token comment"># or if you use gitlab</span>
-  npm i gitlab:your_github_username<span class="token operator">/</span>your<span class="token operator">-</span>plugin<span class="token operator">-</span>name
+  npm i gitlab:your_github_username/your-plugin-name
   <span class="token comment"># or plain url</span>
-  npm i https:<span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>your_github_username<span class="token operator">/</span>your<span class="token operator">-</span>plugin<span class="token operator">-</span>name<span class="token punctuation">.</span>git
+  npm i https:<span class="token operator">/</span>github<span class="token punctuation">.</span>com/your_github_username/your-plugin-name<span class="token punctuation">.</span>git
   </code>
   </pre>
 </source-code>
@@ -323,10 +323,10 @@ If you chose &quot;Custom Aurelia Plugin&quot; when running <code>au new --plugi
 <source-code lang="JavaScript" heading="">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+  <span class="token string-property property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token comment">// ...</span>
-    <span class="token string">"version"</span><span class="token operator">:</span> <span class="token string">"standard-changelog &amp;&amp; git add CHANGELOG.md"</span><span class="token punctuation">,</span>
-    <span class="token string">"postversion"</span><span class="token operator">:</span> <span class="token string">"git push &amp;&amp; git push --tags &amp;&amp; npm publish"</span>
+    <span class="token string-property property">"version"</span><span class="token operator">:</span> <span class="token string">"standard-changelog &amp;&amp; git add CHANGELOG.md"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"postversion"</span><span class="token operator">:</span> <span class="token string">"git push &amp;&amp; git push --tags &amp;&amp; npm publish"</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   </code>
   </pre>

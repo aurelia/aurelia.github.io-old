@@ -15,7 +15,7 @@
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm install aurelia<span class="token operator">-</span>ui<span class="token operator">-</span>virtualization
+  npm install aurelia-ui-virtualization
   </code>
   </pre>
 </source-code>
@@ -28,7 +28,7 @@
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  yarn add aurelia<span class="token operator">-</span>ui<span class="token operator">-</span>virtualization
+  yarn add aurelia-ui-virtualization
   </code>
   </pre>
 </source-code>
@@ -41,7 +41,7 @@
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  jspm install aurelia<span class="token operator">-</span>ui<span class="token operator">-</span>virtualization
+  jspm install aurelia-ui-virtualization
   </code>
   </pre>
 </source-code>
@@ -250,7 +250,7 @@ The rows being repeated <strong>need</strong> a fixed height and only one item p
   <pre class="language-markup">
     <code>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">virtual-repeat.for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>person of persons<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>${$odd ? <span class="token punctuation">'</span>odd<span class="token punctuation">'</span> : <span class="token punctuation">'</span>even<span class="token punctuation">'</span>}-row<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">virtual-repeat.for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>person of persons<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>${$odd ? 'odd' : 'even'}-row<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
       ${person.name}
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>

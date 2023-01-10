@@ -36,7 +36,7 @@ When installing Git for Windows, there is an option to <code>use git bash only</
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm install <span class="token operator">-</span>g aurelia<span class="token operator">-</span><span class="token function">cli</span>
+  npm install <span class="token operator">-</span>g aurelia-<span class="token function">cli</span>
   </code>
   </pre>
 </source-code>
@@ -71,15 +71,15 @@ Always run commands from a Bash prompt. Depending on your environment, you may n
     <span class="token function">addTodo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-          description<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">,</span>
-          done<span class="token operator">:</span> <span class="token boolean">false</span>
+          <span class="token literal-property property">description</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">,</span>
+          <span class="token literal-property property">done</span><span class="token operator">:</span> <span class="token boolean">false</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   
     <span class="token function">removeTodo</span><span class="token punctuation">(</span><span class="token parameter">todo</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">let</span> index <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>todo<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">const</span> index <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>todo<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span>index <span class="token operator">!==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
@@ -93,17 +93,23 @@ Always run commands from a Bash prompt. Depending on your environment, you may n
 <source-code lang="TypeScript" heading="src/app.ts">
   <pre class="language-typescript">
     <code>
-  <span class="token keyword">interface</span> <span class="token class-name">Todo</span> <span class="token punctuation">{</span>
+  <span class="token keyword">interface</span> <span class="token class-name">ITodo</span> <span class="token punctuation">{</span>
     description<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
     done<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
-    heading <span class="token operator">=</span> <span class="token string">"Todos"</span><span class="token punctuation">;</span>
-    todos<span class="token operator">:</span> Todo<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    todoDescription <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+    heading<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    todos<span class="token operator">:</span> ITodo<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    todoDescription<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
   
-    <span class="token function">addTodo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>heading <span class="token operator">=</span> <span class="token string">'Todos'</span><span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>todos <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  
+    <span class="token function">addTodo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
           description<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">,</span>
@@ -113,8 +119,8 @@ Always run commands from a Bash prompt. Depending on your environment, you may n
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   
-    <span class="token function">removeTodo</span><span class="token punctuation">(</span>todo<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">let</span> index <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>todo<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">removeTodo</span><span class="token punctuation">(</span>todo<span class="token operator">:</span> ITodo<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> index <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>todo<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span>index <span class="token operator">!==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
@@ -135,7 +141,7 @@ Always run commands from a Bash prompt. Depending on your environment, you may n
 </ul>
 <p>Here's what's amazing. This is all the ${context.language.name} code for the app. But where is Aurelia? Well, the answer is that Aurelia tries as hard as possible to stay out of your ${context.language.name} code. That's why you don't see it above. It's not needed. Aurelia has the ability to render plain ${context.language.name} objects.</p>
 </section>
-<section><h2 id="rendering-the-app">Rendering the App</h2><p>As a brief recap, remember that almost nothing we've done so far is Aurelia-specific. Almost all the code we've written is just vanilla ${context.language.name}. There is <code>src/main${context.language.fileExtension}</code> file which is the starting point of your app, it conventionally use <code>src/app${context.language.fileExtension}</code> as the root UI component by default. For more information, read <a href="../fundamentals/app-configuration-and-startup">App Configuration and Startup</a>.</p>
+<section><h2 id="rendering-the-app">Rendering the App</h2><p>As a brief recap, remember that almost nothing we've done so far is Aurelia-specific. Almost all the code we've written is just vanilla ${context.language.name}. There is <code>src/main${context.language.fileExtension}</code> file which is the starting point of your app, it conventionally use <code>src/app${context.language.fileExtension}</code> as the root UI component by default. For more information, read <a href="../docs/fundamentals/app-configuration-and-startup">App Configuration and Startup</a>.</p>
 <p>In order to render, we need to create a view for the <code>app</code> component. This introduces the next convention of Aurelia. To create a view for any class, simply create an HTML file with the same name as the ${context.language.name} module but change the file extension to <code>.html</code>. Inside that view, you can place an HTML 5 template with <em>data binding expressions</em> declaring how the view should render an instance of the class. Let's start with a very basic view of our <code>app</code>, overwrite <code>src/app.html</code> provided by the skeleton.</p>
 
 <code-listing heading="src/app.html">
@@ -196,8 +202,8 @@ Aurelia will use two-way binding for all form control value bindings and one-way
   <span class="token function">addTodo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-        description<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">,</span>
-        done<span class="token operator">:</span> <span class="token boolean">false</span>
+        <span class="token literal-property property">description</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription<span class="token punctuation">,</span>
+        <span class="token literal-property property">done</span><span class="token operator">:</span> <span class="token boolean">false</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>todoDescription <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -275,7 +281,7 @@ Aurelia will use two-way binding for all form control value bindings and one-way
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>todo of todos<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">checked.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>todo.done<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">css</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-decoration: ${todo.done ? <span class="token punctuation">'</span>line-through<span class="token punctuation">'</span> : <span class="token punctuation">'</span>none<span class="token punctuation">'</span>}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">css</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-decoration: ${todo.done ? 'line-through' : 'none'}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
           ${todo.description}
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">click.trigger</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>removeTodo(todo)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Remove<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>

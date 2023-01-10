@@ -145,24 +145,24 @@ You can find a full list of <em>locators</em>
   <pre class="language-javascript">
     <code>
   exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
-    directConnect<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">directConnect</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
   
     <span class="token comment">// Capabilities to be passed to the webdriver instance.</span>
-    capabilities<span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token string">'browserName'</span><span class="token operator">:</span> <span class="token string">'chrome'</span>
+    <span class="token literal-property property">capabilities</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string-property property">'browserName'</span><span class="token operator">:</span> <span class="token string">'chrome'</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
   
     <span class="token comment">//seleniumAddress: 'https://0.0.0.0:4444',</span>
-    specs<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'test/e2e/dist/*.js'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">specs</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'test/e2e/dist/*.js'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
   
-    plugins<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
-      path<span class="token operator">:</span> <span class="token string">'aurelia.protractor.js'</span>
+    <span class="token literal-property property">plugins</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token literal-property property">path</span><span class="token operator">:</span> <span class="token string">'aurelia.protractor.js'</span>
     <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
   
     <span class="token comment">// Options to be passed to Jasmine-node.</span>
-    jasmineNodeOpts<span class="token operator">:</span> <span class="token punctuation">{</span>
-      showColors<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-      defaultTimeoutInterval<span class="token operator">:</span> <span class="token number">30000</span>
+    <span class="token literal-property property">jasmineNodeOpts</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">showColors</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">defaultTimeoutInterval</span><span class="token operator">:</span> <span class="token number">30000</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
   </code>
