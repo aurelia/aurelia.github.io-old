@@ -10,13 +10,13 @@
   </script>
 
   <meta charset="utf-8">
-  <title>The Aurelia Blog - Page 2 | Aurelia</title>
+  <title>Announcing The Aurelia 2 Beta | Aurelia</title>
   <base href="/">
   <meta name="msapplication-tap-highlight" content="no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 
-  <meta name="description" content="The official blog of the Aurelia project and Core Team."/>
+  <meta name="description" content="Announcing the beta release of Aurelia 2"/>
   <meta name="robots" content="index,follow"/>
 
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:200,400,700" rel="stylesheet">
@@ -33,70 +33,111 @@
 
   <main ref="main">
     <div screen-activator.bind="activeScreen" screen-activated.trigger="onScreenActivated()" class="screen-activator">
-      <section class="article-group blog">
+      <section class="article blog">
   <header>
-    <h1>The Aurelia Blog - Page 2</h1>
+    <h1>Announcing The Aurelia 2 Beta</h1>
+    <h2>Posted by <span class="author">Dwayne Charrington</span> on <span class="date">January 14, 2023</span></h2>
   </header>
 
-  <section>
-    <ul class="article-list">
-      <li>
-        <a href="blog/2021/7/12/aurelia-2-update-alpha-12">
-          <h3>Aurelia 2 Update - Alpha 12</h3>
-          <p class="group-item-count">Posted by <span class="author">bigopon</span> on <span class="date">July 12, 2021</span>
-          <p>A minor update on various improvements of Aurelia 2.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2021/7/1/an-update-on-aurelia-2-documentation-and-tutorials">
-          <h3>An Update on Aurelia 2 Documentation and Tutorials</h3>
-          <p class="group-item-count">Posted by <span class="author">Dwayne Charrington</span> on <span class="date">July 1, 2021</span>
-          <p>Here at Aurelia HQ, we have been busy beavers. Work on Aurelia 2 continues full steam ahead. We are doing more frequent development releases. You might have noticed we are engaging the community a little bit better after the noticeable silence.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2021/6/22/aurelia-2-update-alpha-8">
-          <h3>Aurelia 2 Update - Alpha 8</h3>
-          <p class="group-item-count">Posted by <span class="author">Dwayne Charrington</span> on <span class="date">June 22, 2021</span>
-          <p>Hi everyone, we hope you have been staying healthy and safe in these uncertain times we still find ourselves in. Unfortunately, things slowed down a bit in Aurelia land over the last few months due to unforeseen circumstances. We are happy to report that we&#x27;ve now been able to adapt to these changes, and you&#x27;re going to see more releases and development work as we focus on completing Aurelia 2. We also realize that a lot of the work that has been done can easily be missed if you&#x27;re not watching the GitHub [https://github.com/aurelia/aurelia], so make sure you keep an eye on that one too.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2021/3/3/the-aurelia-2-alpha-release-is-now-available">
-          <h3>The Aurelia 2 Alpha Release Is Now Available</h3>
-          <p class="group-item-count">Posted by <span class="author">Dwayne Charrington</span> on <span class="date">March 3, 2021</span>
-          <p>We are excited to announce that the Aurelia 2 alpha is now ready for download</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2021/2/12/the-aurelia-2-alpha-is-coming">
-          <h3>The Aurelia 2 alpha is coming</h3>
-          <p class="group-item-count">Posted by <span class="author">Dwayne Charrington</span> on <span class="date">February 12, 2021</span>
-          <p>As many of you know, we have been hard at work on the next version of Aurelia known as Aurelia 2 for quite some time now. Despite some obstacles (including an ongoing global pandemic), we are happy to announce we are releasing an alpha version of Aurelia 2 on March 2nd, 2021.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2021/1/3/happy-new-year-and-happy-new-aurelia">
-          <h3>Happy New Year and Happy New Aurelia</h3>
-          <p class="group-item-count">Posted by <span class="author">Jürgen Wenzel</span> on <span class="date">January 3, 2021</span>
-          <p></p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2020/3/3/aurelia-release-notes-march-2020">
-          <h3>Aurelia Release Notes - March 2020</h3>
-          <p class="group-item-count">Posted by <span class="author">Rob Eisenberg</span> on <span class="date">March 3, 2020</span>
-          <p>This month we&#x27;ve got major releases of aurelia-i18n, aurelia-dialog, and aurelia-pal-nodejs. However, the most significant release is a minor release of Aurelia UX, which includes many improvements to the components and styles.</p>
-        </a>
-      </li>
-    </ul>
-  </section>
+  <article class="markdown">
+    <div class="content">
+      <p>We know many of you have been waiting a while for this day. Aurelia 2 is now officially in beta. After an extensive alpha period, we are proud to finally get this out to you and ask the community to go forth and start building and testing.</p>
+<p>It is no secret that the last few years have been difficult for everyone. The unforeseen pandemic uprooted the lives of many, including some on our nimble Aurelia core team. Despite setbacks and challenges, the team has never waivered in its commitment to getting Aurelia 2 into your hands.</p>
+<p>First and foremost, we want to thank the community for their patience and support. We understand that many of you have been waiting for Aurelia 2, especially in a professional capacity and eagerly awaiting its release. Without the support of our sponsors on 
+<a href="https://opencollective.com/aurelia" target="_blank">Open Collective</a>
+ and our passionate community, this release would not be possible.</p>
+<p>Let's also take a moment to marvel at the longevity of Aurelia. Debuting in January 2015, it's already had an eight-year run as a framework. During those eight years, Aurelia has had next to none breaking changes, and the API has remained stable and consistent. Many in the community and the core team have had Aurelia applications in production for almost the entirety of those eight years and Aurelia continues to be the choice of developers now with its stability and longevity.</p>
+<section><h2 id="what">What</h2><p>Suppose you have followed along with the alpha releases, blog posts and GitHub commits. You might have noticed many new things in Aurelia 2, especially if you're coming from Aurelia 1. The template syntax and underlying ethos of standards compliance are still there, but we have taken things to the next level.</p>
+<p>You might already be aware, but Aurelia 2 is a complete rewrite. As such, the code is not only cleaner and more performant, it is battle-tested with 
+<a href="https://github.com/aurelia/aurelia/tree/master/packages/__tests__" target="_blank">tens of thousands of unit tests</a>
+ covering the bare metal components of Aurelia as well as the numerous packages it offers. It's the best-tested version of Aurelia yet.</p>
+<p>Don't worry. Despite being a rewrite, Aurelia 2 retains much of what you love about Aurelia 1 and makes migration a relatively straightforward process. The syntax is the same, using Javascript classes for components remains the same, and many of your Aurelia 1 apps will port over to Aurelia 2 without issue.</p>
+<p>This is a partial list, and we recommend reading through the 
+<a href="https://docs.aurelia.io/" target="_blank">new docs</a>
+ to learn about what has changed and how Aurelia 2 can fit into your workflow.</p>
+<ul>
+<li>
+<a href="https://docs.aurelia.io/" target="_blank">Better documentation</a>
+. We wanted to ensure that Aurelia 2 had some of the best documentation. Not only did we document the framework, but we have tutorials and better resources to teach developers how to work with Aurelia 2.</li>
+<li>Powerful new 
+<a href="https://docs.aurelia.io/components/component-lifecycles" target="_blank">component lifecycle architecture</a>
+. In Aurelia 1, component lifecycle hooks were rigid, and most hooks didn't support asynchronous code. In Aurelia 2, we have kept some familiar hooks and introduced some new ones, including support for async lifecycles, including an asynchronous attaching lifecycle.</li>
+<li>Support for 
+<a href="https://docs.aurelia.io/components/class-and-style-binding#shadow-dom" target="_blank">Shadow DOM</a>
+.</li>
+<li>
+<a href="https://docs.aurelia.io/developer-guides/testing" target="_blank">Better testing support</a>
+. Aurelia 2 provides documentation and resources to test your applications with ease.</li>
+<li>A 
+<a href="https://docs.aurelia.io/getting-to-know-aurelia/watching-data" target="_blank">powerful new @watch decorator</a>
+ that allows you to perform expression-based observation in your applications and react accordingly.</li>
+<li>
+<a href="https://docs.aurelia.io/templates/template-syntax#template-promises" target="_blank">Template promises</a>
+. You can now work with promises within templates without needing boilerplate in your view models.</li>
+<li>Support for 
+<a href="https://docs.aurelia.io/templates/lambda-expressions" target="_blank">lambda expressions in templates</a>
+. Another convenience feature allows you to write lambda expressions in your templates, convenient for working with <code>Array.filter</code>, <code>Array.sort</code> and other things you would have previously used view model or value converter boilerplate for.</li>
+<li>The introduction of 
+<a href="https://docs.aurelia.io/getting-to-know-aurelia/app-tasks" target="_blank">app tasks</a>
+ provides higher-level framework hooks for running code at different points of the framework lifecycle.</li>
+<li>
+<a href="https://docs.aurelia.io/getting-to-know-aurelia/portalling-elements" target="_blank">In-built portal support</a>
+. You can now portal content in your Aurelia applications using the new' portal' attribute. No additional dependencies are required.</li>
+<li>
+<a href="https://docs.aurelia.io/getting-to-know-aurelia/observation" target="_blank">Extensive observation support</a>
+ for observing changes in your Aurelia applications, including the familiar observer functionality.</li>
+<li>Better support for 
+<a href="https://docs.aurelia.io/developer-guides/web-components" target="_blank">Web Components</a>
+.</li>
+<li>New 
+<a href="https://docs.aurelia.io/templates/class-and-style-bindings" target="_blank">.class and .style binding properties</a>
+, allowing you to conditionally add classes and styles into your templates in a cleaner way (goodbye messy ternary expressions to display classes and styles).</li>
+<li>Support for 
+<a href="https://docs.aurelia.io/templates/template-syntax#optional-syntax" target="_blank">optional syntax</a>
+ in interpolation expressions. You can now use <code>??</code>, <code>?.</code>, and a couple of other optional syntaxes in your templates.</li>
+<li>A new 
+<a href="https://docs.aurelia.io/aurelia-packages/state" target="_blank">State plugin</a>
+ that works with Aurelia's binding system. This replaces Aurelia Store for most things, but Store is still there if you need it.</li>
+<li>Two new routers: <code>@aurelia/router</code>, with a rich set of features, and <code>@aurelia/router-lite</code>, smaller but still covering basic routing needs.</li>
+</ul>
+<p>There is so much more; this is merely a glance at what is new. We will let you explore your own to discover what is new and exciting in Aurelia 2.</p>
+</section>
+<section><h2 id="things-that-have-changed-since-aurelia-1">Things that have changed since Aurelia 1</h2><p>Despite limiting breaking changes where possible, Aurelia 2 does differ in a few ways.</p>
+<ul>
+<li>Strings for modules are gone. This means you no longer need to use <code>PLATFORM.moduleName</code> in your applications as you're working with dependencies instead of relying on string paths to resolve dependencies. This means things play nicely with bundlers, tree shaking and more. It also removes the boilerplate and makes things faster.</li>
+<li>The <code>&lt;compose&gt;</code> element is now <code>&lt;au-compose&gt;</code>, but it no longer works with strings for components. For more information, please see the documentation on the new way to compose 
+<a href="https://docs.aurelia.io/getting-to-know-aurelia/dynamic-composition" target="_blank">here</a>
+.</li>
+<li>The <code>@computedFrom</code> decorator is gone. In Aurelia 1, getters need to have their dependencies provided, or the framework would use dirty-checking. In Aurelia 2, getters do not need their dependencies listed, as Aurelia will discover these for you. Just write <code>get myGetter() {}</code>, and Aurelia 2 will do the rest.</li>
+<li>The <code>.delegate</code> event binding mode is gone. In Aurelia 1, <code>delegate</code> resulted in strange behavior that made debugging difficult. We promoted this initially for performance reasons, but now you can use <code>trigger</code> without issue.</li>
+<li>A 
+<a href="https://docs.aurelia.io/routing/getting-started" target="_blank">powerful new router</a>
+. The new router is different to the router in Aurelia 1, and this is where most developers porting Aurelia 1 applications to Aurelia 2 will spend their time (if you use routing), as the way you work with the router is different.</li>
+</ul>
+</section>
+<section><h2 id="aurelia-2-roadmap">Aurelia 2 roadmap</h2><p>The beta release of Aurelia 2 is only the beginning. While we will have a more detailed roadmap soon (in a separate post), at a high level, the following is coming down the Aurelia pipeline (with more to come).</p>
+<ul>
+<li>Support for the new JS decorator specification</li>
+<li>Support for tuple/record</li>
+<li>Hydration and SSR support</li>
+<li>Partial ahead-of-time compilation (AOT)</li>
+<li>Continuing work on reducing API surfaces</li>
+<li>Reducing the code size of the framework</li>
+<li>Developer experience and tooling improvements</li>
+<li>Better API consistency</li>
+<li>More benchmarks</li>
+</ul>
+</section>
+<section><h2 id="try-it-today">Try it today</h2><p>You can either run <code>npx makes aurelia</code> on your command line or follow our 
+<a href="https://docs.aurelia.io/getting-started/quick-install-guide" target="_blank">quick start guide</a>
+ to get get started. And, as always, we welcome all feedback and criticism (good and bad) from the community to make Aurelia an even better framework.</p>
+</section>
 
-  <div class="button-bar">
-    <a class="prev" href="blog">Newer Posts</a>
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
 
-    <a class="next" href="blog/page/3">Older Posts</a>
-  </div>
+  <blog-footer blog-name="Announcing%20The%20Aurelia%202%20Beta" blog-url="http%3A%2F%2Faurelia.io%2Fblog%5C2023%5C1%5C14%5Cannouncing-the-aurelia-2-beta"></blog-footer>
 </section>
 
     </div>
