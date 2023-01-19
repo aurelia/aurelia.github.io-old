@@ -19,7 +19,7 @@
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm install aurelia<span class="token operator">-</span>animator<span class="token operator">-</span>css
+  npm install aurelia-animator-css
   </code>
   </pre>
 </source-code>
@@ -32,7 +32,7 @@
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  yarn add aurelia<span class="token operator">-</span>animator<span class="token operator">-</span>css
+  yarn add aurelia-animator-css
   </code>
   </pre>
 </source-code>
@@ -45,7 +45,7 @@
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  jspm install aurelia<span class="token operator">-</span>animator<span class="token operator">-</span>css
+  jspm install aurelia-animator-css
   </code>
   </pre>
 </source-code>
@@ -113,54 +113,54 @@ Don't forget to add the appropriate vendor prefixes if you target old browsers.<
   <pre class="language-javascript">
     <code>
   @keyframes SlideInRight <span class="token punctuation">{</span>
-    <span class="token keyword">from</span> <span class="token punctuation">{</span>
-      transform<span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    from <span class="token punctuation">{</span>
+      <span class="token literal-property property">transform</span><span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
     to <span class="token punctuation">{</span>
-      transform<span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token literal-property property">transform</span><span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   
   @keyframes SlideOutRight <span class="token punctuation">{</span>
-    <span class="token keyword">from</span> <span class="token punctuation">{</span>
-      transform<span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    from <span class="token punctuation">{</span>
+      <span class="token literal-property property">transform</span><span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
     to <span class="token punctuation">{</span>
-      transform<span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token literal-property property">transform</span><span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   
   @keyframes SlideInLeft <span class="token punctuation">{</span>
-    <span class="token keyword">from</span> <span class="token punctuation">{</span>
-      transform<span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    from <span class="token punctuation">{</span>
+      <span class="token literal-property property">transform</span><span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
     to <span class="token punctuation">{</span>
-      transform<span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token literal-property property">transform</span><span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   
   @keyframes SlideOutLeft <span class="token punctuation">{</span>
-    <span class="token keyword">from</span> <span class="token punctuation">{</span>
-      transform<span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    from <span class="token punctuation">{</span>
+      <span class="token literal-property property">transform</span><span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   
     to <span class="token punctuation">{</span>
-      transform<span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token literal-property property">transform</span><span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   
   @keyframes FadeIn <span class="token punctuation">{</span>
     to <span class="token punctuation">{</span>
-      opacity<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">;</span>
+      <span class="token literal-property property">opacity</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   
   @keyframes FadeOut <span class="token punctuation">{</span>
     to <span class="token punctuation">{</span>
-      opacity<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      <span class="token literal-property property">opacity</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   </code>
@@ -177,43 +177,43 @@ Don't forget to add the appropriate vendor prefixes if you target old browsers.<
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">.</span>animate<span class="token operator">-</span>slide<span class="token operator">-</span><span class="token keyword">in</span><span class="token operator">-</span>right<span class="token punctuation">.</span>au<span class="token operator">-</span>enter <span class="token punctuation">{</span>
-    transform<span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token literal-property property">transform</span><span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
   <span class="token punctuation">.</span>animate<span class="token operator">-</span>slide<span class="token operator">-</span><span class="token keyword">in</span><span class="token operator">-</span>right<span class="token punctuation">.</span>au<span class="token operator">-</span>enter<span class="token operator">-</span>active <span class="token punctuation">{</span>
-    animation<span class="token operator">:</span> SlideInRight <span class="token number">1</span>s<span class="token punctuation">;</span>
+    <span class="token literal-property property">animation</span><span class="token operator">:</span> SlideInRight 1s<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
   <span class="token punctuation">.</span>animate<span class="token operator">-</span>slide<span class="token operator">-</span>out<span class="token operator">-</span>right<span class="token punctuation">.</span>au<span class="token operator">-</span>leave<span class="token operator">-</span>active <span class="token punctuation">{</span>
-    animation<span class="token operator">:</span> SlideOutRight <span class="token number">1</span>s<span class="token punctuation">;</span>
+    <span class="token literal-property property">animation</span><span class="token operator">:</span> SlideOutRight 1s<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
   <span class="token punctuation">.</span>animate<span class="token operator">-</span>slide<span class="token operator">-</span><span class="token keyword">in</span><span class="token operator">-</span>left<span class="token punctuation">.</span>au<span class="token operator">-</span>enter <span class="token punctuation">{</span>
-    transform<span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token literal-property property">transform</span><span class="token operator">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token operator">%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
   <span class="token punctuation">.</span>animate<span class="token operator">-</span>slide<span class="token operator">-</span><span class="token keyword">in</span><span class="token operator">-</span>left<span class="token punctuation">.</span>au<span class="token operator">-</span>enter<span class="token operator">-</span>active <span class="token punctuation">{</span>
-    animation<span class="token operator">:</span> SlideInLeft <span class="token number">1</span>s<span class="token punctuation">;</span>
+    <span class="token literal-property property">animation</span><span class="token operator">:</span> SlideInLeft 1s<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
   <span class="token punctuation">.</span>animate<span class="token operator">-</span>slide<span class="token operator">-</span>out<span class="token operator">-</span>left<span class="token punctuation">.</span>au<span class="token operator">-</span>leave<span class="token operator">-</span>active <span class="token punctuation">{</span>
-    animation<span class="token operator">:</span> SlideOutLeft <span class="token number">1</span>s<span class="token punctuation">;</span>
+    <span class="token literal-property property">animation</span><span class="token operator">:</span> SlideOutLeft 1s<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
   <span class="token punctuation">.</span>animate<span class="token operator">-</span>fade<span class="token operator">-</span><span class="token keyword">in</span><span class="token punctuation">.</span>au<span class="token operator">-</span>enter <span class="token punctuation">{</span>
-    opacity<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token literal-property property">opacity</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
   <span class="token punctuation">.</span>animate<span class="token operator">-</span>fade<span class="token operator">-</span><span class="token keyword">in</span><span class="token punctuation">.</span>au<span class="token operator">-</span>enter<span class="token operator">-</span>active <span class="token punctuation">{</span>
-    animation<span class="token operator">:</span> FadeIn <span class="token number">1</span>s<span class="token punctuation">;</span>
+    <span class="token literal-property property">animation</span><span class="token operator">:</span> FadeIn 1s<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
   <span class="token punctuation">.</span>animate<span class="token operator">-</span>fade<span class="token operator">-</span>out<span class="token punctuation">.</span>au<span class="token operator">-</span>leave<span class="token operator">-</span>active <span class="token punctuation">{</span>
-    animation<span class="token operator">:</span> FadeOut <span class="token number">1</span>s<span class="token punctuation">;</span>
+    <span class="token literal-property property">animation</span><span class="token operator">:</span> FadeOut 1s<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
   <span class="token punctuation">.</span>animate<span class="token operator">-</span>fade<span class="token operator">-</span>out<span class="token punctuation">.</span>au<span class="token operator">-</span>left <span class="token punctuation">{</span>
-    opacity<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token literal-property property">opacity</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -278,7 +278,7 @@ Don't forget to add the appropriate vendor prefixes if you target old browsers.<
       <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>au-animate animate-fade-in animate-fade-out<span class="token punctuation">"</span></span>
     <span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">checked.bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>todo.done<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">css</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-decoration: ${todo.done ? <span class="token punctuation">'</span>line-through<span class="token punctuation">'</span> : <span class="token punctuation">'</span>none<span class="token punctuation">'</span>}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">css</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-decoration: ${todo.done ? 'line-through' : 'none'}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
         ${todo.description}
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">click.trigger</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>removeTodo(todo)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Remove<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
@@ -297,7 +297,7 @@ Don't forget to add the appropriate vendor prefixes if you target old browsers.<
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">.</span>au<span class="token operator">-</span>stagger <span class="token punctuation">{</span>
-    animation<span class="token operator">-</span>delay<span class="token operator">:</span> <span class="token number">500</span>ms<span class="token punctuation">;</span>
+    animation<span class="token operator">-</span>delay<span class="token operator">:</span> 500ms<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>

@@ -25,7 +25,7 @@
   <pre class="language-javascript">
     <code>
   # use latest version <span class="token keyword">of</span> nodejs
-  <span class="token constant">FROM</span> node<span class="token operator">:</span>lts<span class="token operator">-</span>alpine
+  <span class="token constant">FROM</span> <span class="token literal-property property">node</span><span class="token operator">:</span>lts<span class="token operator">-</span>alpine
   
   # install aurelia<span class="token operator">-</span>cli to build the app <span class="token operator">&amp;</span> http<span class="token operator">-</span>server to serve <span class="token keyword">static</span> contents
   <span class="token constant">RUN</span> npm i <span class="token operator">-</span>g http<span class="token operator">-</span>server
@@ -65,7 +65,7 @@
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  docker build <span class="token operator">-</span>t aurelia<span class="token operator">-</span>basic<span class="token operator">-</span>docker<span class="token operator">-</span>app:1 <span class="token punctuation">.</span>
+  docker build <span class="token operator">-</span>t aurelia-basic-docker-app:1 <span class="token punctuation">.</span>
   </code>
   </pre>
 </source-code>
@@ -78,7 +78,7 @@
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  docker run <span class="token operator">-</span>it <span class="token operator">--</span><span class="token function">rm</span> <span class="token operator">-</span>p 8080:8080 aurelia<span class="token operator">-</span>basic<span class="token operator">-</span>docker<span class="token operator">-</span>app:1
+  docker run <span class="token operator">-</span>it <span class="token operator">--</span><span class="token function">rm</span> <span class="token operator">-</span>p 8080:8080 aurelia-basic-docker-app:1
   </code>
   </pre>
 </source-code>
@@ -99,7 +99,7 @@
   <pre class="language-javascript">
     <code>
   # use latest version <span class="token keyword">of</span> nodejs
-  <span class="token constant">FROM</span> node<span class="token operator">:</span>lts<span class="token operator">-</span>alpine <span class="token keyword">as</span> build<span class="token operator">-</span>stage
+  <span class="token constant">FROM</span> <span class="token literal-property property">node</span><span class="token operator">:</span>lts<span class="token operator">-</span>alpine <span class="token keyword">as</span> build<span class="token operator">-</span>stage
   
   # install aurelia<span class="token operator">-</span>cli to build the app <span class="token operator">&amp;</span> http<span class="token operator">-</span>server to serve <span class="token keyword">static</span> contents
   <span class="token constant">RUN</span> npm i <span class="token operator">-</span>g http<span class="token operator">-</span>server
@@ -118,11 +118,11 @@
   <span class="token constant">RUN</span> npm run build
   
   # use nginx <span class="token keyword">as</span> the http server to serve contents
-  <span class="token constant">FROM</span> nginx<span class="token operator">:</span>alpine <span class="token keyword">as</span> production<span class="token operator">-</span>stage
+  <span class="token constant">FROM</span> <span class="token literal-property property">nginx</span><span class="token operator">:</span>alpine <span class="token keyword">as</span> production<span class="token operator">-</span>stage
   <span class="token constant">WORKDIR</span> <span class="token operator">/</span>usr<span class="token operator">/</span>share<span class="token operator">/</span>nginx<span class="token operator">/</span>html
-  # copy files <span class="token keyword">from</span> previous container<span class="token operator">/</span>stage into the <span class="token keyword">new</span> <span class="token class-name">one</span>
-  # <span class="token keyword">from</span> <span class="token operator">/</span>app<span class="token operator">/</span>dist to working directory
-  <span class="token constant">COPY</span> <span class="token operator">--</span><span class="token keyword">from</span><span class="token operator">=</span>build<span class="token operator">-</span>stage <span class="token operator">/</span>app<span class="token operator">/</span>dist <span class="token punctuation">.</span><span class="token operator">/</span>
+  # copy files from previous container<span class="token operator">/</span>stage into the <span class="token keyword">new</span> <span class="token class-name">one</span>
+  # from <span class="token operator">/</span>app<span class="token operator">/</span>dist to working directory
+  <span class="token constant">COPY</span> <span class="token operator">--</span>from<span class="token operator">=</span>build<span class="token operator">-</span>stage <span class="token operator">/</span>app<span class="token operator">/</span>dist <span class="token punctuation">.</span><span class="token operator">/</span>
   <span class="token constant">EXPOSE</span> <span class="token number">80</span>
   <span class="token constant">CMD</span> <span class="token punctuation">[</span><span class="token string">"nginx"</span><span class="token punctuation">,</span> <span class="token string">"-g"</span><span class="token punctuation">,</span> <span class="token string">"daemon off;"</span><span class="token punctuation">]</span>" <span class="token punctuation">]</span>
   </code>
@@ -137,7 +137,7 @@
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  docker build <span class="token operator">-</span>t aurelia<span class="token operator">-</span>prod<span class="token operator">-</span>docker<span class="token operator">-</span>app:1 <span class="token punctuation">.</span>
+  docker build <span class="token operator">-</span>t aurelia-prod-docker-app:1 <span class="token punctuation">.</span>
   </code>
   </pre>
 </source-code>
@@ -150,7 +150,7 @@
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  docker run <span class="token operator">-</span>it <span class="token operator">--</span><span class="token function">rm</span> <span class="token operator">-</span>p 8080:80 aurelia<span class="token operator">-</span>prod<span class="token operator">-</span>docker<span class="token operator">-</span>app:1
+  docker run <span class="token operator">-</span>it <span class="token operator">--</span><span class="token function">rm</span> <span class="token operator">-</span>p 8080:80 aurelia-prod-docker-app:1
   </code>
   </pre>
 </source-code>

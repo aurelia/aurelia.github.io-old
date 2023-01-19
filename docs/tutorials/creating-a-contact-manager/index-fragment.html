@@ -35,7 +35,7 @@ When installing Git for Windows, there is an option to <code>use git bash only</
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm install <span class="token operator">-</span>g aurelia<span class="token operator">-</span><span class="token function">cli</span>
+  npm install <span class="token operator">-</span>g aurelia-<span class="token function">cli</span>
   </code>
   </pre>
 </source-code>
@@ -82,8 +82,8 @@ Before proceeding any further, please make sure you are familiar with the concep
       config<span class="token punctuation">.</span>options<span class="token punctuation">.</span>pushState <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
       config<span class="token punctuation">.</span>options<span class="token punctuation">.</span>root <span class="token operator">=</span> <span class="token string">'/'</span><span class="token punctuation">;</span>
       config<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
-        <span class="token punctuation">{</span> route<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>              moduleId<span class="token operator">:</span> <span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'no-selection'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>   title<span class="token operator">:</span> <span class="token string">'Select'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span> route<span class="token operator">:</span> <span class="token string">'contacts/:id'</span><span class="token punctuation">,</span>  moduleId<span class="token operator">:</span> <span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'contact-detail'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> name<span class="token operator">:</span><span class="token string">'contacts'</span> <span class="token punctuation">}</span>
+        <span class="token punctuation">{</span> <span class="token literal-property property">route</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>              <span class="token literal-property property">moduleId</span><span class="token operator">:</span> <span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'no-selection'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>   <span class="token literal-property property">title</span><span class="token operator">:</span> <span class="token string">'Select'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span> <span class="token literal-property property">route</span><span class="token operator">:</span> <span class="token string">'contacts/:id'</span><span class="token punctuation">,</span>  <span class="token literal-property property">moduleId</span><span class="token operator">:</span> <span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'contact-detail'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span><span class="token string">'contacts'</span> <span class="token punctuation">}</span>
       <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
       <span class="token keyword">this</span><span class="token punctuation">.</span>router <span class="token operator">=</span> router<span class="token punctuation">;</span>
@@ -183,7 +183,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/History_API/Working_with_the_Hi
   <pre class="language-powershell">
     <code>
   npm install bootstrap
-  npm install font<span class="token operator">-</span>awesome
+  npm install font-awesome
   </code>
   </pre>
 </source-code>
@@ -321,12 +321,12 @@ Whenever you install new dependencies used in your app, make sure to restart the
   <span class="token keyword">import</span> <span class="token punctuation">{</span>WebAPI<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./web-api'</span><span class="token punctuation">;</span>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
   
-  @<span class="token function">inject</span><span class="token punctuation">(</span>WebAPI<span class="token punctuation">)</span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">inject</span></span><span class="token punctuation">(</span>WebAPI<span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ContactList</span> <span class="token punctuation">{</span>
     contacts<span class="token punctuation">;</span>
     selectedId <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
   
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> api<span class="token operator">:</span> WebAPI<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> api<span class="token operator">:</span> WebAPI<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
   
     <span class="token function">created</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>api<span class="token punctuation">.</span><span class="token function">getContactList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>contacts <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span>contacts <span class="token operator">=</span> contacts<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -359,7 +359,7 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>list-group<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span>
           <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>contact of contacts<span class="token punctuation">"</span></span>
-          <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>list-group-item list-group-item-action ${contact.id === $parent.selectedId ? <span class="token punctuation">'</span>active<span class="token punctuation">'</span> : <span class="token punctuation">'</span><span class="token punctuation">'</span>}<span class="token punctuation">"</span></span>
+          <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>list-group-item list-group-item-action ${contact.id === $parent.selectedId ? 'active' : ''}<span class="token punctuation">"</span></span>
           <span class="token attr-name">route-href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>route: contacts; params.bind: {id:contact.id}<span class="token punctuation">"</span></span>
           <span class="token attr-name">click.delegate</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>$parent.select(contact)<span class="token punctuation">"</span></span>
         <span class="token punctuation">></span></span>
@@ -490,13 +490,13 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
     email<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
-  @<span class="token function">inject</span><span class="token punctuation">(</span>WebAPI<span class="token punctuation">)</span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">inject</span></span><span class="token punctuation">(</span>WebAPI<span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ContactDetail</span> <span class="token punctuation">{</span>
     routeConfig<span class="token punctuation">;</span>
     contact<span class="token operator">:</span> Contact<span class="token punctuation">;</span>
     originalContact<span class="token operator">:</span> Contact<span class="token punctuation">;</span>
   
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> api<span class="token operator">:</span> WebAPI<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> api<span class="token operator">:</span> WebAPI<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
   
     <span class="token function">activate</span><span class="token punctuation">(</span>params<span class="token punctuation">,</span> routeConfig<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>routeConfig <span class="token operator">=</span> routeConfig<span class="token punctuation">;</span>
@@ -629,11 +629,11 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
   <pre class="language-typescript">
     <code>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ContactUpdated</span> <span class="token punctuation">{</span>
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">public</span> contact<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">public</span> contact<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ContactViewed</span> <span class="token punctuation">{</span>
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">public</span> contact<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">public</span> contact<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -718,13 +718,13 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
     email<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   
-  @<span class="token function">inject</span><span class="token punctuation">(</span>WebAPI<span class="token punctuation">,</span> EventAggregator<span class="token punctuation">)</span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">inject</span></span><span class="token punctuation">(</span>WebAPI<span class="token punctuation">,</span> EventAggregator<span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ContactDetail</span> <span class="token punctuation">{</span>
     routeConfig<span class="token punctuation">;</span>
     contact<span class="token operator">:</span> Contact<span class="token punctuation">;</span>
     originalContact<span class="token operator">:</span> Contact<span class="token punctuation">;</span>
   
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> api<span class="token operator">:</span> WebAPI<span class="token punctuation">,</span> <span class="token keyword">private</span> ea<span class="token operator">:</span> EventAggregator<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> api<span class="token operator">:</span> WebAPI<span class="token punctuation">,</span> <span class="token keyword">private</span> ea<span class="token operator">:</span> EventAggregator<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
   
     <span class="token function">activate</span><span class="token punctuation">(</span>params<span class="token punctuation">,</span> routeConfig<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>routeConfig <span class="token operator">=</span> routeConfig<span class="token punctuation">;</span>
@@ -818,12 +818,12 @@ We use a dashed naming convention to separate the words <em>contact-list</em> as
   <span class="token keyword">import</span> <span class="token punctuation">{</span>ContactUpdated<span class="token punctuation">,</span> ContactViewed<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./messages'</span><span class="token punctuation">;</span>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
   
-  @<span class="token function">inject</span><span class="token punctuation">(</span>WebAPI<span class="token punctuation">,</span> EventAggregator<span class="token punctuation">)</span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">inject</span></span><span class="token punctuation">(</span>WebAPI<span class="token punctuation">,</span> EventAggregator<span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ContactList</span> <span class="token punctuation">{</span>
     contacts<span class="token punctuation">;</span>
     selectedId <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
   
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> api<span class="token operator">:</span> WebAPI<span class="token punctuation">,</span> ea<span class="token operator">:</span> EventAggregator<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> api<span class="token operator">:</span> WebAPI<span class="token punctuation">,</span> ea<span class="token operator">:</span> EventAggregator<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       ea<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>ContactViewed<span class="token punctuation">,</span> msg <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">select</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>contact<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       ea<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>ContactUpdated<span class="token punctuation">,</span> msg <span class="token operator">=></span> <span class="token punctuation">{</span>
         <span class="token keyword">let</span> id <span class="token operator">=</span> msg<span class="token punctuation">.</span>contact<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
@@ -901,9 +901,9 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
   <span class="token keyword">import</span> <span class="token punctuation">{</span>bindable<span class="token punctuation">,</span> noView<span class="token punctuation">,</span> <span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
   <span class="token keyword">import</span> <span class="token string">'nprogress/nprogress.css'</span><span class="token punctuation">;</span>
   
-  @noView
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">noView</span></span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">LoadingIndicator</span> <span class="token punctuation">{</span>
-    @bindable loading <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token decorator"><span class="token at operator">@</span><span class="token function">bindable</span></span> loading <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
   
     <span class="token function">loadingChanged</span><span class="token punctuation">(</span>newValue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span>newValue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -971,8 +971,8 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
       config<span class="token punctuation">.</span>options<span class="token punctuation">.</span>pushState <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
       config<span class="token punctuation">.</span>options<span class="token punctuation">.</span>root <span class="token operator">=</span> <span class="token string">'/'</span><span class="token punctuation">;</span>
       config<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
-        <span class="token punctuation">{</span> route<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>              moduleId<span class="token operator">:</span> <span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'no-selection'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>   title<span class="token operator">:</span> <span class="token string">'Select'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span> route<span class="token operator">:</span> <span class="token string">'contacts/:id'</span><span class="token punctuation">,</span>  moduleId<span class="token operator">:</span> <span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'contact-detail'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> name<span class="token operator">:</span><span class="token string">'contacts'</span> <span class="token punctuation">}</span>
+        <span class="token punctuation">{</span> <span class="token literal-property property">route</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>              <span class="token literal-property property">moduleId</span><span class="token operator">:</span> <span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'no-selection'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>   <span class="token literal-property property">title</span><span class="token operator">:</span> <span class="token string">'Select'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span> <span class="token literal-property property">route</span><span class="token operator">:</span> <span class="token string">'contacts/:id'</span><span class="token punctuation">,</span>  <span class="token literal-property property">moduleId</span><span class="token operator">:</span> <span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'contact-detail'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span><span class="token string">'contacts'</span> <span class="token punctuation">}</span>
       <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
       <span class="token keyword">this</span><span class="token punctuation">.</span>router <span class="token operator">=</span> router<span class="token punctuation">;</span>
@@ -990,11 +990,11 @@ TypeScript users should note that when using 3rd party libraries, in order to ma
   <span class="token keyword">import</span> <span class="token punctuation">{</span>inject<span class="token punctuation">,</span> <span class="token constant">PLATFORM</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-framework'</span><span class="token punctuation">;</span>
   <span class="token keyword">import</span> <span class="token punctuation">{</span>WebAPI<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./web-api'</span><span class="token punctuation">;</span>
   
-  @<span class="token function">inject</span><span class="token punctuation">(</span>WebAPI<span class="token punctuation">)</span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">inject</span></span><span class="token punctuation">(</span>WebAPI<span class="token punctuation">)</span>
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">{</span>
     router<span class="token operator">:</span> Router<span class="token punctuation">;</span>
   
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">public</span> api<span class="token operator">:</span> WebAPI<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">public</span> api<span class="token operator">:</span> WebAPI<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
   
     <span class="token function">configureRouter</span><span class="token punctuation">(</span>config<span class="token operator">:</span> RouterConfiguration<span class="token punctuation">,</span> router<span class="token operator">:</span> Router<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       config<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string">'Contacts'</span><span class="token punctuation">;</span>

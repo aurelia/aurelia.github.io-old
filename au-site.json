@@ -123,7 +123,7 @@
       {
         "name": "aurelia-bootstrapper",
         "package": "./node_modules/aurelia-bootstrapper/package.json",
-        "src": "./node_modules/aurelia-bootstrapper/dist/aurelia-bootstrapper.d.ts",
+        "src": "./node_modules/aurelia-bootstrapper/dist/types/aurelia-bootstrapper.d.ts",
         "dest": "docs/api/bootstrapper"
       },
       {
@@ -153,7 +153,7 @@
       {
         "name": "aurelia-framework",
         "package": "./node_modules/aurelia-framework/package.json",
-        "src": "./node_modules/aurelia-framework/dist/aurelia-framework.d.ts",
+        "src": "./node_modules/aurelia-framework/dist/types/aurelia-framework.d.ts",
         "dest": "docs/api/framework"
       },
       {
@@ -219,7 +219,7 @@
       {
         "name": "aurelia-path",
         "package": "./node_modules/aurelia-path/package.json",
-        "src": "./node_modules/aurelia-path/dist/aurelia-path.d.ts",
+        "src": "./node_modules/aurelia-path/dist/types/index.d.ts",
         "dest": "docs/api/path"
       },
       {
@@ -243,19 +243,19 @@
       {
         "name": "aurelia-templating",
         "package": "./node_modules/aurelia-templating/package.json",
-        "src": "./node_modules/aurelia-templating/dist/aurelia-templating.d.ts",
+        "src": "./node_modules/aurelia-templating/dist/types/aurelia-templating.d.ts",
         "dest": "docs/api/templating"
       },
       {
         "name": "aurelia-templating-binding",
         "package": "./node_modules/aurelia-templating-binding/package.json",
-        "src": "./node_modules/aurelia-templating-binding/dist/aurelia-templating-binding.d.ts",
+        "src": "./node_modules/aurelia-templating-binding/dist/types/aurelia-templating-binding.d.ts",
         "dest": "docs/api/templating-binding"
       },
       {
         "name": "aurelia-templating-resources",
         "package": "./node_modules/aurelia-templating-resources/package.json",
-        "src": "./node_modules/aurelia-templating-resources/dist/aurelia-templating-resources.d.ts",
+        "src": "./node_modules/aurelia-templating-resources/dist/types/aurelia-templating-resources.d.ts",
         "dest": "docs/api/templating-resources"
       },
       {
@@ -267,7 +267,7 @@
       {
         "name": "aurelia-testing",
         "package": "./node_modules/aurelia-testing/package.json",
-        "src": "./node_modules/aurelia-testing/dist/commonjs/aurelia-testing.d.ts",
+        "src": "./node_modules/aurelia-testing/dist/types/aurelia-testing.d.ts",
         "dest": "docs/api/testing"
       },
       {

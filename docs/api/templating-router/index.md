@@ -49,7 +49,7 @@ Implementation of Aurelia Router ViewPort. Responsible for loading route, compos
 * `layoutViewModel: any` - Layout view model used as binding context for this router-view layout
 Actual type would be {string | Constructable | object}
 * `router: Router` - Current router associated with this &lt;router-view/&gt;
-* `swapOrder: string` - Swapping order when going to a new route. By default, supports 3 value: before, after, with
+* `swapOrder: ` - Swapping order when going to a new route. By default, supports 3 value: before, after, with
 - before &#x3D; new in -&gt; old out
 - after &#x3D; old out -&gt; new in
 - with &#x3D; new in + old out
@@ -76,6 +76,20 @@ Actual type would be {string | Constructable | object}
 
 
 
+### RouterViewLocator
+
+Locator which finds the nearest RouterView, relative to the current dependency injection container.
+
+#### Properties
+
+
+#### Methods
+
+
+* `findNearest(): Promise` - Finds the nearest RouterView instance.
+
+
+
 ### TemplatingRouteLoader
 
 Default implementation of &#x60;RouteLoader&#x60; used for loading component based on a route config
@@ -86,10 +100,10 @@ Default implementation of &#x60;RouteLoader&#x60; used for loading component bas
 #### Methods
 
 
-* `loadRoute(router: Router, config: RouteConfig, _navInstruction: NavigationInstruction): Promise` - Load corresponding component of a route config of a navigation instruction
+* `loadRoute(router: Router, config: RouteConfig, navInstruction: NavigationInstruction): Promise` - Load corresponding component of a route config of a navigation instruction
   * `router: Router` - No description available
   * `config: RouteConfig` - No description available
-  * `_navInstruction: NavigationInstruction` - No description available
+  * `navInstruction: NavigationInstruction` - No description available
 
 
 

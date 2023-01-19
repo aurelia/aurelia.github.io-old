@@ -14,7 +14,7 @@
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  jspm install aurelia<span class="token operator">-</span>testing
+  jspm install aurelia-testing
   </code>
   </pre>
 </source-code>
@@ -27,7 +27,7 @@
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm install aurelia<span class="token operator">-</span>testing
+  npm install aurelia-testing
   </code>
   </pre>
 </source-code>
@@ -83,7 +83,7 @@
       component <span class="token operator">=</span> StageComponent
         <span class="token punctuation">.</span><span class="token function">withResources</span><span class="token punctuation">(</span><span class="token string">'my-component'</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">inView</span><span class="token punctuation">(</span><span class="token string">'&lt;my-component first-name.bind="firstName">&lt;/my-component>'</span><span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">boundTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span> firstName<span class="token operator">:</span> <span class="token string">'Bob'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">.</span><span class="token function">boundTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">firstName</span><span class="token operator">:</span> <span class="token string">'Bob'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
     <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should render first name'</span><span class="token punctuation">,</span> <span class="token parameter">done</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -126,7 +126,7 @@
   component <span class="token operator">=</span> StageComponent
     <span class="token punctuation">.</span><span class="token function">withResources</span><span class="token punctuation">(</span><span class="token string">'src/my-component'</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">inView</span><span class="token punctuation">(</span><span class="token string">'&lt;my-component first-name.bind="firstName">&lt;/my-component>'</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">boundTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span> firstName<span class="token operator">:</span> <span class="token string">'Bob'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">.</span><span class="token function">boundTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">firstName</span><span class="token operator">:</span> <span class="token string">'Bob'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code>
   </pre>
 </source-code>
@@ -156,7 +156,7 @@ If you are using <code>karma</code> and your configuration already has a path fo
       component <span class="token operator">=</span> StageComponent
         <span class="token punctuation">.</span><span class="token function">withResources</span><span class="token punctuation">(</span><span class="token string">'src/my-component'</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">inView</span><span class="token punctuation">(</span><span class="token string">'&lt;my-component first-name.bind="firstName">&lt;/my-component>'</span><span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">boundTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span> firstName<span class="token operator">:</span> <span class="token string">'Bob'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">.</span><span class="token function">boundTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">firstName</span><span class="token operator">:</span> <span class="token string">'Bob'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
     <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'can manually handle lifecycle'</span><span class="token punctuation">,</span> <span class="token parameter">done</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -180,7 +180,7 @@ If you are using <code>karma</code> and your configuration already has a path fo
         <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
           <span class="token function">expect</span><span class="token punctuation">(</span>component<span class="token punctuation">.</span>viewModel<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">component</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'Bar'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">component</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'Bar'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
           <span class="token function">expect</span><span class="token punctuation">(</span>nameElement<span class="token punctuation">.</span>innerHTML<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token string">'Bar bind'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span>
@@ -242,7 +242,7 @@ If you are using <code>karma</code> and your configuration already has a path fo
       component <span class="token operator">=</span> StageComponent
           <span class="token punctuation">.</span><span class="token function">withResources</span><span class="token punctuation">(</span><span class="token string">'src/my-attribute'</span><span class="token punctuation">)</span>
           <span class="token punctuation">.</span><span class="token function">inView</span><span class="token punctuation">(</span><span class="token string">'&lt;div my-attribute.bind="color">Bob&lt;/div>'</span><span class="token punctuation">)</span>
-          <span class="token punctuation">.</span><span class="token function">boundTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span> color<span class="token operator">:</span> <span class="token string">'blue'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">.</span><span class="token function">boundTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">color</span><span class="token operator">:</span> <span class="token string">'blue'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
     <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should set the background color to provided color'</span><span class="token punctuation">,</span> <span class="token parameter">done</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -493,7 +493,7 @@ to test the view/view-model, mocking out service calls to the backend.</p>
 <source-code lang="JavaScript" heading="Waiting for an absent element with timeout">
   <pre class="language-javascript">
     <code>
-  component<span class="token punctuation">.</span><span class="token function">waitForElement</span><span class="token punctuation">(</span><span class="token string">'.firstName'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>present<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> timeout<span class="token operator">:</span> <span class="token number">2000</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>done<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  component<span class="token punctuation">.</span><span class="token function">waitForElement</span><span class="token punctuation">(</span><span class="token string">'.firstName'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token literal-property property">present</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token literal-property property">timeout</span><span class="token operator">:</span> <span class="token number">2000</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>done<span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code>
   </pre>
 </source-code>

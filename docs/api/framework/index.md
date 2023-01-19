@@ -21,8 +21,8 @@ The loader used by the application.
 #### Methods
 
 
-* `enhance(bindingContext?: Object, applicationHost?: ): Promise` - Enhances the host&#x27;s existing elements with behaviors and bindings.
-  * `bindingContext?: Object` - A binding context for the enhanced elements.
+* `enhance(bindingContext?: object, applicationHost?: ): Promise` - Enhances the host&#x27;s existing elements with behaviors and bindings.
+  * `bindingContext?: object` - A binding context for the enhanced elements.
   * `applicationHost?: ` - The DOM object that Aurelia will enhance.
 
 
@@ -59,8 +59,8 @@ Manages configuring the aurelia framework instance.
 * `defaultResources(): FrameworkConfiguration` - Plugs in the default templating resources (if, repeat, show, compose, etc.) from aurelia-templating-resources.
 
 
-* `developmentLogging(level?: String): FrameworkConfiguration` - Plugs in the ConsoleAppender and sets the log level to debug.
-  * `level?: String` - The log level (none/error/warn/info/debug), default to &#x27;debug&#x27;.
+* `developmentLogging(level?: string): FrameworkConfiguration` - Plugs in the ConsoleAppender and sets the log level to debug.
+  * `level?: string` - The log level (none/error/warn/info/debug), default to &#x27;debug&#x27;.
 
 
 * `eventAggregator(): FrameworkConfiguration` - Plugs in the event aggregator from aurelia-event-aggregator.
@@ -138,7 +138,6 @@ No description available.
 
 ## Constants
 
-* `LogManager: &quot;/Users/huocp/aurelia/aurelia.github.io/node_modules/aurelia-logging/dist/aurelia-logging&quot;` - The log manager.
 
 ## Functions
 

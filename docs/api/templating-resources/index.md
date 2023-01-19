@@ -16,14 +16,14 @@ views.
 #### Methods
 
 
-* `addView(bindingContext: any, overrideContext: any): void` - Adds a view to the repeater, binding the view to the
+* `addView(bindingContext: any, overrideContext: any): any` - Adds a view to the repeater, binding the view to the
 provided contexts.
   * `bindingContext: any` - The binding context to bind the new view to.
   * `overrideContext: any` - A secondary binding context that can override the primary context.
 
 
 
-* `insertView(index: any, bindingContext: any, overrideContext: any): void` - Inserts a view to the repeater at a specific index, binding the view to the
+* `insertView(index: any, bindingContext: any, overrideContext: any): any` - Inserts a view to the repeater at a specific index, binding the view to the
 provided contexts.
   * `index: any` - The index at which to create the new view at.
   * `bindingContext: any` - The binding context to bind the new view to.
@@ -31,29 +31,31 @@ provided contexts.
 
 
 
-* `matcher(): void` - Returns the matcher function to be used by the repeater, or null if strict matching is to be performed.
+* `matcher(): ` - Returns the matcher function to be used by the repeater, or null if strict matching is to be performed.
 
 
-* `moveView(sourceIndex: any, targetIndex: any): void` - Moves a view across the repeater.
+* `moveView(sourceIndex: any, targetIndex: any): any` - Moves a view across the repeater.
   * `sourceIndex: any` - No description available
   * `targetIndex: any` - No description available
 
 
-* `removeAllViews(returnToCache?: boolean, skipAnimation?: boolean): void` - Removes all views from the repeater.
+* `removeAllViews(returnToCache?: boolean, skipAnimation?: boolean): any` - Removes all views from the repeater.
   * `returnToCache?: boolean` - Should the view be returned to the view cache?
   * `skipAnimation?: boolean` - Should the removal animation be skipped?
 
 
-* `removeView(index: number, returnToCache?: boolean, skipAnimation?: boolean): void` - Removes a view from the repeater at a specific index.
+* `removeView(index: number, returnToCache?: boolean, skipAnimation?: boolean): any` - Removes a view from the repeater at a specific index.
   * `index: number` - The index of the view to be removed.
   * `returnToCache?: boolean` - Should the view be returned to the view cache?
   * `skipAnimation?: boolean` - Should the removal animation be skipped?
 
 
-* `removeViews(viewsToRemove: Array, returnToCache?: boolean, skipAnimation?: boolean): void` - Removes an array of Views from the repeater.
+
+* `removeViews(viewsToRemove: Array, returnToCache?: boolean, skipAnimation?: boolean): any` - Removes an array of Views from the repeater.
   * `viewsToRemove: Array` - The array of views to be removed.
   * `returnToCache?: boolean` - Should the view be returned to the view cache?
   * `skipAnimation?: boolean` - Should the removal animation be skipped?
+
 
 
 * `updateBindings(view: View): void` - Forces a particular view to update it&#x27;s bindings, called as part of
@@ -62,8 +64,8 @@ an in-place processing of items for better performance
 
 
 
-* `view(index: any): any` - Returns a single view from the repeater at the provided index.
-  * `index: any` - The index of the requested view.
+* `view(index: number): any` - Returns a single view from the repeater at the provided index.
+  * `index: number` - The index of the requested view.
 
 
 * `viewCount(): number` - Returns the number of views the repeater knows about.
@@ -250,9 +252,7 @@ CustomAttribute that binds provided DOM element&#x27;s focus attribute with a pr
   * `e: any` - No description available
 
 
-* `valueChanged(newValue: any): void` - Invoked everytime the bound value changes.
-  * `newValue: any` - The new value.
-
+* `valueChanged(): void` - Invoked everytime the bound value changes.
 
 
 

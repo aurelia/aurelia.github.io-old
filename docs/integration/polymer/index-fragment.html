@@ -15,13 +15,13 @@
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">{</span>
-    <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"my-aurelia-polymer-project"</span><span class="token punctuation">,</span>
-    <span class="token string">"private"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-    <span class="token string">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"polymer"</span><span class="token operator">:</span> <span class="token string">"Polymer/polymer#^1.2.0"</span><span class="token punctuation">,</span>
-      <span class="token string">"paper-elements"</span><span class="token operator">:</span> <span class="token string">"PolymerElements/paper-elements#^1.0.6"</span><span class="token punctuation">,</span>
-      <span class="token string">"iron-elements"</span><span class="token operator">:</span> <span class="token string">"PolymerElements/iron-elements#^1.0.4"</span><span class="token punctuation">,</span>
-      <span class="token string">"webcomponentsjs"</span><span class="token operator">:</span> <span class="token string">"webcomponents/webcomponentsjs#^0.7.20"</span>
+    <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"my-aurelia-polymer-project"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"private"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string-property property">"polymer"</span><span class="token operator">:</span> <span class="token string">"Polymer/polymer#^1.2.0"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"paper-elements"</span><span class="token operator">:</span> <span class="token string">"PolymerElements/paper-elements#^1.0.6"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"iron-elements"</span><span class="token operator">:</span> <span class="token string">"PolymerElements/iron-elements#^1.0.4"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"webcomponentsjs"</span><span class="token operator">:</span> <span class="token string">"webcomponents/webcomponentsjs#^0.7.20"</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   </code>
@@ -50,8 +50,8 @@
 <source-code lang="Shell" heading="Plugin Installation">
   <pre class="language-powershell">
     <code>
-  $ jspm install aurelia<span class="token operator">-</span>html<span class="token operator">-</span><span class="token function">import-template</span><span class="token operator">-</span>loader
-  $ jspm install aurelia<span class="token operator">-</span>polymer@^1<span class="token punctuation">.</span>0<span class="token punctuation">.</span>0<span class="token operator">-</span>beta
+  $ jspm install aurelia-html-<span class="token function">import-template</span><span class="token operator">-</span>loader
+  $ jspm install aurelia-polymer@^1<span class="token punctuation">.</span>0<span class="token punctuation">.</span>0-beta
   </code>
   </pre>
 </source-code>
@@ -277,7 +277,7 @@ so that the Aurelia binding engine will register event listeners properly.</p>
 <source-code lang="JavaScript" heading="Element Registration">
   <pre class="language-javascript">
     <code>
-  <span class="token keyword">var</span> propertyConfig <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'bind-value'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'change'</span><span class="token punctuation">,</span> <span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token comment">// Not explicitly listed for all elements that use it</span>
+  <span class="token keyword">var</span> propertyConfig <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string-property property">'bind-value'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'change'</span><span class="token punctuation">,</span> <span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token comment">// Not explicitly listed for all elements that use it</span>
   
   <span class="token keyword">function</span> <span class="token function">handleProp</span><span class="token punctuation">(</span><span class="token parameter">propName<span class="token punctuation">,</span> prop</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>prop<span class="token punctuation">.</span>notify<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -294,8 +294,8 @@ so that the Aurelia binding engine will register event listeners properly.</p>
   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
   eventManager<span class="token punctuation">.</span><span class="token function">registerElementConfig</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-    tagName<span class="token operator">:</span> prototype<span class="token punctuation">.</span>is<span class="token punctuation">,</span>
-    properties<span class="token operator">:</span> propertyConfig
+    <span class="token literal-property property">tagName</span><span class="token operator">:</span> prototype<span class="token punctuation">.</span>is<span class="token punctuation">,</span>
+    <span class="token literal-property property">properties</span><span class="token operator">:</span> propertyConfig
   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code>
   </pre>
@@ -305,7 +305,7 @@ so that the Aurelia binding engine will register event listeners properly.</p>
 <source-code lang="TypeScript" heading="Element Registration">
   <pre class="language-typescript">
     <code>
-  <span class="token keyword">var</span> propertyConfig <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'bind-value'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'change'</span><span class="token punctuation">,</span> <span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token comment">// Not explicitly listed for all elements that use it</span>
+  <span class="token keyword">var</span> propertyConfig <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string-property property">'bind-value'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'change'</span><span class="token punctuation">,</span> <span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token comment">// Not explicitly listed for all elements that use it</span>
   
   <span class="token keyword">function</span> <span class="token function">handleProp</span><span class="token punctuation">(</span>propName<span class="token punctuation">,</span> prop<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>prop<span class="token punctuation">.</span>notify<span class="token punctuation">)</span> <span class="token punctuation">{</span>

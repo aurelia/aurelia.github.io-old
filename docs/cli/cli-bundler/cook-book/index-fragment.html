@@ -188,24 +188,24 @@ Webpack behaves differently, it controls the whole scss compilation. With Webpac
 <source-code lang="JSON" heading="aurelia_project/aurelia.json">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token string-property property">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token comment">// ...</span>
     <span class="token punctuation">{</span>
-      <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
-      <span class="token string">"prepend"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token string">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"prepend"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
         <span class="token comment">// ...</span>
         <span class="token punctuation">{</span>
-          <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"bootstrap"</span><span class="token punctuation">,</span>
-          <span class="token string">"deps"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"jquery"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token string">"path"</span><span class="token operator">:</span> <span class="token string">"../node_modules/bootstrap"</span><span class="token punctuation">,</span>
-          <span class="token string">"main"</span><span class="token operator">:</span> <span class="token string">"dist/js/bootstrap.min"</span>
+          <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"bootstrap"</span><span class="token punctuation">,</span>
+          <span class="token string-property property">"deps"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"jquery"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token string-property property">"path"</span><span class="token operator">:</span> <span class="token string">"../node_modules/bootstrap"</span><span class="token punctuation">,</span>
+          <span class="token string-property property">"main"</span><span class="token operator">:</span> <span class="token string">"dist/js/bootstrap.min"</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token string">"copyFiles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token string">"node_modules/bootstrap/dist/fonts/*"</span><span class="token operator">:</span> <span class="token string">"bootstrap/fonts"</span>
+  <span class="token string-property property">"copyFiles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"node_modules/bootstrap/dist/fonts/*"</span><span class="token operator">:</span> <span class="token string">"bootstrap/fonts"</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -279,11 +279,11 @@ Webpack behaves differently, it controls the whole scss compilation. With Webpac
 <source-code lang="JSON" heading="aurelia_project/aurelia.json">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token string-property property">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token comment">// ...</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token string">"copyFiles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token string">"node_modules/@fortawesome/fontawesome-free/webfonts/*"</span><span class="token operator">:</span> <span class="token string">"@fortawesome/fontawesome-free/webfonts"</span>
+  <span class="token string-property property">"copyFiles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"node_modules/@fortawesome/fontawesome-free/webfonts/*"</span><span class="token operator">:</span> <span class="token string">"@fortawesome/fontawesome-free/webfonts"</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -315,11 +315,11 @@ Webpack behaves differently, it controls the whole scss compilation. With Webpac
 <source-code lang="JSON" heading="aurelia_project/aurelia.json">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token string-property property">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token comment">// ...</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token string">"copyFiles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token string">"node_modules/font-awesome/fonts/*"</span><span class="token operator">:</span> <span class="token string">"font-awesome/fonts"</span>
+  <span class="token string-property property">"copyFiles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"node_modules/font-awesome/fonts/*"</span><span class="token operator">:</span> <span class="token string">"font-awesome/fonts"</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -516,24 +516,24 @@ Webpack behaves differently, it controls the whole scss compilation. With Webpac
 <source-code lang="JSON" heading="aurelia_project/aurelia.json">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token string-property property">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token comment">// ...</span>
     <span class="token punctuation">{</span>
-      <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
-      <span class="token string">"prepend"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token string">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"prepend"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
         <span class="token comment">// ...</span>
         <span class="token punctuation">{</span>
-          <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"typeorm"</span><span class="token punctuation">,</span>
-          <span class="token string">"path"</span><span class="token operator">:</span> <span class="token string">"../node_modules/typeorm"</span><span class="token punctuation">,</span>
-          <span class="token string">"main"</span><span class="token operator">:</span> <span class="token string">"typeorm-model-shim"</span>
+          <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"typeorm"</span><span class="token punctuation">,</span>
+          <span class="token string-property property">"path"</span><span class="token operator">:</span> <span class="token string">"../node_modules/typeorm"</span><span class="token punctuation">,</span>
+          <span class="token string-property property">"main"</span><span class="token operator">:</span> <span class="token string">"typeorm-model-shim"</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token string">"paths"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+  <span class="token string-property property">"paths"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token operator">...</span>
-    <span class="token string">"entities"</span><span class="token operator">:</span> <span class="token string">"../../server/src/entity"</span>
+    <span class="token string-property property">"entities"</span><span class="token operator">:</span> <span class="token string">"../../server/src/entity"</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -552,12 +552,12 @@ Webpack behaves differently, it controls the whole scss compilation. With Webpac
     <code>
   <span class="token punctuation">{</span>
     <span class="token operator">...</span>
-    <span class="token string">"compilerOptions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"compilerOptions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
       <span class="token operator">...</span>
-      <span class="token string">"paths"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token string">"entities/*"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"../../server/src/entity/*"</span><span class="token punctuation">]</span>
+      <span class="token string-property property">"paths"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string-property property">"entities/*"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"../../server/src/entity/*"</span><span class="token punctuation">]</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token string">"baseUrl"</span><span class="token operator">:</span> <span class="token string">"src"</span>
+      <span class="token string-property property">"baseUrl"</span><span class="token operator">:</span> <span class="token string">"src"</span>
     <span class="token punctuation">}</span>
     <span class="token operator">...</span>
   <span class="token punctuation">}</span>

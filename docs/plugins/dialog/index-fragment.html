@@ -13,7 +13,7 @@
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm install aurelia<span class="token operator">-</span>dialog
+  npm install aurelia-dialog
   </code>
   </pre>
 </source-code>
@@ -26,7 +26,7 @@
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  yarn add aurelia<span class="token operator">-</span>dialog
+  yarn add aurelia-dialog
   </code>
   </pre>
 </source-code>
@@ -39,7 +39,7 @@
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  jspm install aurelia<span class="token operator">-</span>dialog
+  jspm install aurelia-dialog
   </code>
   </pre>
 </source-code>
@@ -54,7 +54,7 @@ If you use TypeScript and install <em>only</em> the <em>jspm</em> package, you c
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  typings install github:aurelia<span class="token operator">/</span>dialog
+  typings install github:aurelia/dialog
   </code>
   </pre>
 </source-code>
@@ -131,7 +131,7 @@ When using <em>Webpack</em> and <em>IE11</em> you will need this <em>alias</em> 
       <span class="token keyword">this</span><span class="token punctuation">.</span>dialogService <span class="token operator">=</span> dialogService<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
     <span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>dialogService<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span><span class="token punctuation">{</span> viewModel<span class="token operator">:</span> Prompt<span class="token punctuation">,</span> model<span class="token operator">:</span> <span class="token string">'Good or Bad?'</span><span class="token punctuation">,</span> lock<span class="token operator">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">whenClosed</span><span class="token punctuation">(</span><span class="token parameter">response</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>dialogService<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">viewModel</span><span class="token operator">:</span> Prompt<span class="token punctuation">,</span> <span class="token literal-property property">model</span><span class="token operator">:</span> <span class="token string">'Good or Bad?'</span><span class="token punctuation">,</span> <span class="token literal-property property">lock</span><span class="token operator">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">whenClosed</span><span class="token punctuation">(</span><span class="token parameter">response</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>response<span class="token punctuation">.</span>wasCancelled<span class="token punctuation">)</span> <span class="token punctuation">{</span>
           console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'good'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
@@ -165,9 +165,9 @@ When using <em>Webpack</em> and <em>IE11</em> you will need this <em>alias</em> 
     <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">dialogService</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>dialogService <span class="token operator">=</span> dialogService<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    person <span class="token operator">=</span> <span class="token punctuation">{</span> firstName<span class="token operator">:</span> <span class="token string">'Wade'</span><span class="token punctuation">,</span> middleName<span class="token operator">:</span> <span class="token string">'Owen'</span><span class="token punctuation">,</span> lastName<span class="token operator">:</span> <span class="token string">'Watts'</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    person <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token literal-property property">firstName</span><span class="token operator">:</span> <span class="token string">'Wade'</span><span class="token punctuation">,</span> <span class="token literal-property property">middleName</span><span class="token operator">:</span> <span class="token string">'Owen'</span><span class="token punctuation">,</span> <span class="token literal-property property">lastName</span><span class="token operator">:</span> <span class="token string">'Watts'</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
     <span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>dialogService<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span><span class="token punctuation">{</span> viewModel<span class="token operator">:</span> EditPerson<span class="token punctuation">,</span> model<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>person<span class="token punctuation">,</span> lock<span class="token operator">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">whenClosed</span><span class="token punctuation">(</span><span class="token parameter">response</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>dialogService<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">viewModel</span><span class="token operator">:</span> EditPerson<span class="token punctuation">,</span> <span class="token literal-property property">model</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>person<span class="token punctuation">,</span> <span class="token literal-property property">lock</span><span class="token operator">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">whenClosed</span><span class="token punctuation">(</span><span class="token parameter">response</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>response<span class="token punctuation">.</span>wasCancelled<span class="token punctuation">)</span> <span class="token punctuation">{</span>
           console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'good - '</span><span class="token punctuation">,</span> response<span class="token punctuation">.</span>output<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
@@ -193,7 +193,7 @@ When using <em>Webpack</em> and <em>IE11</em> you will need this <em>alias</em> 
   
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">EditPerson</span> <span class="token punctuation">{</span>
     <span class="token keyword">static</span> inject <span class="token operator">=</span> <span class="token punctuation">[</span>DialogController<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    person <span class="token operator">=</span> <span class="token punctuation">{</span> firstName<span class="token operator">:</span> <span class="token string">''</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    person <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token literal-property property">firstName</span><span class="token operator">:</span> <span class="token string">''</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
     <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">controller</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>controller <span class="token operator">=</span> controller<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -464,9 +464,9 @@ Plugin authors are advised to be explicit with settings that change behavior (<c
     <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">dialogService</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>dialogService <span class="token operator">=</span> dialogService<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    person <span class="token operator">=</span> <span class="token punctuation">{</span> firstName<span class="token operator">:</span> <span class="token string">'Wade'</span><span class="token punctuation">,</span> middleName<span class="token operator">:</span> <span class="token string">'Owen'</span><span class="token punctuation">,</span> lastName<span class="token operator">:</span> <span class="token string">'Watts'</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    person <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token literal-property property">firstName</span><span class="token operator">:</span> <span class="token string">'Wade'</span><span class="token punctuation">,</span> <span class="token literal-property property">middleName</span><span class="token operator">:</span> <span class="token string">'Owen'</span><span class="token punctuation">,</span> <span class="token literal-property property">lastName</span><span class="token operator">:</span> <span class="token string">'Watts'</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
     <span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>dialogService<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span><span class="token punctuation">{</span>viewModel<span class="token operator">:</span> EditPerson<span class="token punctuation">,</span> model<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>person<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">openDialogResult</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>dialogService<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token literal-property property">viewModel</span><span class="token operator">:</span> EditPerson<span class="token punctuation">,</span> <span class="token literal-property property">model</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>person<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">openDialogResult</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
         <span class="token comment">// Note you get here when the dialog is opened, and you are able to close dialog</span>
         <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
           openDialogResult<span class="token punctuation">.</span>controller<span class="token punctuation">.</span><span class="token function">cancel</span><span class="token punctuation">(</span><span class="token string">'canceled outside after 3 sec'</span><span class="token punctuation">)</span>
@@ -544,7 +544,7 @@ Plugin authors are advised to be explicit with settings that change behavior (<c
     <code>
   ux<span class="token operator">-</span>dialog<span class="token operator">-</span>overlay<span class="token punctuation">.</span>active <span class="token punctuation">{</span>
     background<span class="token operator">-</span>color<span class="token operator">:</span> black<span class="token punctuation">;</span>
-    opacity<span class="token operator">:</span> <span class="token number">.5</span><span class="token punctuation">;</span>
+    <span class="token literal-property property">opacity</span><span class="token operator">:</span> <span class="token number">.5</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -579,6 +579,28 @@ When <code>DialogController.prototype.error()</code> is called this hook will be
 <li><code>.detached()</code> - as defined by <code>aurelia-templating</code></li>
 <li><code>.unbind()</code> - as defined by <code>aurelia-templating</code></li>
 </ol>
+<h3>Native dialogs</h3>
+<p>The plugin allows to use native browser <code>&lt;dialog&gt;</code> element 
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement" target="_blank">MDN</a>
+<br />
+One can switch to <code>NativeDialogRenderer</code> as such:</p>
+
+<code-listing heading="main.js">
+  
+<source-code lang="JavaScript" heading="main.js">
+  <pre class="language-javascript">
+    <code>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> NativeDialogRenderer <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'aurelia-dialog'</span><span class="token punctuation">;</span>
+  
+  aurelia<span class="token punctuation">.</span>use<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'aurelia-dialog'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    config<span class="token punctuation">.</span><span class="token function">useDefaults</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    config<span class="token punctuation">.</span><span class="token function">useRenderer</span><span class="token punctuation">(</span>NativeDialogRenderer<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  </code>
+  </pre>
+</source-code>
+  
+</code-listing>
 </section>
 
   </article>

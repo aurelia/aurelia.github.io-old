@@ -80,14 +80,14 @@ dependencies config in aurelia.json.</p>
 <source-code lang="JSON" heading="">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"paths"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token string">"root"</span><span class="token operator">:</span> <span class="token string">"src"</span><span class="token punctuation">,</span>
-    <span class="token string">"resources"</span><span class="token operator">:</span> <span class="token string">"resources"</span><span class="token punctuation">,</span>
-    <span class="token string">"elements"</span><span class="token operator">:</span> <span class="token string">"resources/elements"</span><span class="token punctuation">,</span>
-    <span class="token string">"attributes"</span><span class="token operator">:</span> <span class="token string">"resources/attributes"</span><span class="token punctuation">,</span>
-    <span class="token string">"valueConverters"</span><span class="token operator">:</span> <span class="token string">"resources/value-converters"</span><span class="token punctuation">,</span>
-    <span class="token string">"bindingBehaviors"</span><span class="token operator">:</span> <span class="token string">"resources/binding-behaviors"</span><span class="token punctuation">,</span>
-    <span class="token string">"client-info"</span><span class="token operator">:</span> <span class="token string">"../customize/client-info"</span>
+  <span class="token string-property property">"paths"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"root"</span><span class="token operator">:</span> <span class="token string">"src"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"resources"</span><span class="token operator">:</span> <span class="token string">"resources"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"elements"</span><span class="token operator">:</span> <span class="token string">"resources/elements"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"attributes"</span><span class="token operator">:</span> <span class="token string">"resources/attributes"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"valueConverters"</span><span class="token operator">:</span> <span class="token string">"resources/value-converters"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"bindingBehaviors"</span><span class="token operator">:</span> <span class="token string">"resources/binding-behaviors"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"client-info"</span><span class="token operator">:</span> <span class="token string">"../customize/client-info"</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -177,12 +177,12 @@ Native ES Module is not supported at runtime. But SystemJS supports it with extr
 <source-code lang="JSON" heading="aurelia_project/aurelia.json">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token string-property property">"bundles"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token comment">// ...</span>
     <span class="token punctuation">{</span>
-      <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
-      <span class="token string">"prepend"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token string">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"prepend"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token comment">/* ... */</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
         <span class="token comment">// ...</span>
         <span class="token comment">// force bundling lodash</span>
         <span class="token string">"lodash"</span>
@@ -225,13 +225,13 @@ Native ES Module is not supported at runtime. But SystemJS supports it with extr
 <source-code lang="JSON" heading="aurelia_project/aurelia.json">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token string">"loader"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"type"</span><span class="token operator">:</span> <span class="token string">"require"</span><span class="token punctuation">,</span>
-      <span class="token string">"configTarget"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
-      <span class="token string">"includeBundleMetadataInConfig"</span><span class="token operator">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
-      <span class="token string">"config"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token string">"wrapShim"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+  <span class="token string-property property">"build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"loader"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string-property property">"type"</span><span class="token operator">:</span> <span class="token string">"require"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"configTarget"</span><span class="token operator">:</span> <span class="token string">"vendor-bundle.js"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"includeBundleMetadataInConfig"</span><span class="token operator">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"config"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string-property property">"wrapShim"</span><span class="token operator">:</span> <span class="token boolean">true</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
@@ -255,9 +255,9 @@ Native ES Module is not supported at runtime. But SystemJS supports it with extr
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">{</span>
-    <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"vscode"</span><span class="token punctuation">,</span>
-    <span class="token string">"path"</span><span class="token operator">:</span> <span class="token string">"../node_modules/monaco-languageclient/lib"</span><span class="token punctuation">,</span>
-    <span class="token string">"main"</span><span class="token operator">:</span> <span class="token string">"vscode-compatibility"</span>
+    <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"vscode"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"path"</span><span class="token operator">:</span> <span class="token string">"../node_modules/monaco-languageclient/lib"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"main"</span><span class="token operator">:</span> <span class="token string">"vscode-compatibility"</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -273,11 +273,11 @@ Native ES Module is not supported at runtime. But SystemJS supports it with extr
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">{</span>
-    <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"my-awesome-package"</span><span class="token punctuation">,</span>
-    <span class="token string">"path"</span><span class="token operator">:</span> <span class="token string">"../my-awesome-package"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"my-awesome-package"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"path"</span><span class="token operator">:</span> <span class="token string">"../my-awesome-package"</span><span class="token punctuation">,</span>
     <span class="token comment">// main field is optional, as long as you have a package.json in</span>
     <span class="token comment">// my-awesome-package folder, CLI bundler can read it and find main file</span>
-    <span class="token string">"main"</span><span class="token operator">:</span> <span class="token string">"index"</span>
+    <span class="token string-property property">"main"</span><span class="token operator">:</span> <span class="token string">"index"</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -292,8 +292,8 @@ Native ES Module is not supported at runtime. But SystemJS supports it with extr
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">{</span>
-    <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"my-awesome-package"</span><span class="token punctuation">,</span>
-    <span class="token string">"path"</span><span class="token operator">:</span> <span class="token string">"../my-awesome-package/the-entry-file.js"</span>
+    <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"my-awesome-package"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"path"</span><span class="token operator">:</span> <span class="token string">"../my-awesome-package/the-entry-file.js"</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
@@ -316,12 +316,12 @@ Native ES Module is not supported at runtime. But SystemJS supports it with extr
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">{</span>
-    <span class="token string">"name"</span><span class="token operator">:</span> <span class="token string">"lodash"</span><span class="token punctuation">,</span>
-    <span class="token string">"path"</span><span class="token operator">:</span> <span class="token string">"../lodash"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"lodash"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"path"</span><span class="token operator">:</span> <span class="token string">"../lodash"</span><span class="token punctuation">,</span>
     <span class="token comment">// you can let CLI bundler to find main file in package.json</span>
     <span class="token comment">// or explicitly name main file</span>
     <span class="token comment">// "main": "lodash"</span>
-    <span class="token string">"lazyMain"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token string-property property">"lazyMain"</span><span class="token operator">:</span> <span class="token boolean">true</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>

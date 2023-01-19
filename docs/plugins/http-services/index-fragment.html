@@ -107,10 +107,10 @@ Generally, we recommend that you don't litter your application code with usage o
     config
       <span class="token punctuation">.</span><span class="token function">withBaseUrl</span><span class="token punctuation">(</span><span class="token string">'api/'</span><span class="token punctuation">)</span>
       <span class="token punctuation">.</span><span class="token function">withDefaults</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-        credentials<span class="token operator">:</span> <span class="token string">'same-origin'</span><span class="token punctuation">,</span>
-        headers<span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token string">'Accept'</span><span class="token operator">:</span> <span class="token string">'application/json'</span><span class="token punctuation">,</span>
-          <span class="token string">'X-Requested-With'</span><span class="token operator">:</span> <span class="token string">'Fetch'</span>
+        <span class="token literal-property property">credentials</span><span class="token operator">:</span> <span class="token string">'same-origin'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">headers</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token string-property property">'Accept'</span><span class="token operator">:</span> <span class="token string">'application/json'</span><span class="token punctuation">,</span>
+          <span class="token string-property property">'X-Requested-With'</span><span class="token operator">:</span> <span class="token string">'Fetch'</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span>
       <span class="token punctuation">.</span><span class="token function">withInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
@@ -169,13 +169,13 @@ Generally, we recommend that you don't litter your application code with usage o
   <span class="token keyword">let</span> httpClient <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HttpClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
   <span class="token keyword">let</span> comment <span class="token operator">=</span> <span class="token punctuation">{</span>
-    title<span class="token operator">:</span> <span class="token string">'Awesome!'</span><span class="token punctuation">,</span>
-    content<span class="token operator">:</span> <span class="token string">'This Fetch client is pretty rad.'</span>
+    <span class="token literal-property property">title</span><span class="token operator">:</span> <span class="token string">'Awesome!'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">content</span><span class="token operator">:</span> <span class="token string">'This Fetch client is pretty rad.'</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
   
   httpClient<span class="token punctuation">.</span><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">'comments'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
-    method<span class="token operator">:</span> <span class="token string">'post'</span><span class="token punctuation">,</span>
-    body<span class="token operator">:</span> <span class="token function">json</span><span class="token punctuation">(</span>comment<span class="token punctuation">)</span>
+    <span class="token literal-property property">method</span><span class="token operator">:</span> <span class="token string">'post'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">body</span><span class="token operator">:</span> <span class="token function">json</span><span class="token punctuation">(</span>comment<span class="token punctuation">)</span>
   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code>
   </pre>
@@ -199,9 +199,9 @@ Generally, we recommend that you don't litter your application code with usage o
       <span class="token punctuation">.</span><span class="token function">useStandardConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
       <span class="token punctuation">.</span><span class="token function">withBaseUrl</span><span class="token punctuation">(</span><span class="token string">'api/'</span><span class="token punctuation">)</span>
       <span class="token punctuation">.</span><span class="token function">withDefaults</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-        credentials<span class="token operator">:</span> <span class="token string">'same-origin'</span><span class="token punctuation">,</span>
-        headers<span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token string">'X-Requested-With'</span><span class="token operator">:</span> <span class="token string">'Fetch'</span>
+        <span class="token literal-property property">credentials</span><span class="token operator">:</span> <span class="token string">'same-origin'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">headers</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token string-property property">'X-Requested-With'</span><span class="token operator">:</span> <span class="token string">'Fetch'</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span><span class="token punctuation">)</span>
       <span class="token punctuation">.</span><span class="token function">withInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
@@ -214,14 +214,14 @@ Generally, we recommend that you don't litter your application code with usage o
   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
   <span class="token keyword">let</span> comment <span class="token operator">=</span> <span class="token punctuation">{</span>
-    title<span class="token operator">:</span> <span class="token string">'Awesome!'</span><span class="token punctuation">,</span>
-    content<span class="token operator">:</span> <span class="token string">'This Fetch client is pretty rad.'</span>
+    <span class="token literal-property property">title</span><span class="token operator">:</span> <span class="token string">'Awesome!'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">content</span><span class="token operator">:</span> <span class="token string">'This Fetch client is pretty rad.'</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
   
   httpClient
     <span class="token punctuation">.</span><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">'comments'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
-      method<span class="token operator">:</span> <span class="token string">'post'</span><span class="token punctuation">,</span>
-      body<span class="token operator">:</span> <span class="token function">json</span><span class="token punctuation">(</span>comment<span class="token punctuation">)</span>
+      <span class="token literal-property property">method</span><span class="token operator">:</span> <span class="token string">'post'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">body</span><span class="token operator">:</span> <span class="token function">json</span><span class="token punctuation">(</span>comment<span class="token punctuation">)</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">response</span> <span class="token operator">=></span> response<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">savedComment</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -287,14 +287,14 @@ Generally, we recommend that you don't litter your application code with usage o
   <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">HttpClient</span> <span class="token punctuation">{</span>
     isRequesting<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
   
-    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
     <span class="token function">configure</span><span class="token punctuation">(</span>fn<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>builder<span class="token operator">:</span> RequestBuilder<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">:</span> HttpClient<span class="token punctuation">;</span>
     <span class="token function">createRequest</span><span class="token punctuation">(</span>url<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> RequestBuilder<span class="token punctuation">;</span>
     <span class="token function">send</span><span class="token punctuation">(</span>requestMessage<span class="token operator">:</span> RequestMessage<span class="token punctuation">,</span> transformers<span class="token operator">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span>RequestTransformer<span class="token operator">></span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>HttpResponseMessage<span class="token operator">></span><span class="token punctuation">;</span>
   
     <span class="token keyword">delete</span><span class="token punctuation">(</span>url<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>HttpResponseMessage<span class="token operator">></span><span class="token punctuation">;</span>
-    <span class="token keyword">get</span><span class="token punctuation">(</span>url<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>HttpResponseMessage<span class="token operator">></span><span class="token punctuation">;</span>
+    <span class="token function">get</span><span class="token punctuation">(</span>url<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>HttpResponseMessage<span class="token operator">></span><span class="token punctuation">;</span>
     <span class="token function">head</span><span class="token punctuation">(</span>url<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>HttpResponseMessage<span class="token operator">></span><span class="token punctuation">;</span>
     <span class="token function">jsonp</span><span class="token punctuation">(</span>url<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> callbackParameterName<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>HttpResponseMessage<span class="token operator">></span><span class="token punctuation">;</span>
     <span class="token function">options</span><span class="token punctuation">(</span>url<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>HttpResponseMessage<span class="token operator">></span><span class="token punctuation">;</span>
@@ -360,7 +360,7 @@ By default, the <code>HttpClient</code> assumes you are expecting a JSON respons
     <span class="token punctuation">.</span><span class="token function">asGet</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">withBaseUrl</span><span class="token punctuation">(</span><span class="token string">'https://aurelia.io'</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">withHeader</span><span class="token punctuation">(</span><span class="token string">'Authorization'</span><span class="token punctuation">,</span> <span class="token string">'bearer 123'</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">withParams</span><span class="token punctuation">(</span><span class="token punctuation">{</span> abc<span class="token operator">:</span> <span class="token string">'123'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">withParams</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">abc</span><span class="token operator">:</span> <span class="token string">'123'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code>
   </pre>

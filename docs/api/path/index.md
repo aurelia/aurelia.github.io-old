@@ -14,21 +14,21 @@
 ## Functions
 
 
-* `buildQueryString(params: Object, traditional?: Boolean): string` - Generate a query string from an object.
-  * `params: Object` - Object containing the keys and values to be used.
-  * `traditional?: Boolean` - Boolean Use the old URI template standard (RFC6570)
+* `buildQueryString(params?: Object, traditional?: boolean): string` - 
+  * `params?: Object` - No description available.
+  * `traditional?: boolean` - No description available.
 
 
-* `join(path1: string, path2: string): string` - Joins two paths.
-  * `path1: string` - The first path.
-  * `path2: string` - The second path.
+* `join(path1: string, path2: string): string` - 
+  * `path1: string` - No description available.
+  * `path2: string` - No description available.
 
 
-* `parseQueryString(queryString: string): Object` - Parse a query string.
-  * `queryString: string` - The query string to parse.
+* `parseQueryString(queryString: string): Object` - 
+  * `queryString: string` - No description available.
 
 
-* `relativeToFile(name: string, file: string): string` - Calculates a path relative to a file.
-  * `name: string` - The relative path.
-  * `file: string` - The file path.
+* `relativeToFile(name: string, file: string): string` - 
+  * `name: string` - No description available.
+  * `file: string` - No description available.
 

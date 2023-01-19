@@ -27,7 +27,7 @@
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-  npm install <span class="token operator">-</span>D aurelia<span class="token operator">-</span>bundler
+  npm install <span class="token operator">-</span>D aurelia-bundler
   </code>
   </pre>
 </source-code>
@@ -44,23 +44,23 @@
   <span class="token keyword">var</span> bundle <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'aurelia-bundler'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>bundle<span class="token punctuation">;</span>
   
   <span class="token keyword">var</span> config <span class="token operator">=</span> <span class="token punctuation">{</span>
-    force<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-    baseURL<span class="token operator">:</span> <span class="token string">'.'</span><span class="token punctuation">,</span>                   <span class="token comment">// baseURL of the application</span>
-    configPath<span class="token operator">:</span> <span class="token string">'./config.js'</span><span class="token punctuation">,</span>      <span class="token comment">// config.js file. Must be within `baseURL`</span>
-    bundles<span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"dist/app-build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>           <span class="token comment">// bundle name/path. Must be within `baseURL`. Final path is: `baseURL/dist/app-build.js`.</span>
-        includes<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token literal-property property">force</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">baseURL</span><span class="token operator">:</span> <span class="token string">'.'</span><span class="token punctuation">,</span>                   <span class="token comment">// baseURL of the application</span>
+    <span class="token literal-property property">configPath</span><span class="token operator">:</span> <span class="token string">'./config.js'</span><span class="token punctuation">,</span>      <span class="token comment">// config.js file. Must be within `baseURL`</span>
+    <span class="token literal-property property">bundles</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string-property property">"dist/app-build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>           <span class="token comment">// bundle name/path. Must be within `baseURL`. Final path is: `baseURL/dist/app-build.js`.</span>
+        <span class="token literal-property property">includes</span><span class="token operator">:</span> <span class="token punctuation">[</span>
           <span class="token string">'[*.js]'</span><span class="token punctuation">,</span>
           <span class="token string">'*.html!text'</span><span class="token punctuation">,</span>
           <span class="token string">'*.css!text'</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
-        options<span class="token operator">:</span> <span class="token punctuation">{</span>
-          inject<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-          minify<span class="token operator">:</span> <span class="token boolean">true</span>
+        <span class="token literal-property property">options</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token literal-property property">inject</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">minify</span><span class="token operator">:</span> <span class="token boolean">true</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token string">"dist/vendor-build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        includes<span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string-property property">"dist/vendor-build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">includes</span><span class="token operator">:</span> <span class="token punctuation">[</span>
           <span class="token string">'aurelia-bootstrapper'</span><span class="token punctuation">,</span>
           <span class="token string">'aurelia-fetch-client'</span><span class="token punctuation">,</span>
           <span class="token string">'aurelia-router'</span><span class="token punctuation">,</span>
@@ -73,9 +73,9 @@
           <span class="token string">'github:aurelia/logging-console'</span><span class="token punctuation">,</span>
           <span class="token string">'bootstrap/css/bootstrap.css!text'</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
-        options<span class="token operator">:</span> <span class="token punctuation">{</span>
-          inject<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-          minify<span class="token operator">:</span> <span class="token boolean">true</span>
+        <span class="token literal-property property">options</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token literal-property property">inject</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">minify</span><span class="token operator">:</span> <span class="token boolean">true</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
@@ -126,23 +126,23 @@ The bundle function returns a Promise for proper integration into async task eng
   <pre class="language-javascript">
     <code>
   <span class="token keyword">var</span> config <span class="token operator">=</span> <span class="token punctuation">{</span>
-    force<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-    baseURL<span class="token operator">:</span> <span class="token string">'.'</span><span class="token punctuation">,</span>             <span class="token comment">// baseURL of the application</span>
-    configPath<span class="token operator">:</span> <span class="token punctuation">[</span>             <span class="token comment">// SystemJS/JSPM configuration files</span>
+    <span class="token literal-property property">force</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">baseURL</span><span class="token operator">:</span> <span class="token string">'.'</span><span class="token punctuation">,</span>             <span class="token comment">// baseURL of the application</span>
+    <span class="token literal-property property">configPath</span><span class="token operator">:</span> <span class="token punctuation">[</span>             <span class="token comment">// SystemJS/JSPM configuration files</span>
       <span class="token string">'./jspm.browser.js'</span><span class="token punctuation">,</span>
       <span class="token string">'./jspm.config.js'</span>
     <span class="token punctuation">]</span><span class="token punctuation">,</span>
-    injectionConfigPath<span class="token operator">:</span> <span class="token string">'./jspm.config.js'</span><span class="token punctuation">,</span>  <span class="token comment">// Configuration file path where bundle and depCache meta will be injected.</span>
-    bundles<span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"dist/app-build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>     <span class="token comment">// bundle name/path. Must be within `baseURL`. Output path will look like: `baseURL/dist/app-build.js`.</span>
-        includes<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token literal-property property">injectionConfigPath</span><span class="token operator">:</span> <span class="token string">'./jspm.config.js'</span><span class="token punctuation">,</span>  <span class="token comment">// Configuration file path where bundle and depCache meta will be injected.</span>
+    <span class="token literal-property property">bundles</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string-property property">"dist/app-build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>     <span class="token comment">// bundle name/path. Must be within `baseURL`. Output path will look like: `baseURL/dist/app-build.js`.</span>
+        <span class="token literal-property property">includes</span><span class="token operator">:</span> <span class="token punctuation">[</span>
           <span class="token string">'[*.js]'</span><span class="token punctuation">,</span>
           <span class="token string">'*.html!text'</span><span class="token punctuation">,</span>
           <span class="token string">'*.css!text'</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
-        options<span class="token operator">:</span> <span class="token punctuation">{</span>
-          inject<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-          minify<span class="token operator">:</span> <span class="token boolean">true</span>
+        <span class="token literal-property property">options</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token literal-property property">inject</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">minify</span><span class="token operator">:</span> <span class="token boolean">true</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
@@ -187,9 +187,9 @@ The bundle function returns a Promise for proper integration into async task eng
 <source-code lang="JavaScript" heading="Includes">
   <pre class="language-javascript">
     <code>
-  bundles<span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token string">"dist/app-build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      includes<span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token literal-property property">bundles</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"dist/app-build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">includes</span><span class="token operator">:</span> <span class="token punctuation">[</span>
         <span class="token string">'[*.js]'</span><span class="token punctuation">,</span>
         <span class="token string">'*.html!text'</span><span class="token punctuation">,</span>
         <span class="token string">'*.css!text'</span>
@@ -243,9 +243,9 @@ The bundle function returns a Promise for proper integration into async task eng
 <source-code lang="JavaScript" heading="Includes">
   <pre class="language-javascript">
     <code>
-  bundles<span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token string">"dist/app-build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      includes<span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token literal-property property">bundles</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"dist/app-build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">includes</span><span class="token operator">:</span> <span class="token punctuation">[</span>
         <span class="token string">'*.js'</span><span class="token punctuation">,</span>
         <span class="token string">'*.html!text'</span><span class="token punctuation">,</span>
         <span class="token string">'*.css!text'</span>
@@ -266,21 +266,21 @@ The bundle function returns a Promise for proper integration into async task eng
 <source-code lang="JavaScript" heading="Typical Bundle Configuration">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"dist/app-build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    includes<span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token string-property property">"dist/app-build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">includes</span><span class="token operator">:</span> <span class="token punctuation">[</span>
       <span class="token string">'[*.js]'</span><span class="token punctuation">,</span>
       <span class="token string">'*.html!text'</span><span class="token punctuation">,</span>
       <span class="token string">'*.css!text'</span><span class="token punctuation">,</span>
       <span class="token string">'bootstrap/css/bootstrap.css!text'</span>
     <span class="token punctuation">]</span><span class="token punctuation">,</span>
-    excludes<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token literal-property property">excludes</span><span class="token operator">:</span> <span class="token punctuation">[</span>
       <span class="token string">'npm:core-js'</span><span class="token punctuation">,</span>
       <span class="token string">'github:jspm/nodelibs-process'</span>
     <span class="token punctuation">]</span><span class="token punctuation">,</span>
-    options<span class="token operator">:</span> <span class="token punctuation">{</span>
-      inject<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-      minify<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-      rev<span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token literal-property property">options</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">inject</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">minify</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">rev</span><span class="token operator">:</span> <span class="token boolean">true</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   </code>
@@ -301,7 +301,7 @@ The bundle function returns a Promise for proper integration into async task eng
 <source-code lang="JavaScript" heading="Excludes">
   <pre class="language-javascript">
     <code>
-  excludes <span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token literal-property property">excludes</span> <span class="token operator">:</span> <span class="token punctuation">[</span>
       <span class="token string">'app'</span>
   <span class="token punctuation">]</span>
   </code>
@@ -329,7 +329,7 @@ Exclusion of files that are being used in the project but are not part of it (e.
 <source-code lang="Shell" heading="">
   <pre class="language-powershell">
     <code>
-   jspm install aurelia<span class="token operator">-</span>html<span class="token operator">-</span><span class="token function">import-template</span><span class="token operator">-</span>loader
+   jspm install aurelia-html-<span class="token function">import-template</span><span class="token operator">-</span>loader
   </code>
   </pre>
 </source-code>
@@ -378,13 +378,13 @@ Exclusion of files that are being used in the project but are not part of it (e.
 <source-code lang="JavaScript" heading="HTML Import Config">
   <pre class="language-javascript">
     <code>
-  <span class="token string">"dist/view-bundle"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    htmlimports<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-    includes<span class="token operator">:</span> <span class="token string">'dist/*.html'</span><span class="token punctuation">,</span>
-    options<span class="token operator">:</span> <span class="token punctuation">{</span>
-      inject<span class="token operator">:</span> <span class="token punctuation">{</span>
-        indexFile <span class="token operator">:</span> <span class="token string">'index.html'</span><span class="token punctuation">,</span>
-        destFile <span class="token operator">:</span> <span class="token string">'dest_index.html'</span>
+  <span class="token string-property property">"dist/view-bundle"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">htmlimports</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">includes</span><span class="token operator">:</span> <span class="token string">'dist/*.html'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">options</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">inject</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">indexFile</span> <span class="token operator">:</span> <span class="token string">'index.html'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">destFile</span> <span class="token operator">:</span> <span class="token string">'dest_index.html'</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
@@ -404,20 +404,20 @@ Exclusion of files that are being used in the project but are not part of it (e.
   <span class="token keyword">var</span> bundle <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'aurelia-bundler'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>bundle<span class="token punctuation">;</span>
   
   <span class="token keyword">var</span> config <span class="token operator">=</span> <span class="token punctuation">{</span>
-    force<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-    packagePath<span class="token operator">:</span> <span class="token string">'.'</span><span class="token punctuation">,</span>
-    bundles<span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"dist/app-build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        includes<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token literal-property property">force</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">packagePath</span><span class="token operator">:</span> <span class="token string">'.'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">bundles</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string-property property">"dist/app-build"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">includes</span><span class="token operator">:</span> <span class="token punctuation">[</span>
           <span class="token string">'[*.js]'</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
-        options<span class="token operator">:</span> <span class="token punctuation">{</span>
-          inject<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-          minify<span class="token operator">:</span> <span class="token boolean">true</span>
+        <span class="token literal-property property">options</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token literal-property property">inject</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">minify</span><span class="token operator">:</span> <span class="token boolean">true</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token string">"dist/aurelia"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        includes<span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string-property property">"dist/aurelia"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">includes</span><span class="token operator">:</span> <span class="token punctuation">[</span>
           <span class="token string">'aurelia-bootstrapper'</span><span class="token punctuation">,</span>
           <span class="token string">'aurelia-fetch-client'</span><span class="token punctuation">,</span>
           <span class="token string">'aurelia-router'</span><span class="token punctuation">,</span>
@@ -429,18 +429,18 @@ Exclusion of files that are being used in the project but are not part of it (e.
           <span class="token string">'github:aurelia/history-browser'</span><span class="token punctuation">,</span>
           <span class="token string">'github:aurelia/logging-console'</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
-        options<span class="token operator">:</span> <span class="token punctuation">{</span>
-          inject<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-          minify<span class="token operator">:</span> <span class="token boolean">true</span>
+        <span class="token literal-property property">options</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token literal-property property">inject</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">minify</span><span class="token operator">:</span> <span class="token boolean">true</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token string">"dist/view-bundle"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        htmlimport<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-        includes<span class="token operator">:</span> <span class="token string">'dist/*.html'</span><span class="token punctuation">,</span>
-        options<span class="token operator">:</span> <span class="token punctuation">{</span>
-          inject<span class="token operator">:</span> <span class="token punctuation">{</span>
-            indexFile <span class="token operator">:</span> <span class="token string">'index.html'</span><span class="token punctuation">,</span>
-            destFile <span class="token operator">:</span> <span class="token string">'dest_index.html'</span>
+      <span class="token string-property property">"dist/view-bundle"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">htmlimport</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">includes</span><span class="token operator">:</span> <span class="token string">'dist/*.html'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">options</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token literal-property property">inject</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token literal-property property">indexFile</span> <span class="token operator">:</span> <span class="token string">'index.html'</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">destFile</span> <span class="token operator">:</span> <span class="token string">'dest_index.html'</span>
           <span class="token punctuation">}</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span>
@@ -483,7 +483,7 @@ The order in which the tasks are run is important. The <code>build</code> remove
 <source-code lang="JavaScript" heading="Glob Patterns">
   <pre class="language-javascript">
     <code>
-  includes <span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'dist/**/*.html'</span><span class="token punctuation">,</span> <span class="token string">'!dist/movie/*.html'</span><span class="token punctuation">]</span>
+  <span class="token literal-property property">includes</span> <span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'dist/**/*.html'</span><span class="token punctuation">,</span> <span class="token string">'!dist/movie/*.html'</span><span class="token punctuation">]</span>
   </code>
   </pre>
 </source-code>
@@ -499,8 +499,8 @@ The order in which the tasks are run is important. The <code>build</code> remove
 <source-code lang="JavaScript" heading="HTML Import Injection Options">
   <pre class="language-javascript">
     <code>
-  indexFile<span class="token operator">:</span> <span class="token string">'index.html'</span><span class="token punctuation">,</span>
-  destFile <span class="token operator">:</span> <span class="token string">'dest_index.html'</span>
+  <span class="token literal-property property">indexFile</span><span class="token operator">:</span> <span class="token string">'index.html'</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">destFile</span> <span class="token operator">:</span> <span class="token string">'dest_index.html'</span>
   </code>
   </pre>
 </source-code>

@@ -42,14 +42,14 @@
   <span class="token comment">// router configuration</span>
   config<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
-      route<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
-      moduleId<span class="token operator">:</span> <span class="token string">'pages/home'</span> <span class="token comment">// WRONG</span>
+      <span class="token literal-property property">route</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">moduleId</span><span class="token operator">:</span> <span class="token string">'pages/home'</span> <span class="token comment">// WRONG</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span><span class="token punctuation">)</span>
   config<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
-      route<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
-      moduleId<span class="token operator">:</span> <span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'pages/home'</span><span class="token punctuation">)</span> <span class="token comment">// OK</span>
+      <span class="token literal-property property">route</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">moduleId</span><span class="token operator">:</span> <span class="token constant">PLATFORM</span><span class="token punctuation">.</span><span class="token function">moduleName</span><span class="token punctuation">(</span><span class="token string">'pages/home'</span><span class="token punctuation">)</span> <span class="token comment">// OK</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span><span class="token punctuation">)</span>
   </code>
@@ -89,40 +89,40 @@
   
   module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">mode</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token punctuation">{</span>
-      mode<span class="token operator">:</span> mode <span class="token operator">||</span> <span class="token string">'development'</span><span class="token punctuation">,</span>
-      resolve<span class="token operator">:</span> <span class="token punctuation">{</span>
-        extensions<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'.ts'</span><span class="token punctuation">,</span> <span class="token string">'.js'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-        modules<span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token literal-property property">mode</span><span class="token operator">:</span> mode <span class="token operator">||</span> <span class="token string">'development'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">resolve</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">extensions</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'.ts'</span><span class="token punctuation">,</span> <span class="token string">'.js'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">modules</span><span class="token operator">:</span> <span class="token punctuation">[</span>
           <span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'src'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
           <span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'node_modules'</span><span class="token punctuation">)</span>
         <span class="token punctuation">]</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      entry<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">entry</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token comment">// the 'aurelia-bootstrapper' entry point is responsible for resolving your app code</span>
-        app<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'aurelia-bootstrapper'</span><span class="token punctuation">]</span>
+        <span class="token literal-property property">app</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'aurelia-bootstrapper'</span><span class="token punctuation">]</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      output<span class="token operator">:</span> <span class="token punctuation">{</span>
-        filename<span class="token operator">:</span> <span class="token string">'[name].js'</span><span class="token punctuation">,</span>
-        path<span class="token operator">:</span> <span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'dist'</span><span class="token punctuation">)</span>
+      <span class="token literal-property property">output</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">filename</span><span class="token operator">:</span> <span class="token string">'[name].js'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">path</span><span class="token operator">:</span> <span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'dist'</span><span class="token punctuation">)</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      watch<span class="token operator">:</span> mode <span class="token operator">===</span> <span class="token string">'development'</span><span class="token punctuation">,</span>
-      devtool<span class="token operator">:</span> mode <span class="token operator">===</span> <span class="token string">'development'</span> <span class="token operator">?</span> <span class="token string">'inline-source-map'</span> <span class="token operator">:</span> <span class="token string">'source-map'</span><span class="token punctuation">,</span>
-      devServer<span class="token operator">:</span> <span class="token punctuation">{</span>
-        contentBase<span class="token operator">:</span> <span class="token string">'./dist'</span>
+      <span class="token literal-property property">watch</span><span class="token operator">:</span> mode <span class="token operator">===</span> <span class="token string">'development'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">devtool</span><span class="token operator">:</span> mode <span class="token operator">===</span> <span class="token string">'development'</span> <span class="token operator">?</span> <span class="token string">'inline-source-map'</span> <span class="token operator">:</span> <span class="token string">'source-map'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">devServer</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">contentBase</span><span class="token operator">:</span> <span class="token string">'./dist'</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      module<span class="token operator">:</span> <span class="token punctuation">{</span>
-        rules<span class="token operator">:</span> <span class="token punctuation">[</span>
-          <span class="token punctuation">{</span> test<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.html$</span><span class="token regex-delimiter">/</span><span class="token regex-flags">i</span></span><span class="token punctuation">,</span> loader<span class="token operator">:</span> <span class="token string">'html-loader'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          <span class="token punctuation">{</span> test<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.ts$</span><span class="token regex-delimiter">/</span><span class="token regex-flags">i</span></span><span class="token punctuation">,</span> loader<span class="token operator">:</span> <span class="token string">'ts-loader'</span> <span class="token punctuation">}</span>
+      <span class="token literal-property property">module</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">rules</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token punctuation">{</span> <span class="token literal-property property">test</span><span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.html$</span><span class="token regex-delimiter">/</span><span class="token regex-flags">i</span></span><span class="token punctuation">,</span> <span class="token literal-property property">loader</span><span class="token operator">:</span> <span class="token string">'html-loader'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> <span class="token literal-property property">test</span><span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.ts$</span><span class="token regex-delimiter">/</span><span class="token regex-flags">i</span></span><span class="token punctuation">,</span> <span class="token literal-property property">loader</span><span class="token operator">:</span> <span class="token string">'ts-loader'</span> <span class="token punctuation">}</span>
         <span class="token punctuation">]</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      plugins<span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token literal-property property">plugins</span><span class="token operator">:</span> <span class="token punctuation">[</span>
         <span class="token comment">// the AureliaPlugin translates Aurelia's conventions to something Webpack understands</span>
         <span class="token comment">// and must be included in order for Webpack to work</span>
         <span class="token keyword">new</span> <span class="token class-name">AureliaPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
         <span class="token keyword">new</span> <span class="token class-name">HtmlWebpackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-          template<span class="token operator">:</span> <span class="token string">'index.ejs'</span><span class="token punctuation">,</span>
-          metadata<span class="token operator">:</span> <span class="token punctuation">{</span> dev<span class="token operator">:</span> mode <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token punctuation">}</span>
+          <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token string">'index.ejs'</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">metadata</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token literal-property property">dev</span><span class="token operator">:</span> mode <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token punctuation">}</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span>
       <span class="token punctuation">]</span>
     <span class="token punctuation">}</span><span class="token punctuation">;</span>
@@ -140,24 +140,24 @@
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">{</span>
-    <span class="token string">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"build"</span><span class="token operator">:</span> <span class="token string">"webpack --env=production"</span><span class="token punctuation">,</span>
-      <span class="token string">"dev"</span><span class="token operator">:</span> <span class="token string">"webpack-dev-server"</span>
+    <span class="token string-property property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string-property property">"build"</span><span class="token operator">:</span> <span class="token string">"webpack --env=production"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"dev"</span><span class="token operator">:</span> <span class="token string">"webpack-dev-server"</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token string">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"aurelia-bootstrapper"</span><span class="token operator">:</span> <span class="token string">"^2.3.0"</span><span class="token punctuation">,</span>
-      <span class="token string">"aurelia-framework"</span><span class="token operator">:</span> <span class="token string">"^1.3.0"</span>
+    <span class="token string-property property">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string-property property">"aurelia-bootstrapper"</span><span class="token operator">:</span> <span class="token string">"^2.3.0"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"aurelia-framework"</span><span class="token operator">:</span> <span class="token string">"^1.3.0"</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token string">"devDependencies"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"@types/node"</span><span class="token operator">:</span> <span class="token string">"^10.12.2"</span><span class="token punctuation">,</span>
-      <span class="token string">"aurelia-webpack-plugin"</span><span class="token operator">:</span> <span class="token string">"^3.0.0"</span><span class="token punctuation">,</span>
-      <span class="token string">"html-loader"</span><span class="token operator">:</span> <span class="token string">"^0.5.5"</span><span class="token punctuation">,</span>
-      <span class="token string">"html-webpack-plugin"</span><span class="token operator">:</span> <span class="token string">"^3.2.0"</span><span class="token punctuation">,</span>
-      <span class="token string">"ts-loader"</span><span class="token operator">:</span> <span class="token string">"^5.3.0"</span><span class="token punctuation">,</span>
-      <span class="token string">"typescript"</span><span class="token operator">:</span> <span class="token string">"^3.1.6"</span><span class="token punctuation">,</span>
-      <span class="token string">"webpack-cli"</span><span class="token operator">:</span> <span class="token string">"^3.1.2"</span><span class="token punctuation">,</span>
-      <span class="token string">"webpack-dev-server"</span><span class="token operator">:</span> <span class="token string">"^3.1.10"</span><span class="token punctuation">,</span>
-      <span class="token string">"webpack"</span><span class="token operator">:</span> <span class="token string">"^4.24.0"</span>
+    <span class="token string-property property">"devDependencies"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string-property property">"@types/node"</span><span class="token operator">:</span> <span class="token string">"^10.12.2"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"aurelia-webpack-plugin"</span><span class="token operator">:</span> <span class="token string">"^3.0.0"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"html-loader"</span><span class="token operator">:</span> <span class="token string">"^0.5.5"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"html-webpack-plugin"</span><span class="token operator">:</span> <span class="token string">"^3.2.0"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"ts-loader"</span><span class="token operator">:</span> <span class="token string">"^5.3.0"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"typescript"</span><span class="token operator">:</span> <span class="token string">"^3.1.6"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"webpack-cli"</span><span class="token operator">:</span> <span class="token string">"^3.1.2"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"webpack-dev-server"</span><span class="token operator">:</span> <span class="token string">"^3.1.10"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"webpack"</span><span class="token operator">:</span> <span class="token string">"^4.24.0"</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
   </code>
@@ -172,17 +172,17 @@
   <pre class="language-javascript">
     <code>
   <span class="token punctuation">{</span>
-    <span class="token string">"compilerOptions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token string">"experimentalDecorators"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-      <span class="token string">"emitDecoratorMetadata"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-      <span class="token string">"importHelpers"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-      <span class="token string">"lib"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"es2016"</span><span class="token punctuation">,</span> <span class="token string">"dom"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token string">"module"</span><span class="token operator">:</span> <span class="token string">"esnext"</span><span class="token punctuation">,</span>
-      <span class="token string">"moduleResolution"</span><span class="token operator">:</span> <span class="token string">"node"</span><span class="token punctuation">,</span>
-      <span class="token string">"sourceMap"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-      <span class="token string">"target"</span><span class="token operator">:</span> <span class="token string">"es2016"</span>
+    <span class="token string-property property">"compilerOptions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string-property property">"experimentalDecorators"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"emitDecoratorMetadata"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"importHelpers"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"lib"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"es2016"</span><span class="token punctuation">,</span> <span class="token string">"dom"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"module"</span><span class="token operator">:</span> <span class="token string">"esnext"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"moduleResolution"</span><span class="token operator">:</span> <span class="token string">"node"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"sourceMap"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"target"</span><span class="token operator">:</span> <span class="token string">"es2016"</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token string">"include"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"src"</span><span class="token punctuation">]</span>
+    <span class="token string-property property">"include"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"src"</span><span class="token punctuation">]</span>
   <span class="token punctuation">}</span>
   </code>
   </pre>
