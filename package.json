@@ -1,4 +1,16 @@
 {
+  "scripts": {
+    "setup": "npm run cleanup && npm run clone_doc",
+    "postsetup": "npm i",
+    "cleanup": "echo -e \"Clear node_modules, doc repo clone && rimraf ./node_modules/aurelia* --preserve-root package-lock.json dep_repos && mkdir dep_repos",
+    "clone_doc": "echo -e \"Shadow clone aurelia/documentation\" && git clone --depth 1 https://github.com/aurelia/documentation.git dep_repos/documentation",
+    "blog": "node blog.mjs"
+  },
+  "devDependencies": {
+    "chalk": "5.3.0",
+    "au-site": "../site-generator",
+    "rimraf": "5.0.5"
+  },
   "dependencies": {
     "aurelia-binding": "latest",
     "aurelia-bootstrapper": "latest",
