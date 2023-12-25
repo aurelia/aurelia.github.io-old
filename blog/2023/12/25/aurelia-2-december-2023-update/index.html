@@ -10,13 +10,13 @@
   </script>
 
   <meta charset="utf-8">
-  <title>The Aurelia Blog - Page 21 | Aurelia</title>
+  <title>Aurelia 2 — December 2023 Update | Aurelia</title>
   <base href="/">
   <meta name="msapplication-tap-highlight" content="no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 
-  <meta name="description" content="The official blog of the Aurelia project and Core Team."/>
+  <meta name="description" content="An update on Aurelia 2 - December 2023 edition"/>
   <meta name="robots" content="index,follow"/>
 
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:200,400,700" rel="stylesheet">
@@ -33,70 +33,93 @@
 
   <main ref="main">
     <div screen-activator.bind="activeScreen" screen-activated.trigger="onScreenActivated()" class="screen-activator">
-      <section class="article-group blog">
+      <section class="article blog">
   <header>
-    <h1>The Aurelia Blog - Page 21</h1>
+    <h1>Aurelia 2 — December 2023 Update</h1>
+    <h2>Posted by <span class="author">Dwayne Charrington</span> on <span class="date">December 25, 2023</span></h2>
   </header>
 
-  <section>
-    <ul class="article-list">
-      <li>
-        <a href="blog/2016/5/3/aurelias-new-validation-and-testing-capabilities">
-          <h3>Aurelia&#x27;s New Validation and Testing Capabilities</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">May 3, 2016</span>
-          <p>Today we&#x27;ve got the initial releases of our new validation overhaul as well as the first release of some new testing capabilities. As usual, we&#x27;ve got a bunch of additional bug fixes and enhancements to performance as well. Read on for the details.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/4/21/aurelia-cli-debug-tools-and-microsoft-collaboration">
-          <h3>Aurelia CLI, Debug Tools and Microsoft Collaboration</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">April 21, 2016</span>
-          <p>The Aurelia team is hard at work preparing for our Release Candidate...but that&#x27;s not all we&#x27;re working on. We&#x27;re always looking for ways to improve tooling, debugging and collaboration with community members and other vendors along the way.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/4/13/aurelia-mid-april-2016-patch-update">
-          <h3>Aurelia Mid April 2016 Patch Update</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">April 13, 2016</span>
-          <p>In our continued march towards RC, we&#x27;ve released a number of patches to Aurelia libraries. For the most part, these improve support for Webpack, TypeScript and various cross-browser scenarios. For more details, we provide the changelog below.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/4/11/aurelia-at-anglebrackets-next-week">
-          <h3>Aurelia at AngleBrackets Next Week</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">April 11, 2016</span>
-          <p>Next week is the [AngleBrackets](https://anglebrackets.org/</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/4/6/aurelia-on-net-rocks">
-          <h3>Aurelia on .NET Rocks</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">April 6, 2016</span>
-          <p>If you are a .NET developer...or really any developer interested in hearing some discussion on Aurelia, check out the latest .NET Rocks episode [http://www.dotnetrocks.com/?show&#x3D;1279].</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/3/29/aurelia-late-march-patch-update">
-          <h3>Aurelia Late March Patch Update</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">March 29, 2016</span>
-          <p>In the last month we&#x27;ve accomplished a couple of major goals on our way to the official v1 release of Aurelia: updating to Babel 6, removing required external polyfills and dual compatibility with JSPM 16 and 17. This week, we&#x27;ve got a few fixes and some extra goodies.</p>
-        </a>
-      </li>
-      <li>
-        <a href="blog/2016/3/25/i18n-update-release">
-          <h3>i18n Update Release</h3>
-          <p class="group-item-count">Posted by <span class="author">AureliaEffect</span> on <span class="date">March 25, 2016</span>
-          <p>This week we launched updates of Aurelia libraries built with Babel 6. We had one library that we weren&#x27;t able to update at that time: aurelia-i18n.</p>
-        </a>
-      </li>
-    </ul>
-  </section>
+  <article class="markdown">
+    <div class="content">
+      <p>Hello Aurelians! As the year draws to a close, we're excited to share the latest enhancements and fixes that have been integrated into Aurelia's v2.0.0-beta.9. Our team has been working tirelessly to ensure that Aurelia not only continues to meet your needs but also surpasses expectations with each update. So, let's dive into what's new and improved this December.</p>
+<h1>v2.0.0-beta.9: Features and Fixes Galore</h1>
+<p>The latest beta release is packed with features and bug fixes that refine the developer experience and expand the capabilities of Aurelia. Here are some of the highlights:</p>
+<section><h2 id="features">Features:</h2><ul>
+<li><strong>Vite Plugin Enhancements:</strong> We've upgraded our Vite plugin to allow all options to be passed, giving you more control and flexibility over your build process. 
+<a href="https://github.com/aurelia/aurelia/commit/3d87341" target="_blank">#1830</a>
+</li>
+<li><strong>Template Popover APIs:</strong> Our commitment to rich interactivity continues with support for popover APIs in templates, making it easier to create engaging, dynamic interfaces. 
+<a href="https://github.com/aurelia/aurelia/commit/f4b552b" target="_blank">#1851</a>
+</li>
+</ul>
+</section>
+<section><h2 id="bug-fixes">Bug Fixes:</h2><p>We've squashed a variety of bugs to streamline your development experience:</p>
+<ul>
+<li>Fixes for generative native modules and examples in the build process. 
+<a href="https://github.com/aurelia/aurelia/commit/9a7cc65" target="_blank">#1854</a>
+</li>
+<li>Ensured <code>au-slot</code> works seamlessly with shadow DOM. 
+<a href="https://github.com/aurelia/aurelia/commit/c750d4f" target="_blank">#1841</a>
+</li>
+<li>Addressed duplicate primitive handling and batched mutation issues in repeaters. 
+<a href="https://github.com/aurelia/aurelia/commit/703d275" target="_blank">#1840</a>
+</li>
+<li>Sorted out <code>repeat</code> directive bugs related to sort+splice operations. 
+<a href="https://github.com/aurelia/aurelia/commit/703d275" target="_blank">#703d275</a>
+</li>
+<li>Improved validation by ignoring property accessor instrumenters and allowing <code>rules.off</code> on objects without rules. 
+<a href="https://github.com/aurelia/aurelia/commit/342847f" target="_blank">#342847f</a>
+</li>
+<li>Enhanced i18n by enabling translation of camelCased bindables. 
+<a href="https://github.com/aurelia/aurelia/commit/ff761fb" target="_blank">#1838</a>
+</li>
+<li>Refined router-lite with better lifecycle transitions and transition plan selections. 
+<a href="https://github.com/aurelia/aurelia/commit/8e961af" target="_blank">#1821</a>
+, 
+<a href="https://github.com/aurelia/aurelia/commit/d214fdc" target="_blank">#1817</a>
+</li>
+<li>Improved dialog functionality with <code>startingZIndex</code> usage. 
+<a href="https://github.com/aurelia/aurelia/commit/de79aea" target="_blank">#1809</a>
+</li>
+</ul>
+</section>
+<section><h2 id="refactorings">Refactorings:</h2><ul>
+<li>Streamlined runtime-html with if-then-else conditions. 
+<a href="https://github.com/aurelia/aurelia/commit/7192e74" target="_blank">#1833</a>
+</li>
+<li>Removed strict binding options from custom elements and consolidated tests under the src folder. 
+<a href="https://github.com/aurelia/aurelia/commit/7b4455f" target="_blank">#1807</a>
+</li>
+</ul>
+</section>
+<section><h2 id="documentation-overhaul">Documentation Overhaul:</h2><p>We've made extensive updates to our documentation with the following improvements:</p>
+<ul>
+<li>Deep linkable sections, making it easier to navigate directly to key topics such as templating syntax.</li>
+<li>The aim of our refactoring effort was to reduce noise and break down massive walls of text into more digestible content.</li>
+<li>Expanded sections with more explanations, code examples, and details, particularly in areas like the fetch client and binding behaviors.</li>
+<li>Comprehensive documentation of return types, requests, and advanced scenarios for the fetch client.</li>
+<li>A sweep of grammatical fixes to polish our docs.</li>
+<li>Coverage of some previously undocumented or lesser-known features and APIs in Aurelia.</li>
+<li>New recipes added for integrating technologies like Cordova/Phonegap, Apollo GraphQL, and SignalR.</li>
+</ul>
+<p>Check out the newly structured and enriched documentation 
+<a href="https://docs.aurelia.io/templates" target="_blank">here</a>
+.</p>
+<h1>Wrapping Up the Year</h1>
+<p>As we wrap up 2023, we want to extend our heartfelt gratitude to the community for your unwavering support. Your feedback, contributions, and enthusiasm for Aurelia continue to drive us forward. We're committed to delivering an exceptional framework that empowers you to build amazing applications with ease and elegance.</p>
+<p>Stay tuned for more updates and, as always, happy coding!</p>
+<p>View the full release notes for v2.0.0-beta.9 
+<a href="https://github.com/aurelia/aurelia/releases/tag/v2.0.0-beta.9" target="_blank">here</a>
+.</p>
+<p>Happy holidays,</p>
+<p>The Aurelia team.</p>
+</section>
 
-  <div class="button-bar">
-    <a class="prev" href="blog/page/20">Newer Posts</a>
+    </div>
+    <blog-sidebar></blog-sidebar>
+  </article>
 
-    <a class="next" href="blog/page/22">Older Posts</a>
-  </div>
+  <blog-footer blog-name="Aurelia%202%20%E2%80%94%20December%202023%20Update" blog-url="http%3A%2F%2Faurelia.io%2Fblog%5C2023%5C12%5C25%5Caurelia-2-december-2023-update"></blog-footer>
 </section>
 
     </div>

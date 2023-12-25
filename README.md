@@ -33,15 +33,24 @@ unless you want to publish updated aurelia/documentation or latest APIs doc for 
 
 This is the most common task.
 
-First make sure your sibling `my-projects/blog/` repo is up to date.
+1. make sure your sibling `my-projects/blog/` repo is up to date.
 
+2. Run either: 
+
+    ```
     npx au-site blog publish [file]
+    ```
+    The "file" is a file name in `my-projects/blog/drafts/` folder.
+    > Use `npx` to make sure running locally installed `au-site` provided by aurelia/site-generator.
+    
+    Or:
+    ```
+    npm run blog
+    ```
+    and choose the blogs you wish to publish.
 
-> Use `npx` to make sure running locally installed `au-site` provided by aurelia/site-generator.
 
-The "file" is a file name in `my-projects/blog/drafts/` folder.
-
-The above command will move the draft file from drafts folder to published folder. **Make sure to commit the change to aurelia/blog repo.**
+The above step will move the draft file from drafts folder to published folder. **Make sure to commit the change to aurelia/blog repo.**
 
 The above command will also build a new blog page in current project. Commit the change to publish to GitHub pages.
 

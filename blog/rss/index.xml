@@ -5,7 +5,13 @@
     <link>http://aurelia.io\blog</link>
     <description><![CDATA[The official blog of the Aurelia project and Core Team.]]></description>
     <generator>Aurelia Docs</generator>
-    <lastBuildDate>Tue Oct 10 2023 21:44:35 GMT+1100 (Australian Eastern Daylight Time)</lastBuildDate>
+    <lastBuildDate>Mon Dec 25 2023 18:46:55 GMT+1100 (Australian Eastern Daylight Time)</lastBuildDate>
+    <item>
+      <title><![CDATA[Aurelia 2 — December 2023 Update]]></title>
+      <link>http://aurelia.io\blog\2023\12\25\aurelia-2-december-2023-update</link>
+      <description><![CDATA[An update on Aurelia 2 - December 2023 edition]]></description>
+      <pubDate>Mon Dec 25 2023 18:46:53 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
+    </item>
     <item>
       <title><![CDATA[Aurelia 2 — August 2023 Update]]></title>
       <link>http://aurelia.io\blog\2023\10\10\aurelia-2-august-2023-update</link>
@@ -16,7 +22,7 @@
       <title><![CDATA[Announcing The Aurelia 2 Beta]]></title>
       <link>http://aurelia.io\blog\2023\1\14\announcing-the-aurelia-2-beta</link>
       <description><![CDATA[Announcing the beta release of Aurelia 2]]></description>
-      <pubDate>Sat Jan 14 2023 21:15:40 GMT+1000 (Australian Eastern Standard Time)</pubDate>
+      <pubDate>Sat Jan 14 2023 21:43:55 GMT+1100 (Australian Eastern Daylight Time)</pubDate>
     </item>
     <item>
       <title><![CDATA[Aurelia 2 Update - Alpha 33]]></title>
@@ -149,12 +155,6 @@
       <link>http://aurelia.io\blog\2019\8\4\advanced-i18n-with-aurelia-and-net-at-work-gmbh</link>
       <description><![CDATA[Net at Work GmbH [https://www.netatwork.de/] is a product-based consultancy company with a glowing feather in its cap: NoSpamProxy [https://www.nospamproxy.de/en/]. NoSpamProxy is a multi-faceted secure email gateway solution aimed at providing powerful anti-spam and anti-malware capabilities. Moreover, it provides a number of other functionalities such as email encryption, large file transmission, and email disclaimer management.]]></description>
       <pubDate>Mon Aug 05 2019 08:38:23 GMT+1000 (Australian Eastern Standard Time)</pubDate>
-    </item>
-    <item>
-      <title><![CDATA[Case Study: Evolution Software&#x27;s Hazelnut Monitor]]></title>
-      <link>http://aurelia.io\blog\2019\6\19\case-study-evolution-software-aurelia</link>
-      <description><![CDATA[Today, I'm pleased to introduce you to Michael Gerfen and Andy Gray from Evolution Software, sharing a bit about their company and the Hazelnut Monitor product. Take it away Michael and Andy!]]></description>
-      <pubDate>Wed Jun 19 2019 16:55:35 GMT+1000 (Australian Eastern Standard Time)</pubDate>
     </item>
   </channel>
 </rss>
